@@ -6,21 +6,21 @@ default: &default
 
 development:
   <<: *default
-  database: XXX
-  host: XXX
-  username: XXX
-  password: XXX
+  name: perk_social_development
+  host: localhost
+  user: inventory-dev
+  password: inventory-dev
 
 test:
   <<: *default
-  database: XXX
-  host: XXX
-  username: XXX
-  password: XXX
+  name: perk_social_test
+  host: localhost
+  user: inventory-dev
+  password: inventory-dev
 
 production:
   <<: *default
-  database: XXX
-  host: XXX
-  username: XXX
-  password: XXX
+  database: <%= Rails.application.credentials[:production][:database][:name] %>
+  host: <%= Rails.application.credentials[:production][:database][:host] %>
+  username: <%= Rails.application.credentials[:production][:database][:user] %>
+  password: <%= Rails.application.credentials[:production][:database][:password] %>
