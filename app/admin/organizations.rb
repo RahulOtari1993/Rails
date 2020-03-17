@@ -19,7 +19,9 @@ ActiveAdmin.register Organization do
     f.inputs 'Org Details' do
       f.input :name, input_html: {required: true}
       f.input :sub_domain, input_html: {required: true}
-      f.input :admin_user_id, :as => :select, :collection => AdminUser.all.collect {|product| [product.first_name, product.id] }, input_html: {required: true}
+      f.input :admin_user_id, as: :select,
+              collection: AdminUser.all.collect {|user| ["#{user.first_name} #{user.last_name}", user.id] },
+              input_html: {required: true}
     end
     f.actions
   end

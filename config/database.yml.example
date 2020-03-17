@@ -6,17 +6,17 @@ default: &default
 
 development:
   <<: *default
-  name: perk_social_development
-  host: localhost
-  user: inventory-dev
-  password: inventory-dev
+  database: XXX
+  host: XXX
+  user: XXX
+  password: XXX
 
 test:
   <<: *default
-  name: perk_social_test
-  host: localhost
-  user: inventory-dev
-  password: inventory-dev
+  database: XXX
+  host: XXX
+  user: XXX
+  password: XXX
 
 production:
   <<: *default
