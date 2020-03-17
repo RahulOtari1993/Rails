@@ -12,7 +12,7 @@ ActiveAdmin.register Organization do
   end
 
   filter :name
-  filter :subdomain
+  filter :sub_domain
   filter :created_at
 
   form do |f|
