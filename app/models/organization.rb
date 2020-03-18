@@ -4,6 +4,7 @@ class Organization < ApplicationRecord
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true
+  validates :sub_domain, uniqueness: true
 
   ## Scope
   default_scope { where(is_deleted: false) }
