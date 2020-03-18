@@ -9,7 +9,9 @@ ActiveAdmin.register Organization do
     column :sub_domain
     column :is_active
     column :created_at
-    actions
+    actions do |organization|
+      raw("#{link_to 'View Users', admin_organization_users_path(organization)}")
+    end
   end
 
   filter :name
@@ -18,7 +20,7 @@ ActiveAdmin.register Organization do
   filter :created_at
 
   form do |f|
-    f.inputs 'Org Details' do
+    f.inputs 'Organization Details' do
       f.input :name, input_html: {required: true}
       f.input :sub_domain, input_html: {required: true}
       f.input :is_active

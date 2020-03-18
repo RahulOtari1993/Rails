@@ -22,10 +22,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.inet     :last_sign_in_ip
 
       ## Invitable
-      t.string   :invitation_token
-      t.datetime :invitation_created_at
-      t.datetime :invitation_sent_at
-      t.datetime :invitation_accepted_at
+      t.boolean  :is_invited
       t.integer  :invited_by_id
 
       t.string   :first_name
@@ -33,12 +30,14 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.boolean  :is_active, default: true, null: false
       t.boolean  :is_deleted, default: false, null: false
       t.integer  :deleted_by
+      t.integer  :organization_id
+      t.integer  :role
 
       ## Confirmable
-      # t.string   :confirmation_token
-      # t.datetime :confirmed_at
-      # t.datetime :confirmation_sent_at
-      # t.string   :unconfirmed_email # Only if using reconfirmable
+      t.string   :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Lockable
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts

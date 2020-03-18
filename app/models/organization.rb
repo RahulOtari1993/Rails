@@ -1,4 +1,6 @@
 class Organization < ApplicationRecord
+  ## Associations
+  has_many :users, dependent: :destroy
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true

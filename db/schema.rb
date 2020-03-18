@@ -58,16 +58,19 @@ ActiveRecord::Schema.define(version: 2020_03_18_105647) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.string "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
+    t.boolean "is_invited"
     t.integer "invited_by_id"
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_active", default: true, null: false
     t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
+    t.integer "organization_id"
+    t.integer "role"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
