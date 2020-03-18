@@ -14,9 +14,9 @@ ActiveAdmin.register User do
     actions
   end
 
-  filter :name
-  filter :sub_domain
-  filter :is_active
+  filter :first_name
+  filter :last_name
+  filter :email
   filter :created_at
 
   form do |f|

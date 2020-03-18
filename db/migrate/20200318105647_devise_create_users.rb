@@ -21,10 +21,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
 
-      ## Invitable
-      t.boolean  :is_invited
-      t.integer  :invited_by_id
-
       t.string   :first_name
       t.string   :last_name
       t.boolean  :is_active, default: true, null: false
@@ -38,6 +34,10 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.datetime :confirmed_at
       t.datetime :confirmation_sent_at
       t.string   :unconfirmed_email # Only if using reconfirmable
+
+      ## Invitable
+      t.boolean  :is_invited
+      t.integer  :invited_by_id
 
       ## Lockable
       # t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
