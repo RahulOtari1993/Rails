@@ -114,3 +114,6 @@ config/puma.rb
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+node_modules/
+yarn.lock
