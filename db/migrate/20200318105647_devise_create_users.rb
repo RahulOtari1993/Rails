@@ -36,7 +36,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
       t.string   :unconfirmed_email # Only if using reconfirmable
 
       ## Invitable
-      t.boolean  :is_invited
+      t.boolean  :is_invited, default: false
       t.integer  :invited_by_id
 
       ## Lockable

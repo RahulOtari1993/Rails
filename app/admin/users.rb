@@ -2,7 +2,7 @@ ActiveAdmin.register User do
 
   belongs_to :organization
 
-  permit_params :first_name, :last_name, :email, :is_active, :organization_id, :is_invited, :invited_by_id
+  permit_params :first_name, :last_name, :email, :is_active, :organization_id, :is_invited, :invited_by_id, :role
 
   index do
     selectable_column
@@ -30,6 +30,9 @@ ActiveAdmin.register User do
               as: :hidden
 
       f.input :invited_by_id, :input_html => {:value => current_admin_user.id},
+              as: :hidden
+
+      f.input :role, :input_html => {:value => 'admin'},
               as: :hidden
     end
     f.actions
