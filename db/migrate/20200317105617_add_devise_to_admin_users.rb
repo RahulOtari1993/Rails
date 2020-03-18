@@ -23,6 +23,9 @@ class AddDeviseToAdminUsers < ActiveRecord::Migration[5.2]
 
       t.string   :first_name
       t.string   :last_name
+      t.boolean  :is_active, default: true, null: false
+      t.boolean  :is_deleted, default: false, null: false
+      t.integer  :deleted_by
 
       ## Confirmable
       # t.string   :confirmation_token

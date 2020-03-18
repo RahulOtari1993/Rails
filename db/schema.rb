@@ -28,6 +28,9 @@ ActiveRecord::Schema.define(version: 2020_03_17_114834) do
     t.inet "last_sign_in_ip"
     t.string "first_name"
     t.string "last_name"
+    t.boolean "is_active", default: true, null: false
+    t.boolean "is_deleted", default: false, null: false
+    t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -36,6 +39,9 @@ ActiveRecord::Schema.define(version: 2020_03_17_114834) do
     t.string "name", null: false
     t.string "sub_domain", null: false
     t.bigint "admin_user_id", null: false
+    t.boolean "is_active", default: true, null: false
+    t.boolean "is_deleted", default: false, null: false
+    t.integer "deleted_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_organizations_on_admin_user_id"
