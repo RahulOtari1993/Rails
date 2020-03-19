@@ -68,3 +68,4 @@ gem 'devise'
 
 ## Admin Panel
 gem 'activeadmin'
+gem 'annotate'

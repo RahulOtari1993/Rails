@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_060618) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_active", default: true, null: false
-    t.boolean "is_deleted", default: false, null: false
+      t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
