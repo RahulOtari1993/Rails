@@ -5,7 +5,8 @@ class AdminUser < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
 
   ## Validations
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, :email, presence: true
+  validates_uniqueness_of :email
 
   ## Scope
   default_scope { where(is_deleted: false) }

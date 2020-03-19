@@ -38,9 +38,6 @@ ActiveRecord::Schema.define(version: 2020_03_19_060618) do
   create_table "organization_admins", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
-    t.boolean "is_active", default: false, null: false
-    t.boolean "is_deleted", default: false, null: false
-    t.integer "deleted_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_organization_admins_on_organization_id"

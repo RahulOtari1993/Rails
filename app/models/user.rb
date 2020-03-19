@@ -37,7 +37,6 @@ class User < ApplicationRecord
   end
 
   def confirmation_password_required?
-    # binding.pry
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
 
