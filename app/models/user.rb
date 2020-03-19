@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   ## Associations
   belongs_to :organization, optional: true
+  has_one :organization_admin
 
   ## Validations
   validates :first_name, :last_name, presence: true
