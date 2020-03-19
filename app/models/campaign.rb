@@ -30,6 +30,7 @@ class Campaign < ApplicationRecord
   belongs_to :organization
   has_many :challenges, dependent: :destroy
   has_many :rewards, dependent: :destroy
-  has_many :campaign_users
+  has_many :campaign_users, dependent: :destroy
   has_many :users, through: :campaign_users
+  has_many :submissions, dependent: :destroy
 end

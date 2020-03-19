@@ -28,6 +28,6 @@ class Organization < ApplicationRecord
 
 end
 
-# rails g model CampaignUser user:references campaign:references role:integer
+# rails g model Submission user:references campaign:references submissible_id:integer submissible_type:string
 # image_content_type:string selection:string start:datetime finish:datetime feature:boolean points:integer redeption_details:text description_details:text terms_conditions:text sweepstake_entry:integer
 

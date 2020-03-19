@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_172037) do
+ActiveRecord::Schema.define(version: 2020_03_19_174403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,6 +145,17 @@ ActiveRecord::Schema.define(version: 2020_03_19_172037) do
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "campaign_id"
+    t.integer "submissible_id"
+    t.string "submissible_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_submissions_on_campaign_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -181,4 +192,6 @@ ActiveRecord::Schema.define(version: 2020_03_19_172037) do
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
   add_foreign_key "rewards", "campaigns"
+  add_foreign_key "submissions", "campaigns"
+  add_foreign_key "submissions", "users"
 end
