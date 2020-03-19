@@ -10,4 +10,9 @@ class AdminUser < ApplicationRecord
   ## Scope
   default_scope { where(is_deleted: false) }
   scope :active, -> { where(is_active: true) }
+
+  ## Allow Only Active Users to Login
+  def active_for_authentication?
+    super && is_active?
+  end
 end
