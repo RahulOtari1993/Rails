@@ -16,6 +16,7 @@ class Organization < ApplicationRecord
   ## Associations
   has_many :users, dependent: :destroy
   has_many :organization_admins, dependent: :destroy
+  has_many :campaigns, dependent: :destroy
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true
@@ -26,3 +27,6 @@ class Organization < ApplicationRecord
   scope :active, -> { where(is_active: true) }
 
 end
+
+
+# rails g model Campaign organization:references name:string domain:string twitter:string rules:text privacy:text terms:text contact_us:text faq_title:string faq_content:string prizes_title:string general_content:text how_to_earn_title:string how_to_earn_content:text css:text seo:text is_active:boolean template:text templated:boolean

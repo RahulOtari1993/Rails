@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_060618) do
+ActiveRecord::Schema.define(version: 2020_03_19_144203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +29,35 @@ ActiveRecord::Schema.define(version: 2020_03_19_060618) do
     t.string "first_name"
     t.string "last_name"
     t.boolean "is_active", default: true, null: false
-      t.boolean "is_deleted", default: false, null: false
+    t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "campaigns", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.string "name"
+    t.string "domain"
+    t.string "twitter"
+    t.text "rules"
+    t.text "privacy"
+    t.text "terms"
+    t.text "contact_us"
+    t.string "faq_title"
+    t.text "faq_content"
+    t.string "prizes_title"
+    t.text "general_content"
+    t.string "how_to_earn_title"
+    t.text "how_to_earn_content"
+    t.text "css"
+    t.text "seo"
+    t.boolean "is_active"
+    t.text "template"
+    t.boolean "templated"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
   create_table "organization_admins", force: :cascade do |t|
@@ -86,4 +111,5 @@ ActiveRecord::Schema.define(version: 2020_03_19_060618) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "campaigns", "organizations"
 end
