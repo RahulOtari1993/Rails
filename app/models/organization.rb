@@ -28,5 +28,6 @@ class Organization < ApplicationRecord
 
 end
 
+# rails g model Challenges campaign:references name:string platform_id:integer start:datetime finish:datetime timezone:string points:integer parameters:string mechanism:string feature:boolean creator_id:integer approver_id:integer content:text
 
 # rails g model Campaign organization:references name:string domain:string twitter:string rules:text privacy:text terms:text contact_us:text faq_title:string faq_content:string prizes_title:string general_content:text how_to_earn_title:string how_to_earn_content:text css:text seo:text is_active:boolean template:text templated:boolean

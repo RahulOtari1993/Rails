@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_144203) do
+ActiveRecord::Schema.define(version: 2020_03_19_145319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,27 @@ ActiveRecord::Schema.define(version: 2020_03_19_144203) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
+  end
+
+  create_table "challenges", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.text "name"
+    t.integer "platform_id"
+    t.datetime "start"
+    t.datetime "finish"
+    t.string "timezone"
+    t.integer "points"
+    t.string "parameters"
+    t.string "mechanism"
+    t.boolean "feature"
+    t.integer "creator_id"
+    t.integer "approver_id"
+    t.text "content"
+    t.text "link"
+    t.integer "clicks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
   create_table "organization_admins", force: :cascade do |t|
@@ -112,4 +133,5 @@ ActiveRecord::Schema.define(version: 2020_03_19_144203) do
   end
 
   add_foreign_key "campaigns", "organizations"
+  add_foreign_key "challenges", "campaigns"
 end
