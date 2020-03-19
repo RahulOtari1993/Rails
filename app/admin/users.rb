@@ -32,6 +32,9 @@ ActiveAdmin.register User do
       f.input :invited_by_id, :input_html => {:value => current_admin_user.id},
               as: :hidden
 
+      f.input :is_active, :input_html => {:value => false},
+              as: :hidden
+
       f.input :role, :input_html => {:value => 'admin'},
               as: :hidden
     end

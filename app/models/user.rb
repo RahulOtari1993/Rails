@@ -10,7 +10,7 @@ class User < ApplicationRecord
   belongs_to :organization, optional: true
   has_one :organization_admin
 
-  ## Validations
+  # Validations
   validates :first_name, :last_name, presence: true
   validates :organization_id, presence: true, if: :invited?
 
@@ -37,6 +37,7 @@ class User < ApplicationRecord
   end
 
   def confirmation_password_required?
+    # binding.pry
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
 
