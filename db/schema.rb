@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_150706) do
+ActiveRecord::Schema.define(version: 2020_03_19_151316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,15 @@ ActiveRecord::Schema.define(version: 2020_03_19_150706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.bigint "reward_id"
+    t.string "name"
+    t.string "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reward_id"], name: "index_coupons_on_reward_id"
   end
 
   create_table "organization_admins", force: :cascade do |t|
@@ -158,5 +167,6 @@ ActiveRecord::Schema.define(version: 2020_03_19_150706) do
 
   add_foreign_key "campaigns", "organizations"
   add_foreign_key "challenges", "campaigns"
+  add_foreign_key "coupons", "rewards"
   add_foreign_key "rewards", "campaigns"
 end
