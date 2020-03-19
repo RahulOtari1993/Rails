@@ -28,6 +28,8 @@
 class Campaign < ApplicationRecord
   ## Associations
   belongs_to :organization
-  has_many :campaigns, dependent: :destroy
+  has_many :challenges, dependent: :destroy
   has_many :rewards, dependent: :destroy
+  has_many :campaign_users
+  has_many :users, through: :campaign_users
 end

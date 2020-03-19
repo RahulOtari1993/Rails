@@ -28,6 +28,6 @@ class Organization < ApplicationRecord
 
 end
 
-# rails g model Coupon campaign:references reward:references name:string code:string
+# rails g model CampaignUser user:references campaign:references role:integer
 # image_content_type:string selection:string start:datetime finish:datetime feature:boolean points:integer redeption_details:text description_details:text terms_conditions:text sweepstake_entry:integer
 
