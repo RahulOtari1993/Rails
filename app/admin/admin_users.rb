@@ -44,7 +44,7 @@ ActiveAdmin.register AdminUser do
 
     def destroy
       resource.update!(is_deleted: true, deleted_by: current_admin_user.id)
-      redirect_to admin_admin_users_path
+      redirect_to onboarding_admin_users_path
     end
   end
 

@@ -10,7 +10,7 @@ ActiveAdmin.register Organization do
     column :is_active
     column :created_at
     actions do |organization|
-      raw("#{link_to 'View Users', admin_organization_users_path(organization)}")
+      raw("#{link_to 'View Users', onboarding_organization_users_path(organization)}")
     end
   end
 
@@ -33,7 +33,7 @@ ActiveAdmin.register Organization do
 
   def destroy
     resource.update!(is_deleted: true, deleted_by: current_admin_user.id)
-    redirect_to admin_admin_users_path
+    redirect_to onboarding_organizations_path
   end
 
 end
