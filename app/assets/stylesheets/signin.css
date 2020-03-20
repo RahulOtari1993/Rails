@@ -1,0 +1,111 @@
+body,
+html {
+  background: white !important; }
+
+nav {
+  position: static; }
+
+.setup-info-module {
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 4px; }
+  .setup-info-module h2 {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    overflow: hidden; }
+
+.features-list {
+  padding: 0 15px 15px;
+  margin: 0;
+  font-size: 14px;
+  list-style: none; }
+  .features-list li {
+    margin-top: 10px; }
+    .features-list li:first-child {
+      margin-top: 0; }
+  .features-list .list-divider {
+    margin: 15px -15px;
+    border-top: 1px solid #eee; }
+
+label {
+  display: block;
+  text-transform: uppercase; }
+
+div.input {
+  padding: 5px 0px; }
+
+input {
+  width: 100%;
+  min-height: 34px;
+  padding: 7px 8px;
+  font-size: 13px;
+  color: #333;
+  vertical-align: middle;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); }
+
+.btn-success, .btn-login {
+  transition: all ease .3s;
+  background-color: #0085FF;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+  width: 100%; }
+  .btn-success:hover, .btn-success:active, .btn-success:focus, .btn-success:active:hover, .btn-login:hover, .btn-login:active, .btn-login:focus, .btn-login:active:hover {
+    background-color: #4841E8;
+    color: white; }
+
+.setup-form .tos-info {
+  padding: 15px 0; }
+
+.setup-form .tos-info, .setup-form .setup-organization-next {
+  margin: 15px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee; }
+
+.row.demo {
+  margin-top: 40px; }
+  .row.demo h1 {
+    font-weight: 600;
+    margin-top: 0; }
+  .row.demo p {
+    font-size: 18px; }
+
+@media screen and (min-width: 768px) {
+  .setup-info-module {
+    border: 1px solid #ccc;
+    width: 598px; } }
+@media screen and (min-width: 992px) {
+  .row.demo {
+    margin-top: 80px; }
+    .row.demo h1 {
+      font-size: 50px; }
+
+  .setup-info-module.right {
+    border: none;
+    border-left: 2px solid #0085FF;
+    border-radius: 0;
+    width: auto;
+    margin-top: 10px; }
+    .setup-info-module.right h2 {
+      text-align: left;
+      margin-top: 0;
+      padding-top: 0; }
+
+  .right .features-list {
+    padding: 0 15px;
+    font-size: 18px; }
+    .right .features-list li i {
+      color: #0085FF; } }
+
+/*# sourceMappingURL=signin.css.map */

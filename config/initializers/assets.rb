@@ -11,6 +11,8 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w(super_admin/super_admin.css)
 
 Rails.application.config.assets.precompile += %w(super_admin/super_admin.js)
+Rails.application.config.assets.precompile += %w(libraries/bootstrap.min.css)
+Rails.application.config.assets.precompile += %w(libraries/material-design-iconic-font.min.css)
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

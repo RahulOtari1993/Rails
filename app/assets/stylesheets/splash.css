@@ -1,0 +1,603 @@
+html, body {
+  font-family: "proxima-nova", sans-serif;
+  background: #0085FF !important;
+  overflow-x: hidden; }
+
+a {
+  color: #0085FF; }
+  a:hover, a:active, a:focus {
+    color: #4841E8; }
+  a.btn {
+    transition: all ease .3s;
+    background: #0085FF;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding-left: 30px;
+    padding-right: 30px; }
+    a.btn:hover, a.btn:active, a.btn:focus {
+      text-decoration: none; }
+    a.btn:hover, a.btn:active, a.btn:focus {
+      background: #4841E8;
+      color: white; }
+    a.btn.btn-white {
+      background: white;
+      color: #0085FF; }
+      a.btn.btn-white:hover, a.btn.btn-white:active, a.btn.btn-white:focus {
+        color: #4841E8; }
+
+.white {
+  background: white; }
+
+.blue {
+  background: #0085FF;
+  color: white; }
+  .blue .subhead {
+    font-weight: 300; }
+
+.col-centered {
+  float: none;
+  margin: 0 auto; }
+
+.left {
+  text-align: left; }
+
+.no-gutter {
+  padding-left: 0;
+  padding-right: 0; }
+
+.slick-prev:before, .slick-next:before {
+  font-family: 'Material-Design-Iconic-Font'; }
+
+.slick-prev {
+  left: 0; }
+  .slick-prev:before {
+    content: '\f2fa'; }
+
+.slick-next {
+  right: 0; }
+  .slick-next:before {
+    content: '\f2fb'; }
+
+nav {
+  transition: all ease .3s;
+  position: fixed;
+  z-index: 50;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 15px 0; }
+  nav.nav-ko {
+    background: transparent; }
+  nav.nav-solid {
+    background: #0085FF; }
+  nav .logo {
+    height: 25px;
+    float: left; }
+  nav .nav-link {
+    transition: all ease .3s;
+    float: right;
+    position: relative;
+    top: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 12px;
+    color: white; }
+    nav .nav-link:hover, nav .nav-link:active, nav .nav-link:focus {
+      text-decoration: none; }
+    nav .nav-link:hover, nav .nav-link:active, nav .nav-link:focus {
+      color: #00EBFF; }
+    nav .nav-link.demo {
+      margin-right: 20px; }
+
+.hero {
+  padding-top: 55px;
+  background: #0085FF url("/images/splash/perk-texture.png") 50% 50% no-repeat;
+  background-size: cover;
+  color: white; }
+  .hero .container {
+    position: relative; }
+    .hero .container .hero-content {
+      margin: 10vw 0 0; }
+    .hero .container h1 {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 12vw; }
+    .hero .container p {
+      font-size: 6vw;
+      font-weight: 300;
+      line-height: 1.3;
+      margin-bottom: 20px; }
+    .hero .container .hero-img {
+      padding: 0; }
+    .hero .container img {
+      width: 100%;
+      max-width: 400px;
+      float: right;
+      font-size: 0; }
+      .hero .container img:nth-child(2) {
+        position: absolute;
+        right: 0; }
+
+.block {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative; }
+
+.title {
+  margin-bottom: 10px;
+  font-weight: 100; }
+
+h2.headline {
+  font-weight: 600;
+  font-size: 8vw; }
+
+p.subhead {
+  font-size: 6vw; }
+
+.quote {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 30px; }
+  .quote .quote-text {
+    color: white;
+    font-weight: 600;
+    font-size: 4.5vw;
+    text-align: center;
+    background: #0085FF;
+    padding: 24px;
+    border-radius: 32px;
+    margin-bottom: 0; }
+  .quote .quote-cite {
+    position: relative;
+    text-align: right;
+    right: 16px;
+    top: 6px; }
+  .quote img {
+    width: 60px;
+    position: absolute;
+    left: 32px; }
+
+.item-ul {
+  margin-bottom: 30px;
+  padding-left: 15px; }
+  .item-ul li {
+    margin-top: 20px; }
+    .item-ul li:first-child {
+      margin-top: 0; }
+    .item-ul li i {
+      color: #0085FF;
+      top: 0; }
+
+.item {
+  font-size: 16px;
+  font-weight: 300; }
+  .item h4 {
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.2; }
+  .item .number {
+    color: #0085FF;
+    font-weight: 100;
+    font-size: 70px;
+    line-height: 1.2;
+    border-bottom: 2px solid #0085FF;
+    margin-bottom: 36px;
+    margin-top: 30px; }
+  .item .circle-icon {
+    background: #0085FF;
+    border-radius: 50%;
+    padding: 16px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 5px; }
+    .item .circle-icon img {
+      width: 40px; }
+
+.block.advocacy {
+  padding-bottom: 10px; }
+.block.advocacy-list {
+  padding-bottom: 0; }
+  .block.advocacy-list .bg-image img {
+    width: 100%; }
+.block.endorsements {
+  padding-bottom: 0; }
+  .block.endorsements img {
+    width: 100%;
+    font-size: 0; }
+  .block.endorsements .platforms {
+    font-weight: 600;
+    font-size: 5vw; }
+    .block.endorsements .platforms div {
+      margin-top: 5px;
+      margin-bottom: 20px; }
+      .block.endorsements .platforms div i {
+        margin: 0 10px;
+        font-size: 7vw; }
+        .block.endorsements .platforms div i:first-child {
+          margin-left: 0; }
+.block.endorsements-list {
+  padding-bottom: 0; }
+  .block.endorsements-list .title {
+    margin-bottom: 0; }
+  .block.endorsements-list ul {
+    margin-top: 20px;
+    margin-bottom: 40px; }
+  .block.endorsements-list .half-img {
+    text-align: center; }
+    .block.endorsements-list .half-img img {
+      width: 100%;
+      max-width: 400px;
+      font-size: 0; }
+.block.awareness {
+  background: #101010 url("/images/splash/woman-on-phone.jpg") 38% 87% no-repeat;
+  background-size: cover;
+  color: white; }
+  .block.awareness .title {
+    margin-bottom: 20px;
+    font-weight: 300; }
+    .block.awareness .title p {
+      max-width: 900px; }
+.block.how .title {
+  margin-bottom: 20px; }
+.block.how .item {
+  margin-top: 20px; }
+.block.customize {
+  padding-bottom: 0; }
+  .block.customize p.subhead {
+    margin-bottom: 20px; }
+  .block.customize .slick {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0; }
+  .block.customize .slick-dots {
+    bottom: 10px; }
+  .block.customize .slide img {
+    width: 100%; }
+.block.grow .title {
+  margin-bottom: 0; }
+.block.grow .item img {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  width: 50px; }
+
+.footer-demo {
+  background: #0085FF url("/images/splash/perk-texture.png") 50% 50% no-repeat;
+  background-size: cover;
+  color: white;
+  text-align: center;
+  padding: 30px 0; }
+  .footer-demo h3 {
+    font-weight: 600;
+    font-size: 8vw; }
+  .footer-demo .btn {
+    margin-top: 30px;
+    margin-bottom: 40px; }
+
+footer {
+  background: black;
+  text-align: center; }
+  footer h4 {
+    color: #666;
+    font-weight: 600;
+    margin-top: 60px; }
+  footer .logos {
+    margin-bottom: 10px;
+    margin-top: 30px; }
+    footer .logos div {
+      padding-left: 0;
+      padding-right: 0; }
+      footer .logos div img {
+        width: 100%;
+        opacity: .5; }
+  footer p, footer a {
+    color: #666;
+    font-size: 12px;
+    padding: 20px 0;
+    line-height: 2;
+    margin: 0; }
+  footer a:hover, footer:active, footer:focus {
+    color: #666; }
+
+@media screen and (min-width: 415px) {
+  .hero .container h1 {
+    font-size: 50px; }
+  .hero .container p {
+    font-size: 25px; }
+
+  h2.headline {
+    font-size: 34px; }
+
+  p.subhead {
+    font-size: 24px; }
+
+  .quote .quote-text {
+    font-size: 20px; }
+
+  .block.endorsements .platforms {
+    font-size: 22px; }
+    .block.endorsements .platforms div i {
+      margin: 0 15px;
+      font-size: 30px; }
+
+  .footer-demo h3 {
+    font-size: 32px; }
+  .footer-demo p {
+    font-size: 20px; } }
+@media screen and (min-width: 768px) {
+  nav {
+    padding: 25px 0; }
+    nav .logo {
+      height: 30px; }
+    nav .nav-link {
+      top: 8px;
+      font-size: 14px; }
+
+  .hero {
+    padding-top: 80px; }
+    .hero .container .hero-content {
+      margin: 30px 0 80px; }
+    .hero .container h1 {
+      font-size: 44px; }
+    .hero .container p {
+      font-size: 22px; }
+    .hero .container img {
+      max-width: none; }
+    .hero .container .hero-img {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 50%; }
+
+  .block {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+
+  .title {
+    text-align: center;
+    margin-bottom: 50px; }
+
+  p.subhead {
+    font-size: 20px;
+    margin: 0 auto; }
+
+  .item .circle-icon {
+    padding: 26px;
+    margin-top: 0; }
+    .item .circle-icon img {
+      width: 55px; }
+
+  .item-ul {
+    margin-top: 0;
+    margin-bottom: 0; }
+    .item-ul li {
+      margin-top: 30px; }
+
+  .block.advocacy {
+    padding-bottom: 70px; }
+    .block.advocacy .title p {
+      width: 550px; }
+  .block.advocacy-list {
+    padding-bottom: 50px; }
+    .block.advocacy-list .item-ul {
+      position: relative;
+      z-index: 10;
+      color: white; }
+      .block.advocacy-list .item-ul li i {
+        color: white; }
+    .block.advocacy-list .bg-image {
+      background: #08082e url("/images/splash/perk-advocacy.jpg") 50% 50% no-repeat;
+      background-size: auto 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0; }
+  .block.endorsements .title {
+    margin-bottom: 20px; }
+  .block.endorsements .platforms {
+    font-size: 20px;
+    margin-top: 10px;
+    text-align: center; }
+    .block.endorsements .platforms div {
+      margin-top: 20px;
+      margin-bottom: 40px; }
+      .block.endorsements .platforms div i {
+        font-size: 26px; }
+        .block.endorsements .platforms div i:first-child {
+          margin-left: 15px; }
+  .block.endorsements-list ul {
+    margin-top: 40px;
+    margin-bottom: 70px; }
+  .block.endorsements-list .half-img {
+    position: absolute;
+    bottom: 0; }
+    .block.endorsements-list .half-img img {
+      max-width: none; }
+  .block.customize .title {
+    margin-bottom: 0; }
+  .block.customize .subhead {
+    text-align: center; }
+  .block.grow .item {
+    text-align: center; }
+
+  footer h4 {
+    font-size: 22px; } }
+@media screen and (min-width: 992px) {
+  .hero .container .hero-content {
+    margin: 50px 0 100px; }
+  .hero .container h1 {
+    font-size: 60px; }
+  .hero .container p {
+    font-size: 29px; }
+
+  .block {
+    padding-top: 100px;
+    padding-bottom: 120px; }
+
+  .title {
+    margin-bottom: 90px; }
+
+  h2.headline {
+    font-size: 42px;
+    margin-bottom: 22px; }
+
+  p.subhead {
+    font-size: 26px; }
+
+  .quote .quote-text {
+    font-size: 26px;
+    padding: 40px;
+    border-radius: 50px; }
+  .quote .quote-cite {
+    font-size: 18px;
+    right: 22px;
+    top: 10px; }
+  .quote img {
+    left: 50px;
+    width: 80px; }
+
+  .item {
+    font-size: 18px; }
+    .item h4 {
+      font-size: 20px; }
+    .item .circle-icon {
+      padding: 28px;
+      margin-bottom: 10px; }
+      .item .circle-icon img {
+        width: 65px; }
+
+  .block.advocacy {
+    padding-bottom: 120px; }
+    .block.advocacy .title {
+      margin-bottom: 50px; }
+      .block.advocacy .title p {
+        width: 700px; }
+  .block.advocacy-list {
+    padding-bottom: 100px; }
+  .block.endorsements .platforms {
+    font-size: 22px; }
+    .block.endorsements .platforms div i {
+      font-size: 30px;
+      margin: 0 20px; }
+      .block.endorsements .platforms div i:first-child {
+        margin-left: 20px; }
+  .block.endorsements-list ul {
+    margin-bottom: 120px; }
+  .block.endorsements-list .half-img img {
+    width: 400px; }
+  .block.grow .item img {
+    margin-top: 80px; }
+
+  .footer-demo h3 {
+    font-size: 34px; }
+  .footer-demo p {
+    font-size: 22px; } }
+@media screen and (min-width: 1200px) {
+  nav .nav-link {
+    top: 6px;
+    font-size: 16px; }
+    nav .nav-link.demo {
+      margin-right: 60px; }
+
+  .hero .container .hero-content {
+    margin: 70px 0 140px; }
+  .hero .container h1 {
+    font-size: 70px; }
+  .hero .container p {
+    font-size: 34px; }
+
+  .item-ul-lg li {
+    margin-top: 50px; }
+  .item-ul-lg .item {
+    font-size: 22px; }
+    .item-ul-lg .item h4 {
+      font-size: 24px; }
+
+  .item .number {
+    font-size: 80px; }
+  .item .circle-icon {
+    padding: 36px;
+    margin-top: 10px;
+    margin-bottom: 20px; }
+    .item .circle-icon img {
+      width: 80px; }
+
+  .block.awareness {
+    padding-top: 150px;
+    padding-bottom: 160px; }
+  .block.endorsements .platforms {
+    font-size: 24px; }
+    .block.endorsements .platforms div i {
+      font-size: 36px; }
+  .block.endorsements-list ul {
+    margin-top: 110px;
+    margin-bottom: 190px; }
+  .block.endorsements-list .half-img img {
+    width: 500px; }
+  .block.customize .subhead {
+    text-align: left; }
+    .block.customize .subhead:first-child {
+      margin-top: 50px; }
+
+  .footer-demo {
+    padding: 50px 0; }
+    .footer-demo h3 {
+      font-size: 40px; }
+    .footer-demo p {
+      font-size: 24px; }
+
+  footer h4 {
+    font-size: 26px; }
+  footer .logos div {
+    padding-left: 20px;
+    padding-right: 20px; }
+  footer p, footer a {
+    font-size: 14px;
+    padding: 30px 0; } }
+ul.pricing {
+  margin: 0px;
+  padding: 10px 0px;
+  list-style-type: none; }
+
+ul.pricing li {
+  padding: 5px 0px; }
+
+strong.pricing {
+  font-size: 42px;
+  color: #27ae60;
+  display: block;
+  font-weight: 300;
+  line-height: 42px; }
+
+strong.pricing sup {
+  position: relative;
+  top: -12px;
+  font-size: 22px; }
+
+strong.pricing span {
+  position: relative;
+  font-size: 22px;
+  color: #6c7181; }
+
+#cc-form-container {
+  display: none; }
+
+.plan-btn {
+  margin: 10px auto; }
+
+.plan-btn.active {
+  background-color: #3071a9;
+  border-color: #285e8e;
+  color: white; }
+
+.payment-errors {
+  color: #a94442; }
+
+/*# sourceMappingURL=splash.css.map */
