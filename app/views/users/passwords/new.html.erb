@@ -1,26 +1,61 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: user_password_path, html: { method: :post }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<nav class="nav-solid">
+  <div class="container">
+    <a href="/">
+      <img class="logo" src="/images/splash/perk-logo-ko.png">
+    </a>
+    <a class="nav-link" href="/signin">
+      <i class="zmdi zmdi-account zmdi-hc-lg"></i>
+      &nbsp;Sign In
+    </a>
+    <a class="nav-link demo" href="/demo">
+      <i class="zmdi zmdi-desktop-mac zmdi-hc-lg"></i>
+      &nbsp;<span class="hidden-xs">Get a</span> Demo
+    </a>
   </div>
+</nav>
 
-  <div class="field">
-    <%= label_tag "user[organization_id]", 'Organization' %><br />
-    <%= select_tag "user[organization_id]", options_from_collection_for_select(Organization.all, "id", "name") %>
+<div class="container">
+  <div class="row">
+    <div class="col-centered" style="padding:40px 0px;">
+      <div class="setup-info-module col-centered">
+        <h2>Forgot your password.</h2>
+
+        <div class="subtitle" style="padding:0px 15px 15px;font-size:14px;">
+          If you have forgotten your password, please provide us with your email address and we will send you an email
+          to reset your password.
+        </div>
+
+        <% if flash[:error] %>
+          <div style="color:red;">
+            <%= flash[:error] %>
+            <% flash[:error] = nil %>
+          </div>
+        <% end %>
+
+        <ul class="features-list">
+          <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :post}) do |f| %>
+            <%= render "users/shared/error_messages", resource: resource %>
+
+            <%= hidden_field_tag 'user[role]', 'admin' %>
+
+            <li>
+              <%= label_tag "user[organization_id]", 'Email' %>
+              <%= f.email_field :email, placeholder: 'Email' %>
+            </li>
+
+            <li>
+              <%= label_tag "user[organization_id]", 'Organization' %>
+              <%= select_tag "user[organization_id]", options_from_collection_for_select(Organization.all, "id", "name") %>
+            </li>
+
+            <li class="list-divider"></li>
+
+            <li>
+              <%= f.submit "Reset Password", class: 'btn btn-login' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= hidden_field_tag 'user[role]', 'admin' %>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
