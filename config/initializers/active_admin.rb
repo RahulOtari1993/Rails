@@ -54,7 +54,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the application controller.
-  config.authentication_method = :authenticate_admin_user!
+  # config.authentication_method = :authenticate_admin_user!
 
   # == User Authorization
   #
@@ -208,13 +208,15 @@ ActiveAdmin.setup do |config|
   # and feel.
   #
   # To load a stylesheet:
-  #   config.register_stylesheet 'my_stylesheet.css'
+      config.clear_stylesheets!
+      config.register_stylesheet 'super_admin/active_admin.css'
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', media: :print
   #
   # To load a javascript file:
-  #   config.register_javascript 'my_javascript.js'
+  config.clear_javascripts!
+    config.register_javascript 'super_admin/active_admin.js'
 
   # == CSV options
   #
