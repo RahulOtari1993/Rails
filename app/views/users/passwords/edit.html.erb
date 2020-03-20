@@ -1,28 +1,60 @@
-<h2>Set your password</h2>
-
-<%= form_for(resource, as: resource_name, url: user_password_path, html: { method: :put }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
-
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+<nav class="nav-solid">
+  <div class="container">
+    <a href="/">
+      <img class="logo" src="/images/splash/perk-logo-ko.png">
+    </a>
+    <a class="nav-link" href="/signin">
+      <i class="zmdi zmdi-account zmdi-hc-lg"></i>
+      &nbsp;Sign In
+    </a>
+    <a class="nav-link demo" href="/demo">
+      <i class="zmdi zmdi-desktop-mac zmdi-hc-lg"></i>
+      &nbsp;<span class="hidden-xs">Get a</span> Demo
+    </a>
   </div>
+</nav>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+<div class="container">
+  <div class="row">
+    <div class="col-centered" style="padding:40px 0px;">
+      <div class="setup-info-module col-centered">
+        <h2>Reset your password.</h2>
+
+        <div class="subtitle" style="padding:0px 15px 15px;font-size:14px;">
+          Please enter the new password you would like for your account.
+        </div>
+
+        <% if flash[:error] %>
+          <div style="color:red;">
+            <%= flash[:error] %>
+            <% flash[:error] = nil %>
+          </div>
+        <% end %>
+
+        <ul class="features-list">
+          <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :put}) do |f| %>
+            <%= render "users/shared/error_messages", resource: resource %>
+
+            <li>
+              <%= f.label :password, "New password" %>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em><br/>
+              <% end %>
+              <%= f.password_field :password, placeholder: 'New Password' %>
+              <br>
+            </li>
+
+            <li>
+              <%= f.label :password_confirmation, "Confirm new password" %>
+              <%= f.password_field :password_confirmation, placeholder: 'Confirm New Password' %>
+            </li>
+            <li class="list-divider"></li>
+            <li>
+              <%= f.submit "Reset Password", class: 'btn btn-login'%>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Set my password" %>
-  </div>
-<% end %>
-
-
-<%# unless resource.is_invited? %>
-  <%#= render "users/shared/links" %>
-<%# end %>
+</div>
