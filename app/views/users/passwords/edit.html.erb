@@ -26,13 +26,13 @@
               <% if @minimum_password_length %>
                 <em>(<%= @minimum_password_length %> characters minimum)</em><br/>
               <% end %>
-              <%= f.password_field :password, placeholder: 'New Password' %>
+              <%= f.password_field :password, placeholder: 'New Password', required: true %>
               <br>
             </li>
 
             <li>
               <%= f.label :password_confirmation, "Confirm new password" %>
-              <%= f.password_field :password_confirmation, placeholder: 'Confirm New Password' %>
+              <%= f.password_field :password_confirmation, placeholder: 'Confirm New Password', required: true %>
             </li>
             <li class="list-divider"></li>
             <li>

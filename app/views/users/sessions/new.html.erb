@@ -24,7 +24,7 @@
 
             <li>
               <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
             </li>
 
             <% # TODO: Manage Roles Based on the Login Type %>
@@ -32,7 +32,7 @@
 
             <li>
               <%= f.label :password %>
-              <%= f.password_field :password, autocomplete: "current-password" %>
+              <%= f.password_field :password, autocomplete: "current-password", required: true %>
             </li>
 
             <%# if devise_mapping.rememberable? %>
