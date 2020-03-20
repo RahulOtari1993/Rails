@@ -65,6 +65,10 @@ class User < ApplicationRecord
   validates_confirmation_of :password, if: :confirmation_password_required?
   validates_length_of :password, within: 6..20, allow_blank: true
 
+  ## Allow Only Active Users to Login
+  def active_for_authentication?
+    super && is_active?
+  end
 
   def password_required?
     self.confirmed? ? confirmation_password_required? : false

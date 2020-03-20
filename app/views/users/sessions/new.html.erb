@@ -9,6 +9,16 @@
   </div>
 
   <div class="field">
+    <%= label_tag "user[organization_id]", 'Organization' %><br />
+    <%= select_tag "user[organization_id]", options_from_collection_for_select(Organization.all, "id", "name") %>
+  </div>
+
+  <div class="field">
+    <% # TODO: Manage Roles Based on the Login Type %>
+    <%= hidden_field_tag 'user[role]', 'admin' %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>

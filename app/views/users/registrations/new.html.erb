@@ -5,12 +5,12 @@
 
   <div class="field">
     <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, autocomplete: "email" %>
+    <%= f.text_field :first_name, autofocus: true %>
   </div>
 
   <div class="field">
     <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true, autocomplete: "email" %>
+    <%= f.text_field :last_name, autofocus: true %>
   </div>
 
   <div class="field">
@@ -18,8 +18,9 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <%#= f.hidden_field :organization_id, value: Organization.first.id %>
-  <%= f.hidden_field :is_invited, value: false %>
+  <% # TODO: Manage Roles Based on the Login Type %>
+  <%= f.hidden_field :role, value: 'participant' %>
+  <%= f.hidden_field :organization_id, value: 0 %>
 
   <div class="field">
     <%= f.label :password %>
