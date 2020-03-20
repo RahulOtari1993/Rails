@@ -1,13 +1,13 @@
 <nav class="nav-solid">
   <div class="container">
     <a href="/">
-      <img class="logo" src="/images/splash/perk-logo-ko.png">
+      <%= image_tag('splash/perk-logo-header.png', :class => 'logo') %>
     </a>
-    <a class="nav-link" href="/signin">
+    <a class="nav-link" href="<%= new_user_session_path %>">
       <i class="zmdi zmdi-account zmdi-hc-lg"></i>
       &nbsp;Sign In
     </a>
-    <a class="nav-link demo" href="/demo">
+    <a class="nav-link demo" href="javascript:void(0);">
       <i class="zmdi zmdi-desktop-mac zmdi-hc-lg"></i>
       &nbsp;<span class="hidden-xs">Get a</span> Demo
     </a>
