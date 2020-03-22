@@ -1,0 +1,13 @@
+<% if @resource.is_active == false && @resource.is_invited %>
+  <p>Welcome <%= @email %>!</p>
+
+  <p>You are invited to join Perk Social, You can set your password through the link below:</p>
+
+  <p><%= link_to 'Set Password', confirmation_url(@resource, confirmation_token: @token) %></p>
+<% else %>
+  <p>Welcome <%= @email %>!</p>
+
+  <p>You can confirm your account email through the link below:</p>
+
+  <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<% end %>
