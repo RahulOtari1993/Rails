@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Perk Social</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'organization_admin/organization_admin', media: 'all', 'data-turbolinks-track' =>'reload' %>
+    <%= javascript_include_tag 'organization_admin/organization_admin', 'data-turbolinks-track' => 'reload' %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
