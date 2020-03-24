@@ -1,9 +1,4 @@
 body {
-  text-align: center;
-}
-
-
-body {
   font-family: 'Lato';
 }
 
@@ -305,3 +300,26 @@ section {
   margin-right: 15px;
 }
 
+.btn-red-admin {
+  text-align: center;
+  background: #c22cc1;
+  border: 1px solid #c22cc1;
+  color: white;
+  border-radius: 3px;
+  padding: 10px;
+  width: 180px;
+  float: right;
+  margin: 10px 0px;
+}
+
+.header-text {
+  float: left;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 26px;
+  font-weight: 300;
+  padding: 10px 0px 0px;
+}
+
+.row-container {
+  margin-top: 20px;
+}
