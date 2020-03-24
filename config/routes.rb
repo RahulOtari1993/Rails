@@ -14,8 +14,12 @@ Rails.application.routes.draw do
   }
 
   namespace :organizations do
+    devise_for :users, controllers: {
+      registrations: 'organizations/invitations',
+    }
+
+    resources :users, only: [:index]
     resources :campaigns
-    resources :users
   end
 
   ## Root Route

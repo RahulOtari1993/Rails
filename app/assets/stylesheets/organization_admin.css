@@ -39,7 +39,7 @@ label {
   display: block;
 }
 
-input[type=text], input[type=datetime] {
+input[type=text], input[type=datetime], input[type=email] {
   width: 100%;
   min-height: 34px;
   padding: 7px 8px;
@@ -276,6 +276,7 @@ section {
 .org-admin-logo {
   position: relative;
   top: 18px;
+  left: 15px;
 }
 
 .sign-out {
@@ -304,7 +305,7 @@ section {
   text-align: center;
   background: #c22cc1;
   border: 1px solid #c22cc1;
-  color: white;
+  color: #fff;
   border-radius: 3px;
   padding: 10px;
   width: 180px;
