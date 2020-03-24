@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   namespace :organizations do
     resources :campaigns
+    resources :users
   end
 
   ## Root Route

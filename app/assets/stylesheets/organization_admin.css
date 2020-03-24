@@ -171,7 +171,7 @@ nav.sidebar, .main-header {
   }
 
   nav.sidebar li {
-    width: 100%;
+    /*width: 100%;*/
   }
 
   nav.sidebar:hover {
@@ -299,5 +299,9 @@ section {
   border: 1px solid #4841E8;
   float: left;
   height: 40px;
+}
+
+.hidden-xs {
+  margin-right: 15px;
 }
 
