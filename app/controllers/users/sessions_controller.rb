@@ -22,7 +22,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if resource.is_invited?
-      organization_campaigns_path
+      organizations_campaigns_path
     else
       root_url
     end
