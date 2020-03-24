@@ -10,105 +10,24 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'organization_admin/organization_admin', media: 'all', 'data-turbolinks-track' =>'reload' %>
+  <%= stylesheet_link_tag 'organization_admin/organization_admin', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'organization_admin/organization_admin', 'data-turbolinks-track' => 'reload' %>
 
   <link href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900|Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default sidebar gradient-dark-blue" role="navigation" style="margin-bottom:0px;border-radius:0px;border-top:none;border-left:none;border-right:none;">
-  <div class="container-fluid">
-    <div class="logo" style="float:left;height:64px;background:#0085FF;">
-      <img src="/images/perk-social-logo.png" style="position: relative;top: 18px;left: 18px;"/>
-    </div>
+  <%= render 'organizations/layout/side_nav_bar' %>
 
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
+  <div class="main">
+    <%= render 'organizations/layout/header' %>
 
-    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="item">
-          <a href="#"><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
-            Overview</a>
-        </li>
-        <li class="item">
-          <a href="#"><span style="font-size:16px;" class="pull-right hidden-xs showopacity fa fa-line-chart"></span>
-            Details</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="main">
-  <div class="container-fluid gradient-blue" style="padding:0px;">
-    <div class="col-md-12" style="padding:0px;">
-      <div class="profile gradient-blue" style="height:64px;color:white;">
-        <div style="float:right;padding-top:12px;padding-right:20px;">
-          <div style="float:left;">
-            <img src="#" class="img-circle" style="border:1px solid #4841E8;float:left;height:40px;"/>
-          </div>
-          <div style="float:left;padding-left:10px;padding-top:5px;">
-            <div style="font-size:12px;">
-              <a href="/campaign" style="color:#fff;">
-                Hello Worls
-              </a>
-            </div>
-            <div style="font-size:10px;">
-              <a href="/account" style="color:#fff;">
-                HK
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.2);height:64px;width:100%;">
+    <div class="container-fluid insight">
+      <div class="row">
+        <div class="col-md-12">
+          <%= yield %>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="container-fluid insight">
-    <div class="row">
-      <div class="col-md-12">
-        <h1 style="color:#fff;padding-left:20px;font-family: 'Montserrat';font-weight:500;text-transform: uppercase;letter-spacing: 2px;">
-          <%=
-            case controller.action_name
-            when "edit" then
-              "Overview"
-            when "email" then
-              "Email"
-            when "reward" then
-              "Reward"
-            when "contact" then
-              "Users"
-            when "settings" then
-              "Settings"
-            when "template" then
-              "Page Templates"
-            when "challenge" then
-              "Challenges"
-            when "platforms" then
-              "Social Networks"
-            when "permission" then
-              "User Permissions"
-            else
-              "Unknown"
-            end
-          %>
-        </h1>
-      </div>
-    </div>
-
-  </div>
-
-  <%= yield %>
-</div>
 </body>
 </html>

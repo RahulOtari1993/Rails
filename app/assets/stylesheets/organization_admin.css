@@ -224,8 +224,14 @@ section {
 }
 
 .profile {
-  /*width: calc(100% - 200px);*/
+  height: 64px;
+  color: #fff;
+}
 
+.profile-details {
+  float: right;
+  padding-top: 12px;
+  padding-right: 20px;
 }
 
 .gradient-blue {
@@ -266,14 +272,32 @@ section {
   }
 }
 
-.insight {
-
-  background: url("/images/texture-waves-color.png") repeat-x;
-  background-size: cover;
-  /*
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  */
+.org-logo {
+  float: left;
+  height: 64px;
+  background: #0085FF;
 }
+
+.org-admin-logo {
+  position: relative;
+  top: 18px;
+}
+
+.sign-out {
+  color: #fff;
+}
+
+.navbar {
+  margin-bottom: 0px;
+  border-radius: 0px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.img-circle {
+  border: 1px solid #4841E8;
+  float: left;
+  height: 40px;
+}
+

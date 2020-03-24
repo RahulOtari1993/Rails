@@ -1,0 +1,24 @@
+<div class="container-fluid gradient-blue" style="padding:0px;">
+  <div class="col-md-12" style="padding:0px;">
+    <div class="profile gradient-blue">
+      <div class="profile-details">
+        <div style="float:left;">
+          <%= image_tag('splash/default-user-icon.jpg', class: 'img-circle') %>
+        </div>
+
+        <div style="float:left;padding-left:10px;padding-top:5px;">
+          <div style="font-size:12px;">
+            <%= current_user.full_name %>
+          </div>
+
+          <div style="font-size:10px;">
+            <%= link_to('Logout', destroy_user_session_path, method: :delete, class: 'sign-out') %>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.2);height:64px;width:100%;">
+      </div>
+    </div>
+  </div>
+</div>
