@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations',
   }
 
+  namespace :organizations do
+    resources :campaigns
+  end
+
   ## Root Route
   root to: "welcome#index"
 end

@@ -17,18 +17,22 @@
           <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
             <%= render "users/shared/error_messages", resource: resource %>
 
-            <li>
-              <%= label_tag "user[organization_id]", 'Organization' %>
-              <%= select_tag "user[organization_id]", options_from_collection_for_select(Organization.all, "id", "name") %>
-            </li>
+            <% if @organization.present? %>
+              <%= hidden_field_tag 'user[role]', 'admin' %>
+              <%= hidden_field_tag 'user[organization_id]', @organization.id %>
+            <% else %>
+              <%= hidden_field_tag 'user[role]', 'participant' %>
+              <%= hidden_field_tag 'user[organization_id]', 0 %>
+            <% end %>
+<!--            <li>-->
+              <%#= label_tag "user[organization_id]", 'Organization' %>
+              <%#= select_tag "user[organization_id]", options_from_collection_for_select(Organization.all, "id", "name") %>
+<!--            </li>-->
 
             <li>
               <%= f.label :email %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
             </li>
-
-            <% # TODO: Manage Roles Based on the Login Type %>
-            <%= hidden_field_tag 'user[role]', 'admin' %>
 
             <li>
               <%= f.label :password %>
