@@ -65,12 +65,12 @@
           <% end %>
 
           <ul class="features-list">
-            <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :put}) do |f| %>
+            <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :put, class: 'reset_password_form'}) do |f| %>
               <%= render "users/shared/error_messages", resource: resource %>
               <%= f.hidden_field :reset_password_token %>
 
               <li>
-                <%= f.label :password, "New password" %>
+                <%= f.label :password, "New password", class: 'lbl-uppercase' %>
                 <% if @minimum_password_length %>
                   <em>(<%= @minimum_password_length %> characters minimum)</em><br/>
                 <% end %>
@@ -79,7 +79,7 @@
               </li>
 
               <li>
-                <%= f.label :password_confirmation, "Confirm new password" %>
+                <%= f.label :password_confirmation, "Confirm new password", class: 'lbl-uppercase' %>
                 <%= f.password_field :password_confirmation, placeholder: 'Confirm New Password', required: true %>
               </li>
               <li class="list-divider"></li>
