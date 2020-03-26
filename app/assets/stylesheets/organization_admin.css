@@ -280,7 +280,7 @@ section {
 }
 
 .sign-out {
-  color: #fff;
+  color: #fff !important;
 }
 
 .navbar {
@@ -323,20 +323,6 @@ section {
 
 .row-container {
   margin-top: 20px;
-}
-
-.error {
-  color: #FF0000;
-}
-
-.btn-success, .btn-login {
-  transition: all ease .3s;
-  background-color: #0085FF;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: white;
-  width: 100%;
 }
 
 .form-bottom-margin {

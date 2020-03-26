@@ -13,4 +13,5 @@
  *= require libraries/bootstrap.min
  *= require splash
  *= require signin
+ *= require common_style
  */

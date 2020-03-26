@@ -14,7 +14,7 @@
         <% end %>
 
         <ul class="features-list">
-          <%= form_for(resource, as: resource_name, url: user_session_path) do |f| %>
+          <%= form_for(resource, as: resource_name, url: user_session_path, html: {class: 'login_form' } ) do |f| %>
             <%= render "users/shared/error_messages", resource: resource %>
 
             <% if @organization.present? %>
@@ -26,12 +26,12 @@
             <% end %>
 
             <li>
-              <%= f.label :email %>
+              <%= f.label :email, 'Email', class: 'lbl-uppercase' %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
             </li>
 
             <li>
-              <%= f.label :password %>
+              <%= f.label :password, 'Password', class: 'lbl-uppercase' %>
               <%= f.password_field :password, autocomplete: "current-password", required: true %>
             </li>
 

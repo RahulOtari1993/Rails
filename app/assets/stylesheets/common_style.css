@@ -1,0 +1,17 @@
+.error {
+  color: #FF0000;
+}
+
+.btn-success, .btn-login {
+  transition: all ease .3s;
+  background-color: #0085FF;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+  width: 100%;
+}
+
+.lbl-uppercase {
+  text-transform: uppercase;
+}
