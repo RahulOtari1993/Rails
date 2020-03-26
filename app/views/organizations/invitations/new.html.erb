@@ -1,42 +1,43 @@
 <div class="container">
-  <div class="row row-container">
-    <div class="col-md-8">
-      <div class="header-text">
-        NEW USER
-      </div>
-      <div style="clear:both;"></div>
-    </div>
-    <div class="col-md-8">
-      <div class="row">
-        <div id="campaign-step-1" class="col-md-12">
-
-          <%= form_for(resource, as: resource_name, url: organizations_user_registration_path) do |f| %>
-            <%= render "users/shared/error_messages", resource: resource %>
-
-            <div class="field">
-              <%= f.label :first_name %>
-              <%= f.text_field :first_name, autofocus: true %>
-            </div>
-
-            <div class="field">
-              <%= f.label :last_name %>
-              <%= f.text_field :last_name, autofocus: true %>
-            </div>
-
-            <div class="field">
-              <%= f.label :email %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-            </div>
-
-            <%= f.hidden_field :role, value: 'admin' %>
-            <%= f.hidden_field :is_invited, value: true %>
-            <%= f.hidden_field :organization_id, value: @organization.id %>
-
-            <div class="actions">
-              <%= f.submit "Sign up" %>
-            </div>
-          <% end %>
+  <div class="row-container">
+    <div class="row form-bottom-margin">
+      <div class="col-md-8">
+        <div class="header-text">
+          NEW ORGANIZATION ADMIN USER
         </div>
+        <br>
+        <div style="clear:both;"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <%= form_for(resource, as: resource_name, url: organizations_user_registration_path) do |f| %>
+          <%= render "users/shared/error_messages", resource: resource %>
+
+          <div class="field form-bottom-margin">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, autofocus: true %>
+          </div>
+
+          <div class="field form-bottom-margin">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, autofocus: true %>
+          </div>
+
+          <div class="field form-bottom-margin">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+
+          <%= f.hidden_field :role, value: 'admin' %>
+          <%= f.hidden_field :is_invited, value: true %>
+          <%= f.hidden_field :organization_id, value: @organization.id %>
+
+          <div class="field">
+            <%= f.submit "Invite", class: 'btn btn-login' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

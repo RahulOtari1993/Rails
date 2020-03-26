@@ -14,14 +14,14 @@ $(document).ready(function() {
     },
     messages: {
       'organizations_user[first_name]': {
-        required: 'Please enter user first name'
+        required: 'Please enter organization admin first name'
       },
       'organizations_user[last_name]': {
-        required: 'Please enter user last name'
+        required: 'Please enter organization admin last name'
       },
       'organizations_user[email]': {
-        required: 'Please enter user email',
-        email: 'Please enter valie email'
+        required: 'Please enter organization admin email',
+        email: 'Please enter valid organization admin email'
       }
     }
   });

@@ -326,5 +326,19 @@ section {
 }
 
 .error {
-  color: red;
+  color: #FF0000;
+}
+
+.btn-success, .btn-login {
+  transition: all ease .3s;
+  background-color: #0085FF;
+  border: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+  width: 100%;
+}
+
+.form-bottom-margin {
+  margin-bottom: 15px;
 }
