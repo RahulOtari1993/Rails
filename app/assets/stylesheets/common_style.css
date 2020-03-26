@@ -15,3 +15,7 @@
 .lbl-uppercase {
   text-transform: uppercase;
 }
+
+.flash-top-margin {
+  margin-top: 10px;
+}

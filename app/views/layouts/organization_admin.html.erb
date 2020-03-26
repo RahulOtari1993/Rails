@@ -24,7 +24,11 @@
     <div class="container-fluid insight">
       <div class="row">
         <div class="col-md-12">
-          <%= render 'shared/flash_messages' %>
+          <div class="row flash-top-margin">
+            <div class="col-md-12">
+              <%= render 'shared/flash_messages' %>
+            </div>
+          </div>
 
           <%= yield %>
         </div>

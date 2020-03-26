@@ -121,4 +121,9 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  ## Check if User is organization Admin or Not
+  def organization_admin? organization
+    OrganizationAdmin.where(user_id: self.id, organization_id: organization.id).count > 0
+  end
 end

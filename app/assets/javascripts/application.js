@@ -17,3 +17,4 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require main
+//= require common_js
