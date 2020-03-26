@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
     unless @organization.present?
       # TODO: Org Not Found Page Redirection
-      flash[:error] = "Unknown Organization: #{request.subdomain}"
+      # flash[:error] = "Unknown Organization: #{request.subdomain}"
       # redirect_to(request.referrer || root_path)
     end
     # rescue ActiveRecord::RecordNotFound
