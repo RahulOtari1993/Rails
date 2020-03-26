@@ -45,13 +45,33 @@ class User < ApplicationRecord
   has_many :campaigns, through: :campaign_users
   has_many :submissions, dependent: :destroy
 
+  ## Password Validation Condition
+  PASSWORD_VALIDATOR = /(          # Start of group
+        (?:                        # Start of nonmatching group, 4 possible solutions
+          (?=.*[a-z])              # Must contain one lowercase character
+          (?=.*[A-Z])              # Must contain one uppercase character
+          (?=.*\W)                 # Must contain one non-word character or symbol
+        |                          # or...
+          (?=.*\d)                 # Must contain one digit from 0-9
+          (?=.*[A-Z])              # Must contain one uppercase character
+          (?=.*\W)                 # Must contain one non-word character or symbol
+        |                          # or...
+          (?=.*\d)                 # Must contain one digit from 0-9
+          (?=.*[a-z])              # Must contain one lowercase character
+          (?=.*\W)                 # Must contain one non-word character or symbol
+        |                          # or...
+          (?=.*\d)                 # Must contain one digit from 0-9
+          (?=.*[a-z])              # Must contain one lowercase character
+          (?=.*[A-Z])              # Must contain one uppercase character
+        )                          # End of nonmatching group with possible solutions
+        .*                         # Match anything with previous condition checking
+      )/x # End of group
+
   # Validations
   validates :first_name, :last_name, presence: true
   validates :organization_id, presence: true, if: :invited?
 
   # From Devise module Validatable
-  validates_presence_of :password, if: :password_required?
-
   validates_presence_of :email, if: :email_required?
 
   validates_uniqueness_of :email,
@@ -63,8 +83,18 @@ class User < ApplicationRecord
                       allow_blank: true,
                       if: :email_changed?
 
+  ## Password Validations
+  validates_presence_of :password, if: :password_required?
   validates_confirmation_of :password, if: :confirmation_password_required?
-  validates_length_of :password, within: 6..20, allow_blank: true
+  validates_length_of :password, within: 8..20, allow_blank: true, if: :password_required?
+  validate :password_complexity
+
+  def password_complexity
+    return if password.blank? || password =~ PASSWORD_VALIDATOR
+
+    errors.add :password,
+               'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol'
+  end
 
   ## Allow Only Active Users to Login
   def active_for_authentication?
@@ -72,7 +102,7 @@ class User < ApplicationRecord
   end
 
   def password_required?
-    self.confirmed? ? confirmation_password_required? : false
+    self.is_invited? ? (self.confirmed? ? confirmation_password_required? : false) : true
   end
 
   def confirmation_password_required?
