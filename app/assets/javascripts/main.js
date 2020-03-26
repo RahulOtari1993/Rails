@@ -39,22 +39,22 @@ $(document).ready(function() {
     rules: {
       'user[password]': {
         required: true,
-        minlength: 6
+        minlength: 8
       },
       'user[password_confirmation]': {
         required: true,
-        minlength: 6,
+        minlength: 8,
         equalTo: "#user_password"
       }
     },
     messages: {
       'user[password]': {
         required: 'Please enter new password',
-        minlength: 'Password is too short (minimum is 6 characters)'
+        minlength: 'Password is too short (minimum is 8 characters)'
       },
       'user[password_confirmation]': {
         required: 'Please enter new confirm password',
-        minlength: 'Password is too short (minimum is 6 characters)',
+        minlength: 'Password is too short (minimum is 8 characters)',
         equalTo: 'Confirm password do not match'
       }
     }
