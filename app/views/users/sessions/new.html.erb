@@ -6,16 +6,13 @@
       <div class="setup-info-module col-centered">
         <h2>Log in</h2>
 
-        <% if flash[:error] %>
-          <div style="color:red;">
-            <%= flash[:error] %>
-            <% flash[:error] = nil %>
-          </div>
-        <% end %>
-
         <ul class="features-list">
+          <% flash.each do |type, msg| %>
+            <div class="<%= flash_class(type) %>">
+              <%= msg %>
+            </div>
+          <% end %>
           <%= form_for(resource, as: resource_name, url: user_session_path, html: {class: 'login_form' } ) do |f| %>
-            <%= render "users/shared/error_messages", resource: resource %>
 
             <% if @organization.present? %>
               <%= hidden_field_tag 'user[role]', 'admin' %>
