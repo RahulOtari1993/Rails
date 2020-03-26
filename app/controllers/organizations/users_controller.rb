@@ -6,7 +6,7 @@ class Organizations::UsersController < ApplicationController
 
   ## List all Organization Admin Users
   def index
-    authorize current_user
+    authorize @organization, :list_admins?
     @organization_users = @organization.admins
   end
 

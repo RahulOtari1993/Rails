@@ -1,13 +1,12 @@
-class UserPolicy < ApplicationPolicy
+class OrganizationPolicy < ApplicationPolicy
   attr_reader :organization
 
-  def initialize(organization, user)
-    binding.pry
+  def initialize(user, organization)
     @organization = organization
     super(user, record)
   end
 
-  def index?
+  def list_admins?
     organization_admin?(organization)
   end
 end

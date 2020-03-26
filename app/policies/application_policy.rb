@@ -23,12 +23,6 @@ class ApplicationPolicy
   # @return [Boolean]
   #
   def organization_admin?(organization)
-    @_organization_admin ||= Hash.new do |hash, key|
-      hash[key] = organization.admins.exists?(user.id)
-    end
-
-    binding.pry
-
-    @_organization_admin[organization]
+    organization.admins.exists?(user.id)
   end
 end

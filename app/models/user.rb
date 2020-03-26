@@ -124,6 +124,6 @@ class User < ApplicationRecord
 
   ## Check if User is organization Admin or Not
   def organization_admin? organization
-    OrganizationAdmin.where(user_id: self.id, organization_id: organization.id).count > 0
+    organization.present? && OrganizationAdmin.where(user_id: self.id, organization_id: organization.id).count > 0
   end
 end
