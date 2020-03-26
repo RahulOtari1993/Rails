@@ -77,3 +77,6 @@ gem 'annotate'
 
 ## Front-end Validation
 gem 'jquery-validation-rails'
+
+## authorization
+gem 'pundit'
