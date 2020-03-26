@@ -7,11 +7,8 @@
         <h2>Log in</h2>
 
         <ul class="features-list">
-          <% flash.each do |type, msg| %>
-            <div class="<%= flash_class(type) %>">
-              <%= msg %>
-            </div>
-          <% end %>
+          <%= render 'shared/flash_messages' %>
+
           <%= form_for(resource, as: resource_name, url: user_session_path, html: {class: 'login_form' } ) do |f| %>
 
             <% if @organization.present? %>
