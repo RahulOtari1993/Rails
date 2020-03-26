@@ -19,4 +19,21 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('.forgot_password_form').validate({
+    rules: {
+      'user[email]': {
+        required: true,
+        email: true
+      }
+    },
+    messages: {
+      'user[email]': {
+        required: 'Please enter user email',
+        email: 'Please enter valid user email'
+      }
+    }
+  });
 });
+
+

@@ -19,7 +19,7 @@
         <% end %>
 
         <ul class="features-list">
-          <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :post}) do |f| %>
+          <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :post, class: 'forgot_password_form'}) do |f| %>
             <%= render "users/shared/error_messages", resource: resource %>
 
             <% if @organization.present? %>
@@ -31,7 +31,7 @@
             <% end %>
 
             <li>
-              <%= label_tag :email, 'Email' %>
+              <%= label_tag :email, 'Email', class: 'lbl-uppercase' %>
               <%= f.email_field :email, placeholder: 'Email', required: true %>
             </li>
 
