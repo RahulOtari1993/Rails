@@ -1,39 +1,4 @@
 class ApplicationPolicy
-  attr_reader :user, :record
-
-  def initialize(user, record)
-    @user = user
-    @record = record
-  end
-
-  def index?
-    false
-  end
-
-  def show?
-    false
-  end
-
-  def create?
-    false
-  end
-
-  def new?
-    create?
-  end
-
-  def update?
-    false
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    false
-  end
-
   class Scope
     attr_reader :user, :scope
 
@@ -45,5 +10,25 @@ class ApplicationPolicy
     def resolve
       scope.all
     end
+  end
+
+  attr_reader :user, :record
+
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
+
+  ##
+  # @return [Boolean]
+  #
+  def organization_admin?(organization)
+    @_organization_admin ||= Hash.new do |hash, key|
+      hash[key] = organization.admins.exists?(user.id)
+    end
+
+    binding.pry
+
+    @_organization_admin[organization]
   end
 end
