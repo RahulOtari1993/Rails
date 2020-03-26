@@ -1,0 +1,7 @@
+<% if @user.is_active == true %>
+$('.user-<%= @user.id %> > a').html('Deactivate').removeClass('btn-success').addClass('btn-warning')
+<% else %>
+$('.user-<%= @user.id %> > a').html('Activate').removeClass('btn-warning').addClass('btn-success')
+<% end %>
+
+$('.user-status-<%= @user.id %>').html('<%= @user.is_active? ? 'YES' : 'NO' %>')

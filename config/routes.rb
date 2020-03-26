@@ -18,7 +18,11 @@ Rails.application.routes.draw do
       registrations: 'organizations/invitations',
     }
 
-    resources :users, only: [:index]
+    resources :users, only: [:index] do
+      member do
+        patch :toggle_active_status
+      end
+    end
     resources :campaigns
   end
 

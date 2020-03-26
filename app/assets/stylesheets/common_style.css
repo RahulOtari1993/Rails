@@ -2,7 +2,7 @@
   color: #FF0000;
 }
 
-.btn-success, .btn-login {
+.btn-login {
   transition: all ease .3s;
   background-color: #0085FF;
   border: none;
@@ -18,4 +18,8 @@
 
 .flash-top-margin {
   margin-top: 10px;
+}
+
+.btn-action {
+  width: 75px;
 }
