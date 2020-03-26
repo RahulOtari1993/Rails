@@ -1,18 +1,26 @@
 class Organizations::InvitationsController < Devise::RegistrationsController
-  layout 'organization_admin'
-
   before_action :authenticate_user!
   before_action :configure_sign_up_params, only: [:create]
+
+  layout 'organization_admin'
 
   def index
   end
 
   def new
-    super
+    if current_user.present?
+      super
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def create
-    super
+    if current_user.present?
+      super
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   protected
