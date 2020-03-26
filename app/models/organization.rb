@@ -16,7 +16,7 @@ class Organization < ApplicationRecord
   ## Associations
   has_many :users, dependent: :destroy
   has_many :organization_admins, dependent: :destroy
-  has_many :campaigns, dependent: :destroy
+  has_many :admins, through: :organization_admins, class_name: 'User', foreign_key: 'user_id'
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true
@@ -27,7 +27,3 @@ class Organization < ApplicationRecord
   scope :active, -> { where(is_active: true) }
 
 end
-
-# rails g model Submission user:references campaign:references submissible_id:integer submissible_type:string
-# image_content_type:string selection:string start:datetime finish:datetime feature:boolean points:integer redeption_details:text description_details:text terms_conditions:text sweepstake_entry:integer
-

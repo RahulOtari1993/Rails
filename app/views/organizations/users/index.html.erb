@@ -18,40 +18,25 @@
           <th>IS ACTIVE</th>
           <th>ACTIONS</th>
         </tr>
-        <tr>
-          <td>
-            First
-          </td>
-          <td>
-            User
-          </td>
-          <td>
-            first_user@yopmail.com
-          </td>
-          <td>
-            YES
-          </td>
-          <td>
-            <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Second
-          </td>
-          <td>
-            User
-          </td>
-          <td>
-            second_user@yopmail.com
-          </td>
-          <td>
-            NO
-          </td>
-          <td>
-            <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
-          </td>
-        </tr>
+        <% @organization_users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.first_name %>
+            </td>
+            <td>
+              <%= user.last_name %>
+            </td>
+            <td>
+              <%= user.email %>
+            </td>
+            <td>
+              <%= user.is_active? ? 'YES' : 'NO' %>
+            </td>
+            <td>
+              <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
+            </td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>

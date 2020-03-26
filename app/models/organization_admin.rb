@@ -10,7 +10,7 @@
 #
 class OrganizationAdmin < ApplicationRecord
   ## Associations
-  belongs_to :user
+  belongs_to :admin, class_name: 'User', foreign_key: 'user_id'
   belongs_to :organization
 
   validates_uniqueness_of :user_id, :scope => :organization_id

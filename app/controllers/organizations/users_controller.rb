@@ -4,5 +4,6 @@ class Organizations::UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @organization_users = @organization.admins
   end
 end
