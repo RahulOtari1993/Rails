@@ -35,15 +35,22 @@ $(document).ready(function() {
     }
   });
 
+  // Password Complexity Validaton Added
+  $.validator.addMethod('passwordRegex', function (value) {
+    return /((?:(?=.*[a-z])(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[A-Z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*\W)|(?=.*\d)(?=.*[a-z])(?=.*[A-Z])).*)/.test(value);
+  }, 'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol');
+
   $('.reset_password_form').validate({
     rules: {
       'user[password]': {
         required: true,
-        minlength: 8
+        minlength: 8,
+        passwordRegex: true
       },
       'user[password_confirmation]': {
         required: true,
         minlength: 8,
+        passwordRegex: true,
         equalTo: "#user_password"
       }
     },
@@ -60,5 +67,3 @@ $(document).ready(function() {
     }
   });
 });
-
-
