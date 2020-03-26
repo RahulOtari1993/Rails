@@ -63,9 +63,17 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+## JQuery
+gem 'jquery-rails'
+
 ## Authentication
 gem 'devise'
 
 ## Admin Panel
 gem 'activeadmin'
+
+## Annotate Models with Schema
 gem 'annotate'
+
+## Front-end Validation
+gem 'jquery-validation-rails'
