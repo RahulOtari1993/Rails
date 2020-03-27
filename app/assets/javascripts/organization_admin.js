@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  // Invite Organization Admin Form Validation
   $('#new_organizations_user').validate({
     rules: {
       'organizations_user[first_name]': {
@@ -26,6 +27,7 @@ $(document).ready(function() {
     }
   });
 
+  // Add Campaign Form Validation
   $('.add-campaign-form').validate({
     rules: {
       'campaign[name]': {
