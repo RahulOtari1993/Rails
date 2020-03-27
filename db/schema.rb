@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
 
   create_table "campaigns", force: :cascade do |t|
     t.bigint "organization_id"
-    t.string "name"
-    t.string "domain"
+    t.string "name", null: false
+    t.string "domain", null: false
     t.string "twitter"
     t.text "rules"
     t.text "privacy"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
     t.text "how_to_earn_content"
     t.text "css"
     t.text "seo"
-    t.boolean "is_active"
+    t.boolean "is_active", default: true
     t.text "template"
     t.boolean "templated"
     t.datetime "created_at", null: false
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
     t.inet "last_sign_in_ip"
     t.string "first_name"
     t.string "last_name"
-    t.boolean "is_active", default: true, null: false
+    t.boolean "is_active", default: false, null: false
     t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
     t.integer "organization_id"

@@ -1,0 +1,21 @@
+<%= form_with(url: '/organizations/campaigns', method: 'post', class: 'manage-stock-form', model: campaign, local: true) do |form| %>
+  <% if campaign.errors.any? %>
+    <%= render '/shared/render_errors', resource: campaign %>
+  <% end %>
+
+  <div class="field form-bottom-margin">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <%= form.hidden_field :organization_id, value: @organization.id %>
+
+  <div class="field form-bottom-margin">
+    <%= form.label :domain %>
+    <%= form.text_field :domain %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Save", class: 'btn btn-login' %>
+  </div>
+<% end %>

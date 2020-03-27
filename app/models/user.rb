@@ -40,7 +40,7 @@ class User < ApplicationRecord
 
   ## Associations
   belongs_to :organization, optional: true
-  has_one :organization_admin
+  has_one :organization_admin, dependent: :destroy
   has_many :campaign_users, dependent: :destroy
   has_many :campaigns, through: :campaign_users
   has_many :submissions, dependent: :destroy

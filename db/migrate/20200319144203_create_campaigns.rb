@@ -2,8 +2,8 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
   def change
     create_table :campaigns do |t|
       t.references :organization, foreign_key: true
-      t.string :name
-      t.string :domain
+      t.string :name, null: false
+      t.string :domain, null: false
       t.string :twitter
       t.text :rules
       t.text :privacy
@@ -17,7 +17,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.text :how_to_earn_content
       t.text :css
       t.text :seo
-      t.boolean :is_active
+      t.boolean :is_active, default: true
       t.text :template
       t.boolean :templated
 

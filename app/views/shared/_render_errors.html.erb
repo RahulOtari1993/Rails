@@ -1,0 +1,8 @@
+<div id="error_explanation" class="<%= flash_class('alert') %>">
+  <ul>
+    <button type="button" class="close flash-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <% resource.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
