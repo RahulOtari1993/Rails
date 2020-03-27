@@ -23,7 +23,11 @@ Rails.application.routes.draw do
         patch :toggle_active_status
       end
     end
-    resources :campaigns
+    resources :campaigns, only: [:index, :new, :create] do
+      member do
+        patch :deactivate
+      end
+    end
   end
 
   ## Root Route

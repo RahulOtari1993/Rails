@@ -2,11 +2,12 @@ class Organizations::CampaignsController < ApplicationController
   layout 'organization_admin'
 
   before_action :authenticate_user!
+  before_action :set_campaign, only: :deactivate
 
   ## List all Organization Campaigns
   def index
     authorize @organization, :list_campaigns?
-    @organization_users = @organization.campaigns
+    @campaigns = @organization.campaigns
   end
 
   def new
@@ -27,10 +28,18 @@ class Organizations::CampaignsController < ApplicationController
     end
   end
 
+  def deactivate
+    @campaign.update(is_active: false) if @campaign.present?
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
     params.require(:campaign).permit(:name, :domain, :organization_id)
+  end
+
+  def set_campaign
+    @campaign = Campaign.where(id: params[:id]).first
   end
 end

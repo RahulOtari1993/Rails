@@ -14,71 +14,49 @@
         <tr>
           <th>CREATED AT</th>
           <th>CAMPAIGN NAME</th>
+          <th>DOMAIN</th>
           <th>MEMBERS</th>
           <th>CHALLENGES/COMPLETED</th>
           <th>PRIZES/AWARDED</th>
           <th>DEACTIVATE</th>
         </tr>
-        <tr>
-          <td style="color:#888;">
-            February 27, 2020
-          </td>
-          <td>
-            <a href="javascript:void(0);">Buckeye Nation Rewards</a>
-          </td>
-          <td style="color:#888;">
-            1
-          </td>
-          <td style="color:#888;">
-            5
-          </td>
-          <td style="color:#888;">
-            3
-          </td>
-          <td>
-            <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:#888;">
-            March 21, 2020
-          </td>
-          <td>
-            <a href="javascript:void(0);">Ohio State University</a>
-          </td>
-          <td style="color:#888;">
-            2
-          </td>
-          <td style="color:#888;">
-            7
-          </td>
-          <td style="color:#888;">
-            5
-          </td>
-          <td>
-            <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
-          </td>
-        </tr>
-        <tr>
-          <td style="color:#888;">
-            January 18, 2020
-          </td>
-          <td>
-            <a href="javascript:void(0);">Sonic Nation Rewards</a>
-          </td>
-          <td style="color:#888;">
-            2
-          </td>
-          <td style="color:#888;">
-            6
-          </td>
-          <td style="color:#888;">
-            5
-          </td>
-          <td>
-            <a data-confirm="Are you sure you want to de-activate this campaign? This cannont be brought back." href="javascript:void(0);">Deactivate</a>
-          </td>
-        </tr>
+        <% @campaigns.each do |campaign| %>
+          <tr>
+            <td style="color:#888;">
+              <%= campaign.created_at.strftime("%B %d, %Y") %>
+            </td>
+            <td class="campaign-<%= campaign.id %>-link">
+              <% if campaign.is_active  %>
+                <a href="javascript:void(0);"><%= campaign.name %></a>
+              <% else %>
+                <%= campaign.name %>
+              <% end %>
+            </td>
+            <td style="color:#888;">
+              <%= campaign.domain %>
+            </td>
+            <td style="color:#888;">
+              1
+            </td>
+            <td style="color:#888;">
+              5
+            </td>
+            <td style="color:#888;">
+              3
+            </td>
+            <td class="campaign-<%= campaign.id %>-action">
+              <% if campaign.is_active  %>
+                <%= link_to "Deactivate",
+                            deactivate_organizations_campaign_path(campaign.id), method: :patch, remote: :true,
+                            class: "btn btn-xs btn-action btn-warning",
+                            data: {confirm: "Are you sure you want to de-activate this campaign? This cannot be brought back." } %>
+              <% else %>
+                DEACTIVATED
+              <% end %>
+
+            </td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>

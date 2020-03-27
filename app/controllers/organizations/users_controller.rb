@@ -12,7 +12,7 @@ class Organizations::UsersController < ApplicationController
 
   ## Active / De-active a Organization Admin User
   def toggle_active_status
-    @user.toggle!(:is_active)
+    @user.toggle!(:is_active) if @user.present?
   end
 
   protected
