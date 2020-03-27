@@ -25,4 +25,23 @@ $(document).ready(function() {
       }
     }
   });
+
+  $('.add-campaign-form').validate({
+    rules: {
+      'campaign[name]': {
+        required: true
+      },
+      'campaign[domain]': {
+        required: true
+      }
+    },
+    messages: {
+      'campaign[name]': {
+        required: 'Please enter campaign name'
+      },
+      'campaign[domain]': {
+        required: 'Please enter campaign domain'
+      }
+    }
+  });
 });
