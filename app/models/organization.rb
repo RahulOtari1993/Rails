@@ -17,6 +17,7 @@ class Organization < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :organization_admins, dependent: :destroy
   has_many :admins, through: :organization_admins, class_name: 'User', foreign_key: 'user_id'
+  has_many :campaigns, dependent: :destroy
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true

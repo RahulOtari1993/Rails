@@ -9,4 +9,8 @@ class OrganizationPolicy < ApplicationPolicy
   def list_admins?
     organization_admin?(organization)
   end
+
+  def list_campaigns?
+    organization_admin?(organization)
+  end
 end
