@@ -33,6 +33,9 @@ class Campaign < ApplicationRecord
   has_many :campaign_users, dependent: :destroy
   has_many :users, through: :campaign_users
   has_many :submissions, dependent: :destroy
+  has_one  :domain_list, dependent: :destroy
+
+  enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Validations
   validates :name, :domain, :organization_id, presence: true

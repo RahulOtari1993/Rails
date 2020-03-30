@@ -4,6 +4,7 @@ class CreateCampaigns < ActiveRecord::Migration[5.2]
       t.references :organization, foreign_key: true
       t.string :name, null: false
       t.string :domain, null: false
+      t.integer :domain_type, null: false
       t.string :twitter
       t.text :rules
       t.text :privacy

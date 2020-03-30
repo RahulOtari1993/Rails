@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_174403) do
+ActiveRecord::Schema.define(version: 2020_03_30_071012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
     t.bigint "organization_id"
     t.string "name", null: false
     t.string "domain", null: false
+    t.integer "domain_type", null: false
     t.string "twitter"
     t.text "rules"
     t.text "privacy"
@@ -98,6 +99,18 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_coupons_on_reward_id"
+  end
+
+  create_table "domain_lists", force: :cascade do |t|
+    t.string "domain"
+    t.bigint "organization_id"
+    t.bigint "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id", "organization_id"], name: "index_domain_lists_on_campaign_id_and_organization_id", unique: true
+    t.index ["campaign_id"], name: "index_domain_lists_on_campaign_id"
+    t.index ["domain"], name: "index_domain_lists_on_domain", unique: true
+    t.index ["organization_id"], name: "index_domain_lists_on_organization_id"
   end
 
   create_table "organization_admins", force: :cascade do |t|
@@ -191,6 +204,8 @@ ActiveRecord::Schema.define(version: 2020_03_19_174403) do
   add_foreign_key "campaigns", "organizations"
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
+  add_foreign_key "domain_lists", "campaigns"
+  add_foreign_key "domain_lists", "organizations"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"
