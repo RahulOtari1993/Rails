@@ -30,6 +30,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :campaigns do
+    get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+  end
+
   ## Root Route
   root to: "welcome#index"
 end
