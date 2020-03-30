@@ -39,14 +39,20 @@ class Campaign < ApplicationRecord
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
-  validates :domain, uniqueness: true
+  validate :domain_uniqueness
 
-  # validate :domain_uniqueness
-  #
-  # def domain_uniqueness
-  #
-  #
-  #   errors.add :password,
-  #              'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol'
-  # end
+  ## Check Domain Uniqness
+  def domain_uniqueness
+    org = self.organization
+    if domain_type == 'sub_domain'
+      sub_domain = "#{org.sub_domain}.#{domain}"
+    else
+      sub_domain = "#{org.sub_domain}#{domain}"
+    end
+
+    domain_list = DomainList.where(domain: sub_domain)
+    if domain_list.present?
+      errors.add :domain, ' is already occupied, Please try other one'
+    end
+  end
 end
