@@ -41,7 +41,7 @@ class Campaign < ApplicationRecord
   validates :name, :domain, :organization_id, :domain_type, presence: true
   validate :domain_uniqueness
 
-  ## Check Domain Uniqness
+  ## Check Domain Uniqueness
   def domain_uniqueness
     org = self.organization
     if domain_type == 'sub_domain'
@@ -50,7 +50,12 @@ class Campaign < ApplicationRecord
       sub_domain = "#{org.sub_domain}#{domain}"
     end
 
-    domain_list = DomainList.where(domain: sub_domain)
+    if self.new_record?
+      domain_list = DomainList.where(domain: sub_domain)
+    else
+      domain_list = DomainList.where(domain: sub_domain).where.not(campaign_id: self.id)
+    end
+
     if domain_list.present?
       errors.add :domain, ' is already occupied, Please try other one'
     end
