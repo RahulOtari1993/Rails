@@ -35,6 +35,9 @@ $(document).ready(function() {
       },
       'campaign[domain]': {
         required: true
+      },
+      'campaign[domain_type]': {
+        required: true
       }
     },
     messages: {
@@ -43,6 +46,9 @@ $(document).ready(function() {
       },
       'campaign[domain]': {
         required: 'Please enter campaign domain'
+      },
+      'campaign[domain_type]': {
+        required: 'Please select domain type'
       }
     }
   });
