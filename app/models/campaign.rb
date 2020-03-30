@@ -39,6 +39,10 @@ class Campaign < ApplicationRecord
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
+  validates_exclusion_of :domain, in: Organization::EXCLUDED_SUBDOMAINS,
+                         message: "is not allowed. Please choose another domain"
+  validates_format_of :domain, with: Organization::DOMAIN_PATTERN,
+                      message: "is not allowed. Please choose another subdomain."
   validate :domain_uniqueness
 
   ## Check Domain Uniqueness

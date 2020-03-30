@@ -13,6 +13,13 @@
 #  updated_at    :datetime         not null
 #
 class Organization < ApplicationRecord
+
+  ## Sub Domains that user will not be able to use for their organization
+  EXCLUDED_SUBDOMAINS = %w(admin admins administrator www http https owner)
+
+  ## Sub Domain Pattern
+  DOMAIN_PATTERN = /\A[\w\-]+\Z/i
+
   ## Associations
   has_many :users, dependent: :destroy
   has_many :organization_admins, dependent: :destroy
@@ -23,6 +30,10 @@ class Organization < ApplicationRecord
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true
   validates :sub_domain, uniqueness: true
+  validates_exclusion_of :sub_domain, in: EXCLUDED_SUBDOMAINS,
+                         message: "is not allowed. Please choose another sub domain"
+  validates_format_of :domain, with: DOMAIN_PATTERN,
+                      message: "is not allowed. Please choose another subdomain."
   validate :domain_uniqueness, on: :update
 
   ## Check Domain Uniqueness while Changing Organization Sub Domain
