@@ -15,6 +15,15 @@
     <%= form.text_field :domain %>
   </div>
 
+  <div class="field form-bottom-margin">
+    <%= form.label :domain_type, 'Domain type' %>
+    <%= form.select :domain_type,
+                    options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
+                    {prompt: 'Select Domain Type'},
+                    {class: 'form-control domain_type_id'} %>
+
+  </div>
+
   <div class="actions">
     <%= form.submit "Save", class: 'btn btn-login' %>
   </div>

@@ -38,6 +38,15 @@ class Campaign < ApplicationRecord
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Validations
-  validates :name, :domain, :organization_id, presence: true
+  validates :name, :domain, :organization_id, :domain_type, presence: true
   validates :domain, uniqueness: true
+
+  # validate :domain_uniqueness
+  #
+  # def domain_uniqueness
+  #
+  #
+  #   errors.add :password,
+  #              'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol'
+  # end
 end
