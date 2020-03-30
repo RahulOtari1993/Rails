@@ -10,7 +10,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def set_organization
-    @organization ||= Organization.where(sub_domain: request.subdomain).first
+    # @organization ||= Organization.where(sub_domain: request.subdomain).first
+
+    @domain = DomainList.where(domain: request.subdomain).first
+
+    if @domain.present?
+      @organization = Organization.where(id: @domain.organization_id).first
+      @campaign = Campaign.where(id: @domain.campaign_id).first
+    else
+      # binding.pry
+      @organization = Organization.where(sub_domain: request.subdomain).first
+    end
 
     unless @organization.present?
       # TODO: Org Not Found Page Redirection
