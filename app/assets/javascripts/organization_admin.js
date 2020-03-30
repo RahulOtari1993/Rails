@@ -34,7 +34,8 @@ $(document).ready(function() {
         required: true
       },
       'campaign[domain]': {
-        required: true
+        required: true,
+        domainRegex: true
       },
       'campaign[domain_type]': {
         required: true

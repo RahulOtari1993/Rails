@@ -33,7 +33,7 @@ class Organization < ApplicationRecord
   validates_exclusion_of :sub_domain, in: EXCLUDED_SUBDOMAINS,
                          message: "is not allowed. Please choose another sub domain"
   validates_format_of :domain, with: DOMAIN_PATTERN,
-                      message: "is not allowed. Please choose another subdomain."
+                      message: "is not allowed. Please choose another sub domain."
   validate :domain_uniqueness, on: :update
 
   ## Check Domain Uniqueness while Changing Organization Sub Domain

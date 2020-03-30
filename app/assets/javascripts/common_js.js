@@ -8,4 +8,9 @@ $(document).ready(function(){
   $('body').delegate('.flash-close', 'click', function (e) {
     $('.alert').fadeOut();
   });
+
+  // Domain Name Validation
+  $.validator.addMethod('domainRegex', function (value) {
+    return /^[\w\-]+$/.test(value);
+  }, 'Domain is not allowed. Please choose another subdomain.');
 });
