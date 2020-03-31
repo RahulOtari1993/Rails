@@ -58,7 +58,6 @@ ActiveAdmin.register Organization do
     end
 
     def destroy
-      binding.pry
       resource.update!(is_deleted: true, deleted_by: current_admin_user.id)
       redirect_to onboarding_organizations_path
     end

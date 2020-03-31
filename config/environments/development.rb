@@ -74,6 +74,6 @@ Rails.application.configure do
     :authentication => :login
   }
 
-  ## Load Libs
+  # # Load Libs
   # config.enable_dependency_loading = true
 end

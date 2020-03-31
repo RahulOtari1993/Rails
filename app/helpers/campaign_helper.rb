@@ -4,7 +4,7 @@ module CampaignHelper
     domain = DomainList.where(campaign_id: campaign.id).first
 
     if Rails.env == 'development'
-      url = "#{domain.domain}.#{request.domain}:3000/campaigns/dashboard"
+      url = "http://#{domain.domain}.#{request.domain}:3000/campaigns/dashboard"
     else
       url ="#{domain.domain}.#{request.domain}/campaigns/dashboard"
     end

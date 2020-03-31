@@ -21,12 +21,12 @@
 
             <li>
               <%= f.label :email, 'Email', class: 'lbl-uppercase' %>
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, value: 'first_user@yopmail.com' %>
             </li>
 
             <li>
               <%= f.label :password, 'Password', class: 'lbl-uppercase' %>
-              <%= f.password_field :password, autocomplete: "current-password", required: true %>
+              <%= f.password_field :password, autocomplete: "current-password", required: true, value: 'Demo12309#' %>
             </li>
 
             <%# if devise_mapping.rememberable? %>

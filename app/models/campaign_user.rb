@@ -13,4 +13,6 @@ class CampaignUser < ApplicationRecord
   ## Associations
   belongs_to :user
   belongs_to :campaign
+
+  enum role: [:participant, :admin]
 end

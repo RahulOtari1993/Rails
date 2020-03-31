@@ -1,12 +1,15 @@
-module Devise
-  module Strategies
+require 'devise/strategies/authenticatable'
 
+module Devise
+  module Models
+    module DatabaseAuthenticatableForAdmin
+      extend ActiveSupport::Concern
+    end
+  end
+
+  module Strategies
     class DatabaseAuthenticatableForAdmin < Authenticatable
 
-      # This code is mostly copied from Devise, but except the authentication of devise
-      # the class includes this module should define a method 'custom_validate(resource)' to
-      # provide other validates, for example if the resource is admin, or if th resource is
-      # an owner of a merchant etc..
       def authenticate!
         resource  = valid_password? && mapping.to.find_for_database_authentication(authentication_hash)
         encrypted = false
@@ -25,8 +28,8 @@ module Devise
       def custom_validate(resource)
         if is_admin_user?(resource)
           has_access = check_subdomain_access(resource)
-          return false unless has_access
-          merchant.owner?(resource)
+          # binding.pry
+          has_access
         else
           true
         end
@@ -45,7 +48,7 @@ module Devise
 
         if @organization.present?
           if @campaign.present?
-            camp_user = CampaignUser.where.not(role: 'participent').where(campaign_id: @campaign.id, user_id: resource.id).first
+            camp_user = CampaignUser.where.not(role: 0).where(campaign_id: @campaign.id, user_id: resource.id).first
             if camp_user
               return true
             else
