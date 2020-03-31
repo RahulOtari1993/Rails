@@ -1,39 +1,42 @@
 Rails.application.routes.draw do
 
   ## Routes for Admin Users
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  constraints(Constraints::SubdomainNotRequired) do
+    devise_for :admin_users, ActiveAdmin::Devise.config
+    ActiveAdmin.routes(self)
+  end
 
-  ## Routes for Users
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    sessions: 'users/sessions',
-    passwords: 'users/passwords',
-    confirmations: 'users/confirmations',
-  }
-
-  namespace :organizations do
+  constraints(Constraints::SubdomainRequired) do
+    ## Routes for Users
     devise_for :users, controllers: {
-      registrations: 'organizations/invitations',
+      registrations: 'users/registrations',
+      sessions: 'users/sessions',
+      passwords: 'users/passwords',
+      confirmations: 'users/confirmations',
     }
 
-    resources :users, only: [:index] do
-      member do
-        patch :toggle_active_status
+    namespace :organizations do
+      devise_for :users, controllers: {
+        registrations: 'organizations/invitations',
+      }
+
+      resources :users, only: [:index] do
+        member do
+          patch :toggle_active_status
+        end
+      end
+      resources :campaigns, only: [:index, :new, :create] do
+        member do
+          patch :deactivate
+        end
       end
     end
-    resources :campaigns, only: [:index, :new, :create] do
-      member do
-        patch :deactivate
-      end
+
+    namespace :campaigns do
+      get '/dashboard', to: 'dashboard#index', as: 'dashboard'
     end
-  end
 
-  namespace :campaigns do
-    get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+    ## Root Route
+    root to: "welcome#index"
   end
-
-  ## Root Route
-  root to: "welcome#index"
 end

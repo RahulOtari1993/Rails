@@ -7,7 +7,7 @@ Rails.application.configure do
   config.cache_classes = false
 
   # Do not eager load code on boot.
-  config.eager_load = false
+  config.eager_load = true
 
   # Show full error reports.
   config.consider_all_requests_local = true
@@ -73,4 +73,7 @@ Rails.application.configure do
     :port           => 587,
     :authentication => :login
   }
+
+  ## Load Libs
+  # config.enable_dependency_loading = true
 end
