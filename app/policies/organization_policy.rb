@@ -11,6 +11,6 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def list_campaigns?
-    organization_admin?(organization)
+    organization_admin?(organization) || multiple_campaigns?(organization)
   end
 end

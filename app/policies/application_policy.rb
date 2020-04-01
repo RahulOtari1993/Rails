@@ -25,4 +25,13 @@ class ApplicationPolicy
   def organization_admin?(organization)
     organization.admins.exists?(user.id)
   end
+
+  ##
+  # @return [Boolean]
+  #
+  def multiple_campaigns?(organization)
+    records = user.campaign_users organization
+
+    records.count > 1
+  end
 end

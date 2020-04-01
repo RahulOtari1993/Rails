@@ -128,9 +128,8 @@ class User < ApplicationRecord
     organization.present? && OrganizationAdmin.where(user_id: self.id, organization_id: organization.id).count > 0
   end
 
-  ##
+  ## Get Campaign User for an Organization
   def campaign_users organization
-    organization.present? &&
       CampaignUser.joins(:campaign).where(campaigns: {organization_id: organization.id, is_active: true},
                                           campaign_users: {user_id: self.id}).where.not(campaign_users: {role: 0})
   end
