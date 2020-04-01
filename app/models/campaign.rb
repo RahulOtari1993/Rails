@@ -37,6 +37,9 @@ class Campaign < ApplicationRecord
 
   enum domain_type: [:sub_domain, :include_in_domain]
 
+  ## Callbacks
+  after_create :assign_admins
+
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
   validates_exclusion_of :domain, in: Organization::EXCLUDED_SUBDOMAINS,
@@ -62,6 +65,13 @@ class Campaign < ApplicationRecord
 
     if domain_list.present?
       errors.add :domain, ' is already occupied, Please try other one'
+    end
+  end
+
+  ## Assign Admins to a Newly Created Campaign
+  def assign_admins
+    self.organization.admins.each do |admin|
+      self.campaign_users.create(user_id: admin.id, role: 1)
     end
   end
 end
