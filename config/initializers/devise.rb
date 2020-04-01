@@ -3,99 +3,15 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-
-  # Warden::Strategies.add(:custom_strategy_name) do
-  #   def valid?
-  #     # code here to check whether to try and authenticate using this strategy;
-  #     return true
-  #   end
-  #
-  #   def authenticate!
-  #     esource  = valid_password? && mapping.to.find_for_database_authentication(authentication_hash)
-  #     encrypted = false
-  #
-  #     binding.pry
-  #
-  #     if validate(resource){ encrypted = true; resource.valid_password?(password) } &&
-  #       custom_validate(resource)
-  #       resource.after_database_authentication
-  #       success!(resource)
-  #     else
-  #       mapping.to.new.password = password if !encrypted && Devise.paranoid
-  #       fail(:not_found_in_database)
-  #       halt!
-  #     end
-  #   end
-  #
-  #   def custom_validate(resource)
-  #     if is_admin_user?(resource)
-  #       has_access = check_subdomain_access(resource)
-  #       binding.pry
-  #       has_access
-  #     else
-  #       true
-  #     end
-  #   end
-  #
-  #   def check_subdomain_access(resource)
-  #     @domain = DomainList.where(domain: request.subdomain).first
-  #     @campaign = nil
-  #
-  #     binding.pry
-  #     if @domain.present?
-  #       @organization = Organization.where(id: @domain.organization_id).first
-  #       @campaign = Campaign.where(id: @domain.campaign_id).first
-  #     else
-  #       @organization = Organization.where(sub_domain: request.subdomain).first
-  #     end
-  #
-  #     binding.pry
-  #
-  #     if @organization.present?
-  #       if @campaign.present?
-  #         camp_user = CampaignUser.where.not(role: 0).where(campaign_id: @campaign.id, user_id: resource.id).first
-  #         binding.pry
-  #         if camp_user
-  #           return true
-  #         else
-  #           return false
-  #         end
-  #       end
-  #       @org_admin = OrganizationAdmin.where(organization_id: @organization.id, user_id: resource.id).first
-  #
-  #       binding.pry
-  #       if @org_admin.present?
-  #         return true
-  #       else
-  #         return false
-  #       end
-  #     else
-  #       return false
-  #     end
-  #   end
-  #
-  #   def is_admin_user?(resource)
-  #     return resource.role == 'admin'
-  #   end
-  #
-  # end
   require 'devise/strategies/database_authenticatable_for_admin'
 
   config.warden do |manager|
     Warden::Strategies.add(:database_authenticatable_for_admin,
                            Devise::Strategies::DatabaseAuthenticatableForAdmin)
 
-    # manager.default_strategies.unshift :database_authenticatable_for_admin
-
     manager.default_strategies(:scope => :user).delete :database_authenticatable
     manager.default_strategies(:scope => :user).push :database_authenticatable_for_admin
   end
-
-  config.add_module(:database_authenticatable_for_admin,
-             route: :session, ## This will add the routes, rather than in the routes.rb
-             strategy: true,
-             controller: :sessions,
-             model: "database_authenticatable_for_admin")
 
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing

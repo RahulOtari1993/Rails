@@ -32,8 +32,10 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :campaigns do
-      get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+    resources :campaigns, only: [:show] do
+      scope :module => 'campaigns' do
+        get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+      end
     end
 
     ## Root Route

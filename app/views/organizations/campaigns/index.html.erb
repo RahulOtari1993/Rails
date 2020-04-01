@@ -27,7 +27,7 @@
             </td>
             <td class="campaign-<%= campaign.id %>-link">
               <% if campaign.is_active  %>
-                <a href="<%= campaign_route campaign %>"><%= campaign.name %></a>
+                <a href="<%= campaign_dashboard_path(campaign) %>"><%= campaign.name %></a>
               <% else %>
                 <%= campaign.name %>
               <% end %>

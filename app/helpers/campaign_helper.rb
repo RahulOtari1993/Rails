@@ -3,10 +3,16 @@ module CampaignHelper
   def campaign_route campaign
     domain = DomainList.where(campaign_id: campaign.id).first
 
+    # if Rails.env == 'development'
+    #   url = "http://#{domain.domain}.#{request.domain}:3000/campaigns/dashboard"
+    # else
+    #   url ="#{domain.domain}.#{request.domain}/campaigns/dashboard"
+    # end
+
     if Rails.env == 'development'
-      url = "http://#{domain.domain}.#{request.domain}:3000/campaigns/dashboard"
+      url = "http://#{domain.domain}.#{request.domain}:3000/campaigns"
     else
-      url ="#{domain.domain}.#{request.domain}/campaigns/dashboard"
+      url ="#{domain.domain}.#{request.domain}/campaigns"
     end
 
     url
