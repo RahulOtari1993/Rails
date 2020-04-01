@@ -1,4 +1,4 @@
-class Organizations::CampaignsController < ApplicationController
+class Admin::Organizations::CampaignsController < ApplicationController
   layout 'organization_admin'
 
   before_action :authenticate_user!
@@ -28,7 +28,7 @@ class Organizations::CampaignsController < ApplicationController
         @domain_list = DomainList.new({domain: sub_domain, organization_id: @organization.id, campaign_id: @campaign.id})
 
         if @domain_list.save
-          format.html { redirect_to organizations_campaigns_path, notice: 'Campaign was successfully created.' }
+          format.html { redirect_to admin_organizations_campaigns_path, notice: 'Campaign was successfully created.' }
           format.json { render :show, status: :created }
         else
           format.html { render :new }

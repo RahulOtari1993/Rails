@@ -1,4 +1,4 @@
-<%= form_with(url: '/organizations/campaigns', method: 'post', class: 'add-campaign-form', model: campaign, local: true) do |form| %>
+<%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-campaign-form', model: campaign, local: true) do |form| %>
   <% if campaign.errors.any? %>
     <%= render '/shared/render_errors', resource: campaign %>
   <% end %>

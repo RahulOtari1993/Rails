@@ -15,26 +15,28 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations',
     }
 
-    namespace :organizations do
-      devise_for :users, controllers: {
-        registrations: 'organizations/invitations',
-      }
+    namespace :admin do
+      namespace :organizations do
+        devise_for :users, controllers: {
+          registrations: 'admin/organizations/invitations',
+        }
 
-      resources :users, only: [:index] do
-        member do
-          patch :toggle_active_status
+        resources :users, only: [:index] do
+          member do
+            patch :toggle_active_status
+          end
+        end
+        resources :campaigns, only: [:index, :new, :create] do
+          member do
+            patch :deactivate
+          end
         end
       end
-      resources :campaigns, only: [:index, :new, :create] do
-        member do
-          patch :deactivate
-        end
-      end
-    end
 
-    resources :campaigns, only: [:show] do
       scope :module => 'campaigns' do
-        get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+        resources :campaigns, only: [:show] do
+          get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+        end
       end
     end
 

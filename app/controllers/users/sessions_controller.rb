@@ -20,7 +20,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def after_sign_in_path_for(resource)
     if resource.organization_admin?(@organization) #resource.is_invited?
-      organizations_campaigns_path
+      admin_organizations_campaigns_path
     else
       root_url
     end

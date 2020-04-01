@@ -1,4 +1,4 @@
-class Organizations::UsersController < ApplicationController
+class Admin::Organizations::UsersController < ApplicationController
   layout 'organization_admin'
 
   before_action :authenticate_user!

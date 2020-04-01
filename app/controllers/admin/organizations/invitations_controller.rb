@@ -1,4 +1,4 @@
-class Organizations::InvitationsController < Devise::RegistrationsController
+class Admin::Organizations::InvitationsController < Devise::RegistrationsController
   before_action :authenticate_user!
   before_action :configure_sign_up_params, only: [:create]
 
@@ -31,6 +31,6 @@ class Organizations::InvitationsController < Devise::RegistrationsController
   end
 
   def after_inactive_sign_up_path_for(resource)
-    organizations_users_path
+    admin_organizations_users_path
   end
 end
