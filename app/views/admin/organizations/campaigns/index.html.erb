@@ -16,7 +16,9 @@
           <th>MEMBERS</th>
           <th>CHALLENGES/COMPLETED</th>
           <th>PRIZES/AWARDED</th>
-          <th>DEACTIVATE</th>
+          <% if @is_admin %>
+            <th>DEACTIVATE</th>
+          <% end %>
         </tr>
         <% @campaigns.each do |campaign| %>
           <tr>
@@ -42,7 +44,8 @@
             <td style="color:#888;">
               3
             </td>
-            <td class="campaign-<%= campaign.id %>-action">
+            <% if @is_admin %>
+              <td class="campaign-<%= campaign.id %>-action">
               <% if campaign.is_active %>
                 <%= link_to "Deactivate",
                             deactivate_admin_organizations_campaign_path(campaign.id), method: :patch, remote: :true,
@@ -53,6 +56,7 @@
               <% end %>
 
             </td>
+            <% end %>
           </tr>
         <% end %>
       </table>
