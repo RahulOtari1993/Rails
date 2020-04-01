@@ -1,5 +1,6 @@
 class Admin::Organizations::InvitationsController < Devise::RegistrationsController
   before_action :authenticate_user!
+  before_action :is_admin
   before_action :configure_sign_up_params, only: [:create]
 
   layout 'organization_admin'
@@ -32,5 +33,10 @@ class Admin::Organizations::InvitationsController < Devise::RegistrationsControl
 
   def after_inactive_sign_up_path_for(resource)
     admin_organizations_users_path
+  end
+
+  ## Check Whether Current Logged in User is Org Admin or Not
+  def is_admin
+    @is_admin = current_user.organization_admin? @organization
   end
 end

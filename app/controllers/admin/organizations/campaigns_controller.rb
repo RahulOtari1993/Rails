@@ -1,8 +1,4 @@
-class Admin::Organizations::CampaignsController < ApplicationController
-  layout 'organization_admin'
-
-  before_action :authenticate_user!
-  before_action :is_admin, only: :index
+class Admin::Organizations::CampaignsController < Admin::Organizations::BaseController
   before_action :set_campaign, only: :deactivate
 
   ## List all Organization Campaigns

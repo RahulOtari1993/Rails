@@ -13,11 +13,13 @@
           </a>
         </li>
 
-        <li class="item">
+        <% if @is_admin %>
+          <li class="item">
           <a href="<%= admin_organizations_users_path %>">
             <span style="font-size:16px;" class="hidden-xs fa fa-users"></span>Users
           </a>
         </li>
+        <% end %>
 
       </ul>
     </div>

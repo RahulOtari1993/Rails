@@ -1,7 +1,4 @@
-class Admin::Organizations::UsersController < ApplicationController
-  layout 'organization_admin'
-
-  before_action :authenticate_user!
+class Admin::Organizations::UsersController < Admin::Organizations::BaseController
   before_action :set_user, only: :toggle_active_status
 
   ## List all Organization Admin Users
