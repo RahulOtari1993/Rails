@@ -31,6 +31,12 @@ ActiveAdmin.register Organization do
     f.actions
   end
 
+  sidebar 'Organization Details', only: [:show, :edit] do
+    ul do
+      li link_to 'Users', onboarding_organization_users_path(organization)
+    end
+  end
+
   controller do
     def update(options = {}, &block)
       super do |success, failure|
