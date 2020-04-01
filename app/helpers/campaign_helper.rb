@@ -17,4 +17,12 @@ module CampaignHelper
 
     url
   end
+
+  def add_campaign
+    if @is_admin
+      "<div style='float:right;'>
+          <a href=' #{new_admin_organizations_campaign_path }' class='btn-red-admin'>ADD CAMPAIGN</a>
+       </div>".html_safe
+    end
+  end
 end

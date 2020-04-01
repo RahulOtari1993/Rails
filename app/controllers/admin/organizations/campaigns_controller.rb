@@ -2,12 +2,13 @@ class Admin::Organizations::CampaignsController < ApplicationController
   layout 'organization_admin'
 
   before_action :authenticate_user!
+  before_action :is_admin, only: :index
   before_action :set_campaign, only: :deactivate
 
   ## List all Organization Campaigns
   def index
     authorize @organization, :list_campaigns?
-    @campaigns = @organization.campaigns
+    @campaigns = @organization.campaigns.joins(:campaign_users).where(campaign_users: {user_id: current_user})
   end
 
   def new
@@ -54,5 +55,9 @@ class Admin::Organizations::CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.where(id: params[:id]).first
+  end
+
+  def is_admin
+    @is_admin = current_user.organization_admin? @organization
   end
 end

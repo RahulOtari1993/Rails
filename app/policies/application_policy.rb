@@ -20,6 +20,7 @@ class ApplicationPolicy
   end
 
   ##
+  # Check if User is Organization admin or not
   # @return [Boolean]
   #
   def organization_admin?(organization)
@@ -27,6 +28,7 @@ class ApplicationPolicy
   end
 
   ##
+  # Check if User do have access on multiple campaigns of not
   # @return [Boolean]
   #
   def multiple_campaigns?(organization)

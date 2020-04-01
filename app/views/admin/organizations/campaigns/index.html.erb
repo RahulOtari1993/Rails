@@ -4,9 +4,7 @@
       <div class="header-text">
         CAMPAIGNS
       </div>
-      <div style="float:right;">
-        <a href="<%= new_admin_organizations_campaign_path %>" class="btn-red-admin">ADD CAMPAIGN</a>
-      </div>
+      <%= add_campaign %>
       <div style="clear:both;"></div>
     </div>
     <div class="col-md-12">
@@ -26,7 +24,7 @@
               <%= campaign.created_at.strftime("%B %d, %Y") %>
             </td>
             <td class="campaign-<%= campaign.id %>-link">
-              <% if campaign.is_active  %>
+              <% if campaign.is_active %>
                 <a href="<%= admin_campaign_dashboard_path(campaign) %>"><%= campaign.name %></a>
               <% else %>
                 <%= campaign.name %>
@@ -45,11 +43,11 @@
               3
             </td>
             <td class="campaign-<%= campaign.id %>-action">
-              <% if campaign.is_active  %>
+              <% if campaign.is_active %>
                 <%= link_to "Deactivate",
                             deactivate_admin_organizations_campaign_path(campaign.id), method: :patch, remote: :true,
                             class: "btn btn-xs btn-action btn-warning",
-                            data: {confirm: "Are you sure you want to de-activate this campaign? This cannot be brought back." } %>
+                            data: {confirm: "Are you sure you want to de-activate this campaign? This cannot be brought back."} %>
               <% else %>
                 DEACTIVATED
               <% end %>
