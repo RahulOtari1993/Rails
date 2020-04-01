@@ -19,10 +19,24 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    if resource.organization_admin?(organization) || resource.campaign_user?(organization) #resource.is_invited?
+    if resource.organization_admin?(@organization) #resource.is_invited?
+      ## If User is Org Admin, Redirect him to Campaings Listing Page
       admin_organizations_campaigns_path
     else
-      root_url
+      ## Check If User if Not a Campaign Participant
+      campaign_user = resource.campaign_users @organization
+      if campaign_user.count > 0
+
+        if campaign_user.count == 1
+          ## If User belongs to only one Campaign, Redirect to Campaign Dashboard Page
+          admin_campaign_dashboard_path(campaign_user.first.campaign)
+        else
+          ## If User belongs to many Campaign, Redirect to Campaign List Page
+          admin_organizations_campaigns_path
+        end
+      else
+        root_url
+      end
     end
   end
 

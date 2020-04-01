@@ -128,10 +128,10 @@ class User < ApplicationRecord
     organization.present? && OrganizationAdmin.where(user_id: self.id, organization_id: organization.id).count > 0
   end
 
-  ## Check if User is not Campaign Participant
-  def campaign_user? organization
+  ##
+  def campaign_users organization
     organization.present? &&
       CampaignUser.joins(:campaign).where(campaigns: {organization_id: organization.id, is_active: true},
-                                          campaign_users: {user_id: self.id}).where.not(campaign_users: {role: 0}).count > 0
+                                          campaign_users: {user_id: self.id}).where.not(campaign_users: {role: 0})
   end
 end
