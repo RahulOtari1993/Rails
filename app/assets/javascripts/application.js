@@ -29,12 +29,6 @@
 
 //= vendors/vendors.min
 
-//= vendors/charts/apexcharts.min
-//= vendors/extensions/tether.min
-//= vendors/extensions/shepherd.min.js
-
 //= libraries/core/app-menu
 //= libraries/core/app
 //= libraries/scripts/components
-
-//= libraries/pages/dashboard-analytics

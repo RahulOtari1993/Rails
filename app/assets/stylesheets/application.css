@@ -18,10 +18,6 @@
  * New Theme Integration
  * ------------------------------------------------------------------
  *= require vendors/vendors.min
- *= require vendors/charts/apexcharts
- *= require vendors/extensions/tether-theme-arrows
- *= require vendors/extensions/tether.min
- *= require vendors/extensions/shepherd-theme-default
 
  *= require libraries/bootstrap
  *= require libraries/bootstrap-extended
@@ -32,9 +28,7 @@
 
  *= require libraries/core/menu/menu-types/vertical-menu
  *= require libraries/core/colors/palette-gradient
- *= require libraries/pages/dashboard-analytics
- *= require libraries/pages/card-analytics
- *= require libraries/plugins/tour/tour
+ *= require libraries/pages/authentication
 
  *= require style
  */
