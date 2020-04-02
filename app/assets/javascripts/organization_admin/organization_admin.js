@@ -15,14 +15,14 @@
 //= require activestorage
 //= require turbolinks
 
-//= vendors/vendors.min
+//= require vendors/vendors.min
+//= require vendors/charts/apexcharts.min
+//= require vendors/extensions/tether.min
+//= require vendors/extensions/shepherd.min.js
 
-//= vendors/charts/apexcharts.min
-//= vendors/extensions/tether.min
-//= vendors/extensions/shepherd.min.js
+//= require libraries/core/app-menu
+//= require libraries/scripts/components
+//= require libraries/scripts/pages/dashboard-analytics
 
-//= libraries/core/app-menu
-//= libraries/core/app
-//= libraries/scripts/components
-
-//= libraries/pages/dashboard-analytics
+// This file do have some dependency ERRORS
+// require libraries/core/app
