@@ -9,7 +9,7 @@
   <script type="text/javascript">
     <% flash.each do |f| %>
     <% type = flash_toaster_class(f[0]) %>
-    toastr['<%= type %>']('<%= f[1] %>');
+    toastr['<%= type %>']('<%= f[1] %>', 'Sticky!', { "timeOut": 0 });
     <% end %>
   </script>
 <% end %>

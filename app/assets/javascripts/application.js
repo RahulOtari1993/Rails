@@ -27,9 +27,11 @@
 //= require activestorage
 //= require turbolinks
 
-//= vendors/vendors.min
-//= require toastr
+//= require vendors/vendors.min
+//= require vendors/extensions/toastr.min
 
-//= libraries/core/app-menu
-//= libraries/core/app
-//= libraries/scripts/components
+//= require libraries/core/app-menu
+//= require libraries/scripts/components
+
+// This file do have some dependency ERRORS
+// require libraries/core/app
