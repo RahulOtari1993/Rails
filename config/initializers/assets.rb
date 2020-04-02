@@ -8,14 +8,14 @@ Rails.application.config.assets.version = '1.0'
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
-
-Rails.application.config.assets.precompile += %w(libraries/bootstrap.min.css)
-Rails.application.config.assets.precompile += %w(libraries/material-design-iconic-font.min.css)
-Rails.application.config.assets.precompile += %w(super_admin/super_admin.css)
-Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.css)
-
-Rails.application.config.assets.precompile += %w(super_admin/super_admin.js)
-Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.js)
+#
+# Rails.application.config.assets.precompile += %w(libraries/bootstrap.min.css)
+# Rails.application.config.assets.precompile += %w(libraries/material-design-iconic-font.min.css)
+# Rails.application.config.assets.precompile += %w(super_admin/super_admin.css)
+# Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.css)
+#
+# Rails.application.config.assets.precompile += %w(super_admin/super_admin.js)
+# Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.js)
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
