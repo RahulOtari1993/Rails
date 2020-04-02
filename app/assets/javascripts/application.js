@@ -28,6 +28,7 @@
 //= require turbolinks
 
 //= vendors/vendors.min
+//= require toastr
 
 //= libraries/core/app-menu
 //= libraries/core/app

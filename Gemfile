@@ -80,3 +80,5 @@ gem 'jquery-validation-rails'
 
 ## authorization
 gem 'pundit'
+
+gem 'toastr-rails'

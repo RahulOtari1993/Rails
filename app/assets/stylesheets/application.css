@@ -25,6 +25,7 @@
  *= require libraries/components
  *= require libraries/themes/dark-layout
  *= require libraries/themes/semi-dark-layout
+ *= require toastr
 
  *= require libraries/core/menu/menu-types/vertical-menu
  *= require libraries/core/colors/palette-gradient

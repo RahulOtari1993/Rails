@@ -1,6 +1,15 @@
-<% flash.each do |type, msg| %>
-  <div class="<%= flash_class(type) %>">
-    <button type="button" class="close flash-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <%= msg %>
-  </div>
+<%# flash.each do |type, msg| %>
+<!--  <div class="<%#= flash_class(type) %>">-->
+<!--    <button type="button" class="close flash-close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+    <%#= msg %>
+<!--  </div>-->
+<%# end %>
+
+<% unless flash.empty? %>
+  <script type="text/javascript">
+    <% flash.each do |f| %>
+    <% type = flash_toaster_class(f[0]) %>
+    toastr['<%= type %>']('<%= f[1] %>');
+    <% end %>
+  </script>
 <% end %>
