@@ -7,31 +7,3 @@
   position: relative;
   left: 18px;
 }
-
-.img-circle {
-  border: 1px solid #4841E8;
-  float: left;
-  height: 40px;
-}
-
-.btn-login {
-  transition: all ease .3s;
-  background-color: #0085FF;
-  border: none;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: white;
-  width: 100%;
-}
-
-.lbl-uppercase {
-  text-transform: uppercase;
-}
-
-.flash-top-margin {
-  margin-top: 10px;
-}
-
-.btn-action {
-  width: 75px;
-}
