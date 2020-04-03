@@ -7,3 +7,6 @@
   position: relative;
   left: 18px;
 }
+.has-icon-left .form-control-position i {
+  color: #C2C6DC;
+}

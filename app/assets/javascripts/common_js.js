@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).on('turbolinks:load', function() {
   // Auto Hide Flash Message after 3 Seconds
   setTimeout(function(){
     $('.alert').fadeOut();
