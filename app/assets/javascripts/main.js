@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $('.login_form').validate({
+    errorElement: 'span',
     rules: {
       'user[email]': {
         required: true,
@@ -41,6 +42,7 @@ $(document).ready(function() {
   }, 'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol');
 
   $('.reset_password_form').validate({
+    errorElement: 'span',
     rules: {
       'user[password]': {
         required: true,

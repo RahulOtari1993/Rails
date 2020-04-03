@@ -33,4 +33,5 @@
  *= require libraries/pages/authentication
 
  *= require style
+ *= require common_style
  */

@@ -1,5 +1,6 @@
 .error {
-  color: #FF0000;
+  color: #EA5455 !important;
+  font-size: 0.875rem !important;
 }
 
 .btn-login {

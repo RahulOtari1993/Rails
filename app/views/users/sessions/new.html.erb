@@ -32,10 +32,9 @@
                           <%= hidden_field_tag 'user[organization_id]', 0 %>
                         <% end %>
 
+
                         <fieldset class="form-label-group form-group position-relative has-icon-left">
-                          <%= f.email_field :email, autofocus: true, autocomplete: "email",
-                                            required: true, value: 'first_user@yopmail.com', class: 'form-control',
-                                            placeholder: 'Email' %>
+                          <%= f.email_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
                           <div class="form-control-position">
                             <i class="feather icon-mail"></i>
                           </div>
@@ -43,8 +42,8 @@
                         </fieldset>
 
                         <fieldset class="form-label-group position-relative has-icon-left">
-                          <%= f.password_field :password, autocomplete: "current-password", required: true,
-                                               value: 'Demo12309#', class: 'form-control', placeholder: 'Password' %>
+                          <%= f.password_field :password, required: true,
+                                              class: 'form-control', placeholder: 'Password' %>
                           <div class="form-control-position">
                             <i class="feather icon-lock"></i>
                           </div>

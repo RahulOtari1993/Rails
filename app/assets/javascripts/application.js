@@ -29,9 +29,14 @@
 
 //= require vendors/vendors.min
 //= require vendors/extensions/toastr.min
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 
 //= require libraries/core/app-menu
 //= require libraries/scripts/components
+
+//= require main
+//= require common_js
 
 // This file do have some dependency ERRORS
 // require libraries/core/app
