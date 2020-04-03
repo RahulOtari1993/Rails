@@ -291,11 +291,7 @@ section {
   border-right: none;
 }
 
-.img-circle {
-  border: 1px solid #4841E8;
-  float: left;
-  height: 40px;
-}
+
 
 .hidden-xs {
   margin-right: 15px;

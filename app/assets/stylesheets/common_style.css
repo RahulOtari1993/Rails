@@ -8,6 +8,12 @@
   left: 18px;
 }
 
+.img-circle {
+  border: 1px solid #4841E8;
+  float: left;
+  height: 40px;
+}
+
 .btn-login {
   transition: all ease .3s;
   background-color: #0085FF;
