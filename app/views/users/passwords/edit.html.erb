@@ -1,4 +1,125 @@
-<%= render 'users/shared/header_without_login' %>
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <section class="row flexbox-container">
+        <div class="col-xl-7 col-10 d-flex justify-content-center">
+          <div class="card bg-authentication rounded-0 mb-0 w-100">
+            <div class="row m-0">
+              <div class="col-lg-6 d-lg-block d-none text-center align-self-center p-0">
+                <%= image_tag('pages/reset-password.png', class: 'img-circle') %>
+              </div>
+
+              <% if params.has_key?('type') && params[:type] == '0' %>
+                <div class="col-lg-6 col-12 p-0">
+                  <div class="card rounded-0 mb-0 px-2">
+                    <div class="card-header pb-1">
+                      <div class="card-title">
+                        <h4 class="mb-0">Reset Password</h4>
+                      </div>
+                    </div>
+                    <p class="px-2">Please set your password.</p>
+                    <div class="card-content">
+                      <div class="card-body pt-1">
+                        <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :put, class: 'reset_password_form'}) do |f| %>
+                          <%= render "users/shared/error_messages", resource: resource %>
+
+                          <%= f.hidden_field :reset_password_token %>
+
+                          <%# if @minimum_password_length %>
+                          <!-- <em>(<%#= @minimum_password_length %> characters minimum)</em><br/>-->
+                          <%# end %>
+
+                          <fieldset class="form-label-group form-group position-relative has-icon-left">
+                            <%= f.password_field :password, required: true,
+                                                 class: 'form-control', placeholder: 'New Password' %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </fieldset>
+
+                          <fieldset class="form-label-group form-group position-relative has-icon-left">
+                            <%= f.password_field :password_confirmation, required: true,
+                                                 class: 'form-control', placeholder: 'Confirm New Password' %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </fieldset>
+
+                          <div class="row pt-2">
+                            <div class="col-12 col-md-6 mb-1">
+                              <%= link_to "Go Back to Login", new_user_session_path, class: 'btn btn-outline-primary btn-block px-0' %>
+                            </div>
+                            <div class="col-12 col-md-6 mb-1">
+                              <%= f.submit "Set Password", class: 'btn btn-primary btn-block px-0' %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% else %>
+                <div class="col-lg-6 col-12 p-0">
+                  <div class="card rounded-0 mb-0 px-2">
+                    <div class="card-header pb-1">
+                      <div class="card-title">
+                        <h4 class="mb-0">Reset Password</h4>
+                      </div>
+                    </div>
+                    <p class="px-2">Please enter your new password.</p>
+                    <div class="card-content">
+                      <div class="card-body pt-1">
+                        <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :put, class: 'reset_password_form'}) do |f| %>
+                          <%= render "users/shared/error_messages", resource: resource %>
+
+                          <%= f.hidden_field :reset_password_token %>
+
+                          <%# if @minimum_password_length %>
+                          <!-- <em>(<%#= @minimum_password_length %> characters minimum)</em><br/>-->
+                          <%# end %>
+
+                          <fieldset class="form-label-group form-group position-relative has-icon-left">
+                            <%= f.password_field :password, required: true,
+                                                 class: 'form-control', placeholder: 'New Password' %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </fieldset>
+
+                          <fieldset class="form-label-group form-group position-relative has-icon-left">
+                            <%= f.password_field :password_confirmation, required: true,
+                                                 class: 'form-control', placeholder: 'Confirm New Password' %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </fieldset>
+
+                          <div class="row pt-2">
+                            <div class="col-12 col-md-6 mb-1">
+                              <%= link_to "Go Back to Login", new_user_session_path, class: 'btn btn-outline-primary btn-block px-0' %>
+                            </div>
+                            <div class="col-12 col-md-6 mb-1">
+                              <%= f.submit "Reset Password", class: 'btn btn-primary btn-block px-0' %>
+                            </div>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
 
 <% if params.has_key?('type') && params[:type] == '0' %>
   <div class="container">
@@ -38,7 +159,7 @@
               </li>
               <li class="list-divider"></li>
               <li>
-                <%= f.submit "Set Password", class: 'btn btn-login'%>
+                <%= f.submit "Set Password", class: 'btn btn-login' %>
               </li>
             <% end %>
           </ul>
@@ -84,7 +205,7 @@
               </li>
               <li class="list-divider"></li>
               <li>
-                <%= f.submit "Reset Password", class: 'btn btn-login'%>
+                <%= f.submit "Reset Password", class: 'btn btn-login' %>
               </li>
             <% end %>
           </ul>

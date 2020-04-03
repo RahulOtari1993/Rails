@@ -94,7 +94,8 @@ class User < ApplicationRecord
     return if password.blank? || password =~ PASSWORD_VALIDATOR
 
     errors.add :password,
-               'Complexity requirement not met. Must contain 3 of the following 4: 1) A lowercase letter, 2) An uppercase letter, 3) A digit, 4) A non-word character or symbol'
+               'Complexity requirement not met. Must contain 3 of the following 4: <BR />1) A lowercase letter,
+                <BR />2) An uppercase letter, <BR />3) A digit, <BR />4) A non-word character or symbol'
   end
 
   ## Allow Only Active Users to Login
