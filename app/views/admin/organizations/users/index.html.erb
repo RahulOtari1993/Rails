@@ -1,47 +1,70 @@
-<div class="container">
-  <div class="row row-container">
-    <div class="col-md-12">
-      <div class="header-text">
-        USERS
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+      <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title float-left mb-0">List Campaigns</h2>
+          </div>
+        </div>
       </div>
-      <div style="float:right;">
-        <a href="<%= new_admin_organizations_user_registration_path %>" class="btn-red-admin" style="color: #fff;">INVITE
-          USER</a>
-      </div>
-      <div style="clear:both;"></div>
     </div>
-    <div class="col-md-12">
-      <table class="table org-admin-table" style="margin-top:10px;">
-        <tr>
-          <th>FIRST NAME</th>
-          <th>LAST NAME</th>
-          <th>EMAIL</th>
-          <th>IS ACTIVE</th>
-          <th>ACTIONS</th>
-        </tr>
-        <% @organization_users.each do |user| %>
-          <tr>
-            <td>
-              <%= user.first_name %>
-            </td>
-            <td>
-              <%= user.last_name %>
-            </td>
-            <td>
-              <%= user.email %>
-            </td>
-            <td class="user-status-<%= user.id %>">
-              <%= user.is_active? ? 'YES' : 'NO' %>
-            </td>
-            <td class="user-<%= user.id %>">
-              <%= link_to "#{ user.is_active ? 'Deactivate' : 'Activate' }",
-                          toggle_active_status_admin_organizations_user_path(user), method: :patch, remote: :true,
-                          class: "btn btn-xs btn-action btn-#{ user.is_active ? 'warning' : 'success' }",
-                          data: {confirm: "Are you sure you want to #{ user.is_active ? 'deactivate' : 'activate' } this user?" } %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
+    <div class="content-body">
+      <section id="data-list-view" class="data-list-view-header">
+        <div class="table-responsive">
+          <table class="table data-list-view user-list-view">
+            <thead>
+            <tr>
+              <th></th>
+              <th>FIRST NAME</th>
+              <th>LAST NAME</th>
+              <th>EMAIL</th>
+              <th>IS ACTIVE</th>
+              <% if @is_admin %>
+                <th>ACTIONS</th>
+              <% end %>
+            </tr>
+            </thead>
+            <tbody>
+            <% @organization_users.each do |user| %>
+              <tr>
+                <td></td>
+                <td class="product-name">
+                  <%= user.first_name %>
+                </td>
+
+                <td class="product-name">
+                  <%= user.last_name %>
+                </td>
+
+                <td class="product-category">
+                  <%= user.email %>
+                </td>
+
+                <td class="product-category user-status-<%= user.id %>">
+                  <div class="chip <%= user.is_active? ? 'chip-success' : 'chip-warning' %>">
+                    <div class="chip-body">
+                      <div class="chip-text"><%= user.is_active? ? 'YES' : '&nbsp;NO'.html_safe %></div>
+                    </div>
+                  </div>
+                </td>
+
+                <% if @is_admin %>
+                  <td class="product-action user-<%= user.id %>">
+                    <%= link_to "#{ user.is_active ? 'Deactivate' : 'Activate' }",
+                                toggle_active_status_admin_organizations_user_path(user), method: :patch, remote: :true,
+                                class: "btn btn-xs btn-action btn-#{ user.is_active ? 'warning' : 'success' }",
+                                data: {confirm: "Are you sure you want to #{ user.is_active ? 'deactivate' : 'activate' } this user?"} %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </div>
   </div>
 </div>

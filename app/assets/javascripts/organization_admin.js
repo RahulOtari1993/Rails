@@ -100,4 +100,40 @@ $(document).ready(function() {
       $(".dt-buttons .btn").removeClass("btn-secondary")
     }
   });
+
+  // Campaign List
+  $(".user-list-view").DataTable({
+    responsive: false,
+    columnDefs: [
+      {
+        orderable: true,
+        targets: 0,
+      }
+    ],
+    dom:
+      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+    oLanguage: {
+      sLengthMenu: "_MENU_",
+      sSearch: ""
+    },
+    aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
+    select: {
+      style: "multi"
+    },
+    order: [[1, "asc"]],
+    bInfo: false,
+    pageLength: 5,
+    buttons: [
+      {
+        text: "<i class='feather icon-plus'></i> Invite a User",
+        action: function() {
+          window.location.href = '/admin/organizations/users/sign_up'
+        },
+        className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light" // btn-outline-primary
+      }
+    ],
+    initComplete: function(settings, json) {
+      $(".dt-buttons .btn").removeClass("btn-secondary")
+    }
+  });
 });
