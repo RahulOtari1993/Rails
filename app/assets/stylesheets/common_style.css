@@ -3,6 +3,11 @@
   font-size: 0.875rem !important;
 }
 
+.org-admin-logo {
+  position: relative;
+  left: 18px;
+}
+
 .btn-login {
   transition: all ease .3s;
   background-color: #0085FF;

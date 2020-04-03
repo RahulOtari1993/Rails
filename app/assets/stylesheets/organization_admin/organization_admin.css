@@ -28,4 +28,5 @@
  *= require libraries/plugins/tour/tour
 
  *= require style
+ *= require ../common_style
  */

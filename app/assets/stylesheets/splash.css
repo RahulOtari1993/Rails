@@ -94,7 +94,7 @@ nav {
 
 .hero {
   padding-top: 55px;
-  background: #0085FF url("/images/splash/perk-texture.png") 50% 50% no-repeat;
+  background: #0085FF url("/images/logo-files/perk-texture.png") 50% 50% no-repeat;
   background-size: cover;
   color: white; }
   .hero .container {
@@ -233,7 +233,7 @@ p.subhead {
       max-width: 400px;
       font-size: 0; }
 .block.awareness {
-  background: #101010 url("/images/splash/woman-on-phone.jpg") 38% 87% no-repeat;
+  background: #101010 url("/images/logo-files/woman-on-phone.jpg") 38% 87% no-repeat;
   background-size: cover;
   color: white; }
   .block.awareness .title {
@@ -268,7 +268,7 @@ p.subhead {
   width: 50px; }
 
 .footer-demo {
-  background: #0085FF url("/images/splash/perk-texture.png") 50% 50% no-repeat;
+  background: #0085FF url("/images/logo-files/perk-texture.png") 50% 50% no-repeat;
   background-size: cover;
   color: white;
   text-align: center;
@@ -392,7 +392,7 @@ footer {
       .block.advocacy-list .item-ul li i {
         color: white; }
     .block.advocacy-list .bg-image {
-      background: #08082e url("/images/splash/perk-advocacy.jpg") 50% 50% no-repeat;
+      background: #08082e url("/images/logo-files/perk-advocacy.jpg") 50% 50% no-repeat;
       background-size: auto 100%;
       position: absolute;
       top: 0;
