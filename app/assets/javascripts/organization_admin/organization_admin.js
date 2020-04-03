@@ -16,13 +16,19 @@
 //= require turbolinks
 
 //= require vendors/vendors.min
-//= require vendors/charts/apexcharts.min
+//= require vendors/tables/datatable/datatables.min
+//= require vendors/tables/datatable/datatables.buttons.min
+//= require vendors/tables/datatable/datatables.bootstrap4.min
+//= require vendors/tables/datatable/buttons.bootstrap.min
+//= require vendors/tables/datatable/dataTables.select.min
 //= require vendors/extensions/tether.min
 //= require vendors/extensions/shepherd.min.js
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 
 //= require libraries/core/app-menu
 //= require libraries/scripts/components
-//= require libraries/scripts/pages/dashboard-analytics
+//= require ../organization_admin
 
 // This file do have some dependency ERRORS
 // require libraries/core/app

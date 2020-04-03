@@ -9,6 +9,7 @@
  * New Theme Integration
  * ------------------------------------------------------------------
  *= require vendors/vendors.min
+  *= require vendors/tables/datatable/datatables.min
  *= require vendors/charts/apexcharts
  *= require vendors/extensions/tether-theme-arrows
  *= require vendors/extensions/tether.min
@@ -23,9 +24,7 @@
 
  *= require libraries/core/menu/menu-types/vertical-menu
  *= require libraries/core/colors/palette-gradient
- *= require libraries/pages/dashboard-analytics
- *= require libraries/pages/card-analytics
- *= require libraries/plugins/tour/tour
+ *= require libraries/pages/data-list-view
 
  *= require style
  *= require ../common_style
