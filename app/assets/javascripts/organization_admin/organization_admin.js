@@ -29,6 +29,7 @@
 //= require libraries/core/app-menu
 //= require libraries/scripts/components
 //= require ../organization_admin
+//= require ../common_js
 
 // This file do have some dependency ERRORS
 // require libraries/core/app

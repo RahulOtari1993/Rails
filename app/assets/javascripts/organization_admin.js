@@ -53,10 +53,20 @@ $(document).ready(function() {
       'campaign[domain_type]': {
         required: 'Please select domain type'
       }
+    },
+    errorPlacement: function(error, element) {
+      var placement = $(element).data('error');
+      console.log("Placment", placement);
+      if (placement) {
+        $('.' + placement).append(error)
+      } else {
+        error.insertAfter(element);
+      }
     }
   });
 
-  var dataListView = $(".campaign-list-view").DataTable({
+  // Campaign List
+  $(".campaign-list-view").DataTable({
     responsive: false,
     columnDefs: [
       {

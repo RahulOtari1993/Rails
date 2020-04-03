@@ -1,30 +1,69 @@
 <%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-campaign-form', model: campaign, local: true) do |form| %>
-  <% if campaign.errors.any? %>
-    <%= render '/shared/render_errors', resource: campaign %>
-  <% end %>
+  <div class="form-body">
+    <div class="row">
+      <div class="col-12">
+        <% if campaign.errors.any? %>
+          <%= render '/shared/render_errors', resource: campaign %>
+        <% end %>
 
-  <div class="field form-bottom-margin">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+        <%= form.hidden_field :organization_id, value: @organization.id %>
 
-  <%= form.hidden_field :organization_id, value: @organization.id %>
+        <div class="form-group">
+          <%= form.label :name %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :name, class: "form-control", placeholder: "Campaign Name" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="field form-bottom-margin">
-    <%= form.label :domain %>
-    <%= form.text_field :domain %>
-  </div>
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :domain %>
+          <div class="position-relative has-icon-left">
+            <div class="input-group">
+              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
+              <div class="form-control-position">
+                <i class="feather icon-mail"></i>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
+              </div>
+            </div>
+            <div class="input-group domain-errors">
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div class="field form-bottom-margin">
-    <%= form.label :domain_type, 'Domain type' %>
-    <%= form.select :domain_type,
-                    options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
-                    {prompt: 'Select Domain Type'},
-                    {class: 'form-control domain_type_id'} %>
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :domain_type, 'Domain type' %>
+          <div class="position-relative has-icon-left">
+            <%= form.select :domain_type,
+                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
+                            {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
 
-  </div>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
 
-  <div class="actions">
-    <%= form.submit "Save", class: 'btn btn-login' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
+        <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+      </div>
+    </div>
   </div>
 <% end %>
+
+<style>
+  .input-group > .form-control:focus {
+    z-index: 0;
+  }
+</style>
