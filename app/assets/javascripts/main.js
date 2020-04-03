@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   $('.login_form').validate({
     errorElement: 'span',
     rules: {
@@ -22,6 +22,7 @@ $(document).ready(function() {
   });
 
   $('.forgot_password_form').validate({
+    errorElement: 'span',
     rules: {
       'user[email]': {
         required: true,
