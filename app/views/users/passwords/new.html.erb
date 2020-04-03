@@ -1,48 +1,62 @@
-<%= render 'users/shared/header_without_login' %>
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <section class="row flexbox-container">
+        <div class="col-xl-7 col-md-9 col-10 d-flex justify-content-center px-0">
+          <div class="card bg-authentication rounded-0 mb-0">
+            <div class="row m-0">
+              <div class="col-lg-6 d-lg-block d-none text-center align-self-center">
+                <%= image_tag('pages/forgot-password.png', class: 'img-circle') %>
+              </div>
+              <div class="col-lg-6 col-12 p-0">
+                <div class="card rounded-0 mb-0 px-2 py-1">
+                  <div class="card-header pb-1">
+                    <div class="card-title">
+                      <h4 class="mb-0">Recover your password</h4>
+                    </div>
+                  </div>
+                  <p class="px-2 mb-0">Please enter your email address and we'll send you instructions on how to reset
+                    your password.</p>
+                  <div class="card-content">
+                    <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :post, class: 'forgot_password_form'}) do |f| %>
+                      <div class="card-body">
+                        <% if @organization.present? %>
+                          <%= hidden_field_tag 'user[role]', 'admin' %>
+                          <%= hidden_field_tag 'user[organization_id]', @organization.id %>
+                        <% else %>
+                          <%= hidden_field_tag 'user[role]', 'participant' %>
+                          <%= hidden_field_tag 'user[organization_id]', 0 %>
+                        <% end %>
 
-<div class="container">
-  <div class="row">
-    <div class="col-centered" style="padding:40px 0px;">
-      <div class="setup-info-module col-centered">
-        <h2>Forgot your password.</h2>
+                        <%= render "users/shared/error_messages", resource: resource %>
 
-        <div class="subtitle" style="padding:0px 15px 15px;font-size:14px;">
-          If you have forgotten your password, please provide us with your email address and we will send you an email
-          to reset your password.
-        </div>
+                        <fieldset class="form-label-group form-group position-relative has-icon-left">
+                          <%= f.email_field :email, autocomplete: "email", required: true,
+                                            class: 'form-control', placeholder: 'Email' %>
+                          <div class="form-control-position">
+                            <i class="feather icon-mail"></i>
+                          </div>
+                        </fieldset>
 
-        <% if flash[:error] %>
-          <div style="color:red;">
-            <%= flash[:error] %>
-            <% flash[:error] = nil %>
+                        <div class="float-md-left d-block mb-1">
+                          <%= link_to "Back to Login", new_user_session_path, class: 'btn btn-outline-primary btn-block px-75' %>
+                        </div>
+                        <div class="float-md-right d-block mb-1">
+                          <%= f.submit "Recover Password", class: 'btn btn-primary btn-block px-75' %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        <% end %>
-
-        <ul class="features-list">
-          <%= form_for(resource, as: resource_name, url: user_password_path, html: {method: :post, class: 'forgot_password_form'}) do |f| %>
-            <%= render "users/shared/error_messages", resource: resource %>
-
-            <% if @organization.present? %>
-              <%= hidden_field_tag 'user[role]', 'admin' %>
-              <%= hidden_field_tag 'user[organization_id]', @organization.id %>
-            <% else %>
-              <%= hidden_field_tag 'user[role]', 'participant' %>
-              <%= hidden_field_tag 'user[organization_id]', 0 %>
-            <% end %>
-
-            <li>
-              <%= label_tag :email, 'Email', class: 'lbl-uppercase' %>
-              <%= f.email_field :email, placeholder: 'Email', required: true %>
-            </li>
-
-            <li class="list-divider"></li>
-
-            <li>
-              <%= f.submit "Send Email", class: 'btn btn-login' %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>
