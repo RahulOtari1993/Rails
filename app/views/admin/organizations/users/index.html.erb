@@ -53,7 +53,7 @@
 
                 <% if @is_admin %>
                   <td class="product-action user-<%= user.id %>">
-                    <button class="btn btn-xs btn-action btn-<%= user.is_active ? 'warning' : 'success' %>  userActionBtn"
+                    <button class="btn btn-xs btn-action btn-<%= user.is_active ? 'warning' : 'success' %>  user-action-btn"
                             data-url="<%= toggle_active_status_admin_organizations_user_path(user) %>">
                       <%=  user.is_active ? 'Deactivate' : 'Activate' %>
                     </button>

@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   // Campaign List
-  $(".campaign-list-view").DataTable({
+  $('.campaign-list-view').DataTable({
     responsive: false,
     columnDefs: [
       {
@@ -102,7 +102,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   // Campaign List
-  $(".user-list-view").DataTable({
+  $('.user-list-view').DataTable({
     responsive: false,
     columnDefs: [
       {
@@ -137,18 +137,15 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  $(".campaign-list-view").on('click', '.deActiveCampaignBtn', function(){
+  $('.campaign-list-view').on('click', '.de-active-campaign-btn', function(){
     $.ajax({
       type: 'PATCH',
       data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-      url: $(this).data('url'),
-      success: function (response) {
-        console.log("response", response)
-      }
+      url: $(this).data('url')
     });
   });
 
-  $(".user-list-view").on('click', '.userActionBtn', function(){
+  $('.user-list-view').on('click', '.user-action-btn', function(){
     $.ajax({
       type: 'PATCH',
       data: { authenticity_token: $('[name="csrf-token"]')[0].content},

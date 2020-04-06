@@ -62,7 +62,7 @@
                 <% if @is_admin %>
                   <td class="product-action campaign-<%= campaign.id %>-action">
                     <% if campaign.is_active %>
-                      <button class="btn btn-xs btn-action btn-warning deActiveCampaignBtn"  data-id = "<%= campaign.id %>"
+                      <button class="btn btn-xs btn-action btn-warning de-active-campaign-btn"
                         data-url="<%= deactivate_admin_organizations_campaign_path(campaign.id) %>">
                         Deactivate
                       </button>
