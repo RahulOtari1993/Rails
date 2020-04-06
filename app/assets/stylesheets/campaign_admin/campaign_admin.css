@@ -25,7 +25,7 @@
  *= require libraries/core/colors/palette-gradient
  *= require libraries/pages/dashboard-analytics
  *= require libraries/pages/card-analytics
- *= require libraries/plugins/tour/tour
 
  *= require style
+ *= require ../common_style
  */

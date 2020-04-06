@@ -15,7 +15,7 @@
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
       <% if @is_admin %>
         <li class="nav-item <%= is_active_menu(['dashboard']) %>">
-          <a href="<%= admin_campaign_dashboard_path(@campaign) %>">
+          <a href="<%= admin_campaign_dashboard_path(campaign_id: @campaign.id) %>">
             <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
           </a>
         </li>
@@ -28,3 +28,4 @@
     </ul>
   </div>
 </div>
+:
