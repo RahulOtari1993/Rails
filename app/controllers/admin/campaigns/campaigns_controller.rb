@@ -8,6 +8,9 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   def edit
   end
 
+  def update
+  end
+
   private
 
   ## Check Whether Current Logged in User is Org Admin or Not

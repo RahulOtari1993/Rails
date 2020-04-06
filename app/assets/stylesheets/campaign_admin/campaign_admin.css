@@ -13,6 +13,10 @@
  *= require vendors/extensions/tether-theme-arrows
  *= require vendors/extensions/tether.min
  *= require vendors/extensions/shepherd-theme-default
+ *= require vendors/editors/quill/katex.min
+ *= require vendors/editors/quill/monokai-sublime.min
+ *= require vendors/editors/quill/quill.snow
+ *= require vendors/editors/quill/quill.bubble
 
  *= require libraries/bootstrap
  *= require libraries/bootstrap-extended

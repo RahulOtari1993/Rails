@@ -73,14 +73,11 @@
       <div class="col-12">
         <div class="form-group">
           <%= form.label :rules %>
-          <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaing..</span>
+          <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaing.</span>
 
-          <div>
-            <%= form.text_area :rules, class: "form-control", placeholder: "Rules" %>
-<!--            <div class="form-control-position">-->
-<!--              <i class="feather icon-user"></i>-->
-<!--            </div>-->
-          </div>
+          <div class="quill-editor-txt"></div>
+            <%= form.text_area :rules, class: "form-control rules-txt-area", placeholder: "Rules" %>
+<!--          </div>-->
         </div>
       </div>
 
@@ -97,3 +94,58 @@
     z-index: 0;
   }
 </style>
+
+<script>
+  var fullEditor = new Quill('.quill-editor-txt', {
+    bounds: '.quill-editor-txt',
+    modules: {
+      'formula': true,
+      'syntax': true,
+      'toolbar': [
+        [{
+          'font': []
+        }, {
+          'size': []
+        }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{
+          'color': []
+        }, {
+          'background': []
+        }],
+        [{
+          'script': 'super'
+        }, {
+          'script': 'sub'
+        }],
+        [{
+          'header': '1'
+        }, {
+          'header': '2'
+        }, 'blockquote', 'code-block'],
+        [{
+          'list': 'ordered'
+        }, {
+          'list': 'bullet'
+        }, {
+          'indent': '-1'
+        }, {
+          'indent': '+1'
+        }],
+        ['direction', {
+          'align': []
+        }],
+        ['link', 'image', 'video', 'formula'],
+        ['clean']
+      ],
+    },
+    theme: 'snow'
+  });
+
+  // $(document).ready(function(){
+    $(".add-campaign-form").on("submit", function () {
+      var hvalue = $('.ql-editor').html();
+      $('.rules-txt-area').val(hvalue);
+    });
+  // });
+</script>
