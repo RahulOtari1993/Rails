@@ -136,4 +136,23 @@ $(document).on('turbolinks:load', function() {
       $(".dt-buttons .btn").removeClass("btn-secondary")
     }
   });
+
+  $(".campaign-list-view").on('click', '.deActiveCampaignBtn', function(){
+    $.ajax({
+      type: 'PATCH',
+      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: $(this).data('url'),
+      success: function (response) {
+        console.log("response", response)
+      }
+    });
+  });
+
+  $(".user-list-view").on('click', '.userActionBtn', function(){
+    $.ajax({
+      type: 'PATCH',
+      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: $(this).data('url')
+    });
+  });
 });

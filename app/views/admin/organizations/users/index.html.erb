@@ -44,19 +44,19 @@
                 </td>
 
                 <td class="product-category user-status-<%= user.id %>">
-                  <div class="chip <%= user.is_active? ? 'chip-success' : 'chip-warning' %>">
+                  <div class="chip <%= user.is_active? ? 'chip-success' : 'chip-warning' %> main-chip-div-<%= user.id %>">
                     <div class="chip-body">
-                      <div class="chip-text"><%= user.is_active? ? 'YES' : '&nbsp;NO'.html_safe %></div>
+                      <div class="chip-text user-chip-text-<%= user.id %>"><%= user.is_active? ? 'YES' : '&nbsp;NO'.html_safe %></div>
                     </div>
                   </div>
                 </td>
 
                 <% if @is_admin %>
                   <td class="product-action user-<%= user.id %>">
-                    <%= link_to "#{ user.is_active ? 'Deactivate' : 'Activate' }",
-                                toggle_active_status_admin_organizations_user_path(user), method: :patch, remote: :true,
-                                class: "btn btn-xs btn-action btn-#{ user.is_active ? 'warning' : 'success' }",
-                                data: {confirm: "Are you sure you want to #{ user.is_active ? 'deactivate' : 'activate' } this user?"} %>
+                    <button class="btn btn-xs btn-action btn-<%= user.is_active ? 'warning' : 'success' %>  userActionBtn"
+                            data-url="<%= toggle_active_status_admin_organizations_user_path(user) %>">
+                      <%=  user.is_active ? 'Deactivate' : 'Activate' %>
+                    </button>
                   </td>
                 <% end %>
               </tr>

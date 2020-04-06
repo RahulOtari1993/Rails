@@ -14,3 +14,7 @@
 table.data-list-view.dataTable thead th:first-child {
   padding-left: 25px !important;
 }
+
+.userActionBtn {
+  min-width: 130px;
+}

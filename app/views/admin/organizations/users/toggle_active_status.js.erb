@@ -1,10 +1,15 @@
-var buttonLink = $('.user-<%= @user.id %> > a');
-<% if @user.is_active == true %>
-  buttonLink.html('Deactivate').removeClass('btn-success').addClass('btn-warning');
-  buttonLink.attr('data-confirm', "Are you sure you want to deactivate this user?");
-<% else %>
-  buttonLink.html('Activate').removeClass('btn-warning').addClass('btn-success');
-  buttonLink.attr('data-confirm', "Are you sure you want to activate this user?");
-<% end %>
+var buttonLink = $('.user-<%= @user.id %> > button');
+var chipDiv = $('.main-chip-div-<%= @user.id %>');
+var chipText = $('.user-chip-text-<%= @user.id %>');
 
-$('.user-status-<%= @user.id %>').html('<%= @user.is_active? ? 'YES' : 'NO' %>');
+<% if @user.is_active == true %>
+  chipDiv.removeClass('chip-warning').addClass('chip-success');
+  chipText.html('YES');
+  buttonLink.html('Deactivate');
+  buttonLink.removeClass('btn-success').addClass('btn-warning');
+<% else %>
+  chipDiv.removeClass('chip-success').addClass('chip-warning');
+  chipText.html('<%= '&nbsp;NO'.html_safe %>');
+  buttonLink.html('Activate');
+  buttonLink.removeClass('btn-warning').addClass('btn-success');
+<% end %>
