@@ -17,4 +17,21 @@ module ApplicationHelper
     when 'alert' then "alert alert-danger"
     end
   end
+
+  ## Check for Active Menu Class & Set it
+  def is_active_menu(c_name, a_name = [])
+    return 'active' if controller?(c_name) && action?(a_name)
+
+    ''
+  end
+
+  ## Active Menu Controller Name Checks
+  def controller?(name)
+     name.include?(controller_name)
+  end
+
+  ## Active Menu Action Name Checks
+  def action?(name)
+    name.present? ? name.include?(action_name) : true
+  end
 end

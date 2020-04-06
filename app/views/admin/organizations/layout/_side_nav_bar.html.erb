@@ -14,12 +14,12 @@
   <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
       <% if @is_admin %>
-        <li class=" nav-item">
+        <li class="nav-item <%= is_active_menu(['campaigns']) %>">
           <a href="<%= admin_organizations_campaigns_path %>">
             <i class="feather icon-package"></i><span class="menu-title" data-i18n="Campaigns">Campaigns</span>
           </a>
         </li>
-        <li class=" nav-item">
+        <li class="nav-item <%= is_active_menu(['users', 'invitations']) %>">
           <a href="<%= admin_organizations_users_path %>">
             <i class="feather icon-users"></i><span class="menu-title" data-i18n="Users">Users</span>
           </a>
