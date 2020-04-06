@@ -1,0 +1,30 @@
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav flex-row">
+      <li class="nav-item mr-auto">
+        <a class="navbar-brand" href="javascript:void(0);">
+          <!-- <div class="brand-logo"></div>-->
+          <%= image_tag('logo-files/perk-social-logo.png', :class => 'org-admin-logo') %>
+          <!--<h2 class="brand-text mb-0">Perk Social</h2>-->
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="shadow-bottom"></div>
+  <div class="main-menu-content">
+    <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+      <% if @is_admin %>
+        <li class="nav-item <%= is_active_menu(['dashboard']) %>">
+          <a href="<%= admin_campaign_dashboard_path(@campaign) %>">
+            <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item <%= is_active_menu(['campaigns']) %>">
+          <a href="<%= edit_admin_campaign_path(@campaign) %>">
+            <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Settings</span>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

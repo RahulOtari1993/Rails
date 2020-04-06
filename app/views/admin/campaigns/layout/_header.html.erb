@@ -1,0 +1,30 @@
+<nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-dark navbar-shadow">
+  <div class="navbar-wrapper">
+    <div class="navbar-container content">
+      <div class="navbar-collapse" id="navbar-mobile">
+        <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+          <ul class="nav navbar-nav"></ul>
+        </div>
+        <ul class="nav navbar-nav float-right">
+          <li class="dropdown dropdown-user nav-item">
+            <% if current_user.present? %>
+              <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                <div class="user-nav d-sm-flex d-none">
+                  <span class="user-name text-bold-600"><%= current_user.full_name %></span>
+                  <span class="user-status"><%= current_user.email %></span>
+                </div>
+                <span>
+                <%= image_tag('logo-files/default-user-icon.jpg', height: "40", width: "40", class: 'round') %>
+              </span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+              <!-- <div class="dropdown-divider"></div>-->
+              <a class="dropdown-item" href="<%= destroy_user_session_path %>" data-method="delete"><i class="feather icon-power"></i> Logout</a>
+            </div>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

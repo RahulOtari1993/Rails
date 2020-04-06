@@ -1,7 +1,5 @@
-class Admin::Campaigns::DashboardController < ApplicationController
-  # layout 'campaign'
+class Admin::Campaigns::DashboardController < Admin::Campaigns::BaseController
 
-  before_action :authenticate_user!
 
   def index
   end
