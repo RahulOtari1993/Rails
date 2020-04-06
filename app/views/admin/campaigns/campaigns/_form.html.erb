@@ -1,4 +1,4 @@
-<%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'add-campaign-form', model: campaign, local: true) do |form| %>
+<%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'edit-campaign-form', model: campaign, local: true) do |form| %>
   <div class="form-body">
     <div class="row">
       <div class="col-6">
@@ -75,9 +75,10 @@
           <%= form.label :rules %>
           <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaing.</span>
 
-          <div class="quill-editor-txt"></div>
-            <%= form.text_area :rules, class: "form-control rules-txt-area", placeholder: "Rules" %>
-<!--          </div>-->
+          <div class="quill-editor-txt">
+            <%= campaign.rules.html_safe %>
+          </div>
+          <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
         </div>
       </div>
 
@@ -96,56 +97,5 @@
 </style>
 
 <script>
-  var fullEditor = new Quill('.quill-editor-txt', {
-    bounds: '.quill-editor-txt',
-    modules: {
-      'formula': true,
-      'syntax': true,
-      'toolbar': [
-        [{
-          'font': []
-        }, {
-          'size': []
-        }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{
-          'color': []
-        }, {
-          'background': []
-        }],
-        [{
-          'script': 'super'
-        }, {
-          'script': 'sub'
-        }],
-        [{
-          'header': '1'
-        }, {
-          'header': '2'
-        }, 'blockquote', 'code-block'],
-        [{
-          'list': 'ordered'
-        }, {
-          'list': 'bullet'
-        }, {
-          'indent': '-1'
-        }, {
-          'indent': '+1'
-        }],
-        ['direction', {
-          'align': []
-        }],
-        ['link', 'image', 'video', 'formula'],
-        ['clean']
-      ],
-    },
-    theme: 'snow'
-  });
 
-  // $(document).ready(function(){
-    $(".add-campaign-form").on("submit", function () {
-      var hvalue = $('.ql-editor').html();
-      $('.rules-txt-area').val(hvalue);
-    });
-  // });
 </script>

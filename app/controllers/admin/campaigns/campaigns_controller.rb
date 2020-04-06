@@ -9,6 +9,7 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   end
 
   def update
+    binding.pry
   end
 
   private
