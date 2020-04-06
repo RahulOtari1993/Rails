@@ -17,7 +17,6 @@
           <table class="table data-list-view campaign-list-view">
             <thead>
             <tr>
-              <th></th>
               <th>CREATED AT</th>
               <th>CAMPAIGN NAME</th>
               <th>DOMAIN</th>
@@ -32,7 +31,6 @@
             <tbody>
             <% @campaigns.each do |campaign| %>
               <tr>
-                <td></td>
                 <td class="product-category">
                   <%= campaign.created_at.strftime("%B %d, %Y") %>
                 </td>
@@ -64,9 +62,10 @@
                 <% if @is_admin %>
                   <td class="product-action campaign-<%= campaign.id %>-action">
                     <% if campaign.is_active %>
-                      <%= link_to "Deactivate",
-                                  deactivate_admin_organizations_campaign_path(campaign.id), method: :patch, remote: :true,
-                                  class: "btn btn-xs btn-action btn-warning" %>
+                      <button class="btn btn-xs btn-action btn-warning deActiveCampaignBtn"  data-id = "<%= campaign.id %>"
+                        data-url="<%= deactivate_admin_organizations_campaign_path(campaign.id) %>">
+                        Deactivate
+                      </button>
                     <% else %>
                       DEACTIVATED
                     <% end %>

@@ -10,3 +10,7 @@
 .has-icon-left .form-control-position i {
   color: #C2C6DC;
 }
+
+table.data-list-view.dataTable thead th:first-child {
+  padding-left: 25px !important;
+}
