@@ -56,7 +56,8 @@ $(document).on('turbolinks:load', function() {
     theme: 'snow'
   });
 
-  $('.add-campaign-form').on('submit', function () {
+  // Add Rules Details of Quill Editor to Campaign Rules
+  $('.edit-campaign-form').on('submit', function () {
     var hvalue = $('.ql-editor').html();
     $('.rules-txt-area').val(hvalue);
   });
