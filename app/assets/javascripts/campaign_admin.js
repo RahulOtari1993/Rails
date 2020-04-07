@@ -65,11 +65,14 @@ $(document).on('turbolinks:load', function() {
   // Quill Editor Integration for Campaign Privacy Policy
   new Quill('.campaign-privacy-policy-editor', toolbar);
 
-  // Quill Editor Integration for Campaign Privacy Policy
+  // Quill Editor Integration for Campaign Terms of Service
   new Quill('.campaign-terms-editor', toolbar);
 
-  // Quill Editor Integration for Campaign Privacy Policy
+  // Quill Editor Integration for Campaign Contact Us
   new Quill('.campaign-contact-us-editor', toolbar);
+
+  // Quill Editor Integration for Campaign FAQ Content
+  new Quill('.campaign-faq-content-editor', toolbar);
 
   // Add Form Details of Quill Editor to Campaign Form Fields
   $('.edit-campaign-form').on('submit', function () {
@@ -77,5 +80,6 @@ $(document).on('turbolinks:load', function() {
     $('.privacy-txt-area').val($('.campaign-privacy-policy-editor .ql-editor').html());
     $('.terms-txt-area').val($('.campaign-terms-editor .ql-editor').html());
     $('.contact-us-txt-area').val($('.campaign-contact-us-editor .ql-editor').html());
+    $('.faq-content-txt-area').val($('.campaign-faq-content-editor .ql-editor').html());
   });
 });
