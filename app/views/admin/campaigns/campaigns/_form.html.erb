@@ -74,12 +74,24 @@
       <div class="col-12">
         <div class="form-group">
           <%= form.label :rules %>
-          <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaing.</span>
+          <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaign.</span>
 
-          <div class="campaign-settings-editor quill-editor-height">
+          <div class="campaign-rules-editor quill-editor-height quill-editor">
             <%= campaign.rules.html_safe %>
           </div>
           <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :privacy, 'Privacy Policy' %>
+          <span class="column-info">The privacy policy associated with this program. It will be displayed at the bottom of the campaign.</span>
+
+          <div class="campaign-privacy-policy-editor quill-editor-height quill-editor">
+            <%= campaign.privacy.html_safe if campaign.privacy.present? %>
+          </div>
+          <%= form.hidden_field :privacy, class: "form-control privacy-txt-area" %>
         </div>
       </div>
 
