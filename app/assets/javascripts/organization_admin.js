@@ -68,6 +68,7 @@ $(document).on('turbolinks:load', function() {
   // Campaign List
   $('.campaign-list-view').DataTable({
     responsive: false,
+    bDestroy: true, // This will prevent from Cannot reinitialise DataTable ERROR
     columnDefs: [
       {
         orderable: true,
@@ -101,7 +102,7 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  // Campaign List
+  // User List
   $('.user-list-view').DataTable({
     responsive: false,
     columnDefs: [
@@ -137,6 +138,7 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
+  // De-Activate Campaign
   $('.campaign-list-view').on('click', '.de-active-campaign-btn', function(){
     $.ajax({
       type: 'PATCH',
@@ -145,6 +147,7 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+  // Activate/De-Activate a User
   $('.user-list-view').on('click', '.user-action-btn', function(){
     $.ajax({
       type: 'PATCH',

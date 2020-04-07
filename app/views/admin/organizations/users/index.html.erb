@@ -6,7 +6,7 @@
       <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
           <div class="col-12">
-            <h2 class="content-header-title float-left mb-0">List Campaigns</h2>
+            <h2 class="content-header-title float-left mb-0">List Users</h2>
           </div>
         </div>
       </div>
@@ -17,7 +17,6 @@
           <table class="table data-list-view user-list-view">
             <thead>
             <tr>
-              <th></th>
               <th>FIRST NAME</th>
               <th>LAST NAME</th>
               <th>EMAIL</th>
@@ -30,7 +29,6 @@
             <tbody>
             <% @organization_users.each do |user| %>
               <tr>
-                <td></td>
                 <td class="product-name">
                   <%= user.first_name %>
                 </td>
