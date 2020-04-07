@@ -49,6 +49,6 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   def campaign_params
     params.require(:campaign).permit(:name, :domain, :organization_id, :domain_type, :twitter, :rules,
                                      :privacy, :terms, :contact_us, :faq_title, :faq_content, :prizes_title,
-                                     :general_title, :general_content)
+                                     :general_title, :general_content, :my_account_title)
   end
 end

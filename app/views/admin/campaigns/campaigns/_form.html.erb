@@ -195,6 +195,23 @@
       </div>
 
       <div class="col-12">
+        <h3>My Account</h3>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :my_account_title, 'My Account Title' %>
+          <span class="column-info">This is the title that will be shown for My Account.</span>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :my_account_title, class: 'form-control', placeholder: 'My Account Title' %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
         <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
         <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
       </div>

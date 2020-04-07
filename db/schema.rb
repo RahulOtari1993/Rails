@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_125954) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "general_title"
+    t.string "my_account_title"
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
