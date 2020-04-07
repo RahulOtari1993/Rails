@@ -58,7 +58,6 @@ $(document).on('turbolinks:load', function() {
 
   // Add Rules Details of Quill Editor to Campaign Rules
   $('.edit-campaign-form').on('submit', function () {
-    var hvalue = $('.ql-editor').html();
-    $('.rules-txt-area').val(hvalue);
+    $('.rules-txt-area').val($('.campaign-settings-editor .ql-editor').html());
   });
 });

@@ -30,3 +30,7 @@ table.data-list-view.dataTable thead th:first-child {
 .flash-ul {
   margin-bottom: 0px !important;
 }
+
+.quill-editor-height {
+  min-height: 200px;
+}
