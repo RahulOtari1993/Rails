@@ -166,6 +166,35 @@
       </div>
 
       <div class="col-12">
+        <h3>General</h3>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :general_title, 'General Title' %>
+          <span class="column-info">This is the title that will be shown for General Place Holder.</span>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :general_title, class: 'form-control', placeholder: 'General Title' %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :general_content, 'General Content' %>
+          <span class="column-info">This is the content that will be shown for General Place Holder.</span>
+
+          <div class="campaign-general-content-editor quill-editor-height">
+            <%= campaign.general_content.html_safe if campaign.general_content.present? %>
+          </div>
+          <%= form.hidden_field :general_content, class: "form-control general-content-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
         <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
         <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
       </div>
