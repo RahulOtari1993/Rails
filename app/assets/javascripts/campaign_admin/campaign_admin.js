@@ -27,10 +27,8 @@
 //= require vendors/extensions/jquery.steps.min
 
 //= require libraries/core/app-menu
+//= require libraries/core/app
 //= require libraries/scripts/components
 //= require libraries/scripts/pages/dashboard-analytics
 //= require ../campaign_admin
 //= require ../common_js
-
-// This file do have some dependency ERRORS
-// require libraries/core/app
