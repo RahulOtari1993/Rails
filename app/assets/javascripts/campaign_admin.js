@@ -4,6 +4,24 @@ $(document).on('turbolinks:load', function() {
   Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
   Quill.register(Font, true);
 
+  // Quill Editor Toolbar Config
+  var toolbar = {
+    modules: {
+    'formula': true,
+    'syntax': true,
+    'toolbar': [
+      [{'font': []}, {'size': []}],
+      ['bold', 'italic', 'underline', 'strike'],
+      [{ 'color': []}, {'background': []}],
+      [{'script': 'super'}, {'script': 'sub'}],
+      [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+      ['direction', {'align': []}],['link', 'image', 'video', 'formula'],
+      ['clean']
+    ]},
+    theme: 'snow'
+  };
+
   // Add Campaign Form Validation
   $('.edit-campaign-form').validate({
     errorElement: 'span',
@@ -41,37 +59,19 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  // Quill Editor Toolbar Config
-  var toolbar = {
-    'formula': true,
-    'syntax': true,
-    'toolbar': [
-      [{'font': []}, {'size': []}],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'color': []}, {'background': []}],
-      [{'script': 'super'}, {'script': 'sub'}],
-      [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
-      [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-      ['direction', {'align': []}],['link', 'image', 'video', 'formula'],
-      ['clean']
-    ]
-  };
-
   // Quill Editor Integration for Campaign Rules
-  var fullEditor = new Quill('.campaign-rules-editor', {
-    modules: toolbar,
-    theme: 'snow'
-  });
+  new Quill('.campaign-rules-editor', toolbar);
 
   // Quill Editor Integration for Campaign Privacy Policy
-  var fullEditor = new Quill('.campaign-privacy-policy-editor', {
-    modules: toolbar,
-    theme: 'snow'
-  });
+  new Quill('.campaign-privacy-policy-editor', toolbar);
 
-  // Add Rules Details of Quill Editor to Campaign Rules
+  // Quill Editor Integration for Campaign Privacy Policy
+  new Quill('.campaign-terms-editor', toolbar);
+
+  // Add Form Details of Quill Editor to Campaign Form Fields
   $('.edit-campaign-form').on('submit', function () {
     $('.rules-txt-area').val($('.campaign-rules-editor .ql-editor').html());
     $('.privacy-txt-area').val($('.campaign-privacy-policy-editor .ql-editor').html());
+    $('.terms-txt-area').val($('.campaign-terms-editor .ql-editor').html());
   });
 });

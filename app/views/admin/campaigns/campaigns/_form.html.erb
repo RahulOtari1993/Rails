@@ -76,7 +76,7 @@
           <%= form.label :rules %>
           <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaign.</span>
 
-          <div class="campaign-rules-editor quill-editor-height quill-editor">
+          <div class="campaign-rules-editor quill-editor-height">
             <%= campaign.rules.html_safe %>
           </div>
           <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
@@ -88,10 +88,22 @@
           <%= form.label :privacy, 'Privacy Policy' %>
           <span class="column-info">The privacy policy associated with this program. It will be displayed at the bottom of the campaign.</span>
 
-          <div class="campaign-privacy-policy-editor quill-editor-height quill-editor">
+          <div class="campaign-privacy-policy-editor quill-editor-height">
             <%= campaign.privacy.html_safe if campaign.privacy.present? %>
           </div>
           <%= form.hidden_field :privacy, class: "form-control privacy-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :terms, 'Terms of Service' %>
+          <span class="column-info">The terms of service associated with this program. It will be displayed at the bottom of the campaign.</span>
+
+          <div class="campaign-terms-editor quill-editor-height">
+            <%= campaign.terms.html_safe if campaign.terms.present? %>
+          </div>
+          <%= form.hidden_field :terms, class: "form-control terms-txt-area" %>
         </div>
       </div>
 

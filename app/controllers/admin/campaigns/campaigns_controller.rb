@@ -47,6 +47,6 @@ class Admin::Campaigns::CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.require(:campaign).permit(:name, :domain, :organization_id, :domain_type, :twitter, :rules, :privacy)
+    params.require(:campaign).permit(:name, :domain, :organization_id, :domain_type, :twitter, :rules, :privacy, :terms)
   end
 end
