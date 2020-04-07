@@ -108,6 +108,18 @@
       </div>
 
       <div class="col-12">
+        <div class="form-group">
+          <%= form.label :contact_us, 'Contact Us' %>
+          <span class="column-info">The contact us associated with this program. It will be displayed at the bottom of the campaign.</span>
+
+          <div class="campaign-contact-us-editor quill-editor-height">
+            <%= campaign.contact_us.html_safe if campaign.contact_us.present? %>
+          </div>
+          <%= form.hidden_field :contact_us, class: "form-control contact-us-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
         <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
         <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
       </div>

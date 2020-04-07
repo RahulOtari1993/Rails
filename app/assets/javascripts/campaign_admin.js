@@ -68,10 +68,14 @@ $(document).on('turbolinks:load', function() {
   // Quill Editor Integration for Campaign Privacy Policy
   new Quill('.campaign-terms-editor', toolbar);
 
+  // Quill Editor Integration for Campaign Privacy Policy
+  new Quill('.campaign-contact-us-editor', toolbar);
+
   // Add Form Details of Quill Editor to Campaign Form Fields
   $('.edit-campaign-form').on('submit', function () {
     $('.rules-txt-area').val($('.campaign-rules-editor .ql-editor').html());
     $('.privacy-txt-area').val($('.campaign-privacy-policy-editor .ql-editor').html());
     $('.terms-txt-area').val($('.campaign-terms-editor .ql-editor').html());
+    $('.contact-us-txt-area').val($('.campaign-contact-us-editor .ql-editor').html());
   });
 });
