@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_30_071012) do
+ActiveRecord::Schema.define(version: 2020_04_07_125954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2020_03_30_071012) do
     t.boolean "templated"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "general_title"
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
