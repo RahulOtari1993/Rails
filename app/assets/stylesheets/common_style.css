@@ -26,3 +26,7 @@ table.data-list-view.dataTable thead th:first-child {
   color: grey !important;
   font-style: italic;
 }
+
+.flash-ul {
+  margin-bottom: 0px !important;
+}

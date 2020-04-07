@@ -1,11 +1,12 @@
 <%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'edit-campaign-form', model: campaign, local: true) do |form| %>
   <div class="form-body">
     <div class="row">
-      <div class="col-6">
+      <div class="col-12">
         <% if campaign.errors.any? %>
           <%= render '/shared/render_errors', resource: campaign %>
         <% end %>
-
+      </div>
+      <div class="col-6">
         <%= form.hidden_field :organization_id, value: @organization.id %>
 
         <div class="form-group">
@@ -75,7 +76,7 @@
           <%= form.label :rules %>
           <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaing.</span>
 
-          <div class="quill-editor-txt">
+          <div class="campaign-settings-editor">
             <%= campaign.rules.html_safe %>
           </div>
           <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
