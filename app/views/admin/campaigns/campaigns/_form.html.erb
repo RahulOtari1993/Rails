@@ -212,6 +212,35 @@
       </div>
 
       <div class="col-12">
+        <h3>How To Earn</h3>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :how_to_earn_title, 'How To Earn Title' %>
+          <span class="column-info">This is the title that will be shown for How To Earn.</span>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :how_to_earn_title, class: 'form-control', placeholder: 'How To Earn Title' %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :how_to_earn_content, 'How To Earn Content' %>
+          <span class="column-info">This is the content that will be shown for How To Earn.</span>
+
+          <div class="campaign-how-to-earn-content-editor quill-editor-height">
+            <%= campaign.how_to_earn_content.html_safe if campaign.how_to_earn_content.present? %>
+          </div>
+          <%= form.hidden_field :how_to_earn_content, class: "form-control how-to-earn-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
         <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
         <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
       </div>

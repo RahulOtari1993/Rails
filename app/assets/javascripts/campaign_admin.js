@@ -77,6 +77,9 @@ $(document).on('turbolinks:load', function() {
   // Quill Editor Integration for Campaign General Content
   new Quill('.campaign-general-content-editor', toolbar);
 
+  // Quill Editor Integration for Campaign General Content
+  new Quill('.campaign-how-to-earn-content-editor', toolbar);
+
   // Add Form Details of Quill Editor to Campaign Form Fields
   $('.edit-campaign-form').on('submit', function () {
     $('.rules-txt-area').val($('.campaign-rules-editor .ql-editor').html());
@@ -85,5 +88,6 @@ $(document).on('turbolinks:load', function() {
     $('.contact-us-txt-area').val($('.campaign-contact-us-editor .ql-editor').html());
     $('.faq-content-txt-area').val($('.campaign-faq-content-editor .ql-editor').html());
     $('.general-content-txt-area').val($('.campaign-general-content-editor .ql-editor').html());
+    $('.how-to-earn-txt-area').val($('.campaign-how-to-earn-content-editor .ql-editor').html());
   });
 });
