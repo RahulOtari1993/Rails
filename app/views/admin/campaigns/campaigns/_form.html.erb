@@ -120,9 +120,7 @@
       </div>
 
       <div class="col-12">
-        <div class="form-group">
-          <h3>FAQ</h3>
-        </div>
+        <h3>FAQ</h3>
       </div>
 
       <div class="col-6">
@@ -147,6 +145,23 @@
             <%= campaign.faq_content.html_safe if campaign.faq_content.present? %>
           </div>
           <%= form.hidden_field :faq_content, class: "form-control faq-content-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <h3>Prizes</h3>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :prizes_title, 'Prizes Title' %>
+          <span class="column-info">This is the title that will be shown for Rules.</span>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :prizes_title, class: 'form-control', placeholder: 'Prizes Title' %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
         </div>
       </div>
 
