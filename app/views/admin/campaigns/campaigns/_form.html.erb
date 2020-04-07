@@ -120,7 +120,7 @@
       </div>
 
       <div class="col-12">
-        <h3>FAQ</h3>
+        <h4>FAQ</h4>
       </div>
 
       <div class="col-6">
@@ -149,7 +149,7 @@
       </div>
 
       <div class="col-12">
-        <h3>Prizes</h3>
+        <h4>Prizes</h4>
       </div>
 
       <div class="col-6">
@@ -166,7 +166,7 @@
       </div>
 
       <div class="col-12">
-        <h3>General</h3>
+        <h4>General</h4>
       </div>
 
       <div class="col-6">
@@ -195,7 +195,7 @@
       </div>
 
       <div class="col-12">
-        <h3>My Account</h3>
+        <h4>My Account</h4>
       </div>
 
       <div class="col-6">
@@ -212,7 +212,7 @@
       </div>
 
       <div class="col-12">
-        <h3>How To Earn</h3>
+        <h4>How To Earn</h4>
       </div>
 
       <div class="col-6">
@@ -237,6 +237,35 @@
             <%= campaign.how_to_earn_content.html_safe if campaign.how_to_earn_content.present? %>
           </div>
           <%= form.hidden_field :how_to_earn_content, class: "form-control how-to-earn-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <h4>Design</h4>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :css, 'Style Block' %>
+          <span class="column-info">Enter the CSS styling you would like injected onto your campaign's page.</span>
+          <div class="position-relative">
+            <%= form.text_area :css, class: 'form-control', placeholder: 'Enter CSS Style' %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :seo, 'SEO Block' %>
+          <span class="column-info">Enter all the seo related content you want such as title, FB tags etc.</span>
+
+          <div class="campaign-seo-content-editor quill-editor-height">
+            <%= campaign.seo.html_safe if campaign.seo.present? %>
+          </div>
+          <%= form.hidden_field :seo, class: "form-control seo-txt-area" %>
         </div>
       </div>
 
