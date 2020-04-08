@@ -6,7 +6,7 @@ class Admin::Campaigns::TemplateController < Admin::Campaigns::BaseController
 
   def update
     respond_to do |format|
-      if @template_details.update!(template_params)
+      if @template_details.update(template_params)
         format.html { redirect_to edit_admin_campaign_template_path(@campaign, @template_details),
                                   notice: 'Template details were successfully updated.' }
         format.json { render :edit, status: :updated }

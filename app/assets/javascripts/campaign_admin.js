@@ -94,4 +94,7 @@ $(document).on('turbolinks:load', function() {
     $('.how-to-earn-txt-area').val($('.campaign-how-to-earn-content-editor .ql-editor').html());
     $('.seo-txt-area').val($('.campaign-seo-content-editor .ql-editor').html());
   });
+
+  // Color Picker Integration
+  $('.colour-picker-txt').minicolors({theme: 'bootstrap'})
 });

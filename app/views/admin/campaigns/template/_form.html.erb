@@ -14,8 +14,9 @@
       <div class="col-6">
         <div class="form-group">
           <%= form.label :header_background_image, 'Header Background Image' %>
-          <div class="position-relative">
-            <%= form.text_field :header_background_image, class: "form-control", placeholder: "header_background_image" %>
+          <div class="custom-file">
+            <%= form.file_field :header_background_image, class: "custom-file-input" %>
+            <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
       </div>
@@ -23,8 +24,9 @@
       <div class="col-6">
         <div class="form-group">
           <%= form.label :header_logo, 'Header Logo' %>
-          <div class="position-relative">
-            <%= form.text_field :header_logo, class: "form-control", placeholder: "header_logo" %>
+          <div class="custom-file">
+            <%= form.file_field :header_logo, class: "custom-file-input" %>
+            <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
       </div>
@@ -42,7 +44,7 @@
         <div class="form-group">
           <%= form.label :header_font_color, 'Header Font Color' %>
           <div class="position-relative">
-            <%= form.text_field :header_font_color, class: "form-control", placeholder: "Header Font Color" %>
+            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
           </div>
         </div>
       </div>
@@ -64,7 +66,7 @@
         <div class="form-group">
           <%= form.label :footer_background_color, 'Footer Background Color' %>
           <div class="position-relative">
-            <%= form.text_field :footer_background_color, class: "form-control", placeholder: "Footer Background Color" %>
+            <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
           </div>
         </div>
       </div>
@@ -73,7 +75,7 @@
         <div class="form-group">
           <%= form.label :footer_font_color, 'Footer Font Color' %>
           <div class="position-relative">
-            <%= form.text_field :footer_font_color, class: "form-control", placeholder: "Footer Font Color" %>
+            <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
           </div>
         </div>
       </div>
@@ -93,9 +95,10 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :favicon_file %>
-          <div class="position-relative">
-            <%= form.text_field :favicon_file, class: "form-control", placeholder: "favicon_file" %>
+          <%= form.label :favicon_file, 'Favicon Icon' %>
+          <div class="custom-file">
+            <%= form.file_field :favicon_file, class: "custom-file-input" %>
+            <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
       </div>
@@ -107,13 +110,3 @@
     </div>
   </div>
 <% end %>
-
-<style>
-  .input-group > .form-control:focus {
-    z-index: 0;
-  }
-</style>
-
-<script>
-  $('#campaign_template_detail_header_font_color').minicolors({theme: 'bootstrap', position: 'bottom-right'})
-</script>
