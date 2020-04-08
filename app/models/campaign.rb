@@ -4,8 +4,9 @@
 #
 #  id                  :bigint           not null, primary key
 #  organization_id     :bigint
-#  name                :string
-#  domain              :string
+#  name                :string           not null
+#  domain              :string           not null
+#  domain_type         :integer          not null
 #  twitter             :string
 #  rules               :text
 #  privacy             :text
@@ -19,11 +20,13 @@
 #  how_to_earn_content :text
 #  css                 :text
 #  seo                 :text
-#  is_active           :boolean
+#  is_active           :boolean          default("true")
 #  template            :text
 #  templated           :boolean
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  general_title       :string
+#  my_account_title    :string
 #
 class Campaign < ApplicationRecord
   ## Associations

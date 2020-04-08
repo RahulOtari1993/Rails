@@ -15,7 +15,7 @@
 #  last_sign_in_ip        :inet
 #  first_name             :string
 #  last_name              :string
-#  is_active              :boolean          default("true"), not null
+#  is_active              :boolean          default("false"), not null
 #  is_deleted             :boolean          default("false"), not null
 #  deleted_by             :integer
 #  organization_id        :integer
