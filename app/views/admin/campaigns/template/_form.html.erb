@@ -13,7 +13,7 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :header_background_image %>
+          <%= form.label :header_background_image, 'Header Background Image' %>
           <div class="position-relative has-icon-left">
             <%= form.text_field :header_background_image, class: "form-control", placeholder: "header_background_image" %>
             <div class="form-control-position">
@@ -25,7 +25,7 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :header_logo %>
+          <%= form.label :header_logo, 'Header Logo' %>
           <div class="position-relative has-icon-left">
             <%= form.text_field :header_logo, class: "form-control", placeholder: "header_logo" %>
             <div class="form-control-position">
@@ -37,9 +37,9 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :header_text %>
+          <%= form.label :header_text, 'Header Text' %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :header_text, class: "form-control", placeholder: "header_text" %>
+            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -49,21 +49,21 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :header_font_color %>
-          <div class="position-relative has-icon-left">
-            <%= form.text_field :header_font_color, class: "form-control", placeholder: "header_font_color" %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
+          <%= form.label :header_font_color, 'Header Font Color' %>
+          <div class="position-relative">
+            <%= form.text_field :header_font_color, class: "form-control", placeholder: "Header Font Color" %>
+<!--            <div class="form-control-position">-->
+<!--              <i class="feather icon-user"></i>-->
+<!--            </div>-->
           </div>
         </div>
       </div>
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :header_font_size %>
+          <%= form.label :header_font_size, 'Header Font Size' %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :header_font_size, class: "form-control", placeholder: "header_font_size" %>
+            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -77,9 +77,9 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :footer_background_color %>
+          <%= form.label :footer_background_color, 'Footer Background Color' %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :footer_background_color, class: "form-control", placeholder: "footer_background_color" %>
+            <%= form.text_field :footer_background_color, class: "form-control", placeholder: "Footer Background Color" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -89,9 +89,9 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :footer_font_color %>
+          <%= form.label :footer_font_color, 'Footer Font Color' %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :footer_font_color, class: "form-control", placeholder: "footer_font_color" %>
+            <%= form.text_field :footer_font_color, class: "form-control", placeholder: "Footer Font Color" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -101,9 +101,9 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :footer_font_size %>
+          <%= form.label :footer_font_size, 'Footer Font Size' %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "footer_font_size" %>
+            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -140,3 +140,7 @@
     z-index: 0;
   }
 </style>
+
+<script>
+  $('#campaign_template_detail_header_font_color').minicolors({theme: 'bootstrap', position: 'bottom-right'})
+</script>

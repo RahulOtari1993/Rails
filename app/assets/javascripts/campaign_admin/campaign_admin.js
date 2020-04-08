@@ -30,5 +30,6 @@
 //= require libraries/core/app
 //= require libraries/scripts/components
 //= require libraries/scripts/pages/dashboard-analytics
+//= require jquery.minicolors
 //= require ../campaign_admin
 //= require ../common_js
