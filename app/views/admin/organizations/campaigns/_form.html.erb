@@ -10,30 +10,8 @@
 
         <div class="form-group">
           <%= form.label :name %>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :name, class: "form-control", placeholder: "Campaign Name" %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <div class="form-group">
-          <%= form.label :domain %>
-          <div class="position-relative has-icon-left">
-            <div class="input-group">
-              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
-              <div class="form-control-position">
-                <i class="feather icon-mail"></i>
-              </div>
-              <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
-              </div>
-            </div>
-            <div class="input-group domain-errors">
-            </div>
           </div>
         </div>
       </div>
@@ -41,15 +19,29 @@
       <div class="col-12">
         <div class="form-group">
           <%= form.label :domain_type, 'Domain type' %>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.select :domain_type,
                             options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
                             {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
+          </div>
+        </div>
+      </div>
 
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
+      <div class="col-12">
+        <div class="form-group">
+          <%= form.label :domain %>
+          <div class="position-relative">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">www.<%= @organization.sub_domain %></span>
+              </div>
+              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
+              <div class="input-group-append">
+                <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
+              </div>
             </div>
-
+            <div class="input-group domain-errors">
+            </div>
           </div>
         </div>
       </div>

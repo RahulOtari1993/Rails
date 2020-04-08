@@ -42,8 +42,8 @@ class Campaign < ApplicationRecord
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Callbacks
-  after_create :assign_admins
-  after_create :set_template_design
+  after_save :assign_admins
+  after_save :set_template_design
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
@@ -82,6 +82,6 @@ class Campaign < ApplicationRecord
 
   ## Create & Set Template Details Entry for a Newly Created Campaign
   def set_template_design
-    CampaignTemplateDetail.create(campaign_id: self.id)
+    CampaignTemplateDetail.create!(campaign_id: self.id)
   end
 end
