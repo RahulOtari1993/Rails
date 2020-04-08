@@ -15,5 +15,11 @@ class CreateCampaignTemplateDetails < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    ## Update Existing Campaigns
+    Campaign.all.each do |camp|
+      CampaignTemplateDetail.create(campaign_id: camp.id)
+    end
+
   end
 end

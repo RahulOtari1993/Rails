@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       scope :module => 'campaigns' do
         resources :campaigns, only: [:show, :edit, :update] do
           get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+
+          ## Template Routes
+          resources :template, only: [:index, :update]
         end
       end
     end
