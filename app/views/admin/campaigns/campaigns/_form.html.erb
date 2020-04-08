@@ -11,12 +11,9 @@
 
         <div class="form-group">
           <%= form.label :name %>
-          <span class="column-info">The name of the campaing. This is just a friendly name to identify this campaign.</span>
-          <div class="position-relative has-icon-left">
+          <span class="column-info">The name of the campaign. This is just a friendly name to identify this campaign.</span>
+          <div class="position-relative">
             <%= form.text_field :name, class: "form-control", placeholder: "Campaign Name" %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -25,11 +22,8 @@
         <div class="form-group">
           <%= form.label :twitter, 'Twitter Handle' %>
           <span class="column-info">Enter a twitter handle to pull the social feed.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :twitter, class: "form-control", placeholder: "Twitter Handle" %>
-            <div class="form-control-position">
-              <i class="feather icon-twitter"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -38,15 +32,10 @@
         <div class="form-group">
           <%= form.label :domain_type, 'Domain type' %>
           <span class="column-info">Choose the Domain type to handle how you want the campaign domain to be.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.select :domain_type,
                             options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
                             {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
-
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
-
           </div>
         </div>
       </div>
@@ -58,7 +47,7 @@
           <div class="position-relative">
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="input-group-text">www.osu</span>
+                <span class="input-group-text">www.<%= @organization.sub_domain %></span>
               </div>
               <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
               <div class="input-group-append">
@@ -127,11 +116,8 @@
         <div class="form-group">
           <%= form.label :faq_title, 'FAQ Title' %>
           <span class="column-info">This is the title that will be shown for FAQ (Frequently Asked Questions).</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :faq_title, class: 'form-control', placeholder: 'FAQ Title' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -156,11 +142,8 @@
         <div class="form-group">
           <%= form.label :prizes_title, 'Prizes Title' %>
           <span class="column-info">This is the title that will be shown for Rules.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :prizes_title, class: 'form-control', placeholder: 'Prizes Title' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -173,11 +156,8 @@
         <div class="form-group">
           <%= form.label :general_title, 'General Title' %>
           <span class="column-info">This is the title that will be shown for General Place Holder.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :general_title, class: 'form-control', placeholder: 'General Title' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -202,11 +182,8 @@
         <div class="form-group">
           <%= form.label :my_account_title, 'My Account Title' %>
           <span class="column-info">This is the title that will be shown for My Account.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :my_account_title, class: 'form-control', placeholder: 'My Account Title' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -219,11 +196,8 @@
         <div class="form-group">
           <%= form.label :how_to_earn_title, 'How To Earn Title' %>
           <span class="column-info">This is the title that will be shown for How To Earn.</span>
-          <div class="position-relative has-icon-left">
+          <div class="position-relative">
             <%= form.text_field :how_to_earn_title, class: 'form-control', placeholder: 'How To Earn Title' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
@@ -250,9 +224,6 @@
           <span class="column-info">Enter the CSS styling you would like injected onto your campaign's page.</span>
           <div class="position-relative">
             <%= form.text_area :css, class: 'form-control', placeholder: 'Enter CSS Style' %>
-            <div class="form-control-position">
-              <i class="feather icon-user"></i>
-            </div>
           </div>
         </div>
       </div>
