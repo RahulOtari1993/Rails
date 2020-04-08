@@ -3,6 +3,7 @@ class Admin::Campaigns::CampaignsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_campaign
+  before_action :set_template
   before_action :is_admin
 
   def edit
@@ -43,6 +44,11 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   ## Set Campaign
   def set_campaign
     @campaign = Campaign.where(id: params[:id]).first
+  end
+
+  ## Set Template
+  def set_template
+    @template = @campaign.campaign_template_detail
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

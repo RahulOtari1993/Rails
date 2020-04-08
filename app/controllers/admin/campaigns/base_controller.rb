@@ -3,6 +3,7 @@ class Admin::Campaigns::BaseController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_campaign
+  before_action :set_template
   before_action :is_admin
 
   private
@@ -15,5 +16,10 @@ class Admin::Campaigns::BaseController < ApplicationController
   ## Set Campaign
   def set_campaign
     @campaign = Campaign.where(id: params[:campaign_id]).first
+  end
+
+  ## Set Template
+  def set_template
+    @template = @campaign.campaign_template_detail
   end
 end
