@@ -34,6 +34,7 @@ class Campaign < ApplicationRecord
   has_many :users, through: :campaign_users
   has_many :submissions, dependent: :destroy
   has_one  :domain_list, dependent: :destroy
+  has_one  :campaign_template_detail, dependent: :destroy
 
   enum domain_type: [:sub_domain, :include_in_domain]
 

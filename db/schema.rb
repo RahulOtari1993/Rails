@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_125954) do
+ActiveRecord::Schema.define(version: 2020_04_08_062120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,22 @@ ActiveRecord::Schema.define(version: 2020_04_07_125954) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "campaign_template_details", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.string "favicon_file"
+    t.string "footer_background_color"
+    t.string "footer_font_color"
+    t.float "footer_font_size"
+    t.string "header_background_image"
+    t.string "header_logo"
+    t.string "header_text"
+    t.string "header_font_color"
+    t.float "header_font_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_template_details_on_campaign_id"
   end
 
   create_table "campaign_users", force: :cascade do |t|
@@ -201,6 +217,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_125954) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "campaign_template_details", "campaigns"
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
   add_foreign_key "campaigns", "organizations"
