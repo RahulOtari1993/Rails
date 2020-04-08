@@ -18,6 +18,13 @@ test:
   user: XXX
   password: XXX
 
+staging:
+  <<: *default
+  database: <%= Rails.application.credentials[:production][:database][:name] %>
+  host: <%= Rails.application.credentials[:production][:database][:host] %>
+  username: <%= Rails.application.credentials[:production][:database][:user] %>
+  password: <%= Rails.application.credentials[:production][:database][:password] %>
+
 production:
   <<: *default
   database: <%= Rails.application.credentials[:production][:database][:name] %>
