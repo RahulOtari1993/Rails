@@ -1,7 +1,7 @@
 CarrierWave.configure do |config|
   config.storage    = :aws
   config.aws_bucket = Rails.application.credentials[Rails.env.to_sym][:aws][:aws_bucket_name] # for AWS-side bucket access permissions config, see section below
-  config.aws_acl    = 'public'
+  # config.aws_acl    = 'private'
 
   # Optionally define an asset host for configurations that are fronted by a
   # content host, such as CloudFront.

@@ -20,5 +20,9 @@ class CampaignTemplateDetail < ApplicationRecord
   ## Associations
   belongs_to :campaign
 
-  validates :favicon_file, :footer_background_color, presence: true
+  ## Mount Uploader for File Upload
+  mount_uploader :header_background_image, ImageUploader
+  mount_uploader :header_logo, ImageUploader
+  mount_uploader :favicon_file, ImageUploader
+
 end
