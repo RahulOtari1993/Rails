@@ -1,19 +1,21 @@
-<%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'edit-campaign-form', model: campaign, local: true) do |form| %>
+<%= form_with(url: admin_campaign_template_path(campaign, template), method: 'put', class: 'edit-template-details-form', model: template, local: true) do |form| %>
   <div class="form-body">
     <div class="row">
       <div class="col-12">
-        <% if campaign.errors.any? %>
-          <%= render '/shared/render_errors', resource: campaign %>
+        <% if template.errors.any? %>
+          <%= render '/shared/render_errors', resource: template %>
         <% end %>
       </div>
-      <div class="col-6">
-        <%= form.hidden_field :organization_id, value: @organization.id %>
 
+      <div class="col-12">
+        <h4>Header Details</h4>
+      </div>
+
+      <div class="col-6">
         <div class="form-group">
-          <%= form.label :name %>
-          <span class="column-info">The name of the campaing. This is just a friendly name to identify this campaign.</span>
+          <%= form.label :header_background_image %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :name, class: "form-control", placeholder: "Campaign Name" %>
+            <%= form.text_field :header_background_image, class: "form-control", placeholder: "header_background_image" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -23,10 +25,9 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :twitter, 'Twitter Handle' %>
-          <span class="column-info">Enter a twitter handle to pull the social feed.</span>
+          <%= form.label :header_logo %>
           <div class="position-relative has-icon-left">
-            <%= form.text_field :twitter, class: "form-control", placeholder: "Twitter Handle" %>
+            <%= form.text_field :header_logo, class: "form-control", placeholder: "header_logo" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
@@ -36,50 +37,93 @@
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :domain_type, 'Domain type' %>
-          <span class="column-info">Choose the Domain type to handle how you want the campaign domain to be.</span>
+          <%= form.label :header_text %>
           <div class="position-relative has-icon-left">
-            <%= form.select :domain_type,
-                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
-                            {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
-
+            <%= form.text_field :header_text, class: "form-control", placeholder: "header_text" %>
             <div class="form-control-position">
               <i class="feather icon-user"></i>
             </div>
-
           </div>
         </div>
       </div>
 
       <div class="col-6">
         <div class="form-group">
-          <%= form.label :domain %>
-          <span class="column-info">You are able to create a custom subdomain under perk social to make it easier to link and connect your clients to this landing page.</span>
-          <div class="position-relative">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text">www.osu</span>
-              </div>
-              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
-              <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
-              </div>
+          <%= form.label :header_font_color %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :header_font_color, class: "form-control", placeholder: "header_font_color" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
             </div>
-            <div class="input-group domain-errors">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :header_font_size %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :header_font_size, class: "form-control", placeholder: "header_font_size" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
             </div>
           </div>
         </div>
       </div>
 
       <div class="col-12">
-        <div class="form-group">
-          <%= form.label :rules %>
-          <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaign.</span>
+        <h4>Footer Details</h4>
+      </div>
 
-          <div class="campaign-rules-editor quill-editor-height">
-            <%= campaign.rules.html_safe %>
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :footer_background_color %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :footer_background_color, class: "form-control", placeholder: "footer_background_color" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
           </div>
-          <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :footer_font_color %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :footer_font_color, class: "form-control", placeholder: "footer_font_color" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :footer_font_size %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "footer_font_size" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <h4>Favicon Details</h4>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :favicon_file %>
+          <div class="position-relative has-icon-left">
+            <%= form.text_field :favicon_file, class: "form-control", placeholder: "favicon_file" %>
+            <div class="form-control-position">
+              <i class="feather icon-user"></i>
+            </div>
+          </div>
         </div>
       </div>
 

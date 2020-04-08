@@ -38,7 +38,7 @@ Rails.application.routes.draw do
           get '/dashboard', to: 'dashboard#index', as: 'dashboard'
 
           ## Template Routes
-          resources :template, only: [:index, :update]
+          resources :template, only: [:edit, :update]
         end
       end
     end

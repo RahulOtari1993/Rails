@@ -2,8 +2,7 @@ class Admin::Campaigns::BaseController < ApplicationController
   layout 'campaign_admin'
 
   before_action :authenticate_user!
-  before_action :set_campaign
-  before_action :set_template
+  before_action :set_details
   before_action :is_admin
 
   private
@@ -13,13 +12,9 @@ class Admin::Campaigns::BaseController < ApplicationController
     @is_admin = current_user.organization_admin? @organization
   end
 
-  ## Set Campaign
-  def set_campaign
+  ## Set Campaign & Template
+  def set_details
     @campaign = Campaign.where(id: params[:campaign_id]).first
-  end
-
-  ## Set Template
-  def set_template
-    @template = @campaign.campaign_template_detail
+    @template = @campaign.campaign_template_detail if @campaign.present?
   end
 end

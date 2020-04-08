@@ -19,4 +19,6 @@
 class CampaignTemplateDetail < ApplicationRecord
   ## Associations
   belongs_to :campaign
+
+  validates :favicon_file, :footer_background_color, presence: true
 end

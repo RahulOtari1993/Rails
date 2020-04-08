@@ -77,7 +77,7 @@
           <span class="column-info">The rules associated with this program. It will be displayed at the bottom of the campaign.</span>
 
           <div class="campaign-rules-editor quill-editor-height">
-            <%= campaign.rules.html_safe %>
+            <%= campaign.rules.html_safe if campaign.rules.present? %>
           </div>
           <%= form.hidden_field :rules, class: "form-control rules-txt-area" %>
         </div>
