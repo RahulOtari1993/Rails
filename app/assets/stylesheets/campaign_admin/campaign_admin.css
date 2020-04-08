@@ -17,19 +17,29 @@
  *= require vendors/editors/quill/monokai-sublime.min
  *= require vendors/editors/quill/quill.snow
  *= require vendors/editors/quill/quill.bubble
+ *= require vendors/tables/datatable/datatables.min
+ *= require vendors/tables/datatable/extensions/dataTables.checkboxes
+ *= require vendors/file-uploaders/dropzone.min
+ *= require vendors/forms/spinner/jquery.bootstrap-touchspin
+ *= require vendors/forms/select/select2.min
+ *= require vendors/pickers/pickadate/pickadate
 
+ *= require libraries/core/menu/menu-types/vertical-menu
+ *= require libraries/plugins/file-uploaders/dropzone
  *= require libraries/bootstrap
  *= require libraries/bootstrap-extended
  *= require libraries/colors
  *= require libraries/components
  *= require libraries/themes/dark-layout
  *= require libraries/themes/semi-dark-layout
-
  *= require libraries/core/menu/menu-types/vertical-menu
  *= require libraries/core/colors/palette-gradient
  *= require libraries/pages/dashboard-analytics
  *= require libraries/pages/card-analytics
  *= require jquery.minicolors
+ *= require libraries/pages/data-list-view
+ 
+ *= require libraries/plugins/file-uploaders/dropzone
 
  *= require style
  *= require ../common_style

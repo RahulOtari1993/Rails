@@ -20,16 +20,21 @@
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['campaigns']) %>">
+          <a href="<%= admin_campaign_rewards_path(@campaign) %>">
+            <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Rewards</span>
+          </a>
+        </li>
+        <li class="nav-item <%= is_active_menu(['campaigns']) %>">
           <a href="<%= edit_admin_campaign_path(@campaign) %>">
             <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Settings</span>
           </a>
         </li>
-        <li class="nav-item <%= is_active_menu(['template']) %>">
-          <a href="<%= edit_admin_campaign_template_path(@campaign, @template) %>">
+        <!-- <li class="nav-item <%= is_active_menu(['template']) %>">
+          <a href="<%#= edit_admin_campaign_template_path(@campaign, @template) %>">
             <i class="feather icon-film"></i><span class="menu-title" data-i18n="Template">Template</span>
           </a>
-        </li>
-      <% end %>
+        </li> -->
+     <% end %>
     </ul>
   </div>
 </div>

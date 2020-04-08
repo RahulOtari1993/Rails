@@ -28,4 +28,22 @@ class Reward < ApplicationRecord
   ## Associations
   belongs_to :campaign
   has_many :coupons
+
+  mount_uploader :image, ImageUploader
+
+  SELECTIONS = [
+		"manual"    ,
+		"redeem"    ,
+		"instant"   ,
+		"threshold" ,
+		"selection" ,
+		"sweepstake",
+	]
+
+	FULFILMENTS = [
+		"default" ,
+		"badge"   ,
+		"points"  ,
+		"download"
+	]
 end

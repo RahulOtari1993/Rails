@@ -73,6 +73,7 @@ Rails.application.configure do
     :port           => 587,
     :authentication => :login
   }
+  
 
   # # Load Libs
   # config.enable_dependency_loading = true
