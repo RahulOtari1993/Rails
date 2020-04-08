@@ -1,7 +1,7 @@
 CarrierWave.configure do |config|
   config.storage    = :aws
   config.aws_bucket = Rails.application.credentials[Rails.env.to_sym][:aws][:aws_bucket_name] # for AWS-side bucket access permissions config, see section below
-  # config.aws_acl    = 'private'
+  config.aws_acl    = 'public'
 
   # Optionally define an asset host for configurations that are fronted by a
   # content host, such as CloudFront.
@@ -12,10 +12,10 @@ CarrierWave.configure do |config|
 
   # Set custom options such as cache control to leverage browser caching.
   # You can use either a static Hash or a Proc.
-  # config.aws_attributes = -> { {
-  #   expires: 1.week.from_now.httpdate,
-  #   cache_control: 'max-age=604800'
-  # } }
+  config.aws_attributes = -> { {
+    expires: 1.week.from_now.httpdate,
+    cache_control: 'max-age=604800'
+  } }
 
   config.aws_credentials = {
     access_key_id:     Rails.application.credentials[Rails.env.to_sym][:aws][:access_key_id],
