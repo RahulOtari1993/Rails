@@ -1065,6 +1065,215 @@ li.error {
   vertical-align: top;
 }
 
+.modal {
+  background-color: rgba(255, 255, 255, 0.95);
+> top: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 99999;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal.video-watch-modal {
+  -webkit-overflow-scrolling: initial;
+}
+
+.modal-inner {
+  max-width: 50em;
+  width: 90%;
+  padding-top: 1px;
+  padding-right: 2.42rem;
+  padding-bottom: 3.3rem;
+  padding-left: 2.42rem;
+  margin: 1.54rem auto;
+  background-color: #fefefe;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E8E8E8;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+.modal-header {
+  border-radius: 0;
+  background-color: #bb0000;
+  margin-top: -1px;
+  margin-left: -2.42rem;
+  margin-right: -2.42rem;
+  position: relative;
+  height: 75px;
+  text-align: center;
+}
+
+.modal-header-account {
+  background-color: #bb0000;
+  margin-top: -1px;
+  margin-left: -2.42rem;
+  margin-right: -2.42rem;
+  text-align: left;
+  padding-bottom: 15px;
+  padding-top: 8px;
+
+}
+
+@media (max-width: 600px) {
+  .modal-inner {
+    padding: 0 20px 20px;
+    /* Sets modal width to full screen */
+    width: 100%;
+  }
+
+  .modal-header-account {
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+.modal-header-account .top {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #ffffff;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.modal-header-account .bottom {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 100;
+}
+
+@media (max-width: 500px) {
+  .modal-header-account .bottom {
+    font-size: 24px;
+  }
+}
+
+.modal-header-account .left-header {
+  display: inline-block;
+  height: 60px;
+  width: 50%;
+  padding-left: 15px;
+  margin-top: 15px;
+  border-left: 2px solid red;
+
+}
+
+button.modal-close-btn.btn-icon {
+  position: absolute;
+  top: -11px;
+  right: -20px;
+  width: 40px;
+  z-index: 10;
+}
+
+/* Fixes full screen modal X button floating off screen a little */
+@media (max-width: 600px) {
+  button.modal-close-btn.btn-icon {
+    right: -57px;
+  }
+}
+
+.modal-header-account .right-header {
+  display: inline-block;
+  width: 50%;
+  float: left;
+  margin-top: 15px;
+  padding-left: 15px;
+}
+
+.modal-header h1 {
+  margin-top: 0;
+  color: #ffffff;
+  line-height: 1;
+  font-weight: 100;
+  font-size: 38px;
+}
+
+.modal-header-disclaimer {
+  background-color: #efefef;
+  margin-top: -1px;
+  margin-left: -2.42rem;
+  margin-right: -2.42rem;
+  text-align: center;
+}
+
+.modal-header-disclaimer p {
+  margin-top: 0;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  padding-left: 20%;
+  padding-right: 20%;
+}
+
+/*.modal-fields {*/
+/*  margin-top: 60px;*/
+/*}*/
+
+.modal-content,
+.modal-sidebar {
+  background-color: #fefefe;
+  padding: 1.21rem;
+}
+
+@media (min-width: 50em) {
+  .modal-content,
+  .modal-sidebar {
+    padding: 2.42rem;
+  }
+}
+
+.modal-prompt {
+  font-size: 1.32rem;
+}
+
+.modal-title {
+  font-weight: 400;
+  margin-top: 0;
+  font-size: 1.98rem;
+}
+
+@media (min-width: 50em) {
+  .modal-main {
+    padding: 1.21rem;
+  }
+}
+
+.modal-video {
+  cursor: pointer;
+}
+
+.modal-sidebar {
+  padding-top: 1.98rem;
+}
+
+@media (min-width: 50em) {
+  .modal-sidebar {
+    position: relative;
+    -webkit-flex: 0 0 33.33333%;
+    -ms-flex: 0 0 33.33333%;
+    flex: 0 0 33.33333%;
+    max-width: 33.33333%;
+    margin-left: 1.1rem;
+  }
+}
+
+.modal-footer {
+  margin-top: 1.54rem;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .video-watch-modal .video-congrats-image {
   /*display: none;
             visibility: hidden;*/

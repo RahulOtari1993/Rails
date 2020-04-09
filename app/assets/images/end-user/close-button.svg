@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Close-Button</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="14" cy="14" r="14"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Hompage-v2-Log-In" transform="translate(-911.000000, -92.000000)">
+            <g id="Close-Button" transform="translate(911.000000, 92.000000)">
+                <g id="Oval-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <circle stroke="#BB0000" stroke-width="1.5" cx="14" cy="14" r="13.25"></circle>
+                </g>
+                <path d="M19.7215829,18.3772663 C20.0928057,18.7484891 20.0928057,19.3503601 19.7215829,19.7215829 C19.3503601,20.0928057 18.7484891,20.0928057 18.3772663,19.7215829 L14,15.3443166 L9.62273366,19.7215829 C9.25151089,20.0928057 8.64963985,20.0928057 8.27841708,19.7215829 C7.90719431,19.3503601 7.90719431,18.7484891 8.27841708,18.3772663 L12.6556834,14 L8.27841708,9.62273366 C7.90719431,9.25151089 7.90719431,8.64963985 8.27841708,8.27841708 C8.64963985,7.90719431 9.25151089,7.90719431 9.62273366,8.27841708 L14,12.6556834 L18.3772663,8.27841708 C18.7484891,7.90719431 19.3503601,7.90719431 19.7215829,8.27841708 C20.0928057,8.64963985 20.0928057,9.25151089 19.7215829,9.62273366 L15.3443166,14 L19.7215829,18.3772663 Z" id="Rectangle-4" fill="#BB0000"></path>
+            </g>
+        </g>
+    </g>
+</svg>
