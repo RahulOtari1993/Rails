@@ -48,7 +48,7 @@
   }
 
   .page-footer p, .page-footer a {
-   font-size: <%= template.footer_font_size.present? ? "#{template.footer_font_size}px" : '1.1rem' %>;
+    font-size: <%= template.footer_font_size.present? ? "#{template.footer_font_size}px" : '1.1rem' %>;
     color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
   }
 
@@ -65,19 +65,19 @@
 <div id="app" class="main-class">
   <header class="page-header-hero" style="background-image: url(<%= template.header_background_image.url %>)">
     <nav class="top-nav">
-            <span class="logged-out">
-                <div class="wrap">
-                    <div class="nav-login">
-                      <%#= image_tag('end-user/logged-out-logo.svg', class: 'logged-out-img') %>
-                      <a class="nav-link"  href="#">Sign Up</a>
-                        <a class="nav-link" href="#">
-                            <svg class="icon-nav-item" viewBox="0 0 100 100">
-                              <use xlink:href="#svg-sign-out"/>
-                            </svg>Log In
-                        </a>
-                    </div>
-                </div>
-            </span>
+      <span class="logged-out">
+          <div class="wrap">
+              <div class="nav-login">
+                <%#= image_tag('end-user/logged-out-logo.svg', class: 'logged-out-img') %>
+                <a class="nav-link" href="#">Sign Up</a>
+                  <a class="nav-link" href="#">
+                      <svg class="icon-nav-item" viewBox="0 0 100 100">
+                        <use xlink:href="#svg-sign-out"/>
+                      </svg>Log In
+                  </a>
+              </div>
+          </div>
+      </span>
     </nav>
 
     <div class="wrap">
@@ -126,7 +126,8 @@
               <span class="btn-share-text">Continue With Facebook</span>
             </a>
 
-            <p class="small-link">or <a href="javascript:void(0);" data-toggle="modal" data-target="#signUpModal">Sign Up with Email</a>
+            <p class="small-link">or
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#signUpModal">Sign Up with Email</a>
             </p>
           </div>
           <span class="logged-out-terms">
@@ -186,7 +187,8 @@
           &nbsp;&nbsp;&nbsp;
           <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#privacyModal">Privacy</a>
           &nbsp;&nbsp;&nbsp;
-          <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#termsModal">Terms &amp; Conditions</a>
+          <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#termsModal">Terms &amp;
+            Conditions</a>
         </p>
       </nav>
     </div>

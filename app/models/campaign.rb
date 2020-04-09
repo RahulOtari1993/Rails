@@ -42,8 +42,8 @@ class Campaign < ApplicationRecord
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Callbacks
-  after_save :assign_admins
-  after_save :set_template_design
+  after_create :assign_admins
+  after_create :set_template_design
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
