@@ -126,7 +126,7 @@
               <span class="btn-share-text">Continue With Facebook</span>
             </a>
 
-            <p class="small-link">or <a href="javascript:void(0);" class="">Sign Up with Email</a>
+            <p class="small-link">or <a href="javascript:void(0);" data-toggle="modal" data-target="#signUpModal">Sign Up with Email</a>
             </p>
           </div>
           <span class="logged-out-terms">
@@ -166,6 +166,9 @@
 
   <!-- FAQ Modal-->
   <%= render 'modals/faq' %>
+
+  <!-- Sign Up Modal-->
+  <%= render 'modals/sign_up' %>
 
   <footer class="page-footer">
     <div class="wrap grid spacer">

@@ -1,19 +1,19 @@
-<div class="modal" id="rulesModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <h4 class="modal-title">Rules</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <div class="modal-body ql-editor">
-        <%= raw @campaign.rules %>
-      </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+<section class="modal" id="rulesModal">
+  <div class="modal-inner small-modal">
+    <button class="modal-close-btn btn-icon">
+      <svg viewBox="0 0 100 100" class="icon-close-modal">
+        <use xlink:href="#svg-close" processed="false"></use>
+      </svg>
+    </button>
+    <div>
+      <div>
+        <div class="modal-header">
+          <h1>Rules</h1>
+        </div>
+        <div class="modal-fields ql-editor">
+          <%= raw @campaign.rules %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</section>
