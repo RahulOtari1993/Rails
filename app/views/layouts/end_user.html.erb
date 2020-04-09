@@ -14,177 +14,19 @@
   <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
 
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 
-  <script src="//bowercdn.net/c/jquery-bridget-2.0.1/jquery-bridget.js"></script>
-
-  <script src="//use.typekit.net/xgd4wdt.js"></script>
   <script>try {
     Typekit.load({async: true});
   } catch (e) {
   }</script>
-  <script src="/javascripts/vue-router.js"></script>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.2/video-js.css" rel="stylesheet">
-
-  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.2/video.js"></script>
-
-  <!-- SCRIPTS -->
-  <script type="text/javascript" src="/scormAPI.js"></script>
 
   <style>
-    [v-cloak] {
-      display: none;
-    }
-  </style>
-
-
-  <style>
-
-    @media (max-width: 780px) {
-      .modal-inner h1 {
-        font-size: 26px !important;
-      }
-    }
-  </style>
-
-  <style>
-    a.btn-share.completed-btn {
-      text-align: fit-content !important;
-      display: inline-block;
-    }
-
-    .slide-caption {
-      margin-top: 0;
-      color: #333;
-    }
-
-    @media (min-width: 700px) {
-      .article-carousel .tease-story {
-        margin: none !important;
-      }
-    }
-  </style>
-
-
-  <style>
-
-    @media (max-width: 650px) {
-      .top-nav.message {
-        display: none;
-      }
-
-      .content-block.-primary.message {
-        background: #BB0000;
-        text-align: center;
-        padding: 1.1rem 0;
-        margin-top: 35px;
-      }
-
-      .hero-content-block.message {
-        background: #BB0000;
-        text-align: center;
-        padding: 1.1rem 0;
-        margin-top: 35px;
-      }
-    }
-
-    @media (min-width: 650px) {
-      .top-nav.message {
-        background: #BB0000;
-        text-align: center;
-        padding-top: 1.1rem;
-      }
-
-      .content-block.-primary.message {
-        display: none;
-      }
-
-      .hero-content-block.message {
-        display: none;
-      }
-    }
-  </style>
-
-  <style>
-
     html, body {
       max-width: 100%;
       overflow-x: hidden;
-    }
-
-    .modal {
-      background-color: rgba(255, 255, 255, 0.95);
-    > top: 0;
-      width: 100%;
-      position: fixed;
-      z-index: 99999;
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .modal.video-watch-modal {
-      -webkit-overflow-scrolling: initial;
-    }
-
-    .modal-inner {
-      max-width: 50em;
-      width: 90%;
-      padding-top: 1px;
-      padding-right: 2.42rem;
-      padding-bottom: 3.3rem;
-      padding-left: 2.42rem;
-      margin: 1.54rem auto;
-      background-color: #fefefe;
-      border-style: solid;
-      border-width: 1px;
-      border-color: #E8E8E8;
-      position: relative;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .modal-header {
-
-      background-color: #bb0000;
-      margin-top: -1px;
-      margin-left: -2.42rem;
-      margin-right: -2.42rem;
-      position: relative;
-      height: 75px;
-      text-align: center;
-
-    }
-
-    .modal-header-account {
-
-      background-color: #bb0000;
-      margin-top: -1px;
-      margin-left: -2.42rem;
-      margin-right: -2.42rem;
-      text-align: left;
-      padding-bottom: 15px;
-      padding-top: 8px;
-
-    }
-
-    @media (max-width: 600px) {
-      .modal-inner {
-        padding: 0 20px 20px;
-        /* Sets modal width to full screen */
-        width: 100%;
-      }
-
-      .modal-header-account {
-        margin-left: -20px;
-        margin-right: -20px;
-      }
     }
 
     .modal-header-account .top {
@@ -222,21 +64,6 @@
 
     }
 
-    button.modal-close-btn.btn-icon {
-      position: absolute;
-      top: -11px;
-      right: -72px;
-      width: 94px;
-      z-index: 10;
-    }
-
-    /* Fixes full screen modal X button floating off screen a little */
-    @media (max-width: 600px) {
-      button.modal-close-btn.btn-icon {
-        right: -57px;
-      }
-    }
-
     .modal-header-account .right-header {
       display: inline-block;
       width: 50%;
@@ -253,14 +80,6 @@
       font-size: 38px;
     }
 
-    .modal-header-disclaimer {
-      background-color: #efefef;
-      margin-top: -1px;
-      margin-left: -2.42rem;
-      margin-right: -2.42rem;
-      text-align: center;
-    }
-
     .modal-header-disclaimer p {
       margin-top: 0;
       padding-top: 24px;
@@ -271,176 +90,10 @@
       padding-right: 20%;
     }
 
-    .modal-fields {
-      margin-top: 60px;
-    }
-
-    .modal-content,
-    .modal-sidebar {
-      background-color: #fefefe;
-      padding: 1.21rem;
-    }
-
-    @media (min-width: 50em) {
-      .modal-content,
-      .modal-sidebar {
-        padding: 2.42rem;
-      }
-    }
-
-    .modal-prompt {
-      font-size: 1.32rem;
-    }
-
-    .modal-title {
-      font-weight: 400;
-      margin-top: 0;
-      font-size: 1.98rem;
-    }
-
-    @media (min-width: 50em) {
-      .modal-main {
-        padding: 1.21rem;
-      }
-    }
-
-    .modal-video {
-      cursor: pointer;
-    }
-
-    .modal-sidebar {
-      padding-top: 1.98rem;
-    }
-
-    @media (min-width: 50em) {
-      .modal-sidebar {
-        position: relative;
-        -webkit-flex: 0 0 33.33333%;
-        -ms-flex: 0 0 33.33333%;
-        flex: 0 0 33.33333%;
-        max-width: 33.33333%;
-        margin-left: 1.1rem;
-      }
-    }
-
-    .modal-footer {
-      margin-top: 1.54rem;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-    }
-
-    .video-modal {
-      -webkit-align-items: center;
-      -ms-flex-align: center;
-      align-items: center;
-      -webkit-justify-content: center;
-      -ms-flex-pack: center;
-      justify-content: center;
-    }
-
-    .fade-enter-active, .fade-leave-active {
-      transition: opacity 0.25s ease-out;
-    }
-
-    .fade-enter, .fade-leave-to {
-      opacity: 0;
-    }
-
-    @media (min-width: 34em) {
-      .modal-sidebar {
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-      }
-
-      .modal-sidebar > * {
-        width: 50%;
-      }
-    }
-
-    @media (min-width: 50em) {
-      .modal-sidebar {
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-      }
-
-      .modal-sidebar > * {
-        width: 100%;
-      }
-    }
-  </style>
-
-  <style>
-    .block-with-text {
-      /* hide text if it more than N lines  */
-      overflow: hidden;
-      /* for set '...' in absolute position */
-      position: relative;
-      /* use this value to count block height */
-      line-height: 1.2em;
-      /* max-height = line-height (1.2) * lines max number (3) */
-      max-height: 9.6em;
-      /* fix problem when last visible word doesn't adjoin right side  */
-      text-align: justify;
-      /* place for '...' */
-      margin-right: -1em;
-      padding-right: 1em;
-    }
-
-    /* create the ... */
-    .block-with-text:before {
-      /* points in the end */
-      content: '...';
-      /* absolute position */
-      position: absolute;
-      /* set position to right bottom corner of block */
-      right: 0;
-      bottom: 0;
-    }
-
-    /* hide ... if we have text, which is less than or equal to max lines */
-    .block-with-text:after {
-      /* points in the end */
-      content: '';
-      /* absolute position */
-      position: absolute;
-      /* set position to right bottom corner of text */
-      right: 0;
-      /* set width and height */
-      width: 1em;
-      height: 1em;
-      margin-top: 0.2em;
-      /* bg color = bg color under block */
-      background: white;
-    }
-
-    .row {
-      width: 100%;
-      display: inline-block;
-    }
-
     .small-modal .row {
       width: 100%;
       display: inline-block;
       padding: 5px 35px;
-    }
-
-    .third-field {
-      display: inline-block;
-      width: 33%;
-      /* padding: 5px; */
-      float: left;
-      padding-right: 10px;
-      padding-top: 5px;
-      padding-bottom: 10px;
     }
 
     @media (max-width: 544px) {
@@ -1519,11 +1172,6 @@
       display: block;
       height: 100%;
       background-color: #bb0000;
-      background-image: linear-gradient(
-        center bottom,
-        rgb(43, 194, 83) 37%,
-        rgb(84, 240, 84) 69%
-      );
       box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
       inset 0 -2px 6px rgba(0, 0, 0, 0.4);
       position: relative;
@@ -1630,8 +1278,6 @@
       }
     }
 
-  </style>
-  <style>
     .open-link span {
       transition: all 0.05s ease-in-out;
       width: 30px;
@@ -1664,99 +1310,16 @@
       margin: -11px 0 0 0;
     }
   </style>
-
-  <!-- Styling for spinners -->
-  <style>
-    @import url(https://fonts.googleapis.com/css?family=Comfortaa:400,700,300);
-
-
-    svg.spinner {
-      width: 100px;
-      height: 100px;
-      margin: 20px;
-      display: inline-block;
-    }
-
-    /
-    /
-    follow me template
-    .made-with-love {
-      margin-top: 20px;
-      padding: 10px;
-      font-size: 10px;
-      font-family: arial;
-      color: #fff;
-
-    i {
-      font-style: normal;
-      color: #F50057;
-      font-size: 14px;
-      position: relative;
-      top: 2px;
-    }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-
-    &
-    :hover {
-      text-decoration: underline;
-    }
-
-    }
-    }
-
-    .spinner-section {
-      text-align: center;
-    }
-
-    .spinner-scale {
-      width: 100px;
-      height: 100px;
-      margin-left: 50px;
-      display: none;
-      margin-top: -50px;
-      margin-bottom: -30px;
-    }
-
-    .spinner-scale {
-      width: 100px;
-      height: 100px;
-      margin-left: 50px;
-      display: none;
-      margin-top: -50px;
-      margin-bottom: -30px;
-    }
-
-    .disabled {
-      background-color: lightgrey !important;
-      border-color: lightgrey !important;
-      color: #ffffff !important;
-    }
-
-  </style>
-
-
 </head>
 
 <body>
-
-
 <div id="app">
-
-  <!--- content -->
-<!--  <script>-->
-<!--    fbq('track', 'ViewContent', {-->
-<!--      content_ids: 'logged-out',-->
-<!--    });-->
-<!--  </script>-->
   <header class="page-header-hero">
     <nav class="top-nav">
             <span class="logged-out">
                 <div class="wrap">
                     <div class="nav-login">
-                      <%= image_tag('end-user/logged-out-logo.svg', class: 'logged-out-img') %>
+                      <%#= image_tag('end-user/logged-out-logo.svg', class: 'logged-out-img') %>
                       <a class="nav-link" @click="showSignupChoices" href="#">Sign Up</a>
                         <a class="nav-link" @click="showSignin" href="#">
                             <svg class="icon-nav-item" viewBox="0 0 100 100">
@@ -1774,12 +1337,12 @@
           <%= image_tag('end-user/logo.svg', class: 'hero-logo') %>
           <p>The Official Loyalty & Rewards Program for The Ohio State University</p>
           <h6 class="hero-sub-title">This Week's Rewards:</h6>
-          <div class="carousel carousel-top">
-            <div class="carousel-slide">
-              <img src="/system/rewards/images/000/000/682/original/_50-Gift-Card-to-Buckeye-Corner---BNR">
-              <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>
-            </div>
-          </div>
+<!--          <div class="carousel carousel-top">-->
+<!--            <div class="carousel-slide">-->
+<!--              <img src="/system/rewards/images/000/000/682/original/_50-Gift-Card-to-Buckeye-Corner---BNR">-->
+<!--              <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
 
         <div class="hero-content-block -card logged-out-carousel-container">
@@ -1812,10 +1375,6 @@
               <span class="icon-btn-share fa fa-facebook"></span>
               <span class="btn-share-text">Continue With Facebook</span>
             </a>
-
-<!--            <div class="spinner-section">-->
-              <%#= image_tag('end-user/spinner.svg', class: 'connect-spin') %>
-<!--            </div>-->
 
             <p class="small-link">or <a href="javascript:void(0);" @click="showSignup" class="">Sign Up with Email</a>
             </p>
@@ -1923,31 +1482,15 @@
 </div>
 
 <!-- Plugins -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.0/lazyload.transpiled.min.js"></script>
-
-<!-- Vue -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
-<script src="//code.jquery.com/jquery-3.2.1.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
-
-<!-- Slick Carousel -->
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
 
 <script>
-  if ($('.carousel-top').hasClass('slick-initialized')) {
-    $('.carousel-top').slick('unslick');
-  }
-
-  $('.carousel-top').slick({
-    autoplay: true,
-    dots: false
-  });
-
   $('.logged-out-carousel').slick({
     autoplay: true,
     dots: true
   });
+  $("html, body").css("position","relative");
+  $("html, body").css("overflow","");
 </script>
 </body>
 </html>
