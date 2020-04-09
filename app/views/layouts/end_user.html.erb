@@ -32,6 +32,32 @@
   </script>
 </head>
 
+<style>
+  .page-footer {
+    background-color: <%= template.footer_background_color.present? ? template.footer_background_color : '#BB0000' %> !important;
+    color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
+  }
+
+  .page-footer a,
+  .page-footer a:visited {
+    color: #C9C9C9;
+  }
+
+  .page-footer a:hover {
+    color: #969696;
+  }
+
+  .page-footer p, .page-footer a {
+   font-size: <%= template.footer_font_size.present? ? "#{template.footer_font_size}px" : '1.1rem' %>;
+    color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
+  }
+
+  .custom-header {
+    font-size: <%= template.header_font_size.present? ? "#{template.header_font_size}px" : '1.1rem' %>;
+    color: <%= template.header_font_color.present? ? "#{template.header_font_color}" : '#fefefe' %>;
+  }
+</style>
+
 <body>
 <div id="app" class="main-class">
   <header class="page-header-hero" style="background-image: url(<%= template.header_background_image.url %>)">
@@ -55,7 +81,9 @@
       <div class="hero-content">
         <div class="hero-content-block">
           <img class="hero-logo" src="<%= template.header_logo.url %>">
-          <p>The Official Loyalty & Rewards Program for The Ohio State University</p>
+          <p class="custom-header">
+            <%= template.header_text %>
+          </p>
           <h6 class="hero-sub-title">This Week's Rewards:</h6>
           <!--          <div class="carousel carousel-top">-->
           <!--            <div class="carousel-slide">-->
@@ -139,7 +167,9 @@
 
       <nav class="footer-nav">
         <p>
-          <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#contactUsModal">Contact Us</a>
+          <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#contactUsModal">
+            Contact Us
+          </a>
           &nbsp;&nbsp;&nbsp;
           <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#faqModal">FAQ</a>
           &nbsp;&nbsp;&nbsp;
