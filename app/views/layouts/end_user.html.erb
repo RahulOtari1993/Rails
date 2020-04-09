@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <% template = @campaign.campaign_template_detail %>
   <meta charset="UTF-8">
   <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
     <%= raw @campaign.seo %>
@@ -14,19 +15,23 @@
   <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
 
+  <link rel="shortcut icon" type="image/x-icon" href="<%= template.favicon_file.url %>">
+
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="//use.typekit.net/xgd4wdt.js"></script>
+  <script>
+    try {
+      Typekit.load({async: true});
+    } catch (e) {
 
-  <script>try {
-    Typekit.load({async: true});
-  } catch (e) {
-  }</script>
-
+    }
+  </script>
+  
   <style>
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
+    .page-header, .page-header-hero {
+      background-size: cover;
     }
 
     .modal-header-account .top {
@@ -1314,7 +1319,7 @@
 
 <body>
 <div id="app">
-  <header class="page-header-hero">
+  <header class="page-header-hero" style="background-image: url(<%= template.header_background_image.url %>)">
     <nav class="top-nav">
             <span class="logged-out">
                 <div class="wrap">
@@ -1334,15 +1339,15 @@
     <div class="wrap">
       <div class="hero-content">
         <div class="hero-content-block">
-          <%= image_tag('end-user/logo.svg', class: 'hero-logo') %>
+          <img class="hero-logo" src="<%= template.header_logo.url %>">
           <p>The Official Loyalty & Rewards Program for The Ohio State University</p>
           <h6 class="hero-sub-title">This Week's Rewards:</h6>
-<!--          <div class="carousel carousel-top">-->
-<!--            <div class="carousel-slide">-->
-<!--              <img src="/system/rewards/images/000/000/682/original/_50-Gift-Card-to-Buckeye-Corner---BNR">-->
-<!--              <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <div class="carousel carousel-top">-->
+          <!--            <div class="carousel-slide">-->
+          <!--              <img src="/system/rewards/images/000/000/682/original/_50-Gift-Card-to-Buckeye-Corner---BNR">-->
+          <!--              <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
 
         <div class="hero-content-block -card logged-out-carousel-container">
@@ -1380,8 +1385,8 @@
             </p>
           </div>
           <span class="logged-out-terms">
-                        <p> By joining, you agree to our <a href="#" @click="showTerms">Terms and Conditions</a> and <a href="#" @click="showPrivacy">Privacy Policy</a></p>
-                    </span>
+              <p> By joining, you agree to our <a href="#" @click="showTerms">Terms and Conditions</a> and <a href="#" @click="showPrivacy">Privacy Policy</a></p>
+          </span>
         </div>
       </div>
     </div>
@@ -1389,73 +1394,12 @@
 
   <main class="page-content">
     <section class="main-section rotate-light" id="social">
-
       <div class="wrap">
-
         <!-- Section Header -->
         <header class="section-header text-center">
           <h3 class="section-title">Check Us Out on Social</h3>
           <p>We've made it easy and rewarding to stay up to date. Join above to get started!</p>
         </header>
-
-        <ul class="tease-group-grid tease-list -social">
-
-          <li class="tease-grid-item -card" v-for="social in socials" @click="openWindow(social, $event)">
-            <img class="tease-img" v-if="social.image" v-bind:src="social.image">
-            <span v-else class="social-card-top-padding"></span>
-
-            <span v-if="!social.image" class="icon-is-dark">
-                                <span class="icon-tease-type fa fa-twitter block" v-if="social.social_network == 'twitter'"></span>
-
-                                <span class="icon-tease-type fa fa-facebook block" v-if="social.social_network == 'facebook'"></span>
-
-                                <span class="icon-tease-type fa fa-instagram block" v-if="social.social_network == 'instagram'"></span>
-                            </span>
-            <span v-else>
-                                <span class="icon-tease-type fa fa-twitter block" v-if="social.social_network == 'twitter'"></span>
-
-                                <span class="icon-tease-type fa fa-facebook block" v-if="social.social_network == 'facebook'"></span>
-
-                                <span class="icon-tease-type fa fa-instagram block" v-if="social.social_network == 'instagram'"></span>
-                            </span>
-
-            <div class="tease-content">
-                                <span v-if="!social.image" class="bold-social-text">
-
-                                   <p v-html="social.encode_details" v-if="social.encode_details" class="caption"></p>
-
-                                    <p v-html="social.content" v-else-if="social.content" class="caption"></p>
-
-                                    <p v-html="social.message" v-if="social.message" class="caption"></p>
-                                </span>
-              <span v-else>
-                                    <p v-html="social.encode_details" v-if="social.encode_details" class="caption"></p>
-
-                                    <p v-html="social.content" v-else-if="social.content" class="caption no-top"></p>
-
-                                    <p v-html="social.message" v-if="social.message" class="caption no-top"></p>
-                                </span>
-
-              <div class="tease-handle">
-                <img v-bind:src="social.social_avatar">
-                <img src="" alt="">
-                <div class="handle-details">
-                  <div class="detail-row">
-                    <p class="handle-title">{{ social.social_name }}</p>
-
-                    <a v-bind:href="social.url" class="open-window" target="_blank">
-                      <i class="icon-handle-action fa fa-external-link" aria-hidden="true"></i>
-                    </a>
-                  </div>
-                  <div class="detail-row">
-                    <h6 class="handle-link">@{{ social.social_screen_name }}</h6>
-                    <p class="handle-time">{{ social.created_at | formatDate }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
       </div>
     </section>
   </main>
@@ -1489,8 +1433,8 @@
     autoplay: true,
     dots: true
   });
-  $("html, body").css("position","relative");
-  $("html, body").css("overflow","");
+  $("html, body").css("position", "relative");
+  $("html, body").css("overflow", "");
 </script>
 </body>
 </html>

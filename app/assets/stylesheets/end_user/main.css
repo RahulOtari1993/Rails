@@ -1737,15 +1737,6 @@ body, #app {
   width: 100%;
 }
 
-.page-header,
-.page-header-hero {
-  background-image: url(<%= asset_path("end-user/welcome-hero.png") %>);
-  background-size: cover;
-  -webkit-filter: gray;
-          filter: gray;
-/*  position: relative; 
-  background-position-y: 90%;*/} 
-
 .page-header-content {
   padding-bottom: 1.98rem; }
 
