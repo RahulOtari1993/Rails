@@ -118,13 +118,34 @@
     </section>
   </main>
 
+  <!-- Contact Us Modal-->
+  <div class="modal" id="contactUsModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Contact Us</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body ql-editor">
+          <%= raw @campaign.contact_us %>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="page-footer">
     <div class="wrap grid spacer">
       <p>&copy; 2020 Sonic Nation Rewards</p>
 
       <nav class="footer-nav">
         <p>
-          <a href="javascript:void(0);" class="footer-nav-link">Contact Us</a>
+          <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#contactUsModal" >Contact Us</a>
           &nbsp;&nbsp;&nbsp;
           <a href="javascript:void(0);" class="footer-nav-link">FAQ</a>
           &nbsp;&nbsp;&nbsp;

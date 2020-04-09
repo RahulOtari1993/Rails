@@ -1,6 +1,11 @@
 /*
  * New Theme Integration
  * ------------------------------------------------------------------
+ *= require libraries/bootstrap
+ *= require vendors/editors/quill/katex.min
+ *= require vendors/editors/quill/monokai-sublime.min
+ *= require vendors/editors/quill/quill.snow
+ *= require vendors/editors/quill/quill.bubble
  *= require end_user/styles
  *= require end_user/main
  */

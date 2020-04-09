@@ -4,4 +4,5 @@
 //= require activestorage
 //= require turbolinks
 
+//= require libraries/core/libraries/bootstrap.min
 //= require end_user/plugins
