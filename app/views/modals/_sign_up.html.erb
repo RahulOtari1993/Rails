@@ -9,7 +9,7 @@
           <h1>Join With Email</h1>
         </div>
         <div class="modal-fields" style="margin-top: 45px;">
-          <%= form_for(User.last, as: User.last, url: admin_organizations_user_registration_path) do |f| %>
+          <%= form_for(User.new, as: User.new, url: user_registration_path) do |f| %>
             <%= render "users/shared/error_messages", resource: User.last %>
 
             <%= f.hidden_field :role, value: 'participant' %>
