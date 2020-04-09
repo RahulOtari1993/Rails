@@ -228,15 +228,13 @@
         </div>
       </div>
 
-      <div class="col-12">
+      <div class="col-6">
         <div class="form-group">
           <%= form.label :seo, 'SEO Block' %>
           <span class="column-info">Enter all the seo related content you want such as title, FB tags etc.</span>
-
-          <div class="campaign-seo-content-editor quill-editor-height">
-            <%= campaign.seo.html_safe if campaign.seo.present? %>
+          <div class="position-relative">
+            <%= form.text_area :seo, class: 'form-control', placeholder: 'Enter SEO Details' %>
           </div>
-          <%= form.hidden_field :seo, class: "form-control seo-txt-area" %>
         </div>
       </div>
 

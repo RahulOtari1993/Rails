@@ -56,6 +56,9 @@
     font-size: <%= template.header_font_size.present? ? "#{template.header_font_size}px" : '1.1rem' %>;
     color: <%= template.header_font_color.present? ? "#{template.header_font_color}" : '#fefefe' %>;
   }
+
+  /* Custom CSS from Campaign Settings */
+  <%= @campaign.css %>
 </style>
 
 <body>
