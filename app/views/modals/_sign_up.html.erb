@@ -1,5 +1,5 @@
 <section class="modal" id="signUpModal">
-  <div class="modal-inner small-modal">
+  <div class="modal-inner small-modal" style="max-width: 30em">
     <button class="modal-close-btn btn-icon">
       <%= image_tag('end-user/close-button.svg', class: 'logged-out-img') %>
     </button>
@@ -8,134 +8,73 @@
         <div class="modal-header">
           <h1>Join With Email</h1>
         </div>
-        <div class="modal-fields">
-          <div>
-            <ul></ul>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/USER-ICON.svg"></span>
-            <div class="full-field"><input type="text" placeholder="First Name" class="bottom-input"> <!----></div>
-          </div>
-          <div class="row">
-            <div class="full-field"><input placeholder="Last Name" type="text" class="bottom-input"> <!----></div>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/EMAIL-ICON.svg"></span>
-            <div class="full-field"><input placeholder="Email Address" type="email" class="bottom-input"> <!----></div>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/EMAIL-CHECK-ICON.svg"></span>
-            <div class="full-field">
-              <input placeholder="Confirm Email Address" type="email" class="bottom-input"> <!----></div>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/PW-ICON.svg"></span>
-            <div class="full-field"><input placeholder="Choose Password" type="password" class="bottom-input"> <!---->
-            </div>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/BDAY-ICON.svg"></span>
-            <div class="full-field"><select>
-              <option value="" selected="selected">Select your age</option>
-              <option value="01/01/2007">13</option>
-              <option value="01/01/2006">14</option>
-              <option value="01/01/2005">15</option>
-              <option value="01/01/2004">16</option>
-              <option value="01/01/2003">17</option>
-              <option value="01/01/2002">18</option>
-              <option value="01/01/2001">19</option>
-              <option value="01/01/2000">20</option>
-              <option value="01/01/1999">21</option>
-              <option value="01/01/1998">22</option>
-              <option value="01/01/1997">23</option>
-              <option value="01/01/1996">24</option>
-              <option value="01/01/1995">25</option>
-              <option value="01/01/1994">26</option>
-              <option value="01/01/1993">27</option>
-              <option value="01/01/1992">28</option>
-              <option value="01/01/1991">29</option>
-              <option value="01/01/1990">30</option>
-              <option value="01/01/1989">31</option>
-              <option value="01/01/1988">32</option>
-              <option value="01/01/1987">33</option>
-              <option value="01/01/1986">34</option>
-              <option value="01/01/1985">35</option>
-              <option value="01/01/1984">36</option>
-              <option value="01/01/1983">37</option>
-              <option value="01/01/1982">38</option>
-              <option value="01/01/1981">39</option>
-              <option value="01/01/1980">40</option>
-              <option value="01/01/1979">41</option>
-              <option value="01/01/1978">42</option>
-              <option value="01/01/1977">43</option>
-              <option value="01/01/1976">44</option>
-              <option value="01/01/1975">45</option>
-              <option value="01/01/1974">46</option>
-              <option value="01/01/1973">47</option>
-              <option value="01/01/1972">48</option>
-              <option value="01/01/1971">49</option>
-              <option value="01/01/1970">50</option>
-              <option value="01/01/1969">51</option>
-              <option value="01/01/1968">52</option>
-              <option value="01/01/1967">53</option>
-              <option value="01/01/1966">54</option>
-              <option value="01/01/1965">55</option>
-              <option value="01/01/1964">56</option>
-              <option value="01/01/1963">57</option>
-              <option value="01/01/1962">58</option>
-              <option value="01/01/1961">59</option>
-              <option value="01/01/1960">60</option>
-              <option value="01/01/1959">61</option>
-              <option value="01/01/1958">62</option>
-              <option value="01/01/1957">63</option>
-              <option value="01/01/1956">64</option>
-              <option value="01/01/1955">65</option>
-              <option value="01/01/1954">66</option>
-              <option value="01/01/1953">67</option>
-              <option value="01/01/1952">68</option>
-              <option value="01/01/1951">69</option>
-              <option value="01/01/1950">70</option>
-              <option value="01/01/1949">71</option>
-              <option value="01/01/1948">72</option>
-              <option value="01/01/1947">73</option>
-              <option value="01/01/1946">74</option>
-              <option value="01/01/1945">75</option>
-              <option value="01/01/1944">76</option>
-              <option value="01/01/1943">77</option>
-              <option value="01/01/1942">78</option>
-              <option value="01/01/1941">79</option>
-              <option value="01/01/1940">80</option>
-              <option value="01/01/1939">81</option>
-              <option value="01/01/1938">82</option>
-              <option value="01/01/1937">83</option>
-              <option value="01/01/1936">84</option>
-              <option value="01/01/1935">85</option>
-              <option value="01/01/1934">86</option>
-              <option value="01/01/1933">87</option>
-              <option value="01/01/1932">88</option>
-              <option value="01/01/1931">89</option>
-              <option value="01/01/1930">90</option>
-              <option value="01/01/1929">91</option>
-              <option value="01/01/1928">92</option>
-              <option value="01/01/1927">93</option>
-              <option value="01/01/1926">94</option>
-              <option value="01/01/1925">95</option>
-              <option value="01/01/1924">96</option>
-              <option value="01/01/1923">97</option>
-              <option value="01/01/1922">98</option>
-              <option value="01/01/1921">99</option>
-            </select> <!----></div>
-          </div>
-          <div class="row"><span class="left-icon"><img src="/osu/img/site/AFFILIATION-ICON.svg"></span>
-            <div class="full-field"><label class="affiliation">University Affiliation (select all that apply)</label>
-              <div class="affiliation-signup"><input type="checkbox" id="1" value="1"><span id="innerspan">Alumni</span>
+        <div class="modal-fields" style="margin-top: 45px;">
+          <%= form_for(User.last, as: User.last, url: admin_organizations_user_registration_path) do |f| %>
+            <%= render "users/shared/error_messages", resource: User.last %>
+
+            <%= f.hidden_field :role, value: 'participant' %>
+            <%= f.hidden_field :is_invited, value: false %>
+            <%= f.hidden_field :organization_id, value: 0 %>
+
+            <div class="row">
+              <span class="left-icon">
+                <%= image_tag('end-user/user-icon.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.text_field :first_name, class: "bottom-input", placeholder: "First Name" %>
               </div>
-              <div class="affiliation-signup"><input type="checkbox" id="2" value="2"><span id="innerspan">Friend</span>
-              </div>
-              <div class="affiliation-signup">
-                <input type="checkbox" id="3" value="3"><span id="innerspan">Student</span></div>
-              <div class="affiliation-signup">
-                <input type="checkbox" id="4" value="4"><span id="innerspan">Faculty/Staff</span></div>
             </div>
-          </div>
-          <div class="bottom-button"><a href="javascript:void(0);" class="btn-has-icon btn-join-perk">Sign Up</a></div>
-          <div class="spinner-section"><img id="signup-spin" src="/osu/img/site/spinner.svg" class="spinner-scale">
-          </div>
+
+            <div class="row">
+              <span class="left-icon">
+                <%= image_tag('end-user/user-icon.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.text_field :last_name, class: "bottom-input", placeholder: "Last Name" %>
+              </div>
+            </div>
+
+            <div class="row">
+             <span class="left-icon">
+                <%= image_tag('end-user/email-icon.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.email_field :email, class: "bottom-input", placeholder: "Email Address" %>
+              </div>
+            </div>
+
+            <div class="row">
+             <span class="left-icon">
+                <%= image_tag('end-user/email-check-icon.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.email_field :email, class: "bottom-input", placeholder: "Confirm Email Address" %>
+              </div>
+            </div>
+
+            <div class="row">
+             <span class="left-icon">
+                <%= image_tag('end-user/pw-icon.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.password_field :password, class: "bottom-input", placeholder: "Choose Password" %>
+              </div>
+            </div>
+
+            <div class="row">
+             <span class="left-icon">
+                <%= image_tag('end-user/pw-icon-check.svg') %>
+              </span>
+              <div class="full-field">
+                <%= f.password_field :password_confirmation, class: "bottom-input", placeholder: "Re Choose Password" %>
+              </div>
+            </div>
+
+            <div class="bottom-button">
+              <%= f.submit "Sign Up", class: 'btn-has-icon btn-join-perk' %>
+            </div>
+          <% end %>
+
           <hr>
           <div class="bottom-signup"><a id="signup-bttn" href="javascript:void(0);">Already have an account? Log in.</a>
           </div>
@@ -144,3 +83,11 @@
     </div>
   </div>
 </section>
+
+<style>
+  input.bottom-input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+</style>

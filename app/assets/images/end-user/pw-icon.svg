@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="24px" viewBox="0 0 19 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>PW-ICON</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="HP_Forgot-Password-Reset" transform="translate(-507.000000, -235.000000)" stroke="#666666" stroke-width="2">
+            <g id="NEW-PW" transform="translate(508.000000, 236.000000)">
+                <g id="PW-ICON">
+                    <path d="M14.4583029,22 L2.54169712,22 C1.14376371,22 0,20.9724724 0,19.7166054 L0,10.2833946 C0,9.02752759 1.14376371,8 2.54169712,8 L14.4583029,8 C15.8562363,8 17,9.02752759 17,10.2833946 L17,19.7166054 C17,20.9724724 15.8562363,22 14.4583029,22 Z" id="Stroke-1"></path>
+                    <path d="M3,7.89889833 L3,5.21526131 C3,2.34695164 5.47499417,0 8.5001166,0 C11.5250058,0 14,2.34695164 14,5.21526131 L14,8" id="Stroke-3"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="20px" viewBox="0 0 19 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>USER-ICON</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="HP_New-User_Register_Email" transform="translate(-507.000000, -237.000000)" stroke="#666666" stroke-width="2">
+            <g id="FORM-FIELDS" transform="translate(458.000000, 234.000000)">
+                <g id="FIRST-NAME" transform="translate(50.000000, 0.000000)">
+                    <g id="USER-ICON" transform="translate(0.000000, 4.000000)">
+                        <g id="Group-2">
+                            <path d="M17,18 C15.7993117,14.5117091 12.4487753,12 8.50011081,12 C4.55122473,12 1.2006883,14.5117091 0,18" id="Stroke-1"></path>
+                            <path d="M13,4.5 C13,6.98522727 10.9852273,9 8.5,9 C6.01477273,9 4,6.98522727 4,4.5 C4,2.01477273 6.01477273,0 8.5,0 C10.9852273,0 13,2.01477273 13,4.5 Z" id="Stroke-3"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
