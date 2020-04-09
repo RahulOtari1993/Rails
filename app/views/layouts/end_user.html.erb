@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
+    <%= raw @campaign.seo %>
+  <% else %>
+    <title>The Ohio State | My Rewards</title>
+  <% end %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="//fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  <script src="//bowercdn.net/c/jquery-bridget-2.0.1/jquery-bridget.js"></script>
+
+  <script src="//use.typekit.net/xgd4wdt.js"></script>
+  <script>try {
+    Typekit.load({async: true});
+  } catch (e) {
+  }</script>
+  <script src="/javascripts/vue-router.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.2/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.2/video.js"></script>
+
+  <!-- SCRIPTS -->
+  <script type="text/javascript" src="/scormAPI.js"></script>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+
+
+  <style>
+
+    @media (max-width: 780px) {
+      .modal-inner h1 {
+        font-size: 26px !important;
+      }
+    }
+  </style>
+
+  <style>
+    a.btn-share.completed-btn {
+      text-align: fit-content !important;
+      display: inline-block;
+    }
+
+    .slide-caption {
+      margin-top: 0;
+      color: #333;
+    }
+
+    @media (min-width: 700px) {
+      .article-carousel .tease-story {
+        margin: none !important;
+      }
+    }
+  </style>
+
+
+  <style>
+
+    @media (max-width: 650px) {
+      .top-nav.message {
+        display: none;
+      }
+
+      .content-block.-primary.message {
+        background: #BB0000;
+        text-align: center;
+        padding: 1.1rem 0;
+        margin-top: 35px;
+      }
+
+      .hero-content-block.message {
+        background: #BB0000;
+        text-align: center;
+        padding: 1.1rem 0;
+        margin-top: 35px;
+      }
+    }
+
+    @media (min-width: 650px) {
+      .top-nav.message {
+        background: #BB0000;
+        text-align: center;
+        padding-top: 1.1rem;
+      }
+
+      .content-block.-primary.message {
+        display: none;
+      }
+
+      .hero-content-block.message {
+        display: none;
+      }
+    }
+  </style>
+
+  <style>
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .modal {
+      background-color: rgba(255, 255, 255, 0.95);
+    > top: 0;
+      width: 100%;
+      position: fixed;
+      z-index: 99999;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal.video-watch-modal {
+      -webkit-overflow-scrolling: initial;
+    }
+
+    .modal-inner {
+      max-width: 50em;
+      width: 90%;
+      padding-top: 1px;
+      padding-right: 2.42rem;
+      padding-bottom: 3.3rem;
+      padding-left: 2.42rem;
+      margin: 1.54rem auto;
+      background-color: #fefefe;
+      border-style: solid;
+      border-width: 1px;
+      border-color: #E8E8E8;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-header {
+
+      background-color: #bb0000;
+      margin-top: -1px;
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      position: relative;
+      height: 75px;
+      text-align: center;
+
+    }
+
+    .modal-header-account {
+
+      background-color: #bb0000;
+      margin-top: -1px;
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      text-align: left;
+      padding-bottom: 15px;
+      padding-top: 8px;
+
+    }
+
+    @media (max-width: 600px) {
+      .modal-inner {
+        padding: 0 20px 20px;
+        /* Sets modal width to full screen */
+        width: 100%;
+      }
+
+      .modal-header-account {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+    }
+
+    .modal-header-account .top {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    .modal-header-account .bottom {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 24px;
+      color: #ffffff;
+      font-weight: 100;
+    }
+
+    @media (max-width: 500px) {
+      .modal-header-account .bottom {
+        font-size: 24px;
+      }
+    }
+
+
+    .modal-header-account .left-header {
+      display: inline-block;
+      height: 60px;
+      width: 50%;
+      padding-left: 15px;
+      margin-top: 15px;
+      border-left: 2px solid red;
+
+    }
+
+    button.modal-close-btn.btn-icon {
+      position: absolute;
+      top: -11px;
+      right: -72px;
+      width: 94px;
+      z-index: 10;
+    }
+
+    /* Fixes full screen modal X button floating off screen a little */
+    @media (max-width: 600px) {
+      button.modal-close-btn.btn-icon {
+        right: -57px;
+      }
+    }
+
+    .modal-header-account .right-header {
+      display: inline-block;
+      width: 50%;
+      float: left;
+      margin-top: 15px;
+      padding-left: 15px;
+    }
+
+    .modal-header h1 {
+      margin-top: 0;
+      color: #ffffff;
+      line-height: 75px;
+      font-weight: 100;
+      font-size: 38px;
+    }
+
+    .modal-header-disclaimer {
+      background-color: #efefef;
+      margin-top: -1px;
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      text-align: center;
+    }
+
+    .modal-header-disclaimer p {
+      margin-top: 0;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      font-size: 14px;
+      font-weight: 500;
+      padding-left: 20%;
+      padding-right: 20%;
+    }
+
+    .modal-fields {
+      margin-top: 60px;
+    }
+
+    .modal-content,
+    .modal-sidebar {
+      background-color: #fefefe;
+      padding: 1.21rem;
+    }
+
+    @media (min-width: 50em) {
+      .modal-content,
+      .modal-sidebar {
+        padding: 2.42rem;
+      }
+    }
+
+    .modal-prompt {
+      font-size: 1.32rem;
+    }
+
+    .modal-title {
+      font-weight: 400;
+      margin-top: 0;
+      font-size: 1.98rem;
+    }
+
+    @media (min-width: 50em) {
+      .modal-main {
+        padding: 1.21rem;
+      }
+    }
+
+    .modal-video {
+      cursor: pointer;
+    }
+
+    .modal-sidebar {
+      padding-top: 1.98rem;
+    }
+
+    @media (min-width: 50em) {
+      .modal-sidebar {
+        position: relative;
+        -webkit-flex: 0 0 33.33333%;
+        -ms-flex: 0 0 33.33333%;
+        flex: 0 0 33.33333%;
+        max-width: 33.33333%;
+        margin-left: 1.1rem;
+      }
+    }
+
+    .modal-footer {
+      margin-top: 1.54rem;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+    }
+
+    .video-modal {
+      -webkit-align-items: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity 0.25s ease-out;
+    }
+
+    .fade-enter, .fade-leave-to {
+      opacity: 0;
+    }
+
+    @media (min-width: 34em) {
+      .modal-sidebar {
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .modal-sidebar > * {
+        width: 50%;
+      }
+    }
+
+    @media (min-width: 50em) {
+      .modal-sidebar {
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+
+      .modal-sidebar > * {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <style>
+    .block-with-text {
+      /* hide text if it more than N lines  */
+      overflow: hidden;
+      /* for set '...' in absolute position */
+      position: relative;
+      /* use this value to count block height */
+      line-height: 1.2em;
+      /* max-height = line-height (1.2) * lines max number (3) */
+      max-height: 9.6em;
+      /* fix problem when last visible word doesn't adjoin right side  */
+      text-align: justify;
+      /* place for '...' */
+      margin-right: -1em;
+      padding-right: 1em;
+    }
+
+    /* create the ... */
+    .block-with-text:before {
+      /* points in the end */
+      content: '...';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of block */
+      right: 0;
+      bottom: 0;
+    }
+
+    /* hide ... if we have text, which is less than or equal to max lines */
+    .block-with-text:after {
+      /* points in the end */
+      content: '';
+      /* absolute position */
+      position: absolute;
+      /* set position to right bottom corner of text */
+      right: 0;
+      /* set width and height */
+      width: 1em;
+      height: 1em;
+      margin-top: 0.2em;
+      /* bg color = bg color under block */
+      background: white;
+    }
+
+    .row {
+      width: 100%;
+      display: inline-block;
+    }
+
+    .small-modal .row {
+      width: 100%;
+      display: inline-block;
+      padding: 5px 35px;
+    }
+
+    .third-field {
+      display: inline-block;
+      width: 33%;
+      /* padding: 5px; */
+      float: left;
+      padding-right: 10px;
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
+
+    @media (max-width: 544px) {
+      .modal-inner .third-field {
+        display: block;
+        width: 100%;
+      }
+    }
+
+    .third-field label {
+      text-transform: uppercase;
+      font-family: "proxima-nova", Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .third-field input {
+      height: 30px;
+      border: 1px solid #C9C9C9;
+      background: none;
+      padding-left: 7px;
+    }
+
+    .half-field {
+      display: inline-block;
+      width: 50%;
+      padding: 5px;
+      float: left;
+    }
+
+    .half-field input {
+      height: 30px;
+    }
+
+    .full-field {
+      display: inline-block;
+      width: 100%;
+      padding: 5px;
+      float: left;
+    }
+
+    .full-field-inline {
+      display: inline-block;
+      width: 90%;
+      padding: 15px;
+      float: left;
+    }
+
+    .full-field-inline input {
+      color: black;
+    }
+
+    .full-field-inline select {
+      color: black;
+    }
+
+    .bottom-button {
+      margin-top: 30px;
+      margin-bottom: 45px;
+      text-align: center;
+    }
+
+    .bottom-button a {
+      width: 75%;
+      margin: 0 auto;
+      text-align: center !important;
+      min-width: 238px;
+    }
+
+    .bottom-button .btn-has-icon {
+      display: block;
+    }
+
+    .bottom-signup {
+      text-align: center;
+    }
+
+    .forgot-pass {
+      text-align: left;
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+
+    h4.sidelines {
+      text-align: center;
+      border-bottom: 1px solid rgb(102, 102, 102);
+      height: 0.5em;
+      margin-bottom: 60px;
+    }
+
+    h4.sidelines span {
+      display: inline-block;
+      background: #fff;
+      padding: 0 0.25em;
+    }
+
+    .fb-sign-btn {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .fb-sign-btn .btn-has-icon {
+      display: block;
+      margin: 0 auto;
+      width: 75%;
+    }
+
+    .btn-join-facebook, a.btn-join-facebook {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.88rem;
+      color: #4267b2;
+      padding: 0.77rem 1.54rem;
+      text-decoration: none;
+      border: 2px solid #4267b2;
+      font-weight: 700;
+      transition: 0.2s all ease;
+    }
+
+    svg.-facebook {
+      fill: #4267b2;
+    }
+
+    .card-btns {
+      display: block;
+      text-align: center;
+    }
+
+    .hero-content-block .btn-has-icon {
+      display: block;
+    }
+
+    .small-link {
+      color: grey;
+    }
+
+    .small-link a {
+      color: grey;
+      text-decoration: underline;
+    }
+
+    .nav-header-open {
+      background-color: #BB0000;
+      padding-top: 15px;
+      padding-left: 20px;
+      padding-right: 20Px;
+      padding-bottom: 15px;
+    }
+
+    .nav-header-closed {
+      padding-top: 15px;
+      padding-left: 20px;
+      padding-right: 20Px;
+      padding-bottom: 15px;
+    }
+
+
+    .nav-login .img-circle {
+      border-radius: 50%;
+      margin-right: 15px;
+      width: 40px;
+      height: 40px;
+      display: inline-block;
+    }
+
+    .is-stuck .nav-login .img-circle {
+      margin-top: 12px;
+      width: 30px;
+      height: 30px;
+    }
+
+    .user-info {
+      padding-right: 50px;
+      display: inline-block;
+      line-height: 18px;
+      vertical-align: top;
+      margin-top: 3px;
+      text-align: left;
+    }
+
+    .user-info-points {
+      display: block;
+    }
+
+    .menu-wrapper {
+      height: 44px;
+    }
+
+    .challenge-count h1 {
+      font-weight: 300;
+      color: #bb0000;
+    }
+
+    .contact-meta i {
+      color: #bb0000;
+      font-size: 24px;
+      padding-right: 10px;
+    }
+
+    .contact-meta .bottom {
+      font-size: 14px;
+    }
+
+    .contact-meta-list-item {
+      display: inline-block;
+      border-right: solid;
+      border-right-width: 1px;
+      border-color: lightgrey;
+      width: 19%;
+      text-align: center;
+    }
+
+    @media (max-width: 530px) and (min-width: 350px) {
+      .contact-meta-list-item {
+        width: 32%;
+        border: none;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .contact-meta-list-item {
+        width: 47%;
+        border: none;
+      }
+    }
+
+    .completed-grid {
+      margin-top: 0;
+    }
+
+    @media (max-width: 326px) {
+      .modal-header-account .top {
+        font-size: 16px;
+      }
+
+      .modal-header-account .bottom {
+        font-size: 26px;
+      }
+    }
+
+    .contact-meta-list-item p {
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    .contact-meta p {
+      color: gray;
+    }
+
+    .recruits {
+      border: none;
+      padding-right: 0;
+    }
+
+
+    .profile-info {
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+    }
+
+    .profile-info .section {
+      background-color: #FAFAFA;
+      padding-right: 3.42rem;
+      padding-left: 3.42rem;
+    }
+
+    .profile-info h3 {
+      font-weight: 100;
+      padding-right: 2.42rem;
+      padding-left: 2.42rem;
+    }
+
+    .profile-info .profile-photo p {
+      padding-top: 12px;
+      font-weight: 100;
+      font-size: 25px;
+    }
+
+    .profile-info .profile-photo img {
+      border-radius: 50%;
+      width: 120px;
+      display: inline-block;
+      float: left;
+      height: 120px;
+      margin-right: 30px;
+    }
+
+    .profile-info .profile-photo .photo-uploader {
+      display: inline-block;
+      float: left;
+    }
+
+    .profile-info .profile-photo .photo-uploader p {
+      font-size: inherit;
+      margin-bottom: 0;
+    }
+
+    .profile-info .profile-photo .photo-uploader a.btn-share {
+      margin-top: 5px;
+    }
+
+    .profile-info hr {
+      width: 105%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-bottom-color: lightgray;
+      border-width: 2px;
+      margin-left: -17px;
+      margin-right: 0px;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-top: 30px;
+    }
+
+    .profile-info p.top {
+      padding-top: 20px;
+      font-weight: 100;
+      font-size: 25px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .profile-info p.bottom {
+      margin-top: 0;
+      font-size: 14px;
+      font-weight: 100;
+    }
+
+    .profile-overview {
+      padding-right: 3.42rem;
+      padding-left: 3.42rem;
+    }
+
+    .email-info .description {
+      margin-top: 0;
+      font-size: 14px;
+    }
+
+    .info-holder {
+      height: 250px;
+      border-bottom: solid;
+      border-bottom-color: lightgrey;
+      border-bottom-width: 2px;
+    }
+
+    .ut-affliation {
+      margin-top: 0;
+      padding-top: 25px;
+    }
+
+    .user-type #innerspan {
+      padding-left: 5px;
+      padding-right: 25px;
+    }
+
+    .user-type #outterspan {
+      width: 25%;
+    }
+
+    .interest p {
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+    }
+
+    .interest label {
+      font-size: 14px;
+      padding-bottom: 10px;
+    }
+
+    .interest input {
+      margin-right: 10px;
+    }
+
+    .save-section {
+      text-align: right;
+    }
+
+    .save-section .link-readmore {
+      display: inline-block;
+      padding-right: 55px;
+    }
+
+    .save-section .tease-share-btn {
+      width: 170px;
+      text-align: center;
+      display: inline-block;
+      margin-bottom: 1.42rem;
+      background-color: #BB0000;
+      color: white;
+    }
+
+    .email-edit-background {
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      background-color: #FAFAFA;
+      margin-top: 25px;
+    }
+
+    .email-set-head {
+      width: 100%;
+    }
+
+    .email-settings .email-set-head h3 {
+      float: left;
+      display: inline-block;
+    }
+
+    .email-settings .email-set-head a {
+      display: inline-block;
+      float: right;
+      padding-top: 40px;
+    }
+
+    .email-settings hr {
+      width: 100%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-bottom-color: lightgray;
+      border-width: 2px;
+    }
+
+    .email-settings h3 {
+      font-weight: 100;
+    }
+
+    .connected-networks h3 {
+      font-weight: 100;
+    }
+
+    .connected-networks hr {
+      width: 100%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-bottom-color: lightgray;
+      border-width: 2px;
+    }
+
+    .account-activity h3 {
+      font-weight: 100;
+    }
+
+    .account-activity hr {
+      width: 100%;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-bottom: solid;
+      border-bottom-color: lightgray;
+      border-width: 2px;
+    }
+
+    .radio-btns {
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .radio-btns input {
+      margin-right: 10px;
+      float: left;
+    }
+
+    .radio-btns span {
+      float: left;
+      width: 91%;
+    }
+
+    @media (max-width: 400px) {
+      .radio-btns span {
+        width: 75%;
+      }
+    }
+
+    .connect a.btn-share {
+      background-color: #BB0000;
+      color: #FFFFFF;
+    }
+
+    .account-activity table {
+      width: 100%;
+    }
+
+    .account-activity .table-header {
+      border-bottom: solid;
+      border-bottom-width: 1px;
+      text-align: left;
+    }
+
+    .account-activity .table-header th {
+      padding-bottom: 10px;
+      font-weight: 300;
+    }
+
+    .account-activity tr.table-content > td {
+      padding: 5px 0;
+    }
+
+    .table-pagination {
+      width: 100%;
+      text-align: right;
+    }
+
+    .table-pagination .page-index {
+      display: inline-block;
+      margin: 0 10px;
+    }
+
+    .table-pagination i.fa-angle-left {
+      cursor: pointer;
+    }
+
+    .table-pagination i.fa-angle-right {
+      cursor: pointer;
+    }
+
+    .table-pagination .page-buttons {
+      display: inline-block;
+      text-align: right;
+      font-size: 24px;
+      color: #BB0000;
+      font-weight: 600;
+    }
+
+    .table-pagination .dropbtn {
+      background-color: transparent;
+      color: grey;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .table-pagination .dropdown {
+      position: relative;
+      display: inline-block;
+      border: none;
+      font-size: initial;
+      font-weight: 300;
+      text-transform: none;
+      color: inherit;
+    }
+
+    .table-pagination .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown:hover .dropbtn {
+      background-color: lightgrey;
+    }
+
+    .account-foot .save-close {
+      display: inline-block;
+      float: right;
+    }
+
+    .account-foot a.btn-share {
+      background-color: #BB0000;
+      color: #FFFFFF;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .account-foot .opt-out {
+      display: inline-block;
+      color: initial;
+      float: left;
+      text-decoration: underline;
+      color: gray;
+      cursor: pointer;
+    }
+
+    .reward-details {
+      text-align: center;
+    }
+
+    .reward-details img.reward-img {
+      max-width: 90%;
+    }
+
+    .reward-details .reward-info {
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      background-color: #efefef;
+    }
+
+    .reward-details .reward-info p {
+      margin: 0 10px;
+      display: inline-block;
+      line-height: 30px;
+    }
+
+    .reward-details .reward-info p span {
+      font-weight: 400;
+    }
+
+    .reward-title p {
+      font-size: 22px;
+    }
+
+    .reward-info-congrats p {
+      font-size: 26px;
+      line-height: 60px !important;
+    }
+
+    .reward-foot .top-sweep {
+      padding-top: 25px;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    .reward-foot .bottom-sweep {
+      font-size: 14px;
+    }
+
+    .reward-foot .mid-sweep {
+      margin-top: 5px;
+      font-size: 16px;
+    }
+
+    /* Sets reward modal image to expand to modal padding */
+    @media (max-width: 600px) {
+      .reward-details img.reward-img {
+        max-width: 100%;
+      }
+    }
+
+    .reward-description {
+      font-size: 18px;
+      padding: 15px 65px;
+    }
+
+    /* Sets reward modal description to expand to modal padding */
+    @media (max-width: 600px) {
+      .reward-description {
+        font-size: 18px;
+        padding: 15px 0px;
+      }
+    }
+
+    .reward-foot {
+      background-color: #efefef;
+      margin-left: -2.42rem;
+      margin-right: -2.42rem;
+      margin-bottom: -3.3rem;
+      padding: 0 10% 1%;
+    }
+
+    .reward-foot a.btn-share {
+      background-color: #BB0000;
+      color: #ffffff;
+      margin: 0 30%;
+    }
+
+    .reward-foot .btn-has-icon {
+      display: block;
+    }
+
+    .reward-foot .tease-share-btn {
+      margin-bottom: 10px !important;
+    }
+
+    .rf-top {
+      padding-top: 25px;
+      font-size: 20px;
+      margin-top: 0;
+    }
+
+    .rf-bottom {
+      font-weight: 300;
+    }
+
+    .bold-red {
+      color: #bb0000;
+      font-weight: bold;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+
+    .terms-con {
+      font-size: 14px;
+      color: #bb0000;
+      padding-bottom: 5px;
+    }
+
+    .terms-con a {
+      color: #666666;
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .terms-con p {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+
+    .popupmenu-link img {
+      border-radius: unset;
+      vertical-align: middle;
+      margin-right: 15px;
+      width: 15px;
+      height: 15px;
+    }
+
+    .spacer {
+      justify-content: space-between;
+    }
+
+    .small-modal {
+      max-width: 525px;
+    !important;
+      padding-bottom: 1.3rem !important;
+      margin-top: 1.54rem;
+    }
+
+    input.bottom-input {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+    }
+
+    .affiliation-signup {
+      padding: 5px 0;
+    }
+
+    .affiliation-signup input {
+      margin-right: 5px;
+    }
+
+    label.error {
+      color: red;
+      font-size: 12px;
+    }
+
+    label.success {
+      color: green;
+      font-size: 12px;
+    }
+
+    #profile-edit {
+      display: none;
+    }
+
+    .profile-overview img {
+      border-radius: 50%;
+      max-width: 23%;
+      max-height: 150px;
+      display: inline-block;
+      float: left;
+    }
+
+    .profile-overview hr {
+      padding-top: 5px;
+      margin-bottom: 25px;
+      padding-left: 20px;
+    }
+
+    .profile-overview .profile-preview {
+      width: 75%;
+      display: inline-block;
+      padding-left: 15px;
+    }
+
+    .profile-preview p {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 14px;
+    }
+
+    .profile-preview label {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .profile-head {
+      height: 80px;
+      width: 100%;
+    }
+
+    .profile-head {
+      position: relative;
+    }
+
+    .profile-head h3 {
+      position: absolute;
+      bottom: 0px;
+      left: 0;
+    }
+
+    .profile-head a {
+      position: absolute;
+      bottom: 0px;
+      right: 0;
+    }
+
+    a#profile-toggle {
+      padding-right: 2.42rem;
+    }
+
+    @media (max-width: 600px) {
+      .profile-overview img {
+        margin-bottom: 13px;
+      }
+
+      .profile-overview .profile-preview {
+        width: 100%;
+        display: block;
+        padding-left: 0px;
+      }
+    }
+
+
+    #email-edit {
+      display: none;
+      padding-right: 2.42rem;
+      padding-left: 2.42rem;
+      padding-top: 15px;
+    }
+
+    .left-icon img {
+      float: left;
+      display: inline-block;
+      padding-top: 4px;
+      padding-right: 5px;
+      margin-left: -35px;
+    }
+
+    .left-icon-inline img {
+      float: left;
+      display: inline-block;
+      padding-top: 17px;
+      padding-right: 5px;
+      margin-left: 1px;
+    }
+
+    label.affiliation {
+      padding-bottom: 10px;
+    }
+
+    li.error {
+      display: inline;
+      color: red;
+    }
+
+    .reset-string {
+      text-align: center;
+    }
+
+    .reset-string input {
+      display: inline-block;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      width: 55px;
+      border-bottom-width: 2px;
+      border-color: lightgrey;
+      margin: 0 5px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    .top-bottom {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+
+    .video-image {
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    .video-pre-foot {
+      text-align: center;
+    }
+
+    .video-pre-foot a {
+      margin-left: 35px;
+      margin-right: 35px;
+      display: inline-block;
+    }
+
+    .share-actions .btn-has-icon {
+      display: block;
+    }
+
+    .share-actions a {
+      text-align: center;
+      margin: 0 auto;
+      max-width: 255px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      min-width: 200px;
+    }
+
+    .completed-challenge {
+      opacity: .5;
+    }
+
+    .completed-btn {
+      background-color: lightgrey !important;
+      border-color: lightgrey !important;
+    }
+
+    .completed-btn .icon-btn-share {
+      color: dimgrey;
+    }
+
+    .completed-btn .btn-share-text {
+      color: dimgrey;
+    }
+
+    .recruitment {
+      text-align: center;
+    }
+
+    .recruitment .copy-label {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .recruitment h1 {
+      color: #BB0000;
+      font-size: 26px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-top: 30px;
+    }
+
+    .recruitment svg.-twitter {
+      fill: #FFFFFF;
+    }
+
+    .recruitment a {
+      margin: 15px 0;
+    }
+
+    .recruitment .btn-has-icon {
+      display: block;
+    }
+
+    .copy-link input {
+      border: solid 1px #BB0000;
+      line-height: normal;
+      height: 39px;
+      padding: 0 5px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      vertical-align: top;
+      min-width: 148px;
+    }
+
+    .copy-link button {
+      line-height: normal;
+      height: 39px;
+      background-color: #BB0000;
+      color: #ffffff;
+      margin-left: -10px;
+      border: solid 1px #BB0000;
+      border-bottom: none;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      letter-spacing: 1px;
+      font-weight: 600;
+      font-size: .88rem;
+      padding: 0 15px;
+      vertical-align: top;
+    }
+
+    .video-watch-modal .video-congrats-image {
+      /*display: none;
+                visibility: hidden;*/
+      width: 90%;
+      min-width: 200px;
+    }
+
+    .video-watch-modal .video-progress {
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .video-watch-modal .video-box-left {
+      width: 30%;
+      display: inline-block;
+    }
+
+    .video-watch-modal .video-box-right {
+      width: 69%;
+      display: inline-block;
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .video-watch-modal .challenge-complete a.btn-share {
+      color: #fefefe;
+      background-color: #BB0000;
+      text-align: center;
+      width: inherit;
+      margin: 0px 0px 10px 0px;
+    }
+
+    .video-watch-modal .challenge-complete h1 {
+      vertical-align: top;
+      margin-top: 20px;
+      font-size: 38px;
+      color: #666666;
+    }
+
+    .video-watch-modal .challenge-complete p {
+      font-size: 26px;
+      color: #666666;
+    }
+
+    .video-watch-modal .video-watch-title {
+      color: #bb0000;
+      font-size: 38px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .video-watch-modal .video-box-left {
+        width: 64%;
+      }
+
+      .video-watch-modal .video-box-right {
+        width: 100%;
+        text-align: center;
+        padding-left: 0px;
+      }
+    }
+
+    .meter {
+      height: 4px;
+      position: relative;
+      background: #e9e9e9;
+      -moz-border-radius: 25px;
+      -webkit-border-radius: 25px;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      margin-top: 6px;
+    }
+
+    .meter > span {
+      vertical-align: top;
+      display: block;
+      height: 100%;
+      background-color: #bb0000;
+      background-image: linear-gradient(
+        center bottom,
+        rgb(43, 194, 83) 37%,
+        rgb(84, 240, 84) 69%
+      );
+      box-shadow: inset 0 2px 9px rgba(255, 255, 255, 0.3),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .challenge-complete {
+      text-align: center;
+    }
+
+    .challenge-complete h1 {
+      color: #bb0000;
+      font-size: 42px;
+    }
+
+    .challenge-complete p {
+      color: #bb0000;
+      font-weight: 400;
+      font-size: 30px;
+    }
+
+    .challenge-complete a.btn-share {
+      color: #fefefe;
+      background-color: #BB0000;
+      margin: 10px 170px;
+    }
+
+    /* Fixes smooshed View Available Rewards button on mobile Challenge Complete modal  */
+    @media (max-width: 600px) {
+      .challenge-complete a.btn-share {
+        margin: 10px 10px;
+      }
+    }
+
+    .challenge-complete a.btn-has-icon {
+      display: block;
+    }
+
+    .fb-detail-block {
+      border: solid 1px lightgrey;
+    }
+
+    .fb-detail-inner-block {
+      padding: 0px 15px;
+    }
+
+    .fb-detail-inner-block h1 {
+      font-size: 28px;
+      color: black;
+      font-weight: normal;
+    }
+
+    p.fb-content {
+      margin-top: 5px;
+    }
+
+    .fb-comment-avi {
+      padding: 20px 0;
+    }
+
+    .fb-comment-avi textarea {
+      display: inline-block;
+      max-width: 80%;
+      width: 80%;
+      vertical-align: top;
+      resize: none;
+      font-size: 15px;
+      cursor: pointer;
+      border: 1px solid lightgray;
+      padding: 5px;
+      height: 86px;
+    }
+
+    .fb-comment-avi img {
+      display: inline-block;
+    }
+
+    .loader {
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #bb0000;
+      width: 40px;
+      height: 40px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+  </style>
+  <style>
+    .open-link span {
+      transition: all 0.05s ease-in-out;
+      width: 30px;
+      height: 3px;
+      display: block;
+      background: #1F232A;
+      border-radius: 3px;
+      margin: 0 0 6px 0;
+    }
+
+    .open-link span:last-child {
+      margin: 0;
+    }
+
+    .open-link.active span:nth-of-type(1) {
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      margin: 10px 0 0 0;
+    }
+
+    .open-link.active span:nth-of-type(2) {
+      opacity: 0;
+    }
+
+    .open-link.active span:nth-of-type(3) {
+      -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      transform: rotate(-45deg);
+      margin: -11px 0 0 0;
+    }
+  </style>
+
+  <!-- Styling for spinners -->
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Comfortaa:400,700,300);
+
+
+    svg.spinner {
+      width: 100px;
+      height: 100px;
+      margin: 20px;
+      display: inline-block;
+    }
+
+    /
+    /
+    follow me template
+    .made-with-love {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 10px;
+      font-family: arial;
+      color: #fff;
+
+    i {
+      font-style: normal;
+      color: #F50057;
+      font-size: 14px;
+      position: relative;
+      top: 2px;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+
+    &
+    :hover {
+      text-decoration: underline;
+    }
+
+    }
+    }
+
+    .spinner-section {
+      text-align: center;
+    }
+
+    .spinner-scale {
+      width: 100px;
+      height: 100px;
+      margin-left: 50px;
+      display: none;
+      margin-top: -50px;
+      margin-bottom: -30px;
+    }
+
+    .spinner-scale {
+      width: 100px;
+      height: 100px;
+      margin-left: 50px;
+      display: none;
+      margin-top: -50px;
+      margin-bottom: -30px;
+    }
+
+    .disabled {
+      background-color: lightgrey !important;
+      border-color: lightgrey !important;
+      color: #ffffff !important;
+    }
+
+  </style>
+
+
+</head>
+
+<body>
+
+
+<div id="app">
+
+  <!--- content -->
+<!--  <script>-->
+<!--    fbq('track', 'ViewContent', {-->
+<!--      content_ids: 'logged-out',-->
+<!--    });-->
+<!--  </script>-->
+  <header class="page-header-hero">
+    <nav class="top-nav">
+            <span class="logged-out">
+                <div class="wrap">
+                    <div class="nav-login">
+                      <%= image_tag('end-user/logged-out-logo.svg', class: 'logged-out-img') %>
+                      <a class="nav-link" @click="showSignupChoices" href="#">Sign Up</a>
+                        <a class="nav-link" @click="showSignin" href="#">
+                            <svg class="icon-nav-item" viewBox="0 0 100 100">
+                              <use xlink:href="#svg-sign-out"/>
+                            </svg>Log In
+                        </a>
+                    </div>
+                </div>
+            </span>
+    </nav>
+
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="hero-content-block">
+          <%= image_tag('end-user/logo.svg', class: 'hero-logo') %>
+          <p>The Official Loyalty & Rewards Program for The Ohio State University</p>
+          <h6 class="hero-sub-title">This Week's Rewards:</h6>
+          <div class="carousel carousel-top">
+            <div class="carousel-slide">
+              <img src="/system/rewards/images/000/000/682/original/_50-Gift-Card-to-Buckeye-Corner---BNR">
+              <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-content-block -card logged-out-carousel-container">
+          <div class="carousel-container">
+            <div class="carousel logged-out-carousel">
+              <div class="carousel-slide">
+                <%= image_tag('end-user/join.svg', class: 'logged-out-img') %>
+                <h1 class="card-title">JOIN</h1>
+                <p class="card-desc">Join for instant access to exclusive</br> prizes & rewards.</p>
+              </div>
+              <div class="carousel-slide">
+                <%= image_tag('end-user/engage.svg', class: 'logged-out-img') %>
+                <h1 class="card-title">ENGAGE</h1>
+                <p class="card-desc">Earn 250+ Points just for joining, and even more for completing fun & easy
+                  challenges.</p>
+              </div>
+              <div class="carousel-slide">
+                <%= image_tag('end-user/win.svg', class: 'logged-out-img') %>
+                <h1 class="card-title">WIN</h1>
+                <p class="card-desc">The more Points you earn,</br> the more you win. It’s easy!</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-btns">
+            <p class="card-buttons-text">Earn 250 Points for joining now, double it to 500 by continuing with
+              Facebook.</p>
+
+
+            <a @click="showSignUpSpin" id="connect-bttn" href="https://buckeyenationrewards.com/auth/facebook?campaign=190" class="dark-fb-button btn-has-icon btn-join-facebook">
+              <span class="icon-btn-share fa fa-facebook"></span>
+              <span class="btn-share-text">Continue With Facebook</span>
+            </a>
+
+<!--            <div class="spinner-section">-->
+              <%#= image_tag('end-user/spinner.svg', class: 'connect-spin') %>
+<!--            </div>-->
+
+            <p class="small-link">or <a href="javascript:void(0);" @click="showSignup" class="">Sign Up with Email</a>
+            </p>
+          </div>
+          <span class="logged-out-terms">
+                        <p> By joining, you agree to our <a href="#" @click="showTerms">Terms and Conditions</a> and <a href="#" @click="showPrivacy">Privacy Policy</a></p>
+                    </span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="main-section rotate-light" id="social">
+
+      <div class="wrap">
+
+        <!-- Section Header -->
+        <header class="section-header text-center">
+          <h3 class="section-title">Check Us Out on Social</h3>
+          <p>We've made it easy and rewarding to stay up to date. Join above to get started!</p>
+        </header>
+
+        <ul class="tease-group-grid tease-list -social">
+
+          <li class="tease-grid-item -card" v-for="social in socials" @click="openWindow(social, $event)">
+            <img class="tease-img" v-if="social.image" v-bind:src="social.image">
+            <span v-else class="social-card-top-padding"></span>
+
+            <span v-if="!social.image" class="icon-is-dark">
+                                <span class="icon-tease-type fa fa-twitter block" v-if="social.social_network == 'twitter'"></span>
+
+                                <span class="icon-tease-type fa fa-facebook block" v-if="social.social_network == 'facebook'"></span>
+
+                                <span class="icon-tease-type fa fa-instagram block" v-if="social.social_network == 'instagram'"></span>
+                            </span>
+            <span v-else>
+                                <span class="icon-tease-type fa fa-twitter block" v-if="social.social_network == 'twitter'"></span>
+
+                                <span class="icon-tease-type fa fa-facebook block" v-if="social.social_network == 'facebook'"></span>
+
+                                <span class="icon-tease-type fa fa-instagram block" v-if="social.social_network == 'instagram'"></span>
+                            </span>
+
+            <div class="tease-content">
+                                <span v-if="!social.image" class="bold-social-text">
+
+                                   <p v-html="social.encode_details" v-if="social.encode_details" class="caption"></p>
+
+                                    <p v-html="social.content" v-else-if="social.content" class="caption"></p>
+
+                                    <p v-html="social.message" v-if="social.message" class="caption"></p>
+                                </span>
+              <span v-else>
+                                    <p v-html="social.encode_details" v-if="social.encode_details" class="caption"></p>
+
+                                    <p v-html="social.content" v-else-if="social.content" class="caption no-top"></p>
+
+                                    <p v-html="social.message" v-if="social.message" class="caption no-top"></p>
+                                </span>
+
+              <div class="tease-handle">
+                <img v-bind:src="social.social_avatar">
+                <img src="" alt="">
+                <div class="handle-details">
+                  <div class="detail-row">
+                    <p class="handle-title">{{ social.social_name }}</p>
+
+                    <a v-bind:href="social.url" class="open-window" target="_blank">
+                      <i class="icon-handle-action fa fa-external-link" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                  <div class="detail-row">
+                    <h6 class="handle-link">@{{ social.social_screen_name }}</h6>
+                    <p class="handle-time">{{ social.created_at | formatDate }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="wrap grid spacer">
+      <p>&copy; 2020 Sonic Nation Rewards</p>
+
+      <nav class="footer-nav">
+        <p>
+          <a href="javascript:void(0);" class="footer-nav-link" @click.prevent="showContactUs">Contact Us</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="javascript:void(0);" class="footer-nav-link" @click.prevent="showFAQ">FAQ</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="javascript:void(0);" class="footer-nav-link" @click.prevent="showRules">Rules</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="javascript:void(0);" class="footer-nav-link" @click.prevent="showPrivacy">Privacy</a>
+          &nbsp;&nbsp;&nbsp;
+          <a href="javascript:void(0);" class="footer-nav-link" @click.prevent="showTerms">Terms &amp; Conditions</a>
+        </p>
+      </nav>
+    </div>
+  </footer>
+</div>
+
+<!-- Plugins -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/7.2.0/lazyload.transpiled.min.js"></script>
+
+<!-- Vue -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.js"></script>
+<script src="//code.jquery.com/jquery-3.2.1.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+
+<!-- Slick Carousel -->
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+
+<script>
+  if ($('.carousel-top').hasClass('slick-initialized')) {
+    $('.carousel-top').slick('unslick');
+  }
+
+  $('.carousel-top').slick({
+    autoplay: true,
+    dots: false
+  });
+
+  $('.logged-out-carousel').slick({
+    autoplay: true,
+    dots: true
+  });
+</script>
+</body>
+</html>
