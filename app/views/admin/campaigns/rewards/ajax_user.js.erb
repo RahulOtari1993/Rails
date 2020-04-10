@@ -1,8 +1,5 @@
-
-$(document).on('turbolinks:load', function() {
 	console.log("I am here")
-	$(".render_user_list").html("<h1>Hello World</h1>")
+	$(".render_user_list").html("<%= escape_javascript render 'admin/campaigns/rewards/ajax_user', r: Campaign.all %>");
+
 	$("#reward_user").modal('show')
-	<% byebug %>
-})
 

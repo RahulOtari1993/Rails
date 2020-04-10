@@ -54,12 +54,11 @@
           </div>
           <!-- dataTable starts -->
           <div class="table-responsive">
-              <table class="table data-thumb-view">
+              <table class="table data-thumb-view rewards-list-table">
                   <thead>
                       <tr>
-                          <th></th>
                           <th>Image</th>
-                          <th>Name</th>
+                          <th>Name-123</th>
                           <th>Fulfillment</th>
                           <th>#winners</th>
                           <th>Start Date</th>
@@ -70,7 +69,6 @@
                   <tbody>
                     <% @rewards.each do |r|%>
                       <tr>
-                          <td></td>
                           <td class="product-img">
                             <%= image_tag(r.image_url.to_s) %>
                           </td>
@@ -87,8 +85,9 @@
                               <%= link_to(edit_admin_campaign_reward_path(r.campaign_id,r)) do%>
                                 <span class="action-edit"><i class="feather icon-edit"></i></span>
                               <% end %>
-                            <button type="button" class=" show_popup btn btn-outline-primary block btn-sm" reward= >
-                                Download CSV
+
+                            <button class="btn btn-xs btn-action btn-warning download-csv-btn">
+                              CSV
                             </button>
                             <!-- data-toggle="modal" data-target="#reward_user" -->
                             <%#= link_to("#", {data-toggle}) %>
@@ -113,62 +112,62 @@
   
 </div>
 <style type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+  /*<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">*/
  /* .reward_create {
     position: absolute;
     top: 30%;
   }*/
 </style>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('.dt-buttons').hide();
-    $('.reward_create').css({"position": "absolute", left: "17%", "top": "31.5%"  })
-    // $('.ajax_reward_popup').on('click', function(e){
-    //   debugger
-    //   // e.preventDefault();
-    //   var reward = $(this).attr('reward');
-    //   var campaign = $(this).attr('campaign_id')
-    //   $.ajax({
-    //     type: 'GET',
-    //     url: "/admin/campaigns/" + campaign + "/rewards/" + reward + "/ajax_user",
-    //     data: {
-    //       id: reward,
-    //       campaign_id: campaign
-    //     },
-    //     dataType: 'json',
-    //     success: function (response) {
-    //       // $('#new-preloader').hide();
-
-    //       // if (response['success'] == true) {
-    //       //   window.location.href = "/orders?order_id=" + response['data'];
-    //       // } else {
-    //       //   alert('Something went wrong while crating RMA Order, Please try again.')
-    //       // }
-    //     }
-    //   });
-    // })
-    $('.show_popup').on('click', function(e){
-      // e.preventDefault();
-      var reward = $(this).parent('.ajax_reward_popup').attr('reward');
-      var campaign = $(this).parent('.ajax_reward_popup').attr('campaign_id')
-      $.ajax({
-        type: 'GET',
-        url: "/admin/campaigns/" + 1 + "/rewards/" + 22 + "/ajax_user",
-        data: {
-          id: 22,
-          campaign_id: 1
-        },
-        dataType: 'json',
-        success: function (response) {
-          // $('#new-preloader').hide();
-
-          // if (response['success'] == true) {
-          //   window.location.href = "/orders?order_id=" + response['data'];
-          // } else {
-          //   alert('Something went wrong while crating RMA Order, Please try again.')
-          // }
-        }
-      });
-    })
-  })
+  // $(document).ready(function() {
+  //   $('.dt-buttons').hide();
+  //   $('.reward_create').css({"position": "absolute", left: "17%", "top": "31.5%"  })
+  //   // $('.ajax_reward_popup').on('click', function(e){
+  //   //   debugger
+  //   //   // e.preventDefault();
+  //   //   var reward = $(this).attr('reward');
+  //   //   var campaign = $(this).attr('campaign_id')
+  //   //   $.ajax({
+  //   //     type: 'GET',
+  //   //     url: "/admin/campaigns/" + campaign + "/rewards/" + reward + "/ajax_user",
+  //   //     data: {
+  //   //       id: reward,
+  //   //       campaign_id: campaign
+  //   //     },
+  //   //     dataType: 'json',
+  //   //     success: function (response) {
+  //   //       // $('#new-preloader').hide();
+  //
+  //   //       // if (response['success'] == true) {
+  //   //       //   window.location.href = "/orders?order_id=" + response['data'];
+  //   //       // } else {
+  //   //       //   alert('Something went wrong while crating RMA Order, Please try again.')
+  //   //       // }
+  //   //     }
+  //   //   });
+  //   // })
+  //   $('.show_popup').on('click', function(e){
+  //     // e.preventDefault();
+  //     var reward = $(this).parent('.ajax_reward_popup').attr('reward');
+  //     var campaign = $(this).parent('.ajax_reward_popup').attr('campaign_id')
+  //     $.ajax({
+  //       type: 'GET',
+  //       url: "/admin/campaigns/" + 1 + "/rewards/" + 22 + "/ajax_user",
+  //       data: {
+  //         id: 22,
+  //         campaign_id: 1
+  //       },
+  //       dataType: 'script',
+  //       success: function (response) {
+  //         // $('#new-preloader').hide();
+  //
+  //         // if (response['success'] == true) {
+  //         //   window.location.href = "/orders?order_id=" + response['data'];
+  //         // } else {
+  //         //   alert('Something went wrong while crating RMA Order, Please try again.')
+  //         // }
+  //       }
+  //     });
+  //   })
+  // })
 </script>

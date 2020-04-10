@@ -1,10 +1,11 @@
 class Admin::Campaigns::RewardsController < ApplicationController
   layout 'campaign_admin'
+
   before_action :authenticate_user!
   before_action :is_admin
   before_action :set_campaign
 
-  respond_to :html, :json, :js
+  # respond_to :html, :json, :js
 
   def index
     @rewards = @campaign.rewards
@@ -59,15 +60,10 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def ajax_user
-    @reward = @campaign.rewards.find_by(:id => params[:id])
-    # respond_to do |format|
-    #   format.html
-      # format.js
-    # end
+    @reward = Reward.first ##@campaign.rewards.find_by(:id => params[:id])
   end
 
   def edit 
-    byebug
     @reward = @campaign.rewards.find_by(:id => params[:id])
   end
 
@@ -108,6 +104,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
 
   ## Set Campaign
   def set_campaign
-    @campaign = Campaign.where(id: params[:campaign_id]).first
+    @campaign = Campaign.first
   end
 end
