@@ -38,7 +38,10 @@ Rails.application.routes.draw do
           get '/dashboard', to: 'dashboard#index', as: 'dashboard'
           ## Template Routes
           resources :template, only: [:edit, :update]
-          resources :rewards
+          resources :rewards do 
+            get '/ajax_user', to: 'rewards#ajax_user', as: :ajax_user
+            post '/delete_reward_filter', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
+          end
         end
       end
     end

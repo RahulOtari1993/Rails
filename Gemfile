@@ -38,6 +38,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'carrierwave', '~> 2.0'
 gem 'carrierwave-aws'
 gem 'mini_magick'
+gem 'bootstrap-sass', '~> 3.3.4'
+gem 'sass-rails', '~> 5.0'
+gem 'bootstrap'
 
 
 group :development, :test do
