@@ -82,6 +82,11 @@ $(document).on('turbolinks:load', function() {
         required: true,
         email: true
       },
+      'email_confirmation': {
+        required: true,
+        email: true,
+        equalTo: "#user_email"
+      },
       'user[password]': {
         required: true,
         minlength: 8,
@@ -104,6 +109,11 @@ $(document).on('turbolinks:load', function() {
       'user[email]': {
         required: 'Please enter email address',
         email: 'Please enter valid email address'
+      },
+      'email_confirmation': {
+        required: 'Please enter confirm email address',
+        email: 'Please enter valid email address',
+        equalTo: 'Confirm email do not match'
       },
       'user[password]': {
         required: 'Please enter new password',

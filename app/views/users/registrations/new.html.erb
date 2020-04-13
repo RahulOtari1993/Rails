@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <%= f.label :email, 'Confirm Email' %>
                   <div class="position-relative has-icon-left">
-                    <%= f.email_field :email, class: "form-control", placeholder: "Confirm Email Address" %>
+                    <%= text_field_tag 'email_confirmation', nil, placeholder: 'Confirm Email Address', class: "form-control" %>
                     <div class="form-control-position">
                       <i class="feather icon-mail"></i>
                     </div>
