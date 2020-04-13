@@ -179,4 +179,17 @@ $(document).on('turbolinks:load', function() {
   if (navigator.userAgent.indexOf("Mac OS X") != -1) {
     $(".dt-checkboxes-cell input, .dt-checkboxes").addClass("mac-checkbox")
   }
+
+  $(".challenge-wizard").steps({
+    headerTag: "h6",
+    bodyTag: "fieldset",
+    transitionEffect: "fade",
+    titleTemplate: '<span class="step">#index#</span> #title#',
+    labels: {
+      finish: 'Submit'
+    },
+    onFinished: function (event, currentIndex) {
+      alert("Form submitted.");
+    }
+  });
 });

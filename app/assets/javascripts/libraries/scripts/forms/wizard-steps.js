@@ -7,6 +7,7 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
+console.log("HI");
 // Wizard tabs with numbers setup
 $(".number-tab-steps").steps({
     headerTag: "h6",
