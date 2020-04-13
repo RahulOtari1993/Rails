@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: user_registration_path, class: 'form form-vertical') do |f| %>
+        <%= form_for(resource, as: resource_name, url: user_registration_path, :html => {class: 'form form-vertical end-user-sign-up-form'}) do |f| %>
           <div class="form-body">
             <div class="row">
               <div class="col-md-12 col-12">
@@ -43,7 +43,7 @@
 
               <div class="col-6">
                 <div class="form-group">
-                  <%= f.label :email, 'Email Address' %>
+                  <%= f.label :email, 'Email' %>
                   <div class="position-relative has-icon-left">
                     <%= f.email_field :email, class: "form-control", placeholder: "Email Address" %>
                     <div class="form-control-position">
@@ -55,7 +55,7 @@
 
               <div class="col-6">
                 <div class="form-group">
-                  <%= f.label :email, 'Confirm Email Address' %>
+                  <%= f.label :email, 'Confirm Email' %>
                   <div class="position-relative has-icon-left">
                     <%= f.email_field :email, class: "form-control", placeholder: "Confirm Email Address" %>
                     <div class="form-control-position">

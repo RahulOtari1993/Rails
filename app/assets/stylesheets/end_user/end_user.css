@@ -26,4 +26,5 @@
 
  *= require libraries/jquery.bxslider
  *= require end_user/styles
+ *= require ../common_style
  */
