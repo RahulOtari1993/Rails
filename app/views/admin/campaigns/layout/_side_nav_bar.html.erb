@@ -24,6 +24,11 @@
             <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Rewards</span>
           </a>
         </li>
+        <li class="nav-item <%= is_active_menu(['challenges']) %>">
+          <a href="<%= admin_campaign_challenges_path(@campaign) %>">
+            <i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Users">Challenges</span>
+          </a>
+        </li>
         <li class="nav-item <%= is_active_menu(['campaigns']) %>">
           <a href="<%= edit_admin_campaign_path(@campaign) %>">
             <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Settings</span>
