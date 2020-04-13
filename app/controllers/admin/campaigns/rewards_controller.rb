@@ -17,7 +17,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def create
-    byebug
     @reward = @campaign.rewards.new(reward_params)
     if @reward.save 
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
@@ -30,7 +29,7 @@ class Admin::Campaigns::RewardsController < ApplicationController
   def reward_export
 
     #grab the reward
-    @reward = Reward.find(params[:id])
+    @reward = Reward.find(params[:reward_id])
 
     #generate the csv of the results
     results = CSV.generate do |csv|
@@ -44,13 +43,13 @@ class Admin::Campaigns::RewardsController < ApplicationController
       ]
 
       #set the results
-      @reward.reward_contacts.each do |contact_reward|
+      @reward.reward_users.each do |user_reward|
 
         csv << [
-          contact_reward.user.first_name,
-          contact_reward.user.family_name,
-          contact_reward.user.email,
-          contact_reward.created_at
+          user_reward.user.first_name,
+          user_reward.user.full_name,
+          user_reward.user.email,
+          user_reward.created_at
         ]
       end
     end
@@ -60,7 +59,7 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def ajax_user
-    @reward = Reward.first ##@campaign.rewards.find_by(:id => params[:id])
+    @reward = @campaign.rewards.find_by(:id => params[:reward_id])
   end
 
   def edit 
@@ -73,6 +72,20 @@ class Admin::Campaigns::RewardsController < ApplicationController
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully updated'
     else
       render :edit
+    end
+  end
+
+  def ajax_coupon_form
+    @reward = @campaign.rewards.find_by(:id => params[:reward_id])
+    @coupons = @reward.coupons
+    @coupon = @reward.coupons.new
+  end
+
+  def create_coupon
+    @reward = @campaign.rewards.find_by(:id => params[:reward_id])
+    @coupon = @reward.coupons.new(coupon_params)
+    if @coupon.save
+      redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
     end
   end
 
@@ -105,5 +118,10 @@ class Admin::Campaigns::RewardsController < ApplicationController
   ## Set Campaign
   def set_campaign
     @campaign = Campaign.first
+  end
+
+  ##coupon_params
+  def coupon_params
+    params.require(:coupon).permit!
   end
 end

@@ -49,7 +49,7 @@
 
 //= require libraries/core/app.js
 //= require libraries/core/app-menu.js
-//= require libraries/scripts/ui/data-list-view.js
+// require libraries/scripts/ui/data-list-view.js
 
 //= require libraries/core/app-menu
 //= require libraries/core/app

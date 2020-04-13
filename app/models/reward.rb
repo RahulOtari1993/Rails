@@ -31,6 +31,7 @@ class Reward < ApplicationRecord
   has_many :reward_filters, inverse_of: :reward
   has_many :reward_users, dependent: :destroy
   has_many :users, through: :reward_users
+  has_many :coupons, dependent: :destroy
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
 

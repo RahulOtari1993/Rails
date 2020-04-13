@@ -204,7 +204,11 @@
                                   <tbody>
                                   <%= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
                                     <tr id="filter_condition_1">
-                                      <th scope="row"><i class="feather icon-minus-circle"></i></th>
+                                      <th scope="row">
+                                      	<%= link_to '#', class:"hide_row" do %>
+	                                      	<i class="feather icon-minus-circle"></i>
+                                      	<% end %>
+                                      </th>
                                       <td >
 	                                    	<div class="form-group">
 	                                    		<%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name:"reward[reward_filters_attributes][][reward_event]"}) 
@@ -245,7 +249,8 @@
 			                      	<% end %>
 			                      	<label class="fonticon-classname mt-1">Add</label>
 						              </div>
-                            <div class="col-12">
+						              	<br/>
+                            <div class="col-12" style = "margin-top: 15px">
                                 <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button>
                                 <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
                             </div>
@@ -279,19 +284,30 @@
 			}else{}
 		})
 
+		$(document).on('click', '.hide_row', function(e){
+			e.preventDefault();   
+		  $(this).closest('tr').hide();
+		})
+
 		$('#add_segment').on('click', function(e){
 		 e.preventDefault();    
-     size = jQuery('#filter_conditions >tbody >tr').length + 1,
-     element = null,    
+     size = jQuery('#filter_conditions >tbody >tr').length + 1
+     element = null 
      element = $('#filter_condition_1').clone();
      element.attr('id', 'filter_condition_'+size);
+     debugger 
+     // if(element.style.display == 'none'){
+     // 	element.css('display', 'block');
+     // }  
 		 $('.segment_table tbody').append(element);
+		 element.show();
 		})
 
 		$('.reward_form').on('click', function(){
 			$('.segment_table').find('.filter_hidden').attr("disabled",true);
 			var selects = $('.segment_table').find('select');
 			var inputs = $('.segment_table').find('input');
+			var rows = $('.segment_table').find('tr')
 			for(var i = 0;i < selects.length; i++) {
 		    if(selects[i].style.display == 'none') {
 		        selects[i].disabled = true;
@@ -300,6 +316,14 @@
 			for(var i = 0;i < inputs.length; i++) {
 		    if(inputs[i].style.display == 'none') {
 		        inputs[i].disabled = true;
+		    }
+			}
+			for(var i = 0;i < rows.length; i++) {
+		    if($('tr').style.display == 'none') {
+		    	$r_inputs = $(this).find('input')
+					$r_selects= $(this).find('select')
+	        $r_inputs.prop("disabled", true);
+	        $r_selects.prop("disabled", true)
 		    }
 			}
    		$('form').submit();
