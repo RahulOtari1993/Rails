@@ -1,43 +1,102 @@
-<h2>Sign up</h2>
+<div class="offset-md-3 col-md-6 col-12">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Sign Up</h4>
+    </div>
+    <div class="card-content">
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: user_registration_path, class: 'form form-vertical') do |f| %>
+          <div class="form-body">
+            <div class="row">
+              <div class="col-md-12 col-12">
+                <%= render "users/shared/error_messages", resource: resource %>
+              </div>
+            </div>
+            <div class="row">
+              <%= f.hidden_field :role, value: 'participant' %>
+              <%= f.hidden_field :is_invited, value: false %>
+              <%= f.hidden_field :organization_id, value: 0 %>
 
-<%= form_for(resource, as: resource_name, url: user_registration_path) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :first_name, 'First Name' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.text_field :first_name, class: "form-control", placeholder: "First Name" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-user"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true %>
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :last_name, 'Last Name' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-user"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :email, 'Email Address' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.email_field :email, class: "form-control", placeholder: "Email Address" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-mail"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :email, 'Confirm Email Address' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.email_field :email, class: "form-control", placeholder: "Confirm Email Address" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-mail"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :password, 'Password' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.password_field :password, class: "form-control", placeholder: "Choose Password" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-lock"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <%= f.label :password_confirmation, 'Re Enter Password' %>
+                  <div class="position-relative has-icon-left">
+                    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Re Enter Password" %>
+                    <div class="form-control-position">
+                      <i class="feather icon-lock"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <%= f.submit "Sign Up", class: 'btn btn-primary mr-1 mb-1' %>
+                <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <% # TODO: Manage Roles Based on the Login Type %>
-  <%= f.hidden_field :role, value: 'participant' %>
-  <%= f.hidden_field :organization_id, value: 0 %>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>
