@@ -29,7 +29,7 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
       token = resource.send(:set_reset_password_token)
       edit_user_password_path(resource, reset_password_token: token, type: 0) ## Type 0 -> Set Password, Type 1 --> Reset Password
     else
-      resource.update(is_active: true)
+      resource.update_attribute('is_active', true)
       root_url
     end
   end

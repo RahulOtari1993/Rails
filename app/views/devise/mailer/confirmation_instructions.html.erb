@@ -16,5 +16,14 @@
 
   <p>You can confirm your account email through the link below:</p>
 
-  <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+  <%
+    ## Set Sub Domain Params & Create a Custom Route
+    ssl  = request.ssl? ? 'https://' : 'http://'
+    port = Rails.env == 'development' ? ':3000' : ''
+    host = request.host
+
+    url = "#{ssl}#{host}#{port}#{confirmation_path(@resource, confirmation_token: @token)}"
+  %>
+
+  <p><%= link_to 'Confirm my account', url %></p>
 <% end %>
