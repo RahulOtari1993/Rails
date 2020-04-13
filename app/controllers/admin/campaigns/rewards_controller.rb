@@ -17,7 +17,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def create
-    byebug
     @reward = @campaign.rewards.new(reward_params)
     if @reward.save 
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
@@ -28,7 +27,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
 
 
   def reward_export
-    byebug
 
     #grab the reward
     @reward = Reward.find(params[:reward_id])
@@ -61,7 +59,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def ajax_user
-    byebug
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
   end
 
@@ -70,7 +67,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def update
-    byebug
     @reward = @campaign.rewards.find_by(:id)
     if @reward.update_attributes(reward_params)
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully updated'
@@ -86,7 +82,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def create_coupon
-    byebug
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
     @coupon = @reward.coupons.new(coupon_params)
     if @coupon.save
