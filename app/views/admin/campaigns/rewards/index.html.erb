@@ -35,33 +35,30 @@
           <div class="action-btns d-none">
             <div class="btn-dropdown mr-1 mb-1">
                 <div class="btn-group dropdown actions-dropodown">
-                    <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Actions
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
-                        <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
-                        <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
-                        <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
-                    </div>
+                  <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Actions
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
+                    <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
+                    <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
+                    <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
+                  </div>
                 </div>
             </div>
           </div>
+          <div class="reward_create btn-group">
+            <%= link_to new_admin_campaign_reward_path, class:"btn btn-outline-primary" do %>
+              <span><i class="feather icon-plus"></i>Add Rewards</span>
+            <% end %>
+          </div>
           <!-- dataTable starts -->
           <div class="table-responsive">
-            <div class="reward_create btn-group">
-              <%= link_to new_admin_campaign_reward_path, class:"btn btn-outline-primary" do %>
-                <span><i class="feather icon-plus"></i>Add Rewards</span>
-              <% end %>
-              <!-- <button class="btn btn-outline-primary" tabindex="0" aria-controls="DataTables_Table_0"><span><i class="feather icon-plus"></i> Add Rewards</span>
-              </button>  -->
-            </div>
-              <table class="table data-thumb-view">
+              <table class="table data-thumb-view rewards-list-table">
                   <thead>
                       <tr>
-                          <th></th>
-                          <th>Created</th>
-                          <th>Details</th>
+                          <th>Image</th>
+                          <th>Name-123</th>
                           <th>Fulfillment</th>
                           <th>#winners</th>
                           <th>Start Date</th>
@@ -72,11 +69,10 @@
                   <tbody>
                     <% @rewards.each do |r|%>
                       <tr>
-                          <td></td>
                           <td class="product-img">
                             <%= image_tag(r.image_url.to_s) %>
                           </td>
-                          <td class="product-name"><%= r.description%></td>
+                          <td class="product-name"><%= r.name %></td>
                           <td class="product-category"><%= r.selection%></td>
                           <td>
                               <%= r.limit %>
@@ -86,7 +82,20 @@
                           </td>
                           <td class="product-price"><%= r.finish %></td>
                           <td class="product-action">
-                              <span class="action-edit"><i class="feather icon-edit"></i></span>
+                              <%= link_to(edit_admin_campaign_reward_path(r.campaign_id,r)) do%>
+                                <span class="action-edit"><i class="feather icon-edit"></i></span>
+                              <% end %>
+
+                            <button class="btn btn-xs btn-action btn-warning download-csv-btn">
+                              CSV
+                            </button>
+                            <!-- data-toggle="modal" data-target="#reward_user" -->
+                            <%#= link_to("#", {data-toggle}) %>
+
+                                                <!-- Modal -->
+                    
+                                <!-- <span class="action-edit"><i class="feather icon-user"></i></span> -->
+                              <%# end %>
                               <span class="action-delete"><i class="feather icon-trash"></i></span>
                           </td>
                       </tr>
@@ -94,84 +103,71 @@
                   </tbody>
               </table>
           </div>
-                    <!-- dataTable ends -->
-
-                    <!-- add new sidebar starts -->
-                    <!-- <div class="add-new-data-sidebar">
-                        <div class="overlay-bg"></div>
-                        <div class="add-new-data">
-                            <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
-                                <div>
-                                    <h4 class="text-uppercase">Thumb View Data</h4>
-                                </div>
-                                <div class="hide-data-sidebar">
-                                    <i class="feather icon-x"></i>
-                                </div>
-                            </div>
-                            <div class="data-items pb-3">
-                                <div class="data-fields px-2 mt-3">
-                                    <div class="row">
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-name">Name</label>
-                                            <input type="text" class="form-control" id="data-name">
-                                        </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-category"> Category </label>
-                                            <select class="form-control" id="data-category">
-                                                <option>Audio</option>
-                                                <option>Computers</option>
-                                                <option>Fitness</option>
-                                                <option>Appliance</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-status">Order Status</label>
-                                            <select class="form-control" id="data-status">
-                                                <option>Pending</option>
-                                                <option>Canceled</option>
-                                                <option>Delivered</option>
-                                                <option>On Hold</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-price">Price</label>
-                                            <input type="text" class="form-control" id="data-price">
-                                        </div>
-                                        <div class="col-sm-12 data-field-col data-list-upload">
-                                            <form action="#" class="dropzone dropzone-area" id="dataListUpload">
-                                                <div class="dz-message">Upload Image</div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
-                                <div class="add-data-btn">
-                                    <button class="btn btn-primary">Add Data</button>
-                                </div>
-                                <div class="cancel-data-btn">
-                                    <button class="btn btn-outline-danger">Cancel</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!-- add new sidebar ends -->
       </section>
                 <!-- Data list view end -->
     </div>
   </div>
 </div>
+<div class="render_user_list">
+  
+</div>
 <style type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
-  /*.reward_create {
+  /*<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">*/
+ /* .reward_create {
     position: absolute;
-    left: 16%;
-    top: 27%;
+    top: 30%;
   }*/
 </style>
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('.dt-buttons').hide();
-    $('.reward_create').css({"position": "absolute","left": "16%", "top": "27%"  })
-  })
+  // $(document).ready(function() {
+  //   $('.dt-buttons').hide();
+  //   $('.reward_create').css({"position": "absolute", left: "17%", "top": "31.5%"  })
+  //   // $('.ajax_reward_popup').on('click', function(e){
+  //   //   debugger
+  //   //   // e.preventDefault();
+  //   //   var reward = $(this).attr('reward');
+  //   //   var campaign = $(this).attr('campaign_id')
+  //   //   $.ajax({
+  //   //     type: 'GET',
+  //   //     url: "/admin/campaigns/" + campaign + "/rewards/" + reward + "/ajax_user",
+  //   //     data: {
+  //   //       id: reward,
+  //   //       campaign_id: campaign
+  //   //     },
+  //   //     dataType: 'json',
+  //   //     success: function (response) {
+  //   //       // $('#new-preloader').hide();
+  //
+  //   //       // if (response['success'] == true) {
+  //   //       //   window.location.href = "/orders?order_id=" + response['data'];
+  //   //       // } else {
+  //   //       //   alert('Something went wrong while crating RMA Order, Please try again.')
+  //   //       // }
+  //   //     }
+  //   //   });
+  //   // })
+  //   $('.show_popup').on('click', function(e){
+  //     // e.preventDefault();
+  //     var reward = $(this).parent('.ajax_reward_popup').attr('reward');
+  //     var campaign = $(this).parent('.ajax_reward_popup').attr('campaign_id')
+  //     $.ajax({
+  //       type: 'GET',
+  //       url: "/admin/campaigns/" + 1 + "/rewards/" + 22 + "/ajax_user",
+  //       data: {
+  //         id: 22,
+  //         campaign_id: 1
+  //       },
+  //       dataType: 'script',
+  //       success: function (response) {
+  //         // $('#new-preloader').hide();
+  //
+  //         // if (response['success'] == true) {
+  //         //   window.location.href = "/orders?order_id=" + response['data'];
+  //         // } else {
+  //         //   alert('Something went wrong while crating RMA Order, Please try again.')
+  //         // }
+  //       }
+  //     });
+  //   })
+  // })
 </script>

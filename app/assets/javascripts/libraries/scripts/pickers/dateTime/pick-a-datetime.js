@@ -11,7 +11,7 @@
 
     /*******    Pick-a-date Picker  *****/
     // Basic date
-    $('.pickadate').pickadate();
+    // $('.pickadate').pickadate();
 
     // Format Date Picker
     $('.format-picker').pickadate({

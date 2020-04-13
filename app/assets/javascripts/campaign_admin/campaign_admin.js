@@ -31,19 +31,20 @@
 //= require vendors/tables/datatable/datatables.bootstrap4.min.js
 //= require vendors/tables/datatable/buttons.bootstrap.min.js
 //= require vendors/tables/datatable/dataTables.select.min.js
-//= require vendors/tables/datatable/datatables.checkboxes.min.js
-//= require vendors/forms/spinner/jquery.bootstrap-touchspin.js
+// require vendors/tables/datatable/datatables.checkboxes.min.js
+// require vendors/forms/spinner/jquery.bootstrap-touchspin.js
 //= require vendors/forms/select/select2.full.min.js
 //= require vendors/forms/select/form-select2.js
-//= require vendors/pickers/pickadate/legacy.js
-//= require vendors/pickers/pickadate/picker.date.js
-//= require vendors/pickers/pickadate/picker.js
-//= require vendors/pickers/pickadate/picker.time.js
+// require vendors/pickers/pickadate/legacy.js
+// require vendors/pickers/pickadate/picker.date.js
+// require vendors/pickers/pickadate/picker.js
+// require vendors/pickers/pickadate/picker.time.js
+// require bootstrap-sprockets
+// require bootstrap/modal
 
 
-
-//= require libraries/scripts/pickers/dateTime/pick-a-datetime.js
-//= require libraries/scripts/forms/number-input.js
+// require libraries/scripts/pickers/dateTime/pick-a-datetime.js
+// require libraries/scripts/forms/number-input.js
 //= require libraries/scripts/ui/data-list-view.js
 
 //= require libraries/core/app.js
@@ -53,6 +54,7 @@
 //= require libraries/core/app-menu
 //= require libraries/core/app
 //= require libraries/scripts/components
+//= require libraries/scripts/modal/components-modal.js
 
 //= require libraries/scripts/pages/dashboard-analytics
 //= require jquery.minicolors

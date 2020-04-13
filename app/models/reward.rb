@@ -16,7 +16,7 @@
 #  finish              :datetime
 #  feature             :boolean
 #  points              :integer
-#  is_active           :boolean
+#  is_active           :boolea
 #  redeption_details   :text
 #  description_details :text
 #  terms_conditions    :text
@@ -28,10 +28,16 @@ class Reward < ApplicationRecord
   ## Associations
   belongs_to :campaign
   has_many :coupons
+  has_many :reward_filters, inverse_of: :reward
+  has_many :reward_users, dependent: :destroy
+  has_many :users, through: :reward_users
+
+  accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
+
 
   mount_uploader :image, ImageUploader
 
-  SELECTIONS = [
+  	SELECTIONS = [
 		"manual"    ,
 		"redeem"    ,
 		"instant"   ,
@@ -46,4 +52,11 @@ class Reward < ApplicationRecord
 		"points"  ,
 		"download"
 	]
+
+	validates :campaign, presence: true
+	validates :name, presence: true
+	validates :threshold, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: Proc.new { |x| x.selection == "selection" }
+	validates :selection, presence: true, inclusion: SELECTIONS
+	# validates :fulfilment, presence: true, inclusion: FULFILMENTS
+	validates :description, presence: true
 end

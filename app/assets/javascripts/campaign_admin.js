@@ -93,4 +93,12 @@ $(document).on('turbolinks:load', function() {
 
   // Color Picker Integration
   $('.colour-picker-txt').minicolors({theme: 'bootstrap'})
+
+  $('.rewards-list-table').on('click', '.download-csv-btn', function(){
+    $.ajax({
+      type: 'GET',
+      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + 1 + "/rewards/" + 22 + "/ajax_user"
+    });
+  });
 });
