@@ -51,7 +51,7 @@
   <%= @campaign.css %>
 </style>
 
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static" id="logged-out-user-page" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 <!-- BEGIN: Content-->
 <div class="app-content content">
   <div class="content-overlay"></div>
@@ -112,7 +112,7 @@
                           </div>
 
                           <div class="slider_2_box">
-                            <%#= image_tag('end-user/engage.svg', class: 'logged-out-img initial loaded') %>
+                            <%= image_tag('end-user/engage.svg', class: 'logged-out-img initial loaded') %>
                             <h1 class="card-title">ENGAGE</h1>
                             <p class="card-desc">Earn 250+ GoBucks just for joining, and even more for completing
                               fun &amp; easy challenges.</p>
@@ -172,7 +172,7 @@
     <p>© 2020 Buckeye Nation Rewards</p>
     <nav class="footer-nav">
       <p>
-        <a href="javascript:void(0);" class="footer-nav-link" processed="false" data-toggle="modal" data-target="#contactUsModal">
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#contactUsModal">
           Contact Us
         </a>
         &nbsp;&nbsp;&nbsp;

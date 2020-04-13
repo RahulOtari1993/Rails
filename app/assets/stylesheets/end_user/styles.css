@@ -159,6 +159,14 @@ a#connect-bttn.dark-fb-button {
   color: #C9C9C9;
 }
 
+#logged-out-user-page .content {
+  margin-left: 0px;
+}
+
+#logged-out-user-page .content-wrapper {
+  margin-top: 0px;
+  padding: 0px;
+}
 
 @media (min-width: 70em){
 
@@ -193,7 +201,6 @@ a#connect-bttn.dark-fb-button {
     padding-right: 2.42rem;
   }
 
-
   .hero-content-block {
     width: 50%;
   }
@@ -222,5 +229,8 @@ a#connect-bttn.dark-fb-button {
     margin-left: -1.21rem;
     margin-right: -1.21rem;
   }
+}
 
+.modal-body > p {
+  color: #2C2C2C;
 }

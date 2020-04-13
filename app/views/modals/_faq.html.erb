@@ -1,17 +1,18 @@
-<section class="modal" id="faqModal">
-  <div class="modal-inner small-modal">
-    <button class="modal-close-btn btn-icon">
-      <%= image_tag('end-user/close-button.svg', class: 'logged-out-img') %>
-    </button>
-    <div>
-      <div>
-        <div class="modal-header">
-          <h1><%= raw @campaign.faq_title %></h1>
-        </div>
-        <div class="modal-fields ql-editor">
-          <%= raw @campaign.faq_content %>
-        </div>
+<div class="modal fade text-left" id="faqModal" tabindex="-1" role="dialog" aria-labelledby="faqModal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel1"><%= raw @campaign.faq_title %></h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ql-editor">
+        <%= raw @campaign.faq_content %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</section>
+</div>

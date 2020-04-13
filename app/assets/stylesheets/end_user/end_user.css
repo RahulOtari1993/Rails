@@ -17,6 +17,9 @@
  *= require libraries/bootstrap
  *= require libraries/bootstrap-extended
  *= require libraries/colors
+ *= require vendors/editors/quill/katex.min
+ *= require vendors/editors/quill/monokai-sublime.min
+ *= require vendors/editors/quill/quill.snow
  *= require libraries/components
  *= require libraries/themes/dark-layout
  *= require libraries/themes/semi-dark-layout
