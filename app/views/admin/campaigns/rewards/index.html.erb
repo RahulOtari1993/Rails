@@ -47,14 +47,10 @@
                 </div>
             </div>
           </div>
-          <div class="reward_create btn-group">
-            <%= link_to new_admin_campaign_reward_path, class:"btn btn-outline-primary" do %>
-              <span><i class="feather icon-plus"></i>Add Rewards</span>
-            <% end %>
-          </div>
           <!-- dataTable starts -->
           <div class="table-responsive">
-              <table class="table data-thumb-view rewards-list-table">
+
+              <table class="table reward_listing" campaign_id = '<%= @campaign.id%>'>
                   <thead>
                       <tr>
                           <th>Image</th>
@@ -86,8 +82,13 @@
                                 <span class="action-edit"><i class="feather icon-edit"></i></span>
                               <% end %>
 
-                            <button class="btn btn-xs btn-action btn-warning download-csv-btn">
-                              CSV
+                            <button class="btn btn-xs btn-action download-csv-btn" reward_id = '<%=r.id%>'
+                            campaign_id='<%= r.campaign_id %>'>
+                              <i class="feather icon-download"></i></span>
+                            </button>
+                            <button class="btn btn-xs btn-action btn-primary coupon-btn" reward_id = '<%=r.id%>'
+                            campaign_id='<%= r.campaign_id %>'>
+                              Coupons
                             </button>
                             <!-- data-toggle="modal" data-target="#reward_user" -->
                             <%#= link_to("#", {data-toggle}) %>
@@ -96,7 +97,8 @@
                     
                                 <!-- <span class="action-edit"><i class="feather icon-user"></i></span> -->
                               <%# end %>
-                              <span class="action-delete"><i class="feather icon-trash"></i></span>
+                              
+                             <!--  <span class="action-delete"><i class="feather icon-trash"></i></span> -->
                           </td>
                       </tr>
                     <% end %>
@@ -109,6 +111,9 @@
   </div>
 </div>
 <div class="render_user_list">
+  
+</div>
+<div class="coupon_user_form">
   
 </div>
 <style type="text/css">
