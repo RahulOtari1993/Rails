@@ -1,28 +1,20 @@
-/*================================================================================
-	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-	Version: 2.0
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
-================================================================================
-
-NOTE:
-------
-PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
-WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
-
 p {
   font-size: 1.1rem;
   margin-top: 0.88rem;
   margin-bottom: 0.88rem;
   color: #fff;
 }
-.cover-container{
+
+.cover-container {
   background-color: #333;
   width: 100%;
+  /*background-image: url(../../app-assets/images/profile/user-uploads/cover.jpg);*/
+  background-image: url(../../app-assets/images/elements/welcome-hero.png);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
 }
+
 .wrap {
   width: 93%;
   margin: 0 auto !important;
@@ -33,6 +25,7 @@ p {
   padding-bottom: 1.98rem;
   padding-top: 1.98rem;
 }
+
 .hero-logo {
   width: 100%;
   margin-top: 1.1rem;
@@ -46,10 +39,12 @@ p {
   color: #fefefe;
   margin-bottom: 5px;
 }
+
 .hero-content-block.-card.logged-out-carousel-container {
   max-width: 420px;
   margin: 0 auto;
 }
+
 .hero-content-block.-card {
   padding-left: 1.1rem;
   padding-right: 1.1rem;
@@ -58,23 +53,27 @@ p {
   border-top: 8px #BB0000 solid;
 }
 
-.slider_2_box{
+.slider_2_box {
   text-align: center;
   padding-top: 15px;
 }
+
 .bx-wrapper img {
   max-width: 100%;
   display: initial !important;
 }
-.slider_2_box img{
+
+.slider_2_box img {
   max-width: 250px !important;
 }
+
 .bx-wrapper {
   box-shadow: none !important;
   border: none !important;
   background: transparent !important;
 }
-.left_slider .bx-wrapper .bx-pager{
+
+.left_slider .bx-wrapper .bx-pager {
   display: none !important;
 }
 
@@ -82,13 +81,16 @@ p {
 .card-desc {
   color: #666666;
 }
+
 .card-title {
   padding-top: 15px;
 }
+
 .card-btns {
   display: block;
   text-align: center;
 }
+
 p.card-buttons-text {
   margin: 0 auto;
   color: #666666 !important;
@@ -97,10 +99,12 @@ p.card-buttons-text {
   text-align: center;
   margin-bottom: 15px;
 }
+
 .card-btns > * {
   margin-bottom: 1.1rem;
   min-width: 250px;
 }
+
 a#connect-bttn.dark-fb-button {
   background-color: #385997;
   border: 2px solid #385997;
@@ -108,6 +112,7 @@ a#connect-bttn.dark-fb-button {
   display: block;
   text-align: center;
 }
+
 .btn-join-facebook, a.btn-join-facebook {
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -124,6 +129,7 @@ a#connect-bttn.dark-fb-button {
 .spinner-section {
   text-align: center;
 }
+
 .spinner-scale {
   width: 100px;
   height: 100px;
@@ -132,54 +138,100 @@ a#connect-bttn.dark-fb-button {
   margin-top: -50px;
   margin-bottom: -30px;
 }
+
 .small-link {
   color: grey;
 }
+
 .small-link a {
   color: grey;
   text-decoration: underline;
 }
+
 .logged-out-terms p {
   color: #666666;
   font-size: 10px;
   text-align: center;
 }
+
 .page-footer {
   background-color: #BB0000;
   color: #fefefe;
 }
-.page-footer p{
+
+.page-footer p {
   padding-top: 4px;
   padding-bottom: 4px;
 }
+
 .spacer {
   justify-content: space-between;
 }
+
 .page-footer a, .page-footer a:visited {
   color: #C9C9C9;
 }
 
-#logged-out-user-page .content {
-  margin-left: 0px;
+.cover-container .icon-nav-item {
+  fill: #fefefe;
+  height: 17px;
+  width: 23px;
+  position: absolute;
+  top: 6px;
+  left: 5px;
 }
 
-#logged-out-user-page .content-wrapper {
-  margin-top: 0px;
-  padding: 0px;
+.cover-container .logged-out {
+  padding: 1.1rem;
 }
 
-@media (min-width: 70em){
+.cover-container .top-nav {
+  padding-bottom: 1.1rem;
+}
+
+.cover-container .nav-login {
+  text-align: left;
+  margin-left: auto;
+  /* display: flex; */
+  align-items: center;
+  -webkit-justify-content: center;
+  /* -ms-flex-pack: center; */
+  justify-content: center;
+}
+
+.cover-container .logged-out .nav-link {
+  padding-left: 6px;
+  display: inline;
+}
+
+.cover-container .nav-login .nav-link:last-child {
+  border-left: 1px solid #C9C9C9;
+}
+
+.cover-container a.nav-link {
+  color: #fefefe;
+  text-transform: uppercase;
+}
+
+.cover-container a.nav-link:active, .cover-container a.nav-link:visited, .cover-container a.nav-link:focus,
+.cover-container .nav-text-static:active, .cover-container .nav-text-static:visited, .cover-container .nav-text-static:focus {
+  color: #fefefe;
+}
+
+
+@media (min-width: 70em) {
 
   .hero-content {
     min-height: 80vh;
   }
+
   .card-title {
     font-size: 3.3rem;
   }
 }
 
 
-@media (min-width: 45em){
+@media (min-width: 45em) {
 
   .hero-content {
     display: -webkit-flex;
@@ -201,20 +253,25 @@ a#connect-bttn.dark-fb-button {
     padding-right: 2.42rem;
   }
 
+
   .hero-content-block {
     width: 50%;
   }
+
   .hero-content > * {
     padding-left: 1.21rem;
     padding-right: 1.21rem;
   }
+
   .card-title {
     font-size: 2.42rem;
   }
+
   .grid > * {
     padding-left: 1.21rem;
     padding-right: 1.21rem;
   }
+
   .grid {
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -229,8 +286,35 @@ a#connect-bttn.dark-fb-button {
     margin-left: -1.21rem;
     margin-right: -1.21rem;
   }
+
+}
+
+@media (min-width: 34em) {
+  .top-nav .wrap {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+  }
+}
+
+@media (min-width: 543px) {
+  .logged-out-logo {
+    display: none;
+  }
 }
 
 .modal-body > p {
   color: #2C2C2C;
+}
+
+#logged-out-user-page .content {
+  margin-left: 0px;
+}
+
+#logged-out-user-page .content-wrapper {
+  margin-top: 0px;
+  padding: 0px;
 }
