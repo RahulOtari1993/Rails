@@ -42,6 +42,8 @@
 // require bootstrap-sprockets
 // require bootstrap/modal
 
+//= require vendors/extensions/jquery.steps.min
+//= require libraries/scripts/forms/wizard-steps.js
 
 // require libraries/scripts/pickers/dateTime/pick-a-datetime.js
 // require libraries/scripts/forms/number-input.js
