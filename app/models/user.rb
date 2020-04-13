@@ -47,6 +47,7 @@ class User < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :rewards, through: :reward_users
   has_many :reward_users, dependent: :destroy
+  has_many :coupons, through: :reward_users
 
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group

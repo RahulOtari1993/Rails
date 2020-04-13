@@ -40,9 +40,12 @@ Rails.application.routes.draw do
           resources :template, only: [:edit, :update]
           resources :rewards do 
             get '/ajax_user', to: 'rewards#ajax_user', as: :ajax_user
-            post '/delete_reward_filter', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
+            post '/reward_export', to: 'rewards#reward_export', as: :reward_export
+            get '/ajax_coupon_form', to: 'rewards#ajax_coupon_form', as: :ajax_coupon_form
+            post '/create_coupon', to: 'rewards#create_coupon', as: :create_coupon
           end
         end
+        post '/delete_reward_filter', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
     end
 

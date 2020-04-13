@@ -38,6 +38,7 @@ db/*.sqlite3-journal
 *.log
 tmp
 tmp/**/*
+.byebug_history
 
 # Documentation
 doc/api

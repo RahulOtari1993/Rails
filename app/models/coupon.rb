@@ -12,4 +12,9 @@
 class Coupon < ApplicationRecord
   ## Associations
   belongs_to :reward
+  belongs_to :reward_user, optional: true
+
+  #validations
+  validates :code, presence: true 
+  validates :reward_id, presence: true
 end
