@@ -1,11 +1,26 @@
 /*
+ * OLD Theme Integration
+ * ------------------------------------------------------------------
+ * require libraries/bootstrap
+ * require vendors/editors/quill/katex.min
+ * require vendors/editors/quill/monokai-sublime.min
+ * require vendors/editors/quill/quill.snow
+ * require vendors/editors/quill/quill.bubble
+ * require end_user/styles
+ * require end_user/main
+ */
+
+/*
  * New Theme Integration
  * ------------------------------------------------------------------
+ *= require vendors/vendors.min
  *= require libraries/bootstrap
- *= require vendors/editors/quill/katex.min
- *= require vendors/editors/quill/monokai-sublime.min
- *= require vendors/editors/quill/quill.snow
- *= require vendors/editors/quill/quill.bubble
+ *= require libraries/bootstrap-extended
+ *= require libraries/colors
+ *= require libraries/components
+ *= require libraries/themes/dark-layout
+ *= require libraries/themes/semi-dark-layout
+
+ *= require libraries/jquery.bxslider
  *= require end_user/styles
- *= require end_user/main
  */
