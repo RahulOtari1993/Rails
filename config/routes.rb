@@ -55,6 +55,6 @@ Rails.application.routes.draw do
     end
 
     ## Root Route
-    root to: "welcome#index"
+    root to: "welcome#home"
   end
 end
