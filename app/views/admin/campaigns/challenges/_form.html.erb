@@ -99,49 +99,47 @@
                     <p>Select the type of reward you would like to give users for completing this challenge</p>
                     <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
                       <li class="nav-item">
-                        <a class="nav-link pill-inner-padding active" id="base-pill31" data-toggle="pill" href="#pill31" aria-expanded="true">Pill
-                          1</a>
+                        <a class="nav-link pill-inner-padding active" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link pill-inner-padding pill-btn" id="base-pill32" data-toggle="pill" href="#pill32" aria-expanded="false">Pill 2</a>
+                        <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
                       </li>
                     </ul>
                     <div class="tab-content">
-                      <div role="tabpanel" class="tab-pane active" id="pill31" aria-expanded="true" aria-labelledby="base-pill31">
+                      <div role="tabpanel" class="tab-pane active" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
                         <div class="row">
                           <div class="col-12">
                             <h4>2. REWARD DETAILS</h4>
+                            <p>Points earned when a user completes the challenge</p>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="input-group form-group">
+                              <%= form.text_field :points, class: 'form-control' %>
+                              <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2">Points</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="rewards-pill" aria-labelledby="base-rewards-pill">
+                        <div class="row">
+                          <div class="col-12">
+                            <h4>2. REWARD DETAILS</h4>
+                            <p>Select the prize users will receive for completing this challenge</p>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <%= form.label :name, 'Challenge Name' %>
-                              <span class="column-info">To be used in reporting and challenge management</span>
-                              <%= form.text_field :name, class: 'form-control', placeholder: 'Challenge Name' %>
+                              <div class="position-relative">
+                                <%= form.select :reward_id,
+                                                options_for_select(Reward.all.map { |v| [v.name.titleize, v.id] }.compact),
+                                                {prompt: 'Select Prize'}, class: 'form-control reward_id_dd' %>
+                              </div>
                             </div>
-                            <div class="form-group">
-                              <%= form.label :link, 'Link to be shared' %>
-                              <%= form.text_field :link, class: 'form-control', placeholder: 'Link to be shared' %>
-                            </div>
-
-                            <div class="form-group">
-                              <%= form.label :description, 'Add a note for your users about this challenge' %>
-                              <%= form.text_area :description, class: 'form-control', placeholder: 'Description / Note' %>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="tab-pane" id="pill32" aria-labelledby="base-pill32">
-                        <div class="row">
-                          <div class="col-12">
-                            <h4>2. REWARD DETAILS</h4>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-12">
-                            <h4>2. CHOOSE AND CUSTOMIZE FOR PLATFORMS</h4>
-                            <p>To be used in reporting and challenge management</p>
                           </div>
                         </div>
                       </div>
@@ -244,6 +242,7 @@
   .nav-pills-bottom {
     margin-bottom: 2rem !important;
   }
+
   .pill-inner-padding {
     padding: 8px 55px !important;
     font-size: 17px !important;
