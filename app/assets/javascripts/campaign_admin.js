@@ -24,7 +24,6 @@ $(document).on('turbolinks:load', function() {
   var dataThumbView = $("#reward_listing").DataTable({
     "processing": true,
     "serverSide": true,
-    // stateSave: true,
     responsive: false,
     ajax: {
         "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
@@ -52,7 +51,7 @@ $(document).on('turbolinks:load', function() {
       }
     ],
     dom:
-      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+      '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""

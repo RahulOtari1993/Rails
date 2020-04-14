@@ -7,171 +7,26 @@
           <div class="row breadcrumbs-top">
               <div class="col-12">
                   <h2 class="content-header-title float-left mb-0">Rewards</h2>
-                  <div class="breadcrumb-wrapper col-12">
-                      <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href="index.html">Home</a>
-                          </li>
-                          <li class="breadcrumb-item active"><a href="#">Rewards list</a>
-                          </li>
-                          <!-- <li class="breadcrumb-item active">Thumb View
-                          </li> -->
-                      </ol>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-          <div class="form-group breadcrum-right">
-              <div class="dropdown">
-                  <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-                  <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
               </div>
           </div>
       </div>
     </div>
     <div class="content-body">
-                <!-- Data list view starts -->
-      <section id="data-thumb-view" class="data-thumb-view-header">
-<!--           <div class="action-btns d-none">
- -->            <!-- div class="btn-dropdown mr-1 mb-1"> -->
-                <!-- <div class="btn-group dropdown actions-dropodown">
-                  <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Actions
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
-                    <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
-                    <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
-                    <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
-                  </div>
-                </div> -->
-            <!-- </div>
-          </div> -->
-          <!-- dataTable starts -->
-          <div class="table-responsive">
-              <table id = "reward_listing" class="table" campaign_id = '<%= @campaign.id%>'>
-                  <!-- <thead>
-                      <tr>
-                          <th>Image</th>
-                          <th>Name</th>
-                          <th>Fulfillment</th>
-                          <th>#winners</th>
-                          <th>Start Date</th>
-                          <th>End Date</th>
-                          <th>ACTION</th>
-                      </tr>
-                  </thead>
-                  <tbody> -->
-                    <%# @rewards.each do |r|%>
-                     <!--  <tr>
-                          <td class="product-img">
-                            <%#= image_tag(r.image_url.to_s) %>
-                          </td>
-                          <td class="product-name"><%#= r.name %></td>
-                          <td class="product-category"><%#= r.selection%></td>
-                          <td>
-                              <%#= r.limit %>
-                          </td>
-                          <td>
-                              <%#= r.start %>
-                          </td>
-                          <td class="product-price"><%#= r.finish %></td>
-                          <td class="product-action">
-                              <%#= link_to(edit_admin_campaign_reward_path(r.campaign_id,r)) do%>
-                                <span class="action-edit"><i class="feather icon-edit"></i></span>
-                              <%# end %>
-
-                            <button class="btn btn-xs btn-action download-csv-btn" reward_id = '<%#=r.id%>'
-                            campaign_id='<%#= r.campaign_id %>'>
-                              <i class="feather icon-download"></i></span>
-                            </button>
-                            <button class="btn btn-xs btn-action btn-primary coupon-btn" reward_id = '<%#=r.id%>'
-                            campaign_id='<%#= r.campaign_id %>'>
-                              Coupons
-                            </button>
-                            data-toggle="modal" data-target="#reward_user" -->
-                            <%#= link_to("#", {data-toggle}) %>
-
-                                                <!-- Modal -->
-                    
-                                <!-- <span class="action-edit"><i class="feather icon-user"></i></span> -->
-                              <%# end %>
-                              
-                             <!--  <span class="action-delete"><i class="feather icon-trash"></i></span> -->
-<!--                           </td>
- -->                      <!-- </tr> --> 
-                    <%# end %>
-                  <!-- </tbody> -->
-              </table>
-          </div>
+      <!-- Data list view starts -->
+      <section id="data-thumb-view" class="data-thumb-view-header"><!-- dataTable starts -->
+        <div class="table-responsive">
+            <table id = "reward_listing" class="table" campaign_id = '<%= @campaign.id%>'>
+            </table>
+        </div>
       </section>
-                <!-- Data list view end -->
+      <!-- Data list view end -->
     </div>
   </div>
 </div>
+<!-- Render download csv popup -->
 <div class="render_user_list">
-  
 </div>
-<div class="coupon_user_form">
-    
+<!-- Coupon pop -->
+<div class="coupon_user_form">   
 </div>
-<style type="text/css">
-  /*<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">*/
- /* .reward_create {
-    position: absolute;
-    top: 30%;
-  }*/
-</style>
-<script type="text/javascript">
-  // $(document).ready(function() {
-  //   $('.dt-buttons').hide();
-  //   $('.reward_create').css({"position": "absolute", left: "17%", "top": "31.5%"  })
-  //   // $('.ajax_reward_popup').on('click', function(e){
-  //   //   debugger
-  //   //   // e.preventDefault();
-  //   //   var reward = $(this).attr('reward');
-  //   //   var campaign = $(this).attr('campaign_id')
-  //   //   $.ajax({
-  //   //     type: 'GET',
-  //   //     url: "/admin/campaigns/" + campaign + "/rewards/" + reward + "/ajax_user",
-  //   //     data: {
-  //   //       id: reward,
-  //   //       campaign_id: campaign
-  //   //     },
-  //   //     dataType: 'json',
-  //   //     success: function (response) {
-  //   //       // $('#new-preloader').hide();
-  //
-  //   //       // if (response['success'] == true) {
-  //   //       //   window.location.href = "/orders?order_id=" + response['data'];
-  //   //       // } else {
-  //   //       //   alert('Something went wrong while crating RMA Order, Please try again.')
-  //   //       // }
-  //   //     }
-  //   //   });
-  //   // })
-  //   $('.show_popup').on('click', function(e){
-  //     // e.preventDefault();
-  //     var reward = $(this).parent('.ajax_reward_popup').attr('reward');
-  //     var campaign = $(this).parent('.ajax_reward_popup').attr('campaign_id')
-  //     $.ajax({
-  //       type: 'GET',
-  //       url: "/admin/campaigns/" + 1 + "/rewards/" + 22 + "/ajax_user",
-  //       data: {
-  //         id: 22,
-  //         campaign_id: 1
-  //       },
-  //       dataType: 'script',
-  //       success: function (response) {
-  //         // $('#new-preloader').hide();
-  //
-  //         // if (response['success'] == true) {
-  //         //   window.location.href = "/orders?order_id=" + response['data'];
-  //         // } else {
-  //         //   alert('Something went wrong while crating RMA Order, Please try again.')
-  //         // }
-  //       }
-  //     });
-  //   })
-  // })
-</script>
+

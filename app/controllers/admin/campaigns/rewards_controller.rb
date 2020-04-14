@@ -1,6 +1,5 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def index
-    byebug
     @rewards = @campaign.rewards
   end
 
@@ -14,6 +13,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
+    byebug
     @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
@@ -115,14 +115,11 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   def reward_params
     params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
-                            :image_content_type, :selection, :start, :finish, :feature, :points,
+                           :image,:image_content_type, :selection, :start, :finish, :feature, :points,
                             :is_active, :redemption_details, :description_details, :terms_conditions,
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event])
   end
 
-  ##coupon_params
-  def coupon_params
-    params.require(:coupon).permit!
-  end
+  ##coupon_pon).permit!
 end

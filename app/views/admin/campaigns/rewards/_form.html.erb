@@ -11,7 +11,7 @@
                 <h4 class="card-title">Create Reward</h4>
               </div>
               <div class="card-content">
-                <%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true) do |f| %>
+                <%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
                   <% if @reward.errors.any? %>
                     <%# puts 'there are some errors here in edit.html.erb' %>
                     <div id="error_explanation">
