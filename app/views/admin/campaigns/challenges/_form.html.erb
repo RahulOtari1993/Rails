@@ -89,54 +89,59 @@
               <h6>Reward</h6>
               <fieldset>
                 <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventName1">Event Name :</label>
-                      <input name="hk_s3_1" type="text" class="form-control" id="eventName1">
-                    </div>
-                    <div class="form-group">
-                      <label for="eventType1">Event Status :</label>
-                      <select class="custom-select form-control" id="eventType1" data-placeholder="Type to search cities" name="eventType1">
-                        <option value="Banquet">Planning</option>
-                        <option value="Fund Raiser">In Process</option>
-                        <option value="Dinner Party">Finished</option>
-                      </select>
-                    </div>
+                  <div class="col-12">
+                    <h4>1. TYPE OF REWARD</h4>
                   </div>
+                </div>
 
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventLocation1">Event Location :</label>
-                      <select class="custom-select form-control" id="eventLocation1" name="location">
-                        <option value="new-york">New York</option>
-                        <option value="chicago">Chicago</option>
-                        <option value="san-francisco">San Francisco</option>
-                        <option value="boston">Boston</option>
-                      </select>
-                    </div>
-                    <div class="form-group d-flex align-items-center pt-md-2">
-                      <label class="mr-2">Requirements :</label>
-                      <div class="c-inputs-stacked">
-                        <div class="d-inline-block mr-2">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                                                                            <span class="vs-checkbox--check">
-                                                                                <i class="vs-icon feather icon-check"></i>
-                                                                            </span>
-                                                                        </span>
-                            <span class="">Staffing</span>
+                <div class="row">
+                  <div class="col-xl-6 col-lg-12">
+                    <p>Select the type of reward you would like to give users for completing this challenge</p>
+                    <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
+                      <li class="nav-item">
+                        <a class="nav-link pill-inner-padding active" id="base-pill31" data-toggle="pill" href="#pill31" aria-expanded="true">Pill
+                          1</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link pill-inner-padding pill-btn" id="base-pill32" data-toggle="pill" href="#pill32" aria-expanded="false">Pill 2</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="pill31" aria-expanded="true" aria-labelledby="base-pill31">
+                        <div class="row">
+                          <div class="col-12">
+                            <h4>2. REWARD DETAILS</h4>
                           </div>
                         </div>
-                        <div class="d-inline-block">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                                                                            <span class="vs-checkbox--check">
-                                                                                <i class="vs-icon feather icon-check"></i>
-                                                                            </span>
-                                                                        </span>
-                            <span class="">Catering</span>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <%= form.label :name, 'Challenge Name' %>
+                              <span class="column-info">To be used in reporting and challenge management</span>
+                              <%= form.text_field :name, class: 'form-control', placeholder: 'Challenge Name' %>
+                            </div>
+                            <div class="form-group">
+                              <%= form.label :link, 'Link to be shared' %>
+                              <%= form.text_field :link, class: 'form-control', placeholder: 'Link to be shared' %>
+                            </div>
+
+                            <div class="form-group">
+                              <%= form.label :description, 'Add a note for your users about this challenge' %>
+                              <%= form.text_area :description, class: 'form-control', placeholder: 'Description / Note' %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="pill32" aria-labelledby="base-pill32">
+                        <div class="row">
+                          <div class="col-12">
+                            <h4>2. REWARD DETAILS</h4>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <h4>2. CHOOSE AND CUSTOMIZE FOR PLATFORMS</h4>
+                            <p>To be used in reporting and challenge management</p>
                           </div>
                         </div>
                       </div>
@@ -234,3 +239,21 @@
     </div>
   </div>
 </section>
+
+<style>
+  .nav-pills-bottom {
+    margin-bottom: 2rem !important;
+  }
+  .pill-inner-padding {
+    padding: 8px 55px !important;
+    font-size: 17px !important;
+    font-weight: 800;
+  }
+
+  .pill-btn {
+    background-color: transparent !important;
+    border: 1px solid #BABFC7 !important;
+    border-radius: 0.25rem !important;
+    color: #BABFC7 !important;
+  }
+</style>
