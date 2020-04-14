@@ -11,4 +11,4 @@ Rails.application.config.assets.precompile = [ /\A[^\/\\]+\.(ccs|js)$/i ]
 # Rails.application.config.assets.paths << Rails.root.join("app", "assets", "fonts")
 
 Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.css campaign_admin/campaign_admin.css end_user/end_user.css)
-Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.js campaign_admin/campaign_admin.js end_user/end_user.js)
+Rails.application.config.assets.precompile += %w(organization_admin/organization_admin.js campaign_admin/*.js end_user/end_user.js)
