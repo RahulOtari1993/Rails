@@ -13,7 +13,6 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
-    byebug
     @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
