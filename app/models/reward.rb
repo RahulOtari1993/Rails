@@ -16,13 +16,14 @@
 #  finish              :datetime
 #  feature             :boolean
 #  points              :integer
-#  is_active           :boolea
+#  is_active           :boolean
 #  redeption_details   :text
 #  description_details :text
 #  terms_conditions    :text
 #  sweepstake_entry    :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  image               :string
 #
 class Reward < ApplicationRecord
   ## Associations

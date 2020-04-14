@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: reward_users
+#
+#  id         :bigint           not null, primary key
+#  reward_id  :integer
+#  user_id    :integer
+#  position   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class RewardUser < ApplicationRecord
   belongs_to :user
   belongs_to :reward

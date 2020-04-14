@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_10_105404) do
+ActiveRecord::Schema.define(version: 2020_04_14_125704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,9 @@ ActiveRecord::Schema.define(version: 2020_04_10_105404) do
     t.integer "clicks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "description"
+    t.integer "reward_type"
+    t.bigint "reward_id"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 

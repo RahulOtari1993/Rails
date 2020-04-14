@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: reward_filters
+#
+#  id               :bigint           not null, primary key
+#  reward_id        :bigint
+#  reward_condition :string
+#  reward_value     :string
+#  reward_event     :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 class RewardFilter < ApplicationRecord
 	belongs_to :reward
 

@@ -20,6 +20,9 @@
 #  clicks      :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  description :text
+#  reward_type :integer
+#  reward_id   :bigint
 #
 class Challenge < ApplicationRecord
   ## Associations
@@ -27,4 +30,7 @@ class Challenge < ApplicationRecord
 
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
                   comment connect hashtag referal location subscribe submission play practice hr link)
+
+  ## Validations
+  validates :mechanism, :name, :link, :description, presence: true
 end
