@@ -43,9 +43,9 @@
 // require bootstrap/modal
 
 
-// require libraries/scripts/pickers/dateTime/pick-a-datetime.js
+// require libraries/scripts/pickers/dateTime/pick-a-datetime.min
 // require libraries/scripts/forms/number-input.js
-//= require libraries/scripts/ui/data-list-view.js
+// require libraries/scripts/ui/data-list-view.js
 
 //= require libraries/core/app.js
 //= require libraries/core/app-menu.js

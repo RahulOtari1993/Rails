@@ -32,9 +32,9 @@
     <div class="content-body">
                 <!-- Data list view starts -->
       <section id="data-thumb-view" class="data-thumb-view-header">
-          <div class="action-btns d-none">
-            <div class="btn-dropdown mr-1 mb-1">
-                <div class="btn-group dropdown actions-dropodown">
+<!--           <div class="action-btns d-none">
+ -->            <!-- div class="btn-dropdown mr-1 mb-1"> -->
+                <!-- <div class="btn-group dropdown actions-dropodown">
                   <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Actions
                   </button>
@@ -44,17 +44,16 @@
                     <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
                     <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
                   </div>
-                </div>
-            </div>
-          </div>
+                </div> -->
+            <!-- </div>
+          </div> -->
           <!-- dataTable starts -->
           <div class="table-responsive">
-
-              <table class="table reward_listing" campaign_id = '<%= @campaign.id%>'>
-                  <thead>
+              <table id = "reward_listing" class="table" campaign_id = '<%= @campaign.id%>'>
+                  <!-- <thead>
                       <tr>
                           <th>Image</th>
-                          <th>Name-123</th>
+                          <th>Name</th>
                           <th>Fulfillment</th>
                           <th>#winners</th>
                           <th>Start Date</th>
@@ -62,35 +61,35 @@
                           <th>ACTION</th>
                       </tr>
                   </thead>
-                  <tbody>
-                    <% @rewards.each do |r|%>
-                      <tr>
+                  <tbody> -->
+                    <%# @rewards.each do |r|%>
+                     <!--  <tr>
                           <td class="product-img">
-                            <%= image_tag(r.image_url.to_s) %>
+                            <%#= image_tag(r.image_url.to_s) %>
                           </td>
-                          <td class="product-name"><%= r.name %></td>
-                          <td class="product-category"><%= r.selection%></td>
+                          <td class="product-name"><%#= r.name %></td>
+                          <td class="product-category"><%#= r.selection%></td>
                           <td>
-                              <%= r.limit %>
+                              <%#= r.limit %>
                           </td>
                           <td>
-                              <%= r.start %>
+                              <%#= r.start %>
                           </td>
-                          <td class="product-price"><%= r.finish %></td>
+                          <td class="product-price"><%#= r.finish %></td>
                           <td class="product-action">
-                              <%= link_to(edit_admin_campaign_reward_path(r.campaign_id,r)) do%>
+                              <%#= link_to(edit_admin_campaign_reward_path(r.campaign_id,r)) do%>
                                 <span class="action-edit"><i class="feather icon-edit"></i></span>
-                              <% end %>
+                              <%# end %>
 
-                            <button class="btn btn-xs btn-action download-csv-btn" reward_id = '<%=r.id%>'
-                            campaign_id='<%= r.campaign_id %>'>
+                            <button class="btn btn-xs btn-action download-csv-btn" reward_id = '<%#=r.id%>'
+                            campaign_id='<%#= r.campaign_id %>'>
                               <i class="feather icon-download"></i></span>
                             </button>
-                            <button class="btn btn-xs btn-action btn-primary coupon-btn" reward_id = '<%=r.id%>'
-                            campaign_id='<%= r.campaign_id %>'>
+                            <button class="btn btn-xs btn-action btn-primary coupon-btn" reward_id = '<%#=r.id%>'
+                            campaign_id='<%#= r.campaign_id %>'>
                               Coupons
                             </button>
-                            <!-- data-toggle="modal" data-target="#reward_user" -->
+                            data-toggle="modal" data-target="#reward_user" -->
                             <%#= link_to("#", {data-toggle}) %>
 
                                                 <!-- Modal -->
@@ -99,10 +98,10 @@
                               <%# end %>
                               
                              <!--  <span class="action-delete"><i class="feather icon-trash"></i></span> -->
-                          </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
+<!--                           </td>
+ -->                      <!-- </tr> --> 
+                    <%# end %>
+                  <!-- </tbody> -->
               </table>
           </div>
       </section>
@@ -114,7 +113,7 @@
   
 </div>
 <div class="coupon_user_form">
-  
+    
 </div>
 <style type="text/css">
   /*<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">*/

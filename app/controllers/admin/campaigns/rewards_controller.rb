@@ -11,13 +11,23 @@ class Admin::Campaigns::RewardsController < ApplicationController
     @rewards = @campaign.rewards
   end
 
+  def generate_reward_json
+    render json: { rewards: @campaign.rewards.all }
+  end
+
   def new
     @reward = @campaign.rewards.new
     @reward_filter = @reward.reward_filters.build
   end
 
   def create
+    binding.pry
     @reward = @campaign.rewards.new(reward_params)
+    #update the start param
+    @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
+    #update the finish 
+    @reward.finish = Chronic.parse(params[:reward][:finish]) || @reward.finish  rescue @reward.finish
+    @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save 
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
     else
@@ -67,7 +77,7 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def update
-    @reward = @campaign.rewards.find_by(:id)
+    @reward = @campaign.rewards.find_by(:id => params[:id])
     if @reward.update_attributes(reward_params)
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully updated'
     else
@@ -96,10 +106,20 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def delete_reward_filter
-    @reward = @campaign.reward.find_by(:id=>params[:reward_id])
-    @reward_filter = @reward.reward_filters.find_by(:id => params[:id])
-    @reward_filter.destroy
-    redirect_to edit_campaign_reward_path(@reward), notice: 'Active Segment deleted.'
+    # @reward = @campaign.reward.find_by(:id=>params[:reward_id])
+    @reward_filter = RewardFilter.find_by(:id => params[:id])
+    respond_to do |format|
+    if @reward_filter.destroy
+      format.html { }
+      format.json {  }
+    else
+      flash[:notice] = "Post failed to delete."
+      format.html { }
+      format.json {  }
+    end
+  end
+    # @reward_filter.destroy
+    # redirect_to edit_campaign_reward_path(@reward), notice: 'Active Segment deleted.'
   end
 
   private

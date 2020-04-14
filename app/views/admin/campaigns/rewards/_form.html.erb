@@ -11,7 +11,7 @@
 	                <h4 class="card-title">Create Reward</h4>
 	            </div>
 			        <div class="card-content">
-			        	<%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'edit-campaign-form', model: @reward, local: true) do |f| %>
+			        	<%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true) do |f| %>
 			        		<% if @reward.errors.any? %>
 								    <%# puts 'there are some errors here in edit.html.erb' %>
 								    <div id="error_explanation">
@@ -171,7 +171,7 @@
 																</span>
                                 <div class="position-relative">
                                 	<fieldset class="form-label-group">
-                                		<%= f.text_field :start, class: "form-control pickadate"%>
+                                		<%= f.text_field :start, class: "form-control reward-format-picker"%>
                                   </fieldset>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@
 																</span>
                                 <div class="position-relative">
                                 	<fieldset class="form-label-group">
-                                		<%= f.text_field :finish, class: "form-control pickadate"%>
+                                		<%= f.text_field :finish, class: "form-control reward-format-picker"%>
                                   </fieldset>
                                 </div>
                             </div>
@@ -300,7 +300,7 @@
      // 	element.css('display', 'block');
      // }  
 		 $('.segment_table tbody').append(element);
-		 element.show();
+		 	element.show();
 		})
 
 		$('.reward_form').on('click', function(){
