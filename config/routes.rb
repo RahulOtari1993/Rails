@@ -41,6 +41,9 @@ Rails.application.routes.draw do
 
           ## Rewards Routes
           resources :rewards do 
+            collection do
+              get '/generate_reward_json', to: 'rewards#generate_reward_json', as: :generate_reward_json
+            end
             get '/ajax_user', to: 'rewards#ajax_user', as: :ajax_user
             post '/reward_export', to: 'rewards#reward_export', as: :reward_export
             get '/ajax_coupon_form', to: 'rewards#ajax_coupon_form', as: :ajax_coupon_form
@@ -50,7 +53,7 @@ Rails.application.routes.draw do
           ## Challenge Routes
           resources :challenges
         end
-        post '/delete_reward_filter', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
+        post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
     end
 

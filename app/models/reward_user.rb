@@ -5,11 +5,11 @@ class RewardUser < ApplicationRecord
 
   after_create do |current|
 	#we have created the relationship...if there are coupons lets bind one if its available
-	if reward.coupons.where(reward_contact_id: nil).count > 0
+	if current.reward.coupons.where(reward_user_id: nil).count > 0
 		#we have an available coupon
-		coupon = reward.coupons.where(reward_contact_id: nil).first
+		coupon = current.reward.coupons.where(reward_user_id: nil).first
 		#now that we have a coupon bind
-		coupon.reward_contact = self
+		coupon.reward_user = self
 		#persist the change
 		coupon.save
 	end

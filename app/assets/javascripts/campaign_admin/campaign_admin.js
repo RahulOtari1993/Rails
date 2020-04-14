@@ -36,6 +36,8 @@
 //= require vendors/forms/select/form-select2.js
 
 //= require libraries/scripts/ui/data-list-view.js
+// require libraries/scripts/pickers/dateTime/pick-a-datetime.min
+
 //= require libraries/core/app.js
 //= require libraries/core/app-menu.js
 //= require libraries/core/app-menu

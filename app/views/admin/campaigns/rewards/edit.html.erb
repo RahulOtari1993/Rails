@@ -11,7 +11,7 @@
 	                <h4 class="card-title">Create Reward</h4>
 	            </div>
 			        <div class="card-content">
-			        	<%= form_with(url: admin_campaign_reward_path(@reward.campaign, @reward), method: 'put', class: 'edit-campaign-form', model: @reward, local: true) do |f| %>
+			        	<%= form_with(url: admin_campaign_reward_path(@reward.campaign, @reward),local: true, model: @reward, method: 'put', class: 'edit-reward-form') do |f| %>
 			        		<% if @reward.errors.any? %>
 								    <%# puts 'there are some errors here in edit.html.erb' %>
 								    <div id="error_explanation">
@@ -202,10 +202,13 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <%= f.fields_for :reward_filters, :wrapper => false do |r_r_f| %>
+                                    <%= f.fields_for :reward_filters, @reward.reward_filters.present? ? @reward.reward_filters : @reward.reward_filters.new, :wrapper=>false  do |r_r_f| %>
                                       
                                       <tr id="filter_condition_1">
-                                        <th scope="row"><i class="feather icon-minus-circle"></i></th>
+                                        <th scope="row">
+                                          <%= link_to '#', class:"hide_row", reward_filter_id: r_r_f.object.id do %>
+                                          <i class="feather icon-minus-circle"></i>
+                                        <% end %></th>
                                         <td >
                                           <div class="form-group">
                                             <%= r_r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name:"reward[reward_filters_attributes][][reward_event]"}) 
@@ -237,7 +240,9 @@
                                           </div>
                                         </td>
                                       </tr>
+                                      <%#= r_r_f.hidden_field :id, :value => r_r_f.object.id %>
                                     <% end %>
+                                    <%= f.submit 'Submit', class: 'btn btn-primary' %>
                                   <%#= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
                                   <%# end %>
                                 </tbody>
@@ -247,16 +252,18 @@
 			                      		<i class="feather icon-plus-circle"></i>
 			                      	<% end %>
 			                      	<label class="fonticon-classname mt-1">Add</label>
+
 						              </div>
                             <div class="col-12">
-                                <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button>
-                                <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+                                <!-- <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button> -->
+                                <!-- <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button> -->
                             </div>
-		                        </div>
+		                      </div>
 		                    </div>
 			            	</form>
 			            </div>
-			          <% end %>
+			           
+                <% end %>
 			        </div>
 			    </div>
 			  </div>
@@ -281,7 +288,25 @@
 				$('.sweepstake').show();
 			}else{}
 		})
-
+    $(document).on('click', '.hide_row', function(e){
+      debugger
+      e.preventDefault();  
+      if($(this).attr('reward_filter_id') != undefined){ 
+        debugger
+        $.ajax({
+          type: 'POST',
+          data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+          url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
+          success: function(data, res){
+            debugger
+            $(this).closest('tr').hide();
+          }
+        });
+      }else{
+        debugger
+        $(this).closest('tr').hide();
+      }
+    })
 		$('#add_segment').on('click', function(e){
 		 e.preventDefault();    
      size = jQuery('#filter_conditions >tbody >tr').length + 1,
@@ -289,9 +314,11 @@
      element = $('#filter_condition_1').clone();
      element.attr('id', 'filter_condition_'+size);
 		 $('.segment_table tbody').append(element);
+     element.show();
 		})
 
 		$('.reward_form').on('click', function(){
+      debugger
 			$('.segment_table').find('.filter_hidden').attr("disabled",true);
 			var selects = $('.segment_table').find('select');
 			var inputs = $('.segment_table').find('input');
@@ -305,7 +332,9 @@
 		        inputs[i].disabled = true;
 		    }
 			}
-   		$('.edit-campaign-form').submit();
+
+   		$('form').submit();
+      debugger
 		})
 	})
 
@@ -387,5 +416,8 @@
 //   var $tr = $(link).closest('tr');
 //   return $(content).insertBefore($tr);
 // }
+  // $(document).on('load', function(){
+  //   $('#reward-listing').DataTable().state.clear();
+  // })
 
 </script>

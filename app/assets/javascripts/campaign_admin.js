@@ -94,7 +94,7 @@ $(document).on('turbolinks:load', function() {
   // Color Picker Integration
   $('.colour-picker-txt').minicolors({theme: 'bootstrap'})
 
-  $('.reward_listing').on('click', '.download-csv-btn', function(){
+  $('#reward_listing').on('click', '.download-csv-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
     $.ajax({
@@ -104,7 +104,7 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
-  $('.reward_listing').on('click', '.coupon-btn', function(){
+  $('#reward_listing').on('click', '.coupon-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
     $.ajax({
@@ -115,17 +115,38 @@ $(document).on('turbolinks:load', function() {
   });
 
   //thumbview list
-  var dataThumbView = $(".reward_listing").DataTable({
+  var dataThumbView = $("#reward_listing").DataTable({
+    "processing": true,
+    "serverSide": true,
+    // stateSave: true,
     responsive: false,
+    ajax: {
+        "url": "/admin/campaigns/" +  $(this).attr('campaign_id') + "/rewards/generate_reward_json",
+        "dataSrc": "rewards",
+    },
+    columns: [
+      {title: 'Image', data: 'image',searchable: false},
+      {title: 'Name', data:'name', searchable: true},
+      {title: 'Fulfillment', data: 'selection',searchable: false},
+      {title: 'Winners', data: 'selection',searchable: false},
+      {title: 'Start Date', data: 'start',searchable: false},
+      {title: 'End date', data: 'finish',searchable: false},
+      {title: 'Actions', data: null, searchable: false, orderable: false,
+        render: function ( data, type, row ) {
+            // Combine the first and last names into a single table field
+          return  "<a href = /admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit>" + "<span class='action-edit'><i class='feather icon-edit'></i></span></a>"
+                  +"<button class='btn btn-xs btn-action download-csv-btn' reward_id ='" + data.id +"'campaign_id='" + data.campaign_id + "'>" + "<i class='feather icon-download'></i></span></button>" + "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
+         }
+      },
+    ],
     columnDefs: [
       {
         orderable: true,
-        targets: 0,
-        checkboxes: { selectRow: true }
+        targets: 0
       }
     ],
     dom:
-      '<"top"<"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
@@ -134,9 +155,9 @@ $(document).on('turbolinks:load', function() {
     select: {
       style: "multi"
     },
-    order: [[1, "asc"]],
+    order: [[2, "desc"]],
     bInfo: false,
-    pageLength: 4,
+    pageLength: 10,
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
@@ -267,4 +288,9 @@ $(document).on('turbolinks:load', function() {
       }
     }
   });
+
+  //Datepicker
+  // $('.reward-format-picker').pickadate({
+  //       format: 'mmmm, d, yyyy'
+  // });
 });
