@@ -64,88 +64,57 @@ $(document).ready(function () {
     }
     $('form').submit();
   })
-})
-//Segment filter onchage dropdown hide/show
-$('body').on('change', ".reward_event", function () {
-  var val = $(this).val();
-  var $currentRow = $(this).closest('tr');
-  if (val == 'Tags') {
-    // myFunction('age_reward_condition', 'gender_reward_condition', "three");
-    $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
-    $currentRow.find('.tags_reward_condition').show();
-    $currentRow.find('.age_reward_condition').hide();
-    $currentRow.find('.reward_value').show();
-    $currentRow.find('.gender_reward_condition').hide();
-    $currentRow.find('.gender_value').addClass('filter_hidden');
-    $currentRow.find('.all_challenges_value ').hide();
-    $currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.social_reward_value').hide();
-  } else if (val == 'Gender') {
-    $currentRow.find('.gender_reward_condition').removeClass('filter_hidden');
-    $currentRow.find('.gender_reward_condition').show();
-    $currentRow.find('.gender_value').show();
-    $currentRow.find('.gender_value').removeClass('filter_hidden');
-    $currentRow.find('.age_reward_condition').hide();
-    $currentRow.find('.tags_reward_condition').hide();
-    $currentRow.find('.reward_value').hide();
-    $currentRow.find('.all_challenges_value ').hide();
-    $currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.social_reward_value').hide();
-    $currentRow.find('.reward_value').hide();
-  } else if (val == 'Points') {
-    $currentRow.find('.age_reward_condition').removeClass('.filter_hidden');
-    $currentRow.find('.age_reward_condition').show();
-    $currentRow.find('.reward_value').show();
-    $currentRow.find('.gender_value').hide();
-    $currentRow.find('.tags_reward_condition').hide();
-    $currentRow.find('.gender_reward_condition').hide();
-    $$currentRow.find('.all_challenges_value ').hide();
-    $$currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.social_reward_value').hide();
-  } else if (val == 'Rewards') {
-    $currentRow.find('.all_rewards_value').removeClass('filter_hidden');
-    $currentRow.find('.all_rewards_value').show();
-    $currentRow.find('.reward_value').hide();
-    $currentRow.find('.tags_reward_condition').hide();
-    $currentRow.find('.age_reward_condition').hide();
-    $currentRow.find('.gender_reward_condition').hide();
-    $currentRow.find('.social_reward_value').hide();
-    $currentRow.find('.all_challenges_value ').hide();
-  } else if (val == 'Platforms') {
-    $currentRow.find('.social_reward_value').removeClass('filter_hidden');
-    $currentRow.find('.social_reward_value').show();
-    $currentRow.find('.tags_reward_condition').show();
-    $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
-    $currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.gender_reward_condition').hide();
-    $currentRow.find('.gender_value').hide();
-    $currentRow.find('.age_reward_condition').hide();
-    $currentRow.find('.reward_value').hide();
-    $$currentRow.find('.all_challenges_value ').hide();
-  } else if (val == "Challenges") {
-    $currentRow.find('.all_challenges_value ').removeClass('filter_hidden');
-    $currentRow.find('.all_challenges_value').show();
-    $currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.gender_reward_value').hide();
-    $currentRow.find('.age_reward_condition').hide();
-    $currentRow.find('.reward_value').hide();
-    $currentRow.find('.social_reward_value').hide();
-  } else {
-    $currentRow.find('.age_reward_condition').show();
-    $currentRow.find('.age_reward_condition').removeClass('filter_hidden')
-    $currentRow.find('.all_challenges_value ').hide();
-    $currentRow.find('.gender_reward_condition').hide();
-    $currentRow.find('.social_reward_value').hide();
-    $currentRow.find('.reward_value').show();
-    $currentRow.find('.all_rewards_value').hide();
-    $currentRow.find('.tags_reward_condition').hide();
+  //creating global function to show dropdown onchange
+  function hide_row() {
+    for (var i = 1; i < arguments.length; i++){
+      arguments[0].find('.' + arguments[i]).hide();
+    }    
   }
+  //creating global function to hide dropdown onchange
+  function show_row(){
+    for (var i = 1; i < arguments.length; i++){
+      arguments[0].find('.' + arguments[i]).show();
+    } 
+  }
+
+//Segment filter onchage dropdown hide/show
+  $(document).on('change', '.reward_event', function () {
+    var val = $(this).val();
+    var $currentRow = $(this).closest('tr');
+    if (val == 'Tags') {
+      hide_row($currentRow,'age_reward_condition', 'gender_reward_condition', 'all_challenges_value', 'all_rewards_value', 'social_reward_value');
+      show_row($currentRow, 'reward_value', 'tags_reward_condition')
+      $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
+      $currentRow.find('.gender_value').addClass('filter_hidden');
+    } else if (val == 'Gender') {
+      hide_row($currentRow,'age_reward_condition', 'tags_reward_condition', 'reward_value', 'all_rewards_value', 'all_challenges_value', 'social_reward_value');
+      show_row($currentRow, 'gender_reward_condition', 'gender_value')
+      $currentRow.find('.gender_reward_condition').removeClass('filter_hidden');
+      $currentRow.find('.gender_value').removeClass('filter_hidden');
+    } else if (val == 'Points') {
+      hide_row($currentRow,'social_reward_value', 'gender_value', 'tags_reward_condition', 'all_challenges_value', 'all_rewards_value')
+      show_row($currentRow, 'reward_value', 'age_reward_condition', 'reward_value')
+      $currentRow.find('.age_reward_condition').removeClass('.filter_hidden');
+    } else if (val == 'Rewards') {
+      hide_row($currentRow,'all_challenges_value','social_reward_value','gender_reward_condition','tags_reward_condition','age_reward_condition','reward_value')
+      show_row($currentRow, 'all_rewards_value')
+      $currentRow.find('.all_rewards_value').removeClass('filter_hidden');
+    } else if (val == 'Platforms') {
+      hide_row($currentRow,'reward_value','all_challenges_value','all_rewards_value','gender_reward_condition','gender_value', 'age_reward_condition')
+      show_row($currentRow,'social_reward_value', 'tags_reward_condition')
+      $currentRow.find('.social_reward_value').removeClass('filter_hidden');
+      $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
+    } else if (val == "Challenges") {
+      hide_row($currentRow,'social_reward_value','reward_value','all_rewards_value', 'gender_reward_value', 'age_reward_condition')
+      show_row($currentRow,'all_challenges_value');
+      $currentRow.find('.all_challenges_value ').removeClass('filter_hidden');
+    } else {
+      hide_row($currentRow,'tags_reward_condition','all_rewards_value','social_reward_value', 'all_challenges_value','gender_reward_condition')
+      show_row($currentRow,'reward_value','age_reward_condition')
+      $currentRow.find('.age_reward_condition').removeClass('filter_hidden')
+      $currentRow.find('.reward_value').show();
+    }
+  })
 })
 
-//creating global function to use for dropdown
-// function hide() {
-//   for (var i = 0; i < arguments.length; i++){
-//     $('.' + arguments[i]).hide();
-//   }    
-// }
 
