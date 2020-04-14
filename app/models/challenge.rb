@@ -27,4 +27,7 @@ class Challenge < ApplicationRecord
 
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
                   comment connect hashtag referal location subscribe submission play practice hr link)
+
+  ## Validations
+  validates :mechanism, presence: true
 end

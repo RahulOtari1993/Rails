@@ -11,7 +11,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     @challenge = Challenge.new(challenge_params)
 
     respond_to do |format|
-      if @challenge.save!
+      if @challenge.save
         format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully created.' }
         format.json { render :index, status: :created }
       else

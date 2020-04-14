@@ -223,7 +223,6 @@ $(document).on('turbolinks:load', function() {
       return form.valid();
     },
     onFinished: function (event, currentIndex) {
-      alert("Submitted!");
       $('.challenge-wizard' ).submit();
     }
   });
