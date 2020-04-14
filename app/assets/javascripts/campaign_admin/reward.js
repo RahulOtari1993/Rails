@@ -65,13 +65,13 @@ $(document).ready(function () {
     $('form').submit();
   })
   //creating global function to show dropdown onchange
-  function hide_row() {
+  function hideRow() {
     for (var i = 1; i < arguments.length; i++){
       arguments[0].find('.' + arguments[i]).hide();
     }    
   }
   //creating global function to hide dropdown onchange
-  function show_row(){
+  function showRow(){
     for (var i = 1; i < arguments.length; i++){
       arguments[0].find('.' + arguments[i]).show();
     } 
@@ -82,35 +82,35 @@ $(document).ready(function () {
     var val = $(this).val();
     var $currentRow = $(this).closest('tr');
     if (val == 'Tags') {
-      hide_row($currentRow,'age_reward_condition', 'gender_reward_condition', 'all_challenges_value', 'all_rewards_value', 'social_reward_value');
-      show_row($currentRow, 'reward_value', 'tags_reward_condition')
+      hideRow($currentRow,'age_reward_condition', 'gender_reward_condition', 'all_challenges_value', 'all_rewards_value', 'social_reward_value');
+      showRow($currentRow, 'reward_value', 'tags_reward_condition')
       $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
       $currentRow.find('.gender_value').addClass('filter_hidden');
     } else if (val == 'Gender') {
-      hide_row($currentRow,'age_reward_condition', 'tags_reward_condition', 'reward_value', 'all_rewards_value', 'all_challenges_value', 'social_reward_value');
-      show_row($currentRow, 'gender_reward_condition', 'gender_value')
+      hideRow($currentRow,'age_reward_condition', 'tags_reward_condition', 'reward_value', 'all_rewards_value', 'all_challenges_value', 'social_reward_value');
+      showRow($currentRow, 'gender_reward_condition', 'gender_value')
       $currentRow.find('.gender_reward_condition').removeClass('filter_hidden');
       $currentRow.find('.gender_value').removeClass('filter_hidden');
     } else if (val == 'Points') {
-      hide_row($currentRow,'social_reward_value', 'gender_value', 'tags_reward_condition', 'all_challenges_value', 'all_rewards_value')
-      show_row($currentRow, 'reward_value', 'age_reward_condition', 'reward_value')
+      hideRow($currentRow,'social_reward_value', 'gender_value', 'tags_reward_condition', 'all_challenges_value', 'all_rewards_value')
+      showRow($currentRow, 'reward_value', 'age_reward_condition', 'reward_value')
       $currentRow.find('.age_reward_condition').removeClass('.filter_hidden');
     } else if (val == 'Rewards') {
-      hide_row($currentRow,'all_challenges_value','social_reward_value','gender_reward_condition','tags_reward_condition','age_reward_condition','reward_value')
-      show_row($currentRow, 'all_rewards_value')
+      hideRow($currentRow,'all_challenges_value','social_reward_value','gender_reward_condition','tags_reward_condition','age_reward_condition','reward_value')
+      showRow($currentRow, 'all_rewards_value')
       $currentRow.find('.all_rewards_value').removeClass('filter_hidden');
     } else if (val == 'Platforms') {
-      hide_row($currentRow,'reward_value','all_challenges_value','all_rewards_value','gender_reward_condition','gender_value', 'age_reward_condition')
-      show_row($currentRow,'social_reward_value', 'tags_reward_condition')
+      hideRow($currentRow,'reward_value','all_challenges_value','all_rewards_value','gender_reward_condition','gender_value', 'age_reward_condition')
+      showRow($currentRow,'social_reward_value', 'tags_reward_condition')
       $currentRow.find('.social_reward_value').removeClass('filter_hidden');
       $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
     } else if (val == "Challenges") {
-      hide_row($currentRow,'social_reward_value','reward_value','all_rewards_value', 'gender_reward_value', 'age_reward_condition')
-      show_row($currentRow,'all_challenges_value');
+      hideRow($currentRow,'social_reward_value','reward_value','all_rewards_value', 'gender_reward_value', 'age_reward_condition')
+      showRow($currentRow,'all_challenges_value');
       $currentRow.find('.all_challenges_value ').removeClass('filter_hidden');
     } else {
-      hide_row($currentRow,'tags_reward_condition','all_rewards_value','social_reward_value', 'all_challenges_value','gender_reward_condition')
-      show_row($currentRow,'reward_value','age_reward_condition')
+      hideRow($currentRow,'tags_reward_condition','all_rewards_value','social_reward_value', 'all_challenges_value','gender_reward_condition')
+      showRow($currentRow,'reward_value','age_reward_condition')
       $currentRow.find('.age_reward_condition').removeClass('filter_hidden')
       $currentRow.find('.reward_value').show();
     }

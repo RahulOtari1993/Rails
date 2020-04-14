@@ -188,7 +188,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_125704) do
     t.boolean "feature"
     t.integer "points"
     t.boolean "is_active"
-    t.text "redeption_details"
+    t.text "redemption_details"
     t.text "description_details"
     t.text "terms_conditions"
     t.integer "sweepstake_entry"
