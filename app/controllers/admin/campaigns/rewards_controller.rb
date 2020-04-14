@@ -1,12 +1,4 @@
-class Admin::Campaigns::RewardsController < ApplicationController
-  layout 'campaign_admin'
-
-  before_action :authenticate_user!
-  before_action :is_admin
-  before_action :set_campaign
-
-  # respond_to :html, :json, :js
-
+class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def index
     @rewards = @campaign.rewards
   end
@@ -21,7 +13,6 @@ class Admin::Campaigns::RewardsController < ApplicationController
   end
 
   def create
-    binding.pry
     @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
@@ -128,16 +119,8 @@ class Admin::Campaigns::RewardsController < ApplicationController
     params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
                             :image_content_type, :selection, :start, :finish, :feature, :points,
                             :is_active, :redeption_details, :description_details, :terms_conditions,
-                            :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition, :reward_value, :reward_event])
-  end
-  ## Check Whether Current Logged in User is Org Admin or Not
-  def is_admin
-    @is_admin = current_user.organization_admin? @organization
-  end
-
-  ## Set Campaign
-  def set_campaign
-    @campaign = Campaign.first
+                            :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
+                            :reward_value, :reward_event])
   end
 
   ##coupon_params

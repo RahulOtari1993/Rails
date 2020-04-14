@@ -3,52 +3,52 @@
   <div class="header-navbar-shadow"></div>
   <div class="content-wrapper">
     <div class="content-body">
-		<section id="basic-vertical-layouts">
-			<div class="row match-height">
-				<div class="col-md-12 col-12">
-			      <div class="card">
-	            <div class="card-header">
-	                <h4 class="card-title">Create Reward</h4>
-	            </div>
-			        <div class="card-content">
-			        	<%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true) do |f| %>
-			        		<% if @reward.errors.any? %>
-								    <%# puts 'there are some errors here in edit.html.erb' %>
-								    <div id="error_explanation">
-								      <h3 style="margin-left: 23px;">
-								        <%= pluralize(@reward.errors.count, "error") %> prohibited this reward from being saved:
-								      </h3>
-								      <ul>
-								        <% @reward.errors.full_messages.each do |msg| %>
-								          <li><%= msg %></li>
-								        <% end %>
-								      </ul>
-								    </div>
-								  <% end %>
-			            <div class="card-body">
-			              <form class="form form-vertical">
-			                <div class="form-body">
-		                    <div class="row">
-		                      <div class="col-12">
-	                          <div class="form-group">
-                          		<%= f.label :name %>
+      <section id="basic-vertical-layouts">
+        <div class="row match-height">
+          <div class="col-md-12 col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">Create Reward</h4>
+              </div>
+              <div class="card-content">
+                <%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true) do |f| %>
+                  <% if @reward.errors.any? %>
+                    <%# puts 'there are some errors here in edit.html.erb' %>
+                    <div id="error_explanation">
+                      <h3 style="margin-left: 23px;">
+                        <%= pluralize(@reward.errors.count, "error") %> prohibited this reward from being saved:
+                      </h3>
+                      <ul>
+                        <% @reward.errors.full_messages.each do |msg| %>
+                          <li><%= msg %></li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                  <div class="card-body">
+                    <form class="form form-vertical">
+                      <div class="form-body">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :name %>
                               <span class="column-info">Enter a friendly name to describe this reward.</span>
                               <div class="position-relative has-icon-left">
-                              	<%= f.text_field :name, id: 'first-name-icon',class: "form-control", placeholder: 'Name' %>
-                                  <div class="form-control-position">
-                                      <i class="feather icon-user"></i>
-                                  </div>
-	                            </div>
-		                        </div>
-		                      </div>
+                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control", placeholder: 'Name' %>
+                                <div class="form-control-position">
+                                  <i class="feather icon-user"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description %>
                               <span class="column-info">Describe the prize and the selection process.
 															</span>
                               <div class="position-relative">
-                              	<fieldset class="form-label-group">
-                              		<%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description"%>
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -59,8 +59,8 @@
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
                               <div class="position-relative">
-                              	<fieldset class="form-label-group">
-                              		<%= f.text_area :redeption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption"%>
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :redeption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -70,19 +70,19 @@
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
                               <div class="position-relative">
-                              	<fieldset class="form-label-group">
-                              		<%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description Details"%>
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description Details" %>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
                           <div class="col-12">
                             <div class="form-group">
-                                <%= f.label :limit %>
+                              <%= f.label :limit %>
                               <span class="column-info">The number of people who can get this reward.
 															</span>
                               <div class="position-relative">
-                              	<div class="input-group">
+                                <div class="input-group">
                                   <%= f.number_field :limit, class: "touchspin form-control", value: '0' %>
                                 </div>
                               </div>
@@ -94,315 +94,316 @@
                               <span class="column-info">Selection is how the reward will be awarded. If manual its up to the admin to set the winners or through challenges. With selection it allows users to trade in points.
 															</span>
                               <div class="position-relative">
-                              	<div class="form-group">
-                              		<%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, {class: "select2 form-control"}) 
-                              		%>			
-                              	</div>
+                                <div class="form-group">
+                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, {class: "select2 form-control"})
+                                  %>
+                                </div>
                               </div>
                             </div>
                           </div>
-		                      <div class="threshold col-12" style="display: none">
+                          <div class="threshold col-12" style="display: none">
                             <div class="form-group">
-                          		<%= f.label :threshold %>
+                              <%= f.label :threshold %>
                               <!-- <label for="first-name-icon">Name</label><br/> -->
                               <span class="column-info">This is the number of points required for a user to win this prize.
 															</span>
                               <div class="position-relative has-icon-left">
-                              	<%= f.text_field :threshold, id: 'first-name-icon',class: "form-control", placeholder: 'Threshold' %>
+                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control", placeholder: 'Threshold' %>
                               </div>
                             </div>
-                        	</div>
+                          </div>
                           <div class="sweepstake col-12" style="display: none">
                             <div class="form-group">
-                          		<%= f.label :sweepstake_entry %>
+                              <%= f.label :sweepstake_entry %>
                               <!-- <label for="first-name-icon">Name</label><br/> -->
                               <span class="column-info">This determines how many points it takes to create a single entry.
 															</span>
                               <div class="position-relative">
-                              	<%= f.text_field :sweepstake_entry, id: 'first-name-icon',class: "form-control", placeholder: 'Sweepstake' %>
+                                <%= f.text_field :sweepstake_entry, id: 'first-name-icon', class: "form-control", placeholder: 'Sweepstake' %>
                               </div>
                             </div>
                           </div>
                           <div class="col-12">
-                              <div class="form-group">
-                                <div class="position-relative">
-                                	<fieldset>
-                                    <div class="vs-checkbox-con vs-checkbox-primary">
-                                     	<%= f.check_box :feature, class: '' %>
-                                      <span class="vs-checkbox">
+                            <div class="form-group">
+                              <div class="position-relative">
+                                <fieldset>
+                                  <div class="vs-checkbox-con vs-checkbox-primary">
+                                    <%= f.check_box :feature, class: '' %>
+                                    <span class="vs-checkbox">
                                         <span class="vs-checkbox--check">
                                             <i class="vs-icon feather icon-check"></i>
                                         </span>
                                       </span>
-                                      <span class="">feature</span>
-                                      <span class="column-info">This is an option for if this content is to be featured in various locations on the site.
+                                    <span class="">feature</span>
+                                    <span class="column-info">This is an option for if this content is to be featured in various locations on the site.
 																			</span>
-                                    </div>
-                                  </fieldset>
-                                 </div>
-                              </div>
-                          </div>
-                          <div class="col-12">
-                              <div class="form-group">
-                              		<%= f.label :points %>
-                                  <span class="column-info">This is an 	to give points by assigning a user to a reward.
-																	</span>
-                                  <div class="position-relative">
-                                  	<%= f.text_field :points, id: 'first-name-icon',class: "form-control", placeholder: 'Points' %>
                                   </div>
+                                </fieldset>
                               </div>
+                            </div>
                           </div>
                           <div class="col-12">
                             <div class="form-group">
-                                <%= f.label :terms_conditions %>
-                                <span class="column-info">Optional terms and conditions for this reward.
+                              <%= f.label :points %>
+                              <span class="column-info">This is an 	to give points by assigning a user to a reward.
+																	</span>
+                              <div class="position-relative">
+                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control", placeholder: 'Points' %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :terms_conditions %>
+                              <span class="column-info">Optional terms and conditions for this reward.
 																</span>
-                                <div class="position-relative">
-                                	<fieldset class="form-label-group">
-                                		<%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Terms & Conditions"%>
-                                  </fieldset>
-                                </div>
+                              <div class="position-relative">
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Terms & Conditions" %>
+                                </fieldset>
+                              </div>
                             </div>
                           </div>
                           <div class="col-12">
                             <div class="col-6 form-group">
-                                <%= f.label :start %>
-                                <span class="column-info">This is the date the challenge will become visible.
+                              <%= f.label :start %>
+                              <span class="column-info">This is the date the challenge will become visible.
 																</span>
-                                <div class="position-relative">
-                                	<fieldset class="form-label-group">
-                                		<%= f.text_field :start, class: "form-control reward-format-picker"%>
-                                  </fieldset>
-                                </div>
+                              <div class="position-relative">
+                                <fieldset class="form-label-group">
+                                  <%= f.text_field :start, class: "form-control reward-format-picker" %>
+                                </fieldset>
+                              </div>
                             </div>
                             <div class=" col-6 form-group">
-                                <%= f.label :end_date %>
-                                <span class="column-info">This is the date the challenge will become visible.
+                              <%= f.label :end_date %>
+                              <span class="column-info">This is the date the challenge will become visible.
 																</span>
-                                <div class="position-relative">
-                                	<fieldset class="form-label-group">
-                                		<%= f.text_field :finish, class: "form-control reward-format-picker"%>
-                                  </fieldset>
-                                </div>
+                              <div class="position-relative">
+                                <fieldset class="form-label-group">
+                                  <%= f.text_field :finish, class: "form-control reward-format-picker" %>
+                                </fieldset>
+                              </div>
                             </div>
                           </div>
                           <div class="col-12">
-                          	<div class="form-group">
-												    	<%= f.file_field :image, class: "form-control" %>
-												  	</div>
-													</div>
-							            <div class="col-12">
-	                          <%= f.label "Active Segments"%>
+                            <div class="form-group">
+                              <%= f.file_field :image, class: "form-control" %>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <%= f.label "Active Segments" %>
                             <span class="column-info">Gives you the ability to target this challenge to a specific set of users.
 														</span>
                             <div class="table-responsive">
-                                <table class="segment_table table table-striped mb-0" id="filter_conditions">
-                                  <thead>
-                                      <tr>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                  <%= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
-                                    <tr id="filter_condition_1">
-                                      <th scope="row">
-                                      	<%= link_to '#', class:"hide_row" do %>
-	                                      	<i class="feather icon-minus-circle"></i>
-                                      	<% end %>
-                                      </th>
-                                      <td >
-	                                    	<div class="form-group">
-	                                    		<%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name:"reward[reward_filters_attributes][][reward_event]"}) 
-	                                    		%>			
-	                                    	</div>
-                                      </td>
-                                      <td>
-                                      	<div class="form-group">
-	                                    		<%= r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control", name:"reward[reward_filters_attributes][][reward_condition]"}) 
-	                                    		%>
-	                                    		<%= r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control", name:"reward[reward_filters_attributes][][reward_condition]"	}) 
-	                                    		%>
-	                                    		<%= r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control", name:"reward[reward_filters_attributes][][reward_condition]"}) 
-	                                    		%>
-	                                    	</div>
-	                                    </td>
-                                      <td>
-                                        <div class="form-group">
-                                      		<%= r_f.text_field :reward_value, class: " reward_value form-control", name:"reward[reward_filters_attributes][][reward_value]"
-                                      		%>
-													              	<%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control", name:"reward[reward_filters_attributes][][reward_value]"}) 
-													            		%>
-	                                    		<%= r_f.select(:reward_value, options_for_select(@campaign.rewards, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control", name:"reward[reward_filters_attributes][][reward_value]"}) 
-	                                    		%>
-	                                    		<%= r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control", name:"reward[reward_filters_attributes][][reward_value]"}) 
-	                                    		%>
-	                                    		<%= r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control", name:"reward[reward_filters_attributes][][reward_value]"}) 
-	                                    		%>		
-	                                    	</div>
-                                      </td>
-                                    </tr>
-                                  <% end %>
+                              <table class="segment_table table table-striped mb-0" id="filter_conditions">
+                                <thead>
+                                <tr>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
+                                  <tr id="filter_condition_1">
+                                    <th scope="row">
+                                      <%= link_to '#', class: "hide_row" do %>
+                                        <i class="feather icon-minus-circle"></i>
+                                      <% end %>
+                                    </th>
+                                    <td>
+                                      <div class="form-group">
+                                        <%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name: "reward[reward_filters_attributes][][reward_event]"})
+                                        %>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-group">
+                                        <%= r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
+                                        %>
+                                        <%= r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
+                                        %>
+                                        <%= r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
+                                        %>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="form-group">
+                                        <%= r_f.text_field :reward_value, class: " reward_value form-control", name: "reward[reward_filters_attributes][][reward_value]"
+                                        %>
+                                        <%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
+                                        %>
+                                        <%= r_f.select(:reward_value, options_for_select(@campaign.rewards, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
+                                        %>
+                                        <%= r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
+                                        %>
+                                        <%= r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
+                                        %>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                <% end %>
                                 </tbody>
                               </table>
                             </div>
-			                      	<%= link_to '#', id:"add_segment" do %>
-			                      		<i class="feather icon-plus-circle"></i>
-			                      	<% end %>
-			                      	<label class="fonticon-classname mt-1">Add</label>
-						              </div>
-						              	<br/>
-                            <div class="col-12" style = "margin-top: 15px">
-                                <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button>
-                                <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
-                            </div>
-		                        </div>
-		                    </div>
-			            	</form>
-			            </div>
-			          <% end %>
-			        </div>
-			    </div>
-			  </div>
-			</section>
-		</div>
-	</div>
+                            <%= link_to '#', id: "add_segment" do %>
+                              <i class="feather icon-plus-circle"></i>
+                            <% end %>
+                            <label class="fonticon-classname mt-1">Add</label>
+                          </div>
+                          <br/>
+                          <div class="col-12" style="margin-top: 15px">
+                            <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button>
+                            <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+  </div>
 </div>
 <style type="text/css">
-	.filter_hidden{
-		display: none;
-	}
+  .filter_hidden {
+    display: none;
+  }
 </style>>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#reward_selection').on('change', function(){
-			if($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection'){
-				$('.threshold').show();
-			}else if($(this).val() == 'manual' || $(this).val()=='threshold'){
-				$('.threshold').hide();
-			}else if($(this).val() == 'sweepstake'){
-				$('.threshold').hide();
-				$('.sweepstake').show();
-			}else{}
-		})
+  $(document).ready(function () {
+    $('#reward_selection').on('change', function () {
+      if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
+        $('.threshold').show();
+      } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
+        $('.threshold').hide();
+      } else if ($(this).val() == 'sweepstake') {
+        $('.threshold').hide();
+        $('.sweepstake').show();
+      } else {
+      }
+    })
 
-		$(document).on('click', '.hide_row', function(e){
-			e.preventDefault();   
-		  $(this).closest('tr').hide();
-		})
+    $(document).on('click', '.hide_row', function (e) {
+      e.preventDefault();
+      $(this).closest('tr').hide();
+    })
 
-		$('#add_segment').on('click', function(e){
-		 e.preventDefault();    
-     size = jQuery('#filter_conditions >tbody >tr').length + 1
-     element = null 
-     element = $('#filter_condition_1').clone();
-     element.attr('id', 'filter_condition_'+size);
-     debugger 
-     // if(element.style.display == 'none'){
-     // 	element.css('display', 'block');
-     // }  
-		 $('.segment_table tbody').append(element);
-		 	element.show();
-		})
+    $('#add_segment').on('click', function (e) {
+      e.preventDefault();
+      size = jQuery('#filter_conditions >tbody >tr').length + 1
+      element = null
+      element = $('#filter_condition_1').clone();
+      element.attr('id', 'filter_condition_' + size);
+      debugger
+      // if(element.style.display == 'none'){
+      // 	element.css('display', 'block');
+      // }
+      $('.segment_table tbody').append(element);
+      element.show();
+    })
 
-		$('.reward_form').on('click', function(){
-			$('.segment_table').find('.filter_hidden').attr("disabled",true);
-			var selects = $('.segment_table').find('select');
-			var inputs = $('.segment_table').find('input');
-			var rows = $('.segment_table').find('tr')
-			for(var i = 0;i < selects.length; i++) {
-		    if(selects[i].style.display == 'none') {
-		        selects[i].disabled = true;
-		    }
-			}
-			for(var i = 0;i < inputs.length; i++) {
-		    if(inputs[i].style.display == 'none') {
-		        inputs[i].disabled = true;
-		    }
-			}
-			for(var i = 0;i < rows.length; i++) {
-		    if($('tr').style.display == 'none') {
-		    	$r_inputs = $(this).find('input')
-					$r_selects= $(this).find('select')
-	        $r_inputs.prop("disabled", true);
-	        $r_selects.prop("disabled", true)
-		    }
-			}
-   		$('form').submit();
-		})
-	})
+    $('.reward_form').on('click', function () {
+      $('.segment_table').find('.filter_hidden').attr("disabled", true);
+      var selects = $('.segment_table').find('select');
+      var inputs = $('.segment_table').find('input');
+      var rows = $('.segment_table').find('tr')
+      for (var i = 0; i < selects.length; i++) {
+        if (selects[i].style.display == 'none') {
+          selects[i].disabled = true;
+        }
+      }
+      for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].style.display == 'none') {
+          inputs[i].disabled = true;
+        }
+      }
+      for (var i = 0; i < rows.length; i++) {
+        if ($('tr').style.display == 'none') {
+          $r_inputs = $(this).find('input')
+          $r_selects = $(this).find('select')
+          $r_inputs.prop("disabled", true);
+          $r_selects.prop("disabled", true)
+        }
+      }
+      $('form').submit();
+    })
+  })
 
-	$(document).on('change', ".reward_event", function(){
-			var val = $(this).val();
-			var $current_row = $(this).closest('tr');
-			if(val == 'Tags'){
-				$current_row.find('.tags_reward_condition').removeClass('filter_hidden');
-				$current_row.find('.tags_reward_condition').show();
-				$current_row.find('.age_reward_condition').hide();
-				$current_row.find('.reward_value').show();
-				$current_row.find('.gender_reward_condition').hide();
-				$current_row.find('.gender_value').addClass('filter_hidden');
-				$current_row.find('.all_challenges_value ').hide();
-				$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.social_reward_value').hide();
-			}else if(val == 'Gender'){
-				$current_row.find('.gender_reward_condition').removeClass('filter_hidden');
-				$current_row.find('.gender_reward_condition').show();
-				$current_row.find('.gender_value').show();
-				$current_row.find('.gender_value').removeClass('filter_hidden');
-				$current_row.find('.age_reward_condition').hide();
-				$current_row.find('.tags_reward_condition').hide();
-				$current_row.find('.reward_value').hide();
-				$current_row.find('.all_challenges_value ').hide();
-				$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.social_reward_value').hide();
-				$current_row.find('.reward_value').hide();
-			}else if(val == 'Points'){
-				$current_row.find('.age_reward_condition').removeClass('.filter_hidden');
-				$current_row.find('.age_reward_condition').show();
-				$current_row.find('.reward_value').show();
-				$current_row.find('.gender_value').hide();
-				$current_row.find('.tags_reward_condition').hide();
-				$current_row.find('.gender_reward_condition').hide();
-				$$current_row.find('.all_challenges_value ').hide();
-				$$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.social_reward_value').hide();
-			}else if(val == 'Rewards'){
-				$current_row.find('.all_rewards_value').removeClass('filter_hidden');
-				$current_row.find('.all_rewards_value').show();
-				$current_row.find('.reward_value').hide();
-				$current_row.find('.tags_reward_condition').hide();
-				$current_row.find('.age_reward_condition').hide();
-				$current_row.find('.gender_reward_condition').hide();
-				$current_row.find('.social_reward_value').hide();
-				$current_row.find('.all_challenges_value ').hide();
-			}else if(val == 'Platforms'){
-				$current_row.find('.social_reward_value').removeClass('filter_hidden');
-				$current_row.find('.social_reward_value').show();
-				$current_row.find('.tags_reward_condition').show();
-				$current_row.find('.tags_reward_condition').removeClass('filter_hidden');
-				$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.gender_reward_condition').hide();
-				$current_row.find('.gender_value').hide();
-				$current_row.find('.age_reward_condition').hide();
-				$current_row.find('.reward_value').hide();
-				$$current_row.find('.all_challenges_value ').hide();
-			}else if(val == "Challenges"){
-				$current_row.find('.all_challenges_value ').removeClass('filter_hidden');
-				$current_row.find('.all_challenges_value').show();
-				$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.gender_reward_value').hide();
-				$current_row.find('.age_reward_condition').hide();
-				$current_row.find('.reward_value').hide();
-				$current_row.find('.social_reward_value').hide();
-			}else {
-				$current_row.find('.age_reward_condition').show();
-				$current_row.find('.age_reward_condition').removeClass('filter_hidden')
-				$current_row.find('.all_challenges_value ').hide();
-				$current_row.find('.gender_reward_condition').hide();
-				$current_row.find('.social_reward_value').hide();
-				$current_row.find('.reward_value').show();
-				$current_row.find('.all_rewards_value').hide();
-				$current_row.find('.tags_reward_condition').hide();
-			}
-		})
+  $(document).on('change', ".reward_event", function () {
+    var val = $(this).val();
+    var $current_row = $(this).closest('tr');
+    if (val == 'Tags') {
+      $current_row.find('.tags_reward_condition').removeClass('filter_hidden');
+      $current_row.find('.tags_reward_condition').show();
+      $current_row.find('.age_reward_condition').hide();
+      $current_row.find('.reward_value').show();
+      $current_row.find('.gender_reward_condition').hide();
+      $current_row.find('.gender_value').addClass('filter_hidden');
+      $current_row.find('.all_challenges_value ').hide();
+      $current_row.find('.all_rewards_value').hide();
+      $current_row.find('.social_reward_value').hide();
+    } else if (val == 'Gender') {
+      $current_row.find('.gender_reward_condition').removeClass('filter_hidden');
+      $current_row.find('.gender_reward_condition').show();
+      $current_row.find('.gender_value').show();
+      $current_row.find('.gender_value').removeClass('filter_hidden');
+      $current_row.find('.age_reward_condition').hide();
+      $current_row.find('.tags_reward_condition').hide();
+      $current_row.find('.reward_value').hide();
+      $current_row.find('.all_challenges_value ').hide();
+      $current_row.find('.all_rewards_value').hide();
+      $current_row.find('.social_reward_value').hide();
+      $current_row.find('.reward_value').hide();
+    } else if (val == 'Points') {
+      $current_row.find('.age_reward_condition').removeClass('.filter_hidden');
+      $current_row.find('.age_reward_condition').show();
+      $current_row.find('.reward_value').show();
+      $current_row.find('.gender_value').hide();
+      $current_row.find('.tags_reward_condition').hide();
+      $current_row.find('.gender_reward_condition').hide();
+      $$current_row.find('.all_challenges_value ').hide();
+      $$current_row.find('.all_rewards_value').hide();
+      $current_row.find('.social_reward_value').hide();
+    } else if (val == 'Rewards') {
+      $current_row.find('.all_rewards_value').removeClass('filter_hidden');
+      $current_row.find('.all_rewards_value').show();
+      $current_row.find('.reward_value').hide();
+      $current_row.find('.tags_reward_condition').hide();
+      $current_row.find('.age_reward_condition').hide();
+      $current_row.find('.gender_reward_condition').hide();
+      $current_row.find('.social_reward_value').hide();
+      $current_row.find('.all_challenges_value ').hide();
+    } else if (val == 'Platforms') {
+      $current_row.find('.social_reward_value').removeClass('filter_hidden');
+      $current_row.find('.social_reward_value').show();
+      $current_row.find('.tags_reward_condition').show();
+      $current_row.find('.tags_reward_condition').removeClass('filter_hidden');
+      $current_row.find('.all_rewards_value').hide();
+      $current_row.find('.gender_reward_condition').hide();
+      $current_row.find('.gender_value').hide();
+      $current_row.find('.age_reward_condition').hide();
+      $current_row.find('.reward_value').hide();
+      $$current_row.find('.all_challenges_value ').hide();
+    } else if (val == "Challenges") {
+      $current_row.find('.all_challenges_value ').removeClass('filter_hidden');
+      $current_row.find('.all_challenges_value').show();
+      $current_row.find('.all_rewards_value').hide();
+      $current_row.find('.gender_reward_value').hide();
+      $current_row.find('.age_reward_condition').hide();
+      $current_row.find('.reward_value').hide();
+      $current_row.find('.social_reward_value').hide();
+    } else {
+      $current_row.find('.age_reward_condition').show();
+      $current_row.find('.age_reward_condition').removeClass('filter_hidden')
+      $current_row.find('.all_challenges_value ').hide();
+      $current_row.find('.gender_reward_condition').hide();
+      $current_row.find('.social_reward_value').hide();
+      $current_row.find('.reward_value').show();
+      $current_row.find('.all_rewards_value').hide();
+      $current_row.find('.tags_reward_condition').hide();
+    }
+  })
 
 </script>

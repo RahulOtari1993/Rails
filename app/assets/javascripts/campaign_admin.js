@@ -162,7 +162,7 @@ $(document).on('turbolinks:load', function() {
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
         action: function() {
-          window.location.href = "/admin/campaigns/" + $('.reward_listing').attr('campaign_id') + "/rewards/new"
+          window.location.href = "/admin/campaigns/" + $('#reward_listing').attr('campaign_id') + "/rewards/new"
         },
         className: "btn-outline-primary"
       }
