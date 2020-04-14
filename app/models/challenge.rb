@@ -32,5 +32,5 @@ class Challenge < ApplicationRecord
                   comment connect hashtag referal location subscribe submission play practice hr link)
 
   ## Validations
-  validates :mechanism, presence: true
+  validates :mechanism, :name, :link, :description, presence: true
 end

@@ -31,17 +31,16 @@ $(document).on('turbolinks:load', function() {
       'challenge[mechanism]': {
         required: true
       },
-      // 'hk_s1_2': {
-      //   required: true
-      // },
-      // 'hk_s2_1': {
-      //   required: true,
-      //   email: true
-      // },
-      // 'hk_s2_2': {
-      //   required: true,
-      //   email: true
-      // },
+      'challenge[name]': {
+        required: true
+      },
+      'challenge[link]': {
+        required: true,
+        url: true
+      },
+      'challenge[description]': {
+        required: true
+      },
       // 'hk_s3_1': {
       //   required: true,
       //   minlength: 8
@@ -60,17 +59,16 @@ $(document).on('turbolinks:load', function() {
       'challenge[mechanism]': {
         required: 'Please select challenge type'
       },
-      // 'hk_s1_2': {
-      //   required: 'Please enter last name'
-      // },
-      // 'hk_s2_1': {
-      //   required: 'Please enter email address',
-      //   email: 'Please enter valid email address'
-      // },
-      // 'hk_s2_2': {
-      //   required: 'Please enter confirm email address',
-      //   email: 'Please enter valid email address'
-      // },
+      'challenge[name]': {
+        required: 'Please enter challenge name'
+      },
+      'challenge[link]': {
+        required: 'Please enter link to be shared',
+        url: 'Please enter valid link'
+      },
+      'challenge[description]': {
+        required: 'Please enter challenge description'
+      },
       // 'hk_s3_1': {
       //   required: 'Please enter new password',
       //   minlength: 'Password is too short (minimum is 8 characters)'
