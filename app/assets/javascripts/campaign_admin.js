@@ -224,68 +224,69 @@ $(document).on('turbolinks:load', function() {
     },
     onFinished: function (event, currentIndex) {
       alert("Submitted!");
+      $('.challenge-wizard' ).submit();
     }
   });
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
     rules: {
-      'hk_s1_1': {
+      'challenge[mechanism]': {
         required: true
       },
-      'hk_s1_2': {
-        required: true
-      },
-      'hk_s2_1': {
-        required: true,
-        email: true
-      },
-      'hk_s2_2': {
-        required: true,
-        email: true
-      },
-      'hk_s3_1': {
-        required: true,
-        minlength: 8
-      },
-      'hk_s4_1': {
-        required: true
-      },
-      'hk_s4_2': {
-        required: true
-      },
-      'hk_s5_1': {
-        required: true
-      },
+      // 'hk_s1_2': {
+      //   required: true
+      // },
+      // 'hk_s2_1': {
+      //   required: true,
+      //   email: true
+      // },
+      // 'hk_s2_2': {
+      //   required: true,
+      //   email: true
+      // },
+      // 'hk_s3_1': {
+      //   required: true,
+      //   minlength: 8
+      // },
+      // 'hk_s4_1': {
+      //   required: true
+      // },
+      // 'hk_s4_2': {
+      //   required: true
+      // },
+      // 'hk_s5_1': {
+      //   required: true
+      // }
     },
     messages: {
-      'hk_s1_1': {
-        required: 'Please enter first name'
+      'challenge[mechanism]': {
+        required: 'Please select challenge type'
       },
-      'hk_s1_2': {
-        required: 'Please enter last name'
-      },
-      'hk_s2_1': {
-        required: 'Please enter email address',
-        email: 'Please enter valid email address'
-      },
-      'hk_s2_2': {
-        required: 'Please enter confirm email address',
-        email: 'Please enter valid email address'
-      },
-      'hk_s3_1': {
-        required: 'Please enter new password',
-        minlength: 'Password is too short (minimum is 8 characters)'
-      },
-      'hk_s4_1': {
-        required: 'Please enter first name'
-      },
-      'hk_s4_2': {
-        required: 'Please enter last name'
-      },
-      'hk_s5_1': {
-        required: 'Please enter email address'
-      }
+      // 'hk_s1_2': {
+      //   required: 'Please enter last name'
+      // },
+      // 'hk_s2_1': {
+      //   required: 'Please enter email address',
+      //   email: 'Please enter valid email address'
+      // },
+      // 'hk_s2_2': {
+      //   required: 'Please enter confirm email address',
+      //   email: 'Please enter valid email address'
+      // },
+      // 'hk_s3_1': {
+      //   required: 'Please enter new password',
+      //   minlength: 'Password is too short (minimum is 8 characters)'
+      // },
+      // 'hk_s4_1': {
+      //   required: 'Please enter first name'
+      // },
+      // 'hk_s4_2': {
+      //   required: 'Please enter last name'
+      // },
+      // 'hk_s5_1': {
+      //   required: 'Please enter email address'
+      // }
     }
   });
 

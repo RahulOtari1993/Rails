@@ -4,7 +4,24 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-challenge-form number-tab-steps challenge-wizard wizard-circle', model: Challenge.new, local: true) do |form| %>
+            <%
+              if @challenge.new_record?
+                path = admin_campaign_challenges_path
+                method = 'post'
+              else
+                path = admin_campaign_challenge_path(@challenge)
+                method = 'put'
+              end
+            %>
+
+            <%= form_with(url: path, method: method, class: 'add-challenge-form number-tab-steps challenge-wizard wizard-circle',
+                          model: @challenge, local: true) do |form| %>
+
+              <% if @challenge.errors.any? %>
+                <%= render '/shared/render_errors', resource: @challenge %>
+              <% end %>
+
+              <%= form.hidden_field :campaign_id, value: @campaign.id %>
 
               <!-- Step 1 -->
               <h6>Type</h6>
