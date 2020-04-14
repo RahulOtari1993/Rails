@@ -1,10 +1,5 @@
 $(document).on('turbolinks:load', function() {
 
-
-
-  // Color Picker Integration
-  $('.colour-picker-txt').minicolors({theme: 'bootstrap'})
-
   $('#reward_listing').on('click', '.download-csv-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
