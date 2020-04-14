@@ -1,5 +1,6 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def index
+    byebug
     @rewards = @campaign.rewards
   end
 
@@ -28,13 +29,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
 
   def reward_export
-
     #grab the reward
     @reward = Reward.find(params[:reward_id])
-
     #generate the csv of the results
     results = CSV.generate do |csv|
-
       #generate the header
       csv << [
         "first_name",
@@ -118,7 +116,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def reward_params
     params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
                             :image_content_type, :selection, :start, :finish, :feature, :points,
-                            :is_active, :redeption_details, :description_details, :terms_conditions,
+                            :is_active, :redemption_details, :description_details, :terms_conditions,
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event])
   end

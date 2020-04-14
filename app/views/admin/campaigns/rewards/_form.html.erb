@@ -29,7 +29,7 @@
                     <form class="form form-vertical">
                       <div class="form-body">
                         <div class="row">
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
                               <%= f.label :name %>
                               <span class="column-info">Enter a friendly name to describe this reward.</span>
@@ -41,7 +41,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
                               <%= f.label :description %>
                               <span class="column-info">Describe the prize and the selection process.
@@ -53,19 +53,19 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
-                              <%= f.label :redemption %>
+                              <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :redeption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption" %>
+                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption Details" %>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
@@ -76,7 +76,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-4">
                             <div class="form-group">
                               <%= f.label :limit %>
                               <span class="column-info">The number of people who can get this reward.
@@ -142,7 +142,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
                               <%= f.label :points %>
                               <span class="column-info">This is an 	to give points by assigning a user to a reward.
@@ -152,7 +152,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6">
                             <div class="form-group">
                               <%= f.label :terms_conditions %>
                               <span class="column-info">Optional terms and conditions for this reward.
@@ -164,8 +164,8 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="col-6 form-group">
+                          <div class="col-6">
+                            <div class="form-group">
                               <%= f.label :start %>
                               <span class="column-info">This is the date the challenge will become visible.
 																</span>
@@ -175,7 +175,9 @@
                                 </fieldset>
                               </div>
                             </div>
-                            <div class=" col-6 form-group">
+                          </div>
+                          <div class= "col-6">
+                            <div class="form-group">
                               <%= f.label :end_date %>
                               <span class="column-info">This is the date the challenge will become visible.
 																</span>
@@ -186,9 +188,11 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-12">
+                          <div class="col-6" style="margin-left: 13px">
                             <div class="form-group">
-                              <%= f.file_field :image, class: "form-control" %>
+                              <%= f.label :image %>
+                              <%= f.file_field :image, class:"custom-file-input" %>
+                              <%= f.label :image, 'Choose file', class: 'custom-file-label' %>
                             </div>
                           </div>
                           <div class="col-12">
@@ -270,140 +274,4 @@
   .filter_hidden {
     display: none;
   }
-</style>>
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#reward_selection').on('change', function () {
-      if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
-        $('.threshold').show();
-      } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
-        $('.threshold').hide();
-      } else if ($(this).val() == 'sweepstake') {
-        $('.threshold').hide();
-        $('.sweepstake').show();
-      } else {
-      }
-    })
-
-    $(document).on('click', '.hide_row', function (e) {
-      e.preventDefault();
-      $(this).closest('tr').hide();
-    })
-
-    $('#add_segment').on('click', function (e) {
-      e.preventDefault();
-      size = jQuery('#filter_conditions >tbody >tr').length + 1
-      element = null
-      element = $('#filter_condition_1').clone();
-      element.attr('id', 'filter_condition_' + size);
-      debugger
-      // if(element.style.display == 'none'){
-      // 	element.css('display', 'block');
-      // }
-      $('.segment_table tbody').append(element);
-      element.show();
-    })
-
-    $('.reward_form').on('click', function () {
-      $('.segment_table').find('.filter_hidden').attr("disabled", true);
-      var selects = $('.segment_table').find('select');
-      var inputs = $('.segment_table').find('input');
-      var rows = $('.segment_table').find('tr')
-      for (var i = 0; i < selects.length; i++) {
-        if (selects[i].style.display == 'none') {
-          selects[i].disabled = true;
-        }
-      }
-      for (var i = 0; i < inputs.length; i++) {
-        if (inputs[i].style.display == 'none') {
-          inputs[i].disabled = true;
-        }
-      }
-      for (var i = 0; i < rows.length; i++) {
-        if ($('tr').style.display == 'none') {
-          $r_inputs = $(this).find('input')
-          $r_selects = $(this).find('select')
-          $r_inputs.prop("disabled", true);
-          $r_selects.prop("disabled", true)
-        }
-      }
-      $('form').submit();
-    })
-  })
-
-  $(document).on('change', ".reward_event", function () {
-    var val = $(this).val();
-    var $current_row = $(this).closest('tr');
-    if (val == 'Tags') {
-      $current_row.find('.tags_reward_condition').removeClass('filter_hidden');
-      $current_row.find('.tags_reward_condition').show();
-      $current_row.find('.age_reward_condition').hide();
-      $current_row.find('.reward_value').show();
-      $current_row.find('.gender_reward_condition').hide();
-      $current_row.find('.gender_value').addClass('filter_hidden');
-      $current_row.find('.all_challenges_value ').hide();
-      $current_row.find('.all_rewards_value').hide();
-      $current_row.find('.social_reward_value').hide();
-    } else if (val == 'Gender') {
-      $current_row.find('.gender_reward_condition').removeClass('filter_hidden');
-      $current_row.find('.gender_reward_condition').show();
-      $current_row.find('.gender_value').show();
-      $current_row.find('.gender_value').removeClass('filter_hidden');
-      $current_row.find('.age_reward_condition').hide();
-      $current_row.find('.tags_reward_condition').hide();
-      $current_row.find('.reward_value').hide();
-      $current_row.find('.all_challenges_value ').hide();
-      $current_row.find('.all_rewards_value').hide();
-      $current_row.find('.social_reward_value').hide();
-      $current_row.find('.reward_value').hide();
-    } else if (val == 'Points') {
-      $current_row.find('.age_reward_condition').removeClass('.filter_hidden');
-      $current_row.find('.age_reward_condition').show();
-      $current_row.find('.reward_value').show();
-      $current_row.find('.gender_value').hide();
-      $current_row.find('.tags_reward_condition').hide();
-      $current_row.find('.gender_reward_condition').hide();
-      $$current_row.find('.all_challenges_value ').hide();
-      $$current_row.find('.all_rewards_value').hide();
-      $current_row.find('.social_reward_value').hide();
-    } else if (val == 'Rewards') {
-      $current_row.find('.all_rewards_value').removeClass('filter_hidden');
-      $current_row.find('.all_rewards_value').show();
-      $current_row.find('.reward_value').hide();
-      $current_row.find('.tags_reward_condition').hide();
-      $current_row.find('.age_reward_condition').hide();
-      $current_row.find('.gender_reward_condition').hide();
-      $current_row.find('.social_reward_value').hide();
-      $current_row.find('.all_challenges_value ').hide();
-    } else if (val == 'Platforms') {
-      $current_row.find('.social_reward_value').removeClass('filter_hidden');
-      $current_row.find('.social_reward_value').show();
-      $current_row.find('.tags_reward_condition').show();
-      $current_row.find('.tags_reward_condition').removeClass('filter_hidden');
-      $current_row.find('.all_rewards_value').hide();
-      $current_row.find('.gender_reward_condition').hide();
-      $current_row.find('.gender_value').hide();
-      $current_row.find('.age_reward_condition').hide();
-      $current_row.find('.reward_value').hide();
-      $$current_row.find('.all_challenges_value ').hide();
-    } else if (val == "Challenges") {
-      $current_row.find('.all_challenges_value ').removeClass('filter_hidden');
-      $current_row.find('.all_challenges_value').show();
-      $current_row.find('.all_rewards_value').hide();
-      $current_row.find('.gender_reward_value').hide();
-      $current_row.find('.age_reward_condition').hide();
-      $current_row.find('.reward_value').hide();
-      $current_row.find('.social_reward_value').hide();
-    } else {
-      $current_row.find('.age_reward_condition').show();
-      $current_row.find('.age_reward_condition').removeClass('filter_hidden')
-      $current_row.find('.all_challenges_value ').hide();
-      $current_row.find('.gender_reward_condition').hide();
-      $current_row.find('.social_reward_value').hide();
-      $current_row.find('.reward_value').show();
-      $current_row.find('.all_rewards_value').hide();
-      $current_row.find('.tags_reward_condition').hide();
-    }
-  })
-
-</script>
+</style>

@@ -121,7 +121,7 @@ $(document).on('turbolinks:load', function() {
     // stateSave: true,
     responsive: false,
     ajax: {
-        "url": "/admin/campaigns/" +  $(this).attr('campaign_id') + "/rewards/generate_reward_json",
+        "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
         "dataSrc": "rewards",
     },
     columns: [
