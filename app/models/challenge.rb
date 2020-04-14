@@ -20,6 +20,9 @@
 #  clicks      :integer
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  description :text
+#  reward_type :integer
+#  reward_id   :bigint
 #
 class Challenge < ApplicationRecord
   ## Associations
