@@ -4,44 +4,28 @@
       <div class="card">
         <div class="card-content">
           <div class="card-body">
-            <form action="/admin/campaigns/:campaign_id/challenges" class="number-tab-steps challenge-wizard wizard-circle">
+            <%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-challenge-form number-tab-steps challenge-wizard wizard-circle', model: Challenge.new, local: true) do |form| %>
 
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset>
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-12">
                     <div class="form-group">
-                      <label for="firstName1">First Name </label>
-                      <input name="hk_s1_1" type="text" class="form-control" id="firstName1">
-                    </div>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="lastName1">Last Name</label>
-                      <input name="hk_s1_2"  type="text" class="form-control" id="lastName1">
+                      <h4>What type of challenge you would like to create for your users?</h4>
                     </div>
                   </div>
                 </div>
 
                 <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-3">
                     <div class="form-group">
-                      <label for="emailAddress1">Email</label>
-                      <input type="email" class="form-control" id="emailAddress1">
-                    </div>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="location1">City</label>
-                      <select class="custom-select form-control" id="location1" name="location">
-                        <option value="new-york">New York</option>
-                        <option value="chicago">Chicago</option>
-                        <option value="san-francisco">San Francisco</option>
-                        <option value="boston">Boston</option>
-                      </select>
+                      <%= form.label :mechanism, 'Challenge type' %>
+                      <div class="position-relative">
+                        <%= form.select :mechanism,
+                                        options_for_select(Challenge::MECHANISMS.map { |v| [v.titleize, v] }.compact),
+                                        {prompt: 'Select Challenge Type'}, class: 'form-control challenge_type_id' %>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -212,7 +196,7 @@
                   </div>
                 </div>
               </fieldset>
-            </form>
+            <% end %>
           </div>
         </div>
       </div>
