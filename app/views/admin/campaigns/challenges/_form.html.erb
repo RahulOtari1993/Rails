@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-3">
+                  <div class="col-md-3 col-12">
                     <div class="form-group">
                       <%= form.label :mechanism, 'Challenge type' %>
                       <div class="position-relative">
@@ -52,23 +52,37 @@
               <h6>Create</h6>
               <fieldset>
                 <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="proposalTitle1">Proposal Title</label>
-                      <input name="hk_s2_1" type="text" class="form-control" id="proposalTitle1">
-                    </div>
-                    <div class="form-group">
-                      <label for="jobtitle">Job Title</label>
-                      <input name="hk_s2_2" type="text" class="form-control" id="jobtitle">
-                    </div>
+                  <div class="col-12">
+                    <h4>1. SHARE CHALLENGE DETAILS</h4>
                   </div>
+                </div>
+
+                <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <label for="shortDescription1">Short Description :</label>
-                      <textarea name="shortDescription" id="shortDescription1" rows="5" class="form-control"></textarea>
+                      <%= form.label :name, 'Challenge Name' %>
+                      <span class="column-info">To be used in reporting and challenge management</span>
+                      <%= form.text_field :name, class: 'form-control', placeholder: 'Challenge Name' %>
+                    </div>
+                    <div class="form-group">
+                      <%= form.label :link, 'Link to be shared' %>
+                      <%= form.text_field :link, class: 'form-control', placeholder: 'Link to be shared' %>
+                    </div>
+
+                    <div class="form-group">
+                      <%= form.label :description, 'Add a note for your users about this challenge' %>
+                      <%= form.text_area :description, class: 'form-control', placeholder: 'Description / Note' %>
                     </div>
                   </div>
                 </div>
+
+                <div class="row">
+                  <div class="col-12">
+                    <h4>2. CHOOSE AND CUSTOMIZE FOR PLATFORMS</h4>
+                    <p>To be used in reporting and challenge management</p>
+                  </div>
+                </div>
+
               </fieldset>
 
               <!-- Step 3 -->
