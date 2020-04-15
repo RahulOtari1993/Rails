@@ -38,4 +38,23 @@ class Challenge < ApplicationRecord
 
   ## Validations
   validates :mechanism, :name, :link, :description, presence: true
+  validate :reward_existence
+
+  ## Check Whether Proper Inputs provided for Reward Type
+  def reward_existence
+    if self.reward_type == 'points'
+      if !self.points.present?
+        errors.add :points, " can't be blank"
+        return
+      end
+    elsif self.reward_type == 'prize'
+      if !self.reward_id.present?
+        errors.add :reward_id, " must be selected"
+        return
+      end
+    else
+      errors.add :reward_type, ' is invalid'
+      return
+    end
+  end
 end
