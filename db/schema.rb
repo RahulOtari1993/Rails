@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_14_125704) do
+ActiveRecord::Schema.define(version: 2020_04_15_071434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,17 @@ ActiveRecord::Schema.define(version: 2020_04_14_125704) do
     t.index ["user_id"], name: "index_organization_admins_on_user_id"
   end
 
+  create_table "organization_configs", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_organization_configs_on_organization_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "sub_domain", null: false
@@ -248,6 +259,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_125704) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
+  add_foreign_key "organization_configs", "organizations"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"
