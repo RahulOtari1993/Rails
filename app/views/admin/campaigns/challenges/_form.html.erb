@@ -116,9 +116,11 @@
                         <div class="row">
                           <div class="col-sm-4">
                             <div class="input-group form-group">
-                              <%= form.text_field :points, class: 'form-control' %>
+                              <%= form.text_field :points, class: 'form-control', data: {error: 'points-errors'} %>
                               <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2">Points</span>
+                              </div>
+                              <div class="input-group points-errors">
                               </div>
                             </div>
                           </div>

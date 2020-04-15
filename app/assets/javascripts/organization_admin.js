@@ -56,7 +56,6 @@ $(document).on('turbolinks:load', function() {
     },
     errorPlacement: function(error, element) {
       var placement = $(element).data('error');
-      console.log("Placment", placement);
       if (placement) {
         $('.' + placement).append(error)
       } else {
