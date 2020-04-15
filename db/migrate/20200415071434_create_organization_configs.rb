@@ -9,5 +9,10 @@ class CreateOrganizationConfigs < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    ## Update Existing Organizations
+    Organization.all.each do |org|
+      OrganizationConfig.create(organization_id: org.id)
+    end
   end
 end
