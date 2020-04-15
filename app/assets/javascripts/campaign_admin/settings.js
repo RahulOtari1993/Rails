@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function () {
-  // Fonts COnfig for Quill Editor
+  // Fonts Config for Quill Editor
   var Font = Quill.import('formats/font');
   Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
   Quill.register(Font, true);

@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_04_14_125704) do
     t.text "description"
     t.integer "reward_type"
     t.bigint "reward_id"
+    t.boolean "is_draft", default: true
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 

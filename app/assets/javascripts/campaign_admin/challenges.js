@@ -100,12 +100,14 @@ $(document).on('turbolinks:load', function() {
     $('.challenge-wizard .current').removeClass('error');
 
     if ($(e.target).attr('id') == 'base-rewards-pill') {
+      $('#challenge_reward_type').val('prize');
       $('#challenge_reward_id').prop('selectedIndex',0);
       $('#challenge_reward_id').removeClass('error');
       $('#challenge_reward_id-error').remove();
     }
 
     if ($(e.target).attr('id') == 'base-points-pill') {
+      $('#challenge_reward_type').val('points');
       $('#challenge_points').val('');
       $('#challenge_points').removeClass('error');
       $('#challenge_points-error').remove();
