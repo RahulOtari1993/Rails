@@ -84,4 +84,11 @@ $(document).on('turbolinks:load', function() {
   //     // }
   //   }
   // });
+
+  $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+    console.log("Active Tab", e.target);
+    console.log("Previous Active Tab", e.relatedTarget);
+    $(e.target).removeClass('pill-btn')
+    $(e.relatedTarget).addClass('pill-btn') // previous active tab
+  })
 });
