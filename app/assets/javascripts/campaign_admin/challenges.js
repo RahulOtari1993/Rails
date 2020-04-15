@@ -90,5 +90,13 @@ $(document).on('turbolinks:load', function() {
     console.log("Previous Active Tab", e.relatedTarget);
     $(e.target).removeClass('pill-btn')
     $(e.relatedTarget).addClass('pill-btn') // previous active tab
+
+    if ($(e.target).attr('id') == 'base-rewards-pill') {
+      $('#challenge_reward_id').prop('selectedIndex',0);
+    }
+
+    if ($(e.target).attr('id') == 'base-points-pill') {
+      $('#challenge_points').val('');
+    }
   })
 });
