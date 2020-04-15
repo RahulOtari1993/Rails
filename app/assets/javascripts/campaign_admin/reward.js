@@ -11,6 +11,7 @@ $(document).ready(function () {
     } else {
     }
   })
+
   //hide row in reward new and delete/hide row/reward_filter in edit page
   $('body').on('click', '.hide_row', function(e){
       e.preventDefault();  
@@ -27,6 +28,7 @@ $(document).ready(function () {
         $(this).closest('tr').hide();
       }
     })
+
   // Add segment
   $('#add_segment').on('click', function (e) {
     e.preventDefault();
@@ -38,17 +40,20 @@ $(document).ready(function () {
     $('.segment_table tbody').append(element);
     element.show();
   })
+
   //Submit form onclick skipping all input fields which are disabled
   $('.reward_form').on('click', function () {
     $('.segment_table').find('.filter_hidden').attr("disabled", true);
     var selects = $('.segment_table').find('select');
     var inputs = $('.segment_table').find('input');
     var rows = $('.segment_table').find('tr')
+
     for (var i = 0; i < selects.length; i++) {
       if (selects[i].style.display == 'none') {
         selects[i].disabled = true;
       }
     }
+
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].style.display == 'none') {
         inputs[i].disabled = true;
@@ -58,18 +63,22 @@ $(document).ready(function () {
       if ($('tr').style.display == 'none') {
         $formInputs = $(this).find('input')
         $formSelects = $(this).find('select')
+
         $formInputs.prop("disabled", true);
         $formSelects.prop("disabled", true)
       }
     }
+
     $('form').submit();
   })
+
   //creating global function to show dropdown onchange
   function hideRow() {
     for (var i = 1; i < arguments.length; i++){
       arguments[0].find('.' + arguments[i]).hide();
     }    
   }
+
   //creating global function to hide dropdown onchange
   function showRow(){
     for (var i = 1; i < arguments.length; i++){
