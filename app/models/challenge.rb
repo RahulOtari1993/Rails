@@ -25,6 +25,9 @@
 #  reward_id   :bigint
 #
 class Challenge < ApplicationRecord
+  #TODO : While Approving a Challenge, Check if ORG do have Social Media Config Available
+  #TODO : Validation Needs to be added
+
   ## Associations
   belongs_to :campaign
 
