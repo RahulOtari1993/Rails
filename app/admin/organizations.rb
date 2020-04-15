@@ -10,7 +10,8 @@ ActiveAdmin.register Organization do
     column :is_active
     column :created_at
     actions do |organization|
-      raw("#{link_to 'View Users', onboarding_organization_users_path(organization)}")
+      raw("#{link_to 'View Users', onboarding_organization_users_path(organization)}
+      #{link_to 'View Configs', onboarding_organization_organization_configs_path(organization)}")
     end
   end
 
@@ -34,6 +35,7 @@ ActiveAdmin.register Organization do
   sidebar 'Organization Details', only: [:show, :edit] do
     ul do
       li link_to 'Users', onboarding_organization_users_path(organization)
+      li link_to 'Organization Configs', onboarding_organization_organization_configs_path(organization)
     end
   end
 
