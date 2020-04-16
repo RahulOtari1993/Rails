@@ -34,7 +34,9 @@ class Challenge < ApplicationRecord
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
                   comment connect hashtag referal location subscribe submission play practice hr link engage collect)
 
+  ## ENUM
   enum reward_type: [:points, :prize]
+  enum platform: [:facebook, :twitter, :linked_in]
 
   ## Validations
   validates :mechanism, :name, :link, :description, presence: true
