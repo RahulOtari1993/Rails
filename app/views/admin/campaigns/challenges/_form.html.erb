@@ -1,4 +1,6 @@
-<section id="number-tabs">
+<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+
+<section id="number-tabs" class="new_challenge_section">
   <div class="row">
     <div class="col-12">
       <div class="card">
@@ -26,27 +28,100 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="form-group">
-                      <h4>What type of challenge you would like to create for your users?</h4>
+                <div class="new_challenge_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
+                      <h3>Create a new challenge</h3>
+                      <p>What type of challenge would you like to create for your users?</p>
                     </div>
                   </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-md-3 col-12">
-                    <div class="form-group">
-                      <%= form.label :mechanism, 'Challenge type' %>
-                      <div class="position-relative">
-                        <%= form.select :mechanism,
-                                        options_for_select(Challenge::MECHANISMS.map { |v| [v.titleize, v] }.compact),
-                                        {prompt: 'Select Challenge Type'}, class: 'form-control challenge_type_id' %>
+                  <%= form.hidden_field :mechanism, value: 'share' %>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Share</h3>
+                            <p>Have your users post content of your choosing to their social networks.</p>
+                            <p class="fa_title">Create Share challenge</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="connect">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Connect</h3>
+                            <p>Grow your brands and presence by having users like, follow, subscribe and more.</p>
+                            <p class="fa_title">Create Connect challenge</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="engage">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Engage</h3>
+                            <p>Amplify existing content by having your users view, engage or interact with content.</p>
+                            <p class="fa_title">Create Engage challenge</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="collect">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Collect</h3>
+                            <p>Ask questions and gather answers and informations though quizzes ans survays.</p>
+                            <p class="fa_title">Create Collect challenge</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </fieldset>
+
+              <!--              <fieldset>-->
+              <!--                <div class="row">-->
+              <!--                  <div class="col-sm-12">-->
+              <!--                    <div class="form-group">-->
+              <!--                      <h4>What type of challenge you would like to create for your users?</h4>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="row">-->
+              <!--                  <div class="col-md-3 col-12">-->
+              <!--                    <div class="form-group">-->
+              <%#= form.label :mechanism, 'Challenge type' %>
+              <!--                      <div class="position-relative">-->
+              <%#= form.select :mechanism,
+                                        options_for_select(Challenge::MECHANISMS.map { |v| [v.titleize, v] }.compact),
+                                        {prompt: 'Select Challenge Type'}, class: 'form-control challenge_type_id' %>
+              <!--                      </div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--              </fieldset>-->
 
               <!-- Step 2 -->
               <h6>Create</h6>

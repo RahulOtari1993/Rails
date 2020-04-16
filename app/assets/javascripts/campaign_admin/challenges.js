@@ -113,4 +113,12 @@ $(document).on('turbolinks:load', function() {
       $('#challenge_points-error').remove();
     }
   })
+
+  $('.challenge-type-card').on('click', function (e) {
+    $('.challenge-type-card.active').removeClass('active');
+    $(this).addClass('active');
+
+    $('#challenge_mechanism').val($(this).data('val'));
+  })
+
 });

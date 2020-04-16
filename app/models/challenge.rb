@@ -32,7 +32,7 @@ class Challenge < ApplicationRecord
   belongs_to :campaign
 
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
-                  comment connect hashtag referal location subscribe submission play practice hr link)
+                  comment connect hashtag referal location subscribe submission play practice hr link engage collect)
 
   enum reward_type: [:points, :prize]
 
