@@ -27,6 +27,16 @@ $(document).on('turbolinks:load', function() {
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
+    ignore: function (index, el) {
+      var $el = $(el);
+
+      if ($el.hasClass('always-validate')) {
+        return false;
+      }
+
+      // Default behavior
+      return $el.is(':hidden');
+    },
     rules: {
       'challenge[mechanism]': {
         required: true

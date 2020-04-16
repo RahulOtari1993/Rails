@@ -27,7 +27,7 @@
 
               <!-- Step 1 -->
               <h6>Type</h6>
-              <fieldset>
+              <fieldset class="step-top-padding">
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -36,10 +36,11 @@
                     </div>
                   </div>
 
-                  <%= form.hidden_field :mechanism, value: 'share' %>
+                  <%= form.hidden_field :mechanism, value: 'share', class: 'always-validate', data: {error: 'mechanism-error'} %>
 
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="mechanism-error"></div>
                       <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
@@ -125,7 +126,7 @@
 
               <!-- Step 2 -->
               <h6>Create</h6>
-              <fieldset>
+              <fieldset class="step-top-padding">
                 <div class="row">
                   <div class="col-12">
                     <h4>1. SHARE CHALLENGE DETAILS</h4>
@@ -162,7 +163,7 @@
 
               <!-- Step 3 -->
               <h6>Reward</h6>
-              <fieldset>
+              <fieldset class="step-top-padding">
                 <div class="row">
                   <div class="col-12">
                     <h4>1. TYPE OF REWARD</h4>
@@ -228,7 +229,7 @@
 
               <!-- Step 4 -->
               <h6>Target</h6>
-              <fieldset>
+              <fieldset class="step-top-padding">
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
@@ -251,7 +252,7 @@
 
               <!-- Step 5 -->
               <h6>Schedule</h6>
-              <fieldset>
+              <fieldset class="step-top-padding">
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">

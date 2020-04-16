@@ -272,6 +272,14 @@
   margin-left: 10px;
 }
 
+.step-top-padding {
+  padding-top: 25px !important;
+}
+
+.mechanism-error {
+  text-align: center;
+}
+
 .new_challenge_section .card.active {
   border: 1px solid #7367F0 !important;
 }
