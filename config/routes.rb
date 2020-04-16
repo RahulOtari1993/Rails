@@ -15,6 +15,13 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations',
     }
 
+    devise_for :participants, controllers: {
+      registrations: 'participants/registrations',
+      sessions: 'participants/sessions',
+      passwords: 'participants/passwords',
+      confirmations: 'participants/confirmations',
+    }
+
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
@@ -59,5 +66,6 @@ Rails.application.routes.draw do
 
     ## Root Route
     root to: "welcome#home"
+    get '/after_sign_in', to: 'welcome#after_sign_in', as: :after_sign_in
   end
 end

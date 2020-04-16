@@ -69,44 +69,44 @@ $(document).on('turbolinks:load', function() {
       }
     }
   });
-  $('.end-user-sign-up-form').validate({
+  $('.participant-sign-up-form').validate({
     errorElement: 'span',
     rules: {
-      'user[first_name]': {
+      'participant[first_name]': {
         required: true
       },
-      'user[last_name]': {
+      'participant[last_name]': {
         required: true
       },
-      'user[email]': {
+      'participant[email]': {
         required: true,
         email: true
       },
       'email_confirmation': {
         required: true,
         email: true,
-        equalTo: "#user_email"
+        equalTo: "#participant_email"
       },
-      'user[password]': {
+      'participant[password]': {
         required: true,
         minlength: 8,
         passwordRegex: true
       },
-      'user[password_confirmation]': {
+      'participant[password_confirmation]': {
         required: true,
         minlength: 8,
         passwordRegex: true,
-        equalTo: "#user_password"
+        equalTo: "#participant_password_confirmation"
       }
     },
     messages: {
-      'user[first_name]': {
+      'participant[first_name]': {
         required: 'Please enter first name'
       },
-      'user[last_name]': {
+      'participant[last_name]': {
         required: 'Please enter last name'
       },
-      'user[email]': {
+      'participant[email]': {
         required: 'Please enter email address',
         email: 'Please enter valid email address'
       },
@@ -115,11 +115,11 @@ $(document).on('turbolinks:load', function() {
         email: 'Please enter valid email address',
         equalTo: 'Confirm email do not match'
       },
-      'user[password]': {
+      'participant[password]': {
         required: 'Please enter new password',
         minlength: 'Password is too short (minimum is 8 characters)'
       },
-      'user[password_confirmation]': {
+      'participant[password_confirmation]': {
         required: 'Please enter new confirm password',
         minlength: 'Password is too short (minimum is 8 characters)',
         equalTo: 'Confirm password do not match'

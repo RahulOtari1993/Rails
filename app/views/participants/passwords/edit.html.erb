@@ -1,0 +1,93 @@
+<%#= render "participants/shared/links" %>
+<%#= render "participants/shared/links" %>
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <section class="row flexbox-container">
+        <div class="col-xl-8 col-11 d-flex justify-content-center">
+          <div class="card bg-authentication rounded-0 mb-0">
+            <div class="row m-0">
+              <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
+                <%= image_tag('pages/login.png', class: 'img-circle') %>
+              </div>
+              <div class="col-lg-6 col-12 p-0">
+                <div class="card rounded-0 mb-0 px-2">
+                  <div class="card-header pb-1">
+                    <div class="card-title">
+                      <h4 class="mb-0">Reset Password</h4>
+                    </div>
+                  </div>
+                  <p class="px-2">Please enter your new password</p>
+                  <div class="card-content">
+                    <div class="card-body pt-1">
+                      <%= render 'shared/flash_messages' %>
+                      <%= form_for(resource, as: resource_name, url: participant_password_path, html: { method: :put }) do |f|  %>
+                        <% if @organization.present? %>
+                          <%= hidden_field_tag 'participant[organization_id]', @organization.id %>
+                        <% else %>
+                          <%= hidden_field_tag 'participant[organization_id]', 0 %>
+                        <% end %>
+
+
+                        <fieldset class="form-label-group form-group position-relative has-icon-left">
+                          <%= f.label :password, "New password" %>
+                          <%# if @minimum_password_length %>
+                            <!-- <em>(<%#= @minimum_password_length %> characters minimum)</em><br /> -->
+                          <%# end %>
+                          <div class="position-relative has-icon-left">
+                            <%= f.password_field :password, class: "form-control", placeholder: "Choose Password" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </div>
+                        </fieldset>
+
+                        <fieldset class="form-label-group form-group position-relative has-icon-left">
+                          <%= f.label :password_confirmation, "Confirm new password" %>
+                          <div class="position-relative has-icon-left">
+                            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Choose Password", autocomplete: "new-password" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-lock"></i>
+                            </div>
+                          </div>
+                        </fieldset>
+                      <%= f.hidden_field :reset_password_token %>
+                      <br /><br />
+                      <div class="row pt-2">
+                        <div class="col-12 col-md-6 mb-1">
+                          <%= link_to "Go Back to Login", new_participant_session_path, class: 'btn btn-outline-primary btn-block px-0' %>
+                        </div>
+                        <div class="col-12 col-md-6 mb-1">
+                          <%= f.submit "Reset Password", class: 'btn btn-primary btn-block px-0' %>
+                        </div>
+                      </div>
+                        <%#= f.submit "Change my password", class: 'btn btn-primary float-right btn-inline' %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="login-footer">
+                    <div class="divider">
+<!--                      <div class="divider-text">OR</div>-->
+                    </div>
+                    <div class="footer-btn d-inline">
+<!--                      <a href="#" class="btn btn-facebook"><span class="fa fa-facebook"></span></a>-->
+<!--                      <a href="#" class="btn btn-twitter white"><span class="fa fa-twitter"></span></a>-->
+<!--                      <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a>-->
+<!--                      <a href="#" class="btn btn-github"><span class="fa fa-github-alt"></span></a>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+

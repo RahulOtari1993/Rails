@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
-
     @domain = DomainList.where(domain: request.subdomain).first
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first

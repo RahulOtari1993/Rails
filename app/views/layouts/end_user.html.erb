@@ -68,8 +68,8 @@
                       <div class="wrap">
                         <div class="nav-login">
                         <!-- <img src="/osu/img/site/logged-out-logo.svg" class="logged-out-logo"> -->
-                          <a href="<%= new_user_registration_path %>" class="nav-link">Sign Up</a>
-                          <a href="#" class="nav-link"><svg viewBox="0 0 100 100" class="icon-nav-item"><use xlink:href="#svg-sign-out"></use></svg>Log In</a>
+                          <a href="<%= new_participant_registration_path %>" class="nav-link">Sign Up</a>
+                          <a href="<%= new_participant_session_path %>" class="nav-link"><svg viewBox="0 0 100 100" class="icon-nav-item"><use xlink:href="#svg-sign-out"></use></svg>Log In</a>
                         </div>
                       </div>
                     </span>
@@ -183,7 +183,7 @@
 <%= render 'modals/faq' %>
 
 <!-- Sign Up Modal-->
-<%= render 'modals/sign_up' %>
+<%#= render 'modals/sign_up' %>
 
 <footer class="page-footer">
   <div class="wrap grid spacer">

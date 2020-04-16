@@ -5,7 +5,7 @@
     </div>
     <div class="card-content">
       <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: user_registration_path, :html => {class: 'form form-vertical end-user-sign-up-form'}) do |f| %>
+        <%= form_for(resource, as: resource_name, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
           <div class="form-body">
             <div class="row">
               <div class="col-md-12 col-12">
@@ -14,8 +14,8 @@
             </div>
             <div class="row">
               <%#= f.hidden_field :role, value: 'participant' %>
-              <%= f.hidden_field :is_invited, value: false %>
-              <%= f.hidden_field :organization_id, value: 0 %>
+              <%= f.hidden_field :campaign_id, value: @campaign.id %>
+              <%= f.hidden_field :organization_id, value: @campaign.organization_id %>
 
               <div class="col-6">
                 <div class="form-group">
@@ -57,7 +57,7 @@
                 <div class="form-group">
                   <%= f.label :email, 'Confirm Email' %>
                   <div class="position-relative has-icon-left">
-                    <%= text_field_tag 'email_confirmation', nil, placeholder: 'Confirm Email Address', class: "form-control" %>
+                    <%= email_field_tag 'email_confirmation', nil, placeholder: 'Confirm Email Address', class: "form-control" %>
                     <div class="form-control-position">
                       <i class="feather icon-mail"></i>
                     </div>
