@@ -130,5 +130,40 @@ $(document).on('turbolinks:load', function() {
 
     $('#challenge_mechanism').val($(this).data('val'));
   })
+  //
+  // function readURL(input) {
+  //   console.log("Input", input.find('#file-input-fb'));
+  //
+  //   if (input.files && input.files[0]) {
+  //     var reader = new FileReader();
+  //
+  //     reader.onload = function (e) {
+  //       console.log("IN", e.target.result)
+  //       $('#facebook-img').attr('src', e.target.result);
+  //     }
+  //
+  //     reader.readAsDataURL(input.files[0]);
+  //   }
+  // }
+  //
+  // $(".image-upload").change(function(){
+  //   console.log("In Change");
+  //   readURL($(this));
+  // });
 
+
+  $('body').on('change', '.fb-image-upload', function(e){
+    console.log("HIi");
+    console.log("In Change", $('.image-upload-fb').find('#file-input-fb'));
+
+    console.log("In Change elem", $(this).find('#file-input-fb'));
+
+    // var oFReader = new FileReader();
+    // oFReader.readAsDataURL(document.getElementById("").files[0]);
+    //
+    // $('.challenge-type-card.active').removeClass('active');
+    // $(this).addClass('active');
+    //
+    // $('#challenge_mechanism').val($(this).data('val'));
+  })
 });

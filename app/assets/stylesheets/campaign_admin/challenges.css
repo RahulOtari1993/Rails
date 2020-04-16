@@ -122,6 +122,14 @@
   padding-left: 0px;
 }
 
+.Social_blocks_fb_content .text_label.edit_title {
+  float: left;
+  font-size: 1.14rem;
+  width: 90%;
+  padding-left: 0px;
+  font-weight: 500;
+}
+
 .Social_blocks_twitter .text_label, .Social_blocks_twitter input[type=text] {
   margin-left: 12px;
 }
