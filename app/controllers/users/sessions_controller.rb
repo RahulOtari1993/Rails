@@ -18,7 +18,20 @@ class Users::SessionsController < Devise::SessionsController
 
   protected
 
+  def set_organization
+    @domain = DomainList.where(domain: request.subdomain).first
+    if @domain.present?
+      @organization = Organization.where(id: @domain.organization_id).first
+      @campaign = Campaign.where(id: @domain.campaign_id).first
+    else
+      @organization = Organization.where(sub_domain: request.subdomain).first
+    end
+  end
+
   def after_sign_in_path_for(resource)
+    ## Check & Set Organization, If organization object in NIL
+    set_organization if @organization.nil?
+
     if resource.organization_admin?(@organization) #resource.is_invited?
       ## If User is Org Admin, Redirect him to Campaings Listing Page
       admin_organizations_campaigns_path
