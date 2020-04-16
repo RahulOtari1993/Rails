@@ -103,39 +103,51 @@
 
               <!-- Step 2 -->
               <h6>Create</h6>
-              <fieldset class="step-top-padding">
-                <div class="row">
-                  <div class="col-12">
-                    <h4>1. SHARE CHALLENGE DETAILS</h4>
-                  </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <%= form.label :name, 'Challenge Name' %>
-                      <span class="column-info">To be used in reporting and challenge management</span>
-                      <%= form.text_field :name, class: 'form-control', placeholder: 'Challenge Name' %>
-                    </div>
-                    <div class="form-group">
-                      <%= form.label :link, 'Link to be shared' %>
-                      <%= form.text_field :link, class: 'form-control', placeholder: 'Link to be shared' %>
-                    </div>
-
-                    <div class="form-group">
-                      <%= form.label :description, 'Add a note for your users about this challenge' %>
-                      <%= form.text_area :description, class: 'form-control', placeholder: 'Description / Note' %>
+              <fieldset>
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>1. share challenge details</h3>
                     </div>
                   </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-12">
-                    <h4>2. CHOOSE AND CUSTOMIZE FOR PLATFORMS</h4>
-                    <p>To be used in reporting and challenge management</p>
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :name, 'Challenge Name' %>
+                        <span class="column-info">To be used in reporting and challenge management</span>
+                        <%= form.text_field :name, class: 'form-control', placeholder: 'My First Challenge' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :link, 'Link to be shared' %>
+                        <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :description, 'Add a note for your users about this challenge' %>
+                        <%= form.text_area :description, class: 'form-control', placeholder: 'Share this post to supprt the festival and get your whole squad there!', rows: 4 %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+                      <h4>2. CHOOSE AND CUSTOMIZE FOR PLATFORMS</h4>
+                      <p>To be used in reporting and challenge management</p>
+                    </div>
                   </div>
                 </div>
-
+                
               </fieldset>
 
               <!-- Step 3 -->
