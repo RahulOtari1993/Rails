@@ -144,42 +144,39 @@ $(document).on('turbolinks:load', function () {
     $(this).prev(".card-head").find(".fa").removeClass("fa-minus").addClass("fa-plus");
   });
 
+  $("#file-input-fb").change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
 
-  //
-  // function readURL(input) {
-  //   console.log("Input", input.find('#file-input-fb'));
-  //
-  //   if (input.files && input.files[0]) {
-  //     var reader = new FileReader();
-  //
-  //     reader.onload = function (e) {
-  //       console.log("IN", e.target.result)
-  //       $('#facebook-img').attr('src', e.target.result);
-  //     }
-  //
-  //     reader.readAsDataURL(input.files[0]);
-  //   }
-  // }
-  //
-  // $(".image-upload").change(function(){
-  //   console.log("In Change");
-  //   readURL($(this));
-  // });
+      reader.onload = function (e) {
+        $('#show-facebook-image').attr('src', e.target.result);
+      }
 
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
 
-  $('body').on('change', '.image-upload', function (e) {
-    console.log("HIi", $(this));
-    console.log("HIi", $(this).data('file-id'));
-    // console.log("In Change", $('.image-upload-fb').find('#file-input-fb'));
-    //
-    // console.log("In Change elem", $(this).find('#file-input-fb'));
+  $("#file-input-twitter").change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
 
-    // var oFReader = new FileReader();
-    // oFReader.readAsDataURL(document.getElementById("").files[0]);
-    //
-    // $('.challenge-type-card.active').removeClass('active');
-    // $(this).addClass('active');
-    //
-    // $('#challenge_mechanism').val($(this).data('val'));
-  })
+      reader.onload = function (e) {
+        $('#show-twitter-image').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
+  $("#file-input-linkedin").change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#show-linkedin-image').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
 });

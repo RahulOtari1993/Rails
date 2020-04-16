@@ -90,6 +90,7 @@
 .Social_blocks_fb_content_box img {
   min-width: 100%;
   min-height: 200px;
+  width: 100%;
   background-color: #ccc;
 }
 
