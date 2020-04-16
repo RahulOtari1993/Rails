@@ -131,19 +131,6 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_mechanism').val($(this).data('val'));
   })
 
-
-  // Add minus icon for collapse element which is open by default
-  $(".collapse.show").each(function () {
-    $(this).prev(".card-head").find(".fa").addClass("fa-minus").removeClass("fa-plus");
-  });
-
-  // Toggle plus minus icon on show hide of collapse element
-  $(".collapse").on('show.bs.collapse', function () {
-    $(this).prev(".card-head").find(".fa").removeClass("fa-plus").addClass("fa-minus");
-  }).on('hide.bs.collapse', function () {
-    $(this).prev(".card-head").find(".fa").removeClass("fa-minus").addClass("fa-plus");
-  });
-
   $("#file-input-fb").change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
@@ -179,4 +166,30 @@ $(document).on('turbolinks:load', function () {
       reader.readAsDataURL(this.files[0]);
     }
   });
+
+  // Add minus icon for collapse element which is open by default
+  $(".collapse.show").each(function () {
+    console.log("INN", $(this))
+    $(this).prev(".card-head").find(".fa").addClass("fa-minus").removeClass("fa-plus");
+  });
+
+  // Toggle plus minus icon on show hide of collapse element
+  $(".collapse").on('show.bs.collapse', function () {
+
+    $(this).prev(".card-head").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+  }).on('hide.bs.collapse', function () {
+    $(this).prev(".card-head").find(".fa").removeClass("fa-minus").addClass("fa-plus");
+  });
+
+  // Keep One Social Blog Open All the Time
+  $('[data-toggle="collapse"]').on('click',function(e){
+    if ( $(this).parents('.accordion').find('.collapse.show') ){
+      var idx = $(this).index('[data-toggle="collapse"]');
+      if (idx == $('.collapse.show').index('.collapse')) {
+        // prevent collapse
+        e.stopPropagation();
+      }
+    }
+  });
+
 });

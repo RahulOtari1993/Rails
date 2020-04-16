@@ -34,7 +34,7 @@
 //= require vendors/tables/datatable/dataTables.select.min.js
 //= require vendors/forms/select/select2.full.min.js
 //= require vendors/forms/select/form-select2.js
-// require libraries/easy-editable-text
+//= require libraries/easy-editable-text
 
 //= require libraries/scripts/ui/data-list-view.js
 // require libraries/scripts/pickers/dateTime/pick-a-datetime.min
