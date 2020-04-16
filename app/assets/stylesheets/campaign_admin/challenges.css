@@ -280,12 +280,15 @@
   text-align: center;
 }
 
+.social-heading-details {
+  margin-left: -90px;
+}
+
 .new_challenge_section .card.active {
   border: 1px solid #7367F0 !important;
 }
 
 @media screen and (max-width: 768px) {
-
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;
   }
@@ -294,10 +297,18 @@
     width: 85%;
   }
 
+  .social-heading-details {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .social-heading-details {
+    margin-left: 0px;
+  }
 }
 
 @media screen and (max-width: 414px) {
-
   .app-content .wizard > .content > .body {
     padding: 0 0px;
   }
@@ -364,4 +375,7 @@
     /* font-size: 1.1rem; */
   }
 
+  .social-heading-details {
+    margin-left: 0px;
+  }
 }
