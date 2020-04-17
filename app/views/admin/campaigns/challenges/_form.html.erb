@@ -42,10 +42,6 @@
                         <div class="table-responsive">
                           <table class="table table-striped mb-0 tbl-user-segments">
                             <tbody class="campaign-user-segments-container">
-                            <%#= form.fields_for :challenge_filters, @challenge.challenge_filters.new do |r_f| %>
-                            <%#= render 'segment_fields', r_f: r_f %>
-                            <%# end %>
-
                             </tbody>
                           </table>
                         </div>
@@ -550,58 +546,7 @@
 </section>
 
 <script id="challenge-user-segments-template" type="text/x-custom-template">
-  <tr id="filter_condition_1" style="border-bottom: 1px solid #414561; padding: 0px 5px;">
-    <td scope="row" width="5%" class="remove-btn-align" style="padding-left: 15px !important;">
-      <a class="remove-challenge-segment" href="javascript:void(0);">
-        <i class="feather icon-minus-circle"></i>
-      </a>
-    </td>
-    <td width="30%">
-      <%= select_tag "challenge[challenge_filters][][challenge_event]",
-                     options_for_select(ChallengeFilter::EVENTS.map { |val| [val.humanize, val] }, ChallengeFilter::AGE_CONDITIONS.first),
-                     class: 'form-control',
-                     required: true %>
-    </td>
-    <td width="30%">
-      <%= select_tag "challenge[challenge_filters][][challenge_condition]",
-                     options_for_select(ChallengeFilter::AGE_CONDITIONS.map { |val| [val.humanize, val] }),
-                     class: 'form-control',
-                     prompt: 'Select Condition',
-                     required: true %>
-
-      <%= select_tag "challenge[challenge_filters][][challenge_condition]",
-                     options_for_select([['Has', 'has'], ['Not', 'not']]),
-                     class: 'form-control hide',
-                     prompt: 'Select Event', style: 'display:none;',
-                     required: true %>
-
-      <%= select_tag "challenge[challenge_filters][][challenge_condition]",
-                     options_for_select([['Is', 'is'], ['Not', 'not']]),
-                     class: 'form-control hide',
-                     prompt: 'Select Event', style: 'display:none;',
-                     required: true %>
-    </td>
-    <td width="30%">
-      <%= text_field_tag 'challenge[challenge_filters][][challenge_value]', nil, class: 'form-control', placeholder: 'Enter Age' %>
-      <%= select_tag "challenge[challenge_filters][][challenge_value]",
-                     options_for_select(@campaign.rewards.all),
-                     class: 'form-control hide',
-                     prompt: 'Select Event', style: 'display:none;',
-                     required: true %>
-
-      <%= select_tag "challenge[challenge_filters][][challenge_value]",
-                     options_for_select(ChallengeFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] }),
-                     class: 'form-control hide',
-                     prompt: 'Select Event', style: 'display:none;',
-                     required: true %>
-
-      <%= select_tag "challenge[challenge_filters][][challenge_value]",
-                     options_for_select(["Male", "female"]),
-                     class: 'form-control hide',
-                     prompt: 'Select Event', style: 'display:none;',
-                     required: true %>
-    </td>
-  </tr>
+  <%= render 'segment_fields' %>
 </script>
 
 <style>

@@ -71,7 +71,7 @@ $(document).on('turbolinks:load', function () {
     imageName = getSocialImageName()
 
     var validImageTypes = ['gif', 'jpeg', 'jpg', 'png'];
-    if ($.inArray(imageName.substr((imageName.lastIndexOf('.') +1)), validImageTypes) < 0) {
+    if ($.inArray(imageName.substr((imageName.lastIndexOf('.') + 1)), validImageTypes) < 0) {
       return false;
     }
 
@@ -287,8 +287,8 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Keep One Social Blog Open All the Time
-  $('[data-toggle="collapse"]').on('click',function(e){
-    if ( $(this).parents('.accordion').find('.collapse.show') ){
+  $('[data-toggle="collapse"]').on('click', function (e) {
+    if ($(this).parents('.accordion').find('.collapse.show')) {
       var idx = $(this).index('[data-toggle="collapse"]');
 
       if (idx == 0) {
@@ -318,19 +318,35 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $('#challenge_description').keyup(function(){
+  $('#challenge_description').keyup(function () {
     $('.user-comment-section').html($(this).val());
   });
 
   // Add User Segment of Challenges Module
-  $('.add-challenge-user-segment').on('click',function(e){
+  $('.add-challenge-user-segment').on('click', function (e) {
     let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
     $('.campaign-user-segments-container').append(challengeUserSegmentsTemplate);
   });
 
   // Remove User Segment of Challenges Module
-  $('body').on('click', '.remove-challenge-segment', function(e){
+  $('body').on('click', '.remove-challenge-segment', function (e) {
     $(this).parent().parent().remove();
+  });
+
+  // Challenge Event Change Event
+  $('body').on('change', '.challenge-event-dd', function (e) {
+    var tableRow = $(this).parent().parent();
+
+    // Hide All the Segmet Condition & Value Fields
+    tableRow.find('.segment-conditions-container select').hide();
+    tableRow.find('.segment-values-container select').hide();
+    tableRow.find('.segment-values-container input').hide();
+
+    // Display Segment Condition Drop Downs
+    tableRow.find('.segment-conditions-' + $(this).val()).show();
+
+    // Display Segment Values Inputs / Drop Downs
+    tableRow.find('.segment-value-' + $(this).val()).show();
   });
 
 });
