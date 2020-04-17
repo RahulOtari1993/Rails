@@ -101,6 +101,30 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter social title');
 
+  // Social Blog Desctiption Validator
+  $.validator.addMethod('socialDesctiption', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'facebook') {
+      socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
+    } else if ($('#challenge_platform').val() == 'twitter') {
+      socialDescription = $("#twitterBlogBody input[name='challenge[social_description]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      socialDescription = $("#linkedinBlogBody input[name='challenge[social_description]']").val();
+    }
+
+    if (socialDescription == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please enter social description');
+
   $('.challenge-wizard').validate({
     errorElement: 'span',
     ignore: function (index, el) {
@@ -141,9 +165,9 @@ $(document).on('turbolinks:load', function () {
       'challenge[social_title]': {
         socialTitle: true
       },
-      // 'challenge[social_description]': {
-      //   required: true
-      // }
+      'challenge[social_description]': {
+        socialDesctiption: true
+      }
     },
     messages: {
       'challenge[mechanism]': {
