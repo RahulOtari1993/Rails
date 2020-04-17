@@ -42,6 +42,9 @@ class Challenge < ApplicationRecord
   enum reward_type: [:points, :prize]
   enum platform: [:facebook, :twitter, :linked_in]
 
+  ## Mount Uploader for File Upload
+  mount_uploader :image, ImageUploader
+
   ## Validations
   validates :mechanism, :name, :link, :description, presence: true
   validate :reward_existence
