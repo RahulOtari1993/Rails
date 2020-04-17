@@ -309,4 +309,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  $("#challenge_description").keyup(function(){
+    $('.user-comment-section').html($(this).val());
+  });
 });
