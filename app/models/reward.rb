@@ -34,6 +34,9 @@ class Reward < ApplicationRecord
   has_many :users, through: :reward_users
   has_many :coupons, :dependent => :delete_all
 
+  serialize :image
+  validates :image, presence: true
+
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
 
 

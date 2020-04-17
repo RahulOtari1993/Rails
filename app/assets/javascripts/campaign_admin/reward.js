@@ -12,6 +12,14 @@ $(document).ready(function () {
     }
   })
 
+  // Add segment
+  $('#add_segment').on('click', function (e) {
+    e.preventDefault();
+    var size = null
+    size = $('#filter_conditions >tbody >tr').length + 1
+    $('.segment_table tbody').append('<tr id= filter_condition_' + size + '>' + $('#filter_condition_1').html() +'</tr>')
+  })
+
   //hide row in reward new and delete/hide row/reward_filter in edit page
   $('body').on('click', '.hide_row', function(e){
       e.preventDefault();  
@@ -29,17 +37,7 @@ $(document).ready(function () {
       }
     })
 
-  // Add segment
-  $('#add_segment').on('click', function (e) {
-    e.preventDefault();
-    var size = null
-    var element = null
-    size = $('#filter_conditions >tbody >tr').length + 1
-    element = $('#filter_condition_1').clone();
-    element.attr('id', 'filter_condition_' + size);
-    $('.segment_table tbody').append(element);
-    element.show();
-  })
+  
 
   //Submit form onclick skipping all input fields which are disabled
   $('.reward_form').on('click', function () {
@@ -60,7 +58,7 @@ $(document).ready(function () {
       }
     }
     for (var i = 0; i < rows.length; i++) {
-      if ($('tr').style.display == 'none') {
+      if (rows[i].style.display == 'none') {
         $formInputs = $(this).find('input')
         $formSelects = $(this).find('select')
 

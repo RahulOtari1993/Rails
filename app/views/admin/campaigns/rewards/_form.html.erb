@@ -207,43 +207,8 @@
                                 </thead>
                                 <tbody>
                                 <%= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
-                                  <tr id="filter_condition_1">
-                                    <th scope="row">
-                                      <%= link_to '#', class: "hide_row" do %>
-                                        <i class="feather icon-minus-circle"></i>
-                                      <% end %>
-                                    </th>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name: "reward[reward_filters_attributes][][reward_event]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                        <%= r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                        <%= r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.text_field :reward_value, class: " reward_value form-control", name: "reward[reward_filters_attributes][][reward_value]"
-                                        %>
-                                        <%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(@campaign.rewards, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                  <%= render 'segment_fields', r_f: r_f
+                                  %>
                                 <% end %>
                                 </tbody>
                               </table>

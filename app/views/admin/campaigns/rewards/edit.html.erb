@@ -219,40 +219,50 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%= f.fields_for :reward_filters, @reward.reward_filters.present? ? @reward.reward_filters : @reward.reward_filters.new, :wrapper => false do |r_r_f| %>
+                                <%= f.fields_for :reward_filters, @reward.reward_filters.present? ? @reward.reward_filters : @reward.reward_filters.new, :wrapper => false do |r_f| %>
                                   <tr id="filter_condition_1">
                                     <th scope="row">
-                                      <%= link_to '#', class: "hide_row", reward_filter_id: r_r_f.object.id do %>
+                                      <%= link_to '#', class: "hide_row", reward_filter_id: r_f.object.id do %>
                                         <i class="feather icon-minus-circle"></i>
                                       <% end %></th>
                                     <td>
                                       <div class="form-group">
-                                        <%= r_r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_r_f.object.reward_event), {}, {class: "reward_event select2 form-control"})
-                                        %>
+                                          <%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control"})
+                                          %>
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-group">
-                                        <%= r_r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control"})
+                                        <% if ["Has", "Not"].include?(r_f.object.reward_condition) %>
+                                        <%= r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control"})
                                         %>
-                                        <%= r_r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control"})
-                                        %>
-                                        <%= r_r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control"})
-                                        %>
+                                        <% elsif ["Is", "Not"].include?(r_f.object.reward_condition) %>
+                                          <%= r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control"})
+                                          %>
+                                        <% else %>
+                                          <%= r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control"})
+                                          %>
+                                        <% end %>
                                       </div>
                                     </td>
                                     <td>
                                       <div class="form-group">
-                                        <%= r_r_f.text_field :reward_value, class: " reward_value form-control"
+                                        <% if @campaign.rewards.pluck(:name).include?(r_f.object.reward_value) %>
+                                        <%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control"})
                                         %>
-                                        <%= r_r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control"})
+                                        <% elsif @campaign.challenges.pluck(:name).include?(r_f.object.challenge) %>
+                                        <%= r_f.select(:reward_value, options_for_select(@campaign.challenges, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control"})
                                         %>
-                                        <%= r_r_f.select(:reward_value, options_for_select(@campaign.rewards, :selected => r_r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control"})
+                                        <% elsif RewardFilter::SOCIAL_PLATFORMS.include?(r_f.object.reward_value) %>
+                                        <%= r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control"})
                                         %>
-                                        <%= r_r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control"})
+                                        <% elsif ["Male", "female", "Unknown"].include?(r_f.object.reward_value) %>
+                                        <%= r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control"})
                                         %>
-                                        <%= r_r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control"})
-                                        %>
+                                        <% else %>
+                                          <%= r_f.text_field :reward_value, class: " reward_value form-control"
+                                          %>
+                                        <% end %>
                                       </div>
                                     </td>
                                   </tr>
