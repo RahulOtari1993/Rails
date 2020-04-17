@@ -28,6 +28,53 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset class="step-top-padding" data-step-id="1">
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>USER SEGMENTS</h3>
+                      <hr style="margin-bottom: 0px !important;">
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <div class="table-responsive">
+                          <table class="table table-striped mb-0 tbl-user-segments">
+                            <tbody class="campaign-user-segments-container">
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <br>
+                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                          <span>
+                            <i class="feather icon-plus"></i> Add Segment
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :link, 'Link to be shared' %>
+                        <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :description, 'Add a note for your users about this challenge' %>
+                        <%= form.text_area :description, class: 'form-control', placeholder: 'Share this post to supprt the festival and get your whole squad there!', rows: 4 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -201,7 +248,8 @@
                                           <div class="clear"></div>
 
                                           <label class="text_label">
-                                            <p class="user-comment-section">We've made it easy for you to win exclusive prizes just by sharing the
+                                            <p class="user-comment-section">We've made it easy for you to win exclusive
+                                              prizes just by sharing the
                                               love about LIB.</p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
@@ -496,6 +544,10 @@
     </div>
   </div>
 </section>
+
+<script id="challenge-user-segments-template" type="text/x-custom-template">
+  <%= render 'segment_fields' %>
+</script>
 
 <style>
   .nav-pills-bottom {
