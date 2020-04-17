@@ -27,12 +27,15 @@ $(document).on('turbolinks:load', function () {
 
   // Get Social Image Dynamically
   function getSocialImageName() {
+
     if ($('#challenge_platform').val() == 'facebook') {
       imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
       imageName = $("#twitterBlogBody input[name='challenge[image]']").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
       imageName = $("#linkedinBlogBody input[name='challenge[image]']").val();
+    } else {
+      imageName = ''
     }
 
     return imageName;
@@ -88,10 +91,13 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
+
     if ($('#challenge_platform').val() == 'facebook') {
       socialTitle = $("#facebookBlockBody input[name='challenge[social_title]']").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
       socialTitle = $("#linkedinBlogBody input[name='challenge[social_title]']").val();
+    } else {
+      socialTitle = ''
     }
 
     if (socialTitle == "") {
@@ -110,12 +116,15 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
+
     if ($('#challenge_platform').val() == 'facebook') {
       socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
       socialDescription = $("#twitterBlogBody input[name='challenge[social_description]']").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
       socialDescription = $("#linkedinBlogBody input[name='challenge[social_description]']").val();
+    } else {
+      socialDescription = ''
     }
 
     if (socialDescription == "") {
