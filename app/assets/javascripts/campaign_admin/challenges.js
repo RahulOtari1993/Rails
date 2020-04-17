@@ -25,6 +25,55 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  function getSocialImageName() {
+    if ($('#challenge_platform').val() == 'facebook') {
+      imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
+    } else if ($('#challenge_platform').val() == 'twitter') {
+      imageName = $("#twitterBlogBody input[name='challenge[image]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      imageName = $("#linkedinBlogBody input[name='challenge[image]']").val();
+    }
+
+    return imageName;
+  }
+
+  // Social Blog Image Validator
+  $.validator.addMethod('socialImageExistance', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true
+    }
+
+    imageName = getSocialImageName()
+
+    if (imageName == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please select social image');
+
+  // Social Blog Image Extension Validator
+  $.validator.addMethod('socialImageExtension', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true
+    }
+
+    imageName = getSocialImageName()
+
+    var validImageTypes = ['gif', 'jpeg', 'jpg'];
+    if ($.inArray(imageName.substr((imageName.lastIndexOf('.') +1)), validImageTypes) < 0) {
+      return false;
+    }
+
+    return true;
+  }, 'Please select valid image');
+
   $('.challenge-wizard').validate({
     errorElement: 'span',
     ignore: function (index, el) {
@@ -58,10 +107,14 @@ $(document).on('turbolinks:load', function () {
       'challenge[reward_id]': {
         required: true
       },
-      // 'hk_s4_2': {
+      'challenge[image]': {
+        socialImageExistance: true,
+        socialImageExtension: true
+      },
+      // 'challenge[social_title]': {
       //   required: true
       // },
-      // 'hk_s5_1': {
+      // 'challenge[social_description]': {
       //   required: true
       // }
     },
@@ -86,11 +139,14 @@ $(document).on('turbolinks:load', function () {
       'challenge[reward_id]': {
         required: 'Please enter first name'
       },
-      // 'hk_s4_2': {
-      //   required: 'Please enter last name'
+      'challenge[image]': {
+        required: 'Please select social image'
+      },
+      // 'challenge[social_title]': {
+      //   required: 'Please enter social title'
       // },
-      // 'hk_s5_1': {
-      //   required: 'Please enter email address'
+      // 'challenge[social_description]': {
+      //   required: 'Please enter social description'
       // }
     },
     errorPlacement: function (error, element) {
@@ -169,7 +225,6 @@ $(document).on('turbolinks:load', function () {
 
   // Add minus icon for collapse element which is open by default
   $(".collapse.show").each(function () {
-    console.log("INN", $(this))
     $(this).prev(".card-head").find(".fa").addClass("fa-minus").removeClass("fa-plus");
   });
 
@@ -202,7 +257,7 @@ $(document).on('turbolinks:load', function () {
         $('#challenge_platform').val('linked_in');
         $("#linkedinBlogBody :input").attr("disabled", false);
         $("#facebookBlogBody :input").attr("disabled", true);
-        ("#twitterBlogBody :input").attr("disabled", true);
+        $("#twitterBlogBody :input").attr("disabled", true);
       }
 
       if (idx == $('.collapse.show').index('.collapse')) {
