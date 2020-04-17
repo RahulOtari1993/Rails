@@ -318,12 +318,19 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $("#challenge_description").keyup(function(){
+  $('#challenge_description').keyup(function(){
     $('.user-comment-section').html($(this).val());
   });
 
+  // Add User Segment of Challenges Module
   $('.add-challenge-user-segment').on('click',function(e){
     let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
     $('.campaign-user-segments-container').append(challengeUserSegmentsTemplate);
   });
+
+  // Remove User Segment of Challenges Module
+  $('body').on('click', '.remove-challenge-segment', function(e){
+    $(this).parent().parent().remove();
+  });
+
 });
