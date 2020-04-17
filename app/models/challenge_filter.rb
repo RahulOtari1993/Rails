@@ -16,9 +16,9 @@ class ChallengeFilter < ApplicationRecord
   belongs_to :challenge
 
   ## Constants
-  EVENTS = %w(Age Tags Gender Points Rewards Platforms)
-  AGE_CONDITIONS = %w(Equals Greater\ Than Less\ Than Greater\ Than\ or\ Equal Less\ Than\ or\ Equal)
-  SOCIAL_PLATFORMS = %w(Facebook Twitter Google+ Instagram Youtube)
+  EVENTS = %w(age tags gender points rewards platforms)
+  AGE_CONDITIONS = %w(equals greater_than less_than greater_than_or_equal less_than_or_Equal)
+  SOCIAL_PLATFORMS = %w(facebook twitter google instagram youtube)
 
   ## Validations
   validates :challenge_event, :challenge_condition, :challenge_value, presence: true

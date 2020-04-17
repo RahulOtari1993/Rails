@@ -321,4 +321,9 @@ $(document).on('turbolinks:load', function () {
   $("#challenge_description").keyup(function(){
     $('.user-comment-section').html($(this).val());
   });
+
+  $('.add-challenge-user-segment').on('click',function(e){
+    let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
+    $('.campaign-user-segments-container').append(challengeUserSegmentsTemplate);
+  });
 });

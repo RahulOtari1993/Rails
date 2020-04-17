@@ -1,227 +1,227 @@
 .Social_blocks {
-    /*background-color: #10163A;
-    color: #f5f5f5;*/
-    /* margin: 20px;*/
+  /*background-color: #10163A;
+  color: #f5f5f5;*/
+  /* margin: 20px;*/
 }
 
 .accordion .fa {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 #number-tabs h3 {
-    text-transform: uppercase;
-    font-size: 1.32rem;
+  text-transform: uppercase;
+  font-size: 1.32rem;
 }
 
 #number-tabs .card-title {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .Social_blocks p {
-    color: #333;
-    margin-bottom: 7px;
+  color: #333;
+  margin-bottom: 7px;
 }
 
 .Social_blocks .btn-link {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .Social_blocks .btn-link:hover {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .Social_blocks_container {
-    border-radius: 3px;
-    margin-left: 30px;
+  border-radius: 3px;
+  margin-left: 30px;
 }
 
 .Social_blocks_fb {
-    border: 1px solid #3b5998;
+  border: 1px solid #3b5998;
 }
 
 .Social_blocks_twitter {
-    border: 1px solid #00acee;
+  border: 1px solid #00acee;
 }
 
 .Social_blocks_LinkedIn {
-    border: 1px solid #0072b1;
+  border: 1px solid #0072b1;
 }
 
 .Social_blocks_fb_title {
-    background-color: #3b5998;
-    padding: 6px 10px;
+  background-color: #3b5998;
+  padding: 6px 10px;
 }
 
 .Social_blocks_twitter_title {
-    background-color: #00acee;
-    padding: 6px 10px;
+  background-color: #00acee;
+  padding: 6px 10px;
 }
 
 .Social_blocks_LinkedIn_title {
-    background-color: #0072b1;
-    padding: 6px 10px;
+  background-color: #0072b1;
+  padding: 6px 10px;
 }
 
 .Social_blocks_LinkedIn .Social_blocks_fb_content_box {
-    margin-left: 12px;
-    margin-top: 20px;
+  margin-left: 12px;
+  margin-top: 20px;
 }
 
 .Social_blocks_LinkedIn .user_name_box .Social_blocks_fb_content_box p {
-    padding-left: 0px;
+  padding-left: 0px;
 }
 
 .Social_blocks_fb_title h5, .Social_blocks_twitter_title h5 {
-    color: #fff;
-    font-size: 15px;
-    margin: 0px;
+  color: #fff;
+  font-size: 15px;
+  margin: 0px;
 }
 
 .Social_blocks_fb_content {
-    padding: 15px;
+  padding: 15px;
 }
 
 .Social_blocks_fb_content_box {
-    border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .Social_blocks_fb_content_box img {
-    min-width: 100%;
-    min-height: 200px;
-    width: 100%;
-    background-color: #ccc;
+  min-width: 100%;
+  min-height: 200px;
+  width: 100%;
+  background-color: #ccc;
 }
 
 .editable_box {
-    padding: 8px 10px 8px 10px;
+  padding: 8px 10px 8px 10px;
 }
 
 .Social_blocks_fb_content h5, .Social_blocks_fb_content p {
-    /*margin: 0px*/
+  /*margin: 0px*/
 }
 
 .Social_blocks_fb_content input[type=text] {
-    display: none;
-    border: none;
-    box-shadow: none;
-    width: 90%;
+  display: none;
+  border: none;
+  box-shadow: none;
+  width: 90%;
 }
 
 .Social_blocks_fb_content input[type=text]:focus {
-    border: 1px solid #ccc;
-    padding-left: 7px;
-    box-shadow: none;
-    outline: none;
+  border: 1px solid #ccc;
+  padding-left: 7px;
+  box-shadow: none;
+  outline: none;
 }
 
 .Social_blocks_fb_content .text_label {
-    float: left;
-    font-size: 1rem;
-    width: 90%;
-    padding-left: 0px;
+  float: left;
+  font-size: 1rem;
+  width: 90%;
+  padding-left: 0px;
 }
 
 .Social_blocks_fb_content .text_label.edit_title {
-    float: left;
-    font-size: 1.14rem;
-    width: 90%;
-    padding-left: 0px;
-    font-weight: 500;
+  float: left;
+  font-size: 1.14rem;
+  width: 90%;
+  padding-left: 0px;
+  font-weight: 500;
 }
 
 .Social_blocks_twitter .text_label, .Social_blocks_twitter input[type=text] {
-    margin-left: 12px;
+  margin-left: 12px;
 }
 
 .Social_blocks_twitter .text_label p {
-    padding-left: 0px;
+  padding-left: 0px;
 }
 
 .Social_blocks_fb_content a {
-    color: #ccc;
+  color: #ccc;
 }
 
 .Social_blocks_fb_content .edit {
-    float: right;
+  float: right;
 }
 
 .Social_blocks_fb_content .edit .fa-pencil {
-    color: #ccc;
-    font-size: 16px;
+  color: #ccc;
+  font-size: 16px;
 }
 
 .clear {
-    clear: both;
+  clear: both;
 }
 
 .user_pic_box {
-    width: 100%;
-    height: auto;
-    display: inline-block;
-    margin-bottom: 3px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  margin-bottom: 3px;
 }
 
 .user_pic_box .user_pic {
-    float: left;
-    min-width: 40px;
-    min-height: 40px;
-    background-color: #ccc;
+  float: left;
+  min-width: 40px;
+  min-height: 40px;
+  background-color: #ccc;
 
 }
 
 .user_pic_box .user_name_box {
-    float: left;
-    width: 90%;
+  float: left;
+  width: 90%;
 }
 
 .user_name_box p {
-    margin-bottom: 0px;
-    padding-left: 12px;
+  margin-bottom: 0px;
+  padding-left: 12px;
 }
 
 .user_name_box p span {
-    /*color: #7367F0;*/
-    color: #fff;
-    display: inline-block;
+  /*color: #7367F0;*/
+  color: #fff;
+  display: inline-block;
 }
 
 .Social_blocks_twitter_link {
-    color: #00acee !important;
-    display: inline-block;
+  color: #00acee !important;
+  display: inline-block;
 }
 
 
 .Social_blocks_fb_content_box {
-    position: relative;
+  position: relative;
 }
 
 .Social_blocks_fb_content_box .image-upload input[type=file] {
-    display: none !important;
+  display: none !important;
 }
 
 .Social_blocks_fb_content_box .fa-upload {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    margin-right: 0px;
-    font-size: 13px;
-    color: #ccc;
-    background: #333;
-    padding: 5px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  margin-right: 0px;
+  font-size: 13px;
+  color: #ccc;
+  background: #333;
+  padding: 5px;
 }
 
 .Social_blocks_fb_content_box .image-upload {
-    height: 0px;
+  height: 0px;
 }
 
 .step_point_box {
-    margin: 10px 0px;
+  margin: 10px 0px;
 }
 
 .Social_blocks .card-head .fa {
-    width: 14px;
+  width: 14px;
 }
 
 /*.Social_blocks .card-head .fa-facebook {*/
@@ -237,163 +237,163 @@
 /*}*/
 
 .new_challenge_box h3 {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .new_challenge_section .card {
-    border: 1px solid rgba(233, 236, 238, 0.125) !important;
-    border-radius: 0.5rem !important;
+  border: 1px solid rgba(233, 236, 238, 0.125) !important;
+  border-radius: 0.5rem !important;
 }
 
 .new_challenge_box .card_box {
-    width: 100%;
+  width: 100%;
 }
 
 .new_challenge_box .card_box .left_box {
-    width: 60px;
-    float: left;
+  width: 60px;
+  float: left;
 }
 
 .new_challenge_box .card_box .left_box .fa {
-    font-size: 45px;
+  font-size: 45px;
 }
 
 .new_challenge_box .card_box .right_box {
-    width: 88%;
-    float: right;
+  width: 88%;
+  float: right;
 }
 
 .new_challenge_box .card_box .right_box .fa_title {
-    float: left;
+  float: left;
 }
 
 .new_challenge_box .card_box .right_box span {
-    float: right;
-    /*font-size: 1.1rem;*/
+  float: right;
+  /*font-size: 1.1rem;*/
 }
 
 .new_challenge_box .card_box .right_box p {
-    /*font-size: 1.1rem;*/
+  /*font-size: 1.1rem;*/
 }
 
 .new_challenge_box .card_box .right_box .fa {
-    width: 14px;
-    margin-left: 10px;
+  width: 14px;
+  margin-left: 10px;
 }
 
 .step-top-padding {
-    padding-top: 25px !important;
+  padding-top: 25px !important;
 }
 
 .mechanism-error {
-    text-align: center;
+  text-align: center;
 }
 
 .social-heading-details {
-    margin-left: -90px;
+  margin-left: -90px;
 }
 
 .new_challenge_section .card.active {
-    border: 1px solid #7367F0 !important;
+  border: 1px solid #7367F0 !important;
 }
 
-.tbl-user-segments td {
-    padding: 0px 5px !important;
+.tbl-user-segments {
+  background-color: #0f163a !important;
 }
 
 .remove-btn-align {
-    font-size: 22px;
-    padding-top: 0px !important;
+  font-size: 22px;
+  padding-top: 15px !important;
 }
 
 @media screen and (max-width: 768px) {
-    .new_challenge_box .card_box .left_box .fa {
-        font-size: 40px;
-    }
+  .new_challenge_box .card_box .left_box .fa {
+    font-size: 40px;
+  }
 
-    .new_challenge_box .card_box .right_box {
-        width: 85%;
-    }
+  .new_challenge_box .card_box .right_box {
+    width: 85%;
+  }
 
-    .social-heading-details {
-        margin-left: 0px;
-    }
+  .social-heading-details {
+    margin-left: 0px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
-    .social-heading-details {
-        margin-left: 0px;
-    }
+  .social-heading-details {
+    margin-left: 0px;
+  }
 }
 
 @media screen and (max-width: 414px) {
-    .app-content .wizard > .content > .body {
-        padding: 0 0px;
-    }
+  .app-content .wizard > .content > .body {
+    padding: 0 0px;
+  }
 
-    .app-content .wizard > .actions {
-        padding: 20px 0px;
-    }
+  .app-content .wizard > .actions {
+    padding: 20px 0px;
+  }
 
-    .Social_blocks .btn-link {
-        color: #fff;
-        text-decoration: none;
-        padding: 10px 0px;
-    }
+  .Social_blocks .btn-link {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 0px;
+  }
 
-    .Social_blocks_container {
-        margin-left: 0px;
-    }
+  .Social_blocks_container {
+    margin-left: 0px;
+  }
 
-    .Social_blocks .card-body {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1 1 auto;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
-        padding: 1.5rem 0px;
-    }
+  .Social_blocks .card-body {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.5rem 0px;
+  }
 
-    .user_pic_box .user_name_box {
-        float: left;
-        width: 80%;
-    }
+  .user_pic_box .user_name_box {
+    float: left;
+    width: 80%;
+  }
 
-    .Social_blocks_twitter .Social_blocks_fb_content .edit {
-        margin-right: -20px;
-    }
+  .Social_blocks_twitter .Social_blocks_fb_content .edit {
+    margin-right: -20px;
+  }
 
-    .Social_blocks_LinkedIn .Social_blocks_fb_content .edit {
-        float: right;
-        margin-right: -10px;
-    }
+  .Social_blocks_LinkedIn .Social_blocks_fb_content .edit {
+    float: right;
+    margin-right: -10px;
+  }
 
-    .Social_blocks_fb_content {
-        padding: 8px;
-    }
+  .Social_blocks_fb_content {
+    padding: 8px;
+  }
 
 
-    .new_challenge_box .card_box .left_box .fa {
-        font-size: 30px;
-    }
+  .new_challenge_box .card_box .left_box .fa {
+    font-size: 30px;
+  }
 
-    .new_challenge_box .card_box {
-        padding: 12px;
-    }
+  .new_challenge_box .card_box {
+    padding: 12px;
+  }
 
-    .new_challenge_box .card_box .left_box {
-        width: 40px;
-    }
+  .new_challenge_box .card_box .left_box {
+    width: 40px;
+  }
 
-    .new_challenge_box .card_box .right_box {
-        width: 82%;
-    }
+  .new_challenge_box .card_box .right_box {
+    width: 82%;
+  }
 
-    .new_challenge_box .card_box .right_box span {
-        float: left;
-        /* font-size: 1.1rem; */
-    }
+  .new_challenge_box .card_box .right_box span {
+    float: left;
+    /* font-size: 1.1rem; */
+  }
 
-    .social-heading-details {
-        margin-left: 0px;
-    }
+  .social-heading-details {
+    margin-left: 0px;
+  }
 }
