@@ -27,7 +27,6 @@ $(document).on('turbolinks:load', function () {
 
   // Get Social Image Dynamically
   function getSocialImageName() {
-
     if ($('#challenge_platform').val() == 'facebook') {
       imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
@@ -39,6 +38,93 @@ $(document).on('turbolinks:load', function () {
     }
 
     return imageName;
+  }
+
+  // Replace ID of Newly Added Fields of User Segment
+  function replaceFieldIds(stringDetails, phaseCounter) {
+    stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
+    return stringDetails;
+  }
+
+  // Adds Validation for New Added User Segment Fields
+  function addValidations(phaseCounter) {
+    console.log("IN addValidations");
+
+    // // Segment Conditions Drop Down Require Validation
+    // $('#segment-conditions-dd-'+ phaseCounter).each(function() {
+    //   console.log("IN CONDITIONS", '#segment-conditions-dd-'+ phaseCounter);
+    //
+    //   $(this).rules("add",        {
+    //     required: true,
+    //     messages: {
+    //       required: "Please select a condition"
+    //     }
+    //   })
+    // });
+
+    // // Segment Age Validation
+    // $('input.segment-value-age').each(function() {
+    //   console.log("IN AGE");
+    //
+    //   $(this).rules("add",        {
+    //     required: true,
+    //     min: 1,
+    //     max: 100,
+    //     digits: true,
+    //     messages: {
+    //       required: "Please enter age",
+    //       min: "Minimum age should be 1",
+    //       min: "Maximum age can be 100",
+    //       digits: "Please enter only digits"
+    //     }
+    //   })
+    // });
+    //
+    // // Segment Points Validation
+    // $('input.segment-value-points').each(function() {
+    //   console.log("IN POINTS");
+    //
+    //   $(this).rules("add",        {
+    //     required: true,
+    //     min: 1,
+    //     max: 10000,
+    //     digits: true,
+    //     messages: {
+    //       required: "Please enter points",
+    //       min: "Minimum points should be 1",
+    //       min: "Maximum points can be 10000",
+    //       digits: "Please enter only digits"
+    //     }
+    //   })
+    // });
+
+    // Type of Growth Space Required Validation
+    // $('select.growth-space-dd').each(function() {
+    //   $(this).rules("add",        {
+    //     required: true,
+    //     messages: {
+    //       required: "Please select a type of growth space"
+    //     }
+    //   })
+    // });
+    //
+    // // Growth Space Required Validation
+    // $('input.phase-space-required-txt').each(function() {
+    //   $(this).rules("add",        {
+    //     required: true,
+    //     min: 0.01,
+    //     maxlength: 6,
+    //     number: true,
+    //     spaceDecimalValidation: true,
+    //     messages: {
+    //       required: "Rule: number > 0, max: 999.99",
+    //       min: "Rule: number > 0, max: 999.99",
+    //       maxlength: "Rule: number > 0, max: 999.99",
+    //       number: "Rule: number > 0, max: 999.99",
+    //       spaceDecimalValidation: "Rule: number > 0, max: 999.99"
+    //     }
+    //   })
+    // });
   }
 
   // Social Blog Image Validator
@@ -318,14 +404,23 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Dynamically Change Social Blog Comment Section Details
   $('#challenge_description').keyup(function () {
     $('.user-comment-section').html($(this).val());
   });
 
+
+
   // Add User Segment of Challenges Module
   $('.add-challenge-user-segment').on('click', function (e) {
     let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
-    $('.campaign-user-segments-container').append(challengeUserSegmentsTemplate);
+    let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+
+    segmentHtml = replaceFieldIds(challengeUserSegmentsTemplate, phaseCounter);
+    $('.campaign-user-segments-container').append(segmentHtml);
+
+    // Add Validation for Newly Added Elements
+    // addValidations(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
@@ -337,16 +432,23 @@ $(document).on('turbolinks:load', function () {
   $('body').on('change', '.challenge-event-dd', function (e) {
     var tableRow = $(this).parent().parent();
 
-    // Hide All the Segmet Condition & Value Fields
-    tableRow.find('.segment-conditions-container select').hide();
+    // Hide & Disable All the Segmet Condition & Value Fields
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true );
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').hide();
+
+    tableRow.find('.segment-values-container select').prop( "disabled", true );
     tableRow.find('.segment-values-container select').hide();
+
+    tableRow.find('.segment-values-container input').prop( "disabled", true );
     tableRow.find('.segment-values-container input').hide();
 
     // Display Segment Condition Drop Downs
     tableRow.find('.segment-conditions-' + $(this).val()).show();
+    tableRow.find('.segment-conditions-' + $(this).val()).removeAttr("disabled");
 
     // Display Segment Values Inputs / Drop Downs
     tableRow.find('.segment-value-' + $(this).val()).show();
+    tableRow.find('.segment-value-' + $(this).val()).removeAttr("disabled");
   });
 
 });
