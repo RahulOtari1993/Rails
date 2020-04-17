@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_15_071434) do
+ActiveRecord::Schema.define(version: 2020_04_16_140446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2020_04_15_071434) do
   create_table "challenges", force: :cascade do |t|
     t.bigint "campaign_id"
     t.text "name"
-    t.integer "platform_id"
+    t.integer "platform"
     t.datetime "start"
     t.datetime "finish"
     t.string "timezone"
@@ -111,6 +111,9 @@ ActiveRecord::Schema.define(version: 2020_04_15_071434) do
     t.integer "reward_type"
     t.bigint "reward_id"
     t.boolean "is_draft", default: true
+    t.string "image"
+    t.string "social_title"
+    t.string "social_description"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 

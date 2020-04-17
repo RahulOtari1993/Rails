@@ -103,7 +103,6 @@
 
               <!-- Step 2 -->
               <h6>Create</h6>
-
               <fieldset>
                 <div class="step_point_box">
                   <div class="row">
@@ -148,16 +147,19 @@
                             <h3>2. choose and customize for platforms</h3>
                             <p>Add a platform you would like your users to share this post to</p>
                           </div>
+
+                          <%= form.hidden_field :platform, value: 'faacebook', class: 'always-validate', data: {error: 'platform-error'} %>
+
                           <div class="accordion" id="Social_blocks_accordion">
                             <div class="">
-                              <div class="card-head" id="headingOne">
+                              <div class="card-head" id="facebookBlock">
                                 <h2 class="mb-0">
-                                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">
+                                  <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#facebookBlockBody">
                                     <i class="fa fa-plus"></i> <i class="fa fa-facebook" aria-hidden="true"></i>Facebook
                                   </button>
                                 </h2>
                               </div>
-                              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#Social_blocks_accordion">
+                              <div id="facebookBlockBody" class="collapse show" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_fb">
                                     <div class="Social_blocks_fb_title">
@@ -166,7 +168,7 @@
                                     <div class="Social_blocks_fb_content">
 
                                       <div class="user_pic_box">
-                                        <img src="#" class="user_pic">
+                                        <img src="javascript:void(0);" class="user_pic" id="facebook-img">
                                         <div class="user_name_box">
                                           <p><span>User's Name</span></p>
                                           <p>Date</p>
@@ -176,16 +178,16 @@
 
                                       <p>User's comment (must be added by user)</p>
                                       <div class="Social_blocks_fb_content_box">
-                                        <img src="#">
+                                        <img src="javascript:void(0);" id="show-facebook-image">
                                         <div class="image-upload">
-                                          <label for="file-input">
+                                          <label for="file-input-fb">
                                             <i class="fa fa-upload"></i>
                                           </label>
-                                          <input id="file-input" type="file"/>
+                                          <%= form.file_field :image, class: "social-img-upload", id: 'file-input-fb', data: {'file-id' => 'show-facebook-image' } %>
                                         </div>
                                         <div class="editable_box">
 
-                                          <label class="text_label">
+                                          <label class="text_label edit_title">
                                             <h5>Welcome to the LIB Experiences Club</h5>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
@@ -200,7 +202,7 @@
                                           <input type="text" value="Type new things..."/>
                                           <div class="clear"></div>
 
-                                          <p><a href="#">LIB.PERKSOCIAL.COM</a></p>
+                                          <p><a href="javascript:void(0);">LIB.PERKSOCIAL.COM</a></p>
                                         </div>
                                       </div>
                                     </div>
@@ -208,15 +210,16 @@
                                 </div>
                               </div>
                             </div>
+
                             <div class="">
-                              <div class="card-head" id="headingTwo">
+                              <div class="card-head" id="twitterBlog">
                                 <h2 class="mb-0">
-                                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo">
+                                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#twitterBlogBody">
                                     <i class="fa fa-plus"></i> <i class="fa fa-twitter" aria-hidden="true"></i>Twitter
                                   </button>
                                 </h2>
                               </div>
-                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#Social_blocks_accordion">
+                              <div id="twitterBlogBody" class="collapse" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_twitter">
                                     <div class="Social_blocks_twitter_title">
@@ -225,7 +228,7 @@
                                     <div class="Social_blocks_fb_content">
 
                                       <div class="user_pic_box">
-                                        <img src="#" class="user_pic">
+                                        <img src="javascript:void(0);" class="user_pic">
                                         <div class="user_name_box">
                                           <p><span>User's Name</span></p>
                                           <label class="text_label">
@@ -242,14 +245,13 @@
                                       </div>
                                       <div class="clear"></div>
 
-
                                       <div class="Social_blocks_fb_content_box">
-                                        <img src="#">
+                                        <img src="javascript:void(0);" id="show-twitter-image">
                                         <div class="image-upload">
-                                          <label for="file-input">
+                                          <label for="file-input-twitter">
                                             <i class="fa fa-upload"></i>
                                           </label>
-                                          <input id="file-input" type="file"/>
+                                          <%= form.file_field :image, class: "social-img-upload", id: 'file-input-twitter', data: {'file-id' => 'show-twitter-image' } %>
                                         </div>
                                       </div>
                                     </div>
@@ -257,15 +259,16 @@
                                 </div>
                               </div>
                             </div>
+
                             <div class="">
-                              <div class="card-head" id="headingThree">
+                              <div class="card-head" id="linkedinBlog">
                                 <h2 class="mb-0">
-                                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree">
+                                  <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#linkedinBlogBody">
                                     <i class="fa fa-plus"></i> <i class="fa fa-linkedin" aria-hidden="true"></i>LinkedIn
                                   </button>
                                 </h2>
                               </div>
-                              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#Social_blocks_accordion">
+                              <div id="linkedinBlogBody" class="collapse" aria-labelledby="linkedinBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_LinkedIn">
                                     <div class="Social_blocks_LinkedIn_title">
@@ -274,21 +277,21 @@
                                     <div class="Social_blocks_fb_content">
 
                                       <div class="user_pic_box">
-                                        <img src="#" class="user_pic">
+                                        <img src="javascript:void(0);" class="user_pic">
                                         <div class="user_name_box">
                                           <p><span>User's Blog Name</span></p>
 
                                           <div class="Social_blocks_fb_content_box">
-                                            <img src="#">
+                                            <img src="javascript:void(0);" id="show-linkedin-image">
                                             <div class="image-upload">
-                                              <label for="file-input">
+                                              <label for="file-input-linkedin">
                                                 <i class="fa fa-upload"></i>
                                               </label>
-                                              <input id="file-input" type="file"/>
+                                              <%= form.file_field :image, class: "social-img-upload", id: 'file-input-linkedin', data: {'file-id' => 'show-linkedin-image' } %>
                                             </div>
                                             <div class="editable_box">
 
-                                              <label class="text_label">
+                                              <label class="text_label edit_title">
                                                 <h5>Welcome to the LIB Experiences Club</h5>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
@@ -303,7 +306,7 @@
                                               <input type="text" value="Type new things..."/>
                                               <div class="clear"></div>
 
-                                              <p><a href="#">LIB.PERKSOCIAL.COM</a></p>
+                                              <p><a href="javascript:void(0);">LIB.PERKSOCIAL.COM</a></p>
                                             </div>
                                           </div>
 
@@ -327,59 +330,59 @@
               <!-- Step 3 -->
               <h6>Reward</h6>
               <fieldset class="step-top-padding">
-                <div class="row">
-                  <div class="col-12">
-                    <h4>1. TYPE OF REWARD</h4>
+                <div class="new_challenge_box">
+                  <div class="row offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h4>1. TYPE OF REWARD</h4>
                   </div>
-                </div>
 
-                <div class="row">
-                  <div class="col-xl-6 col-lg-12">
-                    <p>Select the type of reward you would like to give users for completing this challenge</p>
-                    <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
-                      <li class="nav-item">
-                        <a class="nav-link pill-inner-padding active" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
-                      </li>
-                      <%= form.hidden_field :reward_type, value: 'points' %>
-                    </ul>
-                    <div class="tab-content">
-                      <div role="tabpanel" class="tab-pane active" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
-                        <div class="row">
-                          <div class="col-12">
-                            <h4>2. REWARD DETAILS</h4>
-                            <p>Points earned when a user completes the challenge</p>
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <p>Select the type of reward you would like to give users for completing this challenge</p>
+                      <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
+                        <li class="nav-item">
+                          <a class="nav-link pill-inner-padding active" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
+                        </li>
+                        <%= form.hidden_field :reward_type, value: 'points' %>
+                      </ul>
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
+                          <div class="row">
+                            <div class="col-12">
+                              <h4>2. REWARD DETAILS</h4>
+                              <p>Points earned when a user completes the challenge</p>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <div class="input-group form-group">
-                              <%= form.text_field :points, class: 'form-control', data: {error: 'points-errors'} %>
-                              <div class="input-group-append">
-                                <span class="input-group-text" id="basic-addon2">Points</span>
-                              </div>
-                              <div class="input-group points-errors">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <div class="input-group form-group">
+                                <%= form.text_field :points, class: 'form-control', data: {error: 'points-errors'} %>
+                                <div class="input-group-append">
+                                  <span class="input-group-text" id="basic-addon2">Points</span>
+                                </div>
+                                <div class="input-group points-errors">
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="tab-pane" id="rewards-pill" aria-labelledby="base-rewards-pill">
-                        <div class="row">
-                          <div class="col-12">
-                            <h4>2. REWARD DETAILS</h4>
-                            <p>Select the prize users will receive for completing this challenge</p>
+                        <div class="tab-pane" id="rewards-pill" aria-labelledby="base-rewards-pill">
+                          <div class="row">
+                            <div class="col-12">
+                              <h4>2. REWARD DETAILS</h4>
+                              <p>Select the prize users will receive for completing this challenge</p>
+                            </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-6">
-                            <div class="form-group">
-                              <div class="position-relative">
-                                <%= form.select :reward_id,
-                                                options_for_select(Reward.all.map { |v| [v.name.titleize, v.id] }.compact),
-                                                {prompt: 'Select Prize'}, class: 'form-control reward_id_dd' %>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <div class="position-relative">
+                                  <%= form.select :reward_id,
+                                                  options_for_select(Reward.all.map { |v| [v.name.titleize, v.id] }.compact),
+                                                  {prompt: 'Select Prize'}, class: 'form-control reward_id_dd' %>
+                                </div>
                               </div>
                             </div>
                           </div>

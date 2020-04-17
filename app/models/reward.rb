@@ -17,7 +17,7 @@
 #  feature             :boolean
 #  points              :integer
 #  is_active           :boolean
-#  redeption_details   :text
+#  redemption_details  :text
 #  description_details :text
 #  terms_conditions    :text
 #  sweepstake_entry    :integer
