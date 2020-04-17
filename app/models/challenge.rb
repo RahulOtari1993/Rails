@@ -46,7 +46,7 @@ class Challenge < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   ## Validations
-  validates :mechanism, :name, :link, :description, presence: true
+  validates :mechanism, :name, :link, :description, :image, :social_title, :social_description, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type
