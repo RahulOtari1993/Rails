@@ -8,9 +8,9 @@
           <div class="col-md-12 col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Create Reward</h4>
+                <h4 class="text-center card-title">Create Reward</h4>
               </div>
-              <div class="card-content">
+              <div class="card-content container col-md-8 col-8 border_reward" style="margin-top:20px">
                 <%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
                   <% if @reward.errors.any? %>
                     <%# puts 'there are some errors here in edit.html.erb' %>
@@ -29,59 +29,59 @@
                     <form class="form form-vertical">
                       <div class="form-body">
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :name %>
                               <span class="column-info">Enter a friendly name to describe this reward.</span>
                               <div class="position-relative has-icon-left">
-                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control", placeholder: 'Name' %>
+                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control"%>
                                 <div class="form-control-position">
                                   <i class="feather icon-user"></i>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description %>
                               <span class="column-info">Describe the prize and the selection process.
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description" %>
+                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3' %>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption Details" %>
+                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description Details" %>
+                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-4">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :limit %>
                               <span class="column-info">The number of people who can get this reward.
 															</span>
-                              <div class="position-relative">
+                              <div class="position-relative" style="width: 25%;">
                                 <div class="input-group">
                                   <%= f.number_field :limit, class: "touchspin form-control", value: '0' %>
                                 </div>
@@ -108,7 +108,7 @@
                               <span class="column-info">This is the number of points required for a user to win this prize.
 															</span>
                               <div class="position-relative has-icon-left">
-                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control", placeholder: 'Threshold' %>
+                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control" %>
                               </div>
                             </div>
                           </div>
@@ -119,7 +119,7 @@
                               <span class="column-info">This determines how many points it takes to create a single entry.
 															</span>
                               <div class="position-relative">
-                                <%= f.text_field :sweepstake_entry, id: 'first-name-icon', class: "form-control", placeholder: 'Sweepstake' %>
+                                <%= f.text_field :sweepstake_entry, id: 'first-name-icon', class: "form-control" %>
                               </div>
                             </div>
                           </div>
@@ -142,24 +142,24 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :points %>
                               <span class="column-info">This is an 	to give points by assigning a user to a reward.
 																	</span>
-                              <div class="position-relative">
-                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control", placeholder: 'Points' %>
+                              <div class="position-relative" style="width: 25%;">
+                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control" %>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :terms_conditions %>
                               <span class="column-info">Optional terms and conditions for this reward.
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Terms & Conditions" %>
+                                  <%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
@@ -188,11 +188,11 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-6" style="margin-left: 13px">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :image %>
                               <%= f.file_field :image, class:"custom-file-input" %>
-                              <%= f.label :image, 'Choose file', class: 'custom-file-label' %>
+                              <%= f.label :image, 'Choose file', class: 'custom-file-label image_field_label' %>
                             </div>
                           </div>
                           <div class="col-12">
@@ -238,5 +238,13 @@
 <style type="text/css">
   .filter_hidden {
     display: none;
+  }
+  .image_field_label{
+    margin-left: 13px;
+    width: 96%;
+  }
+  .border_reward {
+    border: 1px solid #7367F0 !important;
+    border-radius: 0.5rem !important;
   }
 </style>
