@@ -47,6 +47,9 @@ class Challenge < ApplicationRecord
   ## Mount Uploader for File Upload
   mount_uploader :image, ImageUploader
 
+  ## Nested Attributes for Challenge Filters
+  accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
+
   ## Validations
   validates :mechanism, :name, :link, :description, :platform, :image, :social_title, :social_description, presence: true
   validate :reward_existence

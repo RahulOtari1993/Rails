@@ -28,6 +28,62 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset class="step-top-padding" data-step-id="1">
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>USER SEGMENTS</h3>
+                      <hr>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <div class="table-responsive">
+                          <table class="table table-striped mb-0 tbl-user-segments" id="filter_conditions">
+                            <thead>
+                            <tr>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%= form.fields_for :reward_filters, @challenge.challenge_filters.new do |r_f| %>
+                              <%= render 'segment_fields', r_f: r_f
+                              %>
+                            <% end %>
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <%= link_to '#', id: "add_segment" do %>
+                          <i class="feather icon-plus-circle"></i>
+                        <% end %>
+                        <label class="fonticon-classname mt-1">Add</label>
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :link, 'Link to be shared' %>
+                        <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <%= form.label :description, 'Add a note for your users about this challenge' %>
+                        <%= form.text_area :description, class: 'form-control', placeholder: 'Share this post to supprt the festival and get your whole squad there!', rows: 4 %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
