@@ -35,6 +35,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
     params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type,
-                                      :points, :reward_id, :platform,:image)
+                                      :points, :reward_id, :platform,:image, :social_title, :social_description)
   end
 end

@@ -25,6 +25,106 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Get Social Image Dynamically
+  function getSocialImageName() {
+    if ($('#challenge_platform').val() == 'facebook') {
+      imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
+    } else if ($('#challenge_platform').val() == 'twitter') {
+      imageName = $("#twitterBlogBody input[name='challenge[image]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      imageName = $("#linkedinBlogBody input[name='challenge[image]']").val();
+    }
+
+    return imageName;
+  }
+
+  // Social Blog Image Validator
+  $.validator.addMethod('socialImageExistance', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true
+    }
+
+    imageName = getSocialImageName()
+
+    if (imageName == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please select social image');
+
+  // Social Blog Image Extension Validator
+  $.validator.addMethod('socialImageExtension', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true
+    }
+
+    imageName = getSocialImageName()
+
+    var validImageTypes = ['gif', 'jpeg', 'jpg', 'png'];
+    if ($.inArray(imageName.substr((imageName.lastIndexOf('.') +1)), validImageTypes) < 0) {
+      return false;
+    }
+
+    return true;
+  }, 'Please select valid image');
+
+  // Social Blog Title Validator
+  $.validator.addMethod('socialTitle', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'twitter') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'facebook') {
+      socialTitle = $("#facebookBlockBody input[name='challenge[social_title]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      socialTitle = $("#linkedinBlogBody input[name='challenge[social_title]']").val();
+    }
+
+    if (socialTitle == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please enter social title');
+
+  // Social Blog Desctiption Validator
+  $.validator.addMethod('socialDesctiption', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'facebook') {
+      socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
+    } else if ($('#challenge_platform').val() == 'twitter') {
+      socialDescription = $("#twitterBlogBody input[name='challenge[social_description]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      socialDescription = $("#linkedinBlogBody input[name='challenge[social_description]']").val();
+    }
+
+    if (socialDescription == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please enter social description');
+
   $('.challenge-wizard').validate({
     errorElement: 'span',
     ignore: function (index, el) {
@@ -58,12 +158,16 @@ $(document).on('turbolinks:load', function () {
       'challenge[reward_id]': {
         required: true
       },
-      // 'hk_s4_2': {
-      //   required: true
-      // },
-      // 'hk_s5_1': {
-      //   required: true
-      // }
+      'challenge[image]': {
+        socialImageExistance: true,
+        socialImageExtension: true
+      },
+      'challenge[social_title]': {
+        socialTitle: true
+      },
+      'challenge[social_description]': {
+        socialDesctiption: true
+      }
     },
     messages: {
       'challenge[mechanism]': {
@@ -85,13 +189,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[reward_id]': {
         required: 'Please enter first name'
-      },
-      // 'hk_s4_2': {
-      //   required: 'Please enter last name'
-      // },
-      // 'hk_s5_1': {
-      //   required: 'Please enter email address'
-      // }
+      }
     },
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
@@ -169,7 +267,6 @@ $(document).on('turbolinks:load', function () {
 
   // Add minus icon for collapse element which is open by default
   $(".collapse.show").each(function () {
-    console.log("INN", $(this))
     $(this).prev(".card-head").find(".fa").addClass("fa-minus").removeClass("fa-plus");
   });
 
@@ -202,7 +299,7 @@ $(document).on('turbolinks:load', function () {
         $('#challenge_platform').val('linked_in');
         $("#linkedinBlogBody :input").attr("disabled", false);
         $("#facebookBlogBody :input").attr("disabled", true);
-        ("#twitterBlogBody :input").attr("disabled", true);
+        $("#twitterBlogBody :input").attr("disabled", true);
       }
 
       if (idx == $('.collapse.show').index('.collapse')) {
@@ -212,4 +309,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  $("#challenge_description").keyup(function(){
+    $('.user-comment-section').html($(this).val());
+  });
 });
