@@ -13,6 +13,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
+    byebug
     @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
@@ -119,6 +120,8 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event])
   end
-
+  def coupon_params
+    params.require(:coupon).permit!
+  end
   ##coupon_pon).permit!
 end

@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
 
+ 
   $('#reward_listing').on('click', '.download-csv-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
@@ -20,6 +21,13 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+  //datetime format 
+  function formatDate(date){
+    let current_datetime = new Date(date);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate()
+    return formatted_date
+  }
+
   //thumbview list
   var dataThumbView = $("#reward_listing").DataTable({
     "processing": true,
@@ -30,12 +38,24 @@ $(document).on('turbolinks:load', function() {
         "dataSrc": "rewards",
     },
     columns: [
-      {title: 'Image', data: 'image',searchable: false},
+      {title: 'Image', data: null,searchable: false, 
+        render: function(data, type, row){
+          return '<img src="' +data.image['thumb']['url']+ '" />';
+        }
+      },
       {title: 'Name', data:'name', searchable: true},
       {title: 'Fulfillment', data: 'selection',searchable: false},
       {title: 'Winners', data: 'selection',searchable: false},
-      {title: 'Start Date', data: 'start',searchable: false},
-      {title: 'End date', data: 'finish',searchable: false},
+      {title: 'Start Date', data: null,searchable: false,
+        render: function(data, type, row){
+         return formatDate(data.start)       
+        }
+      },
+      {title: 'End date', data: null,searchable: false,
+        render: function(data, type, row){
+         return formatDate(data.finish)       
+        }
+      },
       {title: 'Actions', data: null, searchable: false, orderable: false,
         render: function ( data, type, row ) {
             // Combine the first and last names into a single table field
@@ -111,3 +131,5 @@ $(document).on('turbolinks:load', function() {
   //       format: 'mmmm, d, yyyy'
   // });
 });
+
+// UMD
