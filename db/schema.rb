@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_16_140446) do
+ActiveRecord::Schema.define(version: 2020_04_17_100401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,16 @@ ActiveRecord::Schema.define(version: 2020_04_16_140446) do
     t.string "general_title"
     t.string "my_account_title"
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
+  end
+
+  create_table "challenge_filters", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.string "challenge_event"
+    t.string "challenge_condition"
+    t.string "challenge_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_filters_on_challenge_id"
   end
 
   create_table "challenges", force: :cascade do |t|

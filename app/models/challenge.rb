@@ -34,6 +34,7 @@ class Challenge < ApplicationRecord
 
   ## Associations
   belongs_to :campaign
+  has_many :challenge_filters, dependent: :destroy
 
   ## Constants
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
