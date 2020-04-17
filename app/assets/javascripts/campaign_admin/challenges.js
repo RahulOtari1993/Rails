@@ -43,6 +43,7 @@ $(document).on('turbolinks:load', function () {
   // Replace ID of Newly Added Fields of User Segment
   function replaceFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
+    stringDetails = stringDetails.replace(/\[___NUM___\]/g, phaseCounter);
     return stringDetails;
   }
 
@@ -50,53 +51,53 @@ $(document).on('turbolinks:load', function () {
   function addValidations(phaseCounter) {
     console.log("IN addValidations");
 
-    // // Segment Conditions Drop Down Require Validation
-    // $('#segment-conditions-dd-'+ phaseCounter).each(function() {
-    //   console.log("IN CONDITIONS", '#segment-conditions-dd-'+ phaseCounter);
-    //
-    //   $(this).rules("add",        {
-    //     required: true,
-    //     messages: {
-    //       required: "Please select a condition"
-    //     }
-    //   })
-    // });
+    // Segment Conditions Drop Down Require Validation
+    $('#segment-conditions-dd-'+ phaseCounter).each(function() {
+      console.log("IN CONDITIONS", '#segment-conditions-dd-'+ phaseCounter);
 
-    // // Segment Age Validation
-    // $('input.segment-value-age').each(function() {
-    //   console.log("IN AGE");
-    //
-    //   $(this).rules("add",        {
-    //     required: true,
-    //     min: 1,
-    //     max: 100,
-    //     digits: true,
-    //     messages: {
-    //       required: "Please enter age",
-    //       min: "Minimum age should be 1",
-    //       min: "Maximum age can be 100",
-    //       digits: "Please enter only digits"
-    //     }
-    //   })
-    // });
-    //
-    // // Segment Points Validation
-    // $('input.segment-value-points').each(function() {
-    //   console.log("IN POINTS");
-    //
-    //   $(this).rules("add",        {
-    //     required: true,
-    //     min: 1,
-    //     max: 10000,
-    //     digits: true,
-    //     messages: {
-    //       required: "Please enter points",
-    //       min: "Minimum points should be 1",
-    //       min: "Maximum points can be 10000",
-    //       digits: "Please enter only digits"
-    //     }
-    //   })
-    // });
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a condition"
+        }
+      })
+    });
+
+    // Segment Age Validation
+    $('#segment-value-age-'+ phaseCounter).each(function() {
+      console.log("IN AGE", '#segment-value-age-'+ phaseCounter);
+
+      $(this).rules("add",        {
+        required: true,
+        min: 1,
+        max: 100,
+        digits: true,
+        messages: {
+          required: "Please enter age",
+          min: "Minimum age should be 1",
+          min: "Maximum age can be 100",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Segment Points Validation
+    $('#segment-value-points-'+ phaseCounter).each(function() {
+      console.log("IN POINTS", '#segment-value-points-'+ phaseCounter);
+
+      $(this).rules("add",        {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter points",
+          min: "Minimum points should be 1",
+          min: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
 
     // Type of Growth Space Required Validation
     // $('select.growth-space-dd').each(function() {
@@ -409,8 +410,6 @@ $(document).on('turbolinks:load', function () {
     $('.user-comment-section').html($(this).val());
   });
 
-
-
   // Add User Segment of Challenges Module
   $('.add-challenge-user-segment').on('click', function (e) {
     let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
@@ -420,7 +419,7 @@ $(document).on('turbolinks:load', function () {
     $('.campaign-user-segments-container').append(segmentHtml);
 
     // Add Validation for Newly Added Elements
-    // addValidations(phaseCounter);
+    addValidations(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
