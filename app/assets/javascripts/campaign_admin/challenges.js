@@ -175,7 +175,6 @@ $(document).on('turbolinks:load', function () {
 
   // Toggle plus minus icon on show hide of collapse element
   $(".collapse").on('show.bs.collapse', function () {
-
     $(this).prev(".card-head").find(".fa").removeClass("fa-plus").addClass("fa-minus");
   }).on('hide.bs.collapse', function () {
     $(this).prev(".card-head").find(".fa").removeClass("fa-minus").addClass("fa-plus");
@@ -185,6 +184,27 @@ $(document).on('turbolinks:load', function () {
   $('[data-toggle="collapse"]').on('click',function(e){
     if ( $(this).parents('.accordion').find('.collapse.show') ){
       var idx = $(this).index('[data-toggle="collapse"]');
+
+      if (idx == 0) {
+        // Facebook
+        $('#challenge_platform').val('facebook');
+        $("#facebookBlogBody :input").attr("disabled", false);
+        $("#twitterBlogBody :input").attr("disabled", true);
+        $("#linkedinBlogBody :input").attr("disabled", true);
+      } else if (idx == 1) {
+        // Twitter
+        $('#challenge_platform').val('twitter');
+        $("#twitterBlogBody :input").attr("disabled", false);
+        $("#facebookBlogBody :input").attr("disabled", true);
+        $("#linkedinBlogBody :input").attr("disabled", true);
+      } else if (idx == 2) {
+        // LinkedIn
+        $('#challenge_platform').val('linked_in');
+        $("#linkedinBlogBody :input").attr("disabled", false);
+        $("#facebookBlogBody :input").attr("disabled", true);
+        ("#twitterBlogBody :input").attr("disabled", true);
+      }
+
       if (idx == $('.collapse.show').index('.collapse')) {
         // prevent collapse
         e.stopPropagation();
