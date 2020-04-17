@@ -250,7 +250,7 @@
                                         <% if @campaign.rewards.pluck(:name).include?(r_f.object.reward_value) %>
                                         <%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control"})
                                         %>
-                                        <% elsif @campaign.challenges.pluck(:name).include?(r_f.object.challenge) %>
+                                        <% elsif true %>
                                         <%= r_f.select(:reward_value, options_for_select(@campaign.challenges, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control"})
                                         %>
                                         <% elsif RewardFilter::SOCIAL_PLATFORMS.include?(r_f.object.reward_value) %>

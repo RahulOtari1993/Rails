@@ -46,7 +46,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%= form.fields_for :reward_filters, @challenge.challenge_filters.new do |r_f| %>
+                            <%= form.fields_for :challenge_filters, @challenge.challenge_filters.new do |r_f| %>
                               <%= render 'segment_fields', r_f: r_f
                               %>
                             <% end %>
@@ -81,8 +81,6 @@
                     </div>
                   </div>
                 </div>
-
-
 
                 <div class="new_challenge_box">
                   <div class="row">
@@ -257,7 +255,8 @@
                                           <div class="clear"></div>
 
                                           <label class="text_label">
-                                            <p class="user-comment-section">We've made it easy for you to win exclusive prizes just by sharing the
+                                            <p class="user-comment-section">We've made it easy for you to win exclusive
+                                              prizes just by sharing the
                                               love about LIB.</p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
@@ -552,6 +551,78 @@
     </div>
   </div>
 </section>
+
+<script id="challenge-user-segments-template" type="text/x-custom-template">
+  <tr id="filter_condition_1" style="border-bottom: 1px solid #414561; padding: 0px 5px;">
+    <td scope="row" width="5%" class="remove-btn-align" style="padding-left: 15px !important;">
+      <div class="form-group">
+        <a class="hide_row" href="javascript:void(0);">
+          <i class="feather icon-minus-circle"></i>
+        </a>
+      </div>
+    </td>
+    <td width="30%">
+      <div class="form-group">
+        <%= select_tag "challenge[challenge_filters][][challenge_event]",
+                       options_for_select(ChallengeFilter::EVENTS),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+      </div>
+    </td>
+    <td width="30%">
+      <div class="form-group">
+        <%= select_tag "challenge[challenge_filters][][challenge_condition]",
+                       options_for_select(ChallengeFilter::AGE_CONDITIONS),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+
+        <%= select_tag "challenge[challenge_filters][][challenge_condition]",
+                       options_for_select(["Has", "Not"]),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+
+        <%= select_tag "challenge[challenge_filters][][challenge_condition]",
+                       options_for_select(["Is", "Not"]),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+      </div>
+    </td>
+    <td width="30%">
+      <div class="form-group">
+        <input class=" reward_value form-control" type="text" name="challenge[reward_filters][challenge_value]" id="challenge_reward_filters_challenge_value">
+        <%= select_tag "challenge[challenge_filters][][challenge_value]",
+                       options_for_select(@campaign.rewards.all),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+
+        <%= select_tag "challenge[challenge_filters][][challenge_value]",
+                       options_for_select(ChallengeFilter::SOCIAL_PLATFORMS),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+
+        <%= select_tag "challenge[challenge_filters][][challenge_value]",
+                       options_for_select(["Male", "female"]),
+                       class: 'form-control',
+                       prompt: 'Select Event',
+                       id: "product-list-id",
+                       required: true %>
+
+      </div>
+    </td>
+  </tr>
+</script>
 
 <style>
   .nav-pills-bottom {
