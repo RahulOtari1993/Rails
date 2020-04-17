@@ -25,6 +25,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Get Social Image Dynamically
   function getSocialImageName() {
     if ($('#challenge_platform').val() == 'facebook') {
       imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
@@ -66,13 +67,39 @@ $(document).on('turbolinks:load', function () {
 
     imageName = getSocialImageName()
 
-    var validImageTypes = ['gif', 'jpeg', 'jpg'];
+    var validImageTypes = ['gif', 'jpeg', 'jpg', 'png'];
     if ($.inArray(imageName.substr((imageName.lastIndexOf('.') +1)), validImageTypes) < 0) {
       return false;
     }
 
     return true;
   }, 'Please select valid image');
+
+  // Social Blog Title Validator
+  $.validator.addMethod('socialTitle', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'twitter') {
+      return true;
+    }
+
+    if ($('#challenge_platform').val() == 'facebook') {
+      socialTitle = $("#facebookBlockBody input[name='challenge[social_title]']").val();
+    } else if ($('#challenge_platform').val() == 'linked_in') {
+      socialTitle = $("#linkedinBlogBody input[name='challenge[social_title]']").val();
+    }
+
+    if (socialTitle == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please enter social title');
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
@@ -111,9 +138,9 @@ $(document).on('turbolinks:load', function () {
         socialImageExistance: true,
         socialImageExtension: true
       },
-      // 'challenge[social_title]': {
-      //   required: true
-      // },
+      'challenge[social_title]': {
+        socialTitle: true
+      },
       // 'challenge[social_description]': {
       //   required: true
       // }
@@ -138,16 +165,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[reward_id]': {
         required: 'Please enter first name'
-      },
-      'challenge[image]': {
-        required: 'Please select social image'
-      },
-      // 'challenge[social_title]': {
-      //   required: 'Please enter social title'
-      // },
-      // 'challenge[social_description]': {
-      //   required: 'Please enter social description'
-      // }
+      }
     },
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
