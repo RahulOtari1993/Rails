@@ -434,10 +434,13 @@ $(document).on('turbolinks:load', function () {
   $('body').on('change', '.challenge-event-dd', function (e) {
     var tableRow = $(this).parent().parent();
 
+    // Remove Error Classes of JS Validation & Remove Error Messages
+    tableRow.find('span.error').remove();
+
     // Hide & Disable All the Segmet Condition & Value Fields
-    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true ).hide();
-    tableRow.find('.segment-values-container select').prop( "disabled", true ).hide();
-    tableRow.find('.segment-values-container input').prop( "disabled", true ).hide();
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container select').prop( "disabled", true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container input').prop( "disabled", true ).hide().removeClass('error');
 
     // Display Segment Condition Drop Downs
     tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr("disabled");
