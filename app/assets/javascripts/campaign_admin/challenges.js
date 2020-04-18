@@ -49,12 +49,8 @@ $(document).on('turbolinks:load', function () {
 
   // Adds Validation for New Added User Segment Fields
   function addValidations(phaseCounter) {
-    console.log("IN addValidations");
-
     // Segment Conditions Drop Down Require Validation
     $('#segment-conditions-dd-'+ phaseCounter).each(function() {
-      console.log("IN CONDITIONS", '#segment-conditions-dd-'+ phaseCounter);
-
       $(this).rules("add",        {
         required: true,
         messages: {
@@ -65,8 +61,6 @@ $(document).on('turbolinks:load', function () {
 
     // Segment Age Validation
     $('#segment-value-age-'+ phaseCounter).each(function() {
-      console.log("IN AGE", '#segment-value-age-'+ phaseCounter);
-
       $(this).rules("add",        {
         required: true,
         min: 1,
@@ -83,8 +77,6 @@ $(document).on('turbolinks:load', function () {
 
     // Segment Points Validation
     $('#segment-value-points-'+ phaseCounter).each(function() {
-      console.log("IN POINTS", '#segment-value-points-'+ phaseCounter);
-
       $(this).rules("add",        {
         required: true,
         min: 1,

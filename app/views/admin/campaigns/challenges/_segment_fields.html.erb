@@ -40,7 +40,7 @@
   </td>
 
   <td width="30%" class="segment-values-container">
-    <%= text_field_tag 'challenge[challenge_filters_attributes][___NUM___][challenge_value]', nil,
+    <%= text_field_tag 'challenge[challenge_filters_attributes][___NUM___][challenge_value_age_tags]', nil,
                        class: 'form-control segment-value-age', id: 'segment-value-age-___ID___',
                        placeholder: 'Enter Age' %>
 
@@ -48,23 +48,23 @@
                        class: 'form-control segment-value-tags', id: 'segment-value-tags-___ID___',
                        placeholder: 'Enter Tag', style: 'display:none;', disabled: true %>
 
-    <%= text_field_tag 'challenge[challenge_filters_attributes][___NUM___][challenge_value]', nil,
+    <%= text_field_tag 'challenge[challenge_filters_attributes][___NUM___][challenge_value_points]', nil,
                        class: 'form-control segment-value-points', id: 'segment-value-points-___ID___',
                        placeholder: 'Enter Points', style: 'display:none;', disabled: true %>
 
-    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value]",
+    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value_rewards]",
                    options_for_select(@campaign.rewards.all.pluck(:name, :id)),
                    { class: 'form-control segment-value-rewards', id: 'segment-value-rewards-___ID___',
                    prompt: 'Select Reward', style: 'display:none;',
                    disabled: true, required: true } %>
 
-    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value]",
+    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value_platforms]",
                    options_for_select(ChallengeFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] }),
                    { class: 'form-control segment-conditions-platforms', id: 'segment-conditions-platforms-___ID___',
                    prompt: 'Select Platform', style: 'display:none;',
                    disabled: true, required: true } %>
 
-    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value]",
+    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_value_gender]",
                    options_for_select([['Male', 'male'], ['Female', 'female']]),
                    { class: 'form-control segment-value-gender', id: 'segment-value-gender-___ID___',
                    prompt: 'Select Gender', style: 'display:none;',
