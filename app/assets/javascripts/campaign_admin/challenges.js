@@ -49,7 +49,7 @@ $(document).on('turbolinks:load', function () {
 
   // Adds Validation for New Added User Segment Fields
   function addValidations(phaseCounter) {
-    // Segment Conditions Drop Down Require Validation
+    // Challenge User Segment Conditions Drop Down Require Validation
     $('#segment-conditions-dd-'+ phaseCounter).each(function() {
       $(this).rules("add",        {
         required: true,
@@ -59,7 +59,7 @@ $(document).on('turbolinks:load', function () {
       })
     });
 
-    // Segment Age Validation
+    // Challenge User Segment Age Validation
     $('#segment-value-age-'+ phaseCounter).each(function() {
       $(this).rules("add",        {
         required: true,
@@ -69,13 +69,13 @@ $(document).on('turbolinks:load', function () {
         messages: {
           required: "Please enter age",
           min: "Minimum age should be 1",
-          min: "Maximum age can be 100",
+          max: "Maximum age can be 100",
           digits: "Please enter only digits"
         }
       })
     });
 
-    // Segment Points Validation
+    // Challenge User Segment Points Validation
     $('#segment-value-points-'+ phaseCounter).each(function() {
       $(this).rules("add",        {
         required: true,
@@ -85,39 +85,51 @@ $(document).on('turbolinks:load', function () {
         messages: {
           required: "Please enter points",
           min: "Minimum points should be 1",
-          min: "Maximum points can be 10000",
+          max: "Maximum points can be 10000",
           digits: "Please enter only digits"
         }
       })
     });
 
-    // Type of Growth Space Required Validation
-    // $('select.growth-space-dd').each(function() {
-    //   $(this).rules("add",        {
-    //     required: true,
-    //     messages: {
-    //       required: "Please select a type of growth space"
-    //     }
-    //   })
-    // });
-    //
-    // // Growth Space Required Validation
-    // $('input.phase-space-required-txt').each(function() {
-    //   $(this).rules("add",        {
-    //     required: true,
-    //     min: 0.01,
-    //     maxlength: 6,
-    //     number: true,
-    //     spaceDecimalValidation: true,
-    //     messages: {
-    //       required: "Rule: number > 0, max: 999.99",
-    //       min: "Rule: number > 0, max: 999.99",
-    //       maxlength: "Rule: number > 0, max: 999.99",
-    //       number: "Rule: number > 0, max: 999.99",
-    //       spaceDecimalValidation: "Rule: number > 0, max: 999.99"
-    //     }
-    //   })
-    // });
+    // Challenge User Segment Tags Validation
+    $('#segment-value-tags-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please enter tag"
+        }
+      })
+    });
+
+    // Challenge User Segment Rewards Validation
+    $('#segment-value-rewards-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a reward"
+        }
+      })
+    });
+
+    // Challenge User Segment Platform Validation
+    $('#segment-conditions-platforms-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a platform"
+        }
+      })
+    });
+
+    // Challenge User Segment Gender Validation
+    $('#segment-value-gender-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select gender"
+        }
+      })
+    });
   }
 
   // Social Blog Image Validator
