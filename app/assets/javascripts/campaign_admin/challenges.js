@@ -437,7 +437,7 @@ $(document).on('turbolinks:load', function () {
     // Remove Error Classes of JS Validation & Remove Error Messages
     tableRow.find('span.error').remove();
 
-    // Hide & Disable All the Segmet Condition & Value Fields
+    // Hide & Disable All the Segmet Condition and Value Fields & Remove Error Class
     tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true ).hide().removeClass('error');
     tableRow.find('.segment-values-container select').prop( "disabled", true ).hide().removeClass('error');
     tableRow.find('.segment-values-container input').prop( "disabled", true ).hide().removeClass('error');
