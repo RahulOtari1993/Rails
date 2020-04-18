@@ -207,7 +207,6 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-
     if ($('#challenge_platform').val() == 'facebook') {
       socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
@@ -436,22 +435,15 @@ $(document).on('turbolinks:load', function () {
     var tableRow = $(this).parent().parent();
 
     // Hide & Disable All the Segmet Condition & Value Fields
-    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true );
-    tableRow.find('.segment-conditions-container .segment-conditions-dd').hide();
-
-    tableRow.find('.segment-values-container select').prop( "disabled", true );
-    tableRow.find('.segment-values-container select').hide();
-
-    tableRow.find('.segment-values-container input').prop( "disabled", true );
-    tableRow.find('.segment-values-container input').hide();
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true ).hide();
+    tableRow.find('.segment-values-container select').prop( "disabled", true ).hide();
+    tableRow.find('.segment-values-container input').prop( "disabled", true ).hide();
 
     // Display Segment Condition Drop Downs
-    tableRow.find('.segment-conditions-' + $(this).val()).show();
-    tableRow.find('.segment-conditions-' + $(this).val()).removeAttr("disabled");
+    tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr("disabled");
 
     // Display Segment Values Inputs / Drop Downs
-    tableRow.find('.segment-value-' + $(this).val()).show();
-    tableRow.find('.segment-value-' + $(this).val()).removeAttr("disabled");
+    tableRow.find('.segment-value-' + $(this).val()).show().removeAttr("disabled");
   });
 
 });
