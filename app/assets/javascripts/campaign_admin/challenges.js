@@ -182,11 +182,10 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-
     if ($('#challenge_platform').val() == 'facebook') {
-      socialTitle = $("#facebookBlockBody input[name='challenge[social_title]']").val();
+      socialTitle = $("#facebookBlockBody .social-title-txt").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      socialTitle = $("#linkedinBlogBody input[name='challenge[social_title]']").val();
+      socialTitle = $("#linkedinBlogBody .social-title-txt").val();
     } else {
       socialTitle = ''
     }
@@ -208,11 +207,11 @@ $(document).on('turbolinks:load', function () {
     }
 
     if ($('#challenge_platform').val() == 'facebook') {
-      socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#facebookBlockBody .social-description-txt").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
-      socialDescription = $("#twitterBlogBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#twitterBlogBody .social-description-txt").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      socialDescription = $("#linkedinBlogBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#linkedinBlogBody .social-description-txt").val();
     } else {
       socialDescription = ''
     }
@@ -261,10 +260,10 @@ $(document).on('turbolinks:load', function () {
         socialImageExistance: true,
         socialImageExtension: true
       },
-      'challenge[social_title]': {
+      'social_title': {
         socialTitle: true
       },
-      'challenge[social_description]': {
+      'social_description': {
         socialDesctiption: true
       }
     },
@@ -384,21 +383,30 @@ $(document).on('turbolinks:load', function () {
       if (idx == 0) {
         // Facebook
         $('#challenge_platform').val('facebook');
-        $("#facebookBlogBody :input").attr("disabled", false);
-        $("#twitterBlogBody :input").attr("disabled", true);
-        $("#linkedinBlogBody :input").attr("disabled", true);
+        $("#facebookBlogBody :input").attr('disabled', false);
+        $("#twitterBlogBody :input").attr('disabled', true);
+        $("#linkedinBlogBody :input").attr('disabled', true);
+
+        $('#challenge_social_title').val($("#facebookBlockBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#facebookBlockBody .social-description-txt").val());
       } else if (idx == 1) {
         // Twitter
         $('#challenge_platform').val('twitter');
-        $("#twitterBlogBody :input").attr("disabled", false);
-        $("#facebookBlogBody :input").attr("disabled", true);
-        $("#linkedinBlogBody :input").attr("disabled", true);
+        $("#twitterBlogBody :input").attr('disabled', false);
+        $("#facebookBlogBody :input").attr('disabled', true);
+        $("#linkedinBlogBody :input").attr('disabled', true);
+
+        $('#challenge_social_title').val($("#twitterBlogBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#twitterBlogBody .social-description-txt").val());
       } else if (idx == 2) {
         // LinkedIn
         $('#challenge_platform').val('linked_in');
-        $("#linkedinBlogBody :input").attr("disabled", false);
-        $("#facebookBlogBody :input").attr("disabled", true);
-        $("#twitterBlogBody :input").attr("disabled", true);
+        $('#linkedinBlogBody :input').attr('disabled', false);
+        $('#facebookBlogBody :input').attr('disabled', true);
+        $('#twitterBlogBody :input').attr('disabled', true);
+
+        $('#challenge_social_title').val($("#linkedinBlogBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#linkedinBlogBody .social-description-txt").val());
       }
 
       if (idx == $('.collapse.show').index('.collapse')) {
@@ -438,15 +446,24 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('span.error').remove();
 
     // Hide & Disable All the Segmet Condition and Value Fields & Remove Error Class
-    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( "disabled", true ).hide().removeClass('error');
-    tableRow.find('.segment-values-container select').prop( "disabled", true ).hide().removeClass('error');
-    tableRow.find('.segment-values-container input').prop( "disabled", true ).hide().removeClass('error');
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( 'disabled', true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container select').prop( 'disabled', true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container input').prop( 'disabled', true ).hide().removeClass('error');
 
     // Display Segment Condition Drop Downs
-    tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr("disabled");
+    tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr('disabled');
 
     // Display Segment Values Inputs / Drop Downs
-    tableRow.find('.segment-value-' + $(this).val()).show().removeAttr("disabled");
+    tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
   });
 
+  // Change Social Title Value
+  $('.social-title-txt').focusout(function(){
+    $('#challenge_social_title').val($(this).val());
+  });
+
+  // Change Social Description Value
+  $('.social-description-txt').focusout(function(){
+    $('#challenge_social_description').val($(this).val());
+  });
 });

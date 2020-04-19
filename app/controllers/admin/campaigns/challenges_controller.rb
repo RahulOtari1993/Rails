@@ -43,16 +43,18 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Build Nested Attributes Params for User Segments
   def build_params
-    new_params = []
-    cust_params = params[:challenge][:challenge_filters_attributes]
-    cust_params.each do |key, c_param|
-      new_params.push({
-                          challenge_event: c_param[:challenge_event],
-                          challenge_condition: c_param[:challenge_condition],
-                          challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
-                      })
-    end
+    if params[:challenge].has_key?('challenge_filters_attributes')
+      new_params = []
+      cust_params = params[:challenge][:challenge_filters_attributes]
+      cust_params.each do |key, c_param|
+        new_params.push({
+                            challenge_event: c_param[:challenge_event],
+                            challenge_condition: c_param[:challenge_condition],
+                            challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
+                        })
+      end
 
-    params[:challenge][:challenge_filters_attributes] = new_params
+      params[:challenge][:challenge_filters_attributes] = new_params
+    end
   end
 end

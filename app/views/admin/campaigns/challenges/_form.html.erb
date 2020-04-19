@@ -178,6 +178,9 @@
                           </div>
 
                           <%= form.hidden_field :platform, value: 'facebook', class: 'always-validate', data: {error: 'platform-error'} %>
+                          <%= form.hidden_field :social_title, value: '' %>
+                          <%= form.hidden_field :social_description, value: '' %>
+
                           <div class="platform-error"></div>
                           <div class="social-image-error"></div>
                           <div class="social-title-error"></div>
@@ -225,7 +228,7 @@
                                             <h5>Welcome to the LIB Experiences Club</h5>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= form.text_field :social_title, class: 'form-control always-validate', placeholder: "Welcome to the LIB Experiences Club",
+                                          <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                                               data: {error: 'social-title-error'} %>
                                           <div class="clear"></div>
 
@@ -235,7 +238,7 @@
                                               love about LIB.</p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= form.text_field :social_description, class: 'form-control always-validate', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
@@ -276,7 +279,7 @@
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= form.text_field :social_description, class: 'form-control always-validate', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, nil,class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
                                         </div>
@@ -335,7 +338,7 @@
                                                 <h5>Welcome to the LIB Experiences Club</h5>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= form.text_field :social_title, class: 'form-control always-validate', placeholder: "Welcome to the LIB Experiences Club",
+                                              <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                                                   data: {error: 'social-title-error'} %>
                                               <div class="clear"></div>
 
@@ -344,7 +347,7 @@
                                                   the love about LIB.</p>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= form.text_field :social_description, class: 'form-control always-validate', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                              <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 
