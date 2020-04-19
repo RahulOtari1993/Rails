@@ -89,6 +89,13 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
+  create_table "campaigns_participants", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.bigint "participant_id"
+    t.index ["campaign_id"], name: "index_campaigns_participants_on_campaign_id"
+    t.index ["participant_id"], name: "index_campaigns_participants_on_participant_id"
+  end
+
   create_table "challenge_filters", force: :cascade do |t|
     t.bigint "challenge_id"
     t.string "challenge_event"
@@ -129,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.string "name"
+    t.integer "reward_user_id"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -178,6 +185,46 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_organizations_on_admin_user_id"
+  end
+
+  create_table "participant_account_connects", force: :cascade do |t|
+    t.bigint "participant_id"
+    t.string "email"
+    t.string "token"
+    t.string "platform"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_participant_account_connects_on_participant_id"
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.string "first_name"
+    t.string "last_name"
+    t.boolean "is_active", default: false, null: false
+    t.boolean "is_deleted", default: false, null: false
+    t.integer "deleted_by"
+    t.integer "organization_id"
+    t.integer "campaign_id"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
+    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
+    t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
   create_table "reward_filters", force: :cascade do |t|

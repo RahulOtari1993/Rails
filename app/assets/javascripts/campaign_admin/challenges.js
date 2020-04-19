@@ -336,7 +336,6 @@ $(document).on('turbolinks:load', function () {
   // Challenge Event Change Event
   $('body').on('change', '.challenge-event-dd', function (e) {
     var tableRow = $(this).parent().parent();
-
     // Hide All the Segmet Condition & Value Fields
     tableRow.find('.segment-conditions-container select').hide();
     tableRow.find('.segment-values-container select').hide();
@@ -348,5 +347,36 @@ $(document).on('turbolinks:load', function () {
     // Display Segment Values Inputs / Drop Downs
     tableRow.find('.segment-value-' + $(this).val()).show();
   });
+
+  //Submit form onclick skipping all input fields which are disabled
+  $('.reward_form').on('click', function () {
+    $('.segment_table').find('.filter_hidden').attr("disabled", true);
+    var selects = $('.segment_table').find('select');
+    var inputs = $('.segment_table').find('input');
+    var rows = $('.segment_table').find('tr')
+
+    for (var i = 0; i < selects.length; i++) {
+      if (selects[i].style.display == 'none') {
+        selects[i].disabled = true;
+      }
+    }
+
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i].style.display == 'none') {
+        inputs[i].disabled = true;
+      }
+    }
+    for (var i = 0; i < rows.length; i++) {
+      if (rows[i].style.display == 'none') {
+        $formInputs = $(this).find('input')
+        $formSelects = $(this).find('select')
+
+        $formInputs.prop("disabled", true);
+        $formSelects.prop("disabled", true)
+      }
+    }
+
+    $('form').submit();
+  })
 
 });

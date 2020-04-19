@@ -13,29 +13,35 @@
                 <%= f.label :coupon_codes %>
                 <span class="column-info">Enter the new coupon codes you want associated with this reward.
                 </span>
-                <%= f.text_field :code,class: "form-control"%>
+                <%= f.text_area :code, class: "form-control", id: 'label-textarea', rows: '3'%>
               <% end %>
-              <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Coupon</th>
-                            <th>Contact</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                      <% if @coupons.present?%>
-                        <% @coupons.each do |coupon|%>
-                          <tr>
-                            <td scope="row"><%= coupon.code %></td>
-                            <td><%= coupon.reward_user.user.email if coupon.reward_user_id.present? %> </td>
-                            <td><%= coupon.created_at %></td>
-                          </tr>
-                        <% end %>
-                      <% end %>
-                    </tbody>
-                </table>
+              <div class="content-wrapper">
+                <div class="content-body">
+                  <section id="data-list-view" class="data-list-view-header">
+                    <div class="table-responsive">
+                      <table class="table coupon-list-view">
+                          <thead>
+                              <tr>
+                                  <th>Coupon</th>
+                                  <th>Contact</th>
+                                  <th>Date</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <% if @coupons.present?%>
+                              <% @coupons.each do |coupon|%>
+                                <tr>
+                                  <td scope="row"><%= coupon.code %></td>
+                                  <td><%= coupon.reward_user.user.email if coupon.reward_user_id.present? %> </td>
+                                  <td><%= coupon.created_at.strftime("%d-%m-%Y") if coupon.created_at.present? %></td>
+                                </tr>
+                              <% end %>
+                            <% end %>
+                          </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
@@ -49,4 +55,5 @@
   $('.coupon_save').on('click', function(e){
     $('form').submit();
   })
+  $(".coupon-list-view").DataTable({});
 </script>>

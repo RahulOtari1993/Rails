@@ -4,7 +4,18 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def generate_reward_json
-    render json: { rewards: @campaign.rewards.all }
+    @rewards = @campaign.rewards.all
+    if params[:search][:value].present?
+      @reward_filtereds = @campaign.rewards.where("name LIKE ?", "%#{params[:search][:value]}%")
+      render json: { rewards: @reward_filtereds.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
+                 recordsFiltered: @reward_filtereds.count  }
+   else
+      render json: { rewards: @rewards.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
+                 recordsFiltered: @rewards.count  }
+    end
+    # @rewards.to_json
+    # @rewards[]=nil
+    # @rewards["total"] = @rewards.count
   end
 
   def new
@@ -13,8 +24,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
-    byebug
-    @reward = @campaign.rewards.new(reward_params)
+   @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
     #update the finish 
@@ -81,11 +91,18 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create_coupon
+    coupon_array = params[:coupon][:code].split(',')
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
-    @coupon = @reward.coupons.new(coupon_params)
-    if @coupon.save
-      redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
+    coupon_array.each do |c|
+      coupon = Coupon.new
+      coupon.reward_id = @reward.id
+      coupon.code = c
+      coupon.save
     end
+    # @coupon = @reward.coupons.new(coupon_params)
+    # if @coupon.save
+    redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
+    # end
   end
 
   def destroy
