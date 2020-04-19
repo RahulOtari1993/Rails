@@ -21,21 +21,23 @@ $(document).ready(function () {
   // })
 
   //hide row in reward new and delete/hide row/reward_filter in edit page
-  // $('body').on('click', '.hide_row', function(e){
-  //     e.preventDefault();  
-  //     if($(this).attr('reward_filter_id') != undefined){ 
-  //       $.ajax({
-  //         type: 'POST',
-  //         data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-  //         url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
-  //         success: function(data, res){
-  //           $(this).closest('tr').hide();
-  //         }
-  //       });
-  //     }else{
-  //       $(this).closest('tr').hide();
-  //     }
-  //   })
+  $('body').on('click', '.remove-reward-segment', function(e){
+      e.preventDefault();  
+      var element = null
+      element= $(this)
+      if($(this).attr('reward_filter_id') != undefined){ 
+        $.ajax({
+          type: 'POST',
+          data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+          url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
+          success: function(data, res){
+            element.closest('tr').remove();
+          }
+        });
+      }else{
+        element.parent().parent().remove();
+      }
+    })
 
   
 

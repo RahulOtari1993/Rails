@@ -27,7 +27,6 @@ $(document).on('turbolinks:load', function () {
 
   // Get Social Image Dynamically
   function getSocialImageName() {
-
     if ($('#challenge_platform').val() == 'facebook') {
       imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
@@ -39,6 +38,98 @@ $(document).on('turbolinks:load', function () {
     }
 
     return imageName;
+  }
+
+  // Replace ID of Newly Added Fields of User Segment
+  function replaceFieldIds(stringDetails, phaseCounter) {
+    stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
+    stringDetails = stringDetails.replace(/\[___NUM___\]/g, phaseCounter);
+    return stringDetails;
+  }
+
+  // Adds Validation for New Added User Segment Fields
+  function addValidations(phaseCounter) {
+    // Challenge User Segment Conditions Drop Down Require Validation
+    $('#segment-conditions-dd-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a condition"
+        }
+      })
+    });
+
+    // Challenge User Segment Age Validation
+    $('#segment-value-age-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        min: 1,
+        max: 100,
+        digits: true,
+        messages: {
+          required: "Please enter age",
+          min: "Minimum age should be 1",
+          max: "Maximum age can be 100",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Points Validation
+    $('#segment-value-points-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter points",
+          min: "Minimum points should be 1",
+          max: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Tags Validation
+    $('#segment-value-tags-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please enter tag"
+        }
+      })
+    });
+
+    // Challenge User Segment Rewards Validation
+    $('#segment-value-rewards-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a reward"
+        }
+      })
+    });
+
+    // Challenge User Segment Platform Validation
+    $('#segment-conditions-platforms-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select a platform"
+        }
+      })
+    });
+
+    // Challenge User Segment Gender Validation
+    $('#segment-value-gender-'+ phaseCounter).each(function() {
+      $(this).rules("add",        {
+        required: true,
+        messages: {
+          required: "Please select gender"
+        }
+      })
+    });
   }
 
   // Social Blog Image Validator
@@ -91,11 +182,10 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-
     if ($('#challenge_platform').val() == 'facebook') {
-      socialTitle = $("#facebookBlockBody input[name='challenge[social_title]']").val();
+      socialTitle = $("#facebookBlockBody .social-title-txt").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      socialTitle = $("#linkedinBlogBody input[name='challenge[social_title]']").val();
+      socialTitle = $("#linkedinBlogBody .social-title-txt").val();
     } else {
       socialTitle = ''
     }
@@ -116,13 +206,12 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-
     if ($('#challenge_platform').val() == 'facebook') {
-      socialDescription = $("#facebookBlockBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#facebookBlockBody .social-description-txt").val();
     } else if ($('#challenge_platform').val() == 'twitter') {
-      socialDescription = $("#twitterBlogBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#twitterBlogBody .social-description-txt").val();
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      socialDescription = $("#linkedinBlogBody input[name='challenge[social_description]']").val();
+      socialDescription = $("#linkedinBlogBody .social-description-txt").val();
     } else {
       socialDescription = ''
     }
@@ -171,10 +260,10 @@ $(document).on('turbolinks:load', function () {
         socialImageExistance: true,
         socialImageExtension: true
       },
-      'challenge[social_title]': {
+      'social_title': {
         socialTitle: true
       },
-      'challenge[social_description]': {
+      'social_description': {
         socialDesctiption: true
       }
     },
@@ -294,21 +383,30 @@ $(document).on('turbolinks:load', function () {
       if (idx == 0) {
         // Facebook
         $('#challenge_platform').val('facebook');
-        $("#facebookBlogBody :input").attr("disabled", false);
-        $("#twitterBlogBody :input").attr("disabled", true);
-        $("#linkedinBlogBody :input").attr("disabled", true);
+        $("#facebookBlogBody :input").attr('disabled', false);
+        $("#twitterBlogBody :input").attr('disabled', true);
+        $("#linkedinBlogBody :input").attr('disabled', true);
+
+        $('#challenge_social_title').val($("#facebookBlockBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#facebookBlockBody .social-description-txt").val());
       } else if (idx == 1) {
         // Twitter
         $('#challenge_platform').val('twitter');
-        $("#twitterBlogBody :input").attr("disabled", false);
-        $("#facebookBlogBody :input").attr("disabled", true);
-        $("#linkedinBlogBody :input").attr("disabled", true);
+        $("#twitterBlogBody :input").attr('disabled', false);
+        $("#facebookBlogBody :input").attr('disabled', true);
+        $("#linkedinBlogBody :input").attr('disabled', true);
+
+        $('#challenge_social_title').val($("#twitterBlogBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#twitterBlogBody .social-description-txt").val());
       } else if (idx == 2) {
         // LinkedIn
         $('#challenge_platform').val('linked_in');
-        $("#linkedinBlogBody :input").attr("disabled", false);
-        $("#facebookBlogBody :input").attr("disabled", true);
-        $("#twitterBlogBody :input").attr("disabled", true);
+        $('#linkedinBlogBody :input').attr('disabled', false);
+        $('#facebookBlogBody :input').attr('disabled', true);
+        $('#twitterBlogBody :input').attr('disabled', true);
+
+        $('#challenge_social_title').val($("#linkedinBlogBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#linkedinBlogBody .social-description-txt").val());
       }
 
       if (idx == $('.collapse.show').index('.collapse')) {
@@ -318,6 +416,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Dynamically Change Social Blog Comment Section Details
   $('#challenge_description').keyup(function () {
     $('.user-comment-section').html($(this).val());
   });
@@ -325,7 +424,13 @@ $(document).on('turbolinks:load', function () {
   // Add User Segment of Challenges Module
   $('.add-challenge-user-segment').on('click', function (e) {
     let challengeUserSegmentsTemplate = $('#challenge-user-segments-template').html();
-    $('.campaign-user-segments-container').append(challengeUserSegmentsTemplate);
+    let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+
+    segmentHtml = replaceFieldIds(challengeUserSegmentsTemplate, phaseCounter);
+    $('.campaign-user-segments-container').append(segmentHtml);
+
+    // Add Validation for Newly Added Elements
+    addValidations(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
@@ -336,16 +441,21 @@ $(document).on('turbolinks:load', function () {
   // Challenge Event Change Event
   $('body').on('change', '.challenge-event-dd', function (e) {
     var tableRow = $(this).parent().parent();
-    // Hide All the Segmet Condition & Value Fields
-    tableRow.find('.segment-conditions-container select').hide();
-    tableRow.find('.segment-values-container select').hide();
-    tableRow.find('.segment-values-container input').hide();
+
+    // Remove Error Classes of JS Validation & Remove Error Messages
+    tableRow.find('span.error').remove();
+
+    // Hide & Disable All the Segmet Condition and Value Fields & Remove Error Class
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( 'disabled', true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container select').prop( 'disabled', true ).hide().removeClass('error');
+    tableRow.find('.segment-values-container input').prop( 'disabled', true ).hide().removeClass('error');
+
 
     // Display Segment Condition Drop Downs
-    tableRow.find('.segment-conditions-' + $(this).val()).show();
+    tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr('disabled');
 
     // Display Segment Values Inputs / Drop Downs
-    tableRow.find('.segment-value-' + $(this).val()).show();
+    tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
   });
 
   //Submit form onclick skipping all input fields which are disabled
@@ -375,8 +485,19 @@ $(document).on('turbolinks:load', function () {
         $formSelects.prop("disabled", true)
       }
     }
-
+    debugger
     $('form').submit();
   })
+
+
+  // Change Social Title Value
+  $('.social-title-txt').focusout(function(){
+    $('#challenge_social_title').val($(this).val());
+  });
+
+  // Change Social Description Value
+  $('.social-description-txt').focusout(function(){
+    $('#challenge_social_description').val($(this).val());
+  });
 
 });
