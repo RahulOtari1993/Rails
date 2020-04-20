@@ -265,6 +265,15 @@ $(document).on('turbolinks:load', function () {
       },
       'social_description': {
         socialDesctiption: true
+      },
+      'challenge_start_date': {
+        required: true
+      },
+      'challenge_start_time': {
+        required: true
+      },
+      'challenge[time_zone]': {
+        required: true
       }
     },
     messages: {
@@ -287,6 +296,15 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[reward_id]': {
         required: 'Please enter first name'
+      },
+      'challenge_start_date': {
+        required: 'Please enter start date'
+      },
+      'challenge_start_time': {
+        required: 'Please enter start time'
+      },
+      'challenge[time_zone]': {
+        required: 'Please select timezone'
       }
     },
     errorPlacement: function (error, element) {
@@ -488,7 +506,6 @@ $(document).on('turbolinks:load', function () {
     debugger
     $('form').submit();
   })
-
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function(){
