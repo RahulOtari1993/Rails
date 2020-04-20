@@ -575,6 +575,7 @@ $(document).on('turbolinks:load', function () {
     },
     columns: [
       {
+        "class" : "class001",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
           return '<img src="' + data.image['thumb']['url'] + '" />';
@@ -604,22 +605,12 @@ $(document).on('turbolinks:load', function () {
         }
       },
     ],
-    columnDefs: [
-      {
-        orderable: true,
-        targets: 0
-      }
-    ],
-    dom:
-        '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[4, 10, 15, 20], [4, 10, 15, 20]],
-    select: {
-      style: "multi"
-    },
+    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
     order: [[2, "desc"]],
     bInfo: false,
     pageLength: 10,
@@ -632,8 +623,5 @@ $(document).on('turbolinks:load', function () {
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
       }
     ],
-    initComplete: function (settings, json) {
-      $(".dt-buttons .btn").removeClass("btn-secondary")
-    }
   })
 });
