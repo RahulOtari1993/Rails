@@ -485,7 +485,6 @@ $(document).on('turbolinks:load', function () {
         $formSelects.prop("disabled", true)
       }
     }
-    debugger
     $('form').submit();
   })
 

@@ -61,7 +61,7 @@
                               <%= f.label :name %>
                               <span class="column-info">Enter a friendly name to describe this reward.</span>
                               <div class="position-relative has-icon-left">
-                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control"%>
+                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control", required: true %>
                                 <div class="form-control-position">
                                   <i class="feather icon-user"></i>
                                 </div>
@@ -75,7 +75,7 @@
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3' %>
+                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', required: true %>
                                 </fieldset>
                               </div>
                             </div>
@@ -122,7 +122,8 @@
 															</span>
                               <div class="position-relative">
                                 <div class="form-group">
-                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, {class: "select2 form-control"})
+                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, {class: "select2 form-control"}, required: true
+                                    )
                                   %>
                                 </div>
                               </div>
@@ -135,7 +136,7 @@
                               <span class="column-info">This is the number of points required for a user to win this prize.
 															</span>
                               <div class="position-relative has-icon-left">
-                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control" %>
+                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control", required: true %>
                               </div>
                             </div>
                           </div>

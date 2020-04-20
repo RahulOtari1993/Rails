@@ -32,14 +32,15 @@ $(document).on('turbolinks:load', function() {
   $("#reward_listing").DataTable({
     "processing": true,
     paging: true,
+    paginationType: 'full_numbers',
     serverSide: true,
     responsive: false,
     ajax: {
       "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
       "dataSrc": "rewards",
-      dataFilter: function(data){
+      dataFilter: function(data, callback, settings){
           var json = jQuery.parseJSON( data );
-          console.log("JSONData", data)
+          // console.log("Data", data)
           console.log("JSOnTotal", json.recordsTotal);
           console.log("JSOnFiltered", json.recordsFiltered);
           console.log("JSONLIST", json.list)
@@ -47,17 +48,18 @@ $(document).on('turbolinks:load', function() {
           console.log("JSONDRaw", json.draw)
           json.recordsTotal = json.recordsTotal;
           json.recordsFiltered = json.recordsFiltered;
-          json.Page = json.page + 1;
-          json.Draw = json.draw;
-          json.data = json.list;
+          json.length = json.length;
+          json.draw = json.draw;
+          json.data = json.rewards;
+          // console.log("JsonData",json)
 
-          return JSON.stringify( json ); // return JSON string
+           return JSON.stringify( json ); // return JSON string
       },
     },
     columns: [
       {title: 'Image', data: null,searchable: false, 
         render: function(data, type, row){
-          return '<img src="' +data.image['thumb']['url']+ '" />';
+          return '<img src="' + data.image['thumb']['url'] + '" />';
         }
       },
       {title: 'Name', data:'name', searchable: true},
@@ -93,13 +95,13 @@ $(document).on('turbolinks:load', function() {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[4, 10, 15, 20], [4, 10, 15, 20]],
+    "lengthMenu" : [[ 10, 25, 50, -1 ],[ '10', '25', '50', 'All' ]],
+    "pageLength": 10, 
     select: {
       style: "multi"
     },
     order: [[2, "desc"]],
     bInfo: false,
-    pageLength: 10,
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Reward",

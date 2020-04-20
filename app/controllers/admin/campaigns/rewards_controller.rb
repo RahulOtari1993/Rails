@@ -8,10 +8,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     if params[:search][:value].present?
       @reward_filtereds = @campaign.rewards.where("name LIKE ?", "%#{params[:search][:value]}%")
       render json: { rewards: @reward_filtereds.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
-                 recordsFiltered: @reward_filtereds.count  }
+                 recordsFiltered: @reward_filtereds.count, length: params['length'].to_i  }
    else
       render json: { rewards: @rewards.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
-                 recordsFiltered: @rewards.count  }
+                 recordsFiltered: @rewards.count, length: params['length'].to_i   }
     end
     # @rewards.to_json
     # @rewards[]=nil
