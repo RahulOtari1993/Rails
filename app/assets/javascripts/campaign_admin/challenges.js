@@ -563,25 +563,22 @@ $(document).on('turbolinks:load', function () {
       "dataSrc": "challenges",
       dataFilter: function (data) {
         var json = jQuery.parseJSON(data);
-
-        // json.recordsTotal = json.recordsTotal;
-        // json.recordsFiltered = json.recordsFiltered;
-        // json.Page = json.page + 1;
-        // json.Draw = json.draw;
-        // json.data = json.list;
-
-        return JSON.stringify(json); // return JSON string
+        return JSON.stringify(json);
       },
     },
     columns: [
       {
-        "class" : "class001",
+        class: "product-img",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
           return '<img src="' + data.image['thumb']['url'] + '" />';
         }
       },
-      {title: 'Name', data: 'name', searchable: true},
+      {
+        class: 'product-name',
+        title: 'Name', data: 'name',
+        searchable: true
+      },
       {title: 'Social Network', data: 'platform', searchable: false},
       {title: 'Type', data: 'mechanism', searchable: false},
       {
