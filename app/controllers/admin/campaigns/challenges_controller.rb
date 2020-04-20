@@ -2,19 +2,29 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :build_params, only: :create
 
   def index
-    # @rewards = @campaign.rewards
   end
 
   def fetch_challenges
-    challenges = @campaign.challenges.all
+    challenges = @campaign.challenges
+    challenges = challenges.order("#{sort_column} #{sort_direction}") unless sort_column.nil?
+
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
-      filtered = @campaign.challenges.where("name LIKE ?", "%#{params[:search][:value]}%")
-      render json: { challenges: filtered.as_json, draw: params['draw'].to_i, recordsTotal: filtered.count,
-                     recordsFiltered: filtered.count  }
-    else
-      render json: { challenges: challenges.as_json, draw: params['draw'].to_i, recordsTotal: challenges.count,
-                     recordsFiltered: challenges.count  }
+      search_string = []
+      search_columns.each do |term|
+        search_string << "#{term} LIKE :search"
+      end
+
+      challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
+
+    challenges = challenges.page(page).per(per_page)
+
+    render json: {
+        challenges: challenges.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: @campaign.challenges.count,
+        recordsFiltered: challenges.total_count
+    }
   end
 
   def new
@@ -74,5 +84,26 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
       params[:challenge][:challenge_filters_attributes] = new_params
     end
+  end
+
+  def page
+    params[:start].to_i / per_page + 1
+  end
+
+  def per_page
+    params[:length].to_i > 0 ? params[:length].to_i : 10
+  end
+
+  def search_columns
+    %w(name mechanism)
+  end
+
+  def sort_column
+    columns = %w(name platform mechanism start finish)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
+
+  def sort_direction
+    params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
   end
 end
