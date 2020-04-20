@@ -34,6 +34,12 @@
 //= require vendors/tables/datatable/dataTables.select.min.js
 //= require vendors/forms/select/select2.full.min.js
 //= require vendors/forms/select/form-select2.js
+
+//= require vendors/pickers/pickadate/picker
+//= require vendors/pickers/pickadate/picker.date
+//= require vendors/pickers/pickadate/picker.time
+//= require vendors/pickers/pickadate/legacy
+
 //= require libraries/easy-editable-text
 
 //= require libraries/scripts/ui/data-list-view.js

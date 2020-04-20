@@ -500,4 +500,12 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_social_description').val($(this).val());
   });
 
+  // Date Picker (Disabled all the Past Dates)
+  $('.pick-challenge-date').pickadate({
+    format: 'mm/d/yyyy',
+    selectYears: true,
+    selectMonths: true,
+    min: true
+  });
+
 });

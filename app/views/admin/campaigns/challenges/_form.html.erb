@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control', placeholder: "MM/DD/YYYY"%>
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: "MM/DD/YYYY"%>
+                            <%= text_field_tag :challenge_end_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -75,7 +75,7 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :start_time, nil, class: 'form-control', placeholder: "3:00pm" %>
+                            <%= text_field_tag :challenge_end_time, nil, class: 'form-control', placeholder: "3:00pm" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
