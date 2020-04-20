@@ -17,4 +17,16 @@ class Admin::Campaigns::BaseController < ApplicationController
     @campaign = Campaign.where(id: params[:campaign_id]).first
     @template = @campaign.campaign_template_detail if @campaign.present?
   end
+
+  def datatable_page
+    params[:start].to_i / datatable_per_page + 1
+  end
+
+  def datatable_per_page
+    params[:length].to_i > 0 ? params[:length].to_i : 10
+  end
+
+  def datatable_sort_direction
+    params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  end
 end

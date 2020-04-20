@@ -6,8 +6,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def fetch_challenges
     challenges = @campaign.challenges
-    challenges = challenges.order("#{sort_column} #{sort_direction}") unless sort_column.nil?
 
+    ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_string = []
       search_columns.each do |term|
@@ -17,7 +17,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
-    challenges = challenges.page(page).per(per_page)
+    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
+
+    challenges = challenges.page(datatable_page).per(datatable_per_page)
 
     render json: {
         challenges: challenges.as_json,
@@ -86,13 +88,13 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     end
   end
 
-  def page
-    params[:start].to_i / per_page + 1
-  end
-
-  def per_page
-    params[:length].to_i > 0 ? params[:length].to_i : 10
-  end
+  # def page
+  #   params[:start].to_i / per_page + 1
+  # end
+  #
+  # def per_page
+  #   params[:length].to_i > 0 ? params[:length].to_i : 10
+  # end
 
   def search_columns
     %w(name mechanism)
@@ -103,7 +105,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     columns[params[:order]['0'][:column].to_i - 1]
   end
 
-  def sort_direction
-    params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
-  end
+  # def sort_direction
+  #   params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  # end
 end

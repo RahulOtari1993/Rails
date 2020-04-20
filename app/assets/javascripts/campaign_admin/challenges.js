@@ -597,8 +597,11 @@ $(document).on('turbolinks:load', function () {
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
           // Combine the first and last names into a single table field
-          return "<a href = /admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit>" + "<span class='action-edit'><i class='feather icon-edit'></i></span></a>"
-              + "<button class='btn btn-xs btn-action download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>" + "<i class='feather icon-download'></i></span></button>" + "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
+          return "<a href = /admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit>" +
+              "<span class='action-edit'><i class='feather icon-edit'></i></span></a>" +
+              "<button class='btn btn-xs btn-action download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>" +
+              "<i class='feather icon-download'></i></span></button>" +
+              "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
         }
       },
     ],
@@ -608,7 +611,7 @@ $(document).on('turbolinks:load', function () {
       sSearch: ""
     },
     aLengthMenu: [[10, 15, 20], [10, 15, 20]],
-    order: [[2, "desc"]],
+    order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
     buttons: [
