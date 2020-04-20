@@ -11,7 +11,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_string = []
       search_columns.each do |term|
-        search_string << "#{term} LIKE :search"
+        search_string << "#{term} ILIKE :search"
       end
 
       challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
