@@ -552,9 +552,14 @@ $(document).on('turbolinks:load', function () {
         '/' + dateObj.getFullYear()
   }
 
+  // Make First Letter of a string in Capitalize format
+  function textCapitalize(textString) {
+    return textString.charAt(0).toUpperCase() + textString.slice(1)
+  }
+
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
-    "processing": true,
+    processing: true,
     paging: true,
     serverSide: true,
     responsive: false,
@@ -579,8 +584,24 @@ $(document).on('turbolinks:load', function () {
         title: 'Name', data: 'name',
         searchable: true
       },
-      {title: 'Social Network', data: 'platform', searchable: false},
-      {title: 'Type', data: 'mechanism', searchable: false},
+      {
+        class: 'product-name',
+        title: 'Social Network',
+        data: null,
+        searchable: false,
+        render: function (data, type, row) {
+          return textCapitalize(data.platform)
+        }
+      },
+      {
+        class: 'product-name',
+        title: 'Type',
+        data: null,
+        searchable: true,
+        render: function (data, type, row) {
+          return textCapitalize(data.mechanism)
+        }
+      },
       {
         title: 'Start Date', data: null, searchable: false,
         render: function (data, type, row) {
