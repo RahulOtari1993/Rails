@@ -58,6 +58,8 @@
                             </div>
                           </div>
                         </div>
+
+                        <%= form.hidden_field :start, value: '' %>
                       </div>
 
                       <div class="row">
@@ -66,7 +68,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_end_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -75,12 +77,14 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_end_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
                           </div>
                         </div>
+
+                        <%= form.hidden_field :finish, value: '' %>
                       </div>
 
                       <div class="row">
@@ -89,7 +93,7 @@
                         </div>
                         <div class="col-sm-8 col-lg-8">
                           <div class="form-group">
-                            <%= form.time_zone_select(:time_zone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
+                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
                           </div>
                         </div>
                       </div>

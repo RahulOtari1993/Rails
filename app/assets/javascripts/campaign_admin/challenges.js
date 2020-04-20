@@ -528,4 +528,20 @@ $(document).on('turbolinks:load', function () {
   // Time Picker
   $('.pick-challenge-time').pickatime();
 
+  // Set Challenge Start Date & Time
+  $('body').on('change', '#challenge_start_date', function (e) {
+    $('#challenge_start').val($('#challenge_start_date').val() + ' ' + $('#challenge_start_time').val())
+  });
+  $('body').on('change', '#challenge_start_time', function (e) {
+    $('#challenge_start').val($('#challenge_start_date').val() + ' ' + $('#challenge_start_time').val())
+  });
+
+  // Set Challenge Finish Date & Time
+  $('body').on('change', '#challenge_finish_date', function (e) {
+    $('#challenge_finish').val($('#challenge_finish_date').val() + ' ' + $('#challenge_finish_time').val())
+  });
+  $('body').on('change', '#challenge_finish_time', function (e) {
+    $('#challenge_finish').val($('#challenge_finish_date').val() + ' ' + $('#challenge_finish_time').val())
+  });
+
 });

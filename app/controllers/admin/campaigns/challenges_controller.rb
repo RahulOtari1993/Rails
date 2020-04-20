@@ -35,10 +35,15 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
-    params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type,
-                                      :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                      challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
-                                                                     :challenge_condition, :challenge_value])
+    return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
+                                                      :points, :reward_id, :platform, :image, :social_title, :social_description,
+                                                      :start, :finish, challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
+                                                                                                      :challenge_condition, :challenge_value])
+    ## Convert Start & Finish Details in DateTime Object
+    return_params[:start] = Chronic.parse(params[:challenge][:start])
+    return_params[:finish] = Chronic.parse(params[:challenge][:finish])
+
+    return_params
   end
 
   ## Build Nested Attributes Params for User Segments
