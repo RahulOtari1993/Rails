@@ -28,6 +28,74 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset class="step-top-padding" data-step-id="1">
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>1. Active Time Period</h3>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>Start date for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control', placeholder: "3:00pm" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :start_date, nil, class: 'form-control', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :start_time, nil, class: 'form-control', placeholder: "3:00pm" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                          <p>Timezone for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-8 col-lg-8">
+                          <div class="form-group">
+                            <%= form.time_zone_select(:time_zone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -41,6 +109,7 @@
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="mechanism-error"></div>
+
                       <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
