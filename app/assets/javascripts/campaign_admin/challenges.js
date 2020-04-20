@@ -508,4 +508,7 @@ $(document).on('turbolinks:load', function () {
     min: true
   });
 
+  // Time Picker
+  $('.pick-challenge-time').pickatime();
+
 });

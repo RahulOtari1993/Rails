@@ -323,6 +323,10 @@
   color: #BABFC7 !important;
 }
 
+.picker.picker--opened.picker--focused {
+  margin-top: -20px;
+}
+
 @media screen and (max-width: 768px) {
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;
