@@ -3,7 +3,7 @@ class Participant < ApplicationRecord
 	belongs_to :organization
 
 	devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable,
+         :recoverable, :rememberable,:omniauthable, :omniauth_providers => [:facebook],
          :authentication_keys => [:email, :organization_id], :reset_password_keys => [:email, :organization_id]
 
     validates :email, confirmation: true
@@ -78,9 +78,25 @@ class Participant < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  #facebook omniauth
+  def self.from_omniauth(auth)
+    participant = find_or_create_by(uid: auth[‘uid’], provider:  auth[‘provider’])
+    if Participant.exists?(participant)
+      participant
+    else
+      where(auth.slice(:provider, :uid)).first_or_initialize.tap do |participant|
+        participant.provider = auth.provider
+        participant.uid = auth.uid
+        participant.name = auth.info.name
+        participant.oauth_token = auth.credentials.token
+        participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
+        participant.save!
+      end
+    end
+  end
+
   private
    def save_participant_details
-   	byebug
    	  campaign = Campaign.find(self.campaign_id)
    	  campaign.participants << self
    end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       sessions: 'participants/sessions',
       passwords: 'participants/passwords',
       confirmations: 'participants/confirmations',
+      :omniauth_callbacks => "participants/omniauth_callbacks"
     }
 
     namespace :admin do
@@ -66,6 +67,6 @@ Rails.application.routes.draw do
 
     ## Root Route
     root to: "welcome#home"
-    get '/after_sign_in', to: 'welcome#after_sign_in', as: :after_sign_in
+    get '/participants', to: 'welcome#participants', as: :participants
   end
 end

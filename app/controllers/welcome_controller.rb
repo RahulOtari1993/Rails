@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  # before_action :authenticate_user!
+  before_action :authenticate_participant!
   layout 'end_user'
 
   def index
@@ -8,6 +8,6 @@ class WelcomeController < ApplicationController
   def home
   end
 
-  def after_sign_in
+  def participants
   end
 end

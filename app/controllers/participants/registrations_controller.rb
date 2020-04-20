@@ -59,7 +59,7 @@ class Participants::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    redirect_to after_sign_in_path
+    redirect_to participants_path
   end
 
   # The path used after sign up for inactive accounts.
