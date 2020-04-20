@@ -50,8 +50,8 @@ $(document).on('turbolinks:load', function () {
   // Adds Validation for New Added User Segment Fields
   function addValidations(phaseCounter) {
     // Challenge User Segment Conditions Drop Down Require Validation
-    $('#segment-conditions-dd-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-conditions-dd-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         messages: {
           required: "Please select a condition"
@@ -60,8 +60,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Age Validation
-    $('#segment-value-age-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-value-age-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         min: 1,
         max: 100,
@@ -76,8 +76,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Points Validation
-    $('#segment-value-points-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-value-points-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         min: 1,
         max: 10000,
@@ -92,8 +92,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Tags Validation
-    $('#segment-value-tags-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-value-tags-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         messages: {
           required: "Please enter tag"
@@ -102,8 +102,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Rewards Validation
-    $('#segment-value-rewards-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-value-rewards-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         messages: {
           required: "Please select a reward"
@@ -112,8 +112,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Platform Validation
-    $('#segment-conditions-platforms-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-conditions-platforms-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         messages: {
           required: "Please select a platform"
@@ -122,8 +122,8 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Challenge User Segment Gender Validation
-    $('#segment-value-gender-'+ phaseCounter).each(function() {
-      $(this).rules("add",        {
+    $('#segment-value-gender-' + phaseCounter).each(function () {
+      $(this).rules("add", {
         required: true,
         messages: {
           required: "Please select gender"
@@ -464,9 +464,9 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('span.error').remove();
 
     // Hide & Disable All the Segmet Condition and Value Fields & Remove Error Class
-    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop( 'disabled', true ).hide().removeClass('error');
-    tableRow.find('.segment-values-container select').prop( 'disabled', true ).hide().removeClass('error');
-    tableRow.find('.segment-values-container input').prop( 'disabled', true ).hide().removeClass('error');
+    tableRow.find('.segment-conditions-container .segment-conditions-dd').prop('disabled', true).hide().removeClass('error');
+    tableRow.find('.segment-values-container select').prop('disabled', true).hide().removeClass('error');
+    tableRow.find('.segment-values-container input').prop('disabled', true).hide().removeClass('error');
 
 
     // Display Segment Condition Drop Downs
@@ -508,12 +508,12 @@ $(document).on('turbolinks:load', function () {
   })
 
   // Change Social Title Value
-  $('.social-title-txt').focusout(function(){
+  $('.social-title-txt').focusout(function () {
     $('#challenge_social_title').val($(this).val());
   });
 
   // Change Social Description Value
-  $('.social-description-txt').focusout(function(){
+  $('.social-description-txt').focusout(function () {
     $('#challenge_social_description').val($(this).val());
   });
 
@@ -544,4 +544,96 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_finish').val($('#challenge_finish_date').val() + ' ' + $('#challenge_finish_time').val())
   });
 
+  // Format Date
+  function formatDate(date) {
+    let dateObj = new Date(date);
+    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
+        ("0" + (dateObj.getDate() + 1)).slice(-2) +
+        '/' + dateObj.getFullYear()
+  }
+
+  // Challenges Server Side Listing
+  $('#challenge-list-table').DataTable({
+    "processing": true,
+    paging: true,
+    serverSide: true,
+    responsive: false,
+    ajax: {
+      "url": "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges",
+      "dataSrc": "challenges",
+      dataFilter: function (data) {
+        var json = jQuery.parseJSON(data);
+
+        // json.recordsTotal = json.recordsTotal;
+        // json.recordsFiltered = json.recordsFiltered;
+        // json.Page = json.page + 1;
+        // json.Draw = json.draw;
+        // json.data = json.list;
+
+        return JSON.stringify(json); // return JSON string
+      },
+    },
+    columns: [
+      {
+        title: 'Image', data: null, searchable: false,
+        render: function (data, type, row) {
+          return '<img src="' + data.image['thumb']['url'] + '" />';
+        }
+      },
+      {title: 'Name', data: 'name', searchable: true},
+      {title: 'Social Network', data: 'platform', searchable: false},
+      {title: 'Type', data: 'mechanism', searchable: false},
+      {
+        title: 'Start Date', data: null, searchable: false,
+        render: function (data, type, row) {
+          return formatDate(data.start)
+        }
+      },
+      {
+        title: 'End date', data: null, searchable: false,
+        render: function (data, type, row) {
+          return formatDate(data.finish)
+        }
+      },
+      {
+        title: 'Actions', data: null, searchable: false, orderable: false,
+        render: function (data, type, row) {
+          // Combine the first and last names into a single table field
+          return "<a href = /admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit>" + "<span class='action-edit'><i class='feather icon-edit'></i></span></a>"
+              + "<button class='btn btn-xs btn-action download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>" + "<i class='feather icon-download'></i></span></button>" + "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
+        }
+      },
+    ],
+    columnDefs: [
+      {
+        orderable: true,
+        targets: 0
+      }
+    ],
+    dom:
+        '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    oLanguage: {
+      sLengthMenu: "_MENU_",
+      sSearch: ""
+    },
+    aLengthMenu: [[4, 10, 15, 20], [4, 10, 15, 20]],
+    select: {
+      style: "multi"
+    },
+    order: [[2, "desc"]],
+    bInfo: false,
+    pageLength: 10,
+    buttons: [
+      {
+        text: "<i class='feather icon-plus'></i> Add Challenge",
+        action: function () {
+          window.location.href = "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/new"
+        },
+        className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
+      }
+    ],
+    initComplete: function (settings, json) {
+      $(".dt-buttons .btn").removeClass("btn-secondary")
+    }
+  })
 });

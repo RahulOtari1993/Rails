@@ -2,6 +2,19 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :build_params, only: :create
 
   def index
+    # @rewards = @campaign.rewards
+  end
+
+  def fetch_challenges
+    challenges = @campaign.challenges.all
+    if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
+      filtered = @campaign.challenges.where("name LIKE ?", "%#{params[:search][:value]}%")
+      render json: { challenges: filtered.as_json, draw: params['draw'].to_i, recordsTotal: filtered.count,
+                     recordsFiltered: filtered.count  }
+    else
+      render json: { challenges: challenges.as_json, draw: params['draw'].to_i, recordsTotal: challenges.count,
+                     recordsFiltered: challenges.count  }
+    end
   end
 
   def new
