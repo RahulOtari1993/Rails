@@ -88,24 +88,14 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     end
   end
 
-  # def page
-  #   params[:start].to_i / per_page + 1
-  # end
-  #
-  # def per_page
-  #   params[:length].to_i > 0 ? params[:length].to_i : 10
-  # end
-
+  ## Datatable Column List om which search can be performed
   def search_columns
     %w(name mechanism)
   end
 
+  ## Datatable Column List on which sorting can be performed
   def sort_column
     columns = %w(name platform mechanism start finish)
     columns[params[:order]['0'][:column].to_i - 1]
   end
-
-  # def sort_direction
-  #   params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
-  # end
 end
