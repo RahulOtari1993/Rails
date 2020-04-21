@@ -630,10 +630,13 @@ $(document).on('turbolinks:load', function () {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
+    aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
     order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
+    // oLanguage: {
+    //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
+    // },
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Challenge",
@@ -643,8 +646,9 @@ $(document).on('turbolinks:load', function () {
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
       }
     ],
-    initComplete: function(settings, json) {
-      $(".dt-buttons .btn").removeClass("btn-secondary")
+    initComplete: function (settings, json) {
+      $(".dt-buttons .btn").removeClass("btn-secondary");
+      // $('.dataTables_filter').addClass('search-icon-placement');
     }
   })
 });
