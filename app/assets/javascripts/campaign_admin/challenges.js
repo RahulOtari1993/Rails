@@ -142,6 +142,21 @@ $(document).on('turbolinks:load', function () {
     });
   }
 
+  // Replace ID of Newly Added Fields of User Segment
+  function addSelect2(phaseCounter) {
+    // Select2 for Reward Dropdown in User Segment Conditions
+    $('#segment-value-rewards-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
+
+    // Select2 for Challenge Dropdown in User Segment Conditions
+    $('#segment-value-challenge-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
+  }
+
   // Social Blog Image Validator
   $.validator.addMethod('socialImageExistance', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
@@ -459,6 +474,9 @@ $(document).on('turbolinks:load', function () {
 
     // Add Validation for Newly Added Elements
     addValidations(phaseCounter);
+
+    // Add Select2 Drop Down
+    addSelect2(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
@@ -478,11 +496,15 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('.segment-values-container select').prop('disabled', true).hide().removeClass('error');
     tableRow.find('.segment-values-container input').prop('disabled', true).hide().removeClass('error');
 
+    // Hide Select2 Dropdowns
+    tableRow.find('.segment-values-container select').next(".select2-container").hide();
+
     // Display Segment Condition Drop Downs
     tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr('disabled');
 
     // Display Segment Values Inputs / Drop Downs
     tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
+    tableRow.find('.segment-value-' + $(this).val()).next(".select2-container").show();
   });
 
   //Submit form onclick skipping all input fields which are disabled
@@ -661,8 +683,7 @@ $(document).on('turbolinks:load', function () {
       // $('.dataTables_filter').addClass('search-icon-placement');
     }
   });
-
-
+  
   // Select2 for Timezone select
   $('#challenge_timezone').select2({
     dropdownAutoWidth: true,
