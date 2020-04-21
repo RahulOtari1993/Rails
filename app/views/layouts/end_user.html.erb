@@ -137,6 +137,12 @@
                             <span class="icon-btn-share fa fa-facebook"></span>
                             <span class="btn-share-text">Continue With Facebook</span>
                           </a>
+                          <a id="connect-bttn" href=<%= participant_google_oauth2_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
+                            <span class="icon-btn-share fa fa-google"></span>
+                            <span class="btn-share-text">Continue With Gmail</span>
+                          </a>
+                          <%#= link_to "Authenticate with Google!", '/auth/google_oauth2' %>
+
                           <div class="spinner-section">
                             <img id="connect-spin" src="../../../app-assets/images/slider/spinner.svg" class="spinner-scale">
                           </div>

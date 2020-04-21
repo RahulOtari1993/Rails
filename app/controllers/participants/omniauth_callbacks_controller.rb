@@ -14,6 +14,17 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       redirect_to root_url
     end
   end
+
+  def google_oauth2
+    @participant = Participant.from_omniauth(request.env["omniauth.auth"])
+    if @participant.persisted?
+      sign_in @participant, :event => :authentication #this will throw if @participant is not activated
+      set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
+    else
+      session["devise.google_data"] = request.env["omniauth.auth"]
+    end
+    redirect_to root_url
+  end
   # You should also create an action method in this controller like this:
   # def twitter
   # end

@@ -3,7 +3,7 @@ class Participant < ApplicationRecord
 	belongs_to :organization
 
 	devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable,:omniauthable, :omniauth_providers => [:facebook],
+         :recoverable, :rememberable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
          :authentication_keys => [:email, :organization_id], :reset_password_keys => [:email, :organization_id]
 
     validates :email, confirmation: true
