@@ -660,5 +660,12 @@ $(document).on('turbolinks:load', function () {
       $(".dt-buttons .btn").removeClass("btn-secondary");
       // $('.dataTables_filter').addClass('search-icon-placement');
     }
-  })
+  });
+
+
+  // Select2 for Timezone select
+  $('#challenge_timezone').select2({
+    dropdownAutoWidth: true,
+    width: '100%'
+  });
 });
