@@ -24,6 +24,7 @@
               <% end %>
 
               <%= form.hidden_field :campaign_id, value: @campaign.id %>
+              <%= form.hidden_field :creator_id, value: current_user.id %>
 
               <!-- Step 1 -->
               <h6>Type</h6>

@@ -69,11 +69,16 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                                      :start, :finish, challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
-                                                                                                      :challenge_condition, :challenge_value])
+                                                      :start, :finish, :creator_id,
+                                                      challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
+                                                                                     :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object
     return_params[:start] = Chronic.parse(params[:challenge][:start])
     return_params[:finish] = Chronic.parse(params[:challenge][:finish])
+
+    ## Manage Reward Type Details
+    return_params[:reward_id] = nil if params[:challenge][:reward_type] == 'points' && params[:challenge][:points].present?
+    return_params[:points] = nil if params[:challenge][:reward_type] == 'prize' && params[:challenge][:reward_id].present?
 
     return_params
   end
