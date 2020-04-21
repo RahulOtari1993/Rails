@@ -31,31 +31,74 @@
                 <div class="step_point_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <h3>USER SEGMENTS</h3>
-                      <hr style="margin-bottom: 0px !important;">
+                      <h3>1. Active Time Period</h3>
                     </div>
                   </div>
 
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <div class="form-group">
-                        <div class="table-responsive">
-                          <table class="table table-striped mb-0 tbl-user-segments">
-                            <tbody class="campaign-user-segments-container">
-                            </tbody>
-                          </table>
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>Start date for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
                         </div>
 
-                        <br>
-                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
-                          <span>
-                            <i class="feather icon-plus"></i> Add Segment
-                          </span>
-                        </button>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :start, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :finish, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                          <p>Timezone for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-8 col-lg-8">
+                          <div class="form-group">
+                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
                 <div class="new_challenge_box">
                   <div class="row">
@@ -70,6 +113,7 @@
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="mechanism-error"></div>
+
                       <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
@@ -229,7 +273,7 @@
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
                                           <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
-                                                              data: {error: 'social-title-error'} %>
+                                                             data: {error: 'social-title-error'} %>
                                           <div class="clear"></div>
 
                                           <label class="text_label">
@@ -279,7 +323,7 @@
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, nil,class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
                                         </div>
@@ -339,7 +383,7 @@
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
                                               <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
-                                                                  data: {error: 'social-title-error'} %>
+                                                                 data: {error: 'social-title-error'} %>
                                               <div class="clear"></div>
 
                                               <label class="text_label">
@@ -443,21 +487,31 @@
               <!-- Step 4 -->
               <h6>Target</h6>
               <fieldset class="step-top-padding" data-step-id="4">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="proposalTitle1">Proposal Title</label>
-                      <input name="hk_s4_1" type="text" class="form-control" id="proposalTitle1">
-                    </div>
-                    <div class="form-group">
-                      <label for="jobtitle">Job Title</label>
-                      <input name="hk_s4_2" type="text" class="form-control" id="jobtitle">
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>USER SEGMENTS</h3>
+                      <hr style="margin-bottom: 0px !important;">
                     </div>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="shortDescription1">Short Description :</label>
-                      <textarea name="shortDescription" id="shortDescription1" rows="5" class="form-control"></textarea>
+
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="form-group">
+                        <div class="table-responsive">
+                          <table class="table table-striped mb-0 tbl-user-segments">
+                            <tbody class="campaign-user-segments-container">
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <br>
+                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                          <span>
+                            <i class="feather icon-plus"></i> Add Segment
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -499,10 +553,10 @@
                           <div class="vs-checkbox-con vs-checkbox-primary">
                             <input type="checkbox" value="false">
                             <span class="vs-checkbox">
-                                                                            <span class="vs-checkbox--check">
-                                                                                <i class="vs-icon feather icon-check"></i>
-                                                                            </span>
-                                                                        </span>
+                              <span class="vs-checkbox--check">
+                                <i class="vs-icon feather icon-check"></i>
+                              </span>
+                            </span>
                             <span class="">Staffing</span>
                           </div>
                         </div>
@@ -510,10 +564,10 @@
                           <div class="vs-checkbox-con vs-checkbox-primary">
                             <input type="checkbox" value="false">
                             <span class="vs-checkbox">
-                                                                            <span class="vs-checkbox--check">
-                                                                                <i class="vs-icon feather icon-check"></i>
-                                                                            </span>
-                                                                        </span>
+                              <span class="vs-checkbox--check">
+                                <i class="vs-icon feather icon-check"></i>
+                              </span>
+                            </span>
                             <span class="">Catering</span>
                           </div>
                         </div>
@@ -535,20 +589,5 @@
 </script>
 
 <style>
-  .nav-pills-bottom {
-    margin-bottom: 2rem !important;
-  }
 
-  .pill-inner-padding {
-    padding: 8px 55px !important;
-    font-size: 17px !important;
-    font-weight: 800;
-  }
-
-  .pill-btn {
-    background-color: transparent !important;
-    border: 1px solid #BABFC7 !important;
-    border-radius: 0.25rem !important;
-    color: #BABFC7 !important;
-  }
 </style>

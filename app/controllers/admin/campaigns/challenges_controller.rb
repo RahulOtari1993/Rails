@@ -4,6 +4,31 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def index
   end
 
+  def fetch_challenges
+    challenges = @campaign.challenges
+
+    ## Check if Search Keyword is Present & Write it's Query
+    if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
+      search_string = []
+      search_columns.each do |term|
+        search_string << "#{term} ILIKE :search"
+      end
+
+      challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
+    end
+
+    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
+
+    challenges = challenges.page(datatable_page).per(datatable_per_page)
+
+    render json: {
+        challenges: challenges.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: @campaign.challenges.count,
+        recordsFiltered: challenges.total_count
+    }
+  end
+
   def new
     @challenge = Challenge.new
   end
@@ -35,10 +60,15 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
-    params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type,
-                                      :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                      challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
-                                                                     :challenge_condition, :challenge_value])
+    return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
+                                                      :points, :reward_id, :platform, :image, :social_title, :social_description,
+                                                      :start, :finish, challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
+                                                                                                      :challenge_condition, :challenge_value])
+    ## Convert Start & Finish Details in DateTime Object
+    return_params[:start] = Chronic.parse(params[:challenge][:start])
+    return_params[:finish] = Chronic.parse(params[:challenge][:finish])
+
+    return_params
   end
 
   ## Build Nested Attributes Params for User Segments
@@ -57,4 +87,25 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       params[:challenge][:challenge_filters_attributes] = new_params
     end
   end
+
+  # def page
+  #   params[:start].to_i / per_page + 1
+  # end
+  #
+  # def per_page
+  #   params[:length].to_i > 0 ? params[:length].to_i : 10
+  # end
+
+  def search_columns
+    %w(name mechanism)
+  end
+
+  def sort_column
+    columns = %w(name platform mechanism start finish)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
+
+  # def sort_direction
+  #   params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  # end
 end

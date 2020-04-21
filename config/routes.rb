@@ -51,7 +51,11 @@ Rails.application.routes.draw do
           end
 
           ## Challenge Routes
-          resources :challenges
+          resources :challenges do
+            collection do
+              get '/fetch_challenges', to: 'challenges#fetch_challenges'
+            end
+          end
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
