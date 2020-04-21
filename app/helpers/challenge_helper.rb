@@ -85,6 +85,7 @@ module ChallengeHelper
     end
   end
 
+  ## Check Whether to Validate Social Image of Not
   def validate_social_image(type)
     if @challenge.new_record?
       'always-validate'

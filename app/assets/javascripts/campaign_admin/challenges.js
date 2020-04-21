@@ -40,6 +40,7 @@ $(document).on('turbolinks:load', function () {
     return imageName;
   }
 
+  // Check if social image is needed for Validation
   function imageNeeded(element) {
     return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
   }
