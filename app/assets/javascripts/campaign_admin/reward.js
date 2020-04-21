@@ -12,118 +12,168 @@ $(document).ready(function () {
     }
   })
 
-  // Add segment
-  // $('#add_segment').on('click', function (e) {
-  //   e.preventDefault();
-  //   var size = null
-  //   size = $('#filter_conditions >tbody >tr').length + 1
-  //   $('.segment_table tbody').append('<tr id= filter_condition_' + size + '>' + $('#filter_condition_1').html() +'</tr>')
-  // })
-
   //hide row in reward new and delete/hide row/reward_filter in edit page
   $('body').on('click', '.remove-reward-segment', function(e){
-      e.preventDefault();  
-      var element = null
-      element= $(this)
-      if($(this).attr('reward_filter_id') != undefined){ 
-        $.ajax({
-          type: 'POST',
-          data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-          url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
-          success: function(data, res){
-            element.closest('tr').remove();
-          }
-        });
-      }else{
-        element.parent().parent().remove();
+    e.preventDefault();  
+    var element = null
+    element= $(this)
+    if($(this).attr('reward_filter_id') != undefined){ 
+      $.ajax({
+        type: 'POST',
+        data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+        url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
+        success: function(data, res){
+          element.closest('tr').remove();
+        }
+      });
+    }else{
+      element.parent().parent().remove();
+    }
+  })
+
+  //Download CSV
+  $('#reward_listing').on('click', '.download-csv-btn', function(){
+    var reward_id = $(this).attr('reward_id')
+    var campaign_id = $(this).attr('campaign_id')
+    $.ajax({
+      type: 'GET',
+      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + campaign_id + "/rewards/" + reward_id  + "/ajax_user"
+    });
+  });
+
+  $('#reward_listing').on('click', '.coupon-btn', function(){
+    var reward_id = $(this).attr('reward_id')
+    var campaign_id = $(this).attr('campaign_id')
+    $.ajax({
+      type: 'GET',
+      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + campaign_id + "/rewards/" + reward_id  + "/ajax_coupon_form"
+    });
+  });
+
+  //datetime format 
+  function formatDate(date){
+    let current_datetime = new Date(date);
+    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate()
+    return formatted_date
+  }
+
+  //thumbview list
+  $("#reward_listing").DataTable({
+    processing: true,
+    paging: true,
+    serverSide: true,
+    responsive: false,
+    ajax: {
+      "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
+      "dataSrc": "rewards",
+      dataFilter: function(data, callback, settings){
+          var json = jQuery.parseJSON(data);
+          return JSON.stringify(json);
+      },
+    },
+    columns: [
+      {title: 'Image', data: null,searchable: false, 
+        render: function(data, type, row){
+          return '<img src="' + data.image['thumb']['url'] + '" />';
+        }
+      },
+      {title: 'Name', data:'name', searchable: true},
+      {title: 'Fulfillment', data: 'selection',searchable: false },
+      {title: 'Winners', data: 'selection', searchable: false},
+      {title: 'Start Date', data: null, searchable: false,
+        render: function(data, type, row){
+         return formatDate(data.start)       
+        }
+      },
+      {title: 'End date', data: null, searchable: false,
+        render: function(data, type, row){
+         return formatDate(data.finish)       
+        }
+      },
+      {title: 'Actions', data: null, searchable: false, orderable: false,
+        render: function ( data, type, row ) {
+            // Combine the first and last names into a single table field
+          return  "<a href = /admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit>" + "<span class='action-edit'><i class='feather icon-edit'></i></span></a>"
+                  +"<button class='btn btn-xs btn-action download-csv-btn' reward_id ='" + data.id +"'campaign_id='" + data.campaign_id + "'>" + "<i class='feather icon-download'></i></span></button>" + "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
+         }
+      },
+    ],
+    columnDefs: [
+      {
+        orderable: true,
+        targets: 0
       }
-    })
+    ],
+    dom:
+      '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    oLanguage: {
+      sLengthMenu: "_MENU_",
+      sSearch: ""
+    },
+    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
+    order: [[1, "asc"]],
+    bInfo: false,
+    pageLength: 10,
+    select: {
+      style: "multi"
+    },
+    buttons: [
+      {
+        text: "<i class='feather icon-plus'></i> Add Reward",
+        action: function() {
+          window.location.href = "/admin/campaigns/" + $('#reward_listing').attr('campaign_id') + "/rewards/new"
+        },
+        className: "btn-outline-primary"
+      }
+    ],
+    initComplete: function(settings, json) {
+      $(".dt-buttons .btn").removeClass("btn-secondary")
+    }
+  })
 
+  //Reward datepicker
+  // Date Picker (Disabled all the Past Dates)
+  $('.pick-reward-date').pickadate({
+    format: 'mm/d/yyyy',
+    selectYears: true,
+    selectMonths: true,
+    min: true
+  });
+
+  // Time Picker
+  $('.pick-reward-time').pickatime();
   
-
-  // //Submit form onclick skipping all input fields which are disabled
+  //Submit form onclick skipping all input fields which are disabled
   // $('.reward_form').on('click', function () {
-  //   $('.segment_table').find('.filter_hidden').attr("disabled", true);
-  //   var selects = $('.segment_table').find('select');
-  //   var inputs = $('.segment_table').find('input');
-  //   var rows = $('.segment_table').find('tr')
+  //   // $('.segment_table').find('.filter_hidden').attr("disabled", true);
+  //   // var selects = $('.segment_table').find('select');
+  //   // var inputs = $('.segment_table').find('input');
+  //   // var rows = $('.segment_table').find('tr')
 
-  //   for (var i = 0; i < selects.length; i++) {
-  //     if (selects[i].style.display == 'none') {
-  //       selects[i].disabled = true;
-  //     }
-  //   }
+  //   // for (var i = 0; i < selects.length; i++) {
+  //   //   if (selects[i].style.display == 'none') {
+  //   //     selects[i].disabled = true;
+  //   //   }
+  //   // }
 
-  //   for (var i = 0; i < inputs.length; i++) {
-  //     if (inputs[i].style.display == 'none') {
-  //       inputs[i].disabled = true;
-  //     }
-  //   }
-  //   for (var i = 0; i < rows.length; i++) {
-  //     if (rows[i].style.display == 'none') {
-  //       $formInputs = $(this).find('input')
-  //       $formSelects = $(this).find('select')
+  //   // for (var i = 0; i < inputs.length; i++) {
+  //   //   if (inputs[i].style.display == 'none') {
+  //   //     inputs[i].disabled = true;
+  //   //   }
+  //   // }
+  //   // for (var i = 0; i < rows.length; i++) {
+  //   //   if (rows[i].style.display == 'none') {
+  //   //     $formInputs = $(this).find('input')
+  //   //     $formSelects = $(this).find('select')
 
-  //       $formInputs.prop("disabled", true);
-  //       $formSelects.prop("disabled", true)
-  //     }
-  //   }
-
+  //   //     $formInputs.prop("disabled", true);
+  //   //     $formSelects.prop("disabled", true)
+  //   //   }
+  //   // }
   //   $('form').submit();
   // })
-
-  //creating global function to show dropdown onchange
-  // function hideRow() {
-  //   for (var i = 1; i < arguments.length; i++){
-  //     arguments[0].find('.' + arguments[i]).hide();
-  //   }    
-  // }
-
-  //creating global function to hide dropdown onchange
-  // function showRow(){
-  //   for (var i = 1; i < arguments.length; i++){
-  //     arguments[0].find('.' + arguments[i]).show();
-  //   } 
-  // }
-
-//Segment filter onchage dropdown hide/show
-//   $(document).on('change', '.reward_event', function () {
-//     var val = $(this).val();
-//     var $currentRow = $(this).closest('tr');
-//     if (val == 'Tags') {
-//       hideRow($currentRow,'gender_value','age_reward_condition', 'gender_reward_condition', 'all_challenges_value', 'all_rewards_value', 'social_reward_value');
-//       showRow($currentRow, 'reward_value', 'tags_reward_condition')
-//       $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
-//       $currentRow.find('.gender_value').addClass('filter_hidden');
-//     } else if (val == 'Gender') {
-//       hideRow($currentRow,'age_reward_condition', 'tags_reward_condition', 'reward_value', 'all_rewards_value', 'all_challenges_value', 'social_reward_value');
-//       showRow($currentRow, 'gender_reward_condition', 'gender_value')
-//       $currentRow.find('.gender_reward_condition').removeClass('filter_hidden');
-//       $currentRow.find('.gender_value').removeClass('filter_hidden');
-//     } else if (val == 'Points') {
-//       hideRow($currentRow,'gender_reward_condition','social_reward_value', 'gender_value', 'tags_reward_condition', 'all_challenges_value', 'all_rewards_value')
-//       showRow($currentRow, 'reward_value', 'age_reward_condition')
-//       $currentRow.find('.age_reward_condition').removeClass('.filter_hidden');
-//     } else if (val == 'Rewards') {
-//       hideRow($currentRow,'all_challenges_value','social_reward_value','gender_reward_condition','tags_reward_condition','age_reward_condition','reward_value')
-//       showRow($currentRow, 'all_rewards_value')
-//       $currentRow.find('.all_rewards_value').removeClass('filter_hidden');
-//     } else if (val == 'Platforms') {
-//       hideRow($currentRow,'reward_value','all_challenges_value','all_rewards_value','gender_reward_condition','gender_value', 'age_reward_condition')
-//       showRow($currentRow,'social_reward_value', 'tags_reward_condition')
-//       $currentRow.find('.social_reward_value').removeClass('filter_hidden');
-//       $currentRow.find('.tags_reward_condition').removeClass('filter_hidden');
-//     } else if (val == "Challenges") {
-//       hideRow($currentRow,'social_reward_value','reward_value','all_rewards_value', 'gender_reward_value', 'age_reward_condition')
-//       showRow($currentRow,'all_challenges_value');
-//       $currentRow.find('.all_challenges_value ').removeClass('filter_hidden');
-//     } else {
-//       hideRow($currentRow,'gender_value','tags_reward_condition','all_rewards_value','social_reward_value', 'all_challenges_value','gender_reward_condition')
-//       showRow($currentRow,'reward_value','age_reward_condition')
-//       $currentRow.find('.age_reward_condition').removeClass('filter_hidden')
-//       $currentRow.find('.reward_value').show();
-//     }
-//   })
 })
 
 

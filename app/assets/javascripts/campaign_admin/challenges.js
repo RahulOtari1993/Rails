@@ -476,35 +476,7 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
   });
 
-  //Submit form onclick skipping all input fields which are disabled
-  $('.reward_form').on('click', function () {
-    $('.segment_table').find('.filter_hidden').attr("disabled", true);
-    var selects = $('.segment_table').find('select');
-    var inputs = $('.segment_table').find('input');
-    var rows = $('.segment_table').find('tr')
-
-    for (var i = 0; i < selects.length; i++) {
-      if (selects[i].style.display == 'none') {
-        selects[i].disabled = true;
-      }
-    }
-
-    for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].style.display == 'none') {
-        inputs[i].disabled = true;
-      }
-    }
-    for (var i = 0; i < rows.length; i++) {
-      if (rows[i].style.display == 'none') {
-        $formInputs = $(this).find('input')
-        $formSelects = $(this).find('select')
-
-        $formInputs.prop("disabled", true);
-        $formSelects.prop("disabled", true)
-      }
-    }
-    $('form').submit();
-  })
+  
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function () {
