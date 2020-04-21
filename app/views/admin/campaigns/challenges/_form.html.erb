@@ -28,78 +28,6 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset class="step-top-padding" data-step-id="1">
-                <div class="step_point_box">
-                  <div class="row">
-                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <h3>1. Active Time Period</h3>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                          <p>Start date for challenge to be available to users</p>
-                        </div>
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                            <div class="form-control-position">
-                              <i class="feather icon-calendar"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
-                            <div class="form-control-position">
-                              <i class="feather icon-clock"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <%= form.hidden_field :start, value: '' %>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
-                        </div>
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                            <div class="form-control-position">
-                              <i class="feather icon-calendar"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
-                            <div class="form-control-position">
-                              <i class="feather icon-clock"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <%= form.hidden_field :finish, value: '' %>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-sm-8 col-md-8">
-                          <p>Timezone for challenge to be available to users</p>
-                        </div>
-                        <div class="col-sm-8 col-lg-8">
-                          <div class="form-group">
-                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -520,55 +448,72 @@
               <!-- Step 5 -->
               <h6>Schedule</h6>
               <fieldset class="step-top-padding" data-step-id="5">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventName1">Event Name :</label>
-                      <input name="hk_s5_1" type="text" class="form-control" id="eventName1">
-                    </div>
-                    <div class="form-group">
-                      <label for="eventType1">Event Status :</label>
-                      <select class="custom-select form-control" id="eventType1" data-placeholder="Type to search cities" name="eventType1">
-                        <option value="Banquet">Planning</option>
-                        <option value="Fund Raiser">In Process</option>
-                        <option value="Dinner Party">Finished</option>
-                      </select>
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>1. Active Time Period</h3>
                     </div>
                   </div>
 
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventLocation1">Event Location :</label>
-                      <select class="custom-select form-control" id="eventLocation1" name="location">
-                        <option value="new-york">New York</option>
-                        <option value="chicago">Chicago</option>
-                        <option value="san-francisco">San Francisco</option>
-                        <option value="boston">Boston</option>
-                      </select>
-                    </div>
-                    <div class="form-group d-flex align-items-center pt-md-2">
-                      <label class="mr-2">Requirements :</label>
-                      <div class="c-inputs-stacked">
-                        <div class="d-inline-block mr-2">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                              <span class="vs-checkbox--check">
-                                <i class="vs-icon feather icon-check"></i>
-                              </span>
-                            </span>
-                            <span class="">Staffing</span>
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>Start date for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
                           </div>
                         </div>
-                        <div class="d-inline-block">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                              <span class="vs-checkbox--check">
-                                <i class="vs-icon feather icon-check"></i>
-                              </span>
-                            </span>
-                            <span class="">Catering</span>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :start, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :finish, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                          <p>Timezone for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-8 col-lg-8">
+                          <div class="form-group">
+                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
                           </div>
                         </div>
                       </div>
