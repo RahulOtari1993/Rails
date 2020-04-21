@@ -519,6 +519,12 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_social_title').val($(this).val());
   });
 
+  // Change Social Link Value
+  $('#challenge_link').focusout(function () {
+    console.log("IN");
+    $('.social-link-label').html($(this).val());
+  });
+
   // Change Social Description Value
   $('.social-description-txt').focusout(function () {
     $('#challenge_social_description').val($(this).val());

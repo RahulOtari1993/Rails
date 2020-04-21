@@ -93,4 +93,17 @@ module ChallengeHelper
       @challenge.platform != type ? 'always-validate' : ''
     end
   end
+
+  ## Set Social Blog Link
+  def social_blog_link(type)
+    if @challenge.new_record?
+      'LIB.PERKSOCIAL.COM'
+    else
+      if @challenge.platform == type
+        @challenge.link
+      else
+        'LIB.PERKSOCIAL.COM'
+      end
+    end
+  end
 end
