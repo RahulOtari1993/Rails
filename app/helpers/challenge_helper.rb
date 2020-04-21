@@ -6,7 +6,7 @@ module ChallengeHelper
 
   ## Set Active Class to Challenge Mechanism
   def active_challenge_type(type)
-    if @challenge.new_record? && type == 'share'
+    if new_record? && type == 'share'
       'active'
     else
       'active' if @challenge.mechanism == type
@@ -15,7 +15,7 @@ module ChallengeHelper
 
   ## Set SHOW Class to Challenge Social Blog
   def active_social_blog(type)
-    if @challenge.new_record? && type == 'facebook'
+    if new_record? && type == 'facebook'
       'show'
     else
       'show' if @challenge.platform == type
@@ -24,7 +24,7 @@ module ChallengeHelper
 
   ## Set Social Blog Comments
   def social_blog_comment(type)
-    if @challenge.new_record? && type == 'facebook'
+    if new_record? && type == 'facebook'
       "User's comment (must be added by user)"
     else
       @challenge.description
@@ -33,7 +33,7 @@ module ChallengeHelper
 
   ## Set Social Blog Title
   def social_blog_title(type, input_type)
-    if @challenge.new_record?
+    if new_record?
       default_title(type, input_type)
     else
       if @challenge.platform == type
@@ -46,7 +46,7 @@ module ChallengeHelper
 
   ## Set Social Blog Description
   def social_blog_description(type, input_type)
-    if @challenge.new_record?
+    if new_record?
       default_description(type, input_type)
     else
       @challenge.platform == type ? @challenge.social_description : default_description(type, input_type)
@@ -78,7 +78,7 @@ module ChallengeHelper
 
   ## Set Social Blog Title
   def social_blog_image(type)
-    if @challenge.new_record?
+    if new_record?
       "<img src='#' id='show-#{type}-image'>"
     else
       if @challenge.platform == type
@@ -91,7 +91,7 @@ module ChallengeHelper
 
   ## Check Whether to Validate Social Image of Not
   def validate_social_image(type)
-    if @challenge.new_record?
+    if new_record?
       'always-validate'
     else
       @challenge.platform != type ? 'always-validate' : ''
@@ -100,7 +100,7 @@ module ChallengeHelper
 
   ## Set Social Blog Link
   def social_blog_link(type)
-    if @challenge.new_record?
+    if new_record?
       'LIB.PERKSOCIAL.COM'
     else
       if @challenge.platform == type
@@ -113,7 +113,7 @@ module ChallengeHelper
 
   ## Set Reward Type Active Pill
   def active_reward_pill(type)
-    if @challenge.new_record? && type == 'points'
+    if new_record? && type == 'points'
       'active'
     else
       @challenge.reward_type == type ? 'active' : ''
