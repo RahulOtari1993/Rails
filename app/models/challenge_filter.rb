@@ -16,7 +16,7 @@ class ChallengeFilter < ApplicationRecord
   belongs_to :challenge
 
   ## Constants
-  EVENTS = %w(age tags gender points rewards platforms)
+  EVENTS = %w(age tags gender points rewards platforms challenge)
   CONDITIONS = %w(equals greater_than less_than greater_than_or_equal less_than_or_Equal)
   SOCIAL_PLATFORMS = %w(facebook twitter google instagram youtube)
 

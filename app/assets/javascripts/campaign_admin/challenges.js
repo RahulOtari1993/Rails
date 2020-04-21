@@ -130,6 +130,31 @@ $(document).on('turbolinks:load', function () {
         }
       })
     });
+
+    // Challenge User Segment Challenge Validation
+    $('#segment-value-challenge-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a challenge"
+        }
+      })
+    });
+  }
+
+  // Replace ID of Newly Added Fields of User Segment
+  function addSelect2(phaseCounter) {
+    // Select2 for Reward Dropdown in User Segment Conditions
+    $('#segment-value-rewards-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
+
+    // Select2 for Challenge Dropdown in User Segment Conditions
+    $('#segment-value-challenge-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
   }
 
   // Social Blog Image Validator
@@ -449,6 +474,9 @@ $(document).on('turbolinks:load', function () {
 
     // Add Validation for Newly Added Elements
     addValidations(phaseCounter);
+
+    // Add Select2 Drop Down
+    addSelect2(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
@@ -468,12 +496,15 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('.segment-values-container select').prop('disabled', true).hide().removeClass('error');
     tableRow.find('.segment-values-container input').prop('disabled', true).hide().removeClass('error');
 
+    // Hide Select2 Dropdowns
+    tableRow.find('.segment-values-container select').next(".select2-container").hide();
 
     // Display Segment Condition Drop Downs
     tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr('disabled');
 
     // Display Segment Values Inputs / Drop Downs
     tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
+    tableRow.find('.segment-value-' + $(this).val()).next(".select2-container").show();
   });
 
   
@@ -588,10 +619,11 @@ $(document).on('turbolinks:load', function () {
       {
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
-          // Combine the first and last names into a single table field
           return "<a href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'" +
               "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>" +
-              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>" +
+              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
               "<i class='feather icon-download'></i></button>"
         }
       },
@@ -601,10 +633,13 @@ $(document).on('turbolinks:load', function () {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
+    aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
     order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
+    // oLanguage: {
+    //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
+    // },
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Challenge",
@@ -614,8 +649,15 @@ $(document).on('turbolinks:load', function () {
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
       }
     ],
-    initComplete: function(settings, json) {
-      $(".dt-buttons .btn").removeClass("btn-secondary")
+    initComplete: function (settings, json) {
+      $(".dt-buttons .btn").removeClass("btn-secondary");
+      // $('.dataTables_filter').addClass('search-icon-placement');
     }
-  })
+  });
+  
+  // Select2 for Timezone select
+  $('#challenge_timezone').select2({
+    dropdownAutoWidth: true,
+    width: '100%'
+  });
 });

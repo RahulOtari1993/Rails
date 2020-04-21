@@ -28,78 +28,6 @@
               <!-- Step 1 -->
               <h6>Type</h6>
               <fieldset class="step-top-padding" data-step-id="1">
-                <div class="step_point_box">
-                  <div class="row">
-                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <h3>1. Active Time Period</h3>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                          <p>Start date for challenge to be available to users</p>
-                        </div>
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                            <div class="form-control-position">
-                              <i class="feather icon-calendar"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
-                            <div class="form-control-position">
-                              <i class="feather icon-clock"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <%= form.hidden_field :start, value: '' %>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-sm-12 col-md-12">
-                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
-                        </div>
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                            <div class="form-control-position">
-                              <i class="feather icon-calendar"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
-                          <div class="form-group">
-                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
-                            <div class="form-control-position">
-                              <i class="feather icon-clock"></i>
-                            </div>
-                          </div>
-                        </div>
-
-                        <%= form.hidden_field :finish, value: '' %>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-sm-8 col-md-8">
-                          <p>Timezone for challenge to be available to users</p>
-                        </div>
-                        <div class="col-sm-8 col-lg-8">
-                          <div class="form-group">
-                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
                 <div class="new_challenge_box">
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -108,13 +36,14 @@
                     </div>
                   </div>
 
-                  <%= form.hidden_field :mechanism, value: 'share', class: 'always-validate', data: {error: 'mechanism-error'} %>
+                  <%= form.hidden_field :mechanism, value: @challenge.new_record? ? 'share' : @challenge.mechanism,
+                                        class: 'always-validate', data: {error: 'mechanism-error'} %>
 
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="mechanism-error"></div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('share') %>" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>
@@ -128,7 +57,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="connect">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('connect') %>" data-val="connect">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-users" aria-hidden="true"></i>
@@ -142,7 +71,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="engage">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('engage') %>" data-val="engage">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -156,7 +85,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="collect">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('collect') %>" data-val="collect">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
@@ -221,9 +150,10 @@
                             <p>Add a platform you would like your users to share this post to</p>
                           </div>
 
-                          <%= form.hidden_field :platform, value: 'facebook', class: 'always-validate', data: {error: 'platform-error'} %>
-                          <%= form.hidden_field :social_title, value: '' %>
-                          <%= form.hidden_field :social_description, value: '' %>
+                          <%= form.hidden_field :platform, value: @challenge.new_record? ? 'facebook' : @challenge.platform,
+                                                class: 'always-validate', data: {error: 'platform-error'} %>
+                          <%= form.hidden_field :social_title, value: @challenge.new_record? ? '' : @challenge.social_title %>
+                          <%= form.hidden_field :social_description, value: @challenge.new_record? ? '' : @challenge.social_description %>
 
                           <div class="platform-error"></div>
                           <div class="social-image-error"></div>
@@ -239,7 +169,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="facebookBlockBody" class="collapse show" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
+                              <div id="facebookBlockBody" class="collapse <%= active_social_blog('facebook') %>" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_fb">
                                     <div class="Social_blocks_fb_title">
@@ -256,7 +186,9 @@
                                       </div>
                                       <div class="clear"></div>
 
-                                      <p class="user-comment-section">User's comment (must be added by user)</p>
+                                      <p class="user-comment-section">
+                                        <%= social_blog_comment('facebook') %>
+                                      </p>
                                       <div class="Social_blocks_fb_content_box">
                                         <img src="#" id="show-facebook-image">
                                         <div class="image-upload">
@@ -269,20 +201,22 @@
                                         <div class="editable_box">
 
                                           <label class="text_label edit_title">
-                                            <h5>Welcome to the LIB Experiences Club</h5>
+                                            <h5>
+                                              <%= social_blog_title('facebook') %>
+                                            </h5>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                                          <%= text_field_tag :social_title, social_blog_title('facebook'), class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                                              data: {error: 'social-title-error'} %>
                                           <div class="clear"></div>
 
                                           <label class="text_label">
-                                            <p class="user-comment-section">We've made it easy for you to win exclusive
-                                              prizes just by sharing the
-                                              love about LIB.</p>
+                                            <p>
+                                              <%= social_blog_description('facebook') %>
+                                            </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('facebook'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
@@ -303,7 +237,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="twitterBlogBody" class="collapse" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+                              <div id="twitterBlogBody" class="collapse <%= active_social_blog('twitter') %>" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_twitter">
                                     <div class="Social_blocks_twitter_title">
@@ -316,14 +250,12 @@
                                         <div class="user_name_box">
                                           <p><span>User's Name</span></p>
                                           <label class="text_label">
-                                            <p>We've made it easy for you to win exclusive prizes just by sharing the
-                                              love about LIB. Join today to start earning now.
-                                              It's easy!
-                                              <span><a href="prk.la/s/h768" class="Social_blocks_twitter_link">prk.la/s/h768</a></span>
+                                            <p>
+                                              <%= raw social_blog_description('twitter') %>
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('twitter'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
                                         </div>
@@ -354,7 +286,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="linkedinBlogBody" class="collapse" aria-labelledby="linkedinBlog" data-parent="#Social_blocks_accordion">
+                              <div id="linkedinBlogBody" class="collapse <%= active_social_blog('linked_in') %>" aria-labelledby="linkedinBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_LinkedIn">
                                     <div class="Social_blocks_LinkedIn_title">
@@ -379,25 +311,31 @@
                                             <div class="editable_box">
 
                                               <label class="text_label edit_title">
-                                                <h5>Welcome to the LIB Experiences Club</h5>
+                                                <h5>
+                                                  <%= social_blog_title('linked_in') %>
+                                                </h5>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                                              <%= text_field_tag :social_title, social_blog_title('linked_in'), class: 'form-control always-validate social-title-txt',
+                                                                 placeholder: "Welcome to the LIB Experiences Club",
                                                                  data: {error: 'social-title-error'} %>
                                               <div class="clear"></div>
 
                                               <label class="text_label">
-                                                <p>We've made it easy for you to win exclusive prizes just by sharing
-                                                  the love about LIB.</p>
+                                                <p>
+                                                  <%= social_blog_description('linked_in') %>
+                                                </p>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                              <%= text_field_tag :social_description, social_blog_description('linked_in'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 
                                               <p><a href="javascript:void(0);">LIB.PERKSOCIAL.COM</a></p>
                                               <hr>
-                                              <p class="user-comment-section">User's comment (must be added by user)</p>
+                                              <p class="user-comment-section">
+                                                <%= social_blog_comment('linked_in') %>
+                                              </p>
                                             </div>
                                           </div>
 
@@ -520,55 +458,73 @@
               <!-- Step 5 -->
               <h6>Schedule</h6>
               <fieldset class="step-top-padding" data-step-id="5">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventName1">Event Name :</label>
-                      <input name="hk_s5_1" type="text" class="form-control" id="eventName1">
-                    </div>
-                    <div class="form-group">
-                      <label for="eventType1">Event Status :</label>
-                      <select class="custom-select form-control" id="eventType1" data-placeholder="Type to search cities" name="eventType1">
-                        <option value="Banquet">Planning</option>
-                        <option value="Fund Raiser">In Process</option>
-                        <option value="Dinner Party">Finished</option>
-                      </select>
+                <div class="step_point_box">
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <h3>1. Active Time Period</h3>
                     </div>
                   </div>
 
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label for="eventLocation1">Event Location :</label>
-                      <select class="custom-select form-control" id="eventLocation1" name="location">
-                        <option value="new-york">New York</option>
-                        <option value="chicago">Chicago</option>
-                        <option value="san-francisco">San Francisco</option>
-                        <option value="boston">Boston</option>
-                      </select>
-                    </div>
-                    <div class="form-group d-flex align-items-center pt-md-2">
-                      <label class="mr-2">Requirements :</label>
-                      <div class="c-inputs-stacked">
-                        <div class="d-inline-block mr-2">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                              <span class="vs-checkbox--check">
-                                <i class="vs-icon feather icon-check"></i>
-                              </span>
-                            </span>
-                            <span class="">Staffing</span>
+                  <div class="row">
+                    <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>Start date for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
                           </div>
                         </div>
-                        <div class="d-inline-block">
-                          <div class="vs-checkbox-con vs-checkbox-primary">
-                            <input type="checkbox" value="false">
-                            <span class="vs-checkbox">
-                              <span class="vs-checkbox--check">
-                                <i class="vs-icon feather icon-check"></i>
-                              </span>
-                            </span>
-                            <span class="">Catering</span>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :start, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <p>End date for challenge to be available to users (optional- will run indefinitely if left
+                            blank)</p>
+                        </div>
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-calendar"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
+                          <div class="form-group">
+                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <div class="form-control-position">
+                              <i class="feather icon-clock"></i>
+                            </div>
+                          </div>
+                        </div>
+
+                        <%= form.hidden_field :finish, value: '' %>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-sm-8 col-md-8">
+                          <p>Timezone for challenge to be available to users</p>
+                        </div>
+                        <div class="col-sm-8 col-lg-8">
+                          <div class="form-group">
+                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
                           </div>
                         </div>
                       </div>
