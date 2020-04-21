@@ -1,5 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :build_params, only: :create
+  before_action :set_challenge, only: [:edit, :update]
 
   def index
   end
@@ -53,9 +54,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def update
   end
 
-  def destroy
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -97,5 +95,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def sort_column
     columns = %w(name platform mechanism start finish)
     columns[params[:order]['0'][:column].to_i - 1]
+  end
+
+  def set_challenge
+    @challenge = @campaign.challenges.find_by(:id => params[:id]) rescue nil
   end
 end
