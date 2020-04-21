@@ -186,7 +186,9 @@
                                       </div>
                                       <div class="clear"></div>
 
-                                      <p class="user-comment-section">User's comment (must be added by user)</p>
+                                      <p class="user-comment-section">
+                                        <%= social_blog_comment('facebook') %>
+                                      </p>
                                       <div class="Social_blocks_fb_content_box">
                                         <img src="#" id="show-facebook-image">
                                         <div class="image-upload">
@@ -199,19 +201,22 @@
                                         <div class="editable_box">
 
                                           <label class="text_label edit_title">
-                                            <h5>Welcome to the LIB Experiences Club</h5>
+                                            <h5>
+                                              <%= social_blog_title('facebook') %>
+                                            </h5>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                                          <%= text_field_tag :social_title, social_blog_title('facebook'), class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                                              data: {error: 'social-title-error'} %>
                                           <div class="clear"></div>
 
                                           <label class="text_label">
-                                            <p>We've made it easy for you to win exclusive prizes just by sharing the
-                                              love about LIB.</p>
+                                            <p>
+                                              <%= social_blog_description('facebook') %>
+                                            </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('facebook'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
@@ -245,14 +250,12 @@
                                         <div class="user_name_box">
                                           <p><span>User's Name</span></p>
                                           <label class="text_label">
-                                            <p>We've made it easy for you to win exclusive prizes just by sharing the
-                                              love about LIB. Join today to start earning now.
-                                              It's easy!
-                                              <span><a href="prk.la/s/h768" class="Social_blocks_twitter_link">prk.la/s/h768</a></span>
+                                            <p>
+                                              <%= raw social_blog_description('twitter') %>
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('twitter'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
                                         </div>
@@ -308,25 +311,31 @@
                                             <div class="editable_box">
 
                                               <label class="text_label edit_title">
-                                                <h5>Welcome to the LIB Experiences Club</h5>
+                                                <h5>
+                                                  <%= social_blog_title('linked_in') %>
+                                                </h5>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_title, nil, class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                                              <%= text_field_tag :social_title, social_blog_title('linked_in'), class: 'form-control always-validate social-title-txt',
+                                                                 placeholder: "Welcome to the LIB Experiences Club",
                                                                  data: {error: 'social-title-error'} %>
                                               <div class="clear"></div>
 
                                               <label class="text_label">
-                                                <p>We've made it easy for you to win exclusive prizes just by sharing
-                                                  the love about LIB.</p>
+                                                <p>
+                                                  <%= social_blog_description('linked_in') %>
+                                                </p>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_description, nil, class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                              <%= text_field_tag :social_description, social_blog_description('linked_in'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 
                                               <p><a href="javascript:void(0);">LIB.PERKSOCIAL.COM</a></p>
                                               <hr>
-                                              <p class="user-comment-section">User's comment (must be added by user)</p>
+                                              <p class="user-comment-section">
+                                                <%= social_blog_comment('linked_in') %>
+                                              </p>
                                             </div>
                                           </div>
 
