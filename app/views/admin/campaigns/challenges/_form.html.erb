@@ -190,33 +190,34 @@
                                         <%= social_blog_comment('facebook') %>
                                       </p>
                                       <div class="Social_blocks_fb_content_box">
-                                        <img src="#" id="show-facebook-image">
+                                        <%= raw social_blog_image('facebook') %>
+                                        <!--                                        <img src="#" id="show-facebook-image">-->
                                         <div class="image-upload">
                                           <label for="file-input-fb">
                                             <i class="fa fa-upload"></i>
                                           </label>
-                                          <%= form.file_field :image, class: "social-img-upload always-validate", id: 'file-input-fb',
+                                          <%= form.file_field :image, class: "social-img-upload #{validate_social_image('facebook')}", id: 'file-input-fb',
                                                               data: {'file-id' => 'show-facebook-image', error: 'social-image-error'} %>
                                         </div>
                                         <div class="editable_box">
 
                                           <label class="text_label edit_title">
                                             <h5>
-                                              <%= social_blog_title('facebook') %>
+                                              <%= social_blog_title('facebook', 'text') %>
                                             </h5>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_title, social_blog_title('facebook'), class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                                          <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                                              data: {error: 'social-title-error'} %>
                                           <div class="clear"></div>
 
                                           <label class="text_label">
                                             <p>
-                                              <%= social_blog_description('facebook') %>
+                                              <%= social_blog_description('facebook', 'text') %>
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, social_blog_description('facebook'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('facebook', 'input'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
@@ -251,11 +252,11 @@
                                           <p><span>User's Name</span></p>
                                           <label class="text_label">
                                             <p>
-                                              <%= raw social_blog_description('twitter') %>
+                                              <%= raw social_blog_description('twitter', 'text') %>
                                             </p>
                                           </label>
                                           <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                          <%= text_field_tag :social_description, social_blog_description('twitter'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                          <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
                                         </div>
@@ -263,12 +264,13 @@
                                       <div class="clear"></div>
 
                                       <div class="Social_blocks_fb_content_box">
-                                        <img src="#" id="show-twitter-image">
+                                        <%= raw social_blog_image('twitter') %>
+                                        <!--                                        <img src="#" id="show-twitter-image">-->
                                         <div class="image-upload">
                                           <label for="file-input-twitter">
                                             <i class="fa fa-upload"></i>
                                           </label>
-                                          <%= form.file_field :image, class: "social-img-upload always-validate", id: 'file-input-twitter',
+                                          <%= form.file_field :image, class: "social-img-upload #{validate_social_image('twitter')}", id: 'file-input-twitter',
                                                               data: {'file-id' => 'show-twitter-image', error: 'social-image-error'} %>
                                         </div>
                                       </div>
@@ -300,34 +302,35 @@
                                           <p><span>User's Blog Name</span></p>
 
                                           <div class="Social_blocks_fb_content_box">
-                                            <img src="#" id="show-linkedin-image">
+                                            <%= raw social_blog_image('linkedin') %>
+                                            <!--                                            <img src="#" id="show-linkedin-image">-->
                                             <div class="image-upload">
                                               <label for="file-input-linkedin">
                                                 <i class="fa fa-upload"></i>
                                               </label>
-                                              <%= form.file_field :image, class: "social-img-upload always-validate", id: 'file-input-linkedin',
+                                              <%= form.file_field :image, class: "social-img-upload #{validate_social_image('linked_in')}", id: 'file-input-linkedin',
                                                                   data: {'file-id' => 'show-linkedin-image', error: 'social-image-error'} %>
                                             </div>
                                             <div class="editable_box">
 
                                               <label class="text_label edit_title">
                                                 <h5>
-                                                  <%= social_blog_title('linked_in') %>
+                                                  <%= social_blog_title('linked_in', 'text') %>
                                                 </h5>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_title, social_blog_title('linked_in'), class: 'form-control always-validate social-title-txt',
+                                              <%= text_field_tag :social_title, social_blog_title('linked_in', 'input'), class: 'form-control always-validate social-title-txt',
                                                                  placeholder: "Welcome to the LIB Experiences Club",
                                                                  data: {error: 'social-title-error'} %>
                                               <div class="clear"></div>
 
                                               <label class="text_label">
                                                 <p>
-                                                  <%= social_blog_description('linked_in') %>
+                                                  <%= social_blog_description('linked_in', 'text') %>
                                                 </p>
                                               </label>
                                               <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                                              <%= text_field_tag :social_description, social_blog_description('linked_in'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                              <%= text_field_tag :social_description, social_blog_description('linked_in', 'input'), class: 'form-control always-validate social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 

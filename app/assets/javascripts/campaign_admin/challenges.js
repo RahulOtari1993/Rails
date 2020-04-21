@@ -28,16 +28,20 @@ $(document).on('turbolinks:load', function () {
   // Get Social Image Dynamically
   function getSocialImageName() {
     if ($('#challenge_platform').val() == 'facebook') {
-      imageName = $("#facebookBlockBody input[name='challenge[image]']").val();
+      imageName = imageNeeded($("#facebookBlockBody input[name='challenge[image]']"));
     } else if ($('#challenge_platform').val() == 'twitter') {
-      imageName = $("#twitterBlogBody input[name='challenge[image]']").val();
+      imageName = imageNeeded($("#twitterBlogBody input[name='challenge[image]']"));
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      imageName = $("#linkedinBlogBody input[name='challenge[image]']").val();
+      imageName =imageNeeded($("#linkedinBlogBody input[name='challenge[image]']"));
     } else {
       imageName = ''
     }
 
     return imageName;
+  }
+
+  function imageNeeded(element) {
+    return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
   }
 
   // Replace ID of Newly Added Fields of User Segment
