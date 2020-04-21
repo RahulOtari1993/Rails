@@ -617,10 +617,11 @@ $(document).on('turbolinks:load', function () {
       {
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
-          // Combine the first and last names into a single table field
           return "<a href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'" +
               "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>" +
-              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>" +
+              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
               "<i class='feather icon-download'></i></button>"
         }
       },
