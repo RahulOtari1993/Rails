@@ -36,13 +36,14 @@
                     </div>
                   </div>
 
-                  <%= form.hidden_field :mechanism, value: 'share', class: 'always-validate', data: {error: 'mechanism-error'} %>
+                  <%= form.hidden_field :mechanism, value: @challenge.new_record? ? 'share' : @challenge.mechanism,
+                                        class: 'always-validate', data: {error: 'mechanism-error'} %>
 
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="mechanism-error"></div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('share') %>" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>
@@ -56,7 +57,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="connect">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('connect') %>" data-val="connect">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-users" aria-hidden="true"></i>
@@ -70,7 +71,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="engage">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('engage') %>" data-val="engage">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -84,7 +85,7 @@
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="collect">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%= active_challenge_type('collect') %>" data-val="collect">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
