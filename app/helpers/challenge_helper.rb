@@ -8,4 +8,13 @@ module ChallengeHelper
       'active' if @challenge.mechanism == type
     end
   end
+
+  ## Set SHOW Class to Challenge Social Blogs
+  def active_social_blog(type)
+    if @challenge.new_record? && type == 'facebook'
+      'show'
+    else
+      'show' if @challenge.platform == type
+    end
+  end
 end

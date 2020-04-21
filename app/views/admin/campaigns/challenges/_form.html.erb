@@ -150,9 +150,10 @@
                             <p>Add a platform you would like your users to share this post to</p>
                           </div>
 
-                          <%= form.hidden_field :platform, value: 'facebook', class: 'always-validate', data: {error: 'platform-error'} %>
-                          <%= form.hidden_field :social_title, value: '' %>
-                          <%= form.hidden_field :social_description, value: '' %>
+                          <%= form.hidden_field :platform, value: @challenge.new_record? ? 'facebook' : @challenge.platform,
+                                                class: 'always-validate', data: {error: 'platform-error'} %>
+                          <%= form.hidden_field :social_title, value: @challenge.new_record? ? '' : @challenge.social_title %>
+                          <%= form.hidden_field :social_description, value: @challenge.new_record? ? '' : @challenge.social_description %>
 
                           <div class="platform-error"></div>
                           <div class="social-image-error"></div>
@@ -168,7 +169,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="facebookBlockBody" class="collapse show" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
+                              <div id="facebookBlockBody" class="collapse <%= active_social_blog('facebook') %>" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_fb">
                                     <div class="Social_blocks_fb_title">
@@ -231,7 +232,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="twitterBlogBody" class="collapse" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+                              <div id="twitterBlogBody" class="collapse <%= active_social_blog('twitter') %>" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_twitter">
                                     <div class="Social_blocks_twitter_title">
@@ -282,7 +283,7 @@
                                   </button>
                                 </h2>
                               </div>
-                              <div id="linkedinBlogBody" class="collapse" aria-labelledby="linkedinBlog" data-parent="#Social_blocks_accordion">
+                              <div id="linkedinBlogBody" class="collapse <%= active_social_blog('linked_in') %>" aria-labelledby="linkedinBlog" data-parent="#Social_blocks_accordion">
                                 <div class="card-body">
                                   <div class="Social_blocks_container Social_blocks_LinkedIn">
                                     <div class="Social_blocks_LinkedIn_title">
@@ -463,7 +464,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -484,11 +485,12 @@
 
                       <div class="row">
                         <div class="col-sm-12 col-md-12">
-                          <p>End date for challenge to be available to users (optional- will run indefinitely if left blank)</p>
+                          <p>End date for challenge to be available to users (optional- will run indefinitely if left
+                            blank)</p>
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
