@@ -52,6 +52,15 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def update
+    respond_to do |format|
+      if @challenge.update(challenge_params)
+        format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
+        format.json { render :edit, status: :updated }
+      else
+        format.html { render :edit }
+        format.json { render json: @campaign.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

@@ -11,7 +11,7 @@
                 path = admin_campaign_challenges_path
                 method = 'post'
               else
-                path = admin_campaign_challenge_path(@challenge)
+                path = admin_campaign_challenge_path(@campaign, @challenge)
                 method = 'put'
               end
             %>
