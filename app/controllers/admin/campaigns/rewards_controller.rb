@@ -1,21 +1,32 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
+  before_action :build_params, only: :create
+
   def index
     @rewards = @campaign.rewards
   end
 
   def generate_reward_json
-    @rewards = @campaign.rewards.all
-    if params[:search][:value].present?
-      @reward_filtereds = @campaign.rewards.where("name LIKE ?", "%#{params[:search][:value]}%")
-      render json: { rewards: @reward_filtereds.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
-                 recordsFiltered: @reward_filtereds.count  }
-   else
-      render json: { rewards: @rewards.as_json, draw: params['draw'].to_i, recordsTotal: @rewards.count,
-                 recordsFiltered: @rewards.count  }
+    rewards = @campaign.rewards.all
+     ## Check if Search Keyword is Present & Write it's Query
+    if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
+      search_string = []
+      search_columns.each do |term|
+        search_string << "#{term} ILIKE :search"
+      end
+
+      rewards = rewards.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
-    # @rewards.to_json
-    # @rewards[]=nil
-    # @rewards["total"] = @rewards.count
+
+    rewards = rewards.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
+
+    rewards = rewards.page(datatable_page).per(datatable_per_page)
+
+    render json: {
+        rewards: rewards.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: rewards.count,
+        recordsFiltered: rewards.total_count
+    }
   end
 
   def new
@@ -93,16 +104,13 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def create_coupon
     coupon_array = params[:coupon][:code].split(',')
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
-    coupon_array.each do |c|
+    coupon_array.each do |code|
       coupon = Coupon.new
       coupon.reward_id = @reward.id
-      coupon.code = c
+      coupon.code = code
       coupon.save
     end
-    # @coupon = @reward.coupons.new(coupon_params)
-    # if @coupon.save
     redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
-    # end
   end
 
   def destroy
@@ -117,11 +125,11 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     respond_to do |format|
     if @reward_filter.destroy
       format.html { }
-      format.json {  }
+      format.json { }
     else
       flash[:notice] = "Post failed to delete."
       format.html { }
-      format.json {  }
+      format.json { }
     end
   end
     # @reward_filter.destroy
@@ -137,8 +145,35 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event])
   end
+
+  ## Build Nested Attributes Params for User Segments
+  def build_params
+    if params[:reward].has_key?('reward_filters_attributes')
+      new_params = []
+      cust_params = params[:reward][:reward_filters_attributes]
+      cust_params.each do |key, c_param|
+        new_params.push({
+                            reward_event: c_param[:reward_event],
+                            reward_condition: c_param[:reward_condition],
+                            reward_value: c_param[:reward_value]
+                        })
+      end
+
+      params[:reward][:reward_filters_attributes] = new_params
+    end
+  end
+
+  #coupon params
   def coupon_params
     params.require(:coupon).permit!
   end
-  ##coupon_pon).permit!
+
+  def search_columns
+    %w(name)
+  end
+
+  def sort_column
+    columns = %w(name start finish)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
 end
