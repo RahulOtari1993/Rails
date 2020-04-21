@@ -672,4 +672,10 @@ $(document).on('turbolinks:load', function () {
     dropdownAutoWidth: true,
     width: '100%'
   });
+
+  // Select2 for Rewards Selection Dropdown
+  $('.reward_id_dd').select2({
+    dropdownAutoWidth: true,
+    width: '100%'
+  });
 });
