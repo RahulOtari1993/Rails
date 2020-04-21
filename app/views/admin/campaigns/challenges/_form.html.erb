@@ -374,10 +374,10 @@
                         <li class="nav-item">
                           <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
                         </li>
-                        <%= form.hidden_field :reward_type, value: 'points' %>
+                        <%= form.hidden_field :reward_type, value: @challenge.new_record? ? 'points' : @challenge.reward_type %>
                       </ul>
                       <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
+                        <div role="tabpanel" class="tab-pane <%= active_reward_pill('points') %>" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
                           <div class="row">
                             <div class="col-12">
                               <h4>2. REWARD DETAILS</h4>
@@ -397,7 +397,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane" id="rewards-pill" aria-labelledby="base-rewards-pill">
+                        <div class="tab-pane <%= active_reward_pill('prize') %>" id="rewards-pill" aria-labelledby="base-rewards-pill">
                           <div class="row">
                             <div class="col-12">
                               <h4>2. REWARD DETAILS</h4>

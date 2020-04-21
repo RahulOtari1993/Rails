@@ -106,4 +106,13 @@ module ChallengeHelper
       end
     end
   end
+
+  ## Set Reward Type Active Pill
+  def active_reward_pill(type)
+    if @challenge.new_record? && type == 'points'
+      'active'
+    else
+      @challenge.reward_type == type ? 'active' : ''
+    end
+  end
 end
