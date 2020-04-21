@@ -130,6 +130,16 @@ $(document).on('turbolinks:load', function () {
         }
       })
     });
+
+    // Challenge User Segment Challenge Validation
+    $('#segment-value-challenge-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a challenge"
+        }
+      })
+    });
   }
 
   // Social Blog Image Validator
