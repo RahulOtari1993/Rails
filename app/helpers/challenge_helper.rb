@@ -1,4 +1,8 @@
 module ChallengeHelper
+  ## Check if Object is new record
+  def new_record?
+    @challenge.new_record?
+  end
 
   ## Set Active Class to Challenge Mechanism
   def active_challenge_type(type)

@@ -7,7 +7,7 @@
         <div class="card-content">
           <div class="card-body">
             <%
-              if @challenge.new_record?
+              if new_record?
                 path = admin_campaign_challenges_path
                 method = 'post'
               else
@@ -36,7 +36,7 @@
                     </div>
                   </div>
 
-                  <%= form.hidden_field :mechanism, value: @challenge.new_record? ? 'share' : @challenge.mechanism,
+                  <%= form.hidden_field :mechanism, value: new_record? ? 'share' : @challenge.mechanism,
                                         class: 'always-validate', data: {error: 'mechanism-error'} %>
 
                   <div class="row">
@@ -150,10 +150,10 @@
                             <p>Add a platform you would like your users to share this post to</p>
                           </div>
 
-                          <%= form.hidden_field :platform, value: @challenge.new_record? ? 'facebook' : @challenge.platform,
+                          <%= form.hidden_field :platform, value: new_record? ? 'facebook' : @challenge.platform,
                                                 class: 'always-validate', data: {error: 'platform-error'} %>
-                          <%= form.hidden_field :social_title, value: @challenge.new_record? ? '' : @challenge.social_title %>
-                          <%= form.hidden_field :social_description, value: @challenge.new_record? ? '' : @challenge.social_description %>
+                          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
+                          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
 
                           <div class="platform-error"></div>
                           <div class="social-image-error"></div>
@@ -374,7 +374,7 @@
                         <li class="nav-item">
                           <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
                         </li>
-                        <%= form.hidden_field :reward_type, value: @challenge.new_record? ? 'points' : @challenge.reward_type %>
+                        <%= form.hidden_field :reward_type, value: new_record? ? 'points' : @challenge.reward_type %>
                       </ul>
                       <div class="tab-content">
                         <div role="tabpanel" class="tab-pane <%= active_reward_pill('points') %>" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
@@ -489,7 +489,7 @@
                           </div>
                         </div>
 
-                        <%= form.hidden_field :start, value: '' %>
+                        <%= form.hidden_field :start, value: new_record? ? '' : @challenge.start %>
                       </div>
 
                       <div class="row">
@@ -515,7 +515,7 @@
                           </div>
                         </div>
 
-                        <%= form.hidden_field :finish, value: '' %>
+                        <%= form.hidden_field :finish, value: new_record? ? '' : @challenge.finish %>
                       </div>
 
                       <div class="row">
