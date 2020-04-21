@@ -419,6 +419,9 @@ $(document).on('turbolinks:load', function () {
   // Toggle plus minus icon on show hide of collapse element
   $(".collapse").on('show.bs.collapse', function () {
     $(this).prev(".card-head").find(".fa").removeClass("fa-plus").addClass("fa-minus");
+    $('.social-image-error').html('');
+    $('.social-title-error').html('');
+    $('.social-description-error').html('');
   }).on('hide.bs.collapse', function () {
     $(this).prev(".card-head").find(".fa").removeClass("fa-minus").addClass("fa-plus");
   });
@@ -511,8 +514,6 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('.segment-value-' + $(this).val()).show().removeAttr('disabled');
     tableRow.find('.segment-value-' + $(this).val()).next(".select2-container").show();
   });
-
-  
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function () {
