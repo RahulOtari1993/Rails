@@ -473,7 +473,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <%= text_field_tag :challenge_start_date, start_date, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -482,7 +482,7 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <%= text_field_tag :challenge_start_time, start_time, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
@@ -499,7 +499,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <%= text_field_tag :challenge_finish_date, finish_date, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -508,7 +508,7 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <%= text_field_tag :challenge_finish_time, finish_time, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
