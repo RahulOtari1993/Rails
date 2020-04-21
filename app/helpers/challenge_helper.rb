@@ -147,4 +147,14 @@ module ChallengeHelper
       @challenge.finish.present? ? @challenge.finish.strftime('%I:%M %p') : ''
     end
   end
+
+  ## Set Reward Type Active Pill Tab
+  def active_reward_pill_tab(type)
+    if new_record? && type == 'points'
+      'active'
+    else
+      @challenge.reward_type == type ? 'active' : 'pill-btn'
+    end
+  end
+
 end

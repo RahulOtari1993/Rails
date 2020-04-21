@@ -370,10 +370,10 @@
                       <p>Select the type of reward you would like to give users for completing this challenge</p>
                       <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
                         <li class="nav-item">
-                          <a class="nav-link pill-inner-padding active" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
+                          <a class="nav-link pill-inner-padding <%= active_reward_pill_tab('points') %>" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
+                          <a class="nav-link pill-inner-padding <%= active_reward_pill_tab('prize') %>" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
                         </li>
                         <%= form.hidden_field :reward_type, value: new_record? ? 'points' : @challenge.reward_type %>
                       </ul>
