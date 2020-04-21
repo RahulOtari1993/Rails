@@ -478,7 +478,6 @@ $(document).on('turbolinks:load', function () {
     tableRow.find('.segment-values-container select').prop('disabled', true).hide().removeClass('error');
     tableRow.find('.segment-values-container input').prop('disabled', true).hide().removeClass('error');
 
-
     // Display Segment Condition Drop Downs
     tableRow.find('.segment-conditions-' + $(this).val()).show().removeAttr('disabled');
 

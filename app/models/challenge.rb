@@ -52,7 +52,7 @@ class Challenge < ApplicationRecord
 
   ## Validations
   validates :mechanism, :name, :link, :description, :platform, :image, :social_title, :social_description,
-            :start, :finish, :timezone, presence: true
+            :start, :timezone, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type
