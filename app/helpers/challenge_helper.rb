@@ -186,11 +186,20 @@ module ChallengeHelper
   end
 
   ## User Segment Set Default Value of Event Value
-  def event_value(filter, value)
+  def event_value(filter, value, type)
     if filter.present?
-      filter.challenge_value
+      filter.challenge_event == type ? filter.challenge_value : value
     else
       value
+    end
+  end
+
+  ## User Segment Set DISABLED Fields
+  def make_disabled(filter, type)
+    if filter.present?
+      !type.include?(filter.challenge_event)
+    else
+      !type.include?('age')
     end
   end
 end
