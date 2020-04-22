@@ -1,6 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :build_params, only: :create
   before_action :set_challenge, only: [:edit, :update]
+  before_action :build_params, only: [:create, :update]
 
   def index
   end
@@ -53,7 +53,13 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def update
     respond_to do |format|
+      previous_segments = @challenge.challenge_filters.pluck(:id)
+      removed_segments = previous_segments - @available_segments
+
       if @challenge.update(challenge_params)
+        ## Remove Deleted User Segments from a Challenge
+        @challenge.challenge_filters.where(id: removed_segments).delete_all if removed_segments.present?
+
         format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
         format.json { render :edit, status: :updated }
       else
@@ -87,13 +93,22 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def build_params
     if params[:challenge].has_key?('challenge_filters_attributes')
       new_params = []
+      @available_segments = []
+
       cust_params = params[:challenge][:challenge_filters_attributes]
       cust_params.each do |key, c_param|
-        new_params.push({
-                            challenge_event: c_param[:challenge_event],
-                            challenge_condition: c_param[:challenge_condition],
-                            challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
-                        })
+        filter_data = {
+            challenge_event: c_param[:challenge_event],
+            challenge_condition: c_param[:challenge_condition],
+            challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
+        }
+
+        if c_param.has_key?('id')
+          filter_data[:id] = c_param[:id]
+          @available_segments.push(c_param[:id].to_i)
+        end
+
+        new_params.push(filter_data)
       end
 
       params[:challenge][:challenge_filters_attributes] = new_params
