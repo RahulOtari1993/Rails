@@ -87,8 +87,14 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def update
+    if params[:reward][:delete_segment_ids].present?
+      params[:reward][:delete_segment_ids].each do |id|
+        reward_filter = RewardFilter.find(id)
+        reward_filter = reward_filter.destroy
+      end
+    end
     @reward = @campaign.rewards.find_by(:id => params[:id])
-    if @reward.update_attributes(reward_params)
+    if @reward.update_attributes(reward_params.except(params[:reward][:delete_segment_ids]))
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully updated'
     else
       render :edit
