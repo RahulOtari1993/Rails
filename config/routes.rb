@@ -15,6 +15,14 @@ Rails.application.routes.draw do
       confirmations: 'users/confirmations',
     }
 
+    devise_for :participants, controllers: {
+      registrations: 'participants/registrations',
+      sessions: 'participants/sessions',
+      passwords: 'participants/passwords',
+      confirmations: 'participants/confirmations',
+      :omniauth_callbacks => "participants/omniauth_callbacks"
+    }
+
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
@@ -63,5 +71,6 @@ Rails.application.routes.draw do
 
     ## Root Route
     root to: "welcome#home"
+    get '/participants', to: 'welcome#participants', as: :participants
   end
 end

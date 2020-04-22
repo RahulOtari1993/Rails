@@ -68,8 +68,8 @@
                       <div class="wrap">
                         <div class="nav-login">
                         <!-- <img src="/osu/img/site/logged-out-logo.svg" class="logged-out-logo"> -->
-                          <a href="<%= new_user_registration_path %>" class="nav-link">Sign Up</a>
-                          <a href="#" class="nav-link"><svg viewBox="0 0 100 100" class="icon-nav-item"><use xlink:href="#svg-sign-out"></use></svg>Log In</a>
+                          <a href="<%= new_participant_registration_path %>" class="nav-link">Sign Up</a>
+                          <a href="<%= new_participant_session_path %>" class="nav-link"><svg viewBox="0 0 100 100" class="icon-nav-item"><use xlink:href="#svg-sign-out"></use></svg>Log In</a>
                         </div>
                       </div>
                     </span>
@@ -133,10 +133,16 @@
                         <div class="card-btns">
                           <p class="card-buttons-text">Earn 250 GoBucks for joining now, double it to 500 by continuing
                             with Facebook.</p>
-                          <a id="connect-bttn" href="https://buckeyenationrewards.com/auth/facebook?campaign=190" class="dark-fb-button btn-has-icon btn-join-facebook">
+                          <a id="connect-bttn" href=<%= participant_facebook_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
                             <span class="icon-btn-share fa fa-facebook"></span>
                             <span class="btn-share-text">Continue With Facebook</span>
                           </a>
+                          <a id="connect-bttn" href=<%= participant_google_oauth2_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
+                            <span class="icon-btn-share fa fa-google"></span>
+                            <span class="btn-share-text">Continue With Gmail</span>
+                          </a>
+                          <%#= link_to "Authenticate with Google!", '/auth/google_oauth2' %>
+
                           <div class="spinner-section">
                             <img id="connect-spin" src="../../../app-assets/images/slider/spinner.svg" class="spinner-scale">
                           </div>
@@ -183,7 +189,7 @@
 <%= render 'modals/faq' %>
 
 <!-- Sign Up Modal-->
-<%= render 'modals/sign_up' %>
+<%#= render 'modals/sign_up' %>
 
 <footer class="page-footer">
   <div class="wrap grid spacer">

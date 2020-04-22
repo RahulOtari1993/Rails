@@ -48,7 +48,7 @@ $(document).on('turbolinks:load', function () {
   // Replace ID of Newly Added Fields of User Segment
   function replaceFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
-    stringDetails = stringDetails.replace(/\[___NUM___\]/g, phaseCounter);
+    stringDetails = stringDetails.replace(/___NUM___/g, phaseCounter);
     return stringDetails;
   }
 
@@ -522,7 +522,6 @@ $(document).on('turbolinks:load', function () {
 
   // Change Social Link Value
   $('#challenge_link').focusout(function () {
-    console.log("IN");
     $('.social-link-label').html($(this).val());
   });
 
@@ -672,4 +671,18 @@ $(document).on('turbolinks:load', function () {
     dropdownAutoWidth: true,
     width: '100%'
   });
+
+  // Select2 for Rewards Selection Dropdown
+  $('.reward_id_dd').select2({
+    dropdownAutoWidth: true,
+    width: '100%'
+  });
+
+  // Add Validations on Already Exists User Segments
+  setTimeout(function(){
+    var ids = $('.existing-filter-ids').data('ids');
+    ids.forEach(function(segmentId) {
+      addValidations(segmentId)
+    });
+  }, 2000);
 });

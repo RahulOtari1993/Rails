@@ -1,4 +1,5 @@
-<% if @resource.is_active == false && @resource.is_invited %>
+
+<% if @resource.class.name == 'User' && @resource.is_active == false && @resource.is_invited %>
   <%
     ## Set Sub Domain Params & Create a Custom Route
     ssl  = request.ssl? ? 'https://' : 'http://'

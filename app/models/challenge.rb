@@ -35,6 +35,8 @@ class Challenge < ApplicationRecord
   ## Associations
   belongs_to :campaign
   has_many :challenge_filters, dependent: :destroy
+  has_many :challenge_participants, dependent: :destroy
+  has_many :participant, through: :challenge_participants
 
   ## Constants
   MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
@@ -52,7 +54,7 @@ class Challenge < ApplicationRecord
 
   ## Validations
   validates :mechanism, :name, :link, :description, :platform, :image, :social_title, :social_description,
-            :start, :timezone, presence: true
+            :start, :timezone, :creator_id, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type

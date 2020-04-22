@@ -8,9 +8,13 @@ Devise.setup do |config|
   config.warden do |manager|
     Warden::Strategies.add(:database_authenticatable_for_admin,
                            Devise::Strategies::DatabaseAuthenticatableForAdmin)
+    Warden::Strategies.add(:database_authenticatable_for_participant,
+                           Devise::Strategies::DatabaseAuthenticatableForParticipant)
 
     manager.default_strategies(:scope => :user).delete :database_authenticatable
     manager.default_strategies(:scope => :user).push :database_authenticatable_for_admin
+    manager.default_strategies(:scope => :participant).delete :database_authenticatable
+    manager.default_strategies(:scope => :participant).push :database_authenticatable_for_participant
   end
 
   # The secret key used by Devise. Devise uses this key to generate

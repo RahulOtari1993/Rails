@@ -7,11 +7,11 @@
         <div class="card-content">
           <div class="card-body">
             <%
-              if @challenge.new_record?
+              if new_record?
                 path = admin_campaign_challenges_path
                 method = 'post'
               else
-                path = admin_campaign_challenge_path(@challenge)
+                path = admin_campaign_challenge_path(@campaign, @challenge)
                 method = 'put'
               end
             %>
@@ -24,6 +24,7 @@
               <% end %>
 
               <%= form.hidden_field :campaign_id, value: @campaign.id %>
+              <%= form.hidden_field :creator_id, value: current_user.id %>
 
               <!-- Step 1 -->
               <h6>Type</h6>
@@ -36,7 +37,7 @@
                     </div>
                   </div>
 
-                  <%= form.hidden_field :mechanism, value: @challenge.new_record? ? 'share' : @challenge.mechanism,
+                  <%= form.hidden_field :mechanism, value: new_record? ? 'share' : @challenge.mechanism,
                                         class: 'always-validate', data: {error: 'mechanism-error'} %>
 
                   <div class="row">
@@ -150,10 +151,10 @@
                             <p>Add a platform you would like your users to share this post to</p>
                           </div>
 
-                          <%= form.hidden_field :platform, value: @challenge.new_record? ? 'facebook' : @challenge.platform,
+                          <%= form.hidden_field :platform, value: new_record? ? 'facebook' : @challenge.platform,
                                                 class: 'always-validate', data: {error: 'platform-error'} %>
-                          <%= form.hidden_field :social_title, value: @challenge.new_record? ? '' : @challenge.social_title %>
-                          <%= form.hidden_field :social_description, value: @challenge.new_record? ? '' : @challenge.social_description %>
+                          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
+                          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
 
                           <div class="platform-error"></div>
                           <div class="social-image-error"></div>
@@ -220,7 +221,9 @@
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
-                                          <p><a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a></p>
+                                          <p>
+                                            <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
+                                          </p>
                                         </div>
                                       </div>
                                     </div>
@@ -300,7 +303,7 @@
                                           <p><span>User's Blog Name</span></p>
 
                                           <div class="Social_blocks_fb_content_box">
-                                            <%= raw social_blog_image('linkedin') %>
+                                            <%= raw social_blog_image('linked_in') %>
                                             <div class="image-upload">
                                               <label for="file-input-linkedin">
                                                 <i class="fa fa-upload"></i>
@@ -331,7 +334,9 @@
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 
-                                              <p><a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('linked_in') %></a></p>
+                                              <p>
+                                                <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('linked_in') %></a>
+                                              </p>
                                               <hr>
                                               <p class="user-comment-section">
                                                 <%= social_blog_comment('linked_in') %>
@@ -353,7 +358,6 @@
                     </div>
                   </section>
                 </div>
-
               </fieldset>
 
               <!-- Step 3 -->
@@ -369,15 +373,15 @@
                       <p>Select the type of reward you would like to give users for completing this challenge</p>
                       <ul class="nav nav-pills nav-active-bordered-pill nav-pills-bottom">
                         <li class="nav-item">
-                          <a class="nav-link pill-inner-padding active" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
+                          <a class="nav-link pill-inner-padding <%= active_reward_pill_tab('points') %>" id="base-points-pill" data-toggle="pill" href="#points-pill" aria-expanded="true">Points</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link pill-inner-padding pill-btn" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
+                          <a class="nav-link pill-inner-padding <%= active_reward_pill_tab('prize') %>" id="base-rewards-pill" data-toggle="pill" href="#rewards-pill" aria-expanded="false">Prize</a>
                         </li>
-                        <%= form.hidden_field :reward_type, value: 'points' %>
+                        <%= form.hidden_field :reward_type, value: new_record? ? 'points' : @challenge.reward_type %>
                       </ul>
                       <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
+                        <div role="tabpanel" class="tab-pane <%= active_reward_pill('points') %>" id="points-pill" aria-expanded="true" aria-labelledby="base-points-pill">
                           <div class="row">
                             <div class="col-12">
                               <h4>2. REWARD DETAILS</h4>
@@ -397,7 +401,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="tab-pane" id="rewards-pill" aria-labelledby="base-rewards-pill">
+                        <div class="tab-pane <%= active_reward_pill('prize') %>" id="rewards-pill" aria-labelledby="base-rewards-pill">
                           <div class="row">
                             <div class="col-12">
                               <h4>2. REWARD DETAILS</h4>
@@ -439,12 +443,18 @@
                         <div class="table-responsive">
                           <table class="table table-striped mb-0 tbl-user-segments">
                             <tbody class="campaign-user-segments-container">
+                            <% existind_ids = [] %>
+                            <% @challenge.challenge_filters.each do |c_f| %>
+                              <% existind_ids.push(c_f.id) %>
+                              <%= render 'segment_fields', filter: c_f %>
+                            <% end %>
                             </tbody>
                           </table>
                         </div>
 
                         <br>
-                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light
+                        add-challenge-user-segment existing-filter-ids" data-ids="<%= existind_ids %>">
                           <span>
                             <i class="feather icon-plus"></i> Add Segment
                           </span>
@@ -473,7 +483,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <%= text_field_tag :challenge_start_date, start_date, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -482,14 +492,14 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_start_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <%= text_field_tag :challenge_start_time, start_time, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
                           </div>
                         </div>
 
-                        <%= form.hidden_field :start, value: '' %>
+                        <%= form.hidden_field :start, value: new_record? ? '' : @challenge.start %>
                       </div>
 
                       <div class="row">
@@ -499,7 +509,7 @@
                         </div>
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_finish_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
+                            <%= text_field_tag :challenge_finish_date, finish_date, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY" %>
                             <div class="form-control-position">
                               <i class="feather icon-calendar"></i>
                             </div>
@@ -508,14 +518,14 @@
 
                         <div class="col-sm-4 col-lg-4 position-relative has-icon-left">
                           <div class="form-group">
-                            <%= text_field_tag :challenge_finish_time, nil, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
+                            <%= text_field_tag :challenge_finish_time, finish_time, class: 'form-control pick-challenge-time', placeholder: "3:00 PM" %>
                             <div class="form-control-position">
                               <i class="feather icon-clock"></i>
                             </div>
                           </div>
                         </div>
 
-                        <%= form.hidden_field :finish, value: '' %>
+                        <%= form.hidden_field :finish, value: new_record? ? '' : @challenge.finish %>
                       </div>
 
                       <div class="row">
@@ -541,9 +551,5 @@
 </section>
 
 <script id="challenge-user-segments-template" type="text/x-custom-template">
-  <%= render 'segment_fields' %>
+  <%= render 'segment_fields', filter: nil %>
 </script>
-
-<style>
-
-</style>

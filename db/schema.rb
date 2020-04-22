@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_100401) do
+ActiveRecord::Schema.define(version: 2020_04_22_150543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
     t.index ["challenge_id"], name: "index_challenge_filters_on_challenge_id"
   end
 
+  create_table "challenge_participants", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_challenge_participants_on_challenge_id"
+    t.index ["participant_id"], name: "index_challenge_participants_on_participant_id"
+  end
+
   create_table "challenges", force: :cascade do |t|
     t.bigint "campaign_id"
     t.text "name"
@@ -136,7 +145,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.integer "reward_user_id"
+    t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -315,6 +324,8 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
   add_foreign_key "campaigns", "organizations"
+  add_foreign_key "challenge_participants", "challenges"
+  add_foreign_key "challenge_participants", "participants"
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"

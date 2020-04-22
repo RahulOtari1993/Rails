@@ -26,6 +26,7 @@ class Organization < ApplicationRecord
   has_many :admins, through: :organization_admins, class_name: 'User', foreign_key: 'user_id'
   has_many :campaigns, dependent: :destroy
   has_many :domain_lists, dependent: :destroy
+  has_many :participants
   has_many :organization_configs, dependent: :destroy
 
   ## Callbacks

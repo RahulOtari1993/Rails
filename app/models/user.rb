@@ -37,6 +37,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable,
          :authentication_keys => [:email, :organization_id, :role]
 
+  ## ENUM
   enum role: [:admin, :participant]
 
   ## Associations

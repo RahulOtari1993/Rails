@@ -1,6 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :build_params, only: :create
   before_action :set_challenge, only: [:edit, :update]
+  before_action :build_params, only: [:create, :update]
 
   def index
   end
@@ -52,6 +52,21 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def update
+    respond_to do |format|
+      previous_segments = @challenge.challenge_filters.pluck(:id)
+      removed_segments = previous_segments - @available_segments
+
+      if @challenge.update(challenge_params)
+        ## Remove Deleted User Segments from a Challenge
+        @challenge.challenge_filters.where(id: removed_segments).delete_all if removed_segments.present?
+
+        format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
+        format.json { render :edit, status: :updated }
+      else
+        format.html { render :edit }
+        format.json { render json: @campaign.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -60,11 +75,16 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                                      :start, :finish, challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
-                                                                                                      :challenge_condition, :challenge_value])
+                                                      :start, :finish, :creator_id,
+                                                      challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
+                                                                                     :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object
     return_params[:start] = Chronic.parse(params[:challenge][:start])
     return_params[:finish] = Chronic.parse(params[:challenge][:finish])
+
+    ## Manage Reward Type Details
+    return_params[:reward_id] = nil if params[:challenge][:reward_type] == 'points' && params[:challenge][:points].present?
+    return_params[:points] = nil if params[:challenge][:reward_type] == 'prize' && params[:challenge][:reward_id].present?
 
     return_params
   end
@@ -73,13 +93,22 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def build_params
     if params[:challenge].has_key?('challenge_filters_attributes')
       new_params = []
+      @available_segments = []
+
       cust_params = params[:challenge][:challenge_filters_attributes]
       cust_params.each do |key, c_param|
-        new_params.push({
-                            challenge_event: c_param[:challenge_event],
-                            challenge_condition: c_param[:challenge_condition],
-                            challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
-                        })
+        filter_data = {
+            challenge_event: c_param[:challenge_event],
+            challenge_condition: c_param[:challenge_condition],
+            challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
+        }
+
+        if c_param.has_key?('id')
+          filter_data[:id] = c_param[:id]
+          @available_segments.push(c_param[:id].to_i)
+        end
+
+        new_params.push(filter_data)
       end
 
       params[:challenge][:challenge_filters_attributes] = new_params
