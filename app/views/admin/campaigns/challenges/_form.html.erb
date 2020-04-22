@@ -221,7 +221,9 @@
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                           <div class="clear"></div>
 
-                                          <p><a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a></p>
+                                          <p>
+                                            <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
+                                          </p>
                                         </div>
                                       </div>
                                     </div>
@@ -332,7 +334,9 @@
                                               love about LIB.", data: {error: 'social-description-error'} %>
                                               <div class="clear"></div>
 
-                                              <p><a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('linked_in') %></a></p>
+                                              <p>
+                                                <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('linked_in') %></a>
+                                              </p>
                                               <hr>
                                               <p class="user-comment-section">
                                                 <%= social_blog_comment('linked_in') %>
@@ -439,7 +443,9 @@
                         <div class="table-responsive">
                           <table class="table table-striped mb-0 tbl-user-segments">
                             <tbody class="campaign-user-segments-container">
+                            <% existind_ids = [] %>
                             <% @challenge.challenge_filters.each do |c_f| %>
+                              <% existind_ids.push(c_f.id) %>
                               <%= render 'segment_fields', filter: c_f %>
                             <% end %>
                             </tbody>
@@ -447,7 +453,8 @@
                         </div>
 
                         <br>
-                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                        <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light
+                        add-challenge-user-segment existing-filter-ids" data-ids="<%= existind_ids %>">
                           <span>
                             <i class="feather icon-plus"></i> Add Segment
                           </span>
@@ -546,7 +553,3 @@
 <script id="challenge-user-segments-template" type="text/x-custom-template">
   <%= render 'segment_fields', filter: nil %>
 </script>
-
-<style>
-
-</style>
