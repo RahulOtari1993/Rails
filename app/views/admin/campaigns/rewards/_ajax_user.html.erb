@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="reward_user" tabindex="-1" role="dialog" aria-labelledby="reward_user" aria-hidden="true">
+<div class="modal fade text-left" id="reward_participant" tabindex="-1" role="dialog" aria-labelledby="reward_participant" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -19,8 +19,8 @@
                           </tr>
                       </thead>
                       <tbody>
-                        <% if r.reward_users.present?%>
-                          <% r.reward_users.each do |r_c|%>
+                        <% if r.reward_participants.present?%>
+                          <% r.reward_participants.each do |r_c|%>
                             <tr>
                               <td scope="row"><%= r_c.user.first_name %></td>
                               <td><%= r_c.user.full_name %> </td>

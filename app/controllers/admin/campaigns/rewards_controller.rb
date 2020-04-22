@@ -63,7 +63,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
       ]
 
       #set the results
-      @reward.reward_users.each do |user_reward|
+      @reward.reward_participants.each do |user_reward|
 
         csv << [
           user_reward.user.first_name,

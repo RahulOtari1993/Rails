@@ -30,8 +30,8 @@ class Reward < ApplicationRecord
   belongs_to :campaign
   has_many :coupons
   has_many :reward_filters, inverse_of: :reward
-  has_many :reward_users, dependent: :destroy
-  has_many :users, through: :reward_users
+  has_many :reward_participants, dependent: :destroy
+  has_many :users, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
 
   serialize :image
