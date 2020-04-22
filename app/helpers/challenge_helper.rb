@@ -166,4 +166,31 @@ module ChallengeHelper
   def id_convention(filter = nil)
     filter.present? ? filter.id : '___ID___'
   end
+
+  ## User Segment Set Default Value of Event's User Segment Type
+  def challenge_event_value(filter, value)
+    if filter.present?
+      filter.challenge_event
+    else
+      value
+    end
+  end
+
+  ## User Segment Set Default Value of Event Condition
+  def condition_value(filter, value)
+    if filter.present?
+      filter.challenge_condition
+    else
+      value
+    end
+  end
+
+  ## User Segment Set Default Value of Event Value
+  def event_value(filter, value)
+    if filter.present?
+      filter.challenge_value
+    else
+      value
+    end
+  end
 end
