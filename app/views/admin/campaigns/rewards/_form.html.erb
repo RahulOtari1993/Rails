@@ -1,3 +1,23 @@
+<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+
+<style type="text/css">
+  .filter_hidden {
+    display: none;
+  }
+  .image_field_label{
+    margin-left: 13px;
+    width: 96%;
+  }
+  .border_reward {
+    border: 1px solid #7367F0 !important;
+    border-radius: 0.5rem !important;
+  }
+  .top_margin {
+    margin-top: 15px;
+  }
+}
+</style>
 <div class="app-content content">
   <div class="content-overlay"></div>
   <div class="header-navbar-shadow"></div>
@@ -8,10 +28,17 @@
           <div class="col-md-12 col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Create Reward</h4>
+                <h4 class="text-center card-title">Create Reward</h4>
               </div>
-              <div class="card-content">
-                <%= form_with(url: admin_campaign_rewards_path(@reward.campaign, @reward), method: 'post', class: 'new-reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
+              <div class="card-content container col-md-9 col-9 border_reward" style="margin-top:20px">
+                <% if @reward.new_record?%>
+                  <% url = admin_campaign_rewards_path(@reward.campaign, @reward)%>
+                  <% form_method = 'post'%>
+                <% else %>
+                  <% url = admin_campaign_reward_path(@reward.campaign, @reward)%>
+                  <% form_method = 'put'%>
+                <% end %>
+                <%= form_with(url:url, method: form_method, class: 'new-reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
                   <% if @reward.errors.any? %>
                     <%# puts 'there are some errors here in edit.html.erb' %>
                     <div id="error_explanation">
@@ -29,59 +56,59 @@
                     <form class="form form-vertical">
                       <div class="form-body">
                         <div class="row">
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :name %>
                               <span class="column-info">Enter a friendly name to describe this reward.</span>
                               <div class="position-relative has-icon-left">
-                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control", placeholder: 'Name' %>
+                                <%= f.text_field :name, id: 'first-name-icon', class: "form-control", required: true %>
                                 <div class="form-control-position">
                                   <i class="feather icon-user"></i>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description %>
                               <span class="column-info">Describe the prize and the selection process.
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description" %>
+                                  <%= f.text_area :description, class: "form-control", id: 'label-textarea', rows: '3', required: true %>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Redemption Details" %>
+                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Description Details" %>
+                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-4">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :limit %>
                               <span class="column-info">The number of people who can get this reward.
 															</span>
-                              <div class="position-relative">
+                              <div class="position-relative" style="width: 25%;">
                                 <div class="input-group">
                                   <%= f.number_field :limit, class: "touchspin form-control", value: '0' %>
                                 </div>
@@ -95,7 +122,7 @@
 															</span>
                               <div class="position-relative">
                                 <div class="form-group">
-                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, {class: "select2 form-control"})
+                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, class: "select2 form-control", required: true)
                                   %>
                                 </div>
                               </div>
@@ -107,8 +134,8 @@
                               <!-- <label for="first-name-icon">Name</label><br/> -->
                               <span class="column-info">This is the number of points required for a user to win this prize.
 															</span>
-                              <div class="position-relative has-icon-left">
-                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control", placeholder: 'Threshold' %>
+                              <div class="position-relative">
+                                <%= f.text_field :threshold, id: 'first-name-icon', class: "form-control", required: true %>
                               </div>
                             </div>
                           </div>
@@ -119,7 +146,7 @@
                               <span class="column-info">This determines how many points it takes to create a single entry.
 															</span>
                               <div class="position-relative">
-                                <%= f.text_field :sweepstake_entry, id: 'first-name-icon', class: "form-control", placeholder: 'Sweepstake' %>
+                                <%= f.text_field :sweepstake_entry, id: 'first-name-icon', class: "form-control" %>
                               </div>
                             </div>
                           </div>
@@ -142,24 +169,24 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :points %>
                               <span class="column-info">This is an 	to give points by assigning a user to a reward.
 																	</span>
-                              <div class="position-relative">
-                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control", placeholder: 'Points' %>
+                              <div class="position-relative" style="width: 25%;">
+                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control" %>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :terms_conditions %>
                               <span class="column-info">Optional terms and conditions for this reward.
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3', placeholder: "Terms & Conditions" %>
+                                  <%= f.text_area :terms_conditions, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
@@ -171,7 +198,8 @@
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_field :start, class: "form-control reward-format-picker" %>
+                                  <%#= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
+                                  <%= f.text_field :start, class: "form-control pick-challenge-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -183,80 +211,109 @@
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_field :finish, class: "form-control reward-format-picker" %>
+                                  <%= f.text_field :finish, class: "form-control pick-challenge-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
                           </div>
-                          <div class="col-6" style="margin-left: 13px">
+                          <div class="col-12">
                             <div class="form-group">
                               <%= f.label :image %>
                               <%= f.file_field :image, class:"custom-file-input" %>
-                              <%= f.label :image, 'Choose file', class: 'custom-file-label' %>
+                              <%= f.label :image, 'Choose file', class: 'custom-file-label image_field_label' %>
                             </div>
                           </div>
                           <div class="col-12">
-                            <%= f.label "Active Segments" %>
-                            <span class="column-info">Gives you the ability to target this challenge to a specific set of users.
-														</span>
-                            <div class="table-responsive">
-                              <table class="segment_table table table-striped mb-0" id="filter_conditions">
-                                <thead>
-                                <tr>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%= f.fields_for :reward_filters, @reward.reward_filters.new do |r_f| %>
-                                  <tr id="filter_condition_1">
-                                    <th scope="row">
-                                      <%= link_to '#', class: "hide_row" do %>
-                                        <i class="feather icon-minus-circle"></i>
-                                      <% end %>
-                                    </th>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.select(:reward_event, options_for_select(RewardFilter::EVENTS, :selected => r_f.object.reward_event), {}, {class: "reward_event select2 form-control", name: "reward[reward_filters_attributes][][reward_event]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.select(:reward_condition, options_for_select(RewardFilter::AGE_CONDITIONS, :selected => r_f.object.reward_condition), {}, {class: "age_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                        <%= r_f.select(:reward_condition, options_for_select(["Has", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden  tags_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                        <%= r_f.select(:reward_condition, options_for_select(["Is", "Not"], :selected => r_f.object.reward_condition), {}, {class: "filter_hidden gender_reward_condition select2 form-control", name: "reward[reward_filters_attributes][][reward_condition]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="form-group">
-                                        <%= r_f.text_field :reward_value, class: " reward_value form-control", name: "reward[reward_filters_attributes][][reward_value]"
-                                        %>
-                                        <%= r_f.select(:reward_value, options_from_collection_for_select(@campaign.rewards.all, :id, :name), {}, {:selected => r_f.object.reward_value, class: "filter_hidden all_rewards_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(@campaign.rewards, :selected => r_f.object.reward_value), {}, {class: "filter_hidden all_challenges_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(RewardFilter::SOCIAL_PLATFORMS, :selected => r_f.object.reward_value), {}, {class: "filter_hidden social_reward_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                        <%= r_f.select(:reward_value, options_for_select(["Male", "female", "Unknown"], :selected => r_f.object.reward_value), {}, {class: "filter_hidden gender_value select2 form-control", name: "reward[reward_filters_attributes][][reward_value]"})
-                                        %>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                <% end %>
+                                <h3>REWARD SEGMENTS</h3>
+                                <hr style="margin-bottom: 0px !important;">
+
+                                  <div class="form-group">
+                                    <div class="table-responsive">
+                                      <table class="segment_table table table-striped mb-0">
+                                        <tbody class="campaign-user-segments-container">
+                                          <% if action_name == 'edit' && @reward.reward_filters.present? %>
+                                            <% @reward.reward_filters.each do |r_f| %>
+                                              <tr style="border-bottom: 1px solid #414561; padding: 0px 5px;">
+                                                <td scope="row" width="5%" class="remove-btn-align" style="padding-left: 15px !important;">
+                                                  <a class="remove-reward-segment" reward_filter_id= '<%=r_f.id %>'  href="javascript:void(0);">
+                                                    <i class="feather icon-minus-circle"></i>
+                                                  </a>
+                                                </td>
+                                                <td width="30%">
+                                                  <%= select_tag "reward[reward_filters_attributes][][reward_event]",
+                                                   options_for_select(RewardFilter::EVENTS.map { |val| [val.humanize, val] }, selected: r_f.reward_event),
+                                                   class: 'form-control challenge-event-dd',
+                                                   required: true %>
+                                                </td>
+
+                                                <td width="30%" class="segment-conditions-container">
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
+                                                     options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, selected: r_f.reward_condition),
+                                                     class: 'form-control segment-conditions-dd segment-conditions-age segment-conditions-points',
+                                                     required: true, style: "#{(r_f.reward_event == 'age' || r_f.reward_event == 'points') ? '': 'display : none;'}", disabled: "#{(r_f.reward_event == 'age' || r_f.reward_event == 'points') ? 'false': 'true'}"
+                                                    %>              
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
+                                                       options_for_select([['Has', 'has'], ['Not', 'not']],selected: r_f.reward_condition),
+                                                       class: 'form-control segment-conditions-dd segment-conditions-tags segment-conditions-platforms',required: true, style: "#{(r_f.reward_event == 'tags') ? '': 'display : none;'}", disabled: "#{(r_f.reward_event == 'tags') ? 'false' : 'true'}"
+                                                    %>
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
+                                                       options_for_select([['Is', 'is'], ['Not', 'not']],selected: r_f.reward_condition),
+                                                       class: 'form-control segment-conditions-dd segment-conditions-gender',
+                                                       required: true, style: "#{(r_f.reward_event == 'gender') ? '': 'display : none;'}",disabled: "#{(r_f.reward_event == 'tags') ? 'false' : 'true'}"
+                                                    %>
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
+                                                     options_for_select([['Is', 'is']], 'is'),
+                                                     class: 'form-control segment-conditions-dd segment-conditions-rewards', style: 'cursor: not-allowed; display:none;',
+                                                     readonly: true , style: "#{(r_f.reward_event == 'tags' || r_f.reward_event == 'age' || r_f.reward_event == 'age'|| r_f.reward_event == 'gender' || r_f.reward_event == 'points') ? 'display : none;': ''}", disabled:  "#{(r_f.reward_event == 'tags' || r_f.reward_event == 'age' || r_f.reward_event == 'age'|| r_f.reward_event == 'gender' || r_f.reward_event == 'points') ? 'true': 'false'}"
+                                                    %>
+                                                </td>
+
+                                                <td width="30%" class="segment-values-container">
+                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]', r_f.reward_value, class: 'form-control segment-value-tags',placeholder: 'Enter Tag', style: "#{(r_f.reward_event == 'tags') ? '': 'display : none;'}",  
+                                                    %>
+                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]', r_f.reward_value,
+                                                   class: 'form-control segment-value-points',
+                                                   placeholder: 'Enter Points',style: "#{(r_f.reward_event == 'points') ? '': 'display : none;'}", disabled: "#{(r_f.reward_event == 'points') ? 'false': 'true'}"
+                                                   %>
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_value]",
+                                                     options_for_select(@campaign.rewards.all.pluck(:name, :id), selected: r_f.reward_value),
+                                                     class: 'form-control segment-value-rewards',
+                                                     required: true, style: "#{(r_f.reward_event == 'rewards') ? '': 'display : none;'}",
+                                                     disabled:  "#{(r_f.reward_event == 'rewards') ? 'false': 'true'}"
+                                                    %>
+                                                    <%= select_tag "reward[reward_filters_attributes][][reward_value]",
+                                                     options_for_select(RewardFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] }, selected: r_f.reward_value),
+                                                      class: 'form-control segment-conditions-platforms',
+                                                    required: true, style: "#{(r_f.reward_event == 'platforms') ? '': 'display : none;'}", disabled: "#{(r_f.reward_event == 'platforms') ? 'false': 'true'}"
+                                                    %>
+                                                  <%= select_tag "reward[reward_filters_attributes][][reward_value]",
+                                                                 options_for_select([['Male', 'male'], ['Female', 'female']], selected: r_f.reward_value),
+                                                                 class: 'form-control segment-value-gender',
+                                                                 required: true, style: "#{(r_f.reward_event == 'gender') ? '': 'display : none;'}",disabled: "#{(r_f.reward_event == 'gender') ? 'false': 'true'}"  %>
+                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]',r_f.reward_value, class: 'form-control segment-value-age',placeholder: 'Enter Age', style: "#{(r_f.reward_event == 'gender' || r_f.reward_event == 'platforms' || r_f.reward_event == 'challenges' || r_f.reward_event == 'points' || r_f.reward_event == 'tags' || r_f.reward_event == 'rewards')  ? 'display : none;': ''}", disabled:  "#{(r_f.reward_event == 'gender' || r_f.reward_event == 'platforms' || r_f.reward_event == 'challenges' || r_f.reward_event == 'points' || r_f.reward_event == 'tags' || r_f.reward_event == 'rewards')  ? 'true': 'false'}"  %> 
+                                                </td>
+                                                <%= hidden_field_tag "reward[reward_filters_attributes][][id]", r_f.id, class: 'reward_filter_id'%>
+                                              </tr>
+                                            <% end %>
+                                          <% end %>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <br>
+                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                                      <span>
+                                        <i class="feather icon-plus"></i> Add Segment
+                                      </span>
+                                    </button>
+                                  </div>
+     
                                 </tbody>
                               </table>
-                            </div>
-                            <%= link_to '#', id: "add_segment" do %>
-                              <i class="feather icon-plus-circle"></i>
-                            <% end %>
-                            <label class="fonticon-classname mt-1">Add</label>
                           </div>
                           <br/>
                           <div class="col-12" style="margin-top: 15px">
-                            <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button>
-                            <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+                            <%= f.submit 'Submit', :class => "btn btn-primary mr-1 mb-1" %>
+                            <!-- <button type="submit" class="reward_form btn btn-primary mr-1 mb-1">Submit</button> -->
                           </div>
                         </div>
                       </div>
@@ -270,8 +327,9 @@
     </div>
   </div>
 </div>
-<style type="text/css">
-  .filter_hidden {
-    display: none;
-  }
-</style>
+
+<script id="challenge-user-segments-template" type="text/x-custom-template">
+  <%= render 'segment_fields' %>
+</script>
+
+

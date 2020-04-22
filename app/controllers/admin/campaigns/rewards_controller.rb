@@ -1,10 +1,32 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
+  before_action :build_params, only: :create
+
   def index
     @rewards = @campaign.rewards
   end
 
   def generate_reward_json
-    render json: { rewards: @campaign.rewards.all }
+    rewards = @campaign.rewards.all
+     ## Check if Search Keyword is Present & Write it's Query
+    if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
+      search_string = []
+      search_columns.each do |term|
+        search_string << "#{term} ILIKE :search"
+      end
+
+      rewards = rewards.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
+    end
+
+    rewards = rewards.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
+
+    rewards = rewards.page(datatable_page).per(datatable_per_page)
+
+    render json: {
+        rewards: rewards.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: rewards.count,
+        recordsFiltered: rewards.total_count
+    }
   end
 
   def new
@@ -13,7 +35,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
-    @reward = @campaign.rewards.new(reward_params)
+   @reward = @campaign.rewards.new(reward_params)
     #update the start param
     @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
     #update the finish 
@@ -80,11 +102,15 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create_coupon
+    coupon_array = params[:coupon][:code].split(',')
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
-    @coupon = @reward.coupons.new(coupon_params)
-    if @coupon.save
-      redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
+    coupon_array.each do |code|
+      coupon = Coupon.new
+      coupon.reward_id = @reward.id
+      coupon.code = code
+      coupon.save
     end
+    redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
   end
 
   def destroy
@@ -99,11 +125,11 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     respond_to do |format|
     if @reward_filter.destroy
       format.html { }
-      format.json {  }
+      format.json { }
     else
       flash[:notice] = "Post failed to delete."
       format.html { }
-      format.json {  }
+      format.json { }
     end
   end
     # @reward_filter.destroy
@@ -120,5 +146,34 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
                             :reward_value, :reward_event])
   end
 
-  ##coupon_pon).permit!
+  ## Build Nested Attributes Params for User Segments
+  def build_params
+    if params[:reward].has_key?('reward_filters_attributes')
+      new_params = []
+      cust_params = params[:reward][:reward_filters_attributes]
+      cust_params.each do |key, c_param|
+        new_params.push({
+                            reward_event: c_param[:reward_event],
+                            reward_condition: c_param[:reward_condition],
+                            reward_value: c_param[:reward_value]
+                        })
+      end
+
+      params[:reward][:reward_filters_attributes] = new_params
+    end
+  end
+
+  #coupon params
+  def coupon_params
+    params.require(:coupon).permit!
+  end
+
+  def search_columns
+    %w(name)
+  end
+
+  def sort_column
+    columns = %w(name start finish)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
 end
