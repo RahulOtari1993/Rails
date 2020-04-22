@@ -202,4 +202,13 @@ module ChallengeHelper
       !type.include?('age')
     end
   end
+
+  ## User Segment Set VISIBLE Fields
+  def make_visible(filter, type)
+    if filter.present?
+      type.include?(filter.challenge_event) ? 'block' : 'none'
+    else
+      type.include?('age') ? 'block' : 'none'
+    end
+  end
 end
