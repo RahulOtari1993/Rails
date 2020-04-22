@@ -136,7 +136,7 @@ ActiveRecord::Schema.define(version: 2020_04_17_100401) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.integer "reward_user_id"
+    t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

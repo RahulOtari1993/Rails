@@ -157,4 +157,13 @@ module ChallengeHelper
     end
   end
 
+  ## Set Name Convention String for User Segment
+  def name_convention(filter = nil)
+    filter.present? ? filter.id : '___NUM___'
+  end
+
+  ## Set ID Convention String for User Segment
+  def id_convention(filter = nil)
+    filter.present? ? filter.id : '___ID___'
+  end
 end

@@ -354,7 +354,6 @@
                     </div>
                   </section>
                 </div>
-
               </fieldset>
 
               <!-- Step 3 -->
@@ -440,6 +439,9 @@
                         <div class="table-responsive">
                           <table class="table table-striped mb-0 tbl-user-segments">
                             <tbody class="campaign-user-segments-container">
+                            <% @challenge.challenge_filters.each do |c_f| %>
+                              <%= render 'segment_fields', filter: c_f %>
+                            <% end %>
                             </tbody>
                           </table>
                         </div>
@@ -542,7 +544,7 @@
 </section>
 
 <script id="challenge-user-segments-template" type="text/x-custom-template">
-  <%= render 'segment_fields' %>
+  <%= render 'segment_fields', filter: nil %>
 </script>
 
 <style>
