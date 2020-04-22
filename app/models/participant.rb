@@ -1,17 +1,20 @@
 class Participant < ApplicationRecord
-	has_and_belongs_to_many :campaigns
-	belongs_to :organization
 
-	devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
+  devise :database_authenticatable, :registerable, :confirmable,
+         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
          :authentication_keys => [:email, :organization_id], :reset_password_keys => [:email, :organization_id]
 
-    validates :email, confirmation: true
+  ## Associations
+  has_and_belongs_to_many :campaigns
+  belongs_to :organization
+  has_many :challenge_participants, dependent: :destroy
+  has_many :challenges, through: :challenge_participants
 
-    after_create :save_participant_details
+  ## Callbacks
+  after_create :save_participant_details
 
-    ## Password Validation Condition
-  	PASSWORD_VALIDATOR = /(          # Start of group
+  ## Password Validation Condition
+  PASSWORD_VALIDATOR = /(          # Start of group
         (?:                        # Start of nonmatching group, 4 possible solutions
           (?=.*[a-z])              # Must contain one lowercase character
           (?=.*[A-Z])              # Must contain one uppercase character
@@ -34,6 +37,7 @@ class Participant < ApplicationRecord
 
   # Validations
   validates :first_name, :last_name, presence: true
+  validates :email, confirmation: true
 
   # From Devise module Validatable
   validates_presence_of :email, if: :email_required?
@@ -70,17 +74,13 @@ class Participant < ApplicationRecord
     true
   end
 
-  def invited?
-    is_invited?
-  end
-
   def full_name
     "#{first_name} #{last_name}"
   end
 
   #facebook omniauth
   def self.from_omniauth(auth)
-    participant = find_or_create_by(uid: auth[‘uid’], provider:  auth[‘provider’])
+    participant = find_or_create_by(uid: auth[‘uid’], provider: auth[‘provider’])
     if Participant.exists?(participant)
       participant
     else
@@ -96,8 +96,9 @@ class Participant < ApplicationRecord
   end
 
   private
-   def save_participant_details
-   	  campaign = Campaign.find(self.campaign_id)
-   	  campaign.participants << self
-   end
+
+  def save_participant_details
+    campaign = Campaign.find(self.campaign_id)
+    campaign.participants << self
+  end
 end
