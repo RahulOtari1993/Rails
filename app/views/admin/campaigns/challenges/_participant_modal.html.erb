@@ -34,8 +34,10 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= link_to 'Download CSV', export_participants_admin_campaign_challenge_path(@campaign.id, @challenge.id),
-                    {class: "btn btn-primary", method: 'post', "data-dismiss" => "modal"} %>
+        <% if @participants.present? %>
+          <%= link_to 'Download CSV', export_participants_admin_campaign_challenge_path(@campaign.id, @challenge.id),
+                      {class: "btn btn-primary", method: 'post', "data-dismiss" => "modal"} %>
+        <% end %>
         <button type="button" class="btn btn-dark waves-effect waves-light" data-dismiss="modal">Close</button>
       </div>
     </div>
