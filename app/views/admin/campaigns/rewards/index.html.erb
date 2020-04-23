@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
 <div class="app-content content">
@@ -6,25 +7,24 @@
   <div class="content-wrapper">
     <div class="content-header row">
       <div class="content-header-left col-md-9 col-12 mb-2">
-          <div class="row breadcrumbs-top">
-              <div class="col-12">
-                  <h2 class="content-header-title float-left mb-0">Rewards</h2>
-              </div>
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title float-left mb-0">Rewards</h2>
           </div>
+        </div>
       </div>
     </div>
     <div class="content-body">
-      <!-- Data list view starts -->
-      <section id="data-thumb-view" class="data-thumb-view-header"><!-- dataTable starts -->
+      <section id="data-thumb-view" class="data-thumb-view-header">
         <div class="table-responsive">
-            <table id = "reward_listing" class="table" campaign_id = '<%= @campaign.id %>'>
-            </table>
+          <table id="reward-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>'>
+          </table>
         </div>
       </section>
-      <!-- Data list view end -->
     </div>
   </div>
 </div>
+
 <!-- Render download csv popup -->
 <div class="render_user_list">
 </div>

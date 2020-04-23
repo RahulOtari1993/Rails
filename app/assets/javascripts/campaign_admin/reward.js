@@ -12,30 +12,8 @@ $(document).ready(function () {
     }
   })
 
-  var segment_ids = []
-  //hide row in reward new and delete/hide row/reward_filter in edit page
-  $('body').on('click', '.remove-reward-segment', function(e){
-    e.preventDefault();  
-    var element = $(this);
-    segment_ids.push($(this).attr('reward_filter_id'))
-    console.log(segment_ids)
-    element= $(this)
-    if($(this).attr('reward_filter_id') != undefined){ 
-      $.ajax({
-        type: 'POST',
-        data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-        url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
-        success: function(data, res){
-          element.closest('tr').remove();
-        }
-      });
-    }else{
-      element.parent().parent().remove();
-    }
-  })
-
-  //Download CSV
-  $('#reward_listing').on('click', '.download-csv-btn', function(){
+  //Download CSV for Reward participants
+  $('#reward-list-table').on('click', '.download-csv-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
     $.ajax({
@@ -45,7 +23,8 @@ $(document).ready(function () {
     });
   });
 
-  $('#reward_listing').on('click', '.coupon-btn', function(){
+  //Coupon popup 
+  $('#reward-list-table').on('click', '.coupon-btn', function(){
     var reward_id = $(this).attr('reward_id')
     var campaign_id = $(this).attr('campaign_id')
     $.ajax({
@@ -55,21 +34,22 @@ $(document).ready(function () {
     });
   });
 
-  //datetime format 
-  function formatDate(date){
-    let current_datetime = new Date(date);
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate()
-    return formatted_date
+  // Format Date
+  function formatDate(date) {
+    let dateObj = new Date(date);
+    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
+        ("0" + (dateObj.getDate() + 1)).slice(-2) +
+        '/' + dateObj.getFullYear()
   }
 
   //thumbview list
-  $("#reward_listing").DataTable({
+  $("#reward-list-table").DataTable({
     processing: true,
     paging: true,
     serverSide: true,
     responsive: false,
     ajax: {
-      "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
+      "url": "/admin/campaigns/" +  $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json",
       "dataSrc": "rewards",
       dataFilter: function(data, callback, settings){
           var json = jQuery.parseJSON(data);
@@ -95,7 +75,7 @@ $(document).ready(function () {
          return formatDate(data.finish)       
         }
       },
-      {title: 'Actions', data: null, searchable: false, orderable: false,
+      {title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
         render: function ( data, type, row ) {
             // Combine the first and last names into a single table field
           return  "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
@@ -104,7 +84,7 @@ $(document).ready(function () {
                   +"<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id +"'campaign_id='" + data.campaign_id + "'" 
                   + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
                   "<i class='feather icon-download'></i></button>" + 
-                  "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id 
+                  "<button class='btn btn-sm btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id 
                   + "'>Coupons</button>"
          }
       },
@@ -132,7 +112,7 @@ $(document).ready(function () {
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
         action: function() {
-          window.location.href = "/admin/campaigns/" + $('#reward_listing').attr('campaign_id') + "/rewards/new"
+          window.location.href = "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/new"
         },
         className: "btn-outline-primary"
       }
@@ -155,14 +135,14 @@ $(document).ready(function () {
   $('.pick-reward-time').pickatime();
   
   //Submit form onclick skipping all input fields which are disabled
-  $('.reward_form').on('click', function () {
-    if(segment_ids.length > 0){
-      $('<input>').attr({ 
-        type:'hidden',
-        name: 'reward[delete_segment_ids][]',
-        value: segment_ids
-      }).appendTo('form');
-    }
+  // $('.reward_form').on('click', function () {
+  //   if(segment_ids.length > 0){
+  //     $('<input>').attr({ 
+  //       type:'hidden',
+  //       name: 'reward[delete_segment_ids][]',
+  //       value: segment_ids
+  //     }).appendTo('form');
+  //   }
     
 
     // $('.segment_table').find('.filter_hidden').attr("disabled", true);
@@ -190,8 +170,8 @@ $(document).ready(function () {
     //     $formSelects.prop("disabled", true)
     //   }
     // }
-    $('form').submit();
-  })
+  //   $('form').submit();
+  // })
 })
 
 

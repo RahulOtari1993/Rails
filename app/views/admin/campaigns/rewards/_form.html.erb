@@ -231,81 +231,18 @@
                                     <div class="table-responsive">
                                       <table class="segment_table table table-striped mb-0">
                                         <tbody class="campaign-user-segments-container">
+                                          <% existing_ids = [] %>
                                           <% if action_name == 'edit' && @reward.reward_filters.present? %>
                                             <% @reward.reward_filters.each do |r_f| %>
-                                              <tr style="border-bottom: 1px solid #414561; padding: 0px 5px;">
-                                                <td scope="row" width="5%" class="remove-btn-align" style="padding-left: 15px !important;">
-                                                  <a class="remove-reward-segment" reward_filter_id= '<%=r_f.id %>'  href="javascript:void(0);">
-                                                    <i class="feather icon-minus-circle"></i>
-                                                  </a>
-                                                </td>
-                                                <td width="30%">
-                                                  <%= select_tag "reward[reward_filters_attributes][][reward_event]",
-                                                   options_for_select(RewardFilter::EVENTS.map { |val| [val.humanize, val] }, selected: r_f.reward_event),
-                                                   class: 'form-control challenge-event-dd',
-                                                   required: true %>
-                                                </td>
-
-                                                <td width="30%" class="segment-conditions-container">
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
-                                                     options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, selected: r_f.reward_condition),
-                                                     class: 'form-control segment-conditions-dd segment-conditions-age segment-conditions-points',
-                                                     required: true, style: "#{(r_f.reward_event == 'age' || r_f.reward_event == 'points') ? '': 'display : none;'}"
-                                                    %>              
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
-                                                       options_for_select([['Has', 'has'], ['Not', 'not']],selected: r_f.reward_condition),
-                                                       class: 'form-control segment-conditions-dd segment-conditions-tags segment-conditions-platforms',required: true, style: "#{(r_f.reward_event == 'tags') ? '': 'display : none;'}"
-                                                    %>
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
-                                                       options_for_select([['Is', 'is'], ['Not', 'not']],selected: r_f.reward_condition),
-                                                       class: 'form-control segment-conditions-dd segment-conditions-gender',
-                                                       required: true, style: "#{(r_f.reward_event == 'gender') ? '': 'display : none;'}"
-                                                    %>
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_condition]",
-                                                     options_for_select([['Is', 'is']], 'is'),
-                                                     class: 'form-control segment-conditions-dd segment-conditions-rewards segment_conditions-challenges ', style: 'cursor: not-allowed;',readonly: true,
-                                                       style: "#{(r_f.reward_event == 'rewards' || r_f.reward_event == 'challenges') ? '': 'display:none;'}"
-                                                    %>
-                                                </td>
-
-                                                <td width="30%" class="segment-values-container">
-                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]', r_f.reward_value, class: 'form-control segment-value-tags',placeholder: 'Enter Tag', style: "#{(r_f.reward_event == 'tags') ? '': 'display : none;'}"
-                                                    %>
-                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]', r_f.reward_value,
-                                                   class: 'form-control segment-value-points',
-                                                   placeholder: 'Enter Points',style: "#{(r_f.reward_event == 'points') ? '': 'display : none;'}"
-                                                   %>
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_value]",
-                                                     options_for_select(@campaign.rewards.all.pluck(:name, :id), selected: r_f.reward_value),
-                                                     class: 'form-control segment-value-rewards',
-                                                     required: true, style: "#{(r_f.reward_event == 'rewards') ? '': 'display : none;'}"
-                                                    %>
-                                                    <%= select_tag "reward[reward_filters_attributes][][reward_value]",
-                                                     options_for_select(RewardFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] }, selected: r_f.reward_value),
-                                                      class: 'form-control segment-conditions-platforms',
-                                                    required: true, style: "#{(r_f.reward_event == 'platforms') ? '': 'display : none;'}"
-                                                    %>
-                                                  <%= select_tag "reward[reward_filters_attributes][][reward_value]",
-                                                   options_for_select(@campaign.challenges.all.pluck(:name, :id)),
-                                                   class: 'form-control segment-value-challenges',
-                                                   prompt: 'Select Challenge ', style: "#{(r_f.reward_event == 'challenges') ? '': 'display : none;'}",
-                                                   required: true 
-                                                  %>
-                                                  <%= select_tag "reward[reward_filters_attributes][][reward_value]",
-                                                                 options_for_select([['Male', 'male'], ['Female', 'female']], selected: r_f.reward_value),
-                                                                 class: 'form-control segment-value-gender',
-                                                                 required: true, style: "#{(r_f.reward_event == 'gender') ? '': 'display : none;'}" %>
-                                                    <%= text_field_tag 'reward[reward_filters_attributes][][reward_value]',r_f.reward_value, class: 'form-control segment-value-age',placeholder: 'Enter Age', style: "#{(r_f.reward_event == 'gender' || r_f.reward_event == 'platforms' || r_f.reward_event == 'challenges' || r_f.reward_event == 'points' || r_f.reward_event == 'tags' || r_f.reward_event == 'rewards')  ? 'display : none;': ''}" %> 
-                                                </td>
-                                                <%= hidden_field_tag "reward[reward_filters_attributes][][id]", r_f.id, class: 'reward_filter_id'%>
-                                              </tr>
+                                              <% existing_ids.push(r_f.id) %>
+                                              <%= render 'segment_fields', filter: r_f %>
                                             <% end %>
                                           <% end %>
                                         </tbody>
                                       </table>
                                     </div>
                                     <br>
-                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment">
+                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment existing-filter-ids" data-ids="<%= existing_ids %>">
                                       <span>
                                         <i class="feather icon-plus"></i> Add Segment
                                       </span>
@@ -334,7 +271,7 @@
 </div>
 
 <script id="challenge-user-segments-template" type="text/x-custom-template">
-  <%= render 'segment_fields' %>
+  <%= render 'segment_fields', filter: nil %>
 </script>
 
 

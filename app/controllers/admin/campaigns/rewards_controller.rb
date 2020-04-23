@@ -1,5 +1,5 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
-  before_action :build_params, only: :create
+  before_action :build_params, only: [:create, :update]
 
   def index
     @rewards = @campaign.rewards
@@ -36,10 +36,6 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   def create
    @reward = @campaign.rewards.new(reward_params)
-    #update the start param
-    @reward.start = Chronic.parse(params[:reward][:start]) || @reward.start rescue @reward.start
-    #update the finish 
-    @reward.finish = Chronic.parse(params[:reward][:finish]) || @reward.finish  rescue @reward.finish
     @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save 
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
@@ -64,7 +60,6 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
       #set the results
       @reward.reward_participants.each do |user_reward|
-
         csv << [
           user_reward.user.first_name,
           user_reward.user.full_name,
@@ -87,17 +82,20 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def update
-    if params[:reward][:delete_segment_ids].present?
-      params[:reward][:delete_segment_ids].each do |id|
-        reward_filter = RewardFilter.find(id)
-        reward_filter = reward_filter.destroy
-      end
-    end
     @reward = @campaign.rewards.find_by(:id => params[:id])
-    if @reward.update_attributes(reward_params.except(params[:reward][:delete_segment_ids]))
-      redirect_to admin_campaign_rewards_path, notice: 'Reward successfully updated'
-    else
-      render :edit
+    respond_to do |format|
+      previous_segments = @reward.reward_filters.pluck(:id)
+      removed_segments = previous_segments - @available_segments
+      if @reward.update(reward_params)
+        ## Remove Deleted User Segments from a Reward
+        @reward.reward_filters.where(id: removed_segments).delete_all if removed_segments.present?
+
+        format.html { redirect_to admin_campaign_rewards_path(@campaign), notice: 'Reward was successfully updated.' }
+        format.json { render :edit, status: :updated }
+      else
+        format.html { render :edit }
+        format.json { render json: @campaign.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -145,24 +143,37 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   private
 
   def reward_params
-    params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
+    return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
                            :image,:image_content_type, :selection, :start, :finish, :feature, :points,
                             :is_active, :redemption_details, :description_details, :terms_conditions,
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event])
+    return_params[:start] = Chronic.parse(params[:reward][:start])
+    return_params[:finish] = Chronic.parse(params[:reward][:finish])
+    return_params
   end
 
   ## Build Nested Attributes Params for User Segments
   def build_params
-    if params[:reward].has_key?('reward_filters_attributes')
+     if params[:reward].has_key?('reward_filters_attributes')
       new_params = []
+      @available_segments = []
+
       cust_params = params[:reward][:reward_filters_attributes]
       cust_params.each do |key, c_param|
-        new_params.push({
-                            reward_event: c_param[:reward_event],
-                            reward_condition: c_param[:reward_condition],
-                            reward_value: c_param[:reward_value]
-                        })
+                    byebug
+        filter_data = {
+            reward_event: c_param[:reward_event],
+            reward_condition: c_param[:reward_condition],
+            reward_value: c_param[:reward_value]
+        }
+
+        if c_param.has_key?('id')
+          filter_data[:id] = c_param[:id]
+          @available_segments.push(c_param[:id].to_i)
+        end
+
+        new_params.push(filter_data)
       end
 
       params[:reward][:reward_filters_attributes] = new_params
