@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -67,6 +67,33 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  ## Fetch Challenge Details
+  def show
+  end
+
+  ## Fetch Participants of Particular Challenge
+  def participants
+    @participants = @challenge.participants rescue nil
+  end
+
+  ## Export Participants of Particular Challenge as a CSV File
+  def export_participants
+    participants = @challenge.participants
+    results = CSV.generate do |csv|
+      ## Generate CSV File the Header
+      csv << %w(first_name family_name email earned_date)
+
+      ## Add Records in CSV File
+      participants.each do |participant|
+        csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
+      end
+    end
+
+    ## Logic to Download the Generated CSV File
+    return send_data results, type: 'text/csv; charset=utf-8; header=present',
+                     disposition: 'attachment; filename=challenge_contacts.csv'
   end
 
   private

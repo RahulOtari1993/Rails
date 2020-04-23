@@ -594,8 +594,11 @@ $(document).on('turbolinks:load', function () {
       },
       {
         class: 'product-name',
-        title: 'Name', data: 'name',
-        searchable: true
+        title: 'Name', data: null,
+        searchable: true,
+        render: function (data, type, row) {
+          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + data.name + '</span>'
+        }
       },
       {
         class: 'product-name',
@@ -628,14 +631,24 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
+        class: 'product-action',
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
           return "<a href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'" +
               "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>" +
-              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light display-challenge-participants' data-challenge-id ='" + data.id + "'data-campaign-id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
-              "<i class='feather icon-download'></i></button>"
+              "<i class='feather icon-download'></i></button>" +
+              "<div class='input-group'>" +
+              "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>"+
+              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
+              "<a class='dropdown-item' href='#'><i class='feather icon-trending-up'></i> Stats</a>" +
+              "<a class='dropdown-item' href='#'><i class='feather icon-edit-2'></i> Edit</a>" +
+              "<a class='dropdown-item' href='#'><i class='feather icon-copy'></i> Duplicate</a>" +
+              "<a class='dropdown-item' href='#'><i class='feather icon-trash-2'></i> Delete</a>" +
+              "</div>" +
+              "</div>"
         }
       },
     ],
@@ -681,8 +694,30 @@ $(document).on('turbolinks:load', function () {
   // Add Validations on Already Exists User Segments
   setTimeout(function(){
     var ids = $('.existing-filter-ids').data('ids');
-    ids.forEach(function(segmentId) {
-      addValidations(segmentId)
-    });
+    if (ids) {
+      ids.forEach(function(segmentId) {
+        addValidations(segmentId)
+      });
+    }
   }, 2000);
+
+  // Open Popup for Challenge Participants
+  $('#challenge-list-table').on('click', '.display-challenge-participants', function() {
+    var challengeId = $(this).data('challenge-id')
+    var campaignId = $(this).data('campaign-id')
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId  + "/participants"
+    });
+  });
+
+  // Open Popup for Challenge Details
+  $('#challenge-list-table').on('click', '.challenge-name', function() {
+    var challengeId = $(this).data('challenge-id')
+    var campaignId = $(this).data('campaign-id')
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId
+    });
+  });
 });
