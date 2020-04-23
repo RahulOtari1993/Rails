@@ -17,14 +17,8 @@
     <div class="content-body">
       <section id="data-thumb-view" class="data-thumb-view-header">
         <div class="table-responsive">
-          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#primary">
-            Primary
-          </button>
-
-          <div class="challenge_section show-challenge-details-container">
-            <%#= render 'admin/campaigns/challenges/details_popup' %>
-          </div>
-
+          <!-- Container for Challenge Details Popup-->
+          <div class="challenge_section show-challenge-details-container"></div>
 
           <table id="challenge-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>'>
           </table>

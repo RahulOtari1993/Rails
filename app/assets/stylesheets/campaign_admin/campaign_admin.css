@@ -43,6 +43,7 @@
  *= require libraries/plugins/file-uploaders/dropzone
 
  *= require style
+ *= require ../campaign_admin
  *= require ../common_style
  */
 

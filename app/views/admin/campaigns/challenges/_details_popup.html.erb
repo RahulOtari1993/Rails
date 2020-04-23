@@ -32,7 +32,7 @@
                 <p class="challenge-date">
                   <span><%= @challenge.start.strftime('%A, %B %d, %Y') %></span>
                   <% if @challenge.finish.present? %>
-                    - <span>%= @challenge.finish.strftime('%A, %B %d, %Y') %></span>
+                    - <span><%= @challenge.finish.strftime('%A, %B %d, %Y') %></span>
                   <% end %>
                 </p>
               </div>

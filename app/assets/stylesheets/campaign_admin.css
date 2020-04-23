@@ -1,0 +1,25 @@
+.more_action_bg {
+  background-color: #4c499c !important;
+}
+
+.more_action_bg .feather {
+  margin-right: 3px;
+}
+
+.more_action_bg .dropdown-item {
+  color: #eee !important;
+}
+
+.more_action_bg .dropdown-item:hover, .more_action_bg .dropdown-item:focus {
+  background: transparent !important;
+  color: #C2C6DC !important;
+}
+
+.product-action .dropdown-toggle::after {
+  content: "" !important;
+  width: 0px;
+}
+
+.table-action-buttons {
+  padding-left: 20px;
+}
