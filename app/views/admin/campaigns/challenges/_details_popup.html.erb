@@ -12,15 +12,15 @@
         </button>
       </div>
       <div class="modal-body">
-        <h4>Rally your friends for the best concert of the year!</h4>
+        <h4><%= truncate(@challenge.name, :length => 80) %></h4>
         <div class="container p-0">
           <div class="row">
             <div class="col-md-6">
               <div class="challenge_img" style="background-image: url(<%= @challenge.image.url %>);
                   background-position: center; background-repeat: no-repeat; background-size: cover; ">
-                <p class="challenge-description">Helloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloa
-                  sdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsad</p>
-                <!--              <img src="<%##= @challenge.image.url %>" class="challenge_img">-->
+                <p class="challenge-description">
+                  <%= truncate(@challenge.description, :length => 90) %>
+                </p>
               </div>
             </div>
             <div class="col-md-6">
@@ -74,7 +74,7 @@
                 <div class="add_tag">
                   <i class="feather icon-plus-circle"></i>
                 </div>
-                <div class="input-group add_tag_btngroup">
+                <div class="input-group add_tag_btngroup" style="display: none;">
                   <input type="text" class="form-control" placeholder="Tag Name" aria-describedby="button-addon2">
                   <div class="input-group-append" id="button-addon2">
                     <button class="btn btn-primary waves-effect waves-light" type="button">Add Tag</button>
@@ -121,7 +121,7 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="Insights" aria-labelledby="Insights-tab" role="tabpanel">
                   <p>Challenge Completions By Users</p>
-                  <img src="../../../app-assets/images/banner/banner-21.jpg" class="challenge_img">
+                  <img src="<%= Challenge.first.image.url %>" class="challenge_img">
                 </div>
                 <div class="tab-pane" id="Users" aria-labelledby="Users-tab" role="tabpanel">
                   <p>Pudding candy canes sugar plum cookie chocolate cake powder croissant. Carrot cake tiramisu danish
