@@ -689,7 +689,7 @@ $(document).on('turbolinks:load', function () {
   }, 2000);
 
   // Open Popup for Challenge Participants
-  $('#challenge-list-table').on('click', '.display-challenge-participants', function(){
+  $('#challenge-list-table').on('click', '.display-challenge-participants', function() {
     var challengeId = $(this).attr('challenge_id')
     var campaignId = $(this).attr('campaign_id')
     $.ajax({
