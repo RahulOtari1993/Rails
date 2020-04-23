@@ -1,0 +1,43 @@
+<div class="modal fade text-left" id="reward_participant" tabindex="-1" role="dialog" aria-labelledby="reward_participant" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel1">Reward Conatcts</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th>First Name</th>
+                              <th>Family Name</th>
+                              <th>Email</th>
+                              <th>Earned Date</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <% if r.reward_participants.present?%>
+                          <% r.reward_participants.each do |r_c|%>
+                            <tr>
+                              <td scope="row"><%= r_c.user.first_name %></td>
+                              <td><%= r_c.user.full_name %> </td>
+                              <td><%= r_c.user.email %></td>
+                              <td>
+                                <%= r_c.created_at %></td>
+                            </tr>
+                          <% end %>
+                        <% end %>
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= link_to 'Download CSV', admin_campaign_reward_reward_export_path(r), {class: "btn btn-primary", method: 'post', "data-dismiss"=>"modal"} %>
+                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button> -->
+            </div>
+        </div>
+    </div>
+</div>

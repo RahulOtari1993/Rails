@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update]
+  before_action :set_challenge, only: [:edit, :update, :participants]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -67,6 +67,41 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  ## Fetch Participants of Particular Challenge
+  def participants
+    @participants = @challenge.participants rescue nil
+  end
+
+  ## Export Participants of Particular Challenge as a CSV File
+  def export_participants
+    #grab the reward
+    @reward = Reward.find(params[:reward_id])
+    #generate the csv of the results
+    results = CSV.generate do |csv|
+      #generate the header
+      csv << [
+          "first_name",
+          "family_name",
+          "email",
+          "earned_date"
+      ]
+
+      #set the results
+      @reward.reward_participants.each do |user_reward|
+
+        csv << [
+            user_reward.user.first_name,
+            user_reward.user.full_name,
+            user_reward.user.email,
+            user_reward.created_at
+        ]
+      end
+    end
+
+    #send down the results to the user
+    return send_data results, type: "text/csv; charset=utf-8; header=present", disposition: "attachment; filename=contacts.csv", filename: "contacts.csv"
   end
 
   private

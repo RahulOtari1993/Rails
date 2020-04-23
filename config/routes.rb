@@ -63,6 +63,10 @@ Rails.application.routes.draw do
             collection do
               get '/fetch_challenges', to: 'challenges#fetch_challenges'
             end
+            member do
+              get '/participants', to: 'challenges#participants'
+              post '/export_participants', to: 'challenges#export_participants'
+            end
           end
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter

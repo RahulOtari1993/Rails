@@ -1,0 +1,43 @@
+<div class="modal fade text-left" id="challenge_participant" tabindex="-1" role="dialog" aria-labelledby="challenge_participant" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Challenge Conatcts</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Family Name</th>
+              <th>Email</th>
+              <th>Earned Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @participants.present? %>
+              <% @participants.each do |participant| %>
+                <tr>
+                  <td scope="row"><%= participant.first_name %></td>
+                  <td><%= participant.last_name %> </td>
+                  <td><%= participant.email %></td>
+                  <td><%= participant.created_at %></td>
+                </tr>
+              <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= link_to 'Download CSV', export_participants_admin_campaign_challenge_path(@campaign.id, @challenge.id),
+                    {class: "btn btn-primary", method: 'post', "data-dismiss" => "modal"} %>
+        <button type="button" class="btn btn-dark waves-effect waves-light" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
