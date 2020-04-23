@@ -594,8 +594,11 @@ $(document).on('turbolinks:load', function () {
       },
       {
         class: 'product-name',
-        title: 'Name', data: 'name',
-        searchable: true
+        title: 'Name', data: null,
+        searchable: true,
+        render: function (data, type, row) {
+          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + data.name + '</span>'
+        }
       },
       {
         class: 'product-name',
@@ -633,7 +636,7 @@ $(document).on('turbolinks:load', function () {
           return "<a href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'" +
               "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>" +
-              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light display-challenge-participants' challenge_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light display-challenge-participants' data-challenge-id ='" + data.id + "'data-campaign-id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
               "<i class='feather icon-download'></i></button>"
         }
@@ -690,11 +693,21 @@ $(document).on('turbolinks:load', function () {
 
   // Open Popup for Challenge Participants
   $('#challenge-list-table').on('click', '.display-challenge-participants', function() {
-    var challengeId = $(this).attr('challenge_id')
-    var campaignId = $(this).attr('campaign_id')
+    var challengeId = $(this).data('challenge-id')
+    var campaignId = $(this).data('campaign-id')
     $.ajax({
       type: 'GET',
       url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId  + "/participants"
+    });
+  });
+
+  // Open Popup for Challenge Details
+  $('#challenge-list-table').on('click', '.challenge-name', function() {
+    var challengeId = $(this).data('challenge-id')
+    var campaignId = $(this).data('campaign-id')
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId
     });
   });
 });

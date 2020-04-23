@@ -74,4 +74,13 @@ class Challenge < ApplicationRecord
       return
     end
   end
+
+  ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
+  def status
+    if is_draft
+      'draft'
+    else
+      'active'
+    end
+  end
 end

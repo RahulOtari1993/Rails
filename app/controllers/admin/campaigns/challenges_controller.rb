@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :participants, :export_participants]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -67,6 +67,10 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         format.json { render json: @campaign.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  ## Fetch Challenge Details
+  def show
   end
 
   ## Fetch Participants of Particular Challenge

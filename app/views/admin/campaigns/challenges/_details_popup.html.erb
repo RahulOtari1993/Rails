@@ -1,0 +1,147 @@
+<div class="modal fade text-left" id="challenge-details-popup" tabindex="-1" role="dialog" aria-labelledby="challenge-details-popup" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-width" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary white">
+        <h6 class="modal-title" id="myModalLabel160">
+          <% status = @challenge.status %>
+          <i class="fa fa-circle fa_<%= status %> fa_circle_lg" aria-hidden="true"></i> <%= status %>
+          <span><%= @challenge.mechanism %> challenge</span>
+        </h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Rally your friends for the best concert of the year!</h4>
+        <div class="container p-0">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="challenge_img" style="background-image: url(<%= @challenge.image.url %>);
+                  background-position: center; background-repeat: no-repeat; background-size: cover; ">
+                <p class="challenge-description">Helloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloa
+                  sdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsadHelloasdajdkjajdkad asdjahdkja dahdkjadjahdadkjsad</p>
+                <!--              <img src="<%##= @challenge.image.url %>" class="challenge_img">-->
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h6>Reward</h6>
+
+              <button type="button" class="btn bg-gradient-primary waves-effect waves-light reward_btn">200pts</button>
+              <div class="active_time">
+                <h6>Active Time Period</h6>
+                <p class="challenge-date">
+                  <span><%= @challenge.start.strftime('%A, %B %d, %Y') %></span>
+                  <% if @challenge.finish.present? %>
+                    - <span>Friday, June 30, 2017</span>
+                  <% end %>
+                </p>
+              </div>
+              <h6>Available On <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i></h6>
+              <div class="tag_box">
+                <div class="chip chip-primary">
+                  <div class="chip-body">
+                    <span class="chip-text">Sponsor</span>
+                    <div class="chip-closeable">
+                      <i class="feather icon-minus-circle"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="chip chip-success">
+                  <div class="chip-body">
+                    <span class="chip-text">2017</span>
+                    <div class="chip-closeable">
+                      <i class="feather icon-minus-circle"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="chip chip-warning">
+                  <div class="chip-body">
+                    <span class="chip-text">Outreach</span>
+                    <div class="chip-closeable">
+                      <i class="feather icon-minus-circle"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="chip chip-danger">
+                  <div class="chip-body">
+                    <span class="chip-text">tag</span>
+                    <div class="chip-closeable">
+                      <i class="feather icon-minus-circle"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="add_tag">
+                  <i class="feather icon-plus-circle"></i>
+                </div>
+                <div class="input-group add_tag_btngroup">
+                  <input type="text" class="form-control" placeholder="Tag Name" aria-describedby="button-addon2">
+                  <div class="input-group-append" id="button-addon2">
+                    <button class="btn btn-primary waves-effect waves-light" type="button">Add Tag</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row gradient_btn_box">
+            <div class="col-md-4 pl-0">
+              <div class="form-group text-center">
+                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">26,934
+                  <p><span>48%</span> of user targetted</p>
+                </button>
+                <h6>Total Completions</h6>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group text-center">
+                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">1,041,997</button>
+                <h6>Clicks Generated</h6>
+              </div>
+            </div>
+            <div class="col-md-4 pr-0">
+              <div class="form-group text-center">
+                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light">5,386,800</button>
+                <h6>Points Earned By Users</h6>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="modal_tab">
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Insights" aria-controls="Insights" role="tab" aria-selected="true">Insights</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Users" aria-controls="Users" role="tab" aria-selected="false">Users</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="about-tab" data-toggle="tab" href="#Details" aria-controls="Details" role="tab" aria-selected="false">Details</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="Insights" aria-labelledby="Insights-tab" role="tabpanel">
+                  <p>Challenge Completions By Users</p>
+                  <img src="../../../app-assets/images/banner/banner-21.jpg" class="challenge_img">
+                </div>
+                <div class="tab-pane" id="Users" aria-labelledby="Users-tab" role="tabpanel">
+                  <p>Pudding candy canes sugar plum cookie chocolate cake powder croissant. Carrot cake tiramisu danish
+                    candy cake muffin croissant tart dessert. Tiramisu caramels candy canes chocolate cake sweet roll
+                    liquorice icing cupcake.</p>
+                </div>
+                <div class="tab-pane" id="Details" aria-labelledby="Details-tab" role="tabpanel">
+                  <p>Carrot cake dragée chocolate. Lemon drops ice cream wafer gummies dragée. Chocolate bar liquorice
+                    cheesecake cookie chupa chups marshmallow oat cake biscuit. Dessert toffee fruitcake ice cream
+                    powder
+                    tootsie roll cake.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

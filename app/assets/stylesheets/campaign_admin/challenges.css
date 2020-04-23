@@ -192,6 +192,9 @@
   display: inline-block;
 }
 
+.challenge-name {
+  color: #7367f0 !important;
+}
 
 .Social_blocks_fb_content_box {
   position: relative;
@@ -424,5 +427,207 @@
 
   .social-heading-details {
     margin-left: 0px;
+  }
+}
+
+/* ===================== Challenge Details Popup ===================== */
+.challenge_section .modal .modal-header .modal-title {
+  text-transform: uppercase !important;
+  color: #FFFFFF;
+}
+
+.challenge_section .modal-title span {
+  color: #ccc;
+}
+
+.challenge_img {
+  width: 100%;
+  height: 260px;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.challenge-description {
+  position: relative;
+  top: 70%;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.challenge_section .fa-facebook, .challenge_section .fa-twitter {
+  width: 25px;
+  height: 25px;
+  background: #3b5998;
+  border-radius: 50%;
+  line-height: 25px;
+  text-align: center;
+  margin-left: 8px;
+}
+
+.challenge_section .modal-content {
+  max-height: calc(100vh - 3.5rem) !important;
+}
+
+.challenge_section .modal-body h4 {
+  margin-bottom: 12px;
+}
+
+.challenge_section .modal-body h6 {
+  margin-bottom: 3px;
+}
+
+.challenge_section .fa-facebook {
+  background: #3b5998;
+}
+
+.challenge_section .fa-twitter {
+  background: #00acee;
+}
+
+.challenge_section .chip .chip-body .chip-closeable {
+  margin-left: -2px;
+}
+
+.challenge_section .chip .chip-body .chip-closeable i {
+  margin-left: 1px;
+  margin-top: 0px !important;
+}
+
+.challenge_section .active_time {
+  margin: 15px 0px;
+}
+
+.challenge_section .tag_box {
+  margin: 15px 0px;
+}
+
+.gradient_btn_box {
+  margin: 20px 0px 0px;
+}
+
+.gradient_btn_box .form-group {
+  margin-bottom: 0.5rem;
+}
+
+.gradient_btn_box .btn {
+  padding: 0.5rem 1rem;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  min-height: 60px;
+}
+
+.gradient_btn_box p {
+  margin-bottom: 0px;
+  font-size: 1rem;
+  letter-spacing: normal;
+  font-weight: 400;
+}
+
+.challenge_section .reward_btn {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+.gradient_btn_box h6 {
+  margin-top: 6px;
+}
+
+.challenge_section .modal_tab {
+  padding: 1rem;
+  width: 100%;
+}
+
+.challenge_section .modal-body .nav.nav-tabs {
+  background-color: #7367F0;
+  margin-bottom: 0px;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.challenge_section .modal-body .nav-item .nav-link.active, .challenge_section .modal-body .nav-item .nav-link:hover {
+  color: #fff !important;
+}
+
+.challenge_section .modal-body .nav-item .nav-link, .challenge_section .modal-body .nav-item .nav-link.active {
+  background-color: transparent !important;
+}
+
+.challenge_section .modal-body .nav.nav-tabs .nav-item .nav-link.active:after {
+  top: 0% !important;
+  background: #6c39ae !important;
+  height: 3px !important;
+}
+
+.challenge_section .modal-body .tab-content .tab-pane {
+  background-color: #8b81f7 !important;
+  padding: 12px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.challenge_section .modal-body .tab-content .tab-pane p {
+  color: #fff !important;
+}
+
+.challenge_section .add_tag {
+  background-color: #7367f0;
+  display: inline-grid;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.challenge_section .add_tag_btngroup {
+  margin-top: 5px;
+}
+
+.challenge_section .add_tag_btngroup input {
+  line-height: 15px;
+}
+
+.challenge_section .add_tag_btngroup .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.fa_active {
+  background: none;
+  color: #28c76e;
+}
+
+.fa_ended {
+  background: none;
+  color: #EA5455;
+}
+
+.fa_draft {
+  background: none;
+  color: #ff9f44;
+}
+
+.fa_scheduled {
+  background: none;
+  color: #28c76e;
+}
+
+.fa_circle_lg {
+  font-size: 14px;
+}
+
+.fa_circle_sm {
+  font-size: 10px;
+}
+
+.challenge-date {
+  font-size: 14px;
+}
+
+@media only screen and (min-width: 992px) {
+  .modal-width {
+    max-width: 800px;
   }
 }
