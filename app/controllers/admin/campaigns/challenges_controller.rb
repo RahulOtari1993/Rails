@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :participants]
+  before_action :set_challenge, only: [:edit, :update, :participants, :export_participants]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -76,32 +76,20 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Export Participants of Particular Challenge as a CSV File
   def export_participants
-    #grab the reward
-    @reward = Reward.find(params[:reward_id])
-    #generate the csv of the results
+    participants = @challenge.participants
     results = CSV.generate do |csv|
-      #generate the header
-      csv << [
-          "first_name",
-          "family_name",
-          "email",
-          "earned_date"
-      ]
+      ## Generate CSV File the Header
+      csv << %w(first_name family_name email earned_date)
 
-      #set the results
-      @reward.reward_participants.each do |user_reward|
-
-        csv << [
-            user_reward.user.first_name,
-            user_reward.user.full_name,
-            user_reward.user.email,
-            user_reward.created_at
-        ]
+      ## Add Records in CSV File
+      participants.each do |participant|
+        csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
       end
     end
 
-    #send down the results to the user
-    return send_data results, type: "text/csv; charset=utf-8; header=present", disposition: "attachment; filename=contacts.csv", filename: "contacts.csv"
+    ## Logic to Download the Generated CSV File
+    return send_data results, type: 'text/csv; charset=utf-8; header=present',
+                     disposition: 'attachment; filename=challenge_contacts.csv'
   end
 
   private
