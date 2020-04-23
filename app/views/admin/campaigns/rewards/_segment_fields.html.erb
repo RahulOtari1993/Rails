@@ -32,12 +32,13 @@
                    prompt: 'Select Condition', style: 'display:none;',
                    required: true %>
 
-    <%= select_tag "reward[reward_filters_attributes][___NUM___][reward_condition]",
+    <%= select_tag "challenge[challenge_filters_attributes][___NUM___][challenge_condition]",
                    options_for_select([['Is', 'is']], 'is'),
-                   class: 'form-control segment-conditions-dd segment-conditions-rewards',
+                   { class: 'form-control segment-conditions-dd segment-conditions-rewards segment-conditions-challenges',
+                   style: 'display:none;',
                    id: 'segment-conditions-dd-___ID___',
-                   prompt: 'Select Condition', style: 'display:none; cursor: not-allowed;',
-                   disabled: true, readonly: true %>
+                   disabled: true, readonly: true } %>
+
   </td>
 
   <td width="30%" class="segment-values-container">
@@ -59,6 +60,13 @@
                    class: 'form-control segment-value-rewards',
                    id: 'segment-value-rewards-___ID___',
                    prompt: 'Select Reward', style: 'display:none;',
+                   required: true %>
+
+    <%= select_tag "reward[reward_filters_attributes][___NUM___][reward_value]",
+                   options_for_select(@campaign.challenges.all.pluck(:name, :id)),
+                   class: 'form-control segment-value-challenges',
+                   id: 'segment-value-challenges-___ID___',
+                   prompt: 'Select Challenge', style: 'display:none;',
                    required: true %>
 
     <%= select_tag "reward[reward_filters_attributes][___NUM___][reward_value]",

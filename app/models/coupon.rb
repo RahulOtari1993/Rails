@@ -12,7 +12,7 @@
 class Coupon < ApplicationRecord
   ## Associations
   belongs_to :reward
-  belongs_to :reward_user, optional: true
+  belongs_to :reward_participant, optional: true
 
   #validations
   validates :code, presence: true 

@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="coupon_user" tabindex="-1" role="dialog" aria-labelledby="reward_user" aria-hidden="true">
+<div class="modal fade text-left" id="coupon_user" tabindex="-1" role="dialog" aria-labelledby="reward_participant" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -32,7 +32,7 @@
                               <% @coupons.each do |coupon|%>
                                 <tr>
                                   <td scope="row"><%= coupon.code %></td>
-                                  <td><%= coupon.reward_user.user.email if coupon.reward_user_id.present? %> </td>
+                                  <td><%= coupon.reward_participant.user.email if coupon.reward_participant_id.present? %> </td>
                                   <td><%= coupon.created_at.strftime("%d-%m-%Y") if coupon.created_at.present? %></td>
                                 </tr>
                               <% end %>
