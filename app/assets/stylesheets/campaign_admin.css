@@ -23,3 +23,7 @@
 .table-action-buttons {
   padding-left: 20px;
 }
+
+.product-action {
+  padding-left: 42px !important;
+}
