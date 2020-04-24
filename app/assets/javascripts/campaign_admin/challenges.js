@@ -45,6 +45,16 @@ $(document).on('turbolinks:load', function () {
     return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
   }
 
+  // Trigger SWAL Notificaton
+  function swalNotify(title, message) {
+    Swal.fire({
+      title: title,
+      text: message,
+      confirmButtonClass: 'btn btn-primary',
+      buttonsStyling: false,
+    });
+  }
+
   // Replace ID of Newly Added Fields of User Segment
   function replaceFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
@@ -634,6 +644,8 @@ $(document).on('turbolinks:load', function () {
         class: 'product-action a',
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
+          actionText = data.is_approved ? ' Disable' : ' Approve'
+
           return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
               "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
               "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
@@ -645,7 +657,7 @@ $(document).on('turbolinks:load', function () {
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
               "<i class='feather icon-download'></i> Download CSV</a>" +
               "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>" +
-              "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-check-square'></i> Approve</a>" +
+              "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>" +
               "</div>" +
               "</div>"
         }
@@ -750,4 +762,21 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
+
+  // Clone & Duplicate a Challenge
+  $('#challenge-list-table').on('click', '.toggle-challenge-status', function () {
+    var challengeId = $(this).parent().parent().data('challenge-id');
+    var campaignId = $(this).parent().parent().data('campaign-id');
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
+      success: function (data) {
+        swalNotify(data.title, data.message);
+        if (data.success) {
+          $('#challenge-list-table').DataTable().ajax.reload(null, false);
+        }
+      }
+    });
+  });
+
 });

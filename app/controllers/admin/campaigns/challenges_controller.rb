@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -114,6 +114,26 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       render json: {success: true}
     else
       render json: {success: false}
+    end
+  end
+
+  ## Approve / Disable a Challenge
+  def toggle
+    @challenge.is_approved = @challenge.is_approved ? false : true
+    @challenge.approver_id = current_user.id
+
+    if @challenge.save
+      render json: {
+          success: true,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "Challenge #{@challenge.is_approved ? 'approved' : 'disabled'} successfully!"
+      }
+    else
+      render json: {
+          success: false,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "#{@challenge.is_approved ? 'Approving' : 'Disabling'} challenge failed, Try again later!"
+      }
     end
   end
 
