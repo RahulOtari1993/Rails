@@ -23,6 +23,7 @@
  *= require vendors/forms/spinner/jquery.bootstrap-touchspin
  *= require vendors/forms/select/select2.min
  *= require vendors/pickers/pickadate/pickadate
+ *= require vendors/extensions/sweetalert2.min
 
  *= require libraries/plugins/forms/wizard
  *= require libraries/core/menu/menu-types/vertical-menu

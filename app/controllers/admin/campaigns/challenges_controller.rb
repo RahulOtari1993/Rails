@@ -110,7 +110,11 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     cloned.is_draft = true ## Make Challenge as Draft
     cloned.approver_id = nil ## Make Approver ID Null
 
-    cloned.save
+    if cloned.save
+      render json: {success: true}
+    else
+      render json: {success: false}
+    end
   end
 
   private
