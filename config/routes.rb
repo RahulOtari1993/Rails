@@ -66,6 +66,7 @@ Rails.application.routes.draw do
             member do
               get '/participants', to: 'challenges#participants'
               post '/export_participants', to: 'challenges#export_participants'
+              get '/duplicate', to: 'challenges#duplicate'
             end
           end
         end

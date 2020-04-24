@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -94,6 +94,23 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     ## Logic to Download the Generated CSV File
     return send_data results, type: 'text/csv; charset=utf-8; header=present',
                      disposition: 'attachment; filename=challenge_contacts.csv'
+  end
+
+  def duplicate
+    ## Clone a Challenge With It's Active Record Relation
+    cloned = @challenge.deep_clone include: :challenge_filters do |original, copy|
+      if copy.is_a?(Challenge)
+        ## Clone Challenge Image
+        copy.image = original.image
+      end
+    end
+
+    ## Modify Challenge Details
+    cloned.name = "#{@challenge.name} - Duplicate" ## Update Challenge Name
+    cloned.is_draft = true ## Make Challenge as Draft
+    cloned.approver_id = nil ## Make Approver ID Null
+
+    cloned.save
   end
 
   private
