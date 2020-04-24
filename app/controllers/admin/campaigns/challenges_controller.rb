@@ -107,7 +107,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
     ## Modify Challenge Details
     cloned.name = "#{@challenge.name} - Duplicate" ## Update Challenge Name
-    cloned.is_draft = true ## Make Challenge as Draft
+    cloned.is_approved = false ## Make Challenge as Draft
     cloned.approver_id = nil ## Make Approver ID Null
 
     if cloned.save
