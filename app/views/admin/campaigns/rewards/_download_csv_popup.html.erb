@@ -19,12 +19,12 @@
                           </tr>
                       </thead>
                       <tbody>
-                        <% if r.reward_participants.present?%>
-                          <% r.reward_participants.each do |r_c|%>
+                        <% if reward.reward_participants.present?%>
+                          <% reward.reward_participants.each do |r_c|%>
                             <tr>
-                              <td scope="row"><%= r_c.user.first_name %></td>
-                              <td><%= r_c.user.full_name %> </td>
-                              <td><%= r_c.user.email %></td>
+                              <td scope="row"><%= r_c.participant.first_name %></td>
+                              <td><%= r_c.participant.full_name %> </td>
+                              <td><%= r_c.participant.email %></td>
                               <td>
                                 <%= r_c.created_at %></td>
                             </tr>
@@ -35,8 +35,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <%= link_to 'Download CSV', admin_campaign_reward_reward_export_path(r), {class: "btn btn-primary", method: 'post', "data-dismiss"=>"modal"} %>
-                <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button> -->
+                <%= link_to 'Download CSV', admin_campaign_reward_reward_export_path(reward), {class: "btn btn-primary", method: 'post', "data-dismiss"=>"modal"} %>
             </div>
         </div>
     </div>

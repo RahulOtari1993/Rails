@@ -73,7 +73,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     return send_data results, type: "text/csv; charset=utf-8; header=present", disposition: "attachment; filename=contacts.csv", filename: "contacts.csv"
   end
 
-  def ajax_user
+  def download_csv_popup
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
   end
 
@@ -99,7 +99,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     end
   end
 
-  def ajax_coupon_form
+  def coupon_form
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
     @coupons = @reward.coupons
     @coupon = @reward.coupons.new
@@ -161,7 +161,6 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
       cust_params = params[:reward][:reward_filters_attributes]
       cust_params.each do |key, c_param|
-                    byebug
         filter_data = {
             reward_event: c_param[:reward_event],
             reward_condition: c_param[:reward_condition],
