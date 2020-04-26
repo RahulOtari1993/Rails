@@ -12,64 +12,44 @@ $(document).ready(function () {
     }
   })
 
-  var segment_ids = []
-  //hide row in reward new and delete/hide row/reward_filter in edit page
-  $('body').on('click', '.remove-reward-segment', function(e){
-    e.preventDefault();  
-    var element = $(this);
-    segment_ids.push($(this).attr('reward_filter_id'))
-    console.log(segment_ids)
-    element= $(this)
-    if($(this).attr('reward_filter_id') != undefined){ 
-      $.ajax({
-        type: 'POST',
-        data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-        url: "/admin/delete_reward_filter/" + $(this).attr('reward_filter_id'),
-        success: function(data, res){
-          element.closest('tr').remove();
-        }
-      });
-    }else{
-      element.parent().parent().remove();
-    }
-  })
-
-  //Download CSV
-  $('#reward_listing').on('click', '.download-csv-btn', function(){
-    var reward_id = $(this).attr('reward_id')
-    var campaign_id = $(this).attr('campaign_id')
+  //show download csv popup
+  $('#reward-list-table').on('click', '.download-csv-btn', function(){
+    var rewardId = $(this).attr('reward_id')
+    var campaignId = $(this).attr('campaign_id')
     $.ajax({
       type: 'GET',
       data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-      url: "/admin/campaigns/" + campaign_id + "/rewards/" + reward_id  + "/ajax_user"
+      url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId  + "/download_csv_popup"
     });
   });
 
-  $('#reward_listing').on('click', '.coupon-btn', function(){
-    var reward_id = $(this).attr('reward_id')
-    var campaign_id = $(this).attr('campaign_id')
+  //Coupon popup 
+  $('#reward-list-table').on('click', '.coupon-btn', function(){
+    var rewardId = $(this).attr('reward_id')
+    var campaignId = $(this).attr('campaign_id')
     $.ajax({
       type: 'GET',
       data: { authenticity_token: $('[name="csrf-token"]')[0].content},
-      url: "/admin/campaigns/" + campaign_id + "/rewards/" + reward_id  + "/ajax_coupon_form"
+      url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId  + "/coupon_form"
     });
   });
 
-  //datetime format 
-  function formatDate(date){
-    let current_datetime = new Date(date);
-    let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate()
-    return formatted_date
+  // Format Date
+  function formatDate(date) {
+    let dateObj = new Date(date);
+    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
+        ("0" + (dateObj.getDate() + 1)).slice(-2) +
+        '/' + dateObj.getFullYear()
   }
 
   //thumbview list
-  $("#reward_listing").DataTable({
+  $("#reward-list-table").DataTable({
     processing: true,
     paging: true,
     serverSide: true,
     responsive: false,
     ajax: {
-      "url": "/admin/campaigns/" +  $('#reward_listing').attr('campaign_id') + "/rewards/generate_reward_json",
+      "url": "/admin/campaigns/" +  $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json",
       "dataSrc": "rewards",
       dataFilter: function(data, callback, settings){
           var json = jQuery.parseJSON(data);
@@ -95,17 +75,17 @@ $(document).ready(function () {
          return formatDate(data.finish)       
         }
       },
-      {title: 'Actions', data: null, searchable: false, orderable: false,
+      {title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
         render: function ( data, type, row ) {
-            // Combine the first and last names into a single table field
+            // Action items
           return  "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
                   "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" + 
                   "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
                   +"<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id +"'campaign_id='" + data.campaign_id + "'" 
                   + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
                   "<i class='feather icon-download'></i></button>" + 
-                  "<button class='btn btn-xs btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id 
-                  + "'>Coupons</button>"
+                  "<span style='display:inline'><button class='btn btn-sm btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id 
+                  + "'>Coupons</button></span>"
          }
       },
     ],
@@ -132,7 +112,7 @@ $(document).ready(function () {
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
         action: function() {
-          window.location.href = "/admin/campaigns/" + $('#reward_listing').attr('campaign_id') + "/rewards/new"
+          window.location.href = "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/new"
         },
         className: "btn-outline-primary"
       }
@@ -142,8 +122,7 @@ $(document).ready(function () {
     }
   })
 
-  //Reward datepicker
-  // Date Picker (Disabled all the Past Dates)
+  // Reward Date Picker (Disabled all the Past Dates)
   $('.pick-reward-date').pickadate({
     format: 'mm/d/yyyy',
     selectYears: true,
@@ -151,47 +130,9 @@ $(document).ready(function () {
     min: true
   });
 
-  // Time Picker
+  // Reward Time Picker
   $('.pick-reward-time').pickatime();
-  
-  //Submit form onclick skipping all input fields which are disabled
-  $('.reward_form').on('click', function () {
-    if(segment_ids.length > 0){
-      $('<input>').attr({ 
-        type:'hidden',
-        name: 'reward[delete_segment_ids][]',
-        value: segment_ids
-      }).appendTo('form');
-    }
-    
 
-    // $('.segment_table').find('.filter_hidden').attr("disabled", true);
-    // var selects = $('.segment_table').find('select');
-    // var inputs = $('.segment_table').find('input');
-    // var rows = $('.segment_table').find('tr')
-
-    // for (var i = 0; i < selects.length; i++) {
-    //   if (selects[i].style.display == 'none') {
-    //     selects[i].disabled = true;
-    //   }
-    // }
-
-    // for (var i = 0; i < inputs.length; i++) {
-    //   if (inputs[i].style.display == 'none') {
-    //     inputs[i].disabled = true;
-    //   }
-    // }
-    // for (var i = 0; i < rows.length; i++) {
-    //   if (rows[i].style.display == 'none') {
-    //     $formInputs = $(this).find('input')
-    //     $formSelects = $(this).find('select')
-
-    //     $formInputs.prop("disabled", true);
-    //     $formSelects.prop("disabled", true)
-    //   }
-    // }
-    $('form').submit();
-  })
 })
 
 

@@ -52,9 +52,9 @@ Rails.application.routes.draw do
             collection do
               get '/generate_reward_json', to: 'rewards#generate_reward_json', as: :generate_reward_json
             end
-            get '/ajax_user', to: 'rewards#ajax_user', as: :ajax_user
+            get '/download_csv_popup', to: 'rewards#download_csv_popup', as: :download_csv_popup
             post '/reward_export', to: 'rewards#reward_export', as: :reward_export
-            get '/ajax_coupon_form', to: 'rewards#ajax_coupon_form', as: :ajax_coupon_form
+            get '/coupon_form', to: 'rewards#coupon_form', as: :coupon_form
             post '/create_coupon', to: 'rewards#create_coupon', as: :create_coupon
           end
 
