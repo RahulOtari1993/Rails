@@ -23,7 +23,7 @@
 #  description        :text
 #  reward_type        :integer
 #  reward_id          :bigint
-#  is_draft           :boolean          default("true")
+#  is_approved        :boolean          default("false")
 #  image              :string
 #  social_title       :string
 #  social_description :string
@@ -77,10 +77,10 @@ class Challenge < ApplicationRecord
 
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
-    if is_draft
-      'draft'
-    else
+    if is_approved
       'active'
+    else
+      'draft'
     end
   end
 end
