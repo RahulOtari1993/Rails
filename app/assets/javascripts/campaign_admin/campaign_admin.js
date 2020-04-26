@@ -38,6 +38,7 @@
 //= require vendors/pickers/pickadate/picker.time
 //= require vendors/pickers/pickadate/legacy
 //= require libraries/easy-editable-text
+//= require vendors/extensions/sweetalert2.all.min
 
 //= require libraries/core/app
 //= require libraries/core/app-menu

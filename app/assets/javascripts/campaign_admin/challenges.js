@@ -32,7 +32,7 @@ $(document).on('turbolinks:load', function () {
     } else if ($('#challenge_platform').val() == 'twitter') {
       imageName = imageNeeded($("#twitterBlogBody input[name='challenge[image]']"));
     } else if ($('#challenge_platform').val() == 'linked_in') {
-      imageName =imageNeeded($("#linkedinBlogBody input[name='challenge[image]']"));
+      imageName = imageNeeded($("#linkedinBlogBody input[name='challenge[image]']"));
     } else {
       imageName = ''
     }
@@ -43,6 +43,16 @@ $(document).on('turbolinks:load', function () {
   // Check if social image is needed for Validation
   function imageNeeded(element) {
     return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
+  }
+
+  // Trigger SWAL Notificaton
+  function swalNotify(title, message) {
+    Swal.fire({
+      title: title,
+      text: message,
+      confirmButtonClass: 'btn btn-primary',
+      buttonsStyling: false,
+    });
   }
 
   // Replace ID of Newly Added Fields of User Segment
@@ -631,22 +641,23 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        class: 'product-action',
+        class: 'product-action a',
         title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
-          return "<a href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
-              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'" +
-              "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>" +
-              "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light display-challenge-participants' data-challenge-id ='" + data.id + "'data-campaign-id='" + data.campaign_id + "'" +
-              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
-              "<i class='feather icon-download'></i></button>" +
-              "<div class='input-group'>" +
-              "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>"+
+          actionText = data.is_approved ? ' Disable' : ' Approve'
+
+          return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
+              "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
               "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
-              "<a class='dropdown-item' href='#'><i class='feather icon-trending-up'></i> Stats</a>" +
-              "<a class='dropdown-item' href='#'><i class='feather icon-edit-2'></i> Edit</a>" +
-              "<a class='dropdown-item' href='#'><i class='feather icon-copy'></i> Duplicate</a>" +
-              "<a class='dropdown-item' href='#'><i class='feather icon-trash-2'></i> Delete</a>" +
+              "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-trending-up'></i> Stats</a>" +
+              "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'>" +
+              "<i class='feather icon-edit-2'></i> Edit</a>" +
+              "<a class='dropdown-item display-challenge-participants' href='javascript:void(0);'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
+              "<i class='feather icon-download'></i> Download CSV</a>" +
+              "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>" +
+              "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>" +
               "</div>" +
               "</div>"
         }
@@ -678,7 +689,7 @@ $(document).on('turbolinks:load', function () {
       // $('.dataTables_filter').addClass('search-icon-placement');
     }
   });
-  
+
   // Select2 for Timezone select
   $('#challenge_timezone').select2({
     dropdownAutoWidth: true,
@@ -692,32 +703,80 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Add Validations on Already Exists User Segments
-  setTimeout(function(){
+  setTimeout(function () {
     var ids = $('.existing-filter-ids').data('ids');
     if (ids) {
-      ids.forEach(function(segmentId) {
+      ids.forEach(function (segmentId) {
         addValidations(segmentId)
       });
     }
   }, 2000);
 
   // Open Popup for Challenge Participants
-  $('#challenge-list-table').on('click', '.display-challenge-participants', function() {
-    var challengeId = $(this).data('challenge-id')
-    var campaignId = $(this).data('campaign-id')
+  $('#challenge-list-table').on('click', '.display-challenge-participants', function () {
+    var challengeId = $(this).parent().parent().data('challenge-id');
+    var campaignId = $(this).parent().parent().data('campaign-id');
     $.ajax({
       type: 'GET',
-      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId  + "/participants"
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/participants"
     });
   });
 
   // Open Popup for Challenge Details
-  $('#challenge-list-table').on('click', '.challenge-name', function() {
-    var challengeId = $(this).data('challenge-id')
-    var campaignId = $(this).data('campaign-id')
+  $('#challenge-list-table').on('click', '.challenge-name', function () {
+    var challengeId = $(this).data('challenge-id');
+    var campaignId = $(this).data('campaign-id');
     $.ajax({
       type: 'GET',
       url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId
     });
   });
+
+  // Clone & Duplicate a Challenge
+  $('#challenge-list-table').on('click', '.clone-challenge', function () {
+    var challengeId = $(this).parent().parent().data('challenge-id');
+    var campaignId = $(this).parent().parent().data('campaign-id');
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/duplicate",
+      success: function (data) {
+        if (data.success) {
+          Swal.fire({
+            title: 'Duplicate a Challenge',
+            text: "Duplicate Challenge created!",
+            confirmButtonClass: 'btn btn-primary',
+            buttonsStyling: false,
+          });
+
+          $('#challenge-list-table').DataTable().ajax.reload(null, false);
+        } else {
+          console.log('Failure')
+
+          Swal.fire({
+            title: 'Duplicate a Challenge',
+            text: "Duplicating a challenge failed, Pleast try again!",
+            confirmButtonClass: 'btn btn-primary',
+            buttonsStyling: false,
+          });
+        }
+      }
+    });
+  });
+
+  // Clone & Duplicate a Challenge
+  $('#challenge-list-table').on('click', '.toggle-challenge-status', function () {
+    var challengeId = $(this).parent().parent().data('challenge-id');
+    var campaignId = $(this).parent().parent().data('campaign-id');
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
+      success: function (data) {
+        swalNotify(data.title, data.message);
+        if (data.success) {
+          $('#challenge-list-table').DataTable().ajax.reload(null, false);
+        }
+      }
+    });
+  });
+
 });

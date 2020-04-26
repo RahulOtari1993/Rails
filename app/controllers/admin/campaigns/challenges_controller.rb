@@ -1,5 +1,5 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -96,13 +96,54 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                      disposition: 'attachment; filename=challenge_contacts.csv'
   end
 
+  def duplicate
+    ## Clone a Challenge With It's Active Record Relation
+    cloned = @challenge.deep_clone include: :challenge_filters do |original, copy|
+      if copy.is_a?(Challenge)
+        ## Clone Challenge Image
+        copy.image = original.image
+      end
+    end
+
+    ## Modify Challenge Details
+    cloned.name = "#{@challenge.name} - Duplicate" ## Update Challenge Name
+    cloned.is_approved = false ## Make Challenge as Draft
+    cloned.approver_id = nil ## Make Approver ID Null
+
+    if cloned.save
+      render json: {success: true}
+    else
+      render json: {success: false}
+    end
+  end
+
+  ## Approve / Disable a Challenge
+  def toggle
+    @challenge.is_approved = @challenge.is_approved ? false : true
+    @challenge.approver_id = current_user.id
+
+    if @challenge.save
+      render json: {
+          success: true,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "Challenge #{@challenge.is_approved ? 'approved' : 'disabled'} successfully!"
+      }
+    else
+      render json: {
+          success: false,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "#{@challenge.is_approved ? 'Approving' : 'Disabling'} challenge failed, Try again later!"
+      }
+    end
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                                      :start, :finish, :creator_id,
+                                                      :start, :finish, :creator_id, :feature,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object
