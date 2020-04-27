@@ -293,7 +293,7 @@
 }
 
 .social-heading-details {
-  margin-left: -100px;
+  margin-left: -45px;
 }
 
 .new_challenge_section .card.active {
@@ -379,7 +379,7 @@
 
 @media screen and (max-width: 1024px) {
   .social-heading-details {
-    margin-left: 0px;
+    margin-left: -25px;
   }
 }
 
