@@ -380,13 +380,13 @@ $(document).on('turbolinks:load', function () {
 
   // $('.add-challenge-form').trigger("reset");
 
-  // Wizard Step 1 Chard Selection
-  // $('.challenge-type-card').on('click', function (e) {
-  //   $('.challenge-type-card.active').removeClass('active');
-  //   $(this).addClass('active');
-  //
-  //   $('#challenge_mechanism').val($(this).data('val'));
-  // })
+  // Wizard Step 1 Chalenge Type Selection Changes
+  $('.challenge-type-list').on('click', function (e) {
+    $('.challenge-type-list.active').removeClass('active');
+    $(this).addClass('active');
+
+    // $('#challenge_mechanism').val($(this).data('val'));
+  })
 
   $("#file-input-fb").change(function () {
     if (this.files && this.files[0]) {
