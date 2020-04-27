@@ -8,7 +8,7 @@ $(document).ready(function(){
 	});
 	
 	
-	$('.Social_blocks input[type="text"]').blur(function() {
+	$('.social-block-body input[type="text"]').blur(function() {
          if ($.trim(this.value) == ''){  
 			 this.value = (this.defaultValue ? this.defaultValue : '');  
 		 }
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		 $(this).prev().prev().show();
      });
 	  
-	  $('.Social_blocks input[type="text"]').keypress(function(event) {
+	  $('.social-block-body input[type="text"]').keypress(function(event) {
 		  if (event.keyCode == '13') {
 			  if ($.trim(this.value) == ''){  
 				 this.value = (this.defaultValue ? this.defaultValue : '');  

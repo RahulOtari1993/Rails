@@ -172,6 +172,14 @@ $(document).on('turbolinks:load', function () {
     }).next().hide();
   }
 
+  // Used to Manage Step Two UI Components
+  function stepTwoContent(challengeType, challengeParameters) {
+    $('.step-two-container').hide();
+    $('.' + challengeType + '-' + challengeParameters + '-div').show();
+
+    // $('.' + challengeType + '-' + challengeParameters + '-div .social-img-upload').addClass('always-validate');
+  }
+
   // Social Blog Image Validator
   $.validator.addMethod('socialImageExistance', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
@@ -181,12 +189,15 @@ $(document).on('turbolinks:load', function () {
       return true
     }
 
-    imageName = getSocialImageName()
+    if ($('.step-two-container').hasClass('share-facebook-div') || $('.step-two-container').hasClass('share-twitter-div')) {
+      imageName = getSocialImageName()
 
-    if (imageName == "") {
-      return false;
+      if (imageName == "") {
+        return false;
+      }
+    } else {
+      return true;
     }
-
     return true;
   }, 'Please select social image');
 
@@ -199,11 +210,15 @@ $(document).on('turbolinks:load', function () {
       return true
     }
 
-    imageName = getSocialImageName()
+    if ($('.step-two-container').hasClass('share-facebook-div') || $('.step-two-container').hasClass('share-twitter-div')) {
+      imageName = getSocialImageName()
 
-    var validImageTypes = ['gif', 'jpeg', 'jpg', 'png'];
-    if ($.inArray(imageName.substr((imageName.lastIndexOf('.') + 1)), validImageTypes) < 0) {
-      return false;
+      var validImageTypes = ['gif', 'jpeg', 'jpg', 'png'];
+      if ($.inArray(imageName.substr((imageName.lastIndexOf('.') + 1)), validImageTypes) < 0) {
+        return false;
+      }
+    } else {
+      return true;
     }
 
     return true;
@@ -289,10 +304,10 @@ $(document).on('turbolinks:load', function () {
         required: true,
         extension: "jpg|jpeg|png|gif"
       },
-      // 'challenge[link]': {
-      //   required: true,
-      //   url: true
-      // },
+      'challenge[link]': {
+        required: true,
+        url: true
+      },
       'challenge[points]': {
         required: true,
         digits: true
@@ -300,16 +315,16 @@ $(document).on('turbolinks:load', function () {
       'challenge[reward_id]': {
         required: true
       },
-      // 'challenge[spcial_image]': {
-      //   socialImageExistance: true,
-      //   socialImageExtension: true
-      // },
-      // 'social_title': {
-      //   socialTitle: true
-      // },
-      // 'social_description': {
-      //   socialDesctiption: true
-      // },
+      'challenge[spcial_image]': {
+        socialImageExistance: true,
+        socialImageExtension: true
+      },
+      'social_title': {
+        socialTitle: true
+      },
+      'social_description': {
+        socialDesctiption: true
+      },
       'challenge_start_date': {
         required: true
       },
@@ -334,10 +349,10 @@ $(document).on('turbolinks:load', function () {
         required: 'Please select challenge photo',
         extension: 'Please select challenge photo with valid extension'
       },
-      // 'challenge[link]': {
-      //   required: 'Please enter link to be shared',
-      //   url: 'Please enter valid link'
-      // },
+      'challenge[link]': {
+        required: 'Please enter link to be shared',
+        url: 'Please enter valid link'
+      },
       'challenge[points]': {
         required: 'Please enter points',
         digits: 'Please enter only digits'
@@ -395,6 +410,8 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_challenge_type').val($(this).data('challenge-type'));
     $('#challenge_parameters').val($(this).data('challenge-parameters'));
     $('#challenge_category').val($(this).parents().eq(5).data('val'));
+
+    stepTwoContent($(this).data('challenge-type'), $(this).data('challenge-parameters'))
   })
 
   $('#file-input-fb').change(function () {

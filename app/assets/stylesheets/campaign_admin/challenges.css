@@ -363,6 +363,10 @@
   border-radius: 0.5rem;
 }
 
+.social-error-container {
+  margin-left: 50px;
+}
+
 @media screen and (max-width: 768px) {
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;
