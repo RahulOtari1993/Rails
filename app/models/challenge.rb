@@ -67,8 +67,8 @@ class Challenge < ApplicationRecord
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
 
   ## Validations
-  validates :mechanism, :name, :link, :description, :platform, :image, :social_title, :social_description,
-            :start, :timezone, :creator_id, presence: true
+  validates :challenge_type, :parameters, :category, :name, :link, :description, :image, :social_title,
+            :social_description, :start, :timezone, :creator_id, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type

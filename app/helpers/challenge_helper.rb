@@ -5,13 +5,13 @@ module ChallengeHelper
   end
 
   # ## Set Active Class to Challenge Mechanism
-  # def active_challenge_type(type)
-  #   if new_record? && type == 'share'
-  #     'active'
-  #   else
-  #     'active' if @challenge.mechanism == type
-  #   end
-  # end
+  def active_challenge_type(type, parameters)
+    if new_record? && type == 'share' && parameters == 'facebook'
+      'active'
+    else
+      'active' if @challenge.challenge_type == type && @challenge.parameters == parameters
+    end
+  end
 
   ## Set SHOW Class to Challenge Social Blog
   def active_social_blog(type)

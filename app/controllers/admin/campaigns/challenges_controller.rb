@@ -142,8 +142,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
-                                                      :points, :reward_id, :platform, :image, :social_title, :social_description,
-                                                      :start, :finish, :creator_id, :feature,
+                                                      :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
+                                                      :start, :finish, :creator_id, :feature, :parameters, :category,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object
@@ -190,7 +190,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Datatable Column List on which sorting can be performed
   def sort_column
-    columns = %w(name platform mechanism start finish)
+    columns = %w(name challenge_type mechanism start finish)
     columns[params[:order]['0'][:column].to_i - 1]
   end
 

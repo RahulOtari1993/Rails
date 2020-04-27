@@ -378,24 +378,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // $('.add-challenge-form').trigger("reset");
-
   // Wizard Step 1 Chalenge Type Selection Changes
   $('.challenge-type-list').on('click', function (e) {
+    $('.add-challenge-form').trigger("reset");
     $('.challenge-type-list.active').removeClass('active');
     $(this).addClass('active');
 
-    console.log("Challenge Type", $(this).data('challenge-type'))
-    console.log("Challenge Params", $(this).data('challenge-parameters'))
-
-
-    console.log("Challenge Cateory 66", $(this).parents().eq(5).data('val'))
-
-
-    // $('#challenge_mechanism').val($(this).data('val'));
+    $('#challenge_challenge_type').val($(this).data('challenge-type'));
+    $('#challenge_parameters').val($(this).data('challenge-parameters'));
+    $('#challenge_category').val($(this).parents().eq(5).data('val'));
   })
 
-  $("#file-input-fb").change(function () {
+  $('#file-input-fb').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
 
@@ -407,7 +401,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $("#file-input-twitter").change(function () {
+  $('#file-input-twitter').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
 
@@ -419,7 +413,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $("#file-input-linkedin").change(function () {
+  $('#file-input-linkedin').change(function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
 
@@ -432,12 +426,12 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Add minus icon for collapse element which is open by default
-  $(".collapse.show").each(function () {
+  $('.collapse.show').each(function () {
     $(this).prev(".card-head").find(".fa").addClass("fa-minus").removeClass("fa-plus");
   });
 
   // Toggle plus minus icon on show hide of collapse element
-  $(".collapse").on('show.bs.collapse', function () {
+  $('.collapse').on('show.bs.collapse', function () {
     $(this).prev(".card-head").find(".fa").removeClass("fa-plus").addClass("fa-minus");
     $('.social-image-error').html('');
     $('.social-title-error').html('');
@@ -587,7 +581,11 @@ $(document).on('turbolinks:load', function () {
 
   // Make First Letter of a string in Capitalize format
   function textCapitalize(textString) {
-    return textString.charAt(0).toUpperCase() + textString.slice(1)
+    if (textString) {
+      return textString.charAt(0).toUpperCase() + textString.slice(1)
+    } else {
+      return ''
+    }
   }
 
   // Challenges Server Side Listing
@@ -626,7 +624,7 @@ $(document).on('turbolinks:load', function () {
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.platform)
+          return textCapitalize(data.parameters)
         }
       },
       {
@@ -635,7 +633,7 @@ $(document).on('turbolinks:load', function () {
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.mechanism)
+          return textCapitalize(data.challenge_type)
         }
       },
       {
