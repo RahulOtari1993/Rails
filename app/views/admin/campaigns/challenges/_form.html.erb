@@ -44,61 +44,98 @@
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="challenge-type-error"></div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 <%#= active_challenge_type('share') %>" data-val="share">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active <%#= active_challenge_type('share') %>" data-val="share">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>
                           </div>
                           <div class="right_box">
                             <h3>Share</h3>
-                            <p>Have your users post content of your choosing to their social networks.</p>
-                            <p class="fa_title">Create Share challenge</p>
-                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                            <p>Spread information.</p>
+                            <p class="challenge-type-container">Share to Facebook</p>
+                            <p class="fa_title challenge-type-container active">Share to Twitter</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i></span>
                           </div>
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="connect">
-                        <div class="card-body card_box">
-                          <div class="left_box">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                          </div>
-                          <div class="right_box">
-                            <h3>Connect</h3>
-                            <p>Grow your brands and presence by having users like, follow, subscribe and more.</p>
-                            <p class="fa_title">Create Connect challenge</p>
-                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="engage">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="engage">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                           </div>
                           <div class="right_box">
                             <h3>Engage</h3>
-                            <p>Amplify existing content by having your users view, engage or interact with content.</p>
-                            <p class="fa_title">Create Engage challenge</p>
-                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                            <p>Increase engagement on existing content or platform.</p>
+                            <p class="challenge-type-container">Social Media Feed Engagement</p>
+                            <p class="fa_title challenge-type-container">Watch Video</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i></span>
                           </div>
                         </div>
                       </div>
 
-                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250" data-val="collect">
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="engage">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Amplify</h3>
+                            <p>Drive new traffic or awareness.</p>
+                            <p class="challenge-type-container">Visit A Site (URL)</p>
+                            <p class="challenge-type-container">Article Challenge </p>
+                            <p class="fa_title challenge-type-container">Location Visit</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="collect">
                         <div class="card-body card_box">
                           <div class="left_box">
                             <i class="fa fa-list-alt" aria-hidden="true"></i>
                           </div>
                           <div class="right_box">
                             <h3>Collect</h3>
-                            <p>Ask questions and gather answers and informations though quizzes ans survays.</p>
-                            <p class="fa_title">Create Collect challenge</p>
-                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-linkedin" aria-hidden="true"></i></span>
+                            <p>New data, content, insights or feedback.</p>
+                            <p class="challenge-type-container">Create a Survey</p>
+                            <p class="challenge-type-container">Create a Quiz</p>
+                            <p class="fa_title challenge-type-container">Extended Profile Questions / Onboarding
+                              Questions</p>
                           </div>
                         </div>
                       </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="connect">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Connect</h3>
+                            <p>With a users with other platforms or accounts.</p>
+                            <p class="challenge-type-container">Sign up / Connect 3rd Party Network Facebook</p>
+                            <p class="challenge-type-container">Sign up / Connect 3rd Party Network Google</p>
+                            <p class="fa_title challenge-type-container">Sign up with email</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-google" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="connect">
+                        <div class="card-body card_box">
+                          <div class="left_box">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                          </div>
+                          <div class="right_box">
+                            <h3>Grow</h3>
+                            <p class="challenge-type-container">Recruit Friends Custom Link</p>
+                            <p class="fa_title challenge-type-container">Recruit Friends Facebook Share</p>
+                            <span>Works on: <i class="fa fa-facebook" aria-hidden="true"></i></span>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>

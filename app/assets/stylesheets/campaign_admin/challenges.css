@@ -338,6 +338,24 @@
   text-transform: uppercase;
 }
 
+.challenge-type-container {
+  width: 50%;
+  cursor: pointer;
+  padding-left: 0.71rem;
+  /*text-decoration: underline;*/
+}
+
+.challenge-type-container.active {
+  background: rgba(115, 103, 240, 0.2) !important;
+  color: #7367F0 !important;
+  position: relative;
+  padding-top: 0.71rem;
+  padding-bottom: 0.71rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+}
+
 @media screen and (max-width: 768px) {
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;

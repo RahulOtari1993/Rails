@@ -376,7 +376,9 @@ $(document).on('turbolinks:load', function () {
       $('#challenge_points').removeClass('error');
       $('#challenge_points-error').remove();
     }
-  })
+  });
+
+  // $('.add-challenge-form').trigger("reset");
 
   // Wizard Step 1 Chard Selection
   // $('.challenge-type-card').on('click', function (e) {
