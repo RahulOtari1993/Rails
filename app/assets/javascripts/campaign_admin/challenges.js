@@ -177,7 +177,13 @@ $(document).on('turbolinks:load', function () {
     $('.step-two-container').hide();
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
 
-    // $('.' + challengeType + '-' + challengeParameters + '-div .social-img-upload').addClass('always-validate');
+    if (challengeType == 'share' && challengeParameters == 'facebook') {
+      $('.share-facebook-div .social-title-txt').addClass('always-validate');
+      $('.share-twitter-div .social-description-txt').removeClass('always-validate');
+    } else if (challengeType == 'share' && challengeParameters == 'twitter') {
+      $('.share-twitter-div .social-description-txt').addClass('always-validate');
+      $('.share-facebook-div .social-description-txt').removeClass('always-validate');
+    }
   }
 
   // Social Blog Image Validator

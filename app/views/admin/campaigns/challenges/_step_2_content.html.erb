@@ -1,3 +1,4 @@
+<!--FACEBOOK UI BLOG-->
 <section class="step-two-container Social_blocks step_point_box share-facebook-div" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
   <div class="container p-0">
     <div class="row">
@@ -69,7 +70,7 @@
                       </h5>
                     </label>
                     <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control always-validate social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                    <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
                                        data: {error: 'social-title-error'} %>
                     <div class="clear"></div>
 
@@ -93,6 +94,86 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--TWITER UI BLOG-->
+<section class="step-two-container Social_blocks step_point_box share-twitter-div" style="display: none;">
+  <div class="container p-0">
+    <div class="row">
+
+      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+        <div class="social-heading-details">
+          <h3>2. choose and customize for platforms</h3>
+        </div>
+
+        <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
+        <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
+
+        <div class="row">
+          <div class="offset-lg-1 col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :title, 'Facebook title content' %>
+              <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="offset-lg-1 col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :link, 'Link to be shared' %>
+              <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-error-container platform-error"></div>
+        <div class="social-error-container social-image-error"></div>
+        <div class="social-error-container social-title-error"></div>
+        <div class="social-error-container social-description-error"></div>
+
+        <div class="social-block-body" id="twitterBlogBody" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+          <div class="card-body">
+            <div class="Social_blocks_container Social_blocks_twitter">
+              <div class="Social_blocks_twitter_title">
+                <h5><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</h5>
+              </div>
+              <div class="Social_blocks_fb_content">
+
+                <div class="user_pic_box">
+                  <img src="#" class="user_pic">
+                  <div class="user_name_box">
+                    <p><span>User's Name</span></p>
+                    <label class="text_label">
+                      <p>
+                        <%= raw social_blog_description('twitter', 'text') %>
+                      </p>
+                    </label>
+                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                    <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+                                              love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
+                    <div class="clear"></div>
+                  </div>
+                </div>
+                <div class="clear"></div>
+
+                <div class="Social_blocks_fb_content_box">
+                  <%= raw social_blog_image('twitter') %>
+                  <div class="image-upload">
+                    <label for="file-input-twitter">
+                      <i class="fa fa-upload"></i>
+                    </label>
+                    <%= form.file_field :image, class: "social-img-upload", id: 'file-input-twitter',
+                                        data: {'file-id' => 'show-twitter-image', error: 'social-image-error'} %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
