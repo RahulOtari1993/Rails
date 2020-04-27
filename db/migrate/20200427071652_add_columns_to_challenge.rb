@@ -11,6 +11,7 @@ class AddColumnsToChallenge < ActiveRecord::Migration[5.2]
     add_column :challenges, :points_maximum, :string
     add_column :challenges, :duration, :float
     add_column :challenges, :parameters, :integer
+    add_column :challenges, :category, :integer
 
     ## Location Columns
     add_column :challenges, :address, :string

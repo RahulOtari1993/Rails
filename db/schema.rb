@@ -145,6 +145,7 @@ ActiveRecord::Schema.define(version: 2020_04_27_071652) do
     t.string "points_maximum"
     t.float "duration"
     t.integer "parameters"
+    t.integer "category"
     t.string "address"
     t.decimal "longitude"
     t.decimal "latitude"

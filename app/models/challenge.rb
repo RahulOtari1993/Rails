@@ -56,6 +56,7 @@ class Challenge < ApplicationRecord
 
   ## ENUM
   enum reward_type: [:points, :prize]
+  enum category: [:share, :engage, :amplify, :collection, :connect, :grow]
   enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom]
 
   ## Mount Uploader for File Upload

@@ -385,6 +385,13 @@ $(document).on('turbolinks:load', function () {
     $('.challenge-type-list.active').removeClass('active');
     $(this).addClass('active');
 
+    console.log("Challenge Type", $(this).data('challenge-type'))
+    console.log("Challenge Params", $(this).data('challenge-parameters'))
+
+
+    console.log("Challenge Cateory 66", $(this).parents().eq(5).data('val'))
+
+
     // $('#challenge_mechanism').val($(this).data('val'));
   })
 
