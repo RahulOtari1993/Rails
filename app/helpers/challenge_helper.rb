@@ -4,21 +4,21 @@ module ChallengeHelper
     @challenge.new_record?
   end
 
-  ## Set Active Class to Challenge Mechanism
-  def active_challenge_type(type)
-    if new_record? && type == 'share'
-      'active'
-    else
-      'active' if @challenge.mechanism == type
-    end
-  end
+  # ## Set Active Class to Challenge Mechanism
+  # def active_challenge_type(type)
+  #   if new_record? && type == 'share'
+  #     'active'
+  #   else
+  #     'active' if @challenge.mechanism == type
+  #   end
+  # end
 
   ## Set SHOW Class to Challenge Social Blog
   def active_social_blog(type)
     if new_record? && type == 'facebook'
       'show'
     else
-      'show' if @challenge.platform == type
+      'show' if @challenge.parameters == type
     end
   end
 
@@ -36,7 +36,7 @@ module ChallengeHelper
     if new_record?
       default_title(type, input_type)
     else
-      if @challenge.platform == type
+      if @challenge.parameters == type
         @challenge.social_title
       else
         default_title(type, input_type)
@@ -49,7 +49,7 @@ module ChallengeHelper
     if new_record?
       default_description(type, input_type)
     else
-      @challenge.platform == type ? @challenge.social_description : default_description(type, input_type)
+      @challenge.parameters == type ? @challenge.social_description : default_description(type, input_type)
     end
   end
 
@@ -81,7 +81,7 @@ module ChallengeHelper
     if new_record?
       "<img src='#' id='show-#{type}-image'>"
     else
-      if @challenge.platform == type
+      if @challenge.parameters == type
         "<img src='#{@challenge.image.url}' id='show-#{type}-image'>"
       else
         "<img src='#' id='show-#{type}-image'>"
@@ -94,7 +94,7 @@ module ChallengeHelper
     if new_record?
       'always-validate'
     else
-      @challenge.platform != type ? 'always-validate' : ''
+      @challenge.parameters != type ? 'always-validate' : ''
     end
   end
 
@@ -103,7 +103,7 @@ module ChallengeHelper
     if new_record?
       'LIB.PERKSOCIAL.COM'
     else
-      if @challenge.platform == type
+      if @challenge.parameters == type
         @challenge.link
       else
         'LIB.PERKSOCIAL.COM'
