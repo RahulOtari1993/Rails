@@ -5,13 +5,11 @@
 #  id                 :bigint           not null, primary key
 #  campaign_id        :bigint
 #  name               :text
-#  platform           :integer
 #  start              :datetime
 #  finish             :datetime
 #  timezone           :string
 #  points             :integer
-#  parameters         :string
-#  mechanism          :string
+#  challenge_type     :string
 #  feature            :boolean
 #  creator_id         :integer
 #  approver_id        :integer
@@ -27,7 +25,19 @@
 #  image              :string
 #  social_title       :string
 #  social_description :string
+#  social_image       :string
+#  login_count        :integer
+#  title              :string
+#  points_click       :string
+#  points_maximum     :string
+#  duration           :float
+#  parameters         :integer
+#  address            :string
+#  longitude          :decimal(, )
+#  latitude           :decimal(, )
+#  location_distance  :float
 #
+
 class Challenge < ApplicationRecord
   #TODO : While Approving a Challenge, Check if ORG do have Social Media Config Available
   #TODO : Validation Needs to be added
@@ -39,15 +49,18 @@ class Challenge < ApplicationRecord
   has_many :participants, through: :challenge_participants
 
   ## Constants
-  MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
-                  comment connect hashtag referal location subscribe submission play practice hr link engage collect)
+  # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
+  #                 comment connect hashtag referal location subscribe submission play practice hr link collect)
+
+  CHALLENGE_TYPE = %w(share signup login video article referral location link engage survey quiz collect)
 
   ## ENUM
   enum reward_type: [:points, :prize]
-  enum platform: [:facebook, :twitter, :linked_in]
+  enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom]
 
   ## Mount Uploader for File Upload
   mount_uploader :image, ImageUploader
+  mount_uploader :social_image, ImageUploader
 
   ## Nested Attributes for Challenge Filters
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
