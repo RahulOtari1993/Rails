@@ -276,7 +276,7 @@ $(document).on('turbolinks:load', function () {
       return $el.is(':hidden');
     },
     rules: {
-      'challenge[mechanism]': {
+      'challenge[challenge_type]': {
         required: true
       },
       'challenge[name]': {
@@ -317,7 +317,7 @@ $(document).on('turbolinks:load', function () {
       }
     },
     messages: {
-      'challenge[mechanism]': {
+      'challenge[challenge_type]': {
         required: 'Please select challenge type'
       },
       'challenge[name]': {

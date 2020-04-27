@@ -344,6 +344,14 @@
   padding-left: 0.71rem;
 }
 
+.challenge-type-error {
+  text-align: center;
+}
+
+#challenge_challenge_type-error {
+  font-size: 18px !important;
+}
+
 .challenge-type-container.active {
   background: rgba(115, 103, 240, 0.2) !important;
   color: #7367F0 !important;
