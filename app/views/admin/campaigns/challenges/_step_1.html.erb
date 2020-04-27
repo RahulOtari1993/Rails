@@ -1,0 +1,191 @@
+<h6>Type</h6>
+<fieldset class="step-top-padding" data-step-id="1">
+  <div class="new_challenge_box">
+    <div class="row">
+      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
+        <h3>Create a new challenge</h3>
+        <p>What type of challenge would you like to create for your users?</p>
+      </div>
+    </div>
+
+    <%= form.hidden_field :challenge_type, value: new_record? ? 'share' : @challenge.challenge_type,
+                          class: 'always-validate', data: {error: 'challenge-type-error'} %>
+    <%= form.hidden_field :parameters, value: new_record? ? 'facebook' : @challenge.parameters %>
+
+    <%= form.hidden_field :category, value: new_record? ? 'share' : @challenge.category %>
+
+    <div class="row">
+      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+        <div class="challenge-type-error"></div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="share">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-bullhorn" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Share</h3>
+              <p>Spread information.</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'facebook') %>"
+                       data-challenge-type="share" data-challenge-parameters="facebook">
+                      Share to Facebook
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'twitter') %>"
+                       data-challenge-type="share" data-challenge-parameters="twitter">
+                      Share to Twitter
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="engage">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Engage</h3>
+              <p>Increase engagement on existing content or platform.</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('engage', 'facebook') %>"
+                       data-challenge-type="engage" data-challenge-parameters="facebook">
+                      Social Media Feed Engagement Facebook
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('video', 'youtube') %>"
+                       data-challenge-type="video" data-challenge-parameters="youtube">
+                      Watch Video
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="amplify">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Amplify</h3>
+              <p>Drive new traffic or awareness.</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('link', nil) %>"
+                       data-challenge-type="link" data-challenge-parameters="">
+                      Visit A Site (URL)
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('artical', nil) %>"
+                       data-challenge-type="artical" data-challenge-parameters="">
+                      Article Challenge
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('location', nil) %>"
+                       data-challenge-type="location" data-challenge-parameters="">
+                      Location Visit
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="collecttion">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-list-alt" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Collect</h3>
+              <p>New data, content, insights or feedback.</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('survey', nil) %>"
+                       data-challenge-type="survey" data-challenge-parameters="">
+                      Create a Survey
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('quiz', nil) %>"
+                       data-challenge-type="quiz" data-challenge-parameters="">
+                      Create a Quiz
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'profile') %>"
+                       data-challenge-type="collect" data-challenge-parameters="profile">
+                      Extended Profile Questions / Onboarding Questions
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="connect">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-users" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Connect</h3>
+              <p>With a users with other platforms or accounts.</p>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'facebook') %>"
+                       data-challenge-type="signup" data-challenge-parameters="facebook">
+                      Sign up / Connect 3rd Party Network Facebook
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'google') %>"
+                       data-challenge-type="signup" data-challenge-parameters="google">
+                      Sign up / Connect 3rd Party Network Google
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'email') %>"
+                       data-challenge-type="signup" data-challenge-parameters="email">
+                      Sign up with email
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card challenge-type-card flex-md-row mb-2 shadow-sm h-md-250 active" data-val="grow">
+          <div class="card-body card_box">
+            <div class="left_box">
+              <i class="fa fa-users" aria-hidden="true"></i>
+            </div>
+            <div class="right_box">
+              <h3>Grow</h3>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'custom') %>"
+                       data-challenge-type="referral" data-challenge-parameters="custom">
+                      Recruit Friends Custom Link
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'facebook') %>"
+                       data-challenge-type="referral" data-challenge-parameters="facebook">
+                      Recruit Friends Facebook Share
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</fieldset>
