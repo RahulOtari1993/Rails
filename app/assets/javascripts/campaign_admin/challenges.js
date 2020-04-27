@@ -282,13 +282,17 @@ $(document).on('turbolinks:load', function () {
       'challenge[name]': {
         required: true
       },
-      'challenge[link]': {
-        required: true,
-        url: true
-      },
       'challenge[description]': {
         required: true
       },
+      'challenge[image]': {
+        required: true,
+        extension: "jpg|jpeg|png|gif"
+      },
+      // 'challenge[link]': {
+      //   required: true,
+      //   url: true
+      // },
       'challenge[points]': {
         required: true,
         digits: true
@@ -296,7 +300,7 @@ $(document).on('turbolinks:load', function () {
       'challenge[reward_id]': {
         required: true
       },
-      'challenge[image]': {
+      'challenge[spcial_image]': {
         socialImageExistance: true,
         socialImageExtension: true
       },
@@ -323,12 +327,16 @@ $(document).on('turbolinks:load', function () {
       'challenge[name]': {
         required: 'Please enter challenge name'
       },
+      'challenge[description]': {
+        required: 'Please enter challenge description'
+      },
+      'challenge[image]': {
+        required: 'Please select challenge photo',
+        extension: 'Please select challenge photo with valid extension'
+      },
       'challenge[link]': {
         required: 'Please enter link to be shared',
         url: 'Please enter valid link'
-      },
-      'challenge[description]': {
-        required: 'Please enter challenge description'
       },
       'challenge[points]': {
         required: 'Please enter points',
