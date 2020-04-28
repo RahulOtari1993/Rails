@@ -59,7 +59,7 @@ $(document).ready(function () {
     columns: [
       {title: 'Image', data: null,searchable: false, 
         render: function(data, type, row){
-          return '<img src="' + data.image['thumb']['url'] + '" />';
+          return '<img src="' + data.image['thumb']['url'] + '" class="reward_listing_table_image"/>';
         }
       },
       {title: 'Name', data:'name', searchable: true},
@@ -132,6 +132,86 @@ $(document).ready(function () {
 
   // Reward Time Picker
   $('.pick-reward-time').pickatime();
+
+  //front-end validations
+  $('.reward-form').validate({
+    errorElement: 'span',
+    ignore: function (index, el) {
+      var $el = $(el);
+
+      if ($el.hasClass('always-validate')) {
+        return false;
+      }
+
+      // Default behavior
+      return $el.is(':hidden');
+    },
+    rules: {
+      'reward[name]': {
+        required: true
+      },
+      'reward[description]': {
+        required: true
+      },
+      'reward[image]': {
+        required: true,
+        extension: "jpg|jpeg|png|gif"
+      },
+      'reward[points]': {
+        digits: true
+      },
+      'reward[limit]': {
+        digits: true
+      },
+      'social_description': {
+        socialDesctiption: true
+      },
+      'reward[start]': {
+        required: true
+      },
+      'reward[finish]': {
+        required: true
+      }
+    },
+    messages: {
+      'reward[name]': {
+        required: 'Please enter reward name'
+      },
+      'reward[description]': {
+        required: 'Please enter reward description'
+      },
+      'reward[image]': {
+        required: 'Please select reward photo',
+        extension: 'Please select reward photo with valid extension'
+      },
+      'reward[points]': {
+        required: 'Please enter points',
+        digits: 'Please enter only digits'
+      },
+      'reward[start]': {
+        required: 'Please enter start date'
+      },
+      'reward[finish]': {
+        required: 'Please enter end time'
+      },
+    },
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).append(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+
+  //Image name display
+  $('.reward-custom-file-label').on('change',function(e){
+    //get the file name
+    var fileName = e.target.files[0].name;
+    $('.custom-file-label').html(fileName);
+  })
+
 
 })
 
