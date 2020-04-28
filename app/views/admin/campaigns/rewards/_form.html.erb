@@ -38,7 +38,7 @@
                   <% url = admin_campaign_reward_path(@reward.campaign, @reward)%>
                   <% form_method = 'put'%>
                 <% end %>
-                <%= form_with(url:url, method: form_method, class: 'new-reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
+                <%= form_with(url:url, method: form_method, class: 'reward-form', model: @reward, local: true, html: {multipart: true}) do |f| %>
                   <% if @reward.errors.any? %>
                     <%# puts 'there are some errors here in edit.html.erb' %>
                     <div id="error_explanation">
@@ -219,8 +219,8 @@
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :image %>
-                              <%= f.file_field :image, class:"custom-file-input" %>
-                              <%= f.label :image, 'Choose file', class: 'custom-file-label image_field_label' %>
+                              <%= f.file_field :image, class:"custom-file-input reward-custom-file-label" %>
+                              <%= f.label :image, 'Choose file', class: 'custom-file-label  image_field_label' %>
                             </div>
                           </div>
                           <div class="col-12">
