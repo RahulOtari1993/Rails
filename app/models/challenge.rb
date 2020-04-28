@@ -30,8 +30,9 @@
 #  title              :string
 #  points_click       :string
 #  points_maximum     :string
-#  duration           :float
+#  duration           :integer
 #  parameters         :integer
+#  category           :integer
 #  address            :string
 #  longitude          :decimal(, )
 #  latitude           :decimal(, )
