@@ -284,6 +284,34 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter social description');
 
+  //  Validator Title Elements
+  $.validator.addMethod('titleElement', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    console.log("Value", value)
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('.step-two-container').hasClass('video-youtube-div')) {
+
+      if (value == "") {
+        return false;
+      }
+    } else {
+      return true;
+    }
+
+
+
+    if (socialTitle == "") {
+      return false;
+    }
+
+    return true;
+  }, 'Please enter valid title');
+
   $('.challenge-wizard').validate({
     errorElement: 'span',
     ignore: function (index, el) {
@@ -339,6 +367,13 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[time_zone]': {
         required: true
+      },
+      'challenge[title]': {
+        titleElement: true
+      },
+      'challenge[duration]': {
+        titleElement: true,
+        digits: true
       }
     },
     messages: {
@@ -356,7 +391,7 @@ $(document).on('turbolinks:load', function () {
         extension: 'Please select challenge photo with valid extension'
       },
       'challenge[link]': {
-        required: 'Please enter link to be shared',
+        required: 'Please enter valid link',
         url: 'Please enter valid link'
       },
       'challenge[points]': {
@@ -374,6 +409,10 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[time_zone]': {
         required: 'Please select timezone'
+      },
+      'challenge[duration]': {
+        required: 'Please enter duration in seconds',
+        digits: 'Please enter duration in seconds'
       }
     },
     errorPlacement: function (error, element) {
