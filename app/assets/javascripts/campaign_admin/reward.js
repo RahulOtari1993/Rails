@@ -59,7 +59,7 @@ $(document).ready(function () {
     columns: [
       {title: 'Image', data: null,searchable: false, 
         render: function(data, type, row){
-          return '<img src="' + data.image['thumb']['url'] + '" />';
+          return '<img src="' + data.image['thumb']['url'] + '" class="reward_listing_table_image"/>';
         }
       },
       {title: 'Name', data:'name', searchable: true},
