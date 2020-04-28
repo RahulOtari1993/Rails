@@ -397,6 +397,12 @@ $(document).on('turbolinks:load', function () {
       'challenge[content]': {
         contentElement: true
       },
+      'challenge[address]': {
+        required: true
+      },
+      'challenge[radius]': {
+        required: true
+      }
     },
     messages: {
       'challenge[challenge_type]': {
@@ -435,6 +441,12 @@ $(document).on('turbolinks:load', function () {
       'challenge[duration]': {
         required: 'Please enter duration in seconds',
         digits: 'Please enter duration in seconds'
+      },
+      'challenge[address]': {
+        required: 'Please enter address'
+      },
+      'challenge[radius]': {
+        required: 'Please select location radius'
       }
     },
     errorPlacement: function (error, element) {

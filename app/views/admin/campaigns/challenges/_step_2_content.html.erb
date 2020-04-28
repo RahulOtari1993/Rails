@@ -309,3 +309,39 @@
     </div>
   </div>
 </section>
+
+<!-- Location UI BLOG -->
+<section class="step-two-container Social_blocks step_point_box location--div" style="display: none;">
+  <div class="container p-0">
+    <div class="row">
+      <div class="col-sm-12 offset-lg-2 col-lg-12">
+        <div class="social-heading-details">
+          <h3>2. Configure Details for Article</h3>
+        </div>
+        <div class="row">
+          <div class="col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :address, 'Address' %>
+              <span class="column-info">Select the  of the location you are targeting.</span>
+              <%= form.text_field :address, class: 'form-control', placeholder: 'New York' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :radius, 'Radius' %>
+              <span class="column-info">This is the radius around the location..</span>
+              <%= form.select :radius,
+                              options_for_select(Challenge::RADIUS),
+                              {prompt: 'Select Radius'}, class: 'form-control domain_type_id' %>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
