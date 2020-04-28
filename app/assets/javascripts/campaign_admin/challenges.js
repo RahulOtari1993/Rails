@@ -175,7 +175,10 @@ $(document).on('turbolinks:load', function () {
   // Used to Manage Step Two UI Components
   function stepTwoContent(challengeType, challengeParameters) {
     $('.step-two-container').hide();
+    $('.step-two-container').removeClass('active-segment');
+
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
+    $('.' + challengeType + '-' + challengeParameters + '-div').addClass('active-segment');
 
     if (challengeType == 'share' && challengeParameters == 'facebook') {
       $('.share-facebook-div .social-title-txt').addClass('always-validate');
@@ -288,25 +291,19 @@ $(document).on('turbolinks:load', function () {
   $.validator.addMethod('titleElement', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
 
-    console.log("Value", value)
     // Validate Only Step 2 is Active
     if (step != '2') {
       return true;
     }
 
-    if ($('.step-two-container').hasClass('video-youtube-div')) {
+    if ($('.step-two-container.video-youtube-div').hasClass('active-segment') ||
+        $('.step-two-container.link--div').hasClass('active-segment')) {
 
       if (value == "") {
         return false;
       }
     } else {
       return true;
-    }
-
-
-
-    if (socialTitle == "") {
-      return false;
     }
 
     return true;

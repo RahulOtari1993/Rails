@@ -1,5 +1,5 @@
 <!-- FACEBOOK UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box share-facebook-div" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
+<section class="step-two-container Social_blocks step_point_box share-facebook-div active-segment" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
   <div class="container p-0">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
@@ -225,6 +225,48 @@
           </div>
         </div>
 
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LINK UI BLOG -->
+<section class="step-two-container Social_blocks step_point_box link--div" style="display: none;">
+  <div class="container p-0">
+    <div class="row">
+      <div class="col-sm-10 offset-lg-2 col-lg-8">
+        <div class="social-heading-details">
+          <h3>2. Configure Details for Link</h3>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-lg-10">
+            <div class="form-group">
+              <%= form.label :title, 'Post Headline/Title' %>
+              <span class="column-info">The headline which will catch a users eye on social networks.</span>
+              <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-lg-10">
+            <div class="form-group">
+              <%= form.label :content, 'Details' %>
+              <span class="column-info">This is the details which will be shown in the manual modal.</span>
+              <%= form.text_area :content, class: 'form-control', placeholder: 'How to access Perk Social platform' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12 col-lg-10">
+            <div class="form-group">
+              <%= form.label :link, 'Link URL' %>
+              <span class="column-info">This is the details which will be shown in the manual modal.</span>
+              <%= form.text_field :link, class: 'form-control', placeholder: 'https://perksocial.com/' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
