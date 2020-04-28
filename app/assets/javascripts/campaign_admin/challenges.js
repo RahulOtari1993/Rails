@@ -311,6 +311,7 @@ $(document).on('turbolinks:load', function () {
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
+    onfocusout: function(element){ return false; },
     ignore: function (index, el) {
       var $el = $(el);
 
@@ -854,4 +855,42 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
+  // Fonts Config for Quill Editor
+  var Font = Quill.import('formats/font');
+  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
+  Quill.register(Font, true);
+
+  // Quill Editor Toolbar Config
+  var toolbar = {
+    modules: {
+      'formula': true,
+      'syntax': true,
+      'toolbar': [
+        [{'font': []}, {'size': []}],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{'color': []}, {'background': []}],
+        [{'script': 'super'}, {'script': 'sub'}],
+        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
+        ['clean']
+      ]
+    },
+    theme: 'snow'
+  };
+
+  // Quill Editor Integration for Challenge Articles
+  new Quill('.article-content-editor', toolbar);
+
+
+  // Clone & Duplicate a Challenge
+  $('.article-content-editor').focusout(function () {
+    console.log("Hii");
+    $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
+  });
+
+  // $('body').on('focusout', '.article-content-editor', function () {
+  //   console.log("HIi");
+  //   $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
+  // });
 });
