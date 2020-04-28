@@ -309,6 +309,27 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter valid title');
 
+  //  Validator Content Elements
+  $.validator.addMethod('contentElement', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('.step-two-container.article--div').hasClass('active-segment')) {
+
+      if (value == "") {
+        return false;
+      }
+    } else {
+      return true;
+    }
+
+    return true;
+  }, 'Please enter content');
+
   $('.challenge-wizard').validate({
     errorElement: 'span',
     onfocusout: function(element){ return false; },
@@ -372,7 +393,10 @@ $(document).on('turbolinks:load', function () {
       'challenge[duration]': {
         titleElement: true,
         digits: true
-      }
+      },
+      'challenge[content]': {
+        contentElement: true
+      },
     },
     messages: {
       'challenge[challenge_type]': {
@@ -882,15 +906,8 @@ $(document).on('turbolinks:load', function () {
   // Quill Editor Integration for Challenge Articles
   new Quill('.article-content-editor', toolbar);
 
-
-  // Clone & Duplicate a Challenge
+  // Add Quill Editor's Content to Actual Element
   $('.article-content-editor').focusout(function () {
-    console.log("Hii");
     $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
   });
-
-  // $('body').on('focusout', '.article-content-editor', function () {
-  //   console.log("HIi");
-  //   $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
-  // });
 });

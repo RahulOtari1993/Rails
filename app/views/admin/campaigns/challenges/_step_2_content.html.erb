@@ -295,12 +295,13 @@
             <div class="form-group">
               <%= form.label :content, 'Details' %>
               <span class="column-info">This is the details which will be shown in the manual modal.</span>
+              <div class="article-content-error platform-error"></div>
 
               <div class="article-content-editor quill-editor-height">
                 <%= @challenge.content.html_safe if @challenge.challenge_type == 'article' && @challenge.content.present? %>
               </div>
 
-              <%= form.hidden_field :content, class: "form-control article-content-txt-area" %>
+              <%= form.hidden_field :content, class: "always-validate article-content-txt-area", data: {error: 'article-content-error'} %>
             </div>
           </div>
         </div>
