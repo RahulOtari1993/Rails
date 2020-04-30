@@ -40,6 +40,7 @@
  *= require libraries/pages/card-analytics
  *= require jquery.minicolors
  *= require libraries/pages/data-list-view
+ *= require libraries/fontselect-default
 
  *= require libraries/plugins/file-uploaders/dropzone
 

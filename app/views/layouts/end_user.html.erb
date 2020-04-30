@@ -18,7 +18,9 @@
 
   <!-- Favicon Icon -->
   <link rel="shortcut icon" type="image/x-icon" href="<%= template.favicon_file.url %>">
-
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Holtwood+One+SC:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Corben:100,200,300,400,500,600,700,800,900" rel="stylesheet">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -62,7 +64,7 @@
           <div class="col-12">
             <div class="profile-header mb-2">
               <div class="relative">
-                <div class="cover-container" style="background-image: url(<%= template.header_background_image.url %>)">
+                <div class="cover-container" id="bg-cover-image" style="background-image: url(<%= template.header_background_image.url %>)">
                   <nav class="top-nav">
                     <span class="logged-out">
                       <div class="wrap">
@@ -79,7 +81,7 @@
                     <div class="hero-content">
                       <div class="hero-content-block left_slider">
 
-                        <img src="<%= template.header_logo.url %>" alt="" class="hero-logo initial loaded" data-was-processed="true">
+                        <img class="header-logo" src="<%= template.header_logo.url %>" alt="" class="hero-logo initial loaded" data-was-processed="true">
                         <p class="custom-header">
                           <%= template.header_text %>
                         </p>
