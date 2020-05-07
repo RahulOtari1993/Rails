@@ -144,6 +144,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
                                                       :start, :finish, :creator_id, :feature, :parameters, :category,
+                                                      :address, :longitude, :latitude, :location_distance,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object

@@ -76,8 +76,7 @@ class Challenge < ApplicationRecord
   #                  if: ->(obj){ obj.latitude.present? and obj.latitude_changed? and obj.longitude.present? and obj.longitude_changed? }
 
   ## Validations
-  validates :challenge_type, :parameters, :category, :name, :link, :description, :image, :social_title,
-            :social_description, :start, :timezone, :creator_id, presence: true
+  validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type
