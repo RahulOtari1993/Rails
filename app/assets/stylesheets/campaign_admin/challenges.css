@@ -367,6 +367,22 @@
   margin-left: 50px;
 }
 
+/*Google Map CSS*/
+#map-container {
+  height: 400px;
+  width: 625px;
+  border-radius: 16px 16px;
+  border-color: #fff;
+  border-style: solid;
+  box-shadow: 2px 2px 10px #B1B1B1;
+  margin-top: 25px;
+  border-width: 7px;
+}
+
+#location-challenge-map {
+  height: 100%;
+}
+
 @media screen and (max-width: 768px) {
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;
@@ -378,6 +394,11 @@
 
   .social-heading-details {
     margin-left: 0px;
+  }
+
+  #map-container {
+    height: 290px;
+    width: 295px;
   }
 }
 

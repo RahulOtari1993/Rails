@@ -8,6 +8,8 @@
         <ul class="nav navbar-nav float-right">
           <li class="dropdown dropdown-user nav-item">
             <% if current_user.present? %>
+              <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials[Rails.env.to_sym][:google_map_key] %>&libraries=places" async defer></script>
+
               <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                 <div class="user-nav d-sm-flex d-none">
                   <span class="user-name text-bold-600"><%= current_user.full_name %></span>
