@@ -68,6 +68,13 @@ class Challenge < ApplicationRecord
   ## Nested Attributes for Challenge Filters
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
 
+  ## GeoCoding
+  geocoded_by :address
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed? }
+  after_validation :reverse_geocode, unless: ->(obj) { obj.address.present? },
+                   if: ->(obj){ obj.latitude.present? and obj.latitude_changed? and obj.longitude.present? and obj.longitude_changed? }
+
   ## Validations
   validates :challenge_type, :parameters, :category, :name, :link, :description, :image, :social_title,
             :social_description, :start, :timezone, :creator_id, presence: true
