@@ -1015,10 +1015,11 @@ $(document).on('turbolinks:load', function () {
   $('#challenge_radius').on('change', function (e) {
     if (parseFloat($('.location-latitude').val()) > 0 && parseFloat($('.location-longitude').val()) > 0) {
       var latLon = {lat: parseFloat($('.location-latitude').val()), lng: parseFloat($('.location-longitude').val())};
-      console.log("IINNIN", latLon)
+
       var map = new google.maps.Map(document.getElementById('location-challenge-map'), {
         center: latLon,
-        zoom: 13,
+        zoom: 10,
+        maxZoom: 15
       });
 
       var bounds = new google.maps.LatLngBounds();
