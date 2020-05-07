@@ -290,7 +290,7 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter social description');
 
-  //  Validator Title Elements
+  // Validator Title Elements
   $.validator.addMethod('titleElement', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
 
@@ -312,7 +312,7 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter valid title');
 
-  //  Validator Content Elements
+  // Validator Content Elements
   $.validator.addMethod('contentElement', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
 
@@ -332,6 +332,27 @@ $(document).on('turbolinks:load', function () {
 
     return true;
   }, 'Please enter content');
+
+  //  Validator Location Elements
+  $.validator.addMethod('latLonElement', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+
+    // Validate Only Step 2 is Active
+    if (step != '2') {
+      return true;
+    }
+
+    if ($('.step-two-container.location--div').hasClass('active-segment')) {
+
+      if (value == "") {
+        return false;
+      }
+    } else {
+      return true;
+    }
+
+    return true;
+  }, 'Please select valid address');
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
@@ -405,6 +426,12 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[radius]': {
         required: true
+      },
+      'challenge[longitude]': {
+        latLonElement: true
+      },
+      'challenge[latitude]': {
+        latLonElement: true
       }
     },
     messages: {
@@ -455,7 +482,7 @@ $(document).on('turbolinks:load', function () {
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
       if (placement) {
-        $('.' + placement).append(error)
+        $('.' + placement).html(error)
       } else {
         error.insertAfter(element);
       }
@@ -936,7 +963,7 @@ $(document).on('turbolinks:load', function () {
     });
 
     // Create the search box and link it to the UI element.
-    var input = document.getElementById('pac-input');
+    var input = document.getElementById('location-selection-input');
     var searchBox = new google.maps.places.SearchBox(input);
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -952,6 +979,9 @@ $(document).on('turbolinks:load', function () {
       var places = searchBox.getPlaces();
       var locations = []
       if (places.length == 0) {
+        $('#location-selection-input').val('');
+        $('.location-longitude').val('');
+        $('.location-latitude').val('');
         return;
       } else {
         locations.push(places[0])

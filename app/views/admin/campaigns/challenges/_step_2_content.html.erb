@@ -323,10 +323,11 @@
             <div class="form-group">
               <%= form.label :address, 'Address' %>
               <span class="column-info">Select the  of the location you are targeting.</span>
-              <%= form.hidden_field :longitude, class: "location-longitude" %>
-              <%= form.hidden_field :latitude, class: "location-latitude" %>
+              <%= form.hidden_field :longitude, class: "location-longitude always-validate", data: {error: 'location-selection-error'} %>
+              <%= form.hidden_field :latitude, class: "location-latitude always-validate", data: {error: 'location-selection-error'} %>
 
-              <%= form.text_field :address, class: 'form-control', placeholder: 'New York', id: 'pac-input' %>
+              <%= form.text_field :address, class: 'form-control', placeholder: 'New York', id: 'location-selection-input' %>
+              <div  class="location-selection-error"></div>
             </div>
           </div>
         </div>
