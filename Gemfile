@@ -98,3 +98,6 @@ gem 'jquery-minicolors-rails'
 
 ## Used for Cloning Active Record Objects
 gem 'deep_cloneable', '~> 3.0.0'
+
+## Geo Coder
+gem 'geocoder'
