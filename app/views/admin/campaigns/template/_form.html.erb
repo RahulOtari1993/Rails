@@ -8,82 +8,88 @@
       </div>
 
       <div class="col-12">
-        <h4>Header Details</h4>
         <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light preview-changes" type="button">
-          <span><i class="feather icon-plus"></i> Preview</span>
+          <span><i class="feather icon-eye"></i> Preview</span>
         </button>
+
       </div>
 
-      <!--$('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url(https://perksocial-dev.s3.amazonaws.com/uploads/reward/image/5/thumb_89f4b935166833.5b5eff5a8b60c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATZLVKCR23UMRD5YW%2F20200430%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200430T071035Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=56445c4d3cf313736f428621913558dfab0381280ce8de7dd91e23c4dd75dd45) !important;}  </style>"));-->
+      <div class="col-12" style="margin-top: 15px">
+        <iframe width="1200px" height="1500px" src="<%= template_url(c_id: @campaign.id) %>" id='my-iframe'></iframe>
 
-      <script>
-        function readHeaderImage(){
-          var file = document.getElementById("campaign_template_detail_header_background_image").files[0];
-          var reader = new FileReader();
-          reader.onloadend = function(){
+        <!--$('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url(https://perksocial-dev.s3.amazonaws.com/uploads/reward/image/5/thumb_89f4b935166833.5b5eff5a8b60c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATZLVKCR23UMRD5YW%2F20200430%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200430T071035Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=56445c4d3cf313736f428621913558dfab0381280ce8de7dd91e23c4dd75dd45) !important;}  </style>"));-->
+
+        <script>
+          function readHeaderImage(){
+            var file = document.getElementById("campaign_template_detail_header_background_image").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function(){
+              var iFrame = $('iframe').contents();
+              iFrame.find("#bg-cover-image")
+                  .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
+            }
+            if(file){
+              reader.readAsDataURL(file);
+            }else{
+            }
+          }
+
+          function readHeaderLogo(){
+            var file = document.getElementById("campaign_template_detail_header_logo").files[0];
+            var reader = new FileReader();
+            reader.onloadend = function(){
+              var iFrame = $('iframe').contents();
+              iFrame.find(".header-logo").attr('src', reader.result);
+              // .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
+            }
+            if(file){
+              reader.readAsDataURL(file);
+            }else{
+            }
+          }
+
+          $('.preview-changes').on('click', function (e) {
+            console.log("Preview Clicked");
+            readHeaderImage();
+            readHeaderLogo();
+
             var iFrame = $('iframe').contents();
-            iFrame.find("#bg-cover-image")
-                .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-          }
-          if(file){
-            reader.readAsDataURL(file);
-          }else{
-          }
-        }
 
-        function readHeaderLogo(){
-          var file = document.getElementById("campaign_template_detail_header_logo").files[0];
-          var reader = new FileReader();
-          reader.onloadend = function(){
-            var iFrame = $('iframe').contents();
-            iFrame.find(".header-logo").attr('src', reader.result);
-                // .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-          }
-          if(file){
-            reader.readAsDataURL(file);
-          }else{
-          }
-        }
+            var footerFontColor = $('#campaign_template_detail_footer_font_color').val();
+            var footerBgColor = $('#campaign_template_detail_footer_background_color').val();
 
-        $('.preview-changes').on('click', function (e) {
-          console.log("Preview Clicked");
-          readHeaderImage();
-          readHeaderLogo();
+            console.log("footerFontColor", footerFontColor);
+            console.log("footerBgColor", footerBgColor);
+            iFrame.find(".page-footer")
+                .append($("<style type='text/css'>  .page-footer {background-color: " + footerBgColor + " !important; color: "+ footerFontColor +" !important;}  </style>"));
 
-          var iFrame = $('iframe').contents();
-
-          var footerFontColor = $('#campaign_template_detail_footer_font_color').val();
-          var footerBgColor = $('#campaign_template_detail_footer_background_color').val();
-
-          console.log("footerFontColor", footerFontColor);
-          console.log("footerBgColor", footerBgColor);
-          iFrame.find(".page-footer")
-              .append($("<style type='text/css'>  .page-footer {background-color: " + footerBgColor + " !important; color: "+ footerFontColor +" !important;}  </style>"));
-
-          var footerFontSize = $('#campaign_template_detail_footer_font_size').val();
-          console.log("footerFontSize", footerFontSize);
-          iFrame.find(".page-footer")
-              .append($("<style type='text/css'>  .page-footer p, .page-footer a {font-size: " + footerFontSize + "px !important; color: "+ footerFontColor +" !important;} </style>"));
+            var footerFontSize = $('#campaign_template_detail_footer_font_size').val();
+            console.log("footerFontSize", footerFontSize);
+            iFrame.find(".page-footer")
+                .append($("<style type='text/css'>  .page-footer p, .page-footer a {font-size: " + footerFontSize + "px !important; color: "+ footerFontColor +" !important;} </style>"));
 
 
-          var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
-          selectedFont = selectedFont.split(':');
-          console.log("Selected Fonts", selectedFont[0]);
+            var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
+            selectedFont = selectedFont.split(':');
+            console.log("Selected Fonts", selectedFont[0]);
 
-          iFrame.find(".page-footer")
-              .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
+            iFrame.find(".page-footer")
+                .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
 
-          iFrame.find(".custom-header")
-              .html($('#campaign_template_detail_header_text').val());
+            iFrame.find(".custom-header")
+                .html($('#campaign_template_detail_header_text').val());
 
-          iFrame.find(".custom-header")
-              .append($("<style type='text/css'>  .custom-header {font-size: " + $('#campaign_template_detail_header_font_size').val() + "px !important; color: "+ $('#campaign_template_detail_header_font_color').val() +" !important;} </style>"));
+            iFrame.find(".custom-header")
+                .append($("<style type='text/css'>  .custom-header {font-size: " + $('#campaign_template_detail_header_font_size').val() + "px !important; color: "+ $('#campaign_template_detail_header_font_color').val() +" !important;} </style>"));
 
-        })
-        // $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-      </script>
+          })
+          // $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
+        </script>
+      </div>
 
-      <iframe width="1200px" height="1500px" src="<%= template_url(c_id: @campaign.id) %>" id='my-iframe'></iframe>
+      <div class="col-12">
+        <h4>Header Details</h4>
+      </div>
 
       <div class="col-6">
         <div class="form-group">
