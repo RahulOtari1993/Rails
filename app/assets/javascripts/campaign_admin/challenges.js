@@ -926,6 +926,8 @@ $(document).on('turbolinks:load', function () {
     $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
   });
 
+  var mapCircle = [];
+
   function initAutocomplete() {
     var map = new google.maps.Map(document.getElementById('location-challenge-map'), {
       center: {lat: -33.8688, lng: 151.2195},
@@ -948,19 +950,27 @@ $(document).on('turbolinks:load', function () {
     // more details for that place.
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
-
+      var locations = []
       if (places.length == 0) {
         return;
+      } else {
+        locations.push(places[0])
       }
 
-      // Clear out the old markers.
+      // Clear out the old Markers & Circles.
       markers.forEach(function(marker) {
         marker.setMap(null);
       });
+      mapCircle.forEach(function(mCircle) {
+        mCircle.setMap(null);
+      });
+
       markers = [];
+      mapCircle = [];
 
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
+
       places.forEach(function(place) {
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
@@ -988,7 +998,7 @@ $(document).on('turbolinks:load', function () {
 
         if ($('#challenge_radius').val()) {
           // Draw a Radius around the selected address
-          new google.maps.Circle({
+          mapCircle.push(new google.maps.Circle({
             strokeColor: '#FF0000',
             strokeOpacity: 0.8,
             strokeWeight: 2,
@@ -997,7 +1007,7 @@ $(document).on('turbolinks:load', function () {
             map: map,
             center: {lat: parseFloat($('.location-latitude').val()), lng: parseFloat($('.location-longitude').val())},
             radius: parseFloat($('#challenge_radius').val())
-          });
+          }));
         }
 
         if (place.geometry.viewport) {
@@ -1008,12 +1018,13 @@ $(document).on('turbolinks:load', function () {
         }
       });
       map.fitBounds(bounds);
+      $('#challenge_radius').trigger('change');
     });
   }
 
   // Draw a Radius on Challenge Radius Change
   $('#challenge_radius').on('change', function (e) {
-    if (parseFloat($('.location-latitude').val()) > 0 && parseFloat($('.location-longitude').val()) > 0) {
+    if (parseFloat($('.location-latitude').val()) != 0 && parseFloat($('.location-longitude').val()) != 0 && $('#challenge_radius').val()) {
       var latLon = {lat: parseFloat($('.location-latitude').val()), lng: parseFloat($('.location-longitude').val())};
 
       var map = new google.maps.Map(document.getElementById('location-challenge-map'), {
@@ -1029,7 +1040,7 @@ $(document).on('turbolinks:load', function () {
         position: latLon
       });
 
-      new google.maps.Circle({
+      mapCircle.push(new google.maps.Circle({
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
         strokeWeight: 2,
@@ -1038,7 +1049,7 @@ $(document).on('turbolinks:load', function () {
         map: map,
         center: latLon,
         radius: parseFloat($('#challenge_radius').val())
-      });
+      }));
 
       bounds.extend(latLon);
       map.fitBounds(bounds);
