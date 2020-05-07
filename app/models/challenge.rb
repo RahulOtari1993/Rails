@@ -34,9 +34,9 @@
 #  parameters         :integer
 #  category           :integer
 #  address            :string
-#  longitude          :decimal(, )
-#  latitude           :decimal(, )
-#  location_distance  :float
+#  longitude          :float
+#  latitude           :float
+#  location_distance  :integer
 #
 
 class Challenge < ApplicationRecord
