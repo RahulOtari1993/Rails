@@ -323,6 +323,9 @@
             <div class="form-group">
               <%= form.label :address, 'Address' %>
               <span class="column-info">Select the  of the location you are targeting.</span>
+              <%= form.hidden_field :longitude, class: "location-longitude" %>
+              <%= form.hidden_field :latitude, class: "location-latitude" %>
+
               <%= form.text_field :address, class: 'form-control', placeholder: 'New York', id: 'pac-input' %>
             </div>
           </div>
