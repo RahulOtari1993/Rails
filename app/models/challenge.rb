@@ -70,6 +70,9 @@ class Challenge < ApplicationRecord
   ## Nested Attributes for Challenge Filters
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
 
+  ## Tags
+  acts_as_taggable_on :tags
+
   ## GeoCoding
   # geocoded_by :address
   # reverse_geocoded_by :latitude, :longitude

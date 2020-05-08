@@ -101,3 +101,6 @@ gem 'deep_cloneable', '~> 3.0.0'
 
 ## Geo Coder
 gem 'geocoder'
+
+## Manage Tags
+gem 'acts-as-taggable-on', '~> 6.0'

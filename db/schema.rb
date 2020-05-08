@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_133337) do
+ActiveRecord::Schema.define(version: 2020_05_08_083410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,6 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
-  create_table "api_participants", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "campaign_template_details", force: :cascade do |t|
@@ -160,7 +155,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.integer "reward_participant_id"
+    t.string "name"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -245,14 +240,9 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "jti"
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.boolean "allow_password_change", default: false
-    t.json "tokens"
-    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
-    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
-    t.index ["jti"], name: "index_participants_on_jti", unique: true
+    t.string "provider"
+    t.string "uid"
+    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
@@ -320,6 +310,33 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
+  create_table "taggings", id: :serial, force: :cascade do |t|
+    t.integer "tag_id"
+    t.string "taggable_type"
+    t.integer "taggable_id"
+    t.string "tagger_type"
+    t.integer "tagger_id"
+    t.string "context", limit: 128
+    t.datetime "created_at"
+    t.index ["context"], name: "index_taggings_on_context"
+    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type", "context"], name: "taggings_taggable_context_idx"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
+  end
+
+  create_table "tags", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -346,7 +363,6 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -367,4 +383,5 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"
+  add_foreign_key "taggings", "tags"
 end
