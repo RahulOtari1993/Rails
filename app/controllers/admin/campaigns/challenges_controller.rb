@@ -14,7 +14,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
-
       challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
@@ -24,16 +23,18 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(:is_approved => true)
     elsif params["scheduled"] == "true"
       challenges = challenges.where(:is_approved => true)
-      challenges = challenges.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+      scheduled_challenges = challenges.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+      challenges = challenges.where(:id => scheduled_challenges.pluck(:id))
+    elsif params["ended"] == "true"
+      ended_challenges = challenges.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+      challenges = challenges.where(:id => ended_challenges.pluck(:id))
+    elsif params["share"] == "true"
+      challenges = challenges.where(:challenge_type => 'share')
     else
-      challenges = challenges.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
     end
 
-    
-    challenges = challenges.sort_by(&:"#{sort_column}")
-    challenges = datatable_sort_direction == 'desc' ? challenges.reverse : challenges
-    # challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil? 
-    challenges = challenges.paginate(page(datatable_page).per(datatable_per_page))
+    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil? 
+    challenges = challenges.page(datatable_page).per(datatable_per_page)
 
     render json: {
       challenges: challenges.as_json,
@@ -157,7 +158,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
                                                       :start, :finish, :creator_id, :feature, :parameters, :category,
-                                                      :address, :longitude, :latitude, :location_distance,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object

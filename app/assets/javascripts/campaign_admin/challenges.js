@@ -1098,7 +1098,7 @@ $(document).on('turbolinks:load', function () {
     }
   })
   //challenge sidebar status filters
-  $('.challenge_status').change(function() {
+  $('.challenge_sidebar_filter').change(function() {
     if ($(this).prop('checked')) {
       $('#challenge-list-table').DataTable().
         ajax.url(
@@ -1106,6 +1106,8 @@ $(document).on('turbolinks:load', function () {
             + "?" + $(this).attr('id') + "=true"
          )
         .load() //checked
+    }else{
+      $('#challenge-list-table').DataTable().ajax.reload();
     }
   })
 
