@@ -30,6 +30,26 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(:id => ended_challenges.pluck(:id))
     elsif params["share"] == "true"
       challenges = challenges.where(:challenge_type => 'share')
+    elsif params["connect"] == "true"
+      challenges = challenges.where(:challenge_type => 'connect')
+    elsif params["engage"] == "true"
+      challenges = challenges.where(:challenge_type => 'engage')
+    elsif params["collect"] == "true"
+      challenges = challenges.where(:challenge_type => 'collect')
+    elsif params["facebook"] == "true"
+      challenges = challenges.where(:parameters => 'facebook')
+    elsif params["instagram"] == "true"
+      challenges = challenges.where(:parameters => 'instagram')
+    elsif params["tumblr"] == "true"
+      challenges = challenges.where(:parameters => 'tumblr')
+    elsif params["twitter"] == "true"
+      challenges = challenges.where(:parameters => 'twitter')
+    elsif params["youtube"] == "true"
+      challenges = challenges.where(:parameters => 'youtube')
+    elsif params["points"] == "true"
+      challenges = challenges.where(:reward_type => 'points')
+    elsif params["prizes"] == "true"
+      challenges = challenges.where(:reward_type => 'prizes')
     else
     end
 
@@ -211,4 +231,5 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def set_challenge
     @challenge = @campaign.challenges.find_by(:id => params[:id]) rescue nil
   end
+
 end

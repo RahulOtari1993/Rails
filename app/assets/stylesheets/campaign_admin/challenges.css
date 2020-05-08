@@ -686,3 +686,7 @@
     max-width: 800px;
   }
 }
+
+.icon_side_margin{
+  margin: 0 5px;
+}

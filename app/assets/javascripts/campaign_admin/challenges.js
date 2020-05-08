@@ -744,13 +744,13 @@ $(document).on('turbolinks:load', function () {
         render: function (data, type, row) {
           html=''
           if(data.status == 'draft'){
-            html = '<i class="fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
+            html = '<i class="icon_side_margin fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
           }else if(data.status == 'active'){
-            html = '<i class="fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
+            html = '<i class="icon_side_margin fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
           }else if(data.status == 'scheduled'){
-            html = '<i class="fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
+            html = '<i class="icon_side_margin fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
           }else{
-            html = '<i class="fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
+            html = '<i class="icon_side_margin fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
           html += '<img src="' + data.image['thumb']['url'] + '" />'
           return html
@@ -1097,13 +1097,15 @@ $(document).on('turbolinks:load', function () {
       map.fitBounds(bounds);
     }
   })
+  
   //challenge sidebar status filters
   $('.challenge_sidebar_filter').change(function() {
     if ($(this).prop('checked')) {
+      var filter = $(this).parent().find('.filter_label').html()
       $('#challenge-list-table').DataTable().
         ajax.url(
             "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-            + "?" + $(this).attr('id') + "=true"
+            + "?" + filter + "=true"
          )
         .load() //checked
     }else{
