@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "api_participants", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "campaign_template_details", force: :cascade do |t|
     t.bigint "campaign_id"
     t.string "favicon_file"
@@ -155,7 +160,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.string "name"
+    t.integer "reward_participant_id"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -240,9 +245,14 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
-    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
+    t.string "jti"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.boolean "allow_password_change", default: false
+    t.json "tokens"
+    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
+    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
+    t.index ["jti"], name: "index_participants_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
@@ -336,6 +346,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_133337) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
