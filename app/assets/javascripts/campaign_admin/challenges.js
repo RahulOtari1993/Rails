@@ -264,7 +264,7 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter social title');
 
-  // Social Blog Desctiption Validator
+  Social Blog Desctiption Validator
   $.validator.addMethod('socialDesctiption', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
 
@@ -722,6 +722,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
     processing: true,
@@ -741,7 +742,18 @@ $(document).on('turbolinks:load', function () {
         class: "product-img",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
-          return '<img src="' + data.image['thumb']['url'] + '" />';
+          html=''
+          if(data.status == 'draft'){
+            html = '<i class="fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
+          }else if(data.status == 'active'){
+            html = '<i class="fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
+          }else if(data.status == 'scheduled'){
+            html = '<i class="fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
+          }else{
+            html = '<i class="fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
+          }
+          html += '<img src="' + data.image['thumb']['url'] + '" />'
+          return html
         }
       },
       {
@@ -1083,6 +1095,16 @@ $(document).on('turbolinks:load', function () {
 
       bounds.extend(latLon);
       map.fitBounds(bounds);
+  //challenge sidebar status filters
+  $('.challenge_status').change(function() {
+    if ($(this).prop('checked')) {
+      $('#challenge-list-table').DataTable().
+        ajax.url(
+            "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
+            + "?" + $(this).attr('id') + "=true"
+         )
+        .load() //checked
     }
   })
+
 });

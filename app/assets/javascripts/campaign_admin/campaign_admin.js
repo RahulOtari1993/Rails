@@ -40,14 +40,16 @@
 //= require libraries/easy-editable-text
 //= require vendors/extensions/sweetalert2.all.min
 //= require libraries/scripts/jquery.fontselect.min
+//= require vendors/extensions/wNumb
+//= require vendors/extensions/nouislider.min
 
 //= require libraries/core/app
 //= require libraries/core/app-menu
-//= require libraries/core/app-menu
-//= require libraries/core/app
 //= require libraries/scripts/components
 //= require libraries/scripts/modal/components-modal
 //= require libraries/scripts/pages/dashboard-analytics
+//= require libraries/scripts/ui/data-list-view.js
+//= require libraries/scripts/extensions/noui-slider.js
 
 //= require jquery.minicolors
 //= require ../campaign_admin

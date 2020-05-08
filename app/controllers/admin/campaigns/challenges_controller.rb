@@ -18,15 +18,28 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
-    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
+    if params["draft"] == "true"
+      challenges = challenges.where(:is_approved => false)
+    elsif params["active"] == "true"
+      challenges = challenges.where(:is_approved => true)
+    elsif params["scheduled"] == "true"
+      challenges = challenges.where(:is_approved => true)
+      challenges = challenges.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+    else
+      challenges = challenges.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+    end
 
-    challenges = challenges.page(datatable_page).per(datatable_per_page)
+    
+    challenges = challenges.sort_by(&:"#{sort_column}")
+    challenges = datatable_sort_direction == 'desc' ? challenges.reverse : challenges
+    # challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil? 
+    challenges = challenges.paginate(page(datatable_page).per(datatable_per_page))
 
     render json: {
-        challenges: challenges.as_json,
-        draw: params['draw'].to_i,
-        recordsTotal: @campaign.challenges.count,
-        recordsFiltered: challenges.total_count
+      challenges: challenges.as_json,
+      draw: params['draw'].to_i,
+      recordsTotal: @campaign.challenges.count,
+      recordsFiltered: challenges.total_count,
     }
   end
 

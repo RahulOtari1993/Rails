@@ -21,5 +21,5 @@ class ChallengeFilter < ApplicationRecord
   SOCIAL_PLATFORMS = %w(facebook twitter google instagram youtube)
 
   ## Validations
-  validates :challenge_event, :challenge_condition, :challenge_value, presence: true
+  # validates :challenge_event, :challenge_condition, :challenge_value, presence: true
 end

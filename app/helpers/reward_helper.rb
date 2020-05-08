@@ -44,6 +44,7 @@
 
   ## User Segment Set Default Value of Event Condition
   def condition_value(filter, value)
+    byebug
     if filter.present?
       filter.reward_condition
     else

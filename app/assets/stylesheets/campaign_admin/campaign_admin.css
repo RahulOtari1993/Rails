@@ -24,6 +24,7 @@
  *= require vendors/forms/select/select2.min
  *= require vendors/pickers/pickadate/pickadate
  *= require vendors/extensions/sweetalert2.min
+ *= require vendors/extensions/nouislider.min
 
  *= require libraries/plugins/forms/wizard
  *= require libraries/core/menu/menu-types/vertical-menu
@@ -34,15 +35,15 @@
  *= require libraries/components
  *= require libraries/themes/dark-layout
  *= require libraries/themes/semi-dark-layout
- *= require libraries/core/menu/menu-types/vertical-menu
  *= require libraries/core/colors/palette-gradient
  *= require libraries/pages/dashboard-analytics
  *= require libraries/pages/card-analytics
  *= require jquery.minicolors
  *= require libraries/pages/data-list-view
  *= require libraries/fontselect-default
+ *= require libraries/plugins/extensions/noui-slider
+ *= require libraries/core/colors/palette-noui
 
- *= require libraries/plugins/file-uploaders/dropzone
 
  *= require style
  *= require ../campaign_admin

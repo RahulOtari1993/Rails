@@ -40,6 +40,7 @@
 #
 
 class Challenge < ApplicationRecord
+    # include ActiveModel::Serializers::JSON
   #TODO : While Approving a Challenge, Check if ORG do have Social Media Config Available
   #TODO : Validation Needs to be added
 
@@ -48,6 +49,7 @@ class Challenge < ApplicationRecord
   has_many :challenge_filters, dependent: :destroy
   has_many :challenge_participants, dependent: :destroy
   has_many :participants, through: :challenge_participants
+  # attr_accessor :status
 
   ## Constants
   # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
@@ -99,10 +101,20 @@ class Challenge < ApplicationRecord
 
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
-    if is_approved
+    if is_approved && self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)
+      'scheduled'
+    elsif is_approved && self.finish.in_time_zone(self.timezone) < Time.now.in_time_zone(self.timezone)
+      'ended'
+    elsif is_approved
       'active'
     else
       'draft'
+    end
+  end
+
+  def as_json(*)
+    super.tap do |hash|
+      hash["status"] = status
     end
   end
 end
