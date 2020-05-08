@@ -1095,6 +1095,8 @@ $(document).on('turbolinks:load', function () {
 
       bounds.extend(latLon);
       map.fitBounds(bounds);
+    }
+  })
   //challenge sidebar status filters
   $('.challenge_status').change(function() {
     if ($(this).prop('checked')) {
