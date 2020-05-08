@@ -264,7 +264,7 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please enter social title');
 
-  Social Blog Desctiption Validator
+  //Social Blog Desctiption Validator
   $.validator.addMethod('socialDesctiption', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
 
