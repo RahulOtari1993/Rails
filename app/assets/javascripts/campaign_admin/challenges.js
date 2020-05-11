@@ -1146,6 +1146,7 @@ $(document).on('turbolinks:load', function () {
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#challenge-image-preview').attr('src', e.target.result);
+        $('#challenge_image').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
       }
       reader.readAsDataURL(this.files[0]);
     }

@@ -211,4 +211,13 @@ module ChallengeHelper
       type.include?('age') ? 'block' : 'none'
     end
   end
+
+  ## Image Load While Editing a Challenge
+  def challenge_image_load
+    if @challenge.new_record?
+      "<img id='challenge-image-preview' />"
+    else
+      "<img id='challenge-image-preview' src='#{@challenge.image.url}'/>"
+    end
+  end
 end
