@@ -521,7 +521,10 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_category').val($(this).parents().eq(5).data('val'));
 
     stepTwoContent($(this).data('challenge-type'), $(this).data('challenge-parameters'))
-  })
+  });
+
+  // For Edit Challenge Trigger Click for Challenge Type
+  $('.challenge-type-list.active').trigger('click');
 
   $('#file-input-fb').change(function () {
     if (this.files && this.files[0]) {
