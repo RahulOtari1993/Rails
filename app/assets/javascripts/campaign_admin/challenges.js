@@ -382,7 +382,7 @@ $(document).on('turbolinks:load', function () {
       }
 
       // Default behavior
-      return $el.is(':hidden');
+      return $el.is(':hidden') || $el.hasClass('ignore');
     },
     rules: {
       'challenge[challenge_type]': {

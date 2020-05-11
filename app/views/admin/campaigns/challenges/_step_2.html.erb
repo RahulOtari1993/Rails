@@ -31,7 +31,7 @@
         <div class="form-group">
           <%= form.label :image, 'Challenge Image' %>
           <div class="custom-file">
-            <%= form.file_field :image, class: "custom-file-input" %>
+            <%= form.file_field :image, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}" %>
             <%= form.label :image, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
