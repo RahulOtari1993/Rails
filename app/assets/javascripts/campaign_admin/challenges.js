@@ -27,11 +27,11 @@ $(document).on('turbolinks:load', function () {
 
   // Get Social Image Dynamically
   function getSocialImageName() {
-    if ($('#challenge_platform').val() == 'facebook') {
+    if ($('#challenge_parameters').val() == 'facebook') {
       imageName = imageNeeded($("#facebookBlockBody input[name='challenge[image]']"));
-    } else if ($('#challenge_platform').val() == 'twitter') {
+    } else if ($('#challenge_parameters').val() == 'twitter') {
       imageName = imageNeeded($("#twitterBlogBody input[name='challenge[image]']"));
-    } else if ($('#challenge_platform').val() == 'linked_in') {
+    } else if ($('#challenge_parameters').val() == 'linked_in') {
       imageName = imageNeeded($("#linkedinBlogBody input[name='challenge[image]']"));
     } else {
       imageName = ''
@@ -245,17 +245,22 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-    if ($('#challenge_platform').val() == 'twitter') {
+    if ($('#challenge_parameters').val() == 'twitter') {
       return true;
     }
 
-    if ($('#challenge_platform').val() == 'facebook') {
+    console.log("VAL", $('#challenge_parameters').val())
+    if ($('#challenge_parameters').val() == 'facebook') {
+      console.log("IN FB",  $("#facebookBlockBody .social-title-txt").val());
       socialTitle = $("#facebookBlockBody .social-title-txt").val();
-    } else if ($('#challenge_platform').val() == 'linked_in') {
+    } else if ($('#challenge_parameters').val() == 'linked_in') {
+      console.log("IN LinkedIN",  $("#linkedinBlogBody .social-title-txt").val());
       socialTitle = $("#linkedinBlogBody .social-title-txt").val();
     } else {
       socialTitle = ''
     }
+
+    console.log("Social Title", socialTitle);
 
     if (socialTitle == "") {
       return false;
@@ -273,11 +278,11 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-    if ($('#challenge_platform').val() == 'facebook') {
+    if ($('#challenge_parameters').val() == 'facebook') {
       socialDescription = $("#facebookBlockBody .social-description-txt").val();
-    } else if ($('#challenge_platform').val() == 'twitter') {
+    } else if ($('#challenge_parameters').val() == 'twitter') {
       socialDescription = $("#twitterBlogBody .social-description-txt").val();
-    } else if ($('#challenge_platform').val() == 'linked_in') {
+    } else if ($('#challenge_parameters').val() == 'linked_in') {
       socialDescription = $("#linkedinBlogBody .social-description-txt").val();
     } else {
       socialDescription = ''
@@ -584,7 +589,7 @@ $(document).on('turbolinks:load', function () {
 
       if (idx == 0) {
         // Facebook
-        $('#challenge_platform').val('facebook');
+        $('#challenge_parameters').val('facebook');
         $("#facebookBlogBody :input").attr('disabled', false);
         $("#twitterBlogBody :input").attr('disabled', true);
         $("#linkedinBlogBody :input").attr('disabled', true);
@@ -593,7 +598,7 @@ $(document).on('turbolinks:load', function () {
         $('#challenge_social_description').val($("#facebookBlockBody .social-description-txt").val());
       } else if (idx == 1) {
         // Twitter
-        $('#challenge_platform').val('twitter');
+        $('#challenge_parameters').val('twitter');
         $("#twitterBlogBody :input").attr('disabled', false);
         $("#facebookBlogBody :input").attr('disabled', true);
         $("#linkedinBlogBody :input").attr('disabled', true);
@@ -602,7 +607,7 @@ $(document).on('turbolinks:load', function () {
         $('#challenge_social_description').val($("#twitterBlogBody .social-description-txt").val());
       } else if (idx == 2) {
         // LinkedIn
-        $('#challenge_platform').val('linked_in');
+        $('#challenge_parameters').val('linked_in');
         $('#linkedinBlogBody :input').attr('disabled', false);
         $('#facebookBlogBody :input').attr('disabled', true);
         $('#twitterBlogBody :input').attr('disabled', true);
@@ -668,6 +673,7 @@ $(document).on('turbolinks:load', function () {
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function () {
+    console.log("$(this).val()", $(this).val())
     $('#challenge_social_title').val($(this).val());
   });
 
