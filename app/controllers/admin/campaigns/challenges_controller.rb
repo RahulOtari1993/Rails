@@ -147,6 +147,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     cloned.is_approved = false ## Make Challenge as Draft
     cloned.approver_id = nil ## Make Approver ID Null
 
+    ## Clone Existing Tags
+    cloned.tag_list.add(@challenge.tag_list.join(', '), parse: true) if @challenge.tag_list.present?
+
     if cloned.save
       render json: {success: true}
     else
