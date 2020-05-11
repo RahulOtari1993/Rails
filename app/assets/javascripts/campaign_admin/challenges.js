@@ -178,12 +178,14 @@ $(document).on('turbolinks:load', function () {
     $('.step-two-container').removeClass('active-segment');
     $('.step-two-container input').prop("disabled", true);
     $('.step-two-container select').prop("disabled", true);
+    $('.step-two-container hidden').prop("disabled", true);
 
 
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
     $('.' + challengeType + '-' + challengeParameters + '-div').addClass('active-segment');
     $('.' + challengeType + '-' + challengeParameters + '-div input').prop("disabled", false);
     $('.' + challengeType + '-' + challengeParameters + '-div select').prop("disabled", false);
+    $('.' + challengeType + '-' + challengeParameters + '-div hidden').prop("disabled", false);
 
     // Load Google Map if Challenge Type is Location
     if (challengeType == 'location') initAutocomplete()
