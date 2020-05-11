@@ -23,10 +23,10 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(:is_approved => true)
     elsif params["scheduled"] == "true"
       challenges = challenges.where(:is_approved => true)
-      scheduled_challenges = challenges.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+      scheduled_challenges = challenges.select { |challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone) }
       challenges = challenges.where(:id => scheduled_challenges.pluck(:id))
     elsif params["ended"] == "true"
-      ended_challenges = challenges.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+      ended_challenges = challenges.select { |challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone) }
       challenges = challenges.where(:id => ended_challenges.pluck(:id))
     elsif params["share"] == "true"
       challenges = challenges.where(:challenge_type => 'share')
@@ -53,14 +53,14 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     else
     end
 
-    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil? 
+    challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
     challenges = challenges.page(datatable_page).per(datatable_per_page)
 
     render json: {
-      challenges: challenges.as_json,
-      draw: params['draw'].to_i,
-      recordsTotal: @campaign.challenges.count,
-      recordsFiltered: challenges.total_count,
+        challenges: challenges.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: @campaign.challenges.count,
+        recordsFiltered: challenges.total_count,
     }
   end
 
@@ -151,9 +151,17 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     cloned.tag_list.add(@challenge.tag_list.join(', '), parse: true) if @challenge.tag_list.present?
 
     if cloned.save
-      render json: {success: true}
+      render json: {
+          success: true,
+          title: 'Duplicate a Challenge',
+          message: 'Duplicate Challenge created!'
+      }
     else
-      render json: {success: false}
+      render json: {
+          success: false,
+          title: 'Duplicate a Challenge',
+          message: 'Duplicating a challenge failed, Pleast try again!'
+      }
     end
   end
 

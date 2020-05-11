@@ -930,23 +930,10 @@ $(document).on('turbolinks:load', function () {
           url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/duplicate",
           success: function (data) {
             $('.loader').fadeOut(500);
+            swalNotify(data.title, data.message);
 
             if (data.success) {
-              Swal.fire({
-                title: 'Duplicate a Challenge',
-                text: "Duplicate Challenge created!",
-                confirmButtonClass: 'btn btn-primary',
-                buttonsStyling: false,
-              });
-
               $('#challenge-list-table').DataTable().ajax.reload(null, false);
-            } else {
-              Swal.fire({
-                title: 'Duplicate a Challenge',
-                text: "Duplicating a challenge failed, Pleast try again!",
-                confirmButtonClass: 'btn btn-primary',
-                buttonsStyling: false,
-              });
             }
           }
         });
