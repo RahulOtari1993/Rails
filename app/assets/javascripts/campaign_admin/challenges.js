@@ -966,10 +966,12 @@ $(document).on('turbolinks:load', function () {
       cancelButtonClass: 'btn btn-danger ml-1',
       buttonsStyling: false,
     }).then(function (result) {
+      $('.loader').fadeIn();
       $.ajax({
         type: 'GET',
         url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
         success: function (data) {
+          $('.loader').fadeOut();
           swalNotify(data.title, data.message);
           if (data.success) {
             $('#challenge-list-table').DataTable().ajax.reload(null, false);
