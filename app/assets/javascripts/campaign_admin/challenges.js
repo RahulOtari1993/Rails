@@ -206,7 +206,7 @@ $(document).on('turbolinks:load', function () {
       }
     }, 2000);
   }
-  
+
   // Social Blog Image Validator
   $.validator.addMethod('socialImageExistance', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
@@ -1138,5 +1138,16 @@ $(document).on('turbolinks:load', function () {
     tags: true,
     dropdownAutoWidth: true,
     width: '70%'
+  });
+
+  // Load Challenge Image on Selection
+  $('#challenge_image').change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#challenge-image-preview').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
   });
 });

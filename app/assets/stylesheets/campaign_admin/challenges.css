@@ -367,6 +367,10 @@
   margin-left: 50px;
 }
 
+#challenge-image-preview {
+  width: 100%;
+}
+
 /*Google Map CSS*/
 #map-container {
   height: 400px;

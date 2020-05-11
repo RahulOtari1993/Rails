@@ -35,11 +35,7 @@
             <%= form.label :image, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
         <%= form.label :description, 'This sets if the challenge is to be featured in various parts of the experience.' %>
         <div class="vs-checkbox-con vs-checkbox-primary">
           <%= form.check_box :feature, class: '' %>
@@ -50,6 +46,10 @@
           </span>
           <span class="">Feature</span>
         </div>
+      </div>
+
+      <div class="col-sm-4 col-lg-4">
+        <img id="challenge-image-preview" />
       </div>
     </div>
 
