@@ -15,6 +15,7 @@
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials[Rails.env.to_sym][:google_map_key] %>&libraries=places" async defer></script>
 
   <%= stylesheet_link_tag 'campaign_admin/campaign_admin', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'campaign_admin/campaign_admin', 'data-turbolinks-track' => 'reload' %>

@@ -180,7 +180,6 @@ $(document).on('turbolinks:load', function () {
     $('.step-two-container select').prop("disabled", true);
     $('.step-two-container hidden').prop("disabled", true);
 
-
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
     $('.' + challengeType + '-' + challengeParameters + '-div').addClass('active-segment');
     $('.' + challengeType + '-' + challengeParameters + '-div input').prop("disabled", false);
@@ -734,7 +733,6 @@ $(document).on('turbolinks:load', function () {
       return ''
     }
   }
-
 
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
