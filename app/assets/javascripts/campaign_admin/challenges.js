@@ -945,15 +945,37 @@ $(document).on('turbolinks:load', function () {
   $('#challenge-list-table').on('click', '.toggle-challenge-status', function () {
     var challengeId = $(this).parent().parent().data('challenge-id');
     var campaignId = $(this).parent().parent().data('campaign-id');
-    $.ajax({
-      type: 'GET',
-      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
-      success: function (data) {
-        swalNotify(data.title, data.message);
-        if (data.success) {
-          $('#challenge-list-table').DataTable().ajax.reload(null, false);
+
+    if ($(this).html().includes('Approve')) {
+      swalTitle = 'Approve'
+      swalText = 'You want to approve this challenge?'
+    } else {
+      swalTitle = 'Disable'
+      swalText = 'You want to disable this challenge?'
+    }
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: swalText,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, ' + swalTitle + ' it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      $.ajax({
+        type: 'GET',
+        url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
+        success: function (data) {
+          swalNotify(data.title, data.message);
+          if (data.success) {
+            $('#challenge-list-table').DataTable().ajax.reload(null, false);
+          }
         }
-      }
+      });
     });
   });
 
