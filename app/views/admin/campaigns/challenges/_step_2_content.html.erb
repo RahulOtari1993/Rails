@@ -335,9 +335,9 @@
         <div class="row">
           <div class="col-sm-10 col-lg-8">
             <div class="form-group">
-              <%= form.label :radius, 'Radius' %>
+              <%= form.label :location_distance, 'Radius' %>
               <span class="column-info">This is the radius around the location..</span>
-              <%= form.select :radius,
+              <%= form.select :location_distance,
                               options_for_select(Challenge::RADIUS),
                               {prompt: 'Select Radius'}, class: 'form-control domain_type_id' %>
 

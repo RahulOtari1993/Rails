@@ -73,7 +73,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
-
       if @challenge.save
         format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully created.' }
         format.json { render :index, status: :created }
@@ -90,7 +89,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def update
     respond_to do |format|
       previous_segments = @challenge.challenge_filters.pluck(:id)
+
       removed_segments = previous_segments - @available_segments
+      tags_association ## Manage Tags for a Challenge
 
       if @challenge.update(challenge_params)
         ## Remove Deleted User Segments from a Challenge
@@ -197,9 +198,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Build Nested Attributes Params for User Segments
   def build_params
+    @available_segments = []
     if params[:challenge].has_key?('challenge_filters_attributes')
       new_params = []
-      @available_segments = []
 
       cust_params = params[:challenge][:challenge_filters_attributes]
       cust_params.each do |key, c_param|
@@ -236,9 +237,12 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     @challenge = @campaign.challenges.find_by(:id => params[:id]) rescue nil
   end
 
-  ## Assign Tags to a Challenge
+  ## Assign/Remove Tags to a Challenge
   def tags_association
     tags = params[:challenge][:tags].reject { |c| c.empty? } if params[:challenge].has_key?('tags')
+    removed_tags = @challenge.tag_list - tags
+
+    @challenge.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
     @challenge.tag_list.add(tags.join(', '), parse: true) if tags.present?
   end
 end

@@ -429,7 +429,7 @@ $(document).on('turbolinks:load', function () {
       'challenge[address]': {
         required: true
       },
-      'challenge[radius]': {
+      'challenge[location_distance]': {
         required: true
       },
       'challenge[longitude]': {
@@ -480,7 +480,7 @@ $(document).on('turbolinks:load', function () {
       'challenge[address]': {
         required: 'Please enter address'
       },
-      'challenge[radius]': {
+      'challenge[location_distance]': {
         required: 'Please select location radius'
       }
     },
