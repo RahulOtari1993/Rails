@@ -34,4 +34,9 @@ module ApplicationHelper
   def action?(name)
     name.present? ? name.include?(action_name) : true
   end
+
+  ## Fetch All Tags
+  def all_tags_humanize
+    ActsAsTaggableOn::Tag.all.map { |tag| [tag.name.upcase_first, tag.name] }
+  end
 end

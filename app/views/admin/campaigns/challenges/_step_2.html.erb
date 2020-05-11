@@ -58,5 +58,23 @@
         <%= render 'admin/campaigns/challenges/step_2_content', form: form %>
       </div>
     </div>
+
+    <div class="row">
+      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+        <h3>3. Tags</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+        <%= form.label :tags, 'Start typing to add a tag, and then move off the field to save the tag.' %>
+        <div class="form-group">
+          <%= form.select :tags,
+                          options_for_select(all_tags_humanize),
+                          {}, class: 'form-control challenge-tags', multiple: 'multiple' %>
+          <%#= form.text_field :tags, class: 'form-control', id: 'challenge-tags' %>
+        </div>
+      </div>
+    </div>
   </div>
 </fieldset>

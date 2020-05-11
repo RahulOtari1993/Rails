@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2020_05_08_083410) do
 
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
-    t.string "name"
+    t.integer "reward_participant_id"
     t.string "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -240,8 +240,6 @@ ActiveRecord::Schema.define(version: 2020_05_08_083410) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -264,14 +262,6 @@ ActiveRecord::Schema.define(version: 2020_05_08_083410) do
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_participants_on_reward_id"
     t.index ["user_id"], name: "index_reward_participants_on_user_id"
-  end
-
-  create_table "reward_users", force: :cascade do |t|
-    t.integer "reward_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|

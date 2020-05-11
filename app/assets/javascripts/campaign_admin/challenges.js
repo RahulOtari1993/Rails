@@ -1098,7 +1098,7 @@ $(document).on('turbolinks:load', function () {
     }
   })
   
-  //challenge sidebar status filters
+  // Challenge sidebar status filters
   $('.challenge_sidebar_filter').change(function() {
     if ($(this).prop('checked')) {
       var filter = $(this).parent().find('.filter_label').html()
@@ -1111,6 +1111,13 @@ $(document).on('turbolinks:load', function () {
     }else{
       $('#challenge-list-table').DataTable().ajax.reload();
     }
-  })
+  });
 
+  // Tags Selection With Auto Suggestion
+  $('.challenge-tags').select2({
+    placeholder: "Select Tags",
+    tags: true,
+    dropdownAutoWidth: true,
+    width: '70%'
+  });
 });
