@@ -910,29 +910,45 @@ $(document).on('turbolinks:load', function () {
   $('#challenge-list-table').on('click', '.clone-challenge', function () {
     var challengeId = $(this).parent().parent().data('challenge-id');
     var campaignId = $(this).parent().parent().data('campaign-id');
-    $.ajax({
-      type: 'GET',
-      url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/duplicate",
-      success: function (data) {
-        if (data.success) {
-          Swal.fire({
-            title: 'Duplicate a Challenge',
-            text: "Duplicate Challenge created!",
-            confirmButtonClass: 'btn btn-primary',
-            buttonsStyling: false,
-          });
 
-          $('#challenge-list-table').DataTable().ajax.reload(null, false);
-        } else {
-          console.log('Failure')
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to duplicate this challenge?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Duplicate it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          type: 'GET',
+          url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/duplicate",
+          success: function (data) {
+            if (data.success) {
+              Swal.fire({
+                title: 'Duplicate a Challenge',
+                text: "Duplicate Challenge created!",
+                confirmButtonClass: 'btn btn-primary',
+                buttonsStyling: false,
+              });
 
-          Swal.fire({
-            title: 'Duplicate a Challenge',
-            text: "Duplicating a challenge failed, Pleast try again!",
-            confirmButtonClass: 'btn btn-primary',
-            buttonsStyling: false,
-          });
-        }
+              $('#challenge-list-table').DataTable().ajax.reload(null, false);
+            } else {
+              console.log('Failure')
+
+              Swal.fire({
+                title: 'Duplicate a Challenge',
+                text: "Duplicating a challenge failed, Pleast try again!",
+                confirmButtonClass: 'btn btn-primary',
+                buttonsStyling: false,
+              });
+            }
+          }
+        });
       }
     });
   });
