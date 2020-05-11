@@ -176,9 +176,14 @@ $(document).on('turbolinks:load', function () {
   function stepTwoContent(challengeType, challengeParameters) {
     $('.step-two-container').hide();
     $('.step-two-container').removeClass('active-segment');
+    $('.step-two-container input').prop("disabled", true);
+    $('.step-two-container select').prop("disabled", true);
+
 
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
     $('.' + challengeType + '-' + challengeParameters + '-div').addClass('active-segment');
+    $('.' + challengeType + '-' + challengeParameters + '-div input').prop("disabled", false);
+    $('.' + challengeType + '-' + challengeParameters + '-div select').prop("disabled", false);
 
     // Load Google Map if Challenge Type is Location
     if (challengeType == 'location') initAutocomplete()
@@ -249,18 +254,13 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-    console.log("VAL", $('#challenge_parameters').val())
     if ($('#challenge_parameters').val() == 'facebook') {
-      console.log("IN FB",  $("#facebookBlockBody .social-title-txt").val());
       socialTitle = $("#facebookBlockBody .social-title-txt").val();
     } else if ($('#challenge_parameters').val() == 'linked_in') {
-      console.log("IN LinkedIN",  $("#linkedinBlogBody .social-title-txt").val());
       socialTitle = $("#linkedinBlogBody .social-title-txt").val();
     } else {
       socialTitle = ''
     }
-
-    console.log("Social Title", socialTitle);
 
     if (socialTitle == "") {
       return false;
@@ -361,7 +361,9 @@ $(document).on('turbolinks:load', function () {
 
   $('.challenge-wizard').validate({
     errorElement: 'span',
-    onfocusout: function(element){ return false; },
+    onfocusout: function (element) {
+      return false;
+    },
     ignore: function (index, el) {
       var $el = $(el);
 
@@ -751,14 +753,14 @@ $(document).on('turbolinks:load', function () {
         class: "product-img",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
-          html=''
-          if(data.status == 'draft'){
+          html = ''
+          if (data.status == 'draft') {
             html = '<i class="icon_side_margin fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
-          }else if(data.status == 'active'){
+          } else if (data.status == 'active') {
             html = '<i class="icon_side_margin fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
-          }else if(data.status == 'scheduled'){
+          } else if (data.status == 'scheduled') {
             html = '<i class="icon_side_margin fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
-          }else{
+          } else {
             html = '<i class="icon_side_margin fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
           html += '<img src="' + data.image['thumb']['url'] + '" />'
@@ -989,14 +991,14 @@ $(document).on('turbolinks:load', function () {
     // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
+    map.addListener('bounds_changed', function () {
       searchBox.setBounds(map.getBounds());
     });
 
     var markers = [];
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
-    searchBox.addListener('places_changed', function() {
+    searchBox.addListener('places_changed', function () {
       var places = searchBox.getPlaces();
       var locations = []
       if (places.length == 0) {
@@ -1009,10 +1011,10 @@ $(document).on('turbolinks:load', function () {
       }
 
       // Clear out the old Markers & Circles.
-      markers.forEach(function(marker) {
+      markers.forEach(function (marker) {
         marker.setMap(null);
       });
-      mapCircle.forEach(function(mCircle) {
+      mapCircle.forEach(function (mCircle) {
         mCircle.setMap(null);
       });
 
@@ -1022,7 +1024,7 @@ $(document).on('turbolinks:load', function () {
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
 
-      places.forEach(function(place) {
+      places.forEach(function (place) {
         if (!place.geometry) {
           console.log("Returned place contains no geometry");
           return;
@@ -1047,7 +1049,7 @@ $(document).on('turbolinks:load', function () {
         $('.location-latitude').val(latLon.lat);
         $('.location-longitude').val(latLon.lng);
 
-        if ($('#challenge_radius').val()) {
+        if ($('#challenge_location_distance').val()) {
           // Draw a Radius around the selected address
           mapCircle.push(new google.maps.Circle({
             strokeColor: '#FF0000',
@@ -1057,7 +1059,7 @@ $(document).on('turbolinks:load', function () {
             fillOpacity: 0.35,
             map: map,
             center: {lat: parseFloat($('.location-latitude').val()), lng: parseFloat($('.location-longitude').val())},
-            radius: parseFloat($('#challenge_radius').val())
+            radius: parseFloat($('#challenge_location_distance').val())
           }));
         }
 
@@ -1069,13 +1071,13 @@ $(document).on('turbolinks:load', function () {
         }
       });
       map.fitBounds(bounds);
-      $('#challenge_radius').trigger('change');
+      $('#challenge_location_distance').trigger('change');
     });
   }
-
+  
   // Draw a Radius on Challenge Radius Change
-  $('#challenge_radius').on('change', function (e) {
-    if (parseFloat($('.location-latitude').val()) != 0 && parseFloat($('.location-longitude').val()) != 0 && $('#challenge_radius').val()) {
+  $('#challenge_location_distance').on('change', function (e) {
+    if (parseFloat($('.location-latitude').val()) != 0 && parseFloat($('.location-longitude').val()) != 0 && $('#challenge_location_distance').val()) {
       var latLon = {lat: parseFloat($('.location-latitude').val()), lng: parseFloat($('.location-longitude').val())};
 
       var map = new google.maps.Map(document.getElementById('location-challenge-map'), {
@@ -1099,25 +1101,24 @@ $(document).on('turbolinks:load', function () {
         fillOpacity: 0.35,
         map: map,
         center: latLon,
-        radius: parseFloat($('#challenge_radius').val())
+        radius: parseFloat($('#challenge_location_distance').val())
       }));
 
       bounds.extend(latLon);
       map.fitBounds(bounds);
     }
   })
-  
+
   // Challenge sidebar status filters
-  $('.challenge_sidebar_filter').change(function() {
+  $('.challenge_sidebar_filter').change(function () {
     if ($(this).prop('checked')) {
       var filter = $(this).parent().find('.filter_label').html()
-      $('#challenge-list-table').DataTable().
-        ajax.url(
-            "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-            + "?" + filter + "=true"
-         )
-        .load() //checked
-    }else{
+      $('#challenge-list-table').DataTable().ajax.url(
+          "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
+          + "?" + filter + "=true"
+      )
+          .load() //checked
+    } else {
       $('#challenge-list-table').DataTable().ajax.reload();
     }
   });

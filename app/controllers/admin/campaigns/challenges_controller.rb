@@ -182,7 +182,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
                                                       :start, :finish, :creator_id, :feature, :parameters, :category,
                                                       :title, :content, :duration, :longitude, :latitude, :address,
-                                                      :location_distance,
+                                                      :location_distance, :tags,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
     ## Convert Start & Finish Details in DateTime Object
