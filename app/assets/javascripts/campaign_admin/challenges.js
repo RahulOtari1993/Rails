@@ -198,6 +198,15 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+  // Trigger Raduis Calculation
+  if (window.location.href.indexOf("edit") > -1) {
+    setTimeout(function () {
+      if ($('.step-two-container.active-segment').hasClass('location--div')) {
+        $('#challenge_location_distance').trigger('change');
+      }
+    }, 2000);
+  }
+  
   // Social Blog Image Validator
   $.validator.addMethod('socialImageExistance', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
@@ -1074,7 +1083,7 @@ $(document).on('turbolinks:load', function () {
       $('#challenge_location_distance').trigger('change');
     });
   }
-  
+
   // Draw a Radius on Challenge Radius Change
   $('#challenge_location_distance').on('change', function (e) {
     if (parseFloat($('.location-latitude').val()) != 0 && parseFloat($('.location-longitude').val()) != 0 && $('#challenge_location_distance').val()) {
