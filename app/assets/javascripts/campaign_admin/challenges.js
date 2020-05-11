@@ -924,10 +924,13 @@ $(document).on('turbolinks:load', function () {
       buttonsStyling: false,
     }).then(function (result) {
       if (result.value) {
+        $('.loader').fadeIn(500);
         $.ajax({
           type: 'GET',
           url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/duplicate",
           success: function (data) {
+            $('.loader').fadeOut(500);
+
             if (data.success) {
               Swal.fire({
                 title: 'Duplicate a Challenge',
@@ -938,8 +941,6 @@ $(document).on('turbolinks:load', function () {
 
               $('#challenge-list-table').DataTable().ajax.reload(null, false);
             } else {
-              console.log('Failure')
-
               Swal.fire({
                 title: 'Duplicate a Challenge',
                 text: "Duplicating a challenge failed, Pleast try again!",
