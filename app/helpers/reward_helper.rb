@@ -1,12 +1,12 @@
  module RewardHelper
 
  ## Set reward Start Time
-  def start_time
+  def reward_start_time
     new_record? ? '' : @reward.start.strftime('%I:%M %p')
   end
 
   ## Set reward Finish Date
-  def finish_date
+  def reward_finish_date
     if new_record?
       ''
     else
@@ -15,7 +15,7 @@
   end
 
   ## Set reward Finish Time
-  def finish_time
+  def reward_finish_time
     if new_record?
       ''
     else
@@ -24,12 +24,12 @@
   end
 
   ## Set Name Convention String for User Segment
-  def name_convention(filter = nil)
+  def reward_name_convention(filter = nil)
     filter.present? ? filter.id : '___NUM___'
   end
 
   ## Set ID Convention String for User Segment
-  def id_convention(filter = nil)
+  def reward_id_convention(filter = nil)
     filter.present? ? filter.id : '___ID___'
   end
 
@@ -43,7 +43,7 @@
   end
 
   ## User Segment Set Default Value of Event Condition
-  def condition_value(filter, value)
+  def reward_condition_value(filter, value)
     if filter.present?
       filter.reward_condition
     else
@@ -52,7 +52,7 @@
   end
 
   ## User Segment Set Default Value of Event Value
-  def event_value(filter, value, type)
+  def reward_event_value(filter, value, type)
     if filter.present?
       filter.reward_event == type ? filter.reward_value : value
     else
@@ -61,7 +61,7 @@
   end
 
   ## User Segment Set DISABLED Fields
-  def make_disabled(filter, type)
+  def reward_make_disabled(filter, type)
     if filter.present?
       !type.include?(filter.reward_event)
     else
@@ -70,7 +70,7 @@
   end
 
   ## User Segment Set VISIBLE Fields
-  def make_visible(filter, type)
+  def reward_make_visible(filter, type)
     if filter.present?
       type.include?(filter.reward_event) ? 'block' : 'none'
     else
