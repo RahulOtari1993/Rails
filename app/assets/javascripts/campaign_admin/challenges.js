@@ -28,11 +28,11 @@ $(document).on('turbolinks:load', function () {
   // Get Social Image Dynamically
   function getSocialImageName() {
     if ($('#challenge_parameters').val() == 'facebook') {
-      imageName = imageNeeded($("#facebookBlockBody input[name='challenge[image]']"));
+      imageName = imageNeeded($("#facebookBlockBody input[name='challenge[social_image]']"));
     } else if ($('#challenge_parameters').val() == 'twitter') {
-      imageName = imageNeeded($("#twitterBlogBody input[name='challenge[image]']"));
+      imageName = imageNeeded($("#twitterBlogBody input[name='challenge[social_image]']"));
     } else if ($('#challenge_parameters').val() == 'linked_in') {
-      imageName = imageNeeded($("#linkedinBlogBody input[name='challenge[image]']"));
+      imageName = imageNeeded($("#linkedinBlogBody input[name='challenge[social_image]']"));
     } else {
       imageName = ''
     }

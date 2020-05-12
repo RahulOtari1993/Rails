@@ -82,7 +82,7 @@ module ChallengeHelper
       "<img src='#' id='show-#{type}-image'>"
     else
       if @challenge.parameters == type
-        "<img src='#{@challenge.image.url}' id='show-#{type}-image'>"
+        "<img src='#{@challenge.social_image.url}' id='show-#{type}-image'>"
       else
         "<img src='#' id='show-#{type}-image'>"
       end
