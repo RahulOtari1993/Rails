@@ -18,40 +18,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
-    if params["draft"] == "true"
-      challenges = challenges.where(:is_approved => false)
-    elsif params["active"] == "true"
-      challenges = challenges.where(:is_approved => true)
-    elsif params["scheduled"] == "true"
-      challenges = challenges.where(:is_approved => true)
-      scheduled_challenges = challenges.select { |challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone) }
-      challenges = challenges.where(:id => scheduled_challenges.pluck(:id))
-    elsif params["ended"] == "true"
-      ended_challenges = challenges.select { |challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone) }
-      challenges = challenges.where(:id => ended_challenges.pluck(:id))
-    elsif params["share"] == "true"
-      challenges = challenges.where(:challenge_type => 'share')
-    elsif params["connect"] == "true"
-      challenges = challenges.where(:challenge_type => 'connect')
-    elsif params["engage"] == "true"
-      challenges = challenges.where(:challenge_type => 'engage')
-    elsif params["collect"] == "true"
-      challenges = challenges.where(:challenge_type => 'collect')
-    elsif params["facebook"] == "true"
-      challenges = challenges.where(:parameters => 'facebook')
-    elsif params["instagram"] == "true"
-      challenges = challenges.where(:parameters => 'instagram')
-    elsif params["tumblr"] == "true"
-      challenges = challenges.where(:parameters => 'tumblr')
-    elsif params["twitter"] == "true"
-      challenges = challenges.where(:parameters => 'twitter')
-    elsif params["youtube"] == "true"
-      challenges = challenges.where(:parameters => 'youtube')
-    elsif params["points"] == "true"
-      challenges = challenges.where(:reward_type => 'points')
-    elsif params["prizes"] == "true"
-      challenges = challenges.where(:reward_type => 'prizes')
-    else
+    if params["filters"].present?
+      filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
+      challenges = challenges.challenge_side_bar_filter(filters)
     end
 
     challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
