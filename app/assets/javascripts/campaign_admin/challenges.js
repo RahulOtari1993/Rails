@@ -1109,12 +1109,36 @@ $(document).on('turbolinks:load', function () {
   
   // Challenge sidebar status filters
   $('.challenge_sidebar_filter').change(function() {
-    if ($(this).prop('checked')) {
-      var filter = $(this).parent().find('.filter_label').html()
+    var status_checked = []
+    var type_checked = []
+    var platform_checked = []
+    var reward_checked = []
+    var filter = {}
+    $("input[name='filters[status][]']:checked").each(function ()
+    {
+      status_checked.push($(this).parent().find('.filter_label').html());
+    });
+    filter["status"] = status_checked
+    $("input[name='filters[challenge_type][]']:checked").each(function ()
+    {
+      type_checked.push($(this).parent().find('.filter_label').html());
+    });
+    filter['challenge_type'] = type_checked
+    $("input[name='filters[platform_type][]']:checked").each(function ()
+    {
+      platform_checked.push($(this).parent().find('.filter_label').html());
+    });
+    filter['platform_type'] = platform_checked
+    $("input[name='filters[reward_type][]']:checked").each(function ()
+    {
+      reward_checked.push($(this).parent().find('.filter_label').html());
+    });
+    filter['reward_type'] = reward_checked
+    if(filter != ''){
       $('#challenge-list-table').DataTable().
         ajax.url(
             "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-            + "?" + filter + "=true"
+            + "?filters=" + JSON.stringify(filter)
          )
         .load() //checked
     }else{
