@@ -220,4 +220,9 @@ module ChallengeHelper
       "<img id='challenge-image-preview' src='#{@challenge.image.url}'/>"
     end
   end
+
+  ## Dynamically Pick Tags UI Class
+  def tags_class
+    ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary'].sample
+  end
 end

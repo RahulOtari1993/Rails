@@ -5,7 +5,7 @@
         <h6 class="modal-title" id="myModalLabel160">
           <% status = @challenge.status %>
           <i class="fa fa-circle fa_<%= status %> fa_circle_lg" aria-hidden="true"></i> <%= status %>
-          <span><%= @challenge.mechanism %> challenge</span>
+          <span><%= @challenge.challenge_type %> challenge</span>
         </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -24,9 +24,11 @@
               </div>
             </div>
             <div class="col-md-6">
-              <h6>Reward</h6>
+              <% if @challenge.reward_type == 'points' %>
+                <h6>Reward</h6>
 
-              <button type="button" class="btn bg-gradient-primary waves-effect waves-light reward_btn">200pts</button>
+                <button type="button" class="btn bg-gradient-primary waves-effect waves-light reward_btn"><%= @challenge.points %>pts</button>
+              <% end %>
               <div class="active_time">
                 <h6>Active Time Period</h6>
                 <p class="challenge-date">
@@ -39,38 +41,16 @@
               <h6>Available On <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i></h6>
               <div class="tag_box">
-                <div class="chip chip-primary">
-                  <div class="chip-body">
-                    <span class="chip-text">Sponsor</span>
-                    <div class="chip-closeable">
-                      <i class="feather icon-minus-circle"></i>
+                <% @challenge.tag_list.each do |tag| %>
+                  <div class="chip <%= tags_class %>">
+                    <div class="chip-body">
+                      <span class="chip-text"><%= tag.upcase_first %></span>
+                      <div class="chip-closeable remove-challenge-tag" data-val="<%= tag %>">
+                        <i class="feather icon-minus-circle"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="chip chip-success">
-                  <div class="chip-body">
-                    <span class="chip-text">2017</span>
-                    <div class="chip-closeable">
-                      <i class="feather icon-minus-circle"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="chip chip-warning">
-                  <div class="chip-body">
-                    <span class="chip-text">Outreach</span>
-                    <div class="chip-closeable">
-                      <i class="feather icon-minus-circle"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="chip chip-danger">
-                  <div class="chip-body">
-                    <span class="chip-text">tag</span>
-                    <div class="chip-closeable">
-                      <i class="feather icon-minus-circle"></i>
-                    </div>
-                  </div>
-                </div>
+                <% end %>
                 <div class="add_tag">
                   <i class="feather icon-plus-circle"></i>
                 </div>
