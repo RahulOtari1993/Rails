@@ -12,7 +12,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <h4><%= truncate(@challenge.name, :length => 80) %></h4>
+        <h4 class="challenge-name-container" data-challenge-id="<%= @challenge.id %>" data-campaign-id="<%= @challenge.campaign_id %>">
+          <%= truncate(@challenge.name, :length => 80) %>
+        </h4>
         <div class="container p-0">
           <div class="row">
             <div class="col-md-6">
@@ -41,16 +43,10 @@
               <h6>Available On <i class="fa fa-facebook" aria-hidden="true"></i>
                 <i class="fa fa-twitter" aria-hidden="true"></i></h6>
               <div class="tag_box">
-                <% @challenge.tag_list.each do |tag| %>
-                  <div class="chip <%= tags_class %>">
-                    <div class="chip-body">
-                      <span class="chip-text"><%= tag.upcase_first %></span>
-                      <div class="chip-closeable remove-challenge-tag" data-val="<%= tag %>">
-                        <i class="feather icon-minus-circle"></i>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
+                <div class="challenge-tags-container">
+                  <%= render 'tags_list' %>
+                </div>
+
                 <div class="add_tag">
                   <i class="feather icon-plus-circle"></i>
                 </div>

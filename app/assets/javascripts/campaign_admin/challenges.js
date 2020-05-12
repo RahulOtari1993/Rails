@@ -1179,4 +1179,22 @@ $(document).on('turbolinks:load', function () {
       reader.readAsDataURL(this.files[0]);
     }
   });
+
+  // Remove TAG from a Challenges
+  $('body').on('click', '.remove-challenge-tag', function (e) {
+    var campaignId = $('.challenge-name-container').data('campaign-id');
+    var challengeId = $('.challenge-name-container').data('challenge-id');
+
+    $.ajax({
+      url		: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
+      type	: 'POST',
+      dataType: 'script',
+      data	: {
+        tag	: $(this).data('val'),
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+
+  });
+
 });

@@ -1,5 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
-  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle]
+  before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
+                                       :remove_tag]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -185,6 +186,16 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
           title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
           message: "#{@challenge.is_approved ? 'Approving' : 'Disabling'} challenge failed, Try again later!"
       }
+    end
+  end
+
+  ## Remove a Tag From Challenge
+  def remove_tag
+    @challenge.tag_list.remove(params[:tag], parse: true) if params.has_key?('tag') && params[:tag].present?
+    if @challenge.save
+      @message = 'Tag removed from successfully!'
+    else
+      @message = 'Failed to remove a tag, Please try again!'
     end
   end
 

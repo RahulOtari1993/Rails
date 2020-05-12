@@ -68,6 +68,8 @@ Rails.application.routes.draw do
               post '/export_participants', to: 'challenges#export_participants'
               get '/duplicate', to: 'challenges#duplicate'
               get '/toggle', to: 'challenges#toggle'
+              post '/remove_tag', to: 'challenges#remove_tag'
+              post '/add_tag', to: 'challenges#add_tag'
             end
           end
         end

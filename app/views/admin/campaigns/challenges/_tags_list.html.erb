@@ -1,0 +1,10 @@
+<% @challenge.tag_list.each do |tag| %>
+  <div class="chip <%= tags_class %>">
+    <div class="chip-body">
+      <span class="chip-text"><%= tag.upcase_first %></span>
+      <div class="chip-closeable remove-challenge-tag" data-val="<%= tag %>">
+        <i class="feather icon-minus-circle"></i>
+      </div>
+    </div>
+  </div>
+<% end %>
