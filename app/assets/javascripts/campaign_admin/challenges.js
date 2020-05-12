@@ -1204,14 +1204,31 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.remove-challenge-tag', function (e) {
     var campaignId = $('.challenge-name-container').data('campaign-id');
     var challengeId = $('.challenge-name-container').data('challenge-id');
+    var tag = $(this).data('val');
 
-    $.ajax({
-      url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
-      type: 'POST',
-      dataType: 'script',
-      data: {
-        tag: $(this).data('val'),
-        authenticity_token: $('[name="csrf-token"]')[0].content,
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to remove this tag?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Remove it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      console.log("result", result.value);
+      if (result.value) {
+        $.ajax({
+          url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
+          type: 'POST',
+          dataType: 'script',
+          data: {
+            tag: tag,
+            authenticity_token: $('[name="csrf-token"]')[0].content,
+          }
+        });
       }
     });
   });

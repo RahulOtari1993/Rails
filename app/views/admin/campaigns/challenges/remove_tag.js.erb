@@ -1,4 +1,5 @@
 $('.challenge-tags-container').html('');
+$('.challenge-tags-container').html("<%= escape_javascript render 'admin/campaigns/challenges/tags_list' %>");
 
 Swal.fire({
   title: 'Remove a Tag',
@@ -6,5 +7,3 @@ Swal.fire({
   confirmButtonClass: 'btn btn-primary',
   buttonsStyling: false,
 });
-
-$('.challenge-tags-container').html("<%= escape_javascript render 'admin/campaigns/challenges/tags_list' %>");
