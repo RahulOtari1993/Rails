@@ -43,6 +43,7 @@ class Challenge < ApplicationRecord
     # include ActiveModel::Serializers::JSON
   #TODO : While Approving a Challenge, Check if ORG do have Social Media Config Available
   #TODO : Validation Needs to be added
+  scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
 
   ## Associations
   belongs_to :campaign
@@ -115,9 +116,103 @@ class Challenge < ApplicationRecord
     end
   end
 
+  ##for adding status column to datatable json response
   def as_json(*)
     super.tap do |hash|
       hash["status"] = status
     end
+  end
+
+  ##challenge platform filter
+  def self.challenge_side_bar_filter(filters)
+    query = 'id IS NOT NULL'
+    status_query_string = ''
+    platform_query_string = ''
+    type_query_string = ''
+    challenges = ''
+    status = []
+    parameters = []
+    challenge_type = []
+    filters.each do |key, value|
+      if key == 'status' && filters[key].present?
+        # status_query_string = query_string + ' OR is_approved IS ? '
+        value.each do |val|
+          if val == 'draft'
+            status_query_string = ' is_approved IS ?'
+            status << false
+          end
+          if val == 'active'
+            status_query_string = status_query_string + ' OR is_approved IS ?'
+            status << true
+          # elsif value == 'ended'
+           #  start_time = Time.now.in_time_zone(@time_zone).to_i
+           #  = " AND challenges.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', challenges.timezone))) >= :start_time"
+           # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+          end
+        end
+      elsif key == 'challenge_type' && filters[key].present?
+        type_query_string = ' AND challenge_type IN (:challenge_type)'
+        challenge_type << value
+      elsif key == 'platform_type' && filters[key].present?
+        platform_query_string = ' AND parameters = :parameters'
+        parameters << value
+      end
+    end
+    final_query = query + status_query_string + type_query_string + platform_query_string
+    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters[parameters] ) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    # filters.each do |filter|
+    #   if filter == "draft" 
+    #     query_string = 'is_approved IS ?'
+    #     challenges = self.where(is_approved: false) #self.where(:is_approved => false)
+    #   elsif filter == "active"
+    #     challenges = self.where(is_approved: true)
+    #   elsif filter == "scheduled"
+    #     scheduled_challenges = self.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+    #     challenges = self.where(:id => scheduled_challenges.pluck(:id))
+    #     query_string = 'id IN (?)'
+    #   elsif filter == "ended"
+    #     ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+    #     challenges = self.where(:id => ended_challenges.pluck(:id))
+    #   end
+
+    #   if filters.include?('draft') && filters.include?('active')
+    #     byebug
+    #     challenges = self
+    #     # query_string = 'id IN (?)'
+    #   elsif filters.include?('scheduled') && filters.include?('ended')
+    #     byebug
+    #     ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+    #     scheduled_challenges = self.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
+    #     challenge_ids = ended_challenges.pluck(:id) & scheduled_challenges.pluck(:id) 
+    #     challenges = self.where(:id => challenge_ids)
+    #   end
+
+    #   # elsif params["share"] == "true"
+    #   #   challenges = self.where(:challenge_type => 'share')
+    #   # elsif params["connect"] == "true"
+    #   #   challenges = self.where(:challenge_type => 'connect')
+    #   # elsif params["engage"] == "true"
+    #   #   challenges = self.where(:challenge_type => 'engage')
+    #   # elsif params["collect"] == "true"
+    #   #   challenges = self.where(:challenge_type => 'collect')
+    #   # elsif params["facebook"] == "true"
+    #   #   challenges = self.where(:parameters => 'facebook')
+    #   # elsif params["instagram"] == "true"
+    #   #   challenges = self.where(:parameters => 'instagram')
+    #   # elsif params["tumblr"] == "true"
+    #   #   challenges = self.where(:parameters => 'tumblr')
+    #   # elsif params["twitter"] == "true"
+    #   #   challenges = self.where(:parameters => 'twitter')
+    #   # elsif params["youtube"] == "true"
+    #   #   challenges = self.where(:parameters => 'youtube')
+    #   # elsif params["points"] == "true"
+    #   #   challenges = self.where(:reward_type => 'points')
+    #   # elsif params["prizes"] == "true"
+    #   #   challenges = self.where(:reward_type => 'prizes')
+    #   # else
+    #   # end
+    # end
+    return challenges
+    # where(:challenge_type => filter)
   end
 end
