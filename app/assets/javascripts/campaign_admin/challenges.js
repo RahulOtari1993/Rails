@@ -1233,4 +1233,33 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '.add-tag-btn', function (e) {
+    $('.add_tag_btngroup').show();
+    $('.add-tag-btn').hide();
+  });
+
+  // Remove Tag Addition UI from Challenge Popup
+  $('body').on('click', '.remove-tag-btn', function (e) {
+    $('.add_tag_btngroup').hide();
+    $('.add-tag-btn').show();
+  });
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '.submit-challenge-tag', function (e) {
+    var campaignId = $('.challenge-name-container').data('campaign-id');
+    var challengeId = $('.challenge-name-container').data('challenge-id');
+    var tag = $('#challenge_tags_input').val();
+
+    $.ajax({
+      url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/add_tag`,
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        tag: tag,
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+  });
 });

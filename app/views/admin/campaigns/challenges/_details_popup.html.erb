@@ -47,14 +47,18 @@
                   <%= render 'tags_list' %>
                 </div>
 
-                <div class="add_tag">
+                <div class="add_tag add-tag-btn">
                   <i class="feather icon-plus-circle"></i>
                 </div>
                 <div class="input-group add_tag_btngroup" style="display: none;">
-                  <input type="text" class="form-control" placeholder="Tag Name" aria-describedby="button-addon2">
-                  <div class="input-group-append" id="button-addon2">
-                    <button class="btn btn-primary waves-effect waves-light" type="button">Add Tag</button>
+                  <div class="add_tag remove-tag-btn">
+                    <i class="feather icon-minus-circle"></i>
                   </div>
+                  <%= select_tag 'challenge_tags_input',
+                                  options_for_select(all_tags_humanize),
+                                  class: 'form-control challenge-tags challenge-details-tags', multiple: 'multiple' %>
+
+                    <button class="btn btn-primary waves-effect waves-light submit-challenge-tag" type="button" style="margin-left: 15px;">Add Tag</button>
                 </div>
               </div>
             </div>

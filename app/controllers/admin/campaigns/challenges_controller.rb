@@ -1,6 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
-                                       :remove_tag]
+                                       :remove_tag, :add_tag]
   before_action :build_params, only: [:create, :update]
 
   def index
@@ -165,6 +165,16 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       @message = 'Tag removed from successfully!'
     else
       @message = 'Failed to remove a tag, Please try again!'
+    end
+  end
+
+  ## Add a Tag to Challenge
+  def add_tag
+    @challenge.tag_list.add(params[:tag].join(', '), parse: true) if params.has_key?('tag') && params[:tag].present?
+    if @challenge.save
+      @message = 'Tag added successfully!'
+    else
+      @message = 'Failed to add a tag, Please try again!'
     end
   end
 
