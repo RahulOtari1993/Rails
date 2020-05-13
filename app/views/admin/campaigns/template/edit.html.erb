@@ -21,24 +21,15 @@
             <div class="card-content">
               <div class="card-body">
                 <div class="col-12">
-                  <button class="add-data-btn btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light preview-changes" type="button">
-                    <span><i class="feather icon-eye"></i> Preview</span>
-                  </button>
-
                   <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light preview-changes action-edit" type="button">
                     <span><i class="feather icon-settings"></i> Setting</span>
                   </button>
                 </div>
 
                 <div class="col-12" style="margin-top: 15px">
-                  <iframe width="1200px" height="1500px" src="<%= template_url(c_id: @campaign.id) %>" id='my-iframe'></iframe>
-
-                  <!--$('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url(https://perksocial-dev.s3.amazonaws.com/uploads/reward/image/5/thumb_89f4b935166833.5b5eff5a8b60c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATZLVKCR23UMRD5YW%2F20200430%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200430T071035Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=56445c4d3cf313736f428621913558dfab0381280ce8de7dd91e23c4dd75dd45) !important;}  </style>"));-->
-
-                  <script>
-
-                    // $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-                  </script>
+                  <iframe width="1200px" height="1500px" src="<%= template_url(c_id: @campaign.id) %>" id='template-challenge-iframe'></iframe>
+                  <!-- $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'> .cover-container{background-image:url(https://perksocial-dev.s3.amazonaws.com/uploads/reward/image/5/thumb_89f4b935166833.5b5eff5a8b60c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATZLVKCR23UMRD5YW%2F20200430%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200430T071035Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=56445c4d3cf313736f428621913558dfab0381280ce8de7dd91e23c4dd75dd45) !important;}  </style>"));
+                  $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'> .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));-->
                 </div>
               </div>
             </div>
@@ -101,8 +92,8 @@
 
   $('#font-selector').fontselect();
 
-  $('.campaign-template-section [data-toggle="collapse"]').on('click',function(e){
-    if ( $(this).parents('.accordion').find('.collapse.show') ){
+  $('.campaign-template-section [data-toggle="collapse"]').on('click', function (e) {
+    if ($(this).parents('.accordion').find('.collapse.show')) {
       var idx = $(this).index('[data-toggle="collapse"]');
       if (idx == $('.collapse.show').index('.collapse')) {
         e.stopPropagation();
