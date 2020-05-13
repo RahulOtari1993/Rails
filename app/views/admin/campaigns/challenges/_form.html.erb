@@ -105,11 +105,29 @@
                   <div class="row">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <h3>USER SEGMENTS</h3>
-                      <hr style="margin-bottom: 0px !important;">
+
+                      <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">
+                        <%= form.check_box :filter_applied, {} %>
+                        <span class="vs-checkbox">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                        </span>
+                        <span class="">Apply segments to target this challenge to specific users</span>
+                      </div>
+
+                      <div class="filter-type-container filters-container">
+                        User match
+                        <%= form.select :filter_type,
+                                        options_for_select(filter_type), {}, class: 'form-control filter-type-dd' %>
+                        of the following condition
+
+                        <hr style="margin-bottom: 0px !important;">
+                      </div>
                     </div>
                   </div>
 
-                  <div class="row">
+                  <div class="row filters-container">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="form-group">
                         <div class="table-responsive">

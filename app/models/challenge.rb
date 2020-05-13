@@ -37,6 +37,8 @@
 #  longitude          :float
 #  latitude           :float
 #  location_distance  :integer
+#  filter_type        :integer          default("0")
+#  filter_applied     :boolean          default("false")
 #
 
 class Challenge < ApplicationRecord

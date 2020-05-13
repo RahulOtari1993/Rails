@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.float "latitude"
     t.integer "location_distance"
     t.integer "filter_type", default: 0
+    t.boolean "filter_applied", default: false
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 

@@ -1262,4 +1262,13 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '#challenge_filter_applied', function (e) {
+    if ($('#challenge_filter_applied').is(":checked")) {
+      $('.filters-container').show();
+    } else {
+      $('.filters-container').hide();
+    }
+  });
 });
