@@ -1276,12 +1276,12 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // Replace ID of Newly Added Fields of User Segment
-  function replaceTagFields(stringDetails, phaseCounter) {
+  // Replace Chip Value & Chip Class of Newly Added Tags of Challenge Filter
+  function replaceTagFields(stringDetails, tagValue) {
     var chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
     var chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
 
-    stringDetails = stringDetails.replace(/---TAG-VAL---/g, phaseCounter);
+    stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagValue);
     stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
     return stringDetails;
   }
@@ -1291,12 +1291,12 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
-  }).on("select2:selecting", function(e) {
-    console.log("Hii");
+  }).on("select2:select", function(e) {
     let tagTemplate = $('#filter-tag-template').html();
-    let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
-
-    tagHtml = replaceTagFields(tagTemplate, 'hello');
+    tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text());
     $('.filter-tag-selection').append(tagHtml);
+
+    // Reset Tags Selector
+    $('.challenge-tags-filter').val(null).trigger('change');
   });
 });
