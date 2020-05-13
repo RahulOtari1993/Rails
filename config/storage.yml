@@ -13,8 +13,12 @@ aws:
   service: S3
   access_key_id: AKIATZLVKCR23UMRD5YW
   secret_access_key: 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
-  aws_bucket_name: perksocial-dev
-  aws_s3_region: us-east-1
+  bucket: perksocial-dev
+  region: us-east-1
+  # aws_bucket_name: perksocial-dev
+  # aws_s3_region: us-east-1
+
+  # bucket: <%= Rails.application.credentials.bucketeer_bucket_name %>
 
 # amazon:
 #   service: S3

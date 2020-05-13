@@ -1,6 +1,6 @@
 CarrierWave.configure do |config|
   config.storage    = :aws
-  config.aws_bucket = Rails.application.credentials[Rails.env.to_sym][:aws][:aws_bucket_name] # for AWS-side bucket access permissions config, see section below
+  config.aws_bucket = Rails.application.credentials[Rails.env.to_sym][:aws][:bucket] # for AWS-side bucket access permissions config, see section below
   # config.aws_acl    = 'private'
 
   # Optionally define an asset host for configurations that are fronted by a
@@ -20,7 +20,7 @@ CarrierWave.configure do |config|
   config.aws_credentials = {
     access_key_id:     Rails.application.credentials[Rails.env.to_sym][:aws][:access_key_id],
     secret_access_key: Rails.application.credentials[Rails.env.to_sym][:aws][:secret_access_key],
-    region:            Rails.application.credentials[Rails.env.to_sym][:aws][:aws_s3_region],
+    region:            Rails.application.credentials[Rails.env.to_sym][:aws][:region],
     stub_responses:    Rails.env.test? # Optional, avoid hitting S3 actual during tests
   }
 
