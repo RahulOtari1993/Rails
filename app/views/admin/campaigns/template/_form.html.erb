@@ -1,219 +1,162 @@
-<%= form_with(url: admin_campaign_template_path(campaign, template), method: 'put', class: 'edit-template-details-form', model: template, local: true) do |form| %>
-  <div class="form-body">
-    <div class="row">
-      <div class="col-12">
-        <% if template.errors.any? %>
-          <%= render '/shared/render_errors', resource: template %>
-        <% end %>
-      </div>
-
-      <div class="col-12">
-        <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light preview-changes action-edit" type="button">
-          <span><i class="feather icon-settings"></i> Setting</span>
-        </button>
-      </div>
-
-      <div class="col-12" style="margin-top: 15px">
-        <iframe width="1200px" height="1500px" src="<%= template_url(c_id: @campaign.id) %>" id='my-iframe'></iframe>
-
-        <!--$('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url(https://perksocial-dev.s3.amazonaws.com/uploads/reward/image/5/thumb_89f4b935166833.5b5eff5a8b60c.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATZLVKCR23UMRD5YW%2F20200430%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200430T071035Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=56445c4d3cf313736f428621913558dfab0381280ce8de7dd91e23c4dd75dd45) !important;}  </style>"));-->
-
-        <script>
-          function readHeaderImage(){
-            var file = document.getElementById("campaign_template_detail_header_background_image").files[0];
-            var reader = new FileReader();
-            reader.onloadend = function(){
-              var iFrame = $('iframe').contents();
-              iFrame.find("#bg-cover-image")
-                  .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-            }
-            if(file){
-              reader.readAsDataURL(file);
-            }else{
-            }
-          }
-
-          function readHeaderLogo(){
-            var file = document.getElementById("campaign_template_detail_header_logo").files[0];
-            var reader = new FileReader();
-            reader.onloadend = function(){
-              var iFrame = $('iframe').contents();
-              iFrame.find(".header-logo").attr('src', reader.result);
-              // .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-            }
-            if(file){
-              reader.readAsDataURL(file);
-            }else{
-            }
-          }
-
-          $('.preview-changes').on('click', function (e) {
-            console.log("Preview Clicked");
-            readHeaderImage();
-            readHeaderLogo();
-
-            var iFrame = $('iframe').contents();
-
-            var footerFontColor = $('#campaign_template_detail_footer_font_color').val();
-            var footerBgColor = $('#campaign_template_detail_footer_background_color').val();
-
-            console.log("footerFontColor", footerFontColor);
-            console.log("footerBgColor", footerBgColor);
-            iFrame.find(".page-footer")
-                .append($("<style type='text/css'>  .page-footer {background-color: " + footerBgColor + " !important; color: "+ footerFontColor +" !important;}  </style>"));
-
-            var footerFontSize = $('#campaign_template_detail_footer_font_size').val();
-            console.log("footerFontSize", footerFontSize);
-            iFrame.find(".page-footer")
-                .append($("<style type='text/css'>  .page-footer p, .page-footer a {font-size: " + footerFontSize + "px !important; color: "+ footerFontColor +" !important;} </style>"));
 
 
-            var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
-            selectedFont = selectedFont.split(':');
-            console.log("Selected Fonts", selectedFont[0]);
+  <div class="col-sm-12">
+    <% if template.errors.any? %>
+      <%= render '/shared/render_errors', resource: template %>
+    <% end %>
+  </div>
 
-            iFrame.find(".page-footer")
-                .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
+  <div class="col-sm-12 data-field-col">
+    <h4>Header Details</h4>
+  </div>
 
-            iFrame.find(".custom-header")
-                .html($('#campaign_template_detail_header_text').val());
-
-            iFrame.find(".custom-header")
-                .append($("<style type='text/css'>  .custom-header {font-size: " + $('#campaign_template_detail_header_font_size').val() + "px !important; color: "+ $('#campaign_template_detail_header_font_color').val() +" !important;} </style>"));
-
-          })
-          // $('iframe').contents().find("#bg-cover-image").append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
-        </script>
-      </div>
-
-      <div class="col-12">
-        <h4>Header Details</h4>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :header_background_image, 'Header Background Image' %>
-          <div class="custom-file">
-            <%= form.file_field :header_background_image, class: "custom-file-input" %>
-            <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :header_logo, 'Header Logo' %>
-          <div class="custom-file">
-            <%= form.file_field :header_logo, class: "custom-file-input" %>
-            <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :header_text, 'Header Text' %>
-          <div class="position-relative">
-            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :header_font_color, 'Header Font Color' %>
-          <div class="position-relative">
-            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :header_font_size, 'Header Font Size' %>
-          <div class="position-relative">
-            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <h4>Footer Details</h4>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :footer_background_color, 'Footer Background Color' %>
-          <div class="position-relative">
-            <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :footer_font_color, 'Footer Font Color' %>
-          <div class="position-relative">
-            <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :footer_font_size, 'Footer Font Size' %>
-          <div class="position-relative">
-            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <h4>Favicon Details</h4>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :favicon_file, 'Favicon Icon' %>
-          <div class="custom-file">
-            <%= form.file_field :favicon_file, class: "custom-file-input" %>
-            <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6">
-        <div class="form-group">
-          <%= form.label :footer_font_size, 'Select Fonts' %>
-          <div class="position-relative">
-            <input id="font-selector" type="text" />
-          </div>
-        </div>
-      </div>
-
-      <div class="col-12">
-        <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
-        <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
-      </div>
+  <div class="col-sm-12 data-field-col">
+    <label for="data-name">Header Background Image</label>
+    <div class="custom-file">
+      <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
+      <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label' %>
     </div>
   </div>
-<% end %>
 
-<script>
-  $(function(){
-    $('#font-selector').fontselect();
-    //     .change(function(){
-    //
-    //   // replace + signs with spaces for css
-    //   var font = $(this).val().replace(/\+/g, ' ');
-    //
-    //   // split font into family and weight
-    //   font = font.split(':');
-    //
-    //   // set family on paragraphs
-    //   $('p').css('font-family', font[0]);
-    //
-    //   console.log("FONTS", font[0]);
-    // });
-  });
-</script>
+  <div class="col-sm-12 data-field-col">
+    <label for="data-name">Header Logo</label>
+    <div class="custom-file">
+      <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
+      <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
+    </div>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :header_text, 'Header Text' %>
+    <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :header_font_color, 'Header Font Color' %>
+    <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :header_font_size, 'Header Font Size' %>
+    <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
+  </div>
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :header_logo, '' %>
+<!--      <div class="custom-file">-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :header_text, '' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :header_font_color, 'Header Font Color' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :header_font_size, 'Header Font Size' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="col-sm-12 data-field-col">
+    <h4>Footer Details</h4>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :footer_background_color, 'Footer Background Color' %>
+    <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :footer_font_color, 'Footer Font Color' %>
+    <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :footer_font_size, 'Footer Font Size' %>
+    <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
+  </div>
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :footer_background_color, 'Footer Background Color' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :footer_font_color, 'Footer Font Color' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :footer_font_size, 'Footer Font Size' %>
+<!--      <div class="position-relative">-->
+        <%#= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <div class="col-sm-12 data-field-col">
+    <h4>Favicon Details</h4>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :favicon_file, 'Favicon Icon' %>
+    <div class="custom-file">
+      <%= form.file_field :favicon_file, class: "custom-file-input" %>
+      <%= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
+    </div>
+  </div>
+
+  <div class="col-sm-12 data-field-col">
+    <%= form.label :footer_font_size, 'Select Fonts' %>
+    <div class="position-relative">
+      <input id="font-selector" type="text"/>
+    </div>
+  </div>
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :favicon_file, 'Favicon Icon' %>
+<!--      <div class="custom-file">-->
+        <%#= form.file_field :favicon_file, class: "custom-file-input" %>
+        <%#= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="col-12">-->
+<!--    <div class="form-group">-->
+      <%#= form.label :footer_font_size, 'Select Fonts' %>
+<!--      <div class="position-relative">-->
+<!--        <input id="font-selector" type="text"/>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
