@@ -108,13 +108,19 @@
         </div>
       </div>
 
-      <section id="data-list-view" class="data-list-view-header">
-        <!-- add new sidebar starts -->
+      <section class="data-list-view-header campaign-template-section">
         <div class="add-new-data-sidebar">
           <div class="overlay-bg"></div>
           <div class="add-new-data">
             <%= form_with(url: admin_campaign_template_path(@campaign, @template_details), method: 'put',
                           class: 'edit-template-details-form', model: @template_details, local: true) do |form| %>
+
+              <div class="col-sm-12">
+                <% if @template_details.errors.any? %>
+                  <%= render '/shared/render_errors', resource: @template_details %>
+                <% end %>
+              </div>
+
               <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
                 <div>
                   <h4 class="text-uppercase">Campaign Template Settings</h4>
@@ -139,24 +145,30 @@
             <% end %>
           </div>
         </div>
-        <!-- add new sidebar ends -->
       </section>
     </div>
   </div>
 </div>
 <script>
-  $('.action-edit').on("click", function (e) {
+  $('.action-edit').on('click', function (e) {
     e.stopPropagation();
-    $(".add-new-data").addClass("show");
-    $(".overlay-bg").addClass("show");
+    $('.add-new-data').addClass('show');
+    $('.overlay-bg').addClass('show');
   });
 
-  $(".hide-data-sidebar, .cancel-data-btn, .overlay-bg").on("click", function () {
-    $(".add-new-data").removeClass("show")
-    $(".overlay-bg").removeClass("show")
-    $("#data-name, #data-price").val("")
-    $("#data-category, #data-status").prop("selectedIndex", 0)
+  $('.hide-data-sidebar, .cancel-data-btn, .overlay-bg').on('click', function () {
+    $('.add-new-data').removeClass('show')
+    $('.overlay-bg').removeClass('show')
   });
 
   $('#font-selector').fontselect();
+
+  $('.campaign-template-section [data-toggle="collapse"]').on('click',function(e){
+    if ( $(this).parents('.accordion').find('.collapse.show') ){
+      var idx = $(this).index('[data-toggle="collapse"]');
+      if (idx == $('.collapse.show').index('.collapse')) {
+        e.stopPropagation();
+      }
+    }
+  });
 </script>
