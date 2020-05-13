@@ -371,6 +371,10 @@
   width: 100%;
 }
 
+.tag_box .select2-selection--multiple {
+  border-color: #7367F0 !important;
+}
+
 /*Google Map CSS*/
 #map-container {
   height: 400px;
@@ -501,6 +505,7 @@
   border-radius: 8px;
   overflow: hidden;
   padding: 12px;
+  position: relative;
 }
 
 .challenge-description {
@@ -691,6 +696,6 @@
   }
 }
 
-.icon_side_margin{
+.icon_side_margin {
   margin: 0 5px;
 }

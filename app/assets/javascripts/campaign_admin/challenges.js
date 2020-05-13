@@ -966,18 +966,20 @@ $(document).on('turbolinks:load', function () {
       cancelButtonClass: 'btn btn-danger ml-1',
       buttonsStyling: false,
     }).then(function (result) {
-      $('.loader').fadeIn();
-      $.ajax({
-        type: 'GET',
-        url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
-        success: function (data) {
-          $('.loader').fadeOut();
-          swalNotify(data.title, data.message);
-          if (data.success) {
-            $('#challenge-list-table').DataTable().ajax.reload(null, false);
+      if (result.value) {
+        $('.loader').fadeIn();
+        $.ajax({
+          type: 'GET',
+          url: "/admin/campaigns/" + campaignId + "/challenges/" + challengeId + "/toggle",
+          success: function (data) {
+            $('.loader').fadeOut();
+            swalNotify(data.title, data.message);
+            if (data.success) {
+              $('#challenge-list-table').DataTable().ajax.reload(null, false);
+            }
           }
-        }
-      });
+        });
+      }
     });
   });
 
@@ -1204,13 +1206,58 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.remove-challenge-tag', function (e) {
     var campaignId = $('.challenge-name-container').data('campaign-id');
     var challengeId = $('.challenge-name-container').data('challenge-id');
+    var tag = $(this).data('val');
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to remove this tag?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Remove it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
+          type: 'POST',
+          dataType: 'script',
+          data: {
+            tag: tag,
+            authenticity_token: $('[name="csrf-token"]')[0].content,
+          }
+        });
+      }
+    });
+  });
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '.add-tag-btn', function (e) {
+    $('.add_tag_btngroup').show();
+    $('.add-tag-btn').hide();
+  });
+
+  // Remove Tag Addition UI from Challenge Popup
+  $('body').on('click', '.remove-tag-btn', function (e) {
+    $('.add_tag_btngroup').hide();
+    $('.add-tag-btn').show();
+  });
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '.submit-challenge-tag', function (e) {
+    var campaignId = $('.challenge-name-container').data('campaign-id');
+    var challengeId = $('.challenge-name-container').data('challenge-id');
+    var tag = $('#challenge_tags_input').val();
 
     $.ajax({
-      url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
+      url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/add_tag`,
       type: 'POST',
       dataType: 'script',
       data: {
-        tag: $(this).data('val'),
+        tag: tag,
         authenticity_token: $('[name="csrf-token"]')[0].content,
       }
     });

@@ -1,2 +1,10 @@
 $('.show-challenge-details-container').html("<%= escape_javascript render 'admin/campaigns/challenges/details_popup' %>");
 $('#challenge-details-popup').modal('show');
+
+$('.challenge-tags').select2({
+  placeholder: "Select Tags",
+  tags: true,
+  maximumSelectionLength: 1,
+  dropdownAutoWidth: true,
+  width: '50%'
+});

@@ -27,3 +27,18 @@
 .product-action {
   padding-left: 42px !important;
 }
+
+.template-sidebar-btn-container {
+  margin-top: 0rem !important;
+}
+
+.template-sidebar-container {
+  height: 88vh !important;
+  overflow: auto !important;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.data-field-ts-1{
+  padding-top: 15px;
+}
