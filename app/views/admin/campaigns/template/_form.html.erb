@@ -1,3 +1,5 @@
+
+
 <div class="col-sm-12">
   <% if template.errors.any? %>
     <%= render '/shared/render_errors', resource: template %>
@@ -5,74 +7,98 @@
 </div>
 
 <div class="col-sm-12 data-field-col">
-  <h4>Header Details</h4>
-</div>
+  <div class="accordion" id="accordionExample0">
+    <div class="collapse-border-item collapse-header card collapse-bordered">
+      <div class="card-header" id="heading200" data-toggle="collapse" role="button" data-target="#collapse200" aria-expanded="false" aria-controls="collapse200">
+      <span class="lead collapse-title">
+        Header Details
+      </span>
+      </div>
 
-<div class="col-sm-12 data-field-col">
-  <label for="data-name">Header Background Image</label>
-  <div class="custom-file">
-    <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
-    <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-  </div>
-</div>
+      <div id="collapse200" class="collapse" aria-labelledby="heading200" data-parent="#accordionExample0">
+        <div class="card-body">
+          <div class="col-sm-12 data-field-col">
+            <label for="data-name">Header Background Image</label>
+            <div class="custom-file">
+              <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
+              <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+            </div>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <label for="data-name">Header Logo</label>
-  <div class="custom-file">
-    <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
-    <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-  </div>
-</div>
+          <div class="col-sm-12 data-field-col">
+            <label for="data-name">Header Logo</label>
+            <div class="custom-file">
+              <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
+              <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+            </div>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <%= form.label :header_text, 'Header Text' %>
-  <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
-</div>
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :header_text, 'Header Text' %>
+            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <%= form.label :header_font_color, 'Header Font Color' %>
-  <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
-</div>
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :header_font_color, 'Header Font Color' %>
+            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <%= form.label :header_font_size, 'Header Font Size' %>
-  <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
-</div>
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :header_font_size, 'Header Font Size' %>
+            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
+          </div>
+          
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :footer_font_size, 'Select Fonts' %>
+            <div class="position-relative">
+              <input id="font-selector" type="text"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="collapse-border-item card collapse-header">
+      <div class="card-header" id="heading210" data-toggle="collapse" role="button" data-target="#collapse210" aria-expanded="false" aria-controls="collapse210">
+      <span class="lead collapse-title">
+          Footer Details
+      </span>
+      </div>
+      <div id="collapse210" class="collapse" aria-labelledby="heading210" data-parent="#accordionExample0">
+        <div class="card-body">
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :footer_background_color, 'Footer Background Color' %>
+            <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <h4>Footer Details</h4>
-</div>
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :footer_font_color, 'Footer Font Color' %>
+            <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
+          </div>
 
-<div class="col-sm-12 data-field-col">
-  <%= form.label :footer_background_color, 'Footer Background Color' %>
-  <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
-</div>
-
-<div class="col-sm-12 data-field-col">
-  <%= form.label :footer_font_color, 'Footer Font Color' %>
-  <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
-</div>
-
-<div class="col-sm-12 data-field-col">
-  <%= form.label :footer_font_size, 'Footer Font Size' %>
-  <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
-</div>
-
-<div class="col-sm-12 data-field-col">
-  <h4>Favicon Details</h4>
-</div>
-
-<div class="col-sm-12 data-field-col">
-  <%= form.label :favicon_file, 'Favicon Icon' %>
-  <div class="custom-file">
-    <%= form.file_field :favicon_file, class: "custom-file-input" %>
-    <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-  </div>
-</div>
-
-<div class="col-sm-12 data-field-col">
-  <%= form.label :footer_font_size, 'Select Fonts' %>
-  <div class="position-relative">
-    <input id="font-selector" type="text"/>
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :footer_font_size, 'Footer Font Size' %>
+            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card collapse-header collapse-border-item">
+      <div class="card-header" id="heading220" data-toggle="collapse" role="button" data-target="#collapse220" aria-expanded="false" aria-controls="collapse220">
+      <span class="lead collapse-title">
+          Favicon Icon
+      </span>
+      </div>
+      <div id="collapse220" class="collapse" aria-labelledby="heading220" data-parent="#accordionExample0">
+        <div class="card-body">
+          <div class="col-sm-12 data-field-col">
+            <%= form.label :favicon_file, 'Favicon Icon' %>
+            <div class="custom-file">
+              <%= form.file_field :favicon_file, class: "custom-file-input" %>
+              <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
