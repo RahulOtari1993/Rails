@@ -218,7 +218,9 @@ a#connect-bttn.dark-fb-button {
   color: #fefefe;
 }
 
-
+.header-logo {
+  width: 100%;
+}
 @media (min-width: 70em) {
 
   .hero-content {
