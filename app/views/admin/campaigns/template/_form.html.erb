@@ -1,162 +1,78 @@
+<div class="col-sm-12">
+  <% if template.errors.any? %>
+    <%= render '/shared/render_errors', resource: template %>
+  <% end %>
+</div>
 
+<div class="col-sm-12 data-field-col">
+  <h4>Header Details</h4>
+</div>
 
-  <div class="col-sm-12">
-    <% if template.errors.any? %>
-      <%= render '/shared/render_errors', resource: template %>
-    <% end %>
+<div class="col-sm-12 data-field-col">
+  <label for="data-name">Header Background Image</label>
+  <div class="custom-file">
+    <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
+    <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
   </div>
+</div>
 
-  <div class="col-sm-12 data-field-col">
-    <h4>Header Details</h4>
+<div class="col-sm-12 data-field-col">
+  <label for="data-name">Header Logo</label>
+  <div class="custom-file">
+    <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
+    <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
   </div>
+</div>
 
-  <div class="col-sm-12 data-field-col">
-    <label for="data-name">Header Background Image</label>
-    <div class="custom-file">
-      <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
-      <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-    </div>
+<div class="col-sm-12 data-field-col">
+  <%= form.label :header_text, 'Header Text' %>
+  <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :header_font_color, 'Header Font Color' %>
+  <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :header_font_size, 'Header Font Size' %>
+  <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <h4>Footer Details</h4>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :footer_background_color, 'Footer Background Color' %>
+  <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :footer_font_color, 'Footer Font Color' %>
+  <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :footer_font_size, 'Footer Font Size' %>
+  <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <h4>Favicon Details</h4>
+</div>
+
+<div class="col-sm-12 data-field-col">
+  <%= form.label :favicon_file, 'Favicon Icon' %>
+  <div class="custom-file">
+    <%= form.file_field :favicon_file, class: "custom-file-input" %>
+    <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
   </div>
+</div>
 
-  <div class="col-sm-12 data-field-col">
-    <label for="data-name">Header Logo</label>
-    <div class="custom-file">
-      <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
-      <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-    </div>
+<div class="col-sm-12 data-field-col">
+  <%= form.label :footer_font_size, 'Select Fonts' %>
+  <div class="position-relative">
+    <input id="font-selector" type="text"/>
   </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :header_text, 'Header Text' %>
-    <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :header_font_color, 'Header Font Color' %>
-    <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :header_font_size, 'Header Font Size' %>
-    <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
-  </div>
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :header_logo, '' %>
-<!--      <div class="custom-file">-->
-
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :header_text, '' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :header_font_color, 'Header Font Color' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :header_font_size, 'Header Font Size' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <div class="col-sm-12 data-field-col">
-    <h4>Footer Details</h4>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :footer_background_color, 'Footer Background Color' %>
-    <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :footer_font_color, 'Footer Font Color' %>
-    <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :footer_font_size, 'Footer Font Size' %>
-    <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
-  </div>
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :footer_background_color, 'Footer Background Color' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :footer_font_color, 'Footer Font Color' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :footer_font_size, 'Footer Font Size' %>
-<!--      <div class="position-relative">-->
-        <%#= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-  <div class="col-sm-12 data-field-col">
-    <h4>Favicon Details</h4>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :favicon_file, 'Favicon Icon' %>
-    <div class="custom-file">
-      <%= form.file_field :favicon_file, class: "custom-file-input" %>
-      <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-    </div>
-  </div>
-
-  <div class="col-sm-12 data-field-col">
-    <%= form.label :footer_font_size, 'Select Fonts' %>
-    <div class="position-relative">
-      <input id="font-selector" type="text"/>
-    </div>
-  </div>
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :favicon_file, 'Favicon Icon' %>
-<!--      <div class="custom-file">-->
-        <%#= form.file_field :favicon_file, class: "custom-file-input" %>
-        <%#= form.label :header_logo, 'Choose file', class: 'custom-file-label' %>
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="col-12">-->
-<!--    <div class="form-group">-->
-      <%#= form.label :footer_font_size, 'Select Fonts' %>
-<!--      <div class="position-relative">-->
-<!--        <input id="font-selector" type="text"/>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
+</div>
