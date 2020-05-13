@@ -31,3 +31,19 @@
 .template-sidebar-btn-container {
   margin-top: 0rem !important;
 }
+
+.template-sidebar-container {
+  height: 88vh !important;
+  overflow: auto !important;
+}
+
+.template-sidebar-file-uploader:after {
+  background-color: #10163A !important;
+  border-left: 1px solid #414561 !important;;
+  color: #C2C6DC !important;;
+}
+
+.template-sidebar-file-uploader {
+  background-color: #10163A !important;
+  color: #C2C6DC !important;;
+}
