@@ -1275,4 +1275,28 @@ $(document).on('turbolinks:load', function () {
       $('.filters-container').hide();
     }
   });
+
+  // Replace ID of Newly Added Fields of User Segment
+  function replaceTagFields(stringDetails, phaseCounter) {
+    var chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
+    var chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
+
+    stringDetails = stringDetails.replace(/---TAG-VAL---/g, phaseCounter);
+    stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
+    return stringDetails;
+  }
+
+  // Tags Selection in Challenge Filter With Auto Suggestion
+  $('.challenge-tags-filter').select2({
+    placeholder: "Select Tag",
+    tags: true,
+    dropdownAutoWidth: true,
+  }).on("select2:selecting", function(e) {
+    console.log("Hii");
+    let tagTemplate = $('#filter-tag-template').html();
+    let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+
+    tagHtml = replaceTagFields(tagTemplate, 'hello');
+    $('.filter-tag-selection').append(tagHtml);
+  });
 });
