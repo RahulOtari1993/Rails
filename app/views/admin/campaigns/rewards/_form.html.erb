@@ -1,5 +1,6 @@
 <%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 <%= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
 
 <style type="text/css">
   .filter_hidden {
@@ -85,9 +86,13 @@
                               <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
+                              <div class="reward-editor quill-editor-height">
+                                <%= @reward.redemption_details.html_safe if @reward.description_details.present? %>
+                              </div>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :redemption_details, class: "form-control", id: 'label-textarea', rows: '3'%>
+                                  <%= f.hidden_field :redemption_details, class: "form-control redemption-txt-area" %>
+                                  <%#= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
@@ -96,9 +101,13 @@
                             <div class="form-group">
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
+                              <div class="reward-description-editor quill-editor-height">
+                                <%= @reward.description_details.html_safe if @reward.description_details.present? %>
+                              </div>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
+                                  <%= f.hidden_field :description_details, class: "form-control description-txt-area" %>
+                                  <%#= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>

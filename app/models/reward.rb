@@ -34,6 +34,11 @@ class Reward < ApplicationRecord
   has_many :users, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
 
+  has_one_attached :image
+  has_one_attached :image_actual
+  has_one_attached :photo_image
+  has_one_attached :thumb_image
+
   serialize :image
   validates :image, presence: true
 

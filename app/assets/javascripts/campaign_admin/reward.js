@@ -52,6 +52,7 @@ $(document).ready(function () {
       "url": "/admin/campaigns/" +  $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json",
       "dataSrc": "rewards",
       dataFilter: function(data, callback, settings){
+          console.log("------CampaignId-------", $('#reward-list-table').attr('campaign_id'))
           var json = jQuery.parseJSON(data);
           return JSON.stringify(json);
       },
@@ -212,6 +213,41 @@ $(document).ready(function () {
     $('.custom-file-label').html(fileName);
   })
 
+  //quill editor
+  // Fonts Config for Quill Editor
+  var Font = Quill.import('formats/font');
+  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
+  Quill.register(Font, true);
+
+  // Quill Editor Toolbar Config
+  var toolbar = {
+    modules: {
+      'formula': true,
+      'syntax': true,
+      'toolbar': [
+        [{'font': []}, {'size': []}],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{'color': []}, {'background': []}],
+        [{'script': 'super'}, {'script': 'sub'}],
+        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
+        ['clean']
+      ]
+    },
+    theme: 'snow'
+  };
+
+  // Quill Editor for reward description details
+  new Quill('.reward-description-editor', toolbar);
+  // Quill Editor for reward redemption details
+  new Quill('.reward-redemption-editor', toolbar);
+
+  // Add Form Details of Quill Editor to Campaign Form Fields
+  $('.edit-reward-form').on('submit', function () {
+    $('.description-txt-area').val($('.reward-description-editor .ql-editor').html());
+    $('.redemption-txt-area').val($('.reward-redemption-editor .ql-editor').html());
+  });
 
 })
 
