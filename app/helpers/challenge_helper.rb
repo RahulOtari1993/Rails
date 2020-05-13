@@ -225,4 +225,9 @@ module ChallengeHelper
   def tags_class
     ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary'].sample
   end
+
+  ## Return Challenge User Segment Filter Type Options
+  def filter_type
+    Challenge::filter_types.map{|k,v| [k == 'all_filters' ? 'All' : 'Any', v]}
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_083410) do
+ActiveRecord::Schema.define(version: 2020_05_13_110706) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,8 @@ ActiveRecord::Schema.define(version: 2020_05_08_083410) do
     t.float "longitude"
     t.float "latitude"
     t.integer "location_distance"
+    t.integer "filter_type", default: 0
+    t.boolean "filter_applied", default: false
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
