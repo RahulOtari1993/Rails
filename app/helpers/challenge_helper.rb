@@ -228,6 +228,11 @@ module ChallengeHelper
 
   ## Return Challenge User Segment Filter Type Options
   def filter_type
-    Challenge::filter_types.map{|k,v| [k == 'all_filters' ? 'All' : 'Any', v]}
+    Challenge::filter_types.map{|k,v| [k == 'all_filters' ? 'All' : 'Any', k]}
+  end
+
+  ## Show Hide User Segment
+  def display_user_segments
+    @challenge.filter_applied ? 'block' : 'none'
   end
 end

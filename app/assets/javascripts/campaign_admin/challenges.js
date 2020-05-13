@@ -1267,7 +1267,11 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '#challenge_filter_applied', function (e) {
     if ($('#challenge_filter_applied').is(":checked")) {
       $('.filters-container').show();
+      $('.campaign-user-segments-container input').prop('disabled', false);
+      $('.campaign-user-segments-container select').prop('disabled', false);
     } else {
+      $('.campaign-user-segments-container input').prop('disabled', true);
+      $('.campaign-user-segments-container select').prop('disabled', true);
       $('.filters-container').hide();
     }
   });

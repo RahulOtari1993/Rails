@@ -116,7 +116,7 @@
                         <span class="">Apply segments to target this challenge to specific users</span>
                       </div>
 
-                      <div class="filter-type-container filters-container">
+                      <div class="filter-type-container filters-container" style="display: <%= display_user_segments %>">
                         User match
                         <%= form.select :filter_type,
                                         options_for_select(filter_type), {}, class: 'form-control filter-type-dd' %>
@@ -127,7 +127,7 @@
                     </div>
                   </div>
 
-                  <div class="row filters-container">
+                  <div class="row filters-container" style="display: <%= display_user_segments %>">
                     <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
                       <div class="form-group">
                         <div class="table-responsive">
