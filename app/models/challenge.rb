@@ -63,6 +63,7 @@ class Challenge < ApplicationRecord
   enum reward_type: [:points, :prize]
   enum category: [:share, :engage, :amplify, :collection, :connect, :grow]
   enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom]
+  enum filter_type: { all_filters: 0, any_filter: 1}
 
   ## Mount Uploader for File Upload
   mount_uploader :image, ImageUploader
