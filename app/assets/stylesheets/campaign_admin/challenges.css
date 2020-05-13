@@ -404,6 +404,17 @@
   padding-top: 10px;
 }
 
+.add-tag-chip-btn:before {
+  color: #f2f2f2 !important;
+}
+
+.remove-tag-btn {
+  height: 24px;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-top: 7px;
+}
+
 @media screen and (max-width: 768px) {
   .new_challenge_box .card_box .left_box .fa {
     font-size: 40px;
