@@ -8,7 +8,7 @@
   <td width="30%">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_event]",
                    options_for_select(RewardFilter::EVENTS.map { |val| [val.humanize, val] },
-                    reward_event_value(filter, RewardFilter::EVENTS.first)),
+                    reward_event(filter, RewardFilter::EVENTS.first)),
                    { class: 'form-control challenge-event-dd',
                    required: true }%>
   </td>

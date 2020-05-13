@@ -86,12 +86,12 @@
                               <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
-                              <div class="reward-redemption-privacy-policy-editor quill-editor-height">
+                              <div class="reward-editor quill-editor-height">
                                 <%= @reward.redemption_details.html_safe if @reward.description_details.present? %>
                               </div>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.hidden_field :redemption_details, class: "form-control redemption-privacy-txt-area" %>
+                                  <%= f.hidden_field :redemption_details, class: "form-control redemption-txt-area" %>
                                   <%#= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
@@ -101,12 +101,12 @@
                             <div class="form-group">
                               <%= f.label :description_details %>
                               <span class="column-info">Additional information about this product to display to the user when the click details.</span>
-                              <div class="reward-privacy-policy-editor quill-editor-height">
+                              <div class="reward-description-editor quill-editor-height">
                                 <%= @reward.description_details.html_safe if @reward.description_details.present? %>
                               </div>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.hidden_field :description_details, class: "form-control privacy-txt-area" %>
+                                  <%= f.hidden_field :description_details, class: "form-control description-txt-area" %>
                                   <%#= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>

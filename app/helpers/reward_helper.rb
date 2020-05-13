@@ -34,7 +34,7 @@
   end
 
   ## User Segment Set Default Value of Event's User Segment Type
-  def reward_event_value(filter, value)
+  def reward_event(filter, value)
     if filter.present?
       filter.reward_event
     else
