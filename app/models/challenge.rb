@@ -141,11 +141,11 @@ class Challenge < ApplicationRecord
         # status_query_string = query_string + ' OR is_approved IS ? '
         value.each do |val|
           if val == 'draft'
-            status_query_string = ' is_approved IS ?'
+            status_query_string = ' OR is_approved IN (:is_approved)'
             status << false
           end
           if val == 'active'
-            status_query_string = status_query_string + ' OR is_approved IS ?'
+            status_query_string = status_query_string + ' OR is_approved IN (:is_approved)'
             status << true
           # elsif value == 'ended'
            #  start_time = Time.now.in_time_zone(@time_zone).to_i
@@ -157,65 +157,14 @@ class Challenge < ApplicationRecord
         type_query_string = ' AND challenge_type IN (:challenge_type)'
         challenge_type << value
       elsif key == 'platform_type' && filters[key].present?
-        platform_query_string = ' AND parameters = :parameters'
-        parameters << value
+        if Challenge.parameters.values_at(*Array(value)).present?
+          platform_query_string = ' AND parameters IN (:parameters)'
+          parameters << value
+        end
       end
     end
     final_query = query + status_query_string + type_query_string + platform_query_string
-    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters[parameters] ) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
-    # filters.each do |filter|
-    #   if filter == "draft" 
-    #     query_string = 'is_approved IS ?'
-    #     challenges = self.where(is_approved: false) #self.where(:is_approved => false)
-    #   elsif filter == "active"
-    #     challenges = self.where(is_approved: true)
-    #   elsif filter == "scheduled"
-    #     scheduled_challenges = self.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
-    #     challenges = self.where(:id => scheduled_challenges.pluck(:id))
-    #     query_string = 'id IN (?)'
-    #   elsif filter == "ended"
-    #     ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
-    #     challenges = self.where(:id => ended_challenges.pluck(:id))
-    #   end
-
-    #   if filters.include?('draft') && filters.include?('active')
-    #     byebug
-    #     challenges = self
-    #     # query_string = 'id IN (?)'
-    #   elsif filters.include?('scheduled') && filters.include?('ended')
-    #     byebug
-    #     ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
-    #     scheduled_challenges = self.select{|challenge| challenge.start.in_time_zone(challenge.timezone) > Time.now.in_time_zone(challenge.timezone)}
-    #     challenge_ids = ended_challenges.pluck(:id) & scheduled_challenges.pluck(:id) 
-    #     challenges = self.where(:id => challenge_ids)
-    #   end
-
-    #   # elsif params["share"] == "true"
-    #   #   challenges = self.where(:challenge_type => 'share')
-    #   # elsif params["connect"] == "true"
-    #   #   challenges = self.where(:challenge_type => 'connect')
-    #   # elsif params["engage"] == "true"
-    #   #   challenges = self.where(:challenge_type => 'engage')
-    #   # elsif params["collect"] == "true"
-    #   #   challenges = self.where(:challenge_type => 'collect')
-    #   # elsif params["facebook"] == "true"
-    #   #   challenges = self.where(:parameters => 'facebook')
-    #   # elsif params["instagram"] == "true"
-    #   #   challenges = self.where(:parameters => 'instagram')
-    #   # elsif params["tumblr"] == "true"
-    #   #   challenges = self.where(:parameters => 'tumblr')
-    #   # elsif params["twitter"] == "true"
-    #   #   challenges = self.where(:parameters => 'twitter')
-    #   # elsif params["youtube"] == "true"
-    #   #   challenges = self.where(:parameters => 'youtube')
-    #   # elsif params["points"] == "true"
-    #   #   challenges = self.where(:reward_type => 'points')
-    #   # elsif params["prizes"] == "true"
-    #   #   challenges = self.where(:reward_type => 'prizes')
-    #   # else
-    #   # end
-    # end
+    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
     return challenges
-    # where(:challenge_type => filter)
   end
 end
