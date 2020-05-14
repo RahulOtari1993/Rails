@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_110706) do
+ActiveRecord::Schema.define(version: 2020_05_14_072132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
-  create_table "api_participants", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "campaign_template_details", force: :cascade do |t|
@@ -211,17 +206,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.index ["user_id"], name: "index_organization_admins_on_user_id"
   end
 
-  create_table "organization_configs", force: :cascade do |t|
-    t.bigint "organization_id"
-    t.string "facebook_app_id"
-    t.string "facebook_app_secret"
-    t.string "google_client_id"
-    t.string "google_client_secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_organization_configs_on_organization_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "sub_domain", null: false
@@ -268,14 +252,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "jti"
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.boolean "allow_password_change", default: false
-    t.json "tokens"
-    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
-    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
-    t.index ["jti"], name: "index_participants_on_jti", unique: true
+    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
@@ -307,14 +284,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
-  end
-
-  create_table "reward_users", force: :cascade do |t|
-    t.integer "reward_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -414,7 +383,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -430,7 +398,6 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
-  add_foreign_key "organization_configs", "organizations"
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"
