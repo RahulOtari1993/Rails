@@ -47,6 +47,9 @@ Rails.application.routes.draw do
           ## Template Routes
           resources :template, only: [:edit, :update]
 
+          ## Campaign Config Routes
+          resources :configs, only: [:edit, :update], :controller => "campaign_configs"
+
           ## Rewards Routes
           resources :rewards do 
             collection do

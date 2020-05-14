@@ -56,9 +56,17 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "api_participants", force: :cascade do |t|
+  create_table "campaign_configs", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.string "twitter_app_id"
+    t.string "twitter_app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_configs_on_campaign_id"
   end
 
   create_table "campaign_template_details", force: :cascade do |t|
@@ -211,17 +219,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.index ["user_id"], name: "index_organization_admins_on_user_id"
   end
 
-  create_table "organization_configs", force: :cascade do |t|
-    t.bigint "organization_id"
-    t.string "facebook_app_id"
-    t.string "facebook_app_secret"
-    t.string "google_client_id"
-    t.string "google_client_secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_organization_configs_on_organization_id"
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "sub_domain", null: false
@@ -268,14 +265,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "jti"
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.boolean "allow_password_change", default: false
-    t.json "tokens"
-    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
-    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
-    t.index ["jti"], name: "index_participants_on_jti", unique: true
+    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
@@ -307,14 +297,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
-  end
-
-  create_table "reward_users", force: :cascade do |t|
-    t.integer "reward_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -416,12 +398,12 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "campaign_configs", "campaigns"
   add_foreign_key "campaign_template_details", "campaigns"
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
@@ -432,7 +414,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
-  add_foreign_key "organization_configs", "organizations"
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"

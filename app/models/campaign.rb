@@ -39,12 +39,14 @@ class Campaign < ApplicationRecord
   has_one  :domain_list, dependent: :destroy
   has_one  :campaign_template_detail, dependent: :destroy
   has_and_belongs_to_many :participants, dependent: :destroy
+  has_one :campaign_config, dependent: :destroy
 
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Callbacks
   after_create :assign_admins
   after_create :set_template_design
+  after_create :create_configs
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
@@ -84,5 +86,10 @@ class Campaign < ApplicationRecord
   ## Create & Set Template Details Entry for a Newly Created Campaign
   def set_template_design
     CampaignTemplateDetail.create!(campaign_id: self.id)
+  end
+
+  ## Create Empty Campaign Configs for Newly Created Campaign
+  def create_configs
+    CampaignConfig.create(campaign_id: self.id)
   end
 end
