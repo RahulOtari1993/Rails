@@ -44,7 +44,7 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   def set_details
     @campaign = Campaign.where(id: params[:id]).first
     @template = @campaign.campaign_template_detail if @campaign.present?
-    @configs = @campaign.campaign_config if @campaign.present?
+    @config = @campaign.campaign_config if @campaign.present?
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

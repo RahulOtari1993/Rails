@@ -3,37 +3,22 @@ class Admin::Campaigns::CampaignConfigsController < Admin::Campaigns::BaseContro
   end
 
   def update
-    # respond_to do |format|
-    #   if @campaign.update(campaign_params)
-    #     if @campaign.domain_type == 'sub_domain'
-    #       sub_domain = "#{@organization.sub_domain}.#{@campaign.domain}"
-    #     else
-    #       sub_domain = "#{@organization.sub_domain}#{@campaign.domain}"
-    #     end
-    #
-    #     @domain_list = DomainList.where(organization_id: @organization.id, campaign_id: @campaign.id).first
-    #
-    #     if @domain_list.update(domain: sub_domain)
-    #       format.html { redirect_to edit_admin_campaign_path(@campaign), notice: 'Campaign was successfully updated.' }
-    #       format.json { render :edit, status: :updated }
-    #     else
-    #       format.html { render :edit }
-    #       format.json { render json: @domain_list.errors, status: :unprocessable_entity }
-    #     end
-    #   else
-    #     format.html { render :edit }
-    #     format.json { render json: @campaign.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    respond_to do |format|
+      if @config.update(campaign_config_params)
+        format.html { redirect_to edit_admin_campaign_config_path(@campaign, @config), notice: 'Campaign configs were successfully updated.' }
+        format.json { render :edit, status: :updated }
+      else
+        format.html { render :edit }
+        format.json { render json: @config.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def campaign_params
-    params.require(:campaign_config).permit(:name, :domain, :organization_id, :domain_type, :twitter, :rules,
-                                     :privacy, :terms, :contact_us, :faq_title, :faq_content, :prizes_title,
-                                     :general_title, :general_content, :my_account_title, :how_to_earn_title,
-                                     :how_to_earn_content, :css, :seo)
+  def campaign_config_params
+    params.require(:campaign_config).permit(:facebook_app_id, :facebook_app_secret, :google_client_id,
+                                            :google_client_secret, :twitter_app_id, :twitter_app_secret)
   end
 end
