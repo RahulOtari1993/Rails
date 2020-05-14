@@ -1302,4 +1302,9 @@ $(document).on('turbolinks:load', function () {
     // Reset Tags Selector
     $('.challenge-tags-filter').val(null).trigger('change');
   });
+
+  // Remove Tag From Challenge Filters
+  $('body').on('click', '.filter-tag-selection .chip-closeable', function (e) {
+    $(this).parent().parent().remove();
+  });
 });
