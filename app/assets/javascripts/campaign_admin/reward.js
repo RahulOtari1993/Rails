@@ -562,6 +562,20 @@ $(document).ready(function () {
       });
     }
   }, 2000);
+
+  // Add Tag Addition UI from Challenge Popup
+  $('body').on('click', '#reward_filter_applied', function (e) {
+    if ($('#reward_filter_applied').is(":checked")) {
+      $('.filters-container').show();
+      $('.reward-rule-segments-container input').prop('disabled', false);
+      $('.reward-rule-segments-container select').prop('disabled', false);
+    } else {
+      $('.reward-rule-segments-container input').prop('disabled', true);
+      $('.reward-rule-segments-container select').prop('disabled', true);
+      $('.filters-container').hide();
+    }
+  });
+
 })
 
 

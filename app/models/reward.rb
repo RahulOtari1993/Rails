@@ -48,6 +48,7 @@ class Reward < ApplicationRecord
   has_one_attached :photo_image
   has_one_attached :thumb_image
 
+  enum filter_type: { all_filters: 0, any_filter: 1 }
   serialize :image
   validates :image, presence: true
 
