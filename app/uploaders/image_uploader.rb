@@ -1,4 +1,9 @@
 class ImageUploader < CarrierWave::Uploader::Base
+  include CarrierWave::ImageOptimizer
+
+  version :thumbnail do
+    process optimize: [{ quality: 50 }]
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -54,5 +59,18 @@ class ImageUploader < CarrierWave::Uploader::Base
   ## Check Whether you want to create Thumbnail or NOT
   def thumb?(file_name)
     model.class.to_s != 'CampaignTemplateDetail'
+  end
+
+  def optimize
+    manipulate! do |img|
+        return img unless img.mime_type.match /image\/jpeg/
+        img.strip
+        img.combine_options do |c|
+            c.quality "80"
+            c.depth "8"
+            c.interlace "plane"
+        end
+        img
+    end
   end
 end
