@@ -77,4 +77,9 @@
       type.include?('challenges-completed') ? 'block' : 'none'
     end
   end
+
+  ## Show Hide User Segment
+  def rule_display_user_segments
+    @reward.filter_applied ? 'block' : 'none'
+  end
 end

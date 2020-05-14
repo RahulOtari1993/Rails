@@ -160,7 +160,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   def reward_params
     return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
                            :image,:image_content_type, :selection, :start, :finish, :feature, :points,
-                            :is_active, :redemption_details, :description_details, :terms_conditions,
+                            :is_active, :redemption_details, :description_details, :terms_conditions, :filter_applied, :filter_type,
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                             :reward_value, :reward_event], reward_rules_attributes: [:id, :reward_id, :type, :value, :condition])
     return_params[:start] = Chronic.parse(params[:reward][:start])

@@ -13,7 +13,7 @@
                    required: true }%>
   </td>
 
-  <td width="30%" class="segment-conditions-container">
+  <td width="30%" class="reward-segment-conditions-container">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, reward_condition_value(filter, '')), {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-points',id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'points']),
@@ -30,13 +30,13 @@
                    {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-gender',
                    id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}", disabled: reward_make_disabled(filter, ['gender']),prompt: 'Select Condition',style: "display:#{reward_make_visible(filter, ['gender'])};",required: true} %>
 
-    <%= select_tag "challenge[challenge_filters_attributes][#{reward_name_convention(filter)}][challenge_condition]",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][challenge_condition]",
                    options_for_select([['Is', 'is']], reward_condition_value(filter, 'is')),
                    { class: 'form-control reward-segment-conditions-dd reward-segment-conditions-rewards sreward-egment-conditions-challenges', disabled: reward_make_disabled(filter, ['rewards', 'challenge']), style: "display:#{reward_make_visible(filter, ['rewards', 'challenge'])};",id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",readonly: true } %>
 
   </td>
 
-  <td width="30%" class="segment-values-container">
+  <td width="30%" class="reward-segment-values-container">
     <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",
                        reward_event_value(filter, nil, 'age'),
                        class: 'form-control reward-segment-value-age', disabled: reward_make_disabled(filter, ['age']),

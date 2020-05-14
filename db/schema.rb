@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_110706) do
+ActiveRecord::Schema.define(version: 2020_05_14_075845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -347,6 +347,8 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.text "actual_image_url"
     t.integer "image_width"
     t.integer "image_height"
+    t.integer "filter_type", default: 0
+    t.boolean "filter_applied", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
