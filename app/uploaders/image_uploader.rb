@@ -2,7 +2,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::ImageOptimizer
 
   version :thumbnail do
+    process :resize_to_fit => [100, 100]
     process optimize: [{ quality: 50 }]
+  end
+  version :medium do
+    process :quality => 85
   end
 
   # Include RMagick or MiniMagick support:
