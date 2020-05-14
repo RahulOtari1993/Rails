@@ -16,6 +16,7 @@
 //= require turbolinks
 
 //= require vendors/vendors.min
+//= require vendors/extensions/toastr.min
 //= require vendors/charts/apexcharts.min
 //= require vendors/extensions/tether.min
 //= require vendors/extensions/shepherd.min

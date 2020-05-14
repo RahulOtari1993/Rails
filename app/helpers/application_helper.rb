@@ -2,10 +2,10 @@ module ApplicationHelper
 
   def flash_toaster_class(level)
     case level
-    when 'notice' then "error"
-    when 'success' then "error"
+    when 'notice' then "success"
+    when 'success' then "success"
     when 'error' then "error"
-    when 'alert' then "error"
+    when 'alert' then "warning"
     end
   end
 

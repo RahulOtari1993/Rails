@@ -20,7 +20,9 @@
           <div class="card">
             <div class="card-content">
               <div class="card-body">
-                <%= render 'admin/campaigns/campaign_configs/form.html.erb', campaign: @campaign %>
+                <%= render 'shared/flash_messages' %>
+
+                <%= render 'admin/campaigns/campaign_configs/form.html.erb', campaign: @campaign, config: @config %>
               </div>
             </div>
           </div>

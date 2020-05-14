@@ -1,1 +1,81 @@
-Welcome to Configs
+<%= form_with(url: admin_campaign_config_path(campaign, config), method: 'put', class: 'edit-campaign-config-form', model: config, local: true) do |form| %>
+  <div class="form-body">
+    <div class="row">
+      <div class="col-12">
+        <% if config.errors.any? %>
+          <%= render '/shared/render_errors', resource: config %>
+        <% end %>
+      </div>
+
+      <div class="col-12">
+        <h4>Facebook</h4>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :facebook_app_id, 'App ID' %>
+          <div class="position-relative">
+            <%= form.text_field :facebook_app_id, class: "form-control", placeholder: "727179407420520" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :facebook_app_secret, 'App Secret' %>
+          <div class="position-relative">
+            <%= form.text_field :facebook_app_secret, class: "form-control", placeholder: "17561b806b6j1f0k3d3dbf094235bd09" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <h4>Google</h4>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :google_client_id, 'Client ID' %>
+          <div class="position-relative">
+            <%= form.text_field :google_client_id, class: "form-control", placeholder: "54202115397-oa3h4rc7tj09i44ceoagbp5ilo7ncr0d.apps.googleusercontent.com" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :google_client_secret, 'Client Secret' %>
+          <div class="position-relative">
+            <%= form.text_field :google_client_secret, class: "form-control", placeholder: "cKq9yi1fob_kaVHdFHpynrWg" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <h4>Twitter</h4>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :twitter_app_id, 'App ID' %>
+          <div class="position-relative">
+            <%= form.text_field :twitter_app_id, class: "form-control", placeholder: "aTfHt5zPcsJet9FXeMk4VzHIk" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :twitter_app_secret, 'App Secret' %>
+          <div class="position-relative">
+            <%= form.text_field :twitter_app_secret, class: "form-control", placeholder: "LnW6xgZ6Vo0uE8Wde9o8s4y9f3a8HOw78s6JGWdHXS0szWbMeN" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
+        <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>
+      </div>
+    </div>
+  </div>
+<% end %>

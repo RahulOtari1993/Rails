@@ -9,6 +9,7 @@
  * New Theme Integration
  * ------------------------------------------------------------------
  *= require vendors/vendors.min
+ *= require vendors/extensions/toastr
  *= require vendors/charts/apexcharts
  *= require vendors/extensions/tether-theme-arrows
  *= require vendors/extensions/tether.min
