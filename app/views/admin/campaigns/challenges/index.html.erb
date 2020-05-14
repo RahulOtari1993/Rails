@@ -250,8 +250,11 @@
 
               <div class="mt-1">
                 <h6>Tags</h6>
-                <input class="form-control form-control-sm" type="text" placeholder="Add Tag Filter">
-                <div class="tag_box" style="padding-top: 5px;">
+                <%= select_tag :tags,
+                                options_for_select(all_tags_humanize),
+                                class: 'form-control-sm challenge-tags-filter', multiple: 'multiple' %>
+<!--                <input class="form-control form-control-sm challenge-tags-filter" type="text" placeholder="Add Tag Filter">-->
+                <div class="tag_box filter-tag-selection" style="padding-top: 5px;">
                   <div class="chip chip-primary">
                     <div class="chip-body">
                       <span class="chip-text">Sponsor</span>
@@ -305,4 +308,13 @@
   </div>
 </div>
 
-
+<script id="filter-tag-template" type="text/x-custom-template">
+  <div class="chip ---TAG-UI---">
+    <div class="chip-body">
+      <span class="chip-text tag-chip-val">---TAG-VAL---</span>
+      <div class="chip-closeable">
+        <i class="feather icon-minus-circle"></i>
+      </div>
+    </div>
+  </div>
+</script>

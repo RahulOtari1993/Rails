@@ -60,6 +60,7 @@ class Challenge < ApplicationRecord
 
   CHALLENGE_TYPE = %w(share signup login video article referral location link engage survey quiz collect)
   RADIUS = [['0.1 Mile', 161], ['0.2 Mile', 321], ['0.3 Mile', 482], ['1 Mile', 1609], ['5 Mile', 8046], ["10 Mile", 16093]]
+  END_DATE_YEARS = 500
 
   ## ENUM
   enum reward_type: [:points, :prize]
