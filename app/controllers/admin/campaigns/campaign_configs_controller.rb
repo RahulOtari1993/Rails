@@ -1,10 +1,4 @@
 class Admin::Campaigns::CampaignConfigsController < Admin::Campaigns::BaseController
-  layout 'campaign_admin'
-
-  before_action :authenticate_user!
-  before_action :set_details
-  before_action :is_admin
-
   def edit
   end
 
@@ -34,18 +28,6 @@ class Admin::Campaigns::CampaignConfigsController < Admin::Campaigns::BaseContro
   end
 
   private
-
-  ## Check Whether Current Logged in User is Org Admin or Not
-  def is_admin
-    @is_admin = current_user.organization_admin? @organization
-  end
-
-  ## Set Campaign & Campaign Config
-  def set_details
-    @campaign = Campaign.where(id: params[:campaign_id]).first
-    @template = @campaign.campaign_template_detail if @campaign.present?
-    @configs = @campaign.campaign_config if @campaign.present?
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params

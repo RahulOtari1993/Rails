@@ -34,14 +34,14 @@
             <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Settings</span>
           </a>
         </li>
+        <li class="nav-item <%= is_active_menu(['campaign_configs']) %>">
+          <a href="<%= edit_admin_campaign_config_path(@campaign, @configs) %>">
+            <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Template">Configurations</span>
+          </a>
+        </li>
          <li class="nav-item <%= is_active_menu(['template']) %>">
           <a href="<%= edit_admin_campaign_template_path(@campaign, @template) %>">
             <i class="feather icon-film"></i><span class="menu-title" data-i18n="Template">Template</span>
-          </a>
-        </li>
-        <li class="nav-item <%= is_active_menu(['campaign_configs']) %>">
-          <a href="<%= edit_admin_campaign_config_path(@campaign, @configs) %>">
-            <i class="feather icon-film"></i><span class="menu-title" data-i18n="Template">Configurations</span>
           </a>
         </li>
      <% end %>
