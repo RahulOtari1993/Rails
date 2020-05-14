@@ -759,18 +759,18 @@ $(document).on('turbolinks:load', function () {
     },
     columns: [
       {
-        class: "product-img",
+        class: "product-img style='position: relative;width:100%;'",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
           html = ''
           if (data.status == 'draft') {
-            html = '<i class="icon_side_margin fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
+            html = '<i class="data_table_status_icon fa fa-circle-o fa_draft fa_circle_sm" aria-hidden="true"></i>';
           } else if (data.status == 'active') {
-            html = '<i class="icon_side_margin fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
+            html = '<i class="data_table_status_icon fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
           } else if (data.status == 'scheduled') {
-            html = '<i class="icon_side_margin fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
+            html = '<i class="data_table_status_icon fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
           } else {
-            html = '<i class="icon_side_margin fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
+            html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
           html += '<img src="' + data.image['thumb']['url'] + '" />'
           return html
