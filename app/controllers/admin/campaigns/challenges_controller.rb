@@ -161,21 +161,23 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Remove a Tag From Challenge
   def remove_tag
-    @challenge.tag_list.remove(params[:tag], parse: true) if params.has_key?('tag') && params[:tag].present?
-    if @challenge.save
-      @message = 'Tag removed from successfully!'
-    else
-      @message = 'Failed to remove a tag, Please try again!'
+    @message = ''
+    begin
+      @challenge.tag_list.remove(params[:tag], parse: true) if params.has_key?('tag') && params[:tag].present?
+      @challenge.save!
+    rescue StandardError => e
+      @message = e.message
     end
   end
 
   ## Add a Tag to Challenge
   def add_tag
-    @challenge.tag_list.add(params[:tag].join(', '), parse: true) if params.has_key?('tag') && params[:tag].present?
-    if @challenge.save
-      @message = 'Tag added successfully!'
-    else
-      @message = 'Failed to add a tag, Please try again!'
+    @message = ''
+    begin
+      @challenge.tag_list.add(params[:tag].join(', '), parse: true) if params.has_key?('tag') && params[:tag].present?
+      @challenge.save!
+    rescue StandardError => e
+      @message = e.message
     end
   end
 

@@ -1,11 +1,13 @@
 $('.challenge-tags-container').html('');
 $('.challenge-tags-container').html("<%= escape_javascript render 'admin/campaigns/challenges/tags_list' %>");
 
-Swal.fire({
-  title: 'Add a Tag',
-  text: '<%= @message.to_s %>',
-  confirmButtonClass: 'btn btn-primary',
-  buttonsStyling: false,
-});
+<% if @message.present? %>
+  Swal.fire({
+    title: 'Add a Tag',
+    text: '<%= @message.to_s %>',
+    confirmButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+  });
+<% end %>
 
 $('.remove-tag-btn').trigger('click');
