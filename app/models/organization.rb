@@ -28,9 +28,6 @@ class Organization < ApplicationRecord
   has_many :domain_lists, dependent: :destroy
   has_many :participants
 
-  ## Callbacks
-  after_create :create_configs
-
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true
   validates :sub_domain, uniqueness: true
@@ -60,9 +57,4 @@ class Organization < ApplicationRecord
   ## Scope
   default_scope { where(is_deleted: false) }
   scope :active, -> { where(is_active: true) }
-
-  ## Create Blank Configs for Newly Created Org
-  def create_configs
-    OrganizationConfig.create(organization_id: self.id)
-  end
 end

@@ -45,6 +45,7 @@ class Campaign < ApplicationRecord
   ## Callbacks
   after_create :assign_admins
   after_create :set_template_design
+  after_create :create_configs
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
@@ -84,5 +85,10 @@ class Campaign < ApplicationRecord
   ## Create & Set Template Details Entry for a Newly Created Campaign
   def set_template_design
     CampaignTemplateDetail.create!(campaign_id: self.id)
+  end
+
+  ## Create Blank Configs for Newly Created Campaign
+  def create_configs
+    # CampaignConfig.create(campaign_id: self.id)
   end
 end
