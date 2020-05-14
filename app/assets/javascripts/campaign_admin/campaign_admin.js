@@ -52,5 +52,5 @@
 
 //= require jquery.minicolors
 //= require ../campaign_admin
-//= require campaign_admin/reward
+// require campaign_admin/reward
 //= require ../common_js

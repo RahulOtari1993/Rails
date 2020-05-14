@@ -33,6 +33,7 @@ class Reward < ApplicationRecord
   has_many :reward_participants, dependent: :destroy
   has_many :users, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
+  has_many :reward_rules, :dependent => :delete_all
 
   has_one_attached :image
   has_one_attached :image_actual
@@ -43,7 +44,7 @@ class Reward < ApplicationRecord
   validates :image, presence: true
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
-
+  accepts_nested_attributes_for :reward_rules, allow_destroy: true, :reject_if => :all_blank
 
   mount_uploader :image, ImageUploader
 
@@ -62,6 +63,8 @@ class Reward < ApplicationRecord
 		"points"  ,
 		"download"
 	]
+
+	
 
 	validates :campaign, presence: true
 	validates :name, presence: true

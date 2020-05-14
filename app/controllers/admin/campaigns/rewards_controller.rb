@@ -37,21 +37,21 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
-    picture_file = params[:reward][:image]
-    params[:reward].delete(:image) 
+      # picture_file = params[:reward][:image]
+      # params[:reward].delete(:image) 
     @reward = @campaign.rewards.new(reward_params)
     @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save 
-      if !picture_file.blank?
-        resp = update_reward_photo(@reward, picture_file)
-        if resp[:success]
-          flash[:success] = "Reward successfully saved with image"
-        else
-          flash[:danger] = "Reward successfully saved, image was not updated."
-        end
-      else
-        flash[:danger] = "Reward successfully saved, image was not updated.."
-      end
+      # if !picture_file.blank?
+      #   resp = update_reward_photo(@reward, picture_file)
+      #   if resp[:success]
+      #     flash[:success] = "Reward successfully saved with image"
+      #   else
+      #     flash[:danger] = "Reward successfully saved, image was not updated."
+      #   end
+      # else
+      #   flash[:danger] = "Reward successfully saved, image was not updated.."
+      # end
       # remove this so it stays out of the way
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
     else
@@ -162,7 +162,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
                            :image,:image_content_type, :selection, :start, :finish, :feature, :points,
                             :is_active, :redemption_details, :description_details, :terms_conditions,
                             :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
-                            :reward_value, :reward_event])
+                            :reward_value, :reward_event], reward_rules_attributes: [:id, :reward_id, :type, :value, :condition])
     return_params[:start] = Chronic.parse(params[:reward][:start])
     return_params[:finish] = Chronic.parse(params[:reward][:finish])
     return_params
@@ -170,7 +170,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   ## Build Nested Attributes Params for User Segments
   def build_params
-     if params[:reward].has_key?('reward_filters_attributes')
+    if params[:reward].has_key?('reward_filters_attributes')
       new_params = []
       @available_segments = []
 
@@ -191,6 +191,27 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
       end
 
       params[:reward][:reward_filters_attributes] = new_params
+    end
+    if params[:reward].has_key?('reward_rules_attributes')
+      new_params = []
+      @available_rules = []
+
+      cust_params = params[:reward][:reward_rules_attributes]
+      cust_params.each do |key, c_param|
+        filter_data = {
+            type: c_param[:type],
+            condition: c_param[:condition],
+            value: c_param[:value]
+        }
+
+        if c_param.has_key?('id')
+          filter_data[:id] = c_param[:id]
+          @available_rules.push(c_param[:id].to_i)
+        end
+
+        new_params.push(filter_data)
+      end
+      params[:reward][:reward_rules_attributes] = new_params
     end
   end
 

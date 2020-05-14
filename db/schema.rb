@@ -15,6 +15,27 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
   create_table "admin_users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -33,6 +54,11 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "api_participants", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "campaign_template_details", force: :cascade do |t|
@@ -242,7 +268,14 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
+    t.string "jti"
+    t.string "provider", default: "email", null: false
+    t.string "uid", default: "", null: false
+    t.boolean "allow_password_change", default: false
+    t.json "tokens"
+    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
+    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
+    t.index ["jti"], name: "index_participants_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
 
@@ -264,6 +297,24 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_participants_on_reward_id"
     t.index ["user_id"], name: "index_reward_participants_on_user_id"
+  end
+
+  create_table "reward_rules", force: :cascade do |t|
+    t.string "type"
+    t.bigint "reward_id"
+    t.string "condition"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
+  end
+
+  create_table "reward_users", force: :cascade do |t|
+    t.integer "reward_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -288,6 +339,14 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
+    t.text "notes"
+    t.integer "msrp_value"
+    t.integer "bonus_points"
+    t.text "photo_url"
+    t.text "thumb_url"
+    t.text "actual_image_url"
+    t.integer "image_width"
+    t.integer "image_height"
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
@@ -355,10 +414,12 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "campaign_template_details", "campaigns"
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
@@ -372,6 +433,7 @@ ActiveRecord::Schema.define(version: 2020_05_13_110706) do
   add_foreign_key "organization_configs", "organizations"
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_participants", "users"
+  add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"

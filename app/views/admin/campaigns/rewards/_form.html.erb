@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
-<%= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%#= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 <%= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
 
 <style type="text/css">
@@ -86,7 +86,7 @@
                               <%= f.label :redemption_details %>
                               <span class="column-info">A message to the user once they have been awarded this prize how to claim it.
 															</span>
-                              <div class="reward-editor quill-editor-height">
+                              <div class="reward-redemption-editor quill-editor-height">
                                 <%= @reward.redemption_details.html_safe if @reward.description_details.present? %>
                               </div>
                               <div class="position-relative">
@@ -208,7 +208,7 @@
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
                                   <%#= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                                  <%= f.text_field :start, class: "form-control pick-challenge-date",  placeholder: "MM/DD/YYYY" %>
+                                  <%= f.text_field :start, class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -220,7 +220,7 @@
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_field :finish, class: "form-control pick-challenge-date",  placeholder: "MM/DD/YYYY" %>
+                                  <%= f.text_field :finish, class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -239,7 +239,7 @@
                                   <div class="form-group">
                                     <div class="table-responsive">
                                       <table class="segment_table table table-striped mb-0">
-                                        <tbody class="campaign-user-segments-container">
+                                        <tbody class="reward-segments-container">
                                           <% existing_ids = [] %>
                                           <% if action_name == 'edit' && @reward.reward_filters.present? %>
                                             <% @reward.reward_filters.each do |r_f| %>
@@ -251,9 +251,38 @@
                                       </table>
                                     </div>
                                     <br>
-                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-user-segment existing-filter-ids" data-ids="<%= existing_ids %>">
+                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-reward-segment existing-filter-ids" data-ids="<%= existing_ids %>">
                                       <span>
                                         <i class="feather icon-plus"></i> Add Segment
+                                      </span>
+                                    </button>
+                                  </div>
+     
+                                </tbody>
+                              </table>
+                          </div>
+                          <div class="col-12">
+                                <h3>REWARD RULES</h3>
+                                <hr style="margin-bottom: 0px !important;">
+
+                                  <div class="form-group">
+                                    <div class="table-responsive">
+                                      <table class="segment_table table table-striped mb-0">
+                                        <tbody class="reward-rule-segments-container">
+                                          <% existing_ids = [] %>
+                                          <% if action_name == 'edit' && @reward.reward_rules.present? %>
+                                            <% @reward.reward_rules.each do |r_f| %>
+                                              <% existing_ids.push(r_f.id) %>
+                                              <%= render 'segment_fields', filter: r_f %>
+                                            <% end %>
+                                          <% end %>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <br>
+                                    <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-reward-rule existing-filter-ids" data-ids="<%= existing_ids %>">
+                                      <span>
+                                        <i class="feather icon-plus"></i> Add Rule
                                       </span>
                                     </button>
                                   </div>
@@ -279,8 +308,12 @@
   </div>
 </div>
 
-<script id="challenge-user-segments-template" type="text/x-custom-template">
+<script id="reward-segments-template" type="text/x-custom-template">
   <%= render 'segment_fields', filter: nil %>
 </script>
+<script id="reward-rule-segments-template" type="text/x-custom-template">
+  <%= render 'rule_fields', filter: nil %>
+</script>
+
 
 
