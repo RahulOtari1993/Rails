@@ -151,6 +151,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         else
           response = config[1]
         end
+      else
+        response = toggle_campaign(true)
       end
     end
 
