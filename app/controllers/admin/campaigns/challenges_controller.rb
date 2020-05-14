@@ -140,22 +140,21 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Approve / Disable a Challenge
   def toggle
-    @challenge.is_approved = @challenge.is_approved ? false : true
-    @challenge.approver_id = current_user.id
-
-    if @challenge.save
-      render json: {
-          success: true,
-          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
-          message: "Challenge #{@challenge.is_approved ? 'approved' : 'disabled'} successfully!"
-      }
+    if @challenge.is_approved
+      response = toggle_campaign(false)
     else
-      render json: {
-          success: false,
-          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
-          message: "#{@challenge.is_approved ? 'Approving' : 'Disabling'} challenge failed, Try again later!"
-      }
+      if (@challenge.challenge_type == 'signup' || challenge.challenge_type == 'login')
+        config = validate_config
+
+        if config[0]
+          response = toggle_campaign(true)
+        else
+          response = config[1]
+        end
+      end
     end
+
+    render json: response
   end
 
   ## Remove a Tag From Challenge
@@ -254,11 +253,62 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     @challenge.tag_list.add(tags.join(', '), parse: true) if tags.present?
   end
 
+  ## Generate Finish Details in DateTime Object
   def generate_end_date
     existing_date = params[:challenge][:start].split('/')
     date_details = "#{existing_date[1]}/#{existing_date[0]}/#{existing_date[2]}"
     date_obj = DateTime.parse(date_details) + Challenge::END_DATE_YEARS.to_i.years ## Add 500 Years in Start Date and Generate End Date
 
     date_obj.strftime('%m/%d/%Y %H:%M %p')
+  end
+
+  ## Enable / Disable Campaign
+  def toggle_campaign(approve_status)
+    @challenge.is_approved = approve_status
+    @challenge.approver_id = current_user.id
+
+    if @challenge.save
+      response = {
+          success: true,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "Challenge #{@challenge.is_approved ? 'approved' : 'disabled'} successfully!"
+      }
+    else
+      response = {
+          success: false,
+          title: "#{@challenge.is_approved ? 'Approve' : 'Disable'} a Challenge",
+          message: "#{@challenge.is_approved ? 'Approving' : 'Disabling'} challenge failed, Try again later!"
+      }
+    end
+
+    response
+  end
+
+  ## Validate if Social Config Details Are Available for Campaign or Not
+  def validate_config
+    campaign = @challenge.campaign
+    campaign_config = campaign.campaign_config
+
+    is_valid = true
+
+    if @challenge.parameters == 'facebook'
+      unless campaign_config.facebook_app_id.present? && campaign_config.facebook_app_secret.present?
+        is_valid = false
+        message = "Approving challenge failed, Because campaign facebook details are missing."
+      end
+    elsif @challenge.parameters == 'google'
+      unless campaign_config.google_client_id.present? && campaign_config.google_client_secret.present?
+        is_valid = false
+        message = "Approving challenge failed, Because campaign google details are missing."
+      end
+    end
+
+    response = {
+        success: true,
+        title: 'Approve a Challenge',
+        message: message
+    }
+
+    [is_valid, response]
   end
 end
