@@ -235,4 +235,17 @@ module ChallengeHelper
   def display_user_segments
     @challenge.filter_applied ? 'block' : 'none'
   end
+
+  def challenge_status_indicator
+    status = @challenge.status
+    if status == 'draft'
+      class_name = 'fa fa-circle-o fa_draft fa_circle_lg'
+    elsif status == 'scheduled'
+      class_name = 'fa fa-circle-o fa_scheduled fa_circle_lg'
+    elsif status == 'active'
+      class_name = 'fa fa-circle fa_active fa_circle_lg'
+    else
+      class_name = 'fa fa-circle fa_ended fa_circle_lg'
+    end
+  end
 end

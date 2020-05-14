@@ -4,7 +4,7 @@
       <div class="modal-header bg-primary white">
         <h6 class="modal-title" id="myModalLabel160">
           <% status = @challenge.status %>
-          <i class="fa fa-circle fa_<%= status %> fa_circle_lg" aria-hidden="true"></i> <%= status %>
+          <i class="<%= challenge_status_indicator %>" aria-hidden="true"></i> <%= status %>
           <span><%= @challenge.challenge_type %> challenge</span>
         </h6>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -29,7 +29,9 @@
               <% if @challenge.reward_type == 'points' %>
                 <h6>Reward</h6>
 
-                <button type="button" class="btn bg-gradient-primary waves-effect waves-light reward_btn"><%= @challenge.points %>pts</button>
+                <button type="button" class="btn bg-gradient-primary waves-effect waves-light reward_btn"><%= @challenge.points %>
+                  pts
+                </button>
               <% end %>
               <div class="active_time">
                 <h6>Active Time Period</h6>
@@ -55,10 +57,12 @@
                     <i class="feather icon-minus-circle add-tag-chip-btn"></i>
                   </div>
                   <%= select_tag 'challenge_tags_input',
-                                  options_for_select(all_tags_humanize),
-                                  class: 'form-control challenge-tags challenge-details-tags', multiple: 'multiple' %>
+                                 options_for_select(all_tags_humanize),
+                                 class: 'form-control challenge-tags challenge-details-tags', multiple: 'multiple' %>
 
-                    <button class="btn btn-primary waves-effect waves-light submit-challenge-tag" type="button" style="margin-left: 15px;">Add Tag</button>
+                  <button class="btn btn-primary waves-effect waves-light submit-challenge-tag" type="button" style="margin-left: 15px;">Add
+                    Tag
+                  </button>
                 </div>
               </div>
             </div>
