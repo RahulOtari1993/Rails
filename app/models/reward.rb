@@ -24,6 +24,14 @@
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  image               :string
+#  notes               :text
+#  msrp_value          :integer
+#  bonus_points        :integer
+#  photo_url           :text
+#  thumb_url           :text
+#  actual_image_url    :text
+#  image_width         :integer
+#  image_height        :integer
 #
 class Reward < ApplicationRecord
   ## Associations

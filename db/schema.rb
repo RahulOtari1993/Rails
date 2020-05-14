@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_072132) do
+ActiveRecord::Schema.define(version: 2020_05_14_075109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,19 @@ ActiveRecord::Schema.define(version: 2020_05_14_072132) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "campaign_configs", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.string "twitter_app_id"
+    t.string "twitter_app_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_campaign_configs_on_campaign_id"
   end
 
   create_table "campaign_template_details", force: :cascade do |t|
@@ -388,6 +401,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_072132) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "campaign_configs", "campaigns"
   add_foreign_key "campaign_template_details", "campaigns"
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"

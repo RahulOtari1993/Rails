@@ -39,6 +39,7 @@ class Campaign < ApplicationRecord
   has_one  :domain_list, dependent: :destroy
   has_one  :campaign_template_detail, dependent: :destroy
   has_and_belongs_to_many :participants, dependent: :destroy
+  has_many :campaign_configs, dependent: :destroy
 
   enum domain_type: [:sub_domain, :include_in_domain]
 
@@ -87,8 +88,8 @@ class Campaign < ApplicationRecord
     CampaignTemplateDetail.create!(campaign_id: self.id)
   end
 
-  ## Create Blank Configs for Newly Created Campaign
+  ## Create Empty Campaign Configs for Newly Created Campaign
   def create_configs
-    # CampaignConfig.create(campaign_id: self.id)
+    CampaignConfig.create(campaign_id: self.id)
   end
 end
