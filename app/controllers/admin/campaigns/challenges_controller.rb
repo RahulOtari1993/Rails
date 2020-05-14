@@ -189,9 +189,13 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value])
+
+    ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
+    end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
+
     ## Convert Start & Finish Details in DateTime Object
     return_params[:start] = Chronic.parse(params[:challenge][:start])
-    return_params[:finish] = Chronic.parse(params[:challenge][:finish])
+    return_params[:finish] = Chronic.parse(end_date)
 
     ## Manage Reward Type Details
     return_params[:reward_id] = nil if params[:challenge][:reward_type] == 'points' && params[:challenge][:points].present?
@@ -248,5 +252,13 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
     @challenge.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
     @challenge.tag_list.add(tags.join(', '), parse: true) if tags.present?
+  end
+
+  def generate_end_date
+    existing_date = params[:challenge][:start].split('/')
+    date_details = "#{existing_date[1]}/#{existing_date[0]}/#{existing_date[2]}"
+    date_obj = DateTime.parse(date_details) + Challenge::END_DATE_YEARS.to_i.years ## Add 500 Years in Start Date and Generate End Date
+
+    date_obj.strftime('%m/%d/%Y %H:%M %p')
   end
 end
