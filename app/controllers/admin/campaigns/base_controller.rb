@@ -16,6 +16,7 @@ class Admin::Campaigns::BaseController < ApplicationController
   def set_details
     @campaign = Campaign.where(id: params[:campaign_id]).first
     @template = @campaign.campaign_template_detail if @campaign.present?
+    @configs = @campaign.campaign_config if @campaign.present?
   end
 
   ## Returns Datatable Page Number

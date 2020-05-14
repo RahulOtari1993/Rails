@@ -39,7 +39,7 @@ class Campaign < ApplicationRecord
   has_one  :domain_list, dependent: :destroy
   has_one  :campaign_template_detail, dependent: :destroy
   has_and_belongs_to_many :participants, dependent: :destroy
-  has_many :campaign_configs, dependent: :destroy
+  has_one :campaign_config, dependent: :destroy
 
   enum domain_type: [:sub_domain, :include_in_domain]
 
