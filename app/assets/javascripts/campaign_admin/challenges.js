@@ -759,7 +759,7 @@ $(document).on('turbolinks:load', function () {
     },
     columns: [
       {
-        class: "product-img style='position: relative;width:100%;'",
+        class: "product-img",
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
           html = ''
@@ -772,8 +772,11 @@ $(document).on('turbolinks:load', function () {
           } else {
             html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
-          html += '<img src="' + data.image['thumb']['url'] + '" />'
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:15px;" />'
           return html
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          $(td).css('position', 'relative');
         }
       },
       {

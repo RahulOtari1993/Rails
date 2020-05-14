@@ -725,7 +725,7 @@
   font-size: 12px
 }
 .data_table_status_icon {
-  margin: 0px -7px;
-  top: 45%;
-  font-size: 12px;
+  position: absolute;
+  top: 47%;
+  font-size: 11px
 }
