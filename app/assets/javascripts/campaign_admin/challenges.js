@@ -1186,12 +1186,14 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Tags Selection With Auto Suggestion
-  $('.challenge-tags').select2({
-    placeholder: "Select Tags",
-    tags: true,
-    dropdownAutoWidth: true,
-    width: '70%'
-  });
+  function initChallengeTagsSelect2() {
+    $('.challenge-tags').select2({
+      placeholder: "Select Tags",
+      tags: true,
+      dropdownAutoWidth: true,
+      width: '50%'
+    });
+  }
 
   // Load Challenge Image on Selection
   $('#challenge_image').change(function () {
@@ -1240,12 +1242,14 @@ $(document).on('turbolinks:load', function () {
   // Add Tag Addition UI from Challenge Popup
   $('body').on('click', '.add-tag-btn', function (e) {
     $('.add_tag_btngroup').show();
+    initChallengeTagsSelect2();
     $('.add-tag-btn').hide();
   });
 
   // Remove Tag Addition UI from Challenge Popup
   $('body').on('click', '.remove-tag-btn', function (e) {
     $('.add_tag_btngroup').hide();
+    $('.challenge-tags').val(null).trigger('change');
     $('.add-tag-btn').show();
   });
 
@@ -1294,7 +1298,7 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
-  }).on("select2:select", function(e) {
+  }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text());
     $('.filter-tag-selection').append(tagHtml);
