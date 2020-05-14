@@ -722,4 +722,10 @@
 
 .icon_side_margin {
   margin: 0 5px;
+  font-size: 12px
+}
+.data_table_status_icon {
+  margin: 0px -7px;
+  top: 45%;
+  font-size: 12px;
 }
