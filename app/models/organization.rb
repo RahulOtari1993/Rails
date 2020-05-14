@@ -27,7 +27,6 @@ class Organization < ApplicationRecord
   has_many :campaigns, dependent: :destroy
   has_many :domain_lists, dependent: :destroy
   has_many :participants
-  has_many :organization_configs, dependent: :destroy
 
   ## Callbacks
   after_create :create_configs
