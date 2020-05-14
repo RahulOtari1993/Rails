@@ -42,10 +42,7 @@
 #
 
 class Challenge < ApplicationRecord
-    # include ActiveModel::Serializers::JSON
-  #TODO : While Approving a Challenge, Check if ORG do have Social Media Config Available
-  #TODO : Validation Needs to be added
-  scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
+  ## include ActiveModel::Serializers::JSON
 
   ## Associations
   belongs_to :campaign
@@ -77,6 +74,9 @@ class Challenge < ApplicationRecord
 
   ## Tags
   acts_as_taggable_on :tags
+
+  ## Scopes
+  scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
 
   ## GeoCoding
   # geocoded_by :address

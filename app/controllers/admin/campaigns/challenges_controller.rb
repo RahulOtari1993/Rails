@@ -143,7 +143,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     if @challenge.is_approved
       response = toggle_campaign(false)
     else
-      if (@challenge.challenge_type == 'signup' || challenge.challenge_type == 'login')
+      if (@challenge.challenge_type == 'signup' || @challenge.challenge_type == 'login')
         config = validate_config
 
         if config[0]
