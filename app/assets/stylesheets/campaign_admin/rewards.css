@@ -1,3 +1,15 @@
 .reward-tags-top {
   margin-top: 15px;
 }
+.icon_side_margin {
+  margin: 0 5px;
+  font-size: 12px
+}
+.data_table_status_icon {
+  position: absolute;
+  top: 47%;
+  font-size: 18px;
+}
+.tbl-user-segments {
+  background-color: #0f163a !important;
+}

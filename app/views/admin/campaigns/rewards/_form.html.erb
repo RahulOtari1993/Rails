@@ -33,7 +33,7 @@
                 <h4 class="text-center card-title">Create Reward</h4>
               </div>
               <div class="card-content container col-md-9 col-9 border_reward" style="margin-top:20px">
-                <% if @reward.new_record?%>
+                <% if @reward.new_record? %>
                   <% url = admin_campaign_rewards_path(@reward.campaign, @reward)%>
                   <% form_method = 'post'%>
                 <% else %>
@@ -124,7 +124,7 @@
 															</span>
                               <div class="position-relative" style="width: 25%;">
                                 <div class="input-group">
-                                  <%= f.number_field :limit, class: "touchspin form-control", value: '0' %>
+                                  <%= f.number_field :limit, class: "touchspin form-control", value: f.object.limit.present? ? f.object.limit : '0' %>
                                 </div>
                               </div>
                             </div>
@@ -220,7 +220,7 @@
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
                                   <%#= text_field_tag :challenge_start_date, nil, class: 'form-control pick-challenge-date', placeholder: "MM/DD/YYYY"%>
-                                  <%= f.text_field :start, class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
+                                  <%= f.text_field :start, value: reward_start_date || '', class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -232,7 +232,7 @@
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
-                                  <%= f.text_field :finish, class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
+                                  <%= f.text_field :finish, value: reward_finish_date || '', class: "form-control pick-reward-date",  placeholder: "MM/DD/YYYY" %>
                                 </fieldset>
                               </div>
                             </div>
@@ -252,7 +252,7 @@
 
                                   <div class="form-group">
                                     <div class="table-responsive">
-                                      <table class="segment_table table table-striped mb-0">
+                                      <table class="segment_table table table-striped mb-0 tbl-user-segments">
                                         <tbody class="reward-segments-container">
                                           <% existing_ids = [] %>
                                           <% if action_name == 'edit' && @reward.reward_filters.present? %>

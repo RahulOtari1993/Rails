@@ -47,7 +47,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     ## Manage Tags for a Reward
     tags_association
 
-    @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
+    # @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save 
       # if !picture_file.blank?
       #   resp = update_reward_photo(@reward, picture_file)

@@ -137,26 +137,35 @@ class Challenge < ApplicationRecord
     status = []
     parameters = []
     challenge_type = []
+    active_keyword = ''
+    scheduled_keyword = ''
+    draft_keyword = ''
+    ended_keyword = ''
     filters.each do |key, value|
       if key == 'status' && filters[key].present?
         # status_query_string = query_string + ' OR is_approved IS ? '
         value.each do |val|
           if val == 'draft'
-            status_query_string = ' OR is_approved IN (:is_approved)'
-            status << false
-          end
-          if val == 'active'
-            status_query_string = status_query_string + ' OR is_approved IN (:is_approved)'
-            status << true
-          # elsif value == 'ended'
-           #  start_time = Time.now.in_time_zone(@time_zone).to_i
-           #  = " AND challenges.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', challenges.timezone))) >= :start_time"
+            status_query_string = ' AND is_approved IS :draft_keyword'
+            draft_keyword = false
+          elsif val == 'active'
+            status_query_string = status_query_string + ' AND is_approved IS :active_keyword'
+            active_keyword = true
+          elsif val == 'scheduled'
+            #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
+            status_query_string = " AND timezone(challenges.timezone, challenges.start) > :schedule"
            # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+            scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
+          elsif val == 'ended'
+            status_query_string = " AND convert_tz(challenges.finish, 'UTC') < :ended_keyword"
+            ended_keyword = Time.now.in_time_zone(self.timezone).to_i
           end
         end
       elsif key == 'challenge_type' && filters[key].present?
-        type_query_string = ' AND challenge_type IN (:challenge_type)'
-        challenge_type << value
+        if Challenge.categories.values_at(*Array(value)).present?
+          type_query_string = ' AND category IN (:challenge_type)'
+          challenge_type << value
+        end
       elsif key == 'platform_type' && filters[key].present?
         if Challenge.parameters.values_at(*Array(value)).present?
           platform_query_string = ' AND parameters IN (:parameters)'
@@ -165,7 +174,7 @@ class Challenge < ApplicationRecord
       end
     end
     final_query = query + status_query_string + type_query_string + platform_query_string
-    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    challenges = self.where(final_query, draft_keyword: draft_keyword, active_keyword: active_keyword, scheduled_keyword: scheduled_keyword, ended_keyword: ended_keyword, challenge_type: Challenge.categories.values_at(*Array(challenge_type.flatten)), parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
     return challenges
   end
 end

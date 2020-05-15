@@ -1,26 +1,22 @@
  module RewardHelper
 
  ## Set reward Start Time
-  def reward_start_time
-    new_record? ? '' : @reward.start.strftime('%I:%M %p')
+  def reward_start_date
+    reward_new_record? ? '' : @reward.start.strftime('%m/%d/%Y')
   end
 
   ## Set reward Finish Date
   def reward_finish_date
-    if new_record?
+    if reward_new_record?
       ''
     else
       @reward.finish.present? ? @reward.finish.strftime('%m/%d/%Y') : ''
     end
   end
 
-  ## Set reward Finish Time
-  def reward_finish_time
-    if new_record?
-      ''
-    else
-      @reward.finish.present? ? @reward.finish.strftime('%I:%M %p') : ''
-    end
+  ## check new record
+  def reward_new_record?
+    @reward.new_record?
   end
 
   ## Set Name Convention String for User Segment

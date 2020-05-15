@@ -1,28 +1,5 @@
  module RewardRuleHelper
 
- ## Set reward Start Time
-  # def reward_start_time
-  #   new_record? ? '' : @reward.start.strftime('%I:%M %p')
-  # end
-
-  # ## Set reward Finish Date
-  # def reward_finish_date
-  #   if new_record?
-  #     ''
-  #   else
-  #     @reward.finish.present? ? @reward.finish.strftime('%m/%d/%Y') : ''
-  #   end
-  # end
-
-  # ## Set reward Finish Time
-  # def reward_finish_time
-  #   if new_record?
-  #     ''
-  #   else
-  #     @reward.finish.present? ? @reward.finish.strftime('%I:%M %p') : ''
-  #   end
-  # end
-
   ## Set Name Convention String for User Segment
   def rule_name_convention(filter = nil)
     filter.present? ? filter.id : '___NUM___'

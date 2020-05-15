@@ -158,7 +158,7 @@ $(document).ready(function () {
         action: function() {
           window.location.href = "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/new"
         },
-        className: "btn-outline-primary"
+        className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
       }
     ],
     initComplete: function(settings, json) {
@@ -203,9 +203,6 @@ $(document).ready(function () {
       },
       'reward[limit]': {
         digits: true
-      },
-      'social_description': {
-        socialDesctiption: true
       },
       'reward[start]': {
         required: true
@@ -284,10 +281,11 @@ $(document).ready(function () {
   new Quill('.reward-redemption-editor', toolbar);
 
   // Add Form Details of Quill Editor to Campaign Form Fields
-  $('.edit-reward-form').on('submit', function () {
+  $('.reward-form').on('submit', function () {
     $('.description-txt-area').val($('.reward-description-editor .ql-editor').html());
     $('.redemption-txt-area').val($('.reward-redemption-editor .ql-editor').html());
   });
+
 
   // Replace ID of Newly Added Fields of User Segment
   function replaceRuleFieldIds(stringDetails, phaseCounter) {
@@ -295,13 +293,6 @@ $(document).ready(function () {
     stringDetails = stringDetails.replace(/___NUM___/g, phaseCounter);
     return stringDetails;
   }
-
-  // Replace ID of Newly Added Fields of User Segment
-  // function replaceRewardFieldIds(stringDetails, phaseCounter) {
-  //   stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
-  //   stringDetails = stringDetails.replace(/___NUM___/g, phaseCounter);
-  //   return stringDetails;
-  // }
 
   // Adds Validation for New Added Reward Rule Fields
   function addRewardRuleValidations(phaseCounter) {
