@@ -67,6 +67,7 @@ class ImageUploader < CarrierWave::Uploader::Base
     model.class.to_s != 'CampaignTemplateDetail'
   end
 
+  #optimizing the image
   def optimize(img)
     manipulate! do |img|
         return img unless img.mime_type.match /image\/jpeg/
@@ -79,7 +80,7 @@ class ImageUploader < CarrierWave::Uploader::Base
         img
     end
   end
-
+  #optimizing the image quality
   def quality(percentage)
     manipulate! do |img|
       img.quality(percentage.to_s)
