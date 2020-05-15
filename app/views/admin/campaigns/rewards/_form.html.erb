@@ -1,6 +1,7 @@
-<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%#= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 <%#= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 <%= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
+<%= stylesheet_link_tag 'campaign_admin/rewards', 'data-turbolinks-track' => 'reload' %>
 
 <style type="text/css">
   .filter_hidden {
@@ -69,6 +70,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description %>
@@ -81,6 +83,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :redemption_details %>
@@ -97,6 +100,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :description_details %>
@@ -112,6 +116,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :limit %>
@@ -124,6 +129,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :selection %>
@@ -137,6 +143,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="threshold col-12" style="display: none">
                             <div class="form-group">
                               <%= f.label :threshold %>
@@ -148,6 +155,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="sweepstake col-12" style="display: none">
                             <div class="form-group">
                               <%= f.label :sweepstake_entry %>
@@ -159,6 +167,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <div class="position-relative">
@@ -178,6 +187,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :points %>
@@ -188,6 +198,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :terms_conditions %>
@@ -200,6 +211,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-6">
                             <div class="form-group">
                               <%= f.label :start %>
@@ -225,6 +237,7 @@
                               </div>
                             </div>
                           </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :image %>
@@ -232,6 +245,7 @@
                               <%= f.label :image, 'Choose file', class: 'custom-file-label  image_field_label' %>
                             </div>
                           </div>
+
                           <div class="col-12">
                                 <h3>REWARD SEGMENTS</h3>
                                 <hr style="margin-bottom: 0px !important;">
@@ -261,6 +275,7 @@
                                 </tbody>
                               </table>
                           </div>
+
                           <div class="col-12">
                             <h3>REWARD RULES</h3>
                               <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">
@@ -305,6 +320,17 @@
                                 </tbody>
                               </table>
                           </div>
+
+                          <div class="col-12 reward-tags-top">
+                            <h3>Tags</h3>
+                            <%= f.label :tags, 'Start typing to add a tag and choose it' %>
+                            <div class="form-group">
+                              <%= f.select :tags,
+                                              options_for_select(all_tags_humanize, @reward.tag_list),
+                                              {}, class: 'form-control reward-tags', multiple: 'multiple' %>
+                            </div>
+                          </div>
+
                           <br/>
                           <div class="col-12" style="margin-top: 15px">
                             <%= f.submit 'Submit', :class => "reward_form btn btn-primary mr-1 mb-1" %>

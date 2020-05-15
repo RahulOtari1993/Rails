@@ -56,6 +56,9 @@ class Reward < ApplicationRecord
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
   accepts_nested_attributes_for :reward_rules, allow_destroy: true, :reject_if => :all_blank
 
+  ## Tags
+  acts_as_taggable_on :tags
+
   mount_uploader :image, ImageUploader
 
   	SELECTIONS = [

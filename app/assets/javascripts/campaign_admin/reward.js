@@ -627,6 +627,13 @@ $(document).ready(function () {
   $('.reset_reward_filter_checkboxes').on('click', function(e){
     $('input:checkbox').each(function() { this.checked = false; });
   })
+
+  // Reward Tags
+  $('.reward-tags').select2({
+    placeholder: "Select Tags",
+    tags: true,
+    dropdownAutoWidth: true,
+  });
 })
 
 

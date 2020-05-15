@@ -43,6 +43,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
       # picture_file = params[:reward][:image]
       # params[:reward].delete(:image) 
     @reward = @campaign.rewards.new(reward_params)
+
+    ## Manage Tags for a Reward
+    tags_association
+
     @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save 
       # if !picture_file.blank?
@@ -318,5 +322,14 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
       Rails.logger.error "Image exception_handling: --------------------------> #{e.message}"
       return {success: false, message: e.message}
     end
+  end
+
+  ## Assign/Remove Tags to a Challenge
+  def tags_association
+    tags = params[:reward][:tags].reject { |c| c.empty? } if params[:reward].has_key?('tags')
+    removed_tags = @reward.tag_list - tags
+
+    @reward.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
+    @reward.tag_list.add(tags.join(', '), parse: true) if tags.present?
   end
 end
