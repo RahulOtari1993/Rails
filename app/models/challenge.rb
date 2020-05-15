@@ -133,6 +133,7 @@ class Challenge < ApplicationRecord
     status_query_string = ''
     platform_query_string = ''
     type_query_string = ''
+    tags_query = ''
     challenges = ''
     status = []
     parameters = []
@@ -162,9 +163,21 @@ class Challenge < ApplicationRecord
           platform_query_string = ' AND parameters IN (:parameters)'
           parameters << value
         end
+      elsif key == 'tags' && filters[key].present?
+        sub_query = ""
+        filters[key].each_with_index do |tag, index|
+          if index == 0
+            sub_query = sub_query + "LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
+          else
+            sub_query = sub_query + " OR LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
+          end
+        end
+
+        tags_query = " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = challenges.id AND taggings.taggable_type = 'Challenge'" +
+            "AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (#{sub_query})))"
       end
     end
-    final_query = query + status_query_string + type_query_string + platform_query_string
+    final_query = query + status_query_string + type_query_string + platform_query_string + tags_query
     challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
     return challenges
   end
