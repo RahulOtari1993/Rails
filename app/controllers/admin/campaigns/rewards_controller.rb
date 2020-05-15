@@ -231,86 +231,41 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   def update_reward_photo(reward, photo, is_recurring = false)
     begin
-      # Image Upload
-      # photo_url = photo
-      # perm_filename = SecureRandom.hex(16) + File.extname(photo_url)
+      ## Store Actual Image
+      # reward.image_actual.purge_later
+      # reward.image_actual.attach(photo)
+      # actual_image_url = reward.image_actual.attachment.service_url
+      # reward.actual_image_url = actual_image_url
 
-      # if photo.present?
-      #   ## Image Upload
-      #   reward.image_actual.purge_later
-      #   reward.image_actual.attach(photo)
-      #   byebug
-      #   actual_image_url = reward.image_actual.attachment.service_url
-      #   reward.actual_image_url = actual_image_url
+      ## Image File Names
+      image_name_hax = SecureRandom.hex(16)
+      photo_filename = image_name_hax + '_photo.jpg'
+      thumb_filename = image_name_hax + '_thumb.jpg'
 
-      #   ## Image File Names
-      #   image_name_hax = SecureRandom.hex(16)
-      #   photo_filename = image_name_hax + '_photo.jpg'
-      #   thumb_filename = image_name_hax + '_thumb.jpg'
+      image_compression(image_name_hax, photo_filename, thumb_filename, reward.actual_image_url)
 
-      #   image_compression(image_name_hax, photo_filename, thumb_filename, actual_image_url)
+      ## Store Compressed Image
+      reward.photo_image.attach(io: File.open(Rails.root.join('public', 'image_compression', photo_filename)), filename: photo_filename)
+      photo_image_url = reward.photo_image.attachment.service_url
+      reward.photo_url = photo_image_url
 
-      #   ## Store Compressed Image
-      #   reward.photo_image.attach(io: File.open(Rails.root.join('public', 'image_compression', photo_filename)), filename: photo_filename)
-      #   photo_image_url = reward.photo_image.attachment.service_url
-      #   reward.photo_url = photo_image_url
+      ## Store Thumbnail Image
+      reward.thumb_image.attach(io: File.open(Rails.root.join('public', 'image_compression', thumb_filename)), filename: thumb_filename)
+      thumb_image_url = reward.thumb_image.attachment.service_url
+      reward.thumb_url = thumb_image_url
 
-      #   ## Store Thumbnail Image
-      #   reward.thumb_image.attach(io: File.open(Rails.root.join('public', 'image_compression', thumb_filename)), filename: thumb_filename)
-      #   thumb_image_url = reward.thumb_image.attachment.service_url
-      #   reward.thumb_url = thumb_image_url
+      ## Save Image Height & Width
+      image = MiniMagick::Image.open(photo_image_url)
+      reward.image_width = image[:width]
+      reward.image_height = image[:height]
 
-      #   ## Save Image Height & Width
-      #   image = MiniMagick::Image.open(photo_image_url)
-      #   reward.image_width = image[:width]
-      #   reward.image_height = image[:height]
+      ## Remove Local Files
+      # remove_local_files(image_name_hax, photo_filename, thumb_filename)
 
-      #   ## Remove Local Files
-      #   remove_local_files(image_name_hax, photo_filename, thumb_filename)
+      reward.save
 
-      #   reward.save
-      # end
-      
-        # perm_filename = SecureRandom.hex(16) + '.png'
-        # File.open('public/uploads/' + perm_filename, 'wb') do |f|
-        #   f.write(photo)
-        # end
-
-        ## Store Actual Image
-        reward.image_actual.purge_later
-        reward.image_actual.attach(photo)
-        actual_image_url = reward.image_actual.attachment.service_url
-        reward.actual_image_url = actual_image_url
-
-        ## Image File Names
-        image_name_hax = SecureRandom.hex(16)
-        photo_filename = image_name_hax + '_photo.jpg'
-        thumb_filename = image_name_hax + '_thumb.jpg'
-
-        image_compression(image_name_hax, photo_filename, thumb_filename, reward.actual_image_url)
-
-        ## Store Compressed Image
-        reward.photo_image.attach(io: File.open(Rails.root.join('public', 'image_compression', photo_filename)), filename: photo_filename)
-        photo_image_url = reward.photo_image.attachment.service_url
-        reward.photo_url = photo_image_url
-
-        ## Store Thumbnail Image
-        reward.thumb_image.attach(io: File.open(Rails.root.join('public', 'image_compression', thumb_filename)), filename: thumb_filename)
-        thumb_image_url = reward.thumb_image.attachment.service_url
-        reward.thumb_url = thumb_image_url
-
-        ## Save Image Height & Width
-        image = MiniMagick::Image.open(photo_image_url)
-        reward.image_width = image[:width]
-        reward.image_height = image[:height]
-
-        ## Remove Local Files
-        # remove_local_files(image_name_hax, photo_filename, thumb_filename)
-
-        reward.save
-
-        # File.delete(Rails.root.join('public', photo_filename, thumb_filename))
-        return {success: true}
+      # File.delete(Rails.root.join('public', photo_filename, thumb_filename))
+      return {success: true}
     rescue Exception => e
       Rails.logger.error "Image exception_handling: --------------------------> #{e.message}"
       return {success: false, message: e.message}

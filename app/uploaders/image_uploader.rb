@@ -1,11 +1,13 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::ImageOptimizer
 
-  version :thumbnail do
+  #thumb version
+  version :thumb do
     process :resize_to_fit => [100, 100]
     process optimize: [{ quality: 50 }]
   end
-  version :medium do
+  #Banner version
+  version :banner do
     process :quality => 85
   end
 
@@ -44,9 +46,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   ## Create different versions of your uploaded files:
-  version :thumb, :if => :thumb? do
-    process :resize_to_fill => [100, 100]
-  end
+  # version :thumb, :if => :thumb? do
+  #   process :resize_to_fill => [100, 100]
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
