@@ -1326,27 +1326,31 @@ $(document).on('turbolinks:load', function () {
   }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text(), $('.challenge-tags-filter :selected').val());
-    $('.filter-tag-selection').append(tagHtml);
+    $('.challenge-filter-tag-selection').append(tagHtml);
 
     // Reset Tags Selector
     $('.challenge-tags-filter').val(null).trigger('change');
 
-    var filters = generateFilterParams();
-    console.log("filter", filters);
-
-    applyFilters(filters);
+    applyFilters(generateFilterParams());
   });
 
   // Remove Tag From Challenge Filters
-  $('body').on('click', '.filter-tag-selection .chip-closeable', function (e) {
+  $('body').on('click', '.challenge-filter-tag-selection .chip-closeable', function (e) {
     $(this).parent().parent().remove();
+    applyFilters(generateFilterParams());
   });
 
   //Reset filter checkboxes and update datatable
-  $('.reset_challenge_filter_checkboxes').on('click', function(e){
-    $('input:checkbox').each(function() { this.checked = false; });
-    $('#challenge-list-table').DataTable().ajax.url(
-          "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-      ).load() 
+  $('.reset_challenge_filter_checkboxes').on('click', function (e) {
+    $('input:checkbox').each(function () {
+      this.checked = false;
+    });
+    $('.challenge-filter-tag-selection').html('');
+
+    applyFilters(generateFilterParams());
+
+    // $('#challenge-list-table').DataTable().ajax.url(
+    //     "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
+    // ).load()
   })
 });

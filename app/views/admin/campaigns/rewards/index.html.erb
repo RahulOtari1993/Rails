@@ -65,6 +65,14 @@
                   </li>
                 </ul>
               </div>
+              <div class="mt-1">
+                <h6>Tags</h6>
+                <%= select_tag :tags,
+                               options_for_select(all_tags_humanize),
+                               class: 'form-control-sm reward-tags-filter', multiple: 'multiple' %>
+                <div class="tag_box filter-tag-selection" style="padding-top: 5px;">
+                </div>
+              </div>
             </div>     
           </div>
           <div class="data_list_80">
@@ -85,4 +93,16 @@
 <!-- Coupon popup -->
 <div class="coupon_user_form">   
 </div>
+
+<!-- Rewards Tags Filter Template -->
+<script id="reward-filter-tag-template" type="text/x-custom-template">
+  <div class="chip reward-tags-filter-chip ---TAG-UI---" data-tag-val="---TAG-VAL---">
+    <div class="chip-body">
+      <span class="chip-text tag-chip-val">---TAG-HTML---</span>
+      <div class="chip-closeable">
+        <i class="feather icon-minus-circle"></i>
+      </div>
+    </div>
+  </div>
+</script>
 
