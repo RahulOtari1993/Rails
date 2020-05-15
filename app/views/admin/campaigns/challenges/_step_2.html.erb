@@ -72,7 +72,7 @@
         <div class="form-group">
           <%= form.select :tags,
                           options_for_select(all_tags_humanize, @challenge.tag_list),
-                          {}, class: 'form-control challenge-tags', multiple: 'multiple' %>
+                          {}, class: 'form-control challenge-tags-form', multiple: 'multiple' %>
           <%#= form.text_field :tags, class: 'form-control', id: 'challenge-tags' %>
         </div>
       </div>

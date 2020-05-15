@@ -1202,6 +1202,13 @@ $(document).on('turbolinks:load', function () {
     applyFilters(generateFilterParams());
   });
 
+  $('.challenge-tags-form').select2({
+    placeholder: "Select Tags",
+    tags: true,
+    dropdownAutoWidth: true,
+    width: '70%'
+  });
+
   // Tags Selection With Auto Suggestion
   function initChallengeTagsSelect2() {
     $('.challenge-tags').select2({
