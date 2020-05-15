@@ -636,6 +636,41 @@ $(document).ready(function () {
     tags: true,
     dropdownAutoWidth: true,
   });
+
+  // Replace Chip Value & Chip Class of Newly Added Tags of Challenge Filter
+  function replaceTagFields(stringDetails, tagHtml, tagVal) {
+    var chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
+    var chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
+
+    stringDetails = stringDetails.replace(/---TAG-HTML---/g, tagHtml);
+    stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagVal);
+    stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
+    return stringDetails;
+  }
+
+  // Tags Selection in Rewards Filter With Auto Suggestion
+  $('.reward-tags-filter').select2({
+    placeholder: "Select Tag",
+    tags: true,
+    dropdownAutoWidth: true,
+  }).on("select2:select", function (e) {
+    let tagTemplate = $('#reward-filter-tag-template').html();
+    tagHtml = replaceTagFields(tagTemplate, $('.reward-tags-filter :selected').text(), $('.reward-tags-filter :selected').val());
+    $('.filter-tag-selection').append(tagHtml);
+
+    // Reset Tags Selector
+    $('.reward-tags-filter').val(null).trigger('change');
+
+    // var filters = generateFilterParams();
+    // console.log("filter", filters);
+    //
+    // applyFilters(filters);
+  });
+
+  // Remove Tag From Rewards Filters
+  $('body').on('click', '.filter-tag-selection .chip-closeable', function (e) {
+    $(this).parent().parent().remove();
+  });
 })
 
 
