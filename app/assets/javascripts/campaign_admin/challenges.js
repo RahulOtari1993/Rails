@@ -1334,4 +1334,9 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.filter-tag-selection .chip-closeable', function (e) {
     $(this).parent().parent().remove();
   });
+
+  //Reset filter checkboxes
+  $('.reset_challenge_filter_checkboxes').on('click', function(e){
+    $('input:checkbox').each(function() { this.checked = false; });
+  })
 });

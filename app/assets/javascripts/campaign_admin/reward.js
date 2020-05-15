@@ -624,9 +624,7 @@ $(document).ready(function () {
   });
 
   //Reset filter checkboxes
-  $('.reset_filter_checkboxes').on('click', function(e){
-    console.log("Here-------------------------------")
-    // $('input:checkbox').removeAttr('checked');
+  $('.reset_reward_filter_checkboxes').on('click', function(e){
     $('input:checkbox').each(function() { this.checked = false; });
   })
 })
