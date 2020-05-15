@@ -616,8 +616,7 @@ $(document).ready(function () {
       $('#reward-list-table').DataTable().ajax.url(
           "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json"
           + "?filters=" + JSON.stringify(filter)
-      )
-          .load() //checked
+      ).load() //checked
     } else {
       $('#challenge-list-table').DataTable().ajax.reload();
     }
@@ -626,6 +625,9 @@ $(document).ready(function () {
   //Reset filter checkboxes
   $('.reset_reward_filter_checkboxes').on('click', function(e){
     $('input:checkbox').each(function() { this.checked = false; });
+    $('#reward-list-table').DataTable().ajax.url(
+          "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json"
+      ).load() 
   })
 
   // Reward Tags

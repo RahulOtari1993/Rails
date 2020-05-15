@@ -1335,8 +1335,11 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().remove();
   });
 
-  //Reset filter checkboxes
+  //Reset filter checkboxes and update datatable
   $('.reset_challenge_filter_checkboxes').on('click', function(e){
     $('input:checkbox').each(function() { this.checked = false; });
+    $('#challenge-list-table').DataTable().ajax.url(
+          "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
+      ).load() 
   })
 });
