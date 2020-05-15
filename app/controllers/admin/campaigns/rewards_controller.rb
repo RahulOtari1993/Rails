@@ -18,7 +18,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
       rewards = rewards.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
-
+    if params["filters"].present?
+      filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
+      rewards = rewards.reward_side_bar_filter(filters)
+    end
     rewards = rewards.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
 
     rewards = rewards.page(datatable_page).per(datatable_per_page)

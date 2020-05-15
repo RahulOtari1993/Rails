@@ -34,6 +34,7 @@
 #  image_height        :integer
 #
 class Reward < ApplicationRecord
+
   ## Associations
   belongs_to :campaign
   has_many :coupons
@@ -81,4 +82,72 @@ class Reward < ApplicationRecord
 	validates :selection, presence: true, inclusion: SELECTIONS
 	# validates :fulfilment, presence: true, inclusion: FULFILMENTS
 	validates :description, presence: true
+
+	## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
+  def status
+    if self.start.in_time_zone('UTC') > Time.now.in_time_zone('UTC')
+      'scheduled'
+    elsif self.finish.in_time_zone('UTC') < Time.now.in_time_zone('UTC')
+      'ended'
+    elsif self.start.in_time_zone('UTC') < Time.now.in_time_zone('UTC') && self.finish.in_time_zone('UTC') < Time.now.in_time_zone('UTC')
+      'active'
+    else
+    end
+  end
+
+  ##for adding status column to datatable json response
+  def as_json(*)
+    super.tap do |hash|
+      hash["status"] = status
+    end
+  end
+
+  ##challenge platform filter
+  def self.reward_side_bar_filter(filters)
+    query = 'id IS NOT NULL'
+    status_query_string = ''
+    platform_query_string = ''
+    type_query_string = ''
+    rewards = ''
+    status = []
+    parameters = []
+    challenge_type = []
+    active_start_date = ''
+    active_end_date = ''
+    scheduled_date = ''
+    ended_date = ''
+    filters.each do |key, value|
+      if key == 'status' && filters[key].present?
+        # status_query_string = query_string + ' OR is_approved IS ? '
+        value.each do |val|
+          if val == 'active'
+            status_query_string = status_query_string + ' OR start < (:active_start_date) AND finish < (:active_end_date)'
+            active_start_date = Time.now
+            active_end_date = Time.now
+          elsif val == 'scheduled'
+          	status_query_string = status_query_string + ' OR start > (:scheduled_date)'
+          	scheduled_date = Time.now
+          # elsif value == 'ended'
+           #  start_time = Time.now.in_time_zone(@time_zone).to_i
+           #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
+           # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+          else
+          	status_query_string = status_query_string + ' OR finish < (:ended_date)'
+          	ended_date = Time.now.in_time_zone('UTC')
+          end
+        end
+      # elsif key == 'challenge_type' && filters[key].present?
+      #   type_query_string = ' AND challenge_type IN (:challenge_type)'
+      #   challenge_type << value
+      # elsif key == 'platform_type' && filters[key].present?
+      #   if Challenge.parameters.values_at(*Array(value)).present?
+      #     platform_query_string = ' AND parameters IN (:parameters)'
+      #     parameters << value
+      #   end
+      end
+    end
+    final_query = query + status_query_string #+ type_query_string + platform_query_string
+    rewards = self.where(final_query, active_start_date: active_start_date, active_end_date: active_end_date, scheduled_date: scheduled_date, ended_date: ended_date) #, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    return rewards
+  end
 end

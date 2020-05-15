@@ -67,9 +67,22 @@ $(document).ready(function () {
       },
     },
     columns: [
-      {title: 'Image', data: null,searchable: false, 
+      {
+        title: 'Image', data: null,searchable: false, 
         render: function(data, type, row){
-          return '<img src="' + data.image['thumb']['url'] + '" class="reward_listing_table_image"/>';
+          html = ''
+          if (data.status == 'active') {
+            html = '<i class="data_table_status_icon fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>';
+          } else if (data.status == 'scheduled') {
+            html = '<i class="data_table_status_icon fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>'
+          } else {
+            html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
+          }
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="reward_listing_table_image" />'
+          return html
+        },
+        createdCell: function (td, cellData, rowData, row, col) {
+          $(td).css('position', 'relative');
         }
       },
       {
@@ -573,6 +586,40 @@ $(document).ready(function () {
       $('.reward-rule-segments-container input').prop('disabled', true);
       $('.reward-rule-segments-container select').prop('disabled', true);
       $('.filters-container').hide();
+    }
+  });
+
+  // Reward sidebar status filters
+  $('.reward_sidebar_filter').change(function () {
+    var status_checked = []
+    // var type_checked = []
+    // var platform_checked = []
+    // var reward_checked = []
+    var filter = {}
+    $("input[name='filters[status][]']:checked").each(function () {
+      status_checked.push($(this).parent().find('.filter_label').html());
+    });
+    filter["status"] = status_checked
+    // $("input[name='filters[challenge_type][]']:checked").each(function () {
+    //   type_checked.push($(this).parent().find('.filter_label').html());
+    // });
+    // filter['challenge_type'] = type_checked
+    // $("input[name='filters[platform_type][]']:checked").each(function () {
+    //   platform_checked.push($(this).parent().find('.filter_label').html());
+    // });
+    // filter['platform_type'] = platform_checked
+    // $("input[name='filters[reward_type][]']:checked").each(function () {
+    //   reward_checked.push($(this).parent().find('.filter_label').html());
+    // });
+    // filter['reward_type'] = reward_checked
+    if (filter != '') {
+      $('#reward-list-table').DataTable().ajax.url(
+          "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json"
+          + "?filters=" + JSON.stringify(filter)
+      )
+          .load() //checked
+    } else {
+      $('#challenge-list-table').DataTable().ajax.reload();
     }
   });
 

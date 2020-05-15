@@ -1,4 +1,5 @@
 <%#= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
 <%= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
 
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> -->
@@ -17,10 +18,71 @@
     </div>
     <div class="content-body">
       <section id="data-thumb-view" class="data-thumb-view-header">
-        <div class="table-responsive">
-          <table id="reward-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>'>
-          </table>
-        </div>
+        <div class="data_list_100">
+          <div class="data_list_20">
+            <div class="">
+              <div class="filter_title">
+                <h4>Filters <span>Reset</span></h4>
+              </div>
+              <div class="">
+                <h6>Status</h6>
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[status][]" class="reward_sidebar_filter" id="scheduled">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                            <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">scheduled</span>
+                      <i class="icon_side_margin fa fa-circle-o fa_scheduled fa_circle_sm" aria-hidden="true"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[status][]" class="icon_side_margin reward_sidebar_filter" id="active">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">active</span>
+                      <i class="icon_side_margin fa fa-circle fa_active fa_circle_sm" aria-hidden="true"></i>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[status][]" class="reward_sidebar_filter" id="ended">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                        <span class="vs-checkbox--check">
+                            <i class="vs-icon feather icon-check"></i>
+                        </span>
+                      </span>
+                      <span class="filter_label">ended</span>
+                      <i class="icon_side_margin fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+                <!-- Reward Tags FIlter --> 
+                <!-- <div class="mt-1">
+                  <h6>Tags</h6> -->
+                  <%#= select_tag :tags,
+                                  options_for_select(all_tags_humanize),
+                                  class: 'form-control-sm challenge-tags-filter', multiple: 'multiple' %>
+                  <!-- <div class="tag_box filter-tag-selection" style="padding-top: 5px;"> -->
+                  <!-- </div>
+                </div> -->
+            </div>     
+          </div>
+          <div class="data_list_80">
+            <div class="table-responsive">
+              <table id="reward-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>'>
+              </table>
+            </div>
+          </div>
+      </div>
       </section>
     </div>
   </div>
