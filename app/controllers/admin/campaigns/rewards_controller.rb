@@ -108,6 +108,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     respond_to do |format|
       previous_segments = @reward.reward_filters.pluck(:id)
       removed_segments = previous_segments - @available_segments
+
+      ## Manage Tags for a Reward
+      tags_association
+      
       if @reward.update(reward_params)
         ## Remove Deleted User Segments from a Reward
         @reward.reward_filters.where(id: removed_segments).delete_all if removed_segments.present?
