@@ -109,6 +109,7 @@ class Reward < ApplicationRecord
   def self.reward_side_bar_filter(filters)
     query = 'id IS NOT NULL'
     status_query_string = ''
+    tags_query = ''
     platform_query_string = ''
     type_query_string = ''
     rewards = ''
@@ -147,10 +148,24 @@ class Reward < ApplicationRecord
       #     platform_query_string = ' AND parameters IN (:parameters)'
       #     parameters << value
       #   end
+      elsif key == 'tags' && filters[key].present?
+        # 'SELECT  "rewards".* FROM "rewards" WHERE EXISTS (SELECT * FROM "taggings" WHERE "taggings"."taggable_id" = "rewards"."id" AND "taggings"."taggable_type" = 'Reward' AND "taggings"."tag_id" IN (SELECT "tags"."id" FROM "tags" WHERE (LOWER("tags"."name") ILIKE 'awesome' ESCAPE '!' OR LOWER("tags"."name") ILIKE 'cool' ESCAPE '!'))) LIMIT $1'
+        sub_query = ""
+        filters[key].each_with_index do |tag, index|
+          if index == 0
+            sub_query = sub_query + "LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
+          else
+            sub_query = sub_query + " OR LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
+          end
+        end
+
+        tags_query = " OR EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
+            "AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (#{sub_query})))"
       end
     end
-    final_query = query + status_query_string #+ type_query_string + platform_query_string
+    final_query = query + status_query_string + tags_query #+ type_query_string + platform_query_string
     rewards = self.where(final_query, active_start_date: active_start_date, active_end_date: active_end_date, scheduled_date: scheduled_date, ended_date: ended_date) #, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+
     return rewards
   end
 end
