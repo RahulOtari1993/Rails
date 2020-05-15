@@ -1,4 +1,15 @@
 class ImageUploader < CarrierWave::Uploader::Base
+  include CarrierWave::ImageOptimizer
+
+  #thumb version
+  version :thumb do
+    process :resize_to_fit => [100, 100]
+    process optimize: [{ quality: 50 }]
+  end
+  #Banner version
+  version :banner do
+    process :quality => 85
+  end
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -35,9 +46,9 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   ## Create different versions of your uploaded files:
-  version :thumb, :if => :thumb? do
-    process :resize_to_fill => [100, 100]
-  end
+  # version :thumb, :if => :thumb? do
+  #   process :resize_to_fill => [100, 100]
+  # end
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
@@ -54,5 +65,26 @@ class ImageUploader < CarrierWave::Uploader::Base
   ## Check Whether you want to create Thumbnail or NOT
   def thumb?(file_name)
     model.class.to_s != 'CampaignTemplateDetail'
+  end
+
+  def optimize(img)
+    manipulate! do |img|
+        return img unless img.mime_type.match /image\/jpeg/
+        img.strip
+        img.combine_options do |c|
+            c.quality "80"
+            c.depth "8"
+            c.interlace "plane"
+        end
+        img
+    end
+  end
+
+  def quality(percentage)
+    manipulate! do |img|
+      img.quality(percentage.to_s)
+      img = yield(img) if block_given?
+      img
+    end
   end
 end
