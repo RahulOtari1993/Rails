@@ -121,19 +121,19 @@ class Reward < ApplicationRecord
         # status_query_string = query_string + ' OR is_approved IS ? '
         value.each do |val|
           if val == 'active'
-            status_query_string = status_query_string + ' OR start < (:active_start_date) AND finish < (:active_end_date)'
+            status_query_string = status_query_string + ' AND start < (:active_start_date) AND finish < (:active_end_date)'
             active_start_date = Time.now
             active_end_date = Time.now
           elsif val == 'scheduled'
-          	status_query_string = status_query_string + ' OR start > (:scheduled_date)'
+          	status_query_string = status_query_string + ' AND start > (:scheduled_date)'
           	scheduled_date = Time.now
           # elsif value == 'ended'
            #  start_time = Time.now.in_time_zone(@time_zone).to_i
            #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
            # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
           else
-          	status_query_string = status_query_string + ' OR finish < (:ended_date)'
-          	ended_date = Time.now.in_time_zone('UTC')
+          	status_query_string = status_query_string + ' AND finish < (:ended_date)'
+          	ended_date = Time.now
           end
         end
       # elsif key == 'challenge_type' && filters[key].present?
