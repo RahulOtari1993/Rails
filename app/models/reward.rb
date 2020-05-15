@@ -159,7 +159,7 @@ class Reward < ApplicationRecord
           end
         end
 
-        tags_query = " OR EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
+        tags_query = " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
             "AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (#{sub_query})))"
       end
     end
