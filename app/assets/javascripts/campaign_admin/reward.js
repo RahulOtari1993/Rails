@@ -616,36 +616,6 @@ $(document).ready(function () {
   // Reward sidebar status filters
   $('.reward_sidebar_filter').change(function () {
     applyFilters(generateFilterParams());
-
-    // var status_checked = []
-    // // var type_checked = []
-    // // var platform_checked = []
-    // // var reward_checked = []
-    // var filter = {}
-    // $("input[name='filters[status][]']:checked").each(function () {
-    //   status_checked.push($(this).parent().find('.filter_label').html());
-    // });
-    // filter["status"] = status_checked
-    // // $("input[name='filters[challenge_type][]']:checked").each(function () {
-    // //   type_checked.push($(this).parent().find('.filter_label').html());
-    // // });
-    // // filter['challenge_type'] = type_checked
-    // // $("input[name='filters[platform_type][]']:checked").each(function () {
-    // //   platform_checked.push($(this).parent().find('.filter_label').html());
-    // // });
-    // // filter['platform_type'] = platform_checked
-    // // $("input[name='filters[reward_type][]']:checked").each(function () {
-    // //   reward_checked.push($(this).parent().find('.filter_label').html());
-    // // });
-    // // filter['reward_type'] = reward_checked
-    // if (filter != '') {
-    //   $('#reward-list-table').DataTable().ajax.url(
-    //       "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json"
-    //       + "?filters=" + JSON.stringify(filter)
-    //   ).load() //checked
-    // } else {
-    //   $('#challenge-list-table').DataTable().ajax.reload();
-    // }
   });
 
   //Reset filter checkboxes
@@ -656,10 +626,6 @@ $(document).ready(function () {
     $('.filter-tag-selection').html('');
 
     applyFilters(generateFilterParams());
-
-    // $('#reward-list-table').DataTable().ajax.url(
-    //     "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json"
-    // ).load()
   })
 
   // Reward Tags
