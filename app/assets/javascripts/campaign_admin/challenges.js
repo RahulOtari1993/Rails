@@ -1151,12 +1151,13 @@ $(document).on('turbolinks:load', function () {
     }
   })
 
-  // Challenge sidebar status filters
-  $('.challenge_sidebar_filter').change(function () {
+  // Generates Challenge Filter Query String
+  function generateFilterParams() {
     var status_checked = []
     var type_checked = []
     var platform_checked = []
     var reward_checked = []
+    var tags = []
     var filter = {}
     $("input[name='filters[status][]']:checked").each(function () {
       status_checked.push($(this).parent().find('.filter_label').html());
@@ -1174,15 +1175,31 @@ $(document).on('turbolinks:load', function () {
       reward_checked.push($(this).parent().find('.filter_label').html());
     });
     filter['reward_type'] = reward_checked
-    if (filter != '') {
+
+    $('.challenge-tags-filter-chip').each(function () {
+      tags.push($(this).data('tag-val'));
+    });
+    filter['tags'] = tags
+
+    return filter;
+  }
+
+  // Applly Challenge Filters
+  function applyFilters(filters) {
+    if (filters != '') {
       $('#challenge-list-table').DataTable().ajax.url(
           "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-          + "?filters=" + JSON.stringify(filter)
+          + "?filters=" + JSON.stringify(filters)
       )
           .load() //checked
     } else {
       $('#challenge-list-table').DataTable().ajax.reload();
     }
+  }
+
+  // Challenge sidebar status filters
+  $('.challenge_sidebar_filter').change(function () {
+    applyFilters(generateFilterParams());
   });
 
   // Tags Selection With Auto Suggestion
@@ -1284,11 +1301,12 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Replace Chip Value & Chip Class of Newly Added Tags of Challenge Filter
-  function replaceTagFields(stringDetails, tagValue) {
+  function replaceTagFields(stringDetails, tagHtml, tagVal) {
     var chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
     var chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
 
-    stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagValue);
+    stringDetails = stringDetails.replace(/---TAG-HTML---/g, tagHtml);
+    stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagVal);
     stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
     return stringDetails;
   }
@@ -1300,11 +1318,16 @@ $(document).on('turbolinks:load', function () {
     dropdownAutoWidth: true,
   }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
-    tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text());
+    tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text(), $('.challenge-tags-filter :selected').val());
     $('.filter-tag-selection').append(tagHtml);
 
     // Reset Tags Selector
     $('.challenge-tags-filter').val(null).trigger('change');
+
+    var filters = generateFilterParams();
+    console.log("filter", filters);
+
+    applyFilters(filters);
   });
 
   // Remove Tag From Challenge Filters
