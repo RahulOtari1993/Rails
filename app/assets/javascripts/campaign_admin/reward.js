@@ -3,8 +3,10 @@ $(document).ready(function () {
   $('#reward_selection').on('change', function () {
     if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
       $('.threshold').show();
+      $('.sweepstake').hide();
     } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
       $('.threshold').hide();
+      $('.sweepstake').hide();
     } else if ($(this).val() == 'sweepstake') {
       $('.threshold').hide();
       $('.sweepstake').show();
@@ -180,6 +182,9 @@ $(document).ready(function () {
   //front-end validations
   $('.reward-form').validate({
     errorElement: 'span',
+    onfocusout: function (element) {
+      return false;
+    },
     ignore: function (index, el) {
       var $el = $(el);
 
@@ -188,7 +193,7 @@ $(document).ready(function () {
       }
 
       // Default behavior
-      return $el.is(':hidden');
+      return $el.is(':hidden') || $el.hasClass('ignore');
     },
     rules: {
       'reward[name]': {
@@ -666,6 +671,18 @@ $(document).ready(function () {
   $('body').on('click', '.filter-tag-selection .chip-closeable', function (e) {
     $(this).parent().parent().remove();
     applyFilters(generateFilterParams());
+  });
+
+  // Load  Image on Selection
+  $('#reward_image').change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#reward-image-preview').attr('src', e.target.result);
+        $('#reward_image').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
   });
 })
 

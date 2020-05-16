@@ -19,6 +19,15 @@
     @reward.new_record?
   end
 
+  ## Image Load While Editing a Challenge
+  def reward_image_load
+    if @reward.new_record?
+      "<img id='reward-image-preview' />"
+    else
+      "<img id='reward-image-preview' src='#{@reward.image.url}'/>"
+    end
+  end
+
   ## Set Name Convention String for User Segment
   def reward_name_convention(filter = nil)
     filter.present? ? filter.id : '___NUM___'

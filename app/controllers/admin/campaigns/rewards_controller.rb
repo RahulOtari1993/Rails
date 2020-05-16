@@ -1,4 +1,5 @@
 class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
+  before_action :set_reward, only: [:edit, :update]
   before_action :build_params, only: [:create, :update]
   require 'mini_magick'
 
@@ -100,11 +101,11 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def edit 
-    @reward = @campaign.rewards.find_by(:id => params[:id])
+    # @reward = @campaign.rewards.find_by(:id => params[:id])
   end
 
   def update
-    @reward = @campaign.rewards.find_by(:id => params[:id])
+    # @reward = @campaign.rewards.find_by(:id => params[:id])
     respond_to do |format|
       previous_segments = @reward.reward_filters.pluck(:id)
       removed_segments = previous_segments - @available_segments
@@ -181,9 +182,9 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   ## Build Nested Attributes Params for User Segments
   def build_params
+    @available_segments = []
     if params[:reward].has_key?('reward_filters_attributes')
       new_params = []
-      @available_segments = []
 
       cust_params = params[:reward][:reward_filters_attributes]
       cust_params.each do |key, c_param|
@@ -290,5 +291,10 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
     @reward.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
     @reward.tag_list.add(tags.join(', '), parse: true) if tags.present?
+  end
+
+  ## Set reward
+  def set_reward
+    @reward = @campaign.rewards.find_by(:id => params[:id]) rescue nil
   end
 end
