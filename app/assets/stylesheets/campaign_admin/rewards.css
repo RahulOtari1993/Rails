@@ -16,4 +16,8 @@
 #image-image-preview {
   width: 100%;
 }
+.reward-filter-type-dd {
+  display: initial !important;
+  width: 10%;
+}
 

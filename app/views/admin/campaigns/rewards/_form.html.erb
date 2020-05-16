@@ -168,6 +168,51 @@
                             </div>
                           </div>
 
+                          <div class="col-12 milestone_reward" style="display: none; margin-bottom: 10px;">
+                            <h3>REWARD RULES</h3>
+                              <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">
+                                <%= f.check_box :filter_applied, {} %>
+                                <span class="vs-checkbox">
+                                  <span class="vs-checkbox--check">
+                                      <i class="vs-icon feather icon-check"></i>
+                                  </span>
+                                </span>
+                                <span class="">Apply segments to target this challenge to specific users</span>
+                              </div>
+
+                              <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
+                                User match
+                                <%= f.select :filter_type,
+                                    options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
+                                of the following condition
+
+                                <hr style="margin-bottom: 0px !important;">
+                              </div>
+                              <div class="form-group filters-container" style="display: <%= rule_display_user_segments %>">
+                                <div class="table-responsive">
+                                  <table class="segment_table table table-striped mb-0 tbl-user-segments">
+                                    <tbody class="reward-rule-segments-container">
+                                      <% existing_ids = [] %>
+                                      <% if action_name == 'edit' && @reward.reward_rules.present? %>
+                                        <% @reward.reward_rules.each do |r_f| %>
+                                          <% existing_ids.push(r_f.id) %>
+                                          <%= render 'rule_fields', filter: r_f %>
+                                        <% end %>
+                                      <% end %>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <br>
+                                <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-reward-rule existing-filter-ids" data-ids="<%= existing_ids %>">
+                                  <span>
+                                    <i class="feather icon-plus"></i> Add Rule
+                                  </span>
+                                </button>
+                              </div>
+                                </tbody>
+                              </table>
+                          </div>
+
                           <div class="col-12">
                             <div class="form-group">
                               <div class="position-relative">
@@ -278,51 +323,6 @@
                                     </button>
                                   </div>
      
-                                </tbody>
-                              </table>
-                          </div>
-
-                          <div class="col-12">
-                            <h3>REWARD RULES</h3>
-                              <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">
-                                <%= f.check_box :filter_applied, {} %>
-                                <span class="vs-checkbox">
-                                  <span class="vs-checkbox--check">
-                                      <i class="vs-icon feather icon-check"></i>
-                                  </span>
-                                </span>
-                                <span class="">Apply segments to target this challenge to specific users</span>
-                              </div>
-
-                              <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
-                                User match
-                                <%= f.select :filter_type,
-                                                options_for_select(filter_type), {}, class: 'form-control filter-type-dd' %>
-                                of the following condition
-
-                                <hr style="margin-bottom: 0px !important;">
-                              </div>
-                              <div class="form-group filters-container" style="display: <%= rule_display_user_segments %>">
-                                <div class="table-responsive">
-                                  <table class="segment_table table table-striped mb-0">
-                                    <tbody class="reward-rule-segments-container">
-                                      <% existing_ids = [] %>
-                                      <% if action_name == 'edit' && @reward.reward_rules.present? %>
-                                        <% @reward.reward_rules.each do |r_f| %>
-                                          <% existing_ids.push(r_f.id) %>
-                                          <%= render 'segment_fields', filter: r_f %>
-                                        <% end %>
-                                      <% end %>
-                                    </tbody>
-                                  </table>
-                                </div>
-                                <br>
-                                <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-reward-rule existing-filter-ids" data-ids="<%= existing_ids %>">
-                                  <span>
-                                    <i class="feather icon-plus"></i> Add Rule
-                                  </span>
-                                </button>
-                              </div>
                                 </tbody>
                               </table>
                           </div>

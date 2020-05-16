@@ -4,13 +4,19 @@ $(document).ready(function () {
     if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
       $('.threshold').show();
       $('.sweepstake').hide();
+      $('.milestone_reward').hide();
     } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
       $('.threshold').hide();
       $('.sweepstake').hide();
+      $('.milestone_reward').hide();
     } else if ($(this).val() == 'sweepstake') {
       $('.threshold').hide();
       $('.sweepstake').show();
+      $('.milestone_reward').hide();
     } else {
+      $('.threshold').hide();
+      $('.sweepstake').hide();
+      $('.milestone_reward').show();
     }
   })
 
