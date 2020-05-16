@@ -68,6 +68,7 @@ class Reward < ApplicationRecord
 		"threshold" ,
 		"selection" ,
 		"sweepstake",
+		"milestone_reward"
 	]
 
 	FULFILMENTS = [

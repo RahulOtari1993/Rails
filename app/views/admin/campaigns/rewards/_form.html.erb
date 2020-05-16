@@ -137,7 +137,7 @@
 															</span>
                               <div class="position-relative">
                                 <div class="form-group">
-                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS, :selected => f.object.selection), {}, class: "select2 form-control", required: true)
+                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS.map { |val| [val.humanize, val] }, :selected => f.object.selection), {}, class: "select2 form-control", required: true)
                                   %>
                                 </div>
                               </div>
