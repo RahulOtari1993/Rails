@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'campaign_admin/profile_attributes', 'data-turbolinks-track' => 'reload' %>
+
 <div class="app-content content">
   <div class="content-overlay"></div>
   <div class="header-navbar-shadow"></div>
@@ -14,7 +16,7 @@
     <div class="content-body">
       <section id="data-list-view" class="data-list-view-header">
         <div class="table-responsive">
-          <table class="table data-list-view campaign-list-view">
+          <table class="table data-list-view profile-attribute-list-view" data-campaign-id="<%= @campaign.id %>">
             <thead>
             <tr>
               <th>ATTRIBUTE</th>
