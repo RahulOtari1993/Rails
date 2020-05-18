@@ -149,7 +149,7 @@ class Reward < ApplicationRecord
         #     parameters << value
         #   end
       elsif key == 'tags' && filters[key].present?
-        filters[key].each_with_index do |tag, index|
+        filters[key].each do |tag|
           tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
               " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
