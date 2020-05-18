@@ -42,40 +42,31 @@ $(document).on('turbolinks:load', function () {
     window.location = $(this).data('url')
   });
 
-  // // Add Campaign Form Validation
-  // $('.edit-campaign-form').validate({
-  //   errorElement: 'span',
-  //   rules: {
-  //     'campaign[name]': {
-  //       required: true
-  //     },
-  //     'campaign[domain]': {
-  //       required: true,
-  //       domainRegex: true
-  //     },
-  //     'campaign[domain_type]': {
-  //       required: true
-  //     }
-  //   },
-  //   messages: {
-  //     'campaign[name]': {
-  //       required: 'Please enter campaign name'
-  //     },
-  //     'campaign[domain]': {
-  //       required: 'Please enter campaign domain'
-  //     },
-  //     'campaign[domain_type]': {
-  //       required: 'Please select domain type'
-  //     }
-  //   },
-  //   errorPlacement: function (error, element) {
-  //     var placement = $(element).data('error');
-  //     console.log("Placment", placement);
-  //     if (placement) {
-  //       $('.' + placement).append(error)
-  //     } else {
-  //       error.insertAfter(element);
-  //     }
-  //   }
-  // });
+  // Add Campaign Form Validation
+  $('.profile-attributes-form').validate({
+    errorElement: 'span',
+    rules: {
+      'profile_attribute[attribute_name]': {
+        required: true
+      },
+      'profile_attribute[display_name]': {
+        required: true,
+        domainRegex: true
+      },
+      'profile_attribute[field_type]': {
+        required: true
+      }
+    },
+    messages: {
+      'profile_attribute[attribute_name]': {
+        required: 'Please enter attribute name'
+      },
+      'profile_attribute[display_name]': {
+        required: 'Please enter display name'
+      },
+      'profile_attribute[field_type]': {
+        required: 'Please select field type'
+      }
+    }
+  });
 });

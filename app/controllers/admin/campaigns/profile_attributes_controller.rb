@@ -13,7 +13,7 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
     @p_attribute = ProfileAttribute.new(profile_attribute_params)
     respond_to do |format|
       if @p_attribute.save
-        format.html { redirect_to admin_campaign_profile_attributes_path(@campaign, @p_attribute), notice: 'Profile Attribute was successfully created.' }
+        format.html { redirect_to admin_campaign_profile_attributes_path(@campaign), notice: 'Profile Attribute was successfully created.' }
         format.json { render :index, status: :created }
       else
         format.html { render :new }
@@ -28,7 +28,7 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
   def update
     respond_to do |format|
       if @p_attribute.update(profile_attribute_params)
-        format.html { redirect_to admin_campaign_profile_attributes_path(@campaign, @p_attribute), notice: 'Profile Attribute was successfully updated.' }
+        format.html { redirect_to admin_campaign_profile_attributes_path(@campaign), notice: 'Profile Attribute was successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }
