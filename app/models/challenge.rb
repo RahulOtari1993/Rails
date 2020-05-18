@@ -63,7 +63,7 @@ class Challenge < ApplicationRecord
   enum reward_type: [:points, :prize]
   enum category: [:share, :engage, :amplify, :collection, :connect, :grow]
   enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom]
-  enum filter_type: { all_filters: 0, any_filter: 1}
+  enum filter_type: {all_filters: 0, any_filter: 1}
 
   ## Mount Uploader for File Upload
   mount_uploader :image, ImageUploader
@@ -155,7 +155,7 @@ class Challenge < ApplicationRecord
           elsif val == 'scheduled'
             #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
             status_query_string = " AND timezone(challenges.timezone, challenges.start) > :schedule"
-           # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+            # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
             scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
           elsif val == 'ended'
             status_query_string = " AND convert_tz(challenges.finish, 'UTC') < :ended_keyword"
@@ -173,21 +173,15 @@ class Challenge < ApplicationRecord
           parameters << value
         end
       elsif key == 'tags' && filters[key].present?
-        sub_query = ""
-        filters[key].each_with_index do |tag, index|
-          if index == 0
-            sub_query = sub_query + "LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
-          else
-            sub_query = sub_query + " OR LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
-          end
+        filters[key].each do |tag|
+          tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = challenges.id AND taggings.taggable_type = 'Challenge'" +
+              " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
-
-        tags_query = " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = challenges.id AND taggings.taggable_type = 'Challenge'" +
-            "AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (#{sub_query})))"
       end
     end
     final_query = query + status_query_string + type_query_string + platform_query_string + tags_query
     challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+
     return challenges
   end
 end
