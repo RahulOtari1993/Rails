@@ -49,7 +49,7 @@ class Reward < ApplicationRecord
   has_one_attached :photo_image
   has_one_attached :thumb_image
 
-  enum filter_type: { all_filters: 0, any_filter: 1 }
+  enum filter_type: {all_filters: 0, any_filter: 1}
   serialize :image
   validates :image, presence: true
 
@@ -61,33 +61,32 @@ class Reward < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  	SELECTIONS = [
-		"manual"    ,
-		"redeem"    ,
-		"instant"   ,
-		"threshold" ,
-		"selection" ,
-		"sweepstake",
-		"milestone_reward"
-	]
+  SELECTIONS = [
+      "manual",
+      "redeem",
+      "instant",
+      "threshold",
+      "selection",
+      "sweepstake",
+      "milestone_reward"
+  ]
 
-	FULFILMENTS = [
-		"default" ,
-		"badge"   ,
-		"points"  ,
-		"download"
-	]
+  FULFILMENTS = [
+      "default",
+      "badge",
+      "points",
+      "download"
+  ]
 
-	
 
-	validates :campaign, presence: true
-	validates :name, presence: true
-	validates :threshold, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, if: Proc.new { |x| x.selection == "selection" }
-	validates :selection, presence: true, inclusion: SELECTIONS
-	# validates :fulfilment, presence: true, inclusion: FULFILMENTS
-	validates :description, presence: true
+  validates :campaign, presence: true
+  validates :name, presence: true
+  validates :threshold, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}, if: Proc.new { |x| x.selection == "selection" }
+  validates :selection, presence: true, inclusion: SELECTIONS
+  # validates :fulfilment, presence: true, inclusion: FULFILMENTS
+  validates :description, presence: true
 
-	## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
+  ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
     if self.start.in_time_zone('UTC') > Time.now.in_time_zone('UTC')
       'scheduled'
@@ -130,38 +129,30 @@ class Reward < ApplicationRecord
             active_start_date = Time.now
             active_end_date = Time.now
           elsif val == 'scheduled'
-          	status_query_string = status_query_string + ' AND start > (:scheduled_date)'
-          	scheduled_date = Time.now
-          # elsif value == 'ended'
-           #  start_time = Time.now.in_time_zone(@time_zone).to_i
-           #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
-           # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+            status_query_string = status_query_string + ' AND start > (:scheduled_date)'
+            scheduled_date = Time.now
+            # elsif value == 'ended'
+            #  start_time = Time.now.in_time_zone(@time_zone).to_i
+            #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
+            # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
           else
-          	status_query_string = status_query_string + ' AND finish < (:ended_date)'
-          	ended_date = Time.now
+            status_query_string = status_query_string + ' AND finish < (:ended_date)'
+            ended_date = Time.now
           end
         end
-      # elsif key == 'challenge_type' && filters[key].present?
-      #   type_query_string = ' AND challenge_type IN (:challenge_type)'
-      #   challenge_type << value
-      # elsif key == 'platform_type' && filters[key].present?
-      #   if Challenge.parameters.values_at(*Array(value)).present?
-      #     platform_query_string = ' AND parameters IN (:parameters)'
-      #     parameters << value
-      #   end
+        # elsif key == 'challenge_type' && filters[key].present?
+        #   type_query_string = ' AND challenge_type IN (:challenge_type)'
+        #   challenge_type << value
+        # elsif key == 'platform_type' && filters[key].present?
+        #   if Challenge.parameters.values_at(*Array(value)).present?
+        #     platform_query_string = ' AND parameters IN (:parameters)'
+        #     parameters << value
+        #   end
       elsif key == 'tags' && filters[key].present?
-        # 'SELECT  "rewards".* FROM "rewards" WHERE EXISTS (SELECT * FROM "taggings" WHERE "taggings"."taggable_id" = "rewards"."id" AND "taggings"."taggable_type" = 'Reward' AND "taggings"."tag_id" IN (SELECT "tags"."id" FROM "tags" WHERE (LOWER("tags"."name") ILIKE 'awesome' ESCAPE '!' OR LOWER("tags"."name") ILIKE 'cool' ESCAPE '!'))) LIMIT $1'
-        sub_query = ""
         filters[key].each_with_index do |tag, index|
-          if index == 0
-            sub_query = sub_query + "LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
-          else
-            sub_query = sub_query + " OR LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!'"
-          end
+          tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
+              " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
-
-        tags_query = " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = rewards.id AND taggings.taggable_type = 'Reward'" +
-            "AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (#{sub_query})))"
       end
     end
     final_query = query + status_query_string + tags_query #+ type_query_string + platform_query_string
