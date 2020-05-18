@@ -1,0 +1,2 @@
+class ProfileAttribute < ApplicationRecord
+end

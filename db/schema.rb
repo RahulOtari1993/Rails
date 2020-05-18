@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_075845) do
+ActiveRecord::Schema.define(version: 2020_05_18_081001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,11 +54,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
-  create_table "api_participants", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "campaign_configs", force: :cascade do |t|
@@ -270,15 +265,33 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "jti"
-    t.string "provider", default: "email", null: false
-    t.string "uid", default: "", null: false
-    t.boolean "allow_password_change", default: false
-    t.json "tokens"
-    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
-    t.index ["email", "campaign_id"], name: "index_participants_on_email_and_campaign_id", unique: true
-    t.index ["jti"], name: "index_participants_on_jti", unique: true
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_name"
+    t.date "birth_date"
+    t.integer "gender"
+    t.string "phone"
+    t.string "city"
+    t.string "state"
+    t.string "postal"
+    t.string "street_address"
+    t.string "street_address_1"
+    t.text "bio"
+    t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
+  end
+
+  create_table "profile_attributes", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.string "attribute_name"
+    t.string "display_name"
+    t.boolean "is_enabled"
+    t.boolean "is_custom"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_profile_attributes_on_campaign_id"
   end
 
   create_table "reward_filters", force: :cascade do |t|
@@ -309,14 +322,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
-  end
-
-  create_table "reward_users", force: :cascade do |t|
-    t.integer "reward_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -418,7 +423,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
     t.integer "invited_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "auth_token"
     t.index ["email", "organization_id"], name: "index_users_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -435,6 +439,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_075845) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
+  add_foreign_key "profile_attributes", "campaigns"
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"
