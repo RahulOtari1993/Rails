@@ -10,5 +10,11 @@ class CreateProfileAttributes < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    ## Create Profile Attributes for Existing Campaigns
+    Campaign.all.each do |campaign|
+      profile_attributes = ProfileAttributeService.new(campaign.id)
+      profile_attributes.process_records
+    end
   end
 end

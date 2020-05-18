@@ -48,6 +48,7 @@ class Campaign < ApplicationRecord
   after_create :assign_admins
   after_create :set_template_design
   after_create :create_configs
+  after_create :create_profile_attributes
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
@@ -92,5 +93,11 @@ class Campaign < ApplicationRecord
   ## Create Empty Campaign Configs for Newly Created Campaign
   def create_configs
     CampaignConfig.create(campaign_id: self.id)
+  end
+
+  ## Create Profile Attributes Newly Created Campaign
+  def create_profile_attributes
+    profile_attributes = ProfileAttributeService.new(self.id)
+    profile_attributes.process_records
   end
 end

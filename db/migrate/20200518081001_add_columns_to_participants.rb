@@ -13,8 +13,8 @@ class AddColumnsToParticipants < ActiveRecord::Migration[5.2]
     add_column :participants, :state, :string
     add_column :participants, :postal, :string
 
-    add_column :participants, :street_address, :string
-    add_column :participants, :street_address_1, :string
+    add_column :participants, :address_1, :string
+    add_column :participants, :address_2, :string
     add_column :participants, :bio, :text
   end
 end

@@ -276,8 +276,8 @@ ActiveRecord::Schema.define(version: 2020_05_18_081001) do
     t.string "city"
     t.string "state"
     t.string "postal"
-    t.string "street_address"
-    t.string "street_address_1"
+    t.string "address_1"
+    t.string "address_2"
     t.text "bio"
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
