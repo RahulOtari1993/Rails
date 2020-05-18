@@ -41,8 +41,8 @@
         <div class="form-group">
           <%= form.label :field_type, 'Field Type' %>
           <div class="position-relative">
-            <%= form.select :filter_type,
-                            options_for_select(profile_attribute_field_types), {}, class: 'form-control profile-attr-field-type' %>
+            <%= form.select :field_type,
+                            options_for_select(profile_attribute_field_types, @p_attribute.field_type), {}, class: 'form-control profile-attr-field-type' %>
           </div>
         </div>
       </div>

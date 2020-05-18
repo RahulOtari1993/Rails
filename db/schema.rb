@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_081001) do
     t.bigint "campaign_id"
     t.string "attribute_name"
     t.string "display_name"
-    t.string "field_type"
+    t.integer "field_type"
     t.boolean "is_active", default: true
     t.boolean "is_custom", default: true
     t.datetime "created_at", null: false

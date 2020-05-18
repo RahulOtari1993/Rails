@@ -1,4 +1,5 @@
 class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseController
+  before_action :set_profile_attribute, only: [:edit, :update]
 
   def index
     @profile_attributes = @campaign.profile_attributes
@@ -10,7 +11,6 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
 
   def create
     @p_attribute = ProfileAttribute.new(profile_attribute_params)
-
     respond_to do |format|
       if @p_attribute.save
         format.html { redirect_to admin_campaign_profile_attributes_path(@campaign, @p_attribute), notice: 'Profile Attribute was successfully created.' }
@@ -27,6 +27,7 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
 
   def update
     respond_to do |format|
+      binding.pry
       if @p_attribute.update(profile_attribute_params)
         format.html { redirect_to admin_campaign_profile_attributes_path(@campaign, @p_attribute), notice: 'Profile Attribute was successfully updated.' }
         format.json { render :edit, status: :updated }
@@ -43,5 +44,9 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
   def profile_attribute_params
     params.require(:profile_attribute).permit(:attribute_name, :display_name, :field_type,
                                             :is_active, :is_custom, :campaign_id)
+  end
+
+  def set_profile_attribute
+    @p_attribute = @campaign.profile_attributes.where(id: params[:id]).first
   end
 end

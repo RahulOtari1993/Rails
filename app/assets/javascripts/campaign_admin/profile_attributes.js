@@ -37,6 +37,11 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Edit Profile Attribute Redirection
+  $('.profile-attribute-list-view').on('click', '.edit-profile-attribute-btn', function(){
+    window.location = $(this).data('url')
+  });
+
   // // Add Campaign Form Validation
   // $('.edit-campaign-form').validate({
   //   errorElement: 'span',
