@@ -21,7 +21,7 @@
             <tr>
               <th>ATTRIBUTE</th>
               <th>TYPE</th>
-              <th>ENABLED</th>
+              <th>ACTIVE</th>
               <th>CUSTOM</th>
               <th>ACTION</th>
             </tr>
@@ -33,16 +33,16 @@
                   <%= attribute.display_name %>
                 </td>
 
-                <td class="product-category>
+                <td class="product-category">
                   <%= attribute.field_type %>
                 </td>
 
-                <td class=" product-category>
-                  <%= attribute.is_enabled %>
+                <td class=" product-category" >
+                  <%= attribute.is_active %>
                 </td>
 
                 <td class="product-category">
-                  <%= campaign.is_custom %>
+                  <%= attribute.is_custom %>
                 </td>
 
                 <td>

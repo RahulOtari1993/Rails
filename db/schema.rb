@@ -288,7 +288,7 @@ ActiveRecord::Schema.define(version: 2020_05_18_081001) do
     t.string "attribute_name"
     t.string "display_name"
     t.string "field_type"
-    t.boolean "is_enabled", default: true
+    t.boolean "is_active", default: true
     t.boolean "is_custom", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

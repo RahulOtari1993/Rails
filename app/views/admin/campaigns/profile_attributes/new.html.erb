@@ -1,1 +1,22 @@
-<%= render partial: 'form', reward: @reward %>
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-body">
+      <section id="basic-vertical-layouts">
+        <div class="row match-height">
+          <div class="col-md-12 col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="text-center card-title">Create Profile Attribute</h4>
+              </div>
+              <div class="card-content container col-md-9 col-9 border_reward">
+                <%= render partial: 'form', p_attribute: @p_attribute %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

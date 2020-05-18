@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function () {
     pageLength: 10,
     buttons: [
       {
-        text: "<i class='feather icon-plus'></i> Add New Campaign",
+        text: "<i class='feather icon-plus'></i> Add New Profile Attribute",
         action: function() {
           var campignId = $('.profile-attribute-list-view').data('campaign-id');
           window.location.href = `/admin/campaigns/${campignId}/profile_attributes/new`

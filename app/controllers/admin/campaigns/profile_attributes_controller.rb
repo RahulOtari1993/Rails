@@ -41,7 +41,7 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_attribute_params
-    params.require(:profile_attribute).permit(:facebook_app_id, :facebook_app_secret, :google_client_id,
-                                            :google_client_secret, :twitter_app_id, :twitter_app_secret)
+    params.require(:profile_attribute).permit(:attribute_name, :display_name, :field_type,
+                                            :is_active, :is_custom, :campaign_id)
   end
 end
