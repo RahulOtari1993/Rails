@@ -1,0 +1,60 @@
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+      <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title float-left mb-0">List Profile Attributes</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="data-list-view" class="data-list-view-header">
+        <div class="table-responsive">
+          <table class="table data-list-view campaign-list-view">
+            <thead>
+            <tr>
+              <th>ATTRIBUTE</th>
+              <th>TYPE</th>
+              <th>ENABLED</th>
+              <th>CUSTOM</th>
+              <th>ACTION</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @profile_attributes.each do |attribute| %>
+              <tr>
+                <td class="product-name">
+                  <%= attribute.display_name %>
+                </td>
+
+                <td class="product-category>
+                  <%= attribute.field_type %>
+                </td>
+
+                <td class=" product-category>
+                  <%= attribute.is_enabled %>
+                </td>
+
+                <td class="product-category">
+                  <%= campaign.is_custom %>
+                </td>
+
+                <td>
+                  <button class="btn btn-xs btn-action btn-warning"
+                          data-url="<%= edit_admin_campaign_profile_attribute_path(attribute.campaign_id, attribute.id) %>">
+                    EDIT
+                  </button>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

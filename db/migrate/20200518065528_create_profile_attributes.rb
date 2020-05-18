@@ -4,8 +4,9 @@ class CreateProfileAttributes < ActiveRecord::Migration[5.2]
       t.references :campaign, foreign_key: true
       t.string :attribute_name
       t.string :display_name
-      t.boolean :is_enabled
-      t.boolean :is_custom
+      t.string :field_type
+      t.boolean :is_enabled, default: true
+      t.boolean :is_custom, default: true
 
       t.timestamps
     end

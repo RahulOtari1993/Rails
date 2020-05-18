@@ -75,6 +75,9 @@ Rails.application.routes.draw do
               post '/add_tag', to: 'challenges#add_tag'
             end
           end
+
+          ## Profile Attributes Routes
+          resources :profile_attributes
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
