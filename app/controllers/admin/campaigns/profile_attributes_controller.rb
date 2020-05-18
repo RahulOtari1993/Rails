@@ -27,7 +27,6 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
 
   def update
     respond_to do |format|
-      binding.pry
       if @p_attribute.update(profile_attribute_params)
         format.html { redirect_to admin_campaign_profile_attributes_path(@campaign, @p_attribute), notice: 'Profile Attribute was successfully updated.' }
         format.json { render :edit, status: :updated }
