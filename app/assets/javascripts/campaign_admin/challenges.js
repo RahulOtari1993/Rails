@@ -1382,7 +1382,8 @@ $(document).on('turbolinks:load', function () {
       escapeMarkup: function(es) { return es; }
     }).on('select2:select', function (e) {
       var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
-      console.log("Selected Val", selectedVal);
+      console.log("Selected Val", selectedVal, $(this).data('select2-id'), $(this).data('custom-id'));
+
     });
   };
 
