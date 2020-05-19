@@ -396,7 +396,7 @@
   width: 10%;
 }
 
-.filter-type-container{
+.filter-type-container {
   padding-top: 10px;
 }
 
@@ -724,8 +724,189 @@
   margin: 0 5px;
   font-size: 12px
 }
+
 .data_table_status_icon {
   position: absolute;
   top: 47%;
   font-size: 18px;
 }
+
+/* ----------------------------------------- Question Builder START ----------------------------------------- */
+
+.question_form_blocks hr {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.question_box {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 30px 20px 7px;
+  margin-bottom: 40px;
+}
+
+.question_form_blocks {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.question_del_icon {
+  font-size: 18px;
+}
+
+.question_delete_box {
+  float: right;
+
+}
+
+.question_delete_box .custom-switch {
+  float: left;
+  position: relative;
+}
+
+.question_delete_box .custom-switch:after {
+  content: "";
+  height: 30px;
+  background: #ccc;
+  width: 1px;
+  position: absolute;
+  top: -4px;
+  right: -12px;
+}
+
+.question_delete_box .custom-switch p {
+  float: left;
+  padding-right: 12px;
+}
+
+.que_delete {
+  position: absolute;
+  right: 0px;
+}
+
+.que_edit {
+  position: relative;
+  clear: both;
+  width: 100%;
+}
+
+.que_edit .que_ip_width {
+  width: 75%;
+  float: left;
+}
+
+.que_edit .que_edit_icon {
+  float: left;
+  font-size: 25px;
+  margin-top: 5px;
+  margin-right: 12px;
+  font-style: initial;
+}
+
+.que_edit .que_edit_cross {
+  float: left;
+  font-size: 25px;
+  margin-top: 5px;
+  margin-left: 15px;
+}
+
+.question_box .date_icon {
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
+}
+
+.que_dropdown_edit .que_edit_icon {
+  font-size: 20px;
+}
+
+.que_scale_label {
+  position: relative;
+  clear: both;
+  width: 100%;
+  float: left;
+}
+
+.que_scale_label span {
+  width: 5%;
+  float: left;
+  font-size: 20px;
+}
+
+.que_scale_label input {
+  width: 95%;
+  float: left;
+}
+
+.que_scale_ip {
+  width: 50%;
+  position: relative;
+}
+
+.que_scale_ip .form-group {
+  width: 40%;
+  float: left;
+}
+
+.que_scale_ip .k {
+  width: 20%;
+  float: left;
+  text-align: center;
+  line-height: 36px;
+}
+
+
+.clear {
+  clear: both;
+}
+
+@media only screen and (max-width: 414px) {
+  .question_form_blocks {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .que_scale_label input {
+    width: 92%;
+    float: left;
+  }
+
+  .que_scale_label span {
+    width: 8%;
+    float: left;
+    font-size: 20px;
+  }
+
+  .que_edit .que_ip_width {
+    width: 76%;
+    float: left;
+  }
+
+  .que_edit .que_edit_icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .que_edit .que_edit_cross {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
+  .que_mobile_mb {
+    margin-bottom: 1.5rem
+  }
+
+  .app-content .wizard > .content > .body {
+    padding: 0 0px;
+  }
+
+  .app-content .wizard > .actions {
+    position: relative;
+    display: block;
+    text-align: right;
+    padding: 20px 0px;
+    padding-top: 0;
+  }
+}
+
+/* ----------------------------------------- Question Builder END ----------------------------------------- */
