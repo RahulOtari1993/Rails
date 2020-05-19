@@ -257,8 +257,6 @@ module ChallengeHelper
     if needChange
       if type == 'class'
         customString = customString + '-___CLASS___'
-      elsif type == 'data-attr'
-        customString = customString + '___CLASS___'
       end
     end
 

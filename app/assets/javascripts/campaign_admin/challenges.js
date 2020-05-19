@@ -1380,11 +1380,15 @@ $(document).on('turbolinks:load', function () {
       templateResult: iconFormat,
       templateSelection: iconFormat,
       escapeMarkup: function(es) { return es; }
-    }).on('select2:select', function (e) {
-      var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
-      console.log("Selected Val", selectedVal, $(this).data('select2-id'), $(this).data('custom-id'));
-
-    });
+    })
+    //     .on('select2:select', function (e) {
+    //   var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
+    //   var customId = $(this).data('custom-id');
+    //   console.log("Selected Val",selectedVal, customId);
+    //
+    //   $(`.question-box${customId} .options-container`).hide();
+    //   $(`.question-box${customId} .${selectedVal}-container`).show();
+    // });
   };
 
   // Question Selector Dropdown
@@ -1406,5 +1410,14 @@ $(document).on('turbolinks:load', function () {
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
+  });
+
+  // Show Hide Question Options Dynamically
+  $('body').on('change', '.question-selector', function (e) {
+    var selectedVal = $(this).val();
+    var customId = $(this).data('custom-id');
+
+    $(`.question-box${customId} .options-container`).hide();
+    $(`.question-box${customId} .${selectedVal}-container`).show();
   });
 });
