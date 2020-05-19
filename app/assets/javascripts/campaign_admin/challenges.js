@@ -1363,15 +1363,33 @@ $(document).on('turbolinks:load', function () {
     return $icon;
   };
 
+  // Select2 Inititalization for Dropdown Format Icon
+  function questionTypeSelect2() {
+    $('.question-selector').select2({
+      dropdownAutoWidth: true,
+      width: '100%',
+      minimumResultsForSearch: Infinity,
+      templateResult: iconFormat,
+      templateSelection: iconFormat,
+      escapeMarkup: function(es) { return es; }
+    }).on('select2:select', function (e) {
+      var selectedVal = $('.question-selector :selected').val();
+      console.log("Selected Val", selectedVal);
+    });
+  };
+
   // Question Selector Dropdown
-  $('.question-selector').select2({
-    dropdownAutoWidth: true,
-    minimumResultsForSearch: Infinity,
-    templateResult: iconFormat,
-    templateSelection: iconFormat,
-    escapeMarkup: function(es) { return es; }
-  }).on('select2:select', function (e) {
-   var selectedVal = $('.question-selector :selected').val();
-   console.log("Selected Val", selectedVal);
+  questionTypeSelect2();
+
+  // Add New Question
+  $('.add-challenge-question').on('click', function (e) {
+    let questionTemplate = $('#question-template').html();
+    // let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+    //
+    // segmentHtml = replaceFieldIds(challengeUserSegmentsTemplate, phaseCounter);
+    $('.questions-container').append(questionTemplate);
+
+    // Question Selector Dropdown
+    questionTypeSelect2();
   });
 });
