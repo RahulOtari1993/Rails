@@ -94,6 +94,23 @@ class ProfileAttributeService
             is_custom: false,
             campaign_id: @campaign_id
 
+        },
+        {
+            attribute_name: 'radio_button',
+            display_name: 'Multiple Choice',
+            field_type: 'radio_button',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+
+        },
+        {
+            attribute_name: 'check_box',
+            display_name: 'Check Boxes',
+            field_type: 'check_box',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
         }
     ]
   end

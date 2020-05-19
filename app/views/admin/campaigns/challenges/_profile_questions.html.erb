@@ -7,35 +7,19 @@
       </div>
     </div>
     <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
       <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-11">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left" selected>Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-          <!--  <optgroup label="File types">
-               <option value="pdf" data-icon="fa fa-file-pdf-o">PDF</option>
-               <option value="word" data-icon="fa fa-file-word-o">Word</option>
-               <option value="excel" data-icon="fa fa-file-excel-o">Excel</option>
-               <option value="facebook" data-icon="fa fa-facebook-official">Facebook</option>
-           </optgroup> -->
-
-        </select>
+        <%= render 'admin/campaigns/question_builder/question_type' %>
       </div>
     </div>
     <div class="col-12 col-md-7">
       <div class="form-label-group">
         <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-7">
+      <div class="form-label-group">
+        <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled>
         <!--  <label for="first-name-column">First Name</label> -->
       </div>
     </div>
@@ -45,7 +29,6 @@
     <div class="col-12">
       <hr>
       <div class="question_delete_box">
-
         <div class="custom-control custom-switch mr-2 mb-1" style="">
           <p>Required</p>
           <input type="checkbox" class="custom-control-input" id="custom_Switch11">
@@ -57,7 +40,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -110,7 +93,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -187,7 +170,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -264,7 +247,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -341,7 +324,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;" >
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -430,7 +413,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -486,7 +469,7 @@
   </div>
 </div>
 
-<div class="container question_box">
+<div class="container question_box"  style="display: none;">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">

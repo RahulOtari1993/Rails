@@ -368,15 +368,18 @@
         <div class="social-heading-details">
           <h3>2. Extended Profile Questions</h3>
         </div>
+
         <div class="row">
-          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light" type="button">
-            <span><i class="feather icon-plus"></i> Add Question</span>
-          </button>
+          <div class="col-sm-8 col-lg-10 questions-container">
+            <%= render 'admin/campaigns/challenges/profile_questions', form: form %>
+          </div>
         </div>
 
         <div class="row">
-          <div class="col-sm-12 col-lg-12">
-            <%= render 'admin/campaigns/challenges/profile_questions', form: form %>
+          <div class="form-group">
+            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-question" type="button">
+              <span><i class="feather icon-plus"></i> Add Question</span>
+            </button>
           </div>
         </div>
       </div>
