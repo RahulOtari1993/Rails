@@ -49,6 +49,7 @@ class Challenge < ApplicationRecord
   has_many :challenge_filters, dependent: :destroy
   has_many :challenge_participants, dependent: :destroy
   has_many :participants, through: :challenge_participants
+  has_many :questions, dependent: :destroy
   # attr_accessor :status
 
   ## Constants

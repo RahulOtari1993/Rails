@@ -10,4 +10,7 @@
 #  updated_at   :datetime         not null
 #
 class QuestionOption < ApplicationRecord
+  ## Associations
+  belongs_to :challenge
+  belongs_to :question
 end

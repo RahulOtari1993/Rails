@@ -12,4 +12,8 @@
 #  updated_at   :datetime         not null
 #
 class Question < ApplicationRecord
+  ## Associations
+  belongs_to :challenge
+  has_many :question_options, dependent: :destroy
+  has_many :question_answers, dependent: :destroy
 end
