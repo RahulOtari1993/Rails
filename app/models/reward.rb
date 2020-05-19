@@ -32,6 +32,8 @@
 #  actual_image_url    :text
 #  image_width         :integer
 #  image_height        :integer
+#  filter_type         :integer          default("all_filters")
+#  filter_applied      :boolean          default(FALSE)
 #
 class Reward < ApplicationRecord
 

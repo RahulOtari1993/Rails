@@ -8,15 +8,15 @@
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
 #  first_name             :string
 #  last_name              :string
-#  is_active              :boolean          default("false"), not null
-#  is_deleted             :boolean          default("false"), not null
+#  is_active              :boolean          default(FALSE), not null
+#  is_deleted             :boolean          default(FALSE), not null
 #  deleted_by             :integer
 #  organization_id        :integer
 #  role                   :integer
@@ -24,7 +24,7 @@
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
-#  is_invited             :boolean          default("false")
+#  is_invited             :boolean          default(FALSE)
 #  invited_by_id          :integer
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

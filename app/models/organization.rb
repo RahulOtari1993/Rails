@@ -6,8 +6,8 @@
 #  name          :string           not null
 #  sub_domain    :string           not null
 #  admin_user_id :bigint           not null
-#  is_active     :boolean          default("true"), not null
-#  is_deleted    :boolean          default("false"), not null
+#  is_active     :boolean          default(TRUE), not null
+#  is_deleted    :boolean          default(FALSE), not null
 #  deleted_by    :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

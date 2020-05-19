@@ -21,7 +21,7 @@
 #  description        :text
 #  reward_type        :integer
 #  reward_id          :bigint
-#  is_approved        :boolean          default("false")
+#  is_approved        :boolean          default(FALSE)
 #  image              :string
 #  social_title       :string
 #  social_description :string
@@ -37,8 +37,8 @@
 #  longitude          :float
 #  latitude           :float
 #  location_distance  :integer
-#  filter_type        :integer          default("0")
-#  filter_applied     :boolean          default("false")
+#  filter_type        :integer          default("all_filters")
+#  filter_applied     :boolean          default(FALSE)
 #
 
 class Challenge < ApplicationRecord

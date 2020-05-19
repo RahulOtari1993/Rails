@@ -20,7 +20,7 @@
 #  how_to_earn_content :text
 #  css                 :text
 #  seo                 :text
-#  is_active           :boolean          default("true")
+#  is_active           :boolean          default(TRUE)
 #  template            :text
 #  templated           :boolean
 #  created_at          :datetime         not null

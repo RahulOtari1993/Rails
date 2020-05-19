@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: profile_attributes
+#
+#  id             :bigint           not null, primary key
+#  campaign_id    :bigint
+#  attribute_name :string
+#  display_name   :string
+#  field_type     :integer
+#  is_active      :boolean          default(TRUE)
+#  is_custom      :boolean          default(TRUE)
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class ProfileAttribute < ApplicationRecord
 
   ## Associations
