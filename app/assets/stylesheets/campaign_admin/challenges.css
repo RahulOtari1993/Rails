@@ -733,6 +733,10 @@
 
 /* ----------------------------------------- Question Builder START ----------------------------------------- */
 
+.hide-options {
+  display: none;
+}
+
 .question_form_blocks hr {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
@@ -854,7 +858,6 @@
   text-align: center;
   line-height: 36px;
 }
-
 
 .clear {
   clear: both;

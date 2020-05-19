@@ -11,120 +11,21 @@
         <%= render 'admin/campaigns/question_builder/question_type' %>
       </div>
     </div>
-    <div class="col-12 col-md-7">
+
+    <div class="col-12 col-md-7 options-container string-container">
       <div class="form-label-group">
         <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
       </div>
     </div>
 
-    <div class="col-12 col-md-7">
+    <div class="col-12 col-md-7 options-container text_area-container hide-options">
       <div class="form-label-group">
         <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled>
         <!--  <label for="first-name-column">First Name</label> -->
       </div>
     </div>
-  </div>
 
-  <div class="row m-0">
-    <div class="col-12">
-      <hr>
-      <div class="question_delete_box">
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch11">
-          <label class="custom-control-label" for="custom_Switch11"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-22">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify" selected>Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-    <div class="col-12 col-md-7">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled>
-        <!--  <label for="first-name-column">First Name</label> -->
-      </div>
-    </div>
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch22">
-          <label class="custom-control-label" for="custom_Switch22"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-
-
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-33">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o" selected>Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-12">
+    <div class="col-12 options-container radio_button-container hide-options">
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -151,57 +52,7 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch33">
-          <label class="custom-control-label" for="custom_Switch33"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-
-
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-checkbox">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square" selected>Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-12">
+    <div class="col-12 options-container check_box-container hide-options">
       <div class="que_edit">
         <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -228,57 +79,7 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch_checkbox">
-          <label class="custom-control-label" for="custom_Switch_checkbox"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-
-
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-dropdown">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down" selected>Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-
-    <div class="col-12 que_dropdown_edit">
+    <div class="col-12 que_dropdown_edit options-container dropdown-container hide-options">
       <div class="que_edit">
         <i class="que_edit_icon" aria-hidden="true">1.</i>
         <div class="form-label-group que_ip_width">
@@ -305,54 +106,56 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch_dropdown">
-          <label class="custom-control-label" for="custom_Switch_dropdown"></label>
+    <div class="col-12 col-md-7 options-container date-container hide-options">
+      <div class="input-group input-group-md que_mobile_mb form-group">
+        <input type="text" class="form-control" placeholder="Month, day, year" aria-describedby="sizing-addon1" disabled>
+        <div class="input-group-prepend">
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
         </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container question_box"  style="display: none;" >
-  <div class="row">
-    <div class="col-md-7 col-12">
+    <div class="col-12 col-md-7 options-container time-container hide-options">
+      <div class="input-group input-group-md que_mobile_mb form-group">
+        <input type="text" class="form-control" placeholder="Time" aria-describedby="sizing-addon1" disabled>
+        <div class="input-group-prepend">
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-7 options-container number-container hide-options">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
+        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
       </div>
     </div>
-    <div class="col-md-5 col-12">
 
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-scale">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h" selected>Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
+    <div class="col-12 col-md-7 options-container decimal-container hide-options">
+      <div class="form-label-group">
+        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
       </div>
     </div>
-    <div class="col-12 col-md-7">
+
+    <div class="col-12 options-container boolean-container hide-options">
+      <div class="que_edit">
+        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+        <div class="form-label-group que_ip_width">
+          <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
+          <!--  <label for="first-name-column">First Name</label> -->
+        </div>
+        <i class="feather icon-x que_edit_cross"></i>
+      </div>
+      <div class="que_edit">
+        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+        <div class="form-label-group que_ip_width">
+          <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
+          <!--  <label for="first-name-column">First Name</label> -->
+        </div>
+        <i class="feather icon-x que_edit_cross"></i>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-7 options-container linear_scale-container hide-options">
       <div class="que_scale_ip">
         <div class="form-group">
           <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-scale1">
@@ -397,127 +200,13 @@
   </div>
 
   <div class="row m-0">
-    <hr>
     <div class="col-12">
-
+      <hr>
       <div class="question_delete_box">
-
         <div class="custom-control custom-switch mr-2 mb-1" style="">
           <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch_scale">
-          <label class="custom-control-label" for="custom_Switch_scale"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-44">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar" selected>Date</option>
-            <option value="html5" data-icon="fa fa-clock-o">Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-    <div class="col-12 col-md-7">
-      <div class="input-group input-group-md que_mobile_mb">
-
-        <input type="text" class="form-control" placeholder="Month, day, year" aria-describedby="sizing-addon1" disabled>
-        <div class="input-group-prepend">
-          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch44">
-          <label class="custom-control-label" for="custom_Switch44"></label>
-        </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container question_box"  style="display: none;">
-  <div class="row">
-    <div class="col-md-7 col-12">
-      <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Question" name="fname-column">
-        <label for="first-name-column">Question</label>
-      </div>
-    </div>
-    <div class="col-md-5 col-12">
-
-      <!-- <p>Use <code>.select2</code> class for basic select2 control.</p> -->
-      <div class="form-group">
-        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-55">
-          <!-- <optgroup label="Services"> -->
-          <optgroup>
-            <option value="wordpress2" data-icon="fa fa-align-left">Short answer</option>
-            <option value="codepen" data-icon="fa fa-align-justify">Paragraph</option>
-            <option value="drupal" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-            <option value="pinterest2" data-icon="fa fa-check-square">Checkboxes</option>
-            <option value="html5" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-
-            <option value="html5" data-icon="fa fa-ellipsis-h">Linear scale</option>
-            <option value="html5" data-icon="fa fa-calendar">Date</option>
-            <option value="html5" data-icon="fa fa-clock-o" selected>Time</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-    <div class="col-12 col-md-7">
-      <div class="input-group input-group-md que_mobile_mb">
-
-        <input type="text" class="form-control" placeholder="Time" aria-describedby="sizing-addon1" disabled>
-        <div class="input-group-prepend">
-          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row m-0">
-    <hr>
-    <div class="col-12">
-
-      <div class="question_delete_box">
-
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
-          <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch55">
-          <label class="custom-control-label" for="custom_Switch55"></label>
+          <input type="checkbox" class="custom-control-input" id="custom_Switch11">
+          <label class="custom-control-label" for="custom_Switch11"></label>
         </div>
         <i class="feather icon-trash-2 question_del_icon"></i>
       </div>
