@@ -1,0 +1,2 @@
+class QuestionOption < ApplicationRecord
+end

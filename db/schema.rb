@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_081001) do
+ActiveRecord::Schema.define(version: 2020_05_19_142245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -295,6 +295,41 @@ ActiveRecord::Schema.define(version: 2020_05_18_081001) do
     t.index ["campaign_id"], name: "index_profile_attributes_on_campaign_id"
   end
 
+  create_table "question_answers", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "question_id"
+    t.bigint "participant_id"
+    t.bigint "question_option_id"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_question_answers_on_challenge_id"
+    t.index ["participant_id"], name: "index_question_answers_on_participant_id"
+    t.index ["question_id"], name: "index_question_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_question_answers_on_question_option_id"
+  end
+
+  create_table "question_options", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "question_id"
+    t.string "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_question_options_on_challenge_id"
+    t.index ["question_id"], name: "index_question_options_on_question_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.integer "category"
+    t.string "title"
+    t.boolean "is_required"
+    t.integer "answer_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_questions_on_challenge_id"
+  end
+
   create_table "reward_filters", force: :cascade do |t|
     t.bigint "reward_id"
     t.string "reward_condition"
@@ -441,6 +476,13 @@ ActiveRecord::Schema.define(version: 2020_05_18_081001) do
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "profile_attributes", "campaigns"
+  add_foreign_key "question_answers", "challenges"
+  add_foreign_key "question_answers", "participants"
+  add_foreign_key "question_answers", "question_options"
+  add_foreign_key "question_answers", "questions"
+  add_foreign_key "question_options", "challenges"
+  add_foreign_key "question_options", "questions"
+  add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"
