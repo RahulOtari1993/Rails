@@ -1352,5 +1352,26 @@ $(document).on('turbolinks:load', function () {
     // $('#challenge-list-table').DataTable().ajax.url(
     //     "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
     // ).load()
-  })
+  });
+
+  // Dropdown Formate Icon
+  function iconFormat(icon) {
+    var originalOption = icon.element;
+    if (!icon.id) { return icon.text; }
+    var $icon = "<i class='" + $(icon.element).data('icon') + "'></i>" + icon.text;
+
+    return $icon;
+  };
+
+  // Question Selector Dropdown
+  $('.question-selector').select2({
+    dropdownAutoWidth: true,
+    minimumResultsForSearch: Infinity,
+    templateResult: iconFormat,
+    templateSelection: iconFormat,
+    escapeMarkup: function(es) { return es; }
+  }).on('select2:select', function (e) {
+   var selectedVal = $('.question-selector :selected').val();
+   console.log("Selected Val", selectedVal);
+  });
 });
