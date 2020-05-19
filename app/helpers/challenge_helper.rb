@@ -236,6 +236,7 @@ module ChallengeHelper
     @challenge.filter_applied ? 'block' : 'none'
   end
 
+  ## Challenge Status Indicator
   def challenge_status_indicator
     status = @challenge.status
     if status == 'draft'
@@ -247,5 +248,18 @@ module ChallengeHelper
     else
       class_name = 'fa fa-circle fa_ended fa_circle_lg'
     end
+  end
+
+  ## Question ID Builder
+  def question_build_id(needChange, type, string)
+    customString = string
+
+    if needChange
+      if type == 'class'
+        customString = customString + '-___CLASS___'
+      end
+    end
+
+    customString
   end
 end

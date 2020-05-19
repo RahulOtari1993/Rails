@@ -1364,8 +1364,16 @@ $(document).on('turbolinks:load', function () {
   };
 
   // Select2 Inititalization for Dropdown Format Icon
-  function questionTypeSelect2() {
-    $('.question-selector').select2({
+  function questionTypeSelect2(phaseCounter = '') {
+    if (phaseCounter != '') {
+      var dropdownID = '-' + phaseCounter;
+    } else {
+      var dropdownID = '';
+    }
+
+    console.log("DD ID", dropdownID);
+
+    $(`.question-selector${dropdownID}`).select2({
       dropdownAutoWidth: true,
       width: '100%',
       minimumResultsForSearch: Infinity,
@@ -1373,7 +1381,7 @@ $(document).on('turbolinks:load', function () {
       templateSelection: iconFormat,
       escapeMarkup: function(es) { return es; }
     }).on('select2:select', function (e) {
-      var selectedVal = $('.question-selector :selected').val();
+      var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
       console.log("Selected Val", selectedVal);
     });
   };
@@ -1381,15 +1389,21 @@ $(document).on('turbolinks:load', function () {
   // Question Selector Dropdown
   questionTypeSelect2();
 
+  // Replace ID of Newly Added Fields of Challenge Question
+  function replaceQuestionContainerFieldIds(stringDetails, phaseCounter) {
+    stringDetails = stringDetails.replace(/\___CLASS___/g, phaseCounter);
+    return stringDetails;
+  }
+
   // Add New Question
   $('.add-challenge-question').on('click', function (e) {
     let questionTemplate = $('#question-template').html();
-    // let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
-    //
-    // segmentHtml = replaceFieldIds(challengeUserSegmentsTemplate, phaseCounter);
-    $('.questions-container').append(questionTemplate);
+    let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+
+    questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter);
+    $('.questions-container').append(questionHtml);
 
     // Question Selector Dropdown
-    questionTypeSelect2();
+    questionTypeSelect2(phaseCounter);
   });
 });
