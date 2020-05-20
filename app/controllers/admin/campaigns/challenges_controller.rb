@@ -39,8 +39,10 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def create
+    # binding.pry
     @challenge = Challenge.new(challenge_params)
 
+    # binding.pry
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save

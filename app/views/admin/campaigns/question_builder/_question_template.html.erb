@@ -4,7 +4,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][title]",
                            question_value(question),
-                           class: 'form-control', id: "segment-value-points-#{q_name_convention(template, question)}",
+                           class: 'form-control', id: "question-title-#{q_name_convention(template, question)}",
                            required: true %>
 
         <label for="first-name-column">Question</label>
@@ -209,8 +209,11 @@
       <div class="question_delete_box">
         <div class="custom-control custom-switch mr-2 mb-1" style="">
           <p>Required</p>
-          <input type="checkbox" class="custom-control-input" id="custom_Switch11">
-          <label class="custom-control-label" for="custom_Switch11"></label>
+          <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][is_required]", true, false,
+                             id: "question-is-required-#{q_name_convention(template, question)}",
+          class: 'custom-control-input' %>
+
+          <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question) %>"></label>
         </div>
         <i class="feather icon-trash-2 question_del_icon"></i>
       </div>

@@ -323,7 +323,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_142245) do
     t.bigint "challenge_id"
     t.integer "category"
     t.string "title"
-    t.boolean "is_required"
+    t.boolean "is_required", default: false
     t.integer "answer_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

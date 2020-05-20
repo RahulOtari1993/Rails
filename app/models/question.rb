@@ -6,7 +6,7 @@
 #  challenge_id :bigint
 #  category     :integer
 #  title        :string
-#  is_required  :boolean
+#  is_required  :boolean          default(FALSE)
 #  answer_type  :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

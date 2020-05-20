@@ -4,7 +4,7 @@ class CreateQuestions < ActiveRecord::Migration[5.2]
       t.references :challenge, foreign_key: true
       t.integer :category
       t.string :title
-      t.boolean :is_required
+      t.boolean :is_required, default: false
       t.integer :answer_type
 
       t.timestamps
