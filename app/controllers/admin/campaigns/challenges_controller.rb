@@ -191,7 +191,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :title, :content, :duration, :longitude, :latitude, :address,
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
-                                                                                     :challenge_condition, :challenge_value])
+                                                                                     :challenge_condition, :challenge_value],
+                                                      :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type,
+                                                                                :question_options_attributes => [:id, :challenge_id, :question_id, :details]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]

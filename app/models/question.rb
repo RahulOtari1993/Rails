@@ -19,4 +19,7 @@ class Question < ApplicationRecord
 
   ## ENUM
   enum filter_type: {profile: 0, survey: 1, quiz: 1}
+
+  ## Nested Attributes
+  accepts_nested_attributes_for :question_options, allow_destroy: true, :reject_if => :all_blank
 end

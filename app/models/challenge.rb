@@ -70,8 +70,9 @@ class Challenge < ApplicationRecord
   mount_uploader :image, ImageUploader
   mount_uploader :social_image, ImageUploader
 
-  ## Nested Attributes for Challenge Filters
+  ## Nested Attributes
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
+  accepts_nested_attributes_for :questions, allow_destroy: true, :reject_if => :all_blank
 
   ## Tags
   acts_as_taggable_on :tags
