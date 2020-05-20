@@ -1397,6 +1397,8 @@ $(document).on('turbolinks:load', function () {
   // Replace ID of Newly Added Fields of Challenge Question
   function replaceQuestionContainerFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___CLASS___/g, phaseCounter);
+    stringDetails = stringDetails.replace(/\___NUM___/g, phaseCounter);
+    stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
     return stringDetails;
   }
 

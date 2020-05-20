@@ -262,4 +262,31 @@ module ChallengeHelper
 
     customString
   end
+
+  ## Set Name Convention String for Question
+  def q_name_convention(template = false, question = nil)
+    if template
+      question.present? ? question.id : '___NUM___'
+    else
+      '12N21'
+    end
+  end
+
+  ## Set ID Convention String for Question
+  def q_id_convention(question = nil)
+    if template
+      question.present? ? question.id : '___ID___'
+    else
+      '12N21'
+    end
+  end
+
+  ## Question Set Default Value of Question Title
+  def question_value(question = nil)
+      if question.present?
+        question.title
+      else
+        'Untitled Question'
+      end
+  end
 end
