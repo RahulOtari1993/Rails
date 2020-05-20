@@ -326,11 +326,18 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
+        option_data = []
+        if c_param.has_key?('question_options_attributes') && c_param[:question_options_attributes].has_key?('details')
+          c_param[:question_options_attributes][:details].each do |option|
+            option_data.push({ details: option})
+          end
+        end
         filter_data = {
             title: c_param[:title],
             is_required: c_param.has_key?('is_required'),
             category: c_param[:category],
-            answer_type: c_param[:answer_type]
+            answer_type: c_param[:answer_type],
+            question_options_attributes: option_data
         }
 
         if c_param.has_key?('id')

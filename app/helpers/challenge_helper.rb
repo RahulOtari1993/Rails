@@ -268,16 +268,7 @@ module ChallengeHelper
     if template
       question.present? ? question.id : '___NUM___'
     else
-      '12N21'
-    end
-  end
-
-  ## Set ID Convention String for Question
-  def q_id_convention(question = nil)
-    if template
-      question.present? ? question.id : '___ID___'
-    else
-      '12N21'
+      '12Q21'
     end
   end
 
@@ -288,5 +279,23 @@ module ChallengeHelper
       else
         'Untitled Question'
       end
+  end
+
+  ## Question Set Default Value of Question Option
+  def option_value(option = nil, counter = 1)
+    if option.present?
+      option.title
+    else
+      "Option #{counter}"
+    end
+  end
+
+  ## Set ID Convention String for Question
+  def o_id_convention(template = nil, option = nil, id_details)
+    if template
+      option.present? ? option.id : '___O_ID___'
+    else
+      id_details
+    end
   end
 end

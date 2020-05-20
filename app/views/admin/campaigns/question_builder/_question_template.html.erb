@@ -20,14 +20,31 @@
 
     <div class="col-12 col-md-7 options-container string-container">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           option_value(nil, 1),
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Short answer text',
+                           disabled: true %>
+
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           option_value(nil, 2),
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
+                           placeholder: 'Short answer text',
+                           disabled: true %>
+
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           option_value(nil, 3),
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 3)}",
+                           placeholder: 'Short answer text',
+                           disabled: true %>
+
+<!--        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled="disabled">-->
       </div>
     </div>
 
     <div class="col-12 col-md-7 options-container text_area-container hide-options">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled>
-        <!--  <label for="first-name-column">First Name</label> -->
+        <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled="disabled">
       </div>
     </div>
 
@@ -36,7 +53,6 @@
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -44,7 +60,6 @@
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>

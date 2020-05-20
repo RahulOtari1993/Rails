@@ -310,12 +310,10 @@ ActiveRecord::Schema.define(version: 2020_05_19_142245) do
   end
 
   create_table "question_options", force: :cascade do |t|
-    t.bigint "challenge_id"
     t.bigint "question_id"
     t.string "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_question_options_on_challenge_id"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
@@ -480,7 +478,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_142245) do
   add_foreign_key "question_answers", "participants"
   add_foreign_key "question_answers", "question_options"
   add_foreign_key "question_answers", "questions"
-  add_foreign_key "question_options", "challenges"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"

@@ -1395,10 +1395,12 @@ $(document).on('turbolinks:load', function () {
   questionTypeSelect2();
 
   // Replace ID of Newly Added Fields of Challenge Question
-  function replaceQuestionContainerFieldIds(stringDetails, phaseCounter) {
+  function replaceQuestionContainerFieldIds(stringDetails, phaseCounter, optionCounter) {
     stringDetails = stringDetails.replace(/\___CLASS___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___NUM___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
+
+    stringDetails = stringDetails.replace(/\___O_ID___/g, optionCounter);
     return stringDetails;
   }
 
@@ -1406,8 +1408,9 @@ $(document).on('turbolinks:load', function () {
   $('.add-challenge-question').on('click', function (e) {
     let questionTemplate = $('#question-template').html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+    let optionCounter = Math.floor(Math.random() * 90000) + 10000;
 
-    questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter);
+    questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter);
     $('.questions-container').append(questionHtml);
 
     // Question Selector Dropdown
