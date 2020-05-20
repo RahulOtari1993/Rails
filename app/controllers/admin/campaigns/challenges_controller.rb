@@ -1,7 +1,8 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
                                        :remove_tag, :add_tag]
-  before_action :build_params, only: [:create, :update]
+  before_action :build_segment_params, only: [:create, :update]
+  before_action :build_question_params, only: [:create, :update]
 
   def index
   end
@@ -39,10 +40,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def create
-    # binding.pry
     @challenge = Challenge.new(challenge_params)
 
-    # binding.pry
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save
@@ -212,7 +211,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   ## Build Nested Attributes Params for User Segments
-  def build_params
+  def build_segment_params
     @available_segments = []
     if params[:challenge].has_key?('challenge_filters_attributes')
       new_params = []
@@ -318,5 +317,30 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     }
 
     [is_valid, response]
+  end
+
+  def build_question_params
+    @questions = []
+    if params[:challenge].has_key?('questions_attributes')
+      new_params = []
+
+      cust_params = params[:challenge][:questions_attributes]
+      cust_params.each do |key, c_param|
+        filter_data = {
+            title: c_param[:title],
+            is_required: c_param.has_key?('is_required'),
+            category: c_param[:category]
+        }
+
+        if c_param.has_key?('id')
+          filter_data[:id] = c_param[:id]
+          @questions.push(c_param[:id].to_i)
+        end
+
+        new_params.push(filter_data)
+      end
+
+      params[:challenge][:questions_attributes] = new_params
+    end
   end
 end
