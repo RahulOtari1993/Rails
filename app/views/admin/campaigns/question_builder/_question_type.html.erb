@@ -1,5 +1,6 @@
 <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-        data-custom-id="<%= question_build_id(template, 'class', '') %>">
+        data-custom-id="<%= question_build_id(template, 'class', '') %>"
+        name = "challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
   <optgroup>
     <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
     <option value="text_area" data-icon="fa fa-align-justify">Paragraph</option>

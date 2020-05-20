@@ -329,7 +329,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         filter_data = {
             title: c_param[:title],
             is_required: c_param.has_key?('is_required'),
-            category: c_param[:category]
+            category: c_param[:category],
+            answer_type: c_param[:answer_type]
         }
 
         if c_param.has_key?('id')
