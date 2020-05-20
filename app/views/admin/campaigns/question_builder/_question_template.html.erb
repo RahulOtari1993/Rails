@@ -25,26 +25,16 @@
                            class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Short answer text',
                            disabled: true %>
-
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                           option_value(nil, 2),
-                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
-                           placeholder: 'Short answer text',
-                           disabled: true %>
-
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                           option_value(nil, 3),
-                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 3)}",
-                           placeholder: 'Short answer text',
-                           disabled: true %>
-
-<!--        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled="disabled">-->
       </div>
     </div>
 
     <div class="col-12 col-md-7 options-container text_area-container hide-options">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Long answer text" name="fname-column" disabled="disabled">
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           option_value(nil, 1),
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Long answer text',
+                           disabled: true %>
       </div>
     </div>
 
@@ -52,14 +42,20 @@
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 1),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 2),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -67,7 +63,6 @@
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <input type="text" id="first-name-column" class="form-control" placeholder="Add option" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -77,16 +72,20 @@
       <div class="que_edit">
         <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 1),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
       <div class="que_edit">
         <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 2),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -94,7 +93,6 @@
         <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <input type="text" id="first-name-column" class="form-control" placeholder="Add option" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -104,16 +102,20 @@
       <div class="que_edit">
         <i class="que_edit_icon" aria-hidden="true">1.</i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 1),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
       <div class="que_edit">
         <i class="que_edit_icon" aria-hidden="true">2.</i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 2),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -121,7 +123,6 @@
         <i class="que_edit_icon" aria-hidden="true">3.</i>
         <div class="form-label-group que_ip_width">
           <input type="text" id="first-name-column" class="form-control" placeholder="Add option" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
@@ -129,7 +130,11 @@
 
     <div class="col-12 col-md-7 options-container date-container hide-options">
       <div class="input-group input-group-md que_mobile_mb form-group">
-        <input type="text" class="form-control" placeholder="Month, day, year" aria-describedby="sizing-addon1" disabled>
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           '',
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Month, day, year',
+                           disabled: true %>
         <div class="input-group-prepend">
           <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
         </div>
@@ -138,7 +143,11 @@
 
     <div class="col-12 col-md-7 options-container time-container hide-options">
       <div class="input-group input-group-md que_mobile_mb form-group">
-        <input type="text" class="form-control" placeholder="Time" aria-describedby="sizing-addon1" disabled>
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           '',
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Time',
+                           disabled: true %>
         <div class="input-group-prepend">
           <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
         </div>
@@ -147,13 +156,21 @@
 
     <div class="col-12 col-md-7 options-container number-container hide-options">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           '',
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Number',
+                           disabled: true %>
       </div>
     </div>
 
     <div class="col-12 col-md-7 options-container decimal-container hide-options">
       <div class="form-label-group">
-        <input type="text" id="first-name-column" class="form-control" placeholder="Short answer text" name="fname-column" disabled>
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                           '',
+                           class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Decimal',
+                           disabled: true %>
       </div>
     </div>
 
@@ -161,16 +178,20 @@
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 1" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 1),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
-          <input type="text" id="first-name-column" class="form-control" placeholder="Option 2" name="fname-column">
-          <!--  <label for="first-name-column">First Name</label> -->
+          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                             option_value(nil, 2),
+                             class: 'form-control segment-value-points', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
+                             disabled: true %>
         </div>
         <i class="feather icon-x que_edit_cross"></i>
       </div>
