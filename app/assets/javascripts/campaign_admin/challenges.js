@@ -1460,7 +1460,9 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.que_edit_cross', function (e) {
     var options = $(this).parent().parent().find('.que_edit').length
 
-    if (options > 1) {
+    console.log("options", options);
+
+    if (options > 2) {
       $(this).parent().remove();
     } else {
       swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
@@ -1472,7 +1474,7 @@ $(document).on('turbolinks:load', function () {
     var optionHtml = $(this).parent().parent().parent().find('.que_edit').first().html();
     optionHtml = optionHtml.replace("Option 1", "New Option");
     $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
-    
+
     autoSelectText();
   });
 });
