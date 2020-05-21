@@ -38,11 +38,19 @@
                 </td>
 
                 <td class=" product-category" >
-                  <%= attribute.is_active %>
+                  <div class="chip <%= attribute.is_active ? 'chip-success' : 'chip-warning' %>">
+                    <div class="chip-body">
+                      <div class="chip-text"><%= attribute.is_active ? 'YES' : '&nbsp;NO'.html_safe %></div>
+                    </div>
+                  </div>
                 </td>
 
                 <td class="product-category">
-                  <%= attribute.is_custom %>
+                  <div class="chip <%= attribute.is_custom ? 'chip-primary' : 'chip-info' %>">
+                    <div class="chip-body">
+                      <div class="chip-text"><%= attribute.is_custom ? 'YES' : '&nbsp;NO'.html_safe %></div>
+                    </div>
+                  </div>
                 </td>
 
                 <td>
