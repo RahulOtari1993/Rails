@@ -8,7 +8,6 @@
                            question_value(question),
                            class: 'form-control', id: "question-title-#{q_name_convention(template, question)}",
                            required: true %>
-
         <label for="first-name-column">Question</label>
       </div>
     </div>
@@ -22,7 +21,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
-                           class: 'form-control', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control disabled-field', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Short answer text' %>
       </div>
     </div>
@@ -31,7 +30,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
-                           class: 'form-control', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control disabled-field', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Long answer text' %>
       </div>
     </div>

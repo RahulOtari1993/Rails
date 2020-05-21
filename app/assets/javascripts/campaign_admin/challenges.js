@@ -186,6 +186,11 @@ $(document).on('turbolinks:load', function () {
     $('.' + challengeType + '-' + challengeParameters + '-div select').prop("disabled", false);
     $('.' + challengeType + '-' + challengeParameters + '-div hidden').prop("disabled", false);
 
+    // Disable Question Builder Inputs
+    if (challengeType == 'collect' && challengeParameters == 'profile') {
+      $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
+    }
+
     // Load Google Map if Challenge Type is Location
     if (challengeType == 'location') initAutocomplete()
 
