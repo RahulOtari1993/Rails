@@ -7,7 +7,7 @@ class AddColumnsToParticipants < ActiveRecord::Migration[5.2]
     add_column :participants, :utm_name, :string
 
     add_column :participants, :birth_date, :date
-    add_column :participants, :gender, :integer
+    add_column :participants, :gender, :string
     add_column :participants, :phone, :string
     add_column :participants, :city, :string
     add_column :participants, :state, :string

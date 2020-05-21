@@ -271,7 +271,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_142245) do
     t.string "utm_content"
     t.string "utm_name"
     t.date "birth_date"
-    t.integer "gender"
+    t.string "gender"
     t.string "phone"
     t.string "city"
     t.string "state"

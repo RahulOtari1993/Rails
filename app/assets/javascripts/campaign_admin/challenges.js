@@ -189,6 +189,7 @@ $(document).on('turbolinks:load', function () {
     // Disable Question Builder Inputs
     if (challengeType == 'collect' && challengeParameters == 'profile') {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
+      $('.question-selector').trigger('change');
     }
 
     // Load Google Map if Challenge Type is Location

@@ -26,7 +26,7 @@ class ProfileAttributeService
         {
             attribute_name: 'gender',
             display_name: 'Gender',
-            field_type: 'number',
+            field_type: 'radio_button',
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id

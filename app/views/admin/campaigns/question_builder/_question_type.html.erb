@@ -1,17 +1,29 @@
-<select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-        data-custom-id="<%= question_build_id(template, 'class', '') %>"
-        name = "challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
-  <optgroup>
-    <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
-    <option value="text_area" data-icon="fa fa-align-justify">Paragraph</option>
-    <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-    <option value="check_box" data-icon="fa fa-check-square">Checkboxes</option>
-    <option value="dropdown" data-icon="fa fa-caret-square-o-down">Dropdown</option>
-    <option value="date" data-icon="fa fa-calendar">Date</option>
-    <option value="time" data-icon="fa fa-clock-o">Time</option>
-    <option value="number" data-icon="fa fa-clock-o">Number</option>
-    <option value="decimal" data-icon="fa fa-clock-o">Decimal</option>
-    <option value="boolean" data-icon="fa fa-clock-o">Yes/No (Boolean)</option>
-    <option value="linear_scale" data-icon="fa fa-ellipsis-h">Linear scale</option>
-  </optgroup>
-</select>
+<% if type == 'profile' %>
+  <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+          data-custom-id="<%= question_build_id(template, 'class', '') %>"
+          name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+    <optgroup>
+      <% ProfileAttribute.active.each_with_index do |attribute, index| %>
+        <option value="<%= attribute.field_type %>" data-icon="fa fa-align-left" <%= index == 0 ? 'selected' : '' %>><%= attribute.display_name %></option>
+      <% end %>
+    </optgroup>
+  </select>
+<% else %>
+  <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+          data-custom-id="<%= question_build_id(template, 'class', '') %>"
+          name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+    <optgroup>
+      <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
+      <option value="text_area" data-icon="fa fa-align-justify">Paragraph</option>
+      <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
+      <option value="check_box" data-icon="fa fa-check-square">Checkboxes</option>
+      <option value="dropdown" data-icon="fa fa-caret-square-o-down">Dropdown</option>
+      <option value="date" data-icon="fa fa-calendar">Date</option>
+      <option value="time" data-icon="fa fa-clock-o">Time</option>
+      <option value="number" data-icon="fa fa-clock-o">Number</option>
+      <option value="decimal" data-icon="fa fa-clock-o">Decimal</option>
+      <option value="boolean" data-icon="fa fa-clock-o">Yes/No (Boolean)</option>
+<!--      <option value="linear_scale" data-icon="fa fa-ellipsis-h">Linear scale</option>-->
+    </optgroup>
+  </select>
+<% end %>

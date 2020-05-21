@@ -51,7 +51,6 @@ $(document).on('turbolinks:load', function () {
       },
       'profile_attribute[display_name]': {
         required: true,
-        domainRegex: true
       },
       'profile_attribute[field_type]': {
         required: true
