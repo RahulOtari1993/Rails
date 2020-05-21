@@ -1441,4 +1441,14 @@ $(document).on('turbolinks:load', function () {
     $(`.question-box${customId} .${selectedVal}-container .is-editable`).prop('disabled', false);
     autoSelectText();
   });
+
+  // Remove Question With Validation
+  $('body').on('click', '.question_del_icon', function (e) {
+    console.log("Length", $('.question_del_icon').length);
+    if ($('.question_del_icon').length > 1) {
+      $(this).parent().parent().parent().parent().remove();
+    } else {
+      swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
+    }
+  })
 });
