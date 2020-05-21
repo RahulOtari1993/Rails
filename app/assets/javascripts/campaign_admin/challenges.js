@@ -1431,6 +1431,6 @@ $(document).on('turbolinks:load', function () {
     $(`.question-box${customId} .options-container input`).prop('disabled', true);
 
     $(`.question-box${customId} .${selectedVal}-container`).show();
-    $(`.question-box${customId} .${selectedVal}-container input`).prop('disabled', false);
+    $(`.question-box${customId} .${selectedVal}-container .is-editable`).prop('disabled', false);
   });
 });
