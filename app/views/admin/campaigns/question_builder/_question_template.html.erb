@@ -99,24 +99,24 @@
 
     <div class="col-12 que_dropdown_edit options-container dropdown-container hide-options">
       <div class="que_edit">
-        <i class="que_edit_icon" aria-hidden="true">1.</i>
+        <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                              option_value(nil, 1),
                              class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 1)}",
                              disabled: true %>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
+        <i class="feather icon-x que_edit_cross dropdown"></i>
       </div>
       <div class="que_edit">
-        <i class="que_edit_icon" aria-hidden="true">2.</i>
+        <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
           <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                              option_value(nil, 2),
                              class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(question)}-#{o_id_convention(template, nil, 2)}",
                              disabled: true %>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
+        <i class="feather icon-x que_edit_cross dropdown"></i>
       </div>
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>

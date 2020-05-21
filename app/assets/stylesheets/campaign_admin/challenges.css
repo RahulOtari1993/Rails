@@ -755,6 +755,10 @@
   margin: 0 auto;
 }
 
+.dropdown-option-icon {
+  padding-top: 4px;
+}
+
 .question_del_icon {
   font-size: 18px;
 }
