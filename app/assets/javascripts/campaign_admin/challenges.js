@@ -1466,4 +1466,13 @@ $(document).on('turbolinks:load', function () {
       swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
     }
   });
+
+  // Add New Option to a Question
+  $('body').on('click', '.add-challenge-option', function (e) {
+    var optionHtml = $(this).parent().parent().parent().find('.que_edit').first().html();
+    optionHtml = optionHtml.replace("Option 1", "New Option");
+    $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    
+    autoSelectText();
+  });
 });
