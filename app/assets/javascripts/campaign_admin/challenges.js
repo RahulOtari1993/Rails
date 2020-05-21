@@ -1362,7 +1362,9 @@ $(document).on('turbolinks:load', function () {
   // Dropdown Formate Icon
   function iconFormat(icon) {
     var originalOption = icon.element;
-    if (!icon.id) { return icon.text; }
+    if (!icon.id) {
+      return icon.text;
+    }
     var $icon = "<i class='" + $(icon.element).data('icon') + "'></i>" + icon.text;
 
     return $icon;
@@ -1384,7 +1386,9 @@ $(document).on('turbolinks:load', function () {
       minimumResultsForSearch: Infinity,
       templateResult: iconFormat,
       templateSelection: iconFormat,
-      escapeMarkup: function(es) { return es; }
+      escapeMarkup: function (es) {
+        return es;
+      }
     })
     //     .on('select2:select', function (e) {
     //   var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
@@ -1450,5 +1454,16 @@ $(document).on('turbolinks:load', function () {
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
     }
-  })
+  });
+
+  // Remove Question Option With Validation
+  $('body').on('click', '.que_edit_cross', function (e) {
+    var options = $(this).parent().parent().find('.que_edit').length
+
+    if (options > 1) {
+      $(this).parent().remove();
+    } else {
+      swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
+    }
+  });
 });
