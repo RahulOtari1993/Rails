@@ -1422,6 +1422,13 @@ $(document).on('turbolinks:load', function () {
     questionTypeSelect2(phaseCounter);
   });
 
+  // Manage Auto Selection of Text
+  function autoSelectText() {
+    $('.options-container input').click(function () {
+      $(this).select();
+    });
+  };
+
   // Show Hide Question Options Dynamically
   $('body').on('change', '.question-selector', function (e) {
     var selectedVal = $(this).val();
@@ -1432,5 +1439,6 @@ $(document).on('turbolinks:load', function () {
 
     $(`.question-box${customId} .${selectedVal}-container`).show();
     $(`.question-box${customId} .${selectedVal}-container .is-editable`).prop('disabled', false);
+    autoSelectText();
   });
 });
