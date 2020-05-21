@@ -1460,8 +1460,6 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.que_edit_cross', function (e) {
     var options = $(this).parent().parent().find('.que_edit').length
 
-    console.log("options", options);
-
     if (options > 2) {
       $(this).parent().remove();
     } else {
