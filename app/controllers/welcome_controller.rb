@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   before_action :authenticate_participant!, only: :participants
+  before_action :authenticate_user!, only: :index, if: -> { @campaign.nil? }
   layout 'end_user'
 
   def index
