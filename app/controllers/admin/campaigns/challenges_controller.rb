@@ -60,13 +60,20 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def update
     respond_to do |format|
       previous_segments = @challenge.challenge_filters.pluck(:id)
+      previous_questions = @challenge.questions.pluck(:id)
+      previous_options = QuestionOption.where(question_id: previous_questions).pluck(:id)
 
       removed_segments = previous_segments - @available_segments
+      removed_options = previous_options - @options
+      removed_questions = previous_questions - @questions
+
       tags_association ## Manage Tags for a Challenge
 
       if @challenge.update(challenge_params)
-        ## Remove Deleted User Segments from a Challenge
-        @challenge.challenge_filters.where(id: removed_segments).delete_all if removed_segments.present?
+        ## Remove Deleted User Segments / Questions / Question Options from a Challenge
+        @challenge.challenge_filters.where(id: removed_segments).destroy_all if removed_segments.present?
+        QuestionOption.where(id: removed_options).delete_all if removed_options.present?
+        @challenge.questions.where(id: removed_questions).destroy_all if removed_questions.present?
 
         format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
         format.json { render :edit, status: :updated }
@@ -321,16 +328,27 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def build_question_params
     @questions = []
+    @options = []
+
     if params[:challenge].has_key?('questions_attributes')
       new_params = []
 
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
         option_data = []
-        if c_param.has_key?('question_options_attributes') && c_param[:question_options_attributes].has_key?('details')
-          c_param[:question_options_attributes][:details].each do |option|
-            option_data.push({ details: option})
+        if c_param.has_key?('question_options_attributes')
+          if c_param[:question_options_attributes].has_key?('details')
+            c_param[:question_options_attributes][:details].each do |option|
+              option_data.push({ details: option})
+            end
           end
+
+          if c_param[:question_options_attributes].has_key?('id')
+            c_param[:question_options_attributes][:id].each do |opt_id|
+              @options.push(opt_id.to_i)
+            end
+          end
+
         end
         answer_type = c_param[:answer_type].split('--')
 
