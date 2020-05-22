@@ -299,6 +299,7 @@ module ChallengeHelper
     end
   end
 
+  ## Set Question Field Type
   def select_question_field_type(question = nil, index = 0, profileId = 0)
     selection = ''
     if question.present?
@@ -308,5 +309,14 @@ module ChallengeHelper
     end
 
     selection
+  end
+
+  ## Set Whether Question is Required or Not
+  def question_required(question = nil)
+    if question.present?
+      question.is_required
+    else
+      false
+    end
   end
 end
