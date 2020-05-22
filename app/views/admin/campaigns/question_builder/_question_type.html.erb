@@ -1,16 +1,32 @@
 <% if type == 'profile' %>
-  <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-          data-custom-id="<%= question_build_id(template, 'class', '') %>"
-          name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
-    <optgroup>
-      <% ProfileAttribute.active.each_with_index do |attribute, index| %>
-        <option value="<%= attribute.field_type %>--<%= attribute.id %>"
-                data-icon="fa fa-align-left" <%= select_question_field_type(question, index, attribute.id) %>>
-          <%= attribute.display_name %>
-        </option>
-      <% end %>
-    </optgroup>
-  </select>
+  <% if question.present? %>
+    <select class="question-selector question-selector-<%= randNum %> form-control"
+            data-custom-id="-<%= randNum %>"
+            name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+      <optgroup>
+        <% ProfileAttribute.active.each_with_index do |attribute, index| %>
+          <option value="<%= attribute.field_type %>--<%= attribute.id %>"
+                  data-icon="fa fa-align-left" <%= select_question_field_type(question, index, attribute.id) %>>
+            <%= attribute.display_name %>
+          </option>
+        <% end %>
+      </optgroup>
+    </select>
+  <% else %>
+    <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+            data-custom-id="<%= question_build_id(template, 'class', '') %>"
+            name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+      <optgroup>
+        <% ProfileAttribute.active.each_with_index do |attribute, index| %>
+          <option value="<%= attribute.field_type %>--<%= attribute.id %>"
+                  data-icon="fa fa-align-left" <%= select_question_field_type(question, index, attribute.id) %>>
+            <%= attribute.display_name %>
+          </option>
+        <% end %>
+      </optgroup>
+    </select>
+  <% end %>
+
 <% else %>
   <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
           data-custom-id="<%= question_build_id(template, 'class', '') %>"

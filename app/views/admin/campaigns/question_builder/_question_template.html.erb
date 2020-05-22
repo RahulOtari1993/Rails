@@ -1,4 +1,8 @@
-<div class="container question_box <%= question_build_id(template, 'class', 'question-box') %>">
+<%
+   randNum = rand.to_s[2..10]
+   queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
+%>
+<div class="container question_box <%= queIdentifire %>">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group">
@@ -17,7 +21,7 @@
     </div>
     <div class="col-md-5 col-12">
       <div class="form-group">
-        <%= render 'admin/campaigns/question_builder/question_type', template: template, question: question, type: type %>
+        <%= render 'admin/campaigns/question_builder/question_type', template: template, question: question, type: type, randNum: randNum %>
       </div>
     </div>
 
