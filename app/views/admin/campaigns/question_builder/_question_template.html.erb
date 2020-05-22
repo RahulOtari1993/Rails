@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container string-container">
+    <div class="col-12 col-md-7 options-container string-container <%= display_question_option(question, 'string') %>">
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container text_area-container hide-options">
+    <div class="col-12 col-md-7 options-container text_area-container <%= display_question_option(question, 'text_area') %>">
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
@@ -35,7 +35,7 @@
       </div>
     </div>
 
-    <div class="col-12 options-container radio_button-container hide-options">
+    <div class="col-12 options-container radio_button-container <%= display_question_option(question, 'radio_button') %>">
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="col-12 options-container check_box-container hide-options">
+    <div class="col-12 options-container check_box-container <%= display_question_option(question, 'check_box') %>">
       <div class="que_edit">
         <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -97,7 +97,7 @@
       </div>
     </div>
 
-    <div class="col-12 que_dropdown_edit options-container dropdown-container hide-options">
+    <div class="col-12 que_dropdown_edit options-container dropdown-container <%= display_question_option(question, 'dropdown') %>">
       <div class="que_edit">
         <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -128,7 +128,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container date-container hide-options">
+    <div class="col-12 col-md-7 options-container date-container <%= display_question_option(question, 'date') %>">
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
@@ -141,7 +141,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container time-container hide-options">
+    <div class="col-12 col-md-7 options-container time-container <%= display_question_option(question, 'time') %>">
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
@@ -154,7 +154,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container number-container hide-options">
+    <div class="col-12 col-md-7 options-container number-container <%= display_question_option(question, 'number') %>">
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
@@ -164,7 +164,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container decimal-container hide-options">
+    <div class="col-12 col-md-7 options-container decimal-container <%= display_question_option(question, 'decimal') %>">
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
@@ -174,7 +174,7 @@
       </div>
     </div>
 
-    <div class="col-12 options-container boolean-container hide-options">
+    <div class="col-12 options-container boolean-container <%= display_question_option(question, 'boolean') %>">
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
         <div class="form-label-group que_ip_width">
@@ -197,7 +197,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container linear_scale-container hide-options">
+    <div class="col-12 col-md-7 options-container linear_scale-container <%= display_question_option(question, 'linear_scale') %>">
       <div class="que_scale_ip">
         <div class="form-group">
           <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-scale1">

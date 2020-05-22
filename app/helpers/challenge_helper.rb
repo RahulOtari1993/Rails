@@ -319,4 +319,13 @@ module ChallengeHelper
       false
     end
   end
+
+  ## Display Relevant Question Options & Hide Others
+  def display_question_option(question = nil, type = 'string')
+    if question.present?
+      question.answer_type == type ? '' : 'hide-options'
+    else
+      type == 'string' ? '' : 'hide-options'
+    end
+  end
 end
