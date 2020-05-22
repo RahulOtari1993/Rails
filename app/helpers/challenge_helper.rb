@@ -330,10 +330,9 @@ module ChallengeHelper
   end
 
   ## Create Option Identifire
-  def option_identifire(template = nil, option = nil, identifire)
+  def option_identifire(template = nil, option = nil, identifire = 1, count = 1)
     if template
-      # binding.pry
-      option.present? ? option.id : '___O_IDENTIFIRE___'
+      option.present? ? option.id : "___O_IDENTIFIRE_#{count}___"
     else
       identifire
     end

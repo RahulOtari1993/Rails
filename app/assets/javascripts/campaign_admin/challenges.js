@@ -1405,11 +1405,12 @@ $(document).on('turbolinks:load', function () {
   questionTypeSelect2();
 
   // Replace ID of Newly Added Fields of Challenge Question
-  function replaceQuestionContainerFieldIds(stringDetails, phaseCounter, optionCounter) {
+  function replaceQuestionContainerFieldIds(stringDetails = 0, phaseCounter = 0, optionCounter = 0, optCounter = 0) {
     stringDetails = stringDetails.replace(/\___CLASS___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___NUM___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
-    stringDetails = stringDetails.replace(/\___O_IDENTIFIRE___/g, optionCounter);
+    stringDetails = stringDetails.replace(/\___O_IDENTIFIRE_1___/g, optionCounter);
+    stringDetails = stringDetails.replace(/\___O_IDENTIFIRE_2___/g, optCounter);
     stringDetails = stringDetails.replace(/\___O_ID___/g, optionCounter);
 
     return stringDetails;
@@ -1420,8 +1421,9 @@ $(document).on('turbolinks:load', function () {
     let questionTemplate = $('#question-template').html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
+    let optCounter = Math.floor(Math.random() * 90000) + 10000;
 
-    questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter);
+    questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
     $('.questions-container').append(questionHtml);
 
     // Question Selector Dropdown
@@ -1486,7 +1488,8 @@ $(document).on('turbolinks:load', function () {
 
     var phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     var optionCounter = Math.floor(Math.random() * 90000) + 10000;
-    optionHtml = replaceQuestionContainerFieldIds(optionHtml, phaseCounter, optionCounter)
+    var optCounter = Math.floor(Math.random() * 90000) + 10000;
+    optionHtml = replaceQuestionContainerFieldIds(optionHtml, phaseCounter, optionCounter, optCounter)
 
     // Set New Name to Option
     var optIdentifire = qOption.data('option-identifire');
