@@ -1472,8 +1472,15 @@ $(document).on('turbolinks:load', function () {
 
   // Add New Option to a Question
   $('body').on('click', '.add-challenge-option', function (e) {
-    var optionHtml = $(this).parent().parent().parent().find('.que_edit').first().html();
-    optionHtml = optionHtml.replace("Option 1", "New Option");
+    var firstOption = $(this).parent().parent().parent().find('.que_edit').first()
+    var cloneOption = firstOption.clone();
+
+    // Remove Hidden Field for Option Id
+    cloneOption.find('.hidden-option-field').remove();
+
+    // Set New Value to Option
+    var optionHtml = cloneOption.html();
+    optionHtml = optionHtml.replace(cloneOption.find('.form-control-option').val(), "New Option");
     $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
 
     autoSelectText();

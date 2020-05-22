@@ -4,9 +4,13 @@
       <div class="form-label-group">
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][category]", 0 %>
 
+        <% if question.present? %>
+          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][id]", question.id %>
+        <% end %>
+
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][title]",
                            question_value(question),
-                           class: 'form-control', id: "question-title-#{q_name_convention(template, question)}",
+                           class: 'form-control form-control-option', id: "question-title-#{q_name_convention(template, question)}",
                            required: true %>
         <label for="first-name-column">Question</label>
       </div>
@@ -21,7 +25,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
-                           class: 'form-control disabled-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option disabled-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Short answer text' %>
       </div>
     </div>
@@ -30,7 +34,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '', disabled: true,
-                           class: 'form-control disabled-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option disabled-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Long answer text' %>
       </div>
     </div>
@@ -41,9 +45,10 @@
           <div class="que_edit">
             <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
             <div class="form-label-group que_ip_width">
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][id][]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                  option_value(option, 1),
-                                 class: 'form-control is-editable',
+                                 class: 'form-control form-control-option is-editable',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
             </div>
             <i class="feather icon-x que_edit_cross"></i>
@@ -55,7 +60,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 1),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -65,7 +70,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 2),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -86,11 +91,12 @@
       <% if question.present? && question.answer_type == 'check_box' %>
         <% question.question_options.each_with_index do |option, index| %>
           <div class="que_edit">
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][id][]", option.id, class: 'hidden-option-field' %>
             <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
             <div class="form-label-group que_ip_width">
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                  option_value(option, 1),
-                                 class: 'form-control is-editable',
+                                 class: 'form-control form-control-option is-editable',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
             </div>
             <i class="feather icon-x que_edit_cross"></i>
@@ -102,7 +108,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 1),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -112,7 +118,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 2),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -135,9 +141,10 @@
           <div class="que_edit">
             <i class="fa fa-caret-square-o-down que_edit_icon" aria-hidden="true"></i>
             <div class="form-label-group que_ip_width">
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][id][]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                  option_value(option, 1),
-                                 class: 'form-control is-editable',
+                                 class: 'form-control form-control-option is-editable',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
             </div>
             <i class="feather icon-x que_edit_cross"></i>
@@ -149,7 +156,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 1),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross dropdown"></i>
@@ -159,7 +166,7 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 2),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true %>
           </div>
           <i class="feather icon-x que_edit_cross dropdown"></i>
@@ -180,7 +187,7 @@
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
-                           class: 'form-control', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Month, day, year',
                            disabled: true %>
         <div class="input-group-prepend">
@@ -193,7 +200,7 @@
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
-                           class: 'form-control', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Time',
                            disabled: true %>
         <div class="input-group-prepend">
@@ -206,7 +213,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
-                           class: 'form-control', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Number',
                            disabled: true %>
       </div>
@@ -216,7 +223,7 @@
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                            '',
-                           class: 'form-control', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                           class: 'form-control form-control-option', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Decimal',
                            disabled: true %>
       </div>
@@ -228,12 +235,12 @@
           <div class="que_edit">
             <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
             <div class="form-label-group que_ip_width">
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][id][]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                  option_value(option, 1),
-                                 class: 'form-control is-editable',
+                                 class: 'form-control form-control-option is-editable',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
             </div>
-            <i class="feather icon-x que_edit_cross"></i>
           </div>
         <% end %>
       <% else %>
@@ -242,20 +249,18 @@
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 1),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true %>
           </div>
-          <i class="feather icon-x que_edit_cross"></i>
         </div>
         <div class="que_edit">
           <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
           <div class="form-label-group que_ip_width">
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
                                option_value(nil, 2),
-                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true %>
           </div>
-          <i class="feather icon-x que_edit_cross"></i>
         </div>
       <% end %>
     </div>
@@ -263,7 +268,7 @@
     <div class="col-12 col-md-7 options-container linear_scale-container <%= display_question_option(question, 'linear_scale') %>">
       <div class="que_scale_ip">
         <div class="form-group">
-          <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-scale1">
+          <select data-placeholder="Select a state..." class="select2-icons form-control form-control-option" id="select2-icons-scale1">
             <optgroup>
               <option value="0">0</option>
               <option value="1">1</option>
@@ -274,7 +279,7 @@
         <div class="k"> to</div>
 
         <div class="form-group">
-          <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons-scale2">
+          <select data-placeholder="Select a state..." class="select2-icons form-control form-control-option" id="select2-icons-scale2">
             <optgroup>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -291,13 +296,13 @@
 
       <div class="form-label-group que_scale_label">
         <span>1</span>
-        <input type="text" id="first-name-column" class="form-control" placeholder="Label (optional)" name="fname-column">
+        <input type="text" id="first-name-column" class="form-control form-control-option" placeholder="Label (optional)" name="fname-column">
         <!--  <label for="first-name-column">First Name</label> -->
       </div>
       <div class="clear"></div>
       <div class="form-label-group que_scale_label">
         <span>2</span>
-        <input type="text" id="first-name-column" class="form-control" placeholder="Label (optional)" name="fname-column">
+        <input type="text" id="first-name-column" class="form-control form-control-option" placeholder="Label (optional)" name="fname-column">
         <!--  <label for="first-name-column">First Name</label> -->
       </div>
       <div class="clear"></div>
