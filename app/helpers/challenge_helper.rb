@@ -328,4 +328,14 @@ module ChallengeHelper
       type == 'string' ? '' : 'hide-options'
     end
   end
+
+  ## Create Option Identifire
+  def option_identifire(template = nil, option = nil, identifire)
+    if template
+      # binding.pry
+      option.present? ? option.id : '___O_IDENTIFIRE___'
+    else
+      identifire
+    end
+  end
 end

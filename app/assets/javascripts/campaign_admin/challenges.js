@@ -1409,8 +1409,9 @@ $(document).on('turbolinks:load', function () {
     stringDetails = stringDetails.replace(/\___CLASS___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___NUM___/g, phaseCounter);
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
-
+    stringDetails = stringDetails.replace(/\___O_IDENTIFIRE___/g, optionCounter);
     stringDetails = stringDetails.replace(/\___O_ID___/g, optionCounter);
+
     return stringDetails;
   }
 
@@ -1480,7 +1481,27 @@ $(document).on('turbolinks:load', function () {
 
     // Set New Value to Option
     var optionHtml = cloneOption.html();
-    optionHtml = optionHtml.replace(cloneOption.find('.form-control-option').val(), "New Option");
+    var qOption = cloneOption.find('.form-control-option');
+    optionHtml = optionHtml.replace(qOption.val(), "New Option");
+
+    var phaseCounter = Math.floor(Math.random() * 90000) + 10000;
+    var optionCounter = Math.floor(Math.random() * 90000) + 10000;
+    optionHtml = replaceQuestionContainerFieldIds(optionHtml, phaseCounter, optionCounter)
+
+    // Set New Name to Option
+    var optIdentifire = qOption.data('option-identifire');
+    var oldIdent = `data-option-identifire="${optIdentifire}"`
+    var newIdent =  `data-option-identifire="${optionCounter}"`
+    optionHtml = optionHtml.replace(oldIdent, newIdent);
+
+    // Set New Option Identifire to Option
+    var optIdentifire = qOption.data('option-identifire');
+    var oldName = `[question_options_attributes][${optIdentifire}][details]`
+    var newName = `[question_options_attributes][${optionCounter}][details]`
+    optionHtml = optionHtml.replace(oldName, newName);
+    // optionHtml.replace(optIdentifire, optionCounter);
+    // var lastThirty = optName.substr(optName.length - 30);
+
     $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
 
     autoSelectText();

@@ -67,6 +67,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       removed_options = previous_options - @options
       removed_questions = previous_questions - @questions
 
+      binding.pry
+      raise "hi"
       tags_association ## Manage Tags for a Challenge
 
       if @challenge.update(challenge_params)
@@ -338,6 +340,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         option_data = []
         if c_param.has_key?('question_options_attributes')
           if c_param[:question_options_attributes].has_key?('details')
+            binding.pry
             c_param[:question_options_attributes][:details].each do |option|
               option_data.push({ details: option})
             end
