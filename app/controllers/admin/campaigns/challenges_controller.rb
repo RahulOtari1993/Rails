@@ -42,6 +42,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def create
     @challenge = Challenge.new(challenge_params)
 
+    # binding.pry
+    # raise "hi"
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save
@@ -337,21 +339,19 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
-        option_data = []
+        option_params = []
         if c_param.has_key?('question_options_attributes')
-          if c_param[:question_options_attributes].has_key?('details')
-            binding.pry
-            c_param[:question_options_attributes][:details].each do |option|
-              option_data.push({ details: option})
+          c_param[:question_options_attributes].each do |key, option|
+            option_data = {
+              details: option[:details]
+            }
+            if option.has_key?('id')
+              option_data[:id] = option[:id]
+              @options.push(option[:id].to_i)
             end
-          end
 
-          if c_param[:question_options_attributes].has_key?('id')
-            c_param[:question_options_attributes][:id].each do |opt_id|
-              @options.push(opt_id.to_i)
-            end
+            option_params.push(option_data)
           end
-
         end
         answer_type = c_param[:answer_type].split('--')
 
@@ -361,7 +361,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             category: c_param[:category],
             answer_type: answer_type[0],
             profile_attribute_id: answer_type[1],
-            question_options_attributes: option_data
+            question_options_attributes: option_params
         }
 
         if c_param.has_key?('id')
