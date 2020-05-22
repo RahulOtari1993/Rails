@@ -299,10 +299,10 @@ module ChallengeHelper
     end
   end
 
-  def select_question_field_type(question = nil, index = 0, type = 'string')
+  def select_question_field_type(question = nil, index = 0, profileId = 0)
     selection = ''
     if question.present?
-      selection = question.answer_type == type ? 'selected' : ''
+      selection = question.profile_attribute_id == profileId ? 'selected' : ''
     else
       selection = index == 0 ? 'selected' : ''
     end

@@ -193,7 +193,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
-                                                      :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type,
+                                                      :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type, :profile_attribute_id,
                                                                                 :question_options_attributes => [:id, :challenge_id, :question_id, :details]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
@@ -332,11 +332,14 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             option_data.push({ details: option})
           end
         end
+        answer_type = c_param[:answer_type].split('--')
+
         filter_data = {
             title: c_param[:title],
             is_required: c_param.has_key?('is_required'),
             category: c_param[:category],
-            answer_type: c_param[:answer_type],
+            answer_type: answer_type[0],
+            profile_attribute_id: answer_type[1],
             question_options_attributes: option_data
         }
 

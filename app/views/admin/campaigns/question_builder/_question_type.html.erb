@@ -5,7 +5,7 @@
     <optgroup>
       <% ProfileAttribute.active.each_with_index do |attribute, index| %>
         <option value="<%= attribute.field_type %>--<%= attribute.id %>"
-                data-icon="fa fa-align-left" <%= select_question_field_type(question, index, attribute.field_type) %>>
+                data-icon="fa fa-align-left" <%= select_question_field_type(question, index, attribute.id) %>>
           <%= attribute.display_name %>
         </option>
       <% end %>
