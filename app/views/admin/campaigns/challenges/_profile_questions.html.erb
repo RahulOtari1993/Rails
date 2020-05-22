@@ -1,4 +1,10 @@
-<%= render 'admin/campaigns/question_builder/question_template', template: false, question: nil, type: type %>
+<% if @challenge.questions.present? %>
+  <% @challenge.questions.each do |question| %>
+    <%= render 'admin/campaigns/question_builder/question_template', template: false, question: question, type: type %>
+  <% end %>
+<% else %>
+  <%= render 'admin/campaigns/question_builder/question_template', template: false, question: nil, type: type %>
+<% end %>
 
 <script id="question-template" type="text/x-custom-template">
   <%= render 'admin/campaigns/question_builder/question_template', template: true, question: nil, type: type %>

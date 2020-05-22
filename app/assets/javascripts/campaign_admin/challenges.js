@@ -1425,11 +1425,12 @@ $(document).on('turbolinks:load', function () {
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
+    autoSelectText();
   });
 
   // Manage Auto Selection of Text
   function autoSelectText() {
-    $('.options-container input').click(function () {
+    $('.questions-container input').click(function () {
       $(this).select();
     });
   };
@@ -1438,12 +1439,13 @@ $(document).on('turbolinks:load', function () {
   $('body').on('change', '.question-selector', function (e) {
     var selectedVal = $(this).val();
     var customId = $(this).data('custom-id');
+    selectedVal = selectedVal.split("--");
 
     $(`.question-box${customId} .options-container`).hide();
     $(`.question-box${customId} .options-container input`).prop('disabled', true);
 
-    $(`.question-box${customId} .${selectedVal}-container`).show();
-    $(`.question-box${customId} .${selectedVal}-container .is-editable`).prop('disabled', false);
+    $(`.question-box${customId} .${selectedVal[0]}-container`).show();
+    $(`.question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
     autoSelectText();
   });
 

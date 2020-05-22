@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_142245) do
     t.string "title"
     t.boolean "is_required", default: false
     t.integer "answer_type"
+    t.integer "profile_attribute_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"

@@ -6,6 +6,7 @@ class CreateQuestions < ActiveRecord::Migration[5.2]
       t.string :title
       t.boolean :is_required, default: false
       t.integer :answer_type
+      t.integer :profile_attribute_id
 
       t.timestamps
     end

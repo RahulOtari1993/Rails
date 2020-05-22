@@ -298,4 +298,15 @@ module ChallengeHelper
       id_details
     end
   end
+
+  def select_question_field_type(question = nil, index = 0, type = 'string')
+    selection = ''
+    if question.present?
+      selection = question.answer_type == type ? 'selected' : ''
+    else
+      selection = index == 0 ? 'selected' : ''
+    end
+
+    selection
+  end
 end
