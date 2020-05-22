@@ -36,26 +36,42 @@
     </div>
 
     <div class="col-12 options-container radio_button-container <%= display_question_option(question, 'radio_button') %>">
-      <div class="que_edit">
-        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 1),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
-                             disabled: true %>
+      <% if question.present? && question.answer_type == 'radio_button' %>
+        <% question.question_options.each_with_index do |option, index| %>
+          <div class="que_edit">
+            <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+            <div class="form-label-group que_ip_width">
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                                 option_value(option, 1),
+                                 class: 'form-control disabled-field is-editable',
+                                 id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
+            </div>
+            <i class="feather icon-x que_edit_cross"></i>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="que_edit">
+          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 1),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
-      <div class="que_edit">
-        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 2),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
-                             disabled: true %>
+        <div class="que_edit">
+          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 2),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
+      <% end %>
+
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
         <div class="form-label-group que_ip_width">
@@ -67,26 +83,42 @@
     </div>
 
     <div class="col-12 options-container check_box-container <%= display_question_option(question, 'check_box') %>">
-      <div class="que_edit">
-        <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 1),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
-                             disabled: true %>
+      <% if question.present? && question.answer_type == 'check_box' %>
+        <% question.question_options.each_with_index do |option, index| %>
+          <div class="que_edit">
+            <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
+            <div class="form-label-group que_ip_width">
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                                 option_value(option, 1),
+                                 class: 'form-control disabled-field is-editable',
+                                 id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
+            </div>
+            <i class="feather icon-x que_edit_cross"></i>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="que_edit">
+          <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 1),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
-      <div class="que_edit">
-        <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 2),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
-                             disabled: true %>
+        <div class="que_edit">
+          <i class="fa fa-square-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 2),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
+      <% end %>
+
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
         <div class="form-label-group que_ip_width">
@@ -98,26 +130,42 @@
     </div>
 
     <div class="col-12 que_dropdown_edit options-container dropdown-container <%= display_question_option(question, 'dropdown') %>">
-      <div class="que_edit">
-        <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 1),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
-                             disabled: true %>
+      <% if question.present? && question.answer_type == 'dropdown' %>
+        <% question.question_options.each_with_index do |option, index| %>
+          <div class="que_edit">
+            <i class="fa fa-caret-square-o-down que_edit_icon" aria-hidden="true"></i>
+            <div class="form-label-group que_ip_width">
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                                 option_value(option, 1),
+                                 class: 'form-control disabled-field is-editable',
+                                 id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
+            </div>
+            <i class="feather icon-x que_edit_cross"></i>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="que_edit">
+          <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 1),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross dropdown"></i>
         </div>
-        <i class="feather icon-x que_edit_cross dropdown"></i>
-      </div>
-      <div class="que_edit">
-        <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 2),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
-                             disabled: true %>
+        <div class="que_edit">
+          <i class="fa fa-caret-square-o-down que_edit_icon dropdown-option-icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 2),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross dropdown"></i>
         </div>
-        <i class="feather icon-x que_edit_cross dropdown"></i>
-      </div>
+      <% end %>
+
       <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
         <div class="form-label-group que_ip_width">
@@ -175,26 +223,41 @@
     </div>
 
     <div class="col-12 options-container boolean-container <%= display_question_option(question, 'boolean') %>">
-      <div class="que_edit">
-        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 1),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
-                             disabled: true %>
+      <% if question.present? && question.answer_type == 'dropdown' %>
+        <% question.question_options.each_with_index do |option, index| %>
+          <div class="que_edit">
+            <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+            <div class="form-label-group que_ip_width">
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                                 option_value(option, 1),
+                                 class: 'form-control disabled-field is-editable',
+                                 id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}" %>
+            </div>
+            <i class="feather icon-x que_edit_cross"></i>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="que_edit">
+          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 1),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
-      <div class="que_edit">
-        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
-        <div class="form-label-group que_ip_width">
-          <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
-                             option_value(nil, 2),
-                             class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
-                             disabled: true %>
+        <div class="que_edit">
+          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true"></i>
+          <div class="form-label-group que_ip_width">
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][details][]",
+                               option_value(nil, 2),
+                               class: 'form-control disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               disabled: true %>
+          </div>
+          <i class="feather icon-x que_edit_cross"></i>
         </div>
-        <i class="feather icon-x que_edit_cross"></i>
-      </div>
+      <% end %>
     </div>
 
     <div class="col-12 col-md-7 options-container linear_scale-container <%= display_question_option(question, 'linear_scale') %>">

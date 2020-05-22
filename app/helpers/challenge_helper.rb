@@ -284,7 +284,7 @@ module ChallengeHelper
   ## Question Set Default Value of Question Option
   def option_value(option = nil, counter = 1)
     if option.present?
-      option.title
+      option.details
     else
       "Option #{counter}"
     end
