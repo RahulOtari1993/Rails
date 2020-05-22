@@ -1478,4 +1478,7 @@ $(document).on('turbolinks:load', function () {
 
     autoSelectText();
   });
+
+  // Auto Select Text While Edit Profile Question
+  autoSelectText();
 });
