@@ -8,7 +8,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
   #Banner version
   version :banner do
-    process :quality => 85
+    process :quality => 40
   end
 
   # Include RMagick or MiniMagick support:
