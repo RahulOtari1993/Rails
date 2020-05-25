@@ -42,6 +42,189 @@ $(document).ready(function () {
     });
   });
 
+  // Replace ID of Newly Added Fields of User Segment
+  function replaceRuleFieldIds(stringDetails, phaseCounter) {
+    stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
+    stringDetails = stringDetails.replace(/___NUM___/g, phaseCounter);
+    return stringDetails;
+  }
+
+  // Adds Validation for New Added Reward Rule Fields
+  function addRewardRuleValidations(phaseCounter) {
+    // Reward rule Conditions Drop Down Require Validation
+    $('#rule-segment-conditions-dd-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a condition"
+        }
+      })
+    });
+
+    // Reward rule type number of logins
+    $('#rule-segment-value-number-of-logins-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter logins count",
+          min: "Minimum count should be 1",
+          max: "Maximum count can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Reward rule type Points Validation
+    $('#rule-segment-value-points-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter points",
+          min: "Minimum points should be 1",
+          max: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Reward rule type challenge conditions Validation
+    $('#rule-segment-value-challenges-completed-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please enter value"
+        }
+      })
+    });
+
+
+    // Reward rule type recruitsValidation
+    $('#rule-segment-value-recruits-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please enter value"
+        }
+      })
+    });
+  }
+
+  // Adds Validation for New Added Reward filter Fields
+  function addRewardValidations(phaseCounter) {
+    // Challenge User Segment Conditions Drop Down Require Validation
+    $('#reward-segment-conditions-dd-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a condition"
+        }
+      })
+    });
+
+    // Challenge User Segment Age Validation
+    $('#reward-segment-value-age-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 100,
+        digits: true,
+        messages: {
+          required: "Please enter age",
+          min: "Minimum age should be 1",
+          max: "Maximum age can be 100",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Points Validation
+    $('#reward-segment-value-points-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter points",
+          min: "Minimum points should be 1",
+          max: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Tags Validation
+    $('#reward-segment-value-tags-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please enter tag"
+        }
+      })
+    });
+
+    // Challenge User Segment Rewards Validation
+    $('#reward-segment-value-rewards-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a reward"
+        }
+      })
+    });
+
+    // Challenge User Segment Platform Validation
+    $('#reward-segment-conditions-platforms-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a platform"
+        }
+      })
+    });
+
+    // Challenge User Segment Gender Validation
+    $('#reward-segment-value-gender-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select gender"
+        }
+      })
+    });
+
+    // Challenge User Segment Challenge Validation
+    $('#reward-segment-value-challenge-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        messages: {
+          required: "Please select a challenge"
+        }
+      })
+    });
+  }
+
+  // Replace ID of Newly Added Fields of User Segment
+  function addRewardSelect2(phaseCounter) {
+    // Select2 for Reward Dropdown in User Segment Conditions
+    $('#reward-segment-value-rewards-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
+
+    // Select2 for Challenge Dropdown in User Segment Conditions
+    $('#reward-segment-value-challenge-' + phaseCounter).select2({
+      dropdownAutoWidth: true,
+      width: '100%'
+    }).next().hide();
+  }
+
   // Format Date
   function formatDate(date) {
     let dateObj = new Date(date);
@@ -257,6 +440,17 @@ $(document).ready(function () {
     }
   });
 
+  // Add Validations on Already Exists User Segments
+  setTimeout(function () {
+    var ids = $('.reward-existing-filter-ids').data('ids');
+    console.log("IDS", ids)
+    if (ids) {
+      ids.forEach(function (segmentId) {
+        addRewardValidations(segmentId)
+      });
+    }
+  }, 2000);
+
   //Image name display
   $('.reward-custom-file-label').on('change', function (e) {
     //get the file name
@@ -299,190 +493,6 @@ $(document).ready(function () {
     $('.description-txt-area').val($('.reward-description-editor .ql-editor').html());
     $('.redemption-txt-area').val($('.reward-redemption-editor .ql-editor').html());
   });
-
-
-  // Replace ID of Newly Added Fields of User Segment
-  function replaceRuleFieldIds(stringDetails, phaseCounter) {
-    stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
-    stringDetails = stringDetails.replace(/___NUM___/g, phaseCounter);
-    return stringDetails;
-  }
-
-  // Adds Validation for New Added Reward Rule Fields
-  function addRewardRuleValidations(phaseCounter) {
-    // Reward rule Conditions Drop Down Require Validation
-    $('#rule-segment-conditions-dd-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a condition"
-        }
-      })
-    });
-
-    // Reward rule type number of logins  
-    $('#rule-segment-value-number-of-logins-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        min: 1,
-        max: 10000,
-        digits: true,
-        messages: {
-          required: "Please enter logins count",
-          min: "Minimum count should be 1",
-          max: "Maximum count can be 10000",
-          digits: "Please enter only digits"
-        }
-      })
-    });
-
-    // Reward rule type Points Validation
-    $('#rule-segment-value-points-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        min: 1,
-        max: 10000,
-        digits: true,
-        messages: {
-          required: "Please enter points",
-          min: "Minimum points should be 1",
-          max: "Maximum points can be 10000",
-          digits: "Please enter only digits"
-        }
-      })
-    });
-
-    // Reward rule type challenge conditions Validation
-    $('#rule-segment-value-challenges-completed-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please enter value"
-        }
-      })
-    });
-
-
-    // Reward rule type recruitsValidation
-    $('#rule-segment-value-recruits-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please enter value"
-        }
-      })
-    });
-  }
-
-  // Adds Validation for New Added Reward filter Fields
-  function addRewardValidations(phaseCounter) {
-    // Challenge User Segment Conditions Drop Down Require Validation
-    $('#reward-segment-conditions-dd-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a condition"
-        }
-      })
-    });
-
-    // Challenge User Segment Age Validation
-    $('#reward-segment-value-age-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        min: 1,
-        max: 100,
-        digits: true,
-        messages: {
-          required: "Please enter age",
-          min: "Minimum age should be 1",
-          max: "Maximum age can be 100",
-          digits: "Please enter only digits"
-        }
-      })
-    });
-
-    // Challenge User Segment Points Validation
-    $('#reward-segment-value-points-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        min: 1,
-        max: 10000,
-        digits: true,
-        messages: {
-          required: "Please enter points",
-          min: "Minimum points should be 1",
-          max: "Maximum points can be 10000",
-          digits: "Please enter only digits"
-        }
-      })
-    });
-
-    // Challenge User Segment Tags Validation
-    $('#reward-segment-value-tags-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please enter tag"
-        }
-      })
-    });
-
-    // Challenge User Segment Rewards Validation
-    $('#reward-segment-value-rewards-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a reward"
-        }
-      })
-    });
-
-    // Challenge User Segment Platform Validation
-    $('#reward-segment-conditions-platforms-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a platform"
-        }
-      })
-    });
-
-    // Challenge User Segment Gender Validation
-    $('#reward-segment-value-gender-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select gender"
-        }
-      })
-    });
-
-    // Challenge User Segment Challenge Validation
-    $('#reward-segment-value-challenge-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a challenge"
-        }
-      })
-    });
-  }
-
-  // Replace ID of Newly Added Fields of User Segment
-  function addRewardSelect2(phaseCounter) {
-    // Select2 for Reward Dropdown in User Segment Conditions
-    $('#reward-segment-value-rewards-' + phaseCounter).select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    }).next().hide();
-
-    // Select2 for Challenge Dropdown in User Segment Conditions
-    $('#reward-segment-value-challenge-' + phaseCounter).select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    }).next().hide();
-  }
 
   // Add reward rule
   $('.add-reward-rule').on('click', function (e) {
@@ -570,15 +580,15 @@ $(document).ready(function () {
     tableRow.find('.reward-segment-value-' + $(this).val()).next(".select2-container").show();
   });
 
-  // Add Validations on Already Exists Reward Segments
-  setTimeout(function () {
-    var ids = $('.existing-filter-ids').data('ids');
-    if (ids) {
-      ids.forEach(function (segmentId) {
-        addValidations(segmentId)
-      });
-    }
-  }, 2000);
+  // // Add Validations on Already Exists Reward Segments
+  // setTimeout(function () {
+  //   var ids = $('.existing-filter-ids').data('ids');
+  //   if (ids) {
+  //     ids.forEach(function (segmentId) {
+  //       addRewardValidations(segmentId)
+  //     });
+  //   }
+  // }, 2000);
 
   // Add Tag Addition UI from Challenge Popup
   $('body').on('click', '#reward_filter_applied', function (e) {

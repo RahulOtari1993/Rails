@@ -133,9 +133,9 @@
                         <div class="table-responsive">
                           <table class="table table-striped mb-0 tbl-user-segments">
                             <tbody class="campaign-user-segments-container">
-                            <% existind_ids = [] %>
+                            <% existing_ids = [] %>
                             <% @challenge.challenge_filters.each do |c_f| %>
-                              <% existind_ids.push(c_f.id) %>
+                              <% existing_ids.push(c_f.id) %>
                               <%= render 'segment_fields', filter: c_f %>
                             <% end %>
                             </tbody>
@@ -144,7 +144,7 @@
 
                         <br>
                         <button type="button" class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light
-                        add-challenge-user-segment existing-filter-ids" data-ids="<%= existind_ids %>">
+                        add-challenge-user-segment existing-filter-ids" data-ids="<%= existing_ids %>">
                           <span>
                             <i class="feather icon-plus"></i> Add Segment
                           </span>
