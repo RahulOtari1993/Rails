@@ -38,11 +38,11 @@
                     disabled: reward_make_disabled(filter, ['gender']), prompt: 'Select Condition',
                     style: "display:#{reward_make_visible(filter, ['gender'])};", required: true} %>
 
-    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][challenge_condition]",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select([['Is', 'is']], reward_condition_value(filter, 'is')),
-                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-rewards sreward-egment-conditions-challenges',
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-rewards reward-segment-conditions-challenges',
                     disabled: reward_make_disabled(filter, ['rewards', 'challenge']),
-                    style: "display:#{reward_make_visible(filter, ['rewards', 'challenge'])};",
+                    style: "display:#{reward_make_visible(filter, ['rewards', 'challenges'])};",
                     id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}", readonly: true} %>
 
   </td>
@@ -77,7 +77,7 @@
                    options_for_select(@campaign.challenges.all.pluck(:name, :id), reward_event_value(filter, '', 'challenges')),
                    class: 'form-control reward-segment-value-challenges', disabled: reward_make_disabled(filter, ['challenges']),
                    id: "reward-segment-value-challenges-#{reward_id_convention(filter)}",
-                   prompt: 'Select Challenge', style: "display:#{reward_make_visible(filter, ['challenge'])};",
+                   prompt: 'Select Challenge', style: "display:#{reward_make_visible(filter, ['challenges'])};",
                    required: true %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_platforms]",
