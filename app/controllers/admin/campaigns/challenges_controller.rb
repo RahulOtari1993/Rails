@@ -17,6 +17,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
+
+      binding.pry
     end
 
     if params["filters"].present?
@@ -194,7 +196,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
-    return_params = params.require(:challenge).permit(:campaign_id, :mechanism, :name, :link, :description, :reward_type, :timezone,
+    return_params = params.require(:challenge).permit(:campaign_id, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
                                                       :start, :finish, :creator_id, :feature, :parameters, :category,
                                                       :title, :content, :duration, :longitude, :latitude, :address,
@@ -246,12 +248,12 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Datatable Column List om which search can be performed
   def search_columns
-    %w(name mechanism)
+    %w(name challenge_type)
   end
 
   ## Datatable Column List on which sorting can be performed
   def sort_column
-    columns = %w(name challenge_type mechanism start finish)
+    columns = %w(name challenge_type category start finish)
     columns[params[:order]['0'][:column].to_i - 1]
   end
 
