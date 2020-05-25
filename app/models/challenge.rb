@@ -174,9 +174,9 @@ class Challenge < ApplicationRecord
         end
       end
     end
-    final_query = query + status_query_string + type_query_string + platform_query_string + tags_query
-    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    final_query = query +  tags_query # status_query_string + type_query_string + platform_query_string +
+    # challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
 
-    return challenges
+    return final_query
   end
 end

@@ -9,21 +9,22 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def fetch_challenges
     challenges = @campaign.challenges
+    search_string = []
+    filter_query = ''
 
     ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
-      search_string = []
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
-      challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
-      challenges = challenges.challenge_side_bar_filter(filters)
+      filter_query = challenges.challenge_side_bar_filter(filters)
     end
 
+    challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%").where(filter_query)
     challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
     challenges = challenges.page(datatable_page).per(datatable_per_page)
 
