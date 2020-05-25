@@ -131,7 +131,7 @@ class Challenge < ApplicationRecord
     tags_query = ''
     challenges = ''
     status = []
-    parameters = []
+    platform_type = []
     challenge_type = []
     active_keyword = ''
     scheduled_keyword = ''
@@ -159,15 +159,17 @@ class Challenge < ApplicationRecord
         end
       elsif key == 'challenge_type' && value.present?
         if Challenge.categories.values_at(*Array(value)).present?
-          type_query_string = ' AND category IN (:challenge_type)'
           value.each do |c_type|
             challenge_type << Challenge::categories[c_type]
           end
+          type_query_string = ' AND category IN (:challenge_type)'
         end
       elsif key == 'platform_type' && filters[key].present?
         if Challenge.parameters.values_at(*Array(value)).present?
-          platform_query_string = ' AND parameters IN (:parameters)'
-          parameters << value
+          value.each do |c_type|
+            platform_type << Challenge::parameters[c_type]
+          end
+          platform_query_string = ' AND parameters IN (:platform_type)'
         end
       elsif key == 'tags' && filters[key].present?
         filters[key].each do |tag|
@@ -176,9 +178,8 @@ class Challenge < ApplicationRecord
         end
       end
     end
-    binding.pry
-    final_query = query +  tags_query + type_query_string # status_query_string + type_query_string + platform_query_string +
-    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    final_query = query +  tags_query + type_query_string + platform_query_string # status_query_string + type_query_string
+    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, platform_type: platform_type.flatten) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
 
     return challenges
   end

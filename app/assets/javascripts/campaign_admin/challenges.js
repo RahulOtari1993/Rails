@@ -1174,8 +1174,7 @@ $(document).on('turbolinks:load', function () {
     });
     filter['challenge_type'] = type_checked
     $("input[name='filters[platform_type][]']:checked").each(function () {
-      console.log("VAL", $(this).data('val'))
-      platform_checked.push($(this).parent().find('.filter_label').html());
+      type_checked.push($(this).data('val'));
     });
     filter['platform_type'] = platform_checked
     $("input[name='filters[reward_type][]']:checked").each(function () {
