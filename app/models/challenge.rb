@@ -125,65 +125,63 @@ class Challenge < ApplicationRecord
   ##challenge platform filter
   def self.challenge_side_bar_filter(filters)
     query = 'id IS NOT NULL'
-    status_query_string = ''
-    platform_query_string = ''
-    reward_query_string = ''
-    type_query_string = ''
     tags_query = ''
     challenges = ''
     status = []
     platform_type = []
     challenge_type = []
     reward_type = []
-    active_keyword = ''
-    scheduled_keyword = ''
-    draft_keyword = ''
-    ended_keyword = ''
+    # active_keyword = ''
+    # scheduled_keyword = ''
+    # draft_keyword = ''
+    # ended_keyword = ''
 
     filters.each do |key, value|
       if key == 'status' && filters[key].present?
-        value.each do |val|
-          if val == 'draft'
-            status_query_string = ' AND is_approved IS :draft_keyword'
-            draft_keyword = false
-          elsif val == 'active'
-            status_query_string = status_query_string + ' AND is_approved IS :active_keyword'
-            active_keyword = true
-          elsif val == 'scheduled'
-            #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
-            status_query_string = " AND timezone(challenges.timezone, challenges.start) > :schedule"
-            # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
-            scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
-          elsif val == 'ended'
-            status_query_string = " AND convert_tz(challenges.finish, 'UTC') < :ended_keyword"
-            ended_keyword = Time.now.in_time_zone(self.timezone).to_i
-          end
-        end
+        # value.each do |val|
+        #   if val == 'draft'
+        #     status_query_string = ' AND is_approved IS :draft_keyword'
+        #     draft_keyword = false
+        #   elsif val == 'active'
+        #     status_query_string = status_query_string + ' AND is_approved IS :active_keyword'
+        #     active_keyword = true
+        #   elsif val == 'scheduled'
+        #     #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
+        #     status_query_string = " AND timezone(challenges.timezone, challenges.start) > :schedule"
+        #     # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+        #     scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
+        #   elsif val == 'ended'
+        #     status_query_string = " AND convert_tz(challenges.finish, 'UTC') < :ended_keyword"
+        #     ended_keyword = Time.now.in_time_zone(self.timezone).to_i
+        #   end
+        # end
       elsif key == 'challenge_type' && value.present?
         value.each do |c_type|
           challenge_type << Challenge::categories[c_type]
         end
-        type_query_string = ' AND category IN (:challenge_type)'
+        query = query + ' AND category IN (:challenge_type)'
       elsif key == 'platform_type' && filters[key].present?
         value.each do |c_type|
           platform_type << Challenge::parameters[c_type]
         end
-        platform_query_string = ' AND parameters IN (:platform_type)'
+        query = query + ' AND parameters IN (:platform_type)'
       elsif key == 'reward_type' && filters[key].present?
         value.each do |c_type|
           reward_type << Challenge::reward_types[c_type]
         end
-        reward_query_string = ' AND parameters IN (:reward_type)'
+        query = query + ' AND parameters IN (:reward_type)'
       elsif key == 'tags' && filters[key].present?
         filters[key].each do |tag|
           tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = challenges.id AND taggings.taggable_type = 'Challenge'" +
               " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
+
+        query = query + tags_query
       end
     end
 
-    final_query = query +  tags_query + type_query_string + platform_query_string + reward_query_string # status_query_string + type_query_string
-    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, platform_type: platform_type.flatten, reward_type: reward_type.flatten) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    challenges = self.where(query, is_approved: status, challenge_type: challenge_type.flatten,
+                            platform_type: platform_type.flatten, reward_type: reward_type.flatten)
 
     return challenges
   end
