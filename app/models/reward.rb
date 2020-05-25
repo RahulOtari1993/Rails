@@ -94,7 +94,7 @@ class Reward < ApplicationRecord
       'scheduled'
     elsif self.finish.in_time_zone('UTC') < Time.now.in_time_zone('UTC')
       'ended'
-    elsif self.start.in_time_zone('UTC') < Time.now.in_time_zone('UTC') && self.finish.in_time_zone('UTC') < Time.now.in_time_zone('UTC')
+    elsif self.start.in_time_zone('UTC') < Time.now.in_time_zone('UTC') && self.finish.in_time_zone('UTC') > Time.now.in_time_zone('UTC')
       'active'
     else
     end
@@ -112,36 +112,51 @@ class Reward < ApplicationRecord
     query = 'id IS NOT NULL'
     status_query_string = ''
     tags_query = ''
-    platform_query_string = ''
-    type_query_string = ''
-    rewards = ''
-    status = []
-    parameters = []
-    challenge_type = []
-    active_start_date = ''
-    active_end_date = ''
-    scheduled_date = ''
-    ended_date = ''
     filters.each do |key, value|
-      if key == 'status' && filters[key].present?
-        # status_query_string = query_string + ' OR is_approved IS ? '
-        value.each do |val|
-          if val == 'active'
-            status_query_string = status_query_string + ' AND start < (:active_start_date) AND finish < (:active_end_date)'
-            active_start_date = Time.now
-            active_end_date = Time.now
-          elsif val == 'scheduled'
-            status_query_string = status_query_string + ' AND start > (:scheduled_date)'
-            scheduled_date = Time.now
-            # elsif value == 'ended'
-            #  start_time = Time.now.in_time_zone(@time_zone).to_i
-            #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
-            # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+      if key == 'status' && value.present?
+        active_start_date = Time.now
+        active_end_date = Time.now
+
+        status_sub_query = ' AND ('
+        value.each_with_index do |status, index|
+          if (index == 0)
+            if status == 'active'
+              status_sub_query = status_sub_query + " start <= '#{active_start_date}' AND finish >= '#{active_end_date}'"
+            elsif status == 'scheduled'
+              status_sub_query = status_sub_query + " start >= '#{active_end_date}'"
+            else
+              status_sub_query = status_sub_query + "finish <= '#{active_end_date}'"
+            end
           else
-            status_query_string = status_query_string + ' AND finish < (:ended_date)'
-            ended_date = Time.now
+            if status == 'active'
+              status_sub_query = status_sub_query + " OR start <= '#{active_start_date}' AND finish >= '#{active_end_date}'"
+            elsif status == 'scheduled'
+              status_sub_query = status_sub_query + " OR start >= '#{active_end_date}'"
+            else
+              status_sub_query = status_sub_query + " OR finish <= '#{active_end_date}'"
+            end
           end
         end
+        status_sub_query = status_sub_query + ')'
+
+        status_query_string = status_sub_query
+        # value.each do |val|
+        #   if val == 'active'
+        #     status_query_string = status_query_string + ' AND start < (:active_start_date) AND finish > (:active_end_date)'
+        #     active_start_date = Time.now
+        #     active_end_date = Time.now
+        #   elsif val == 'scheduled'
+        #     status_query_string = status_query_string + ' AND start > (:scheduled_date)'
+        #     scheduled_date = Time.now
+        #     # elsif value == 'ended'
+        #     #  start_time = Time.now.in_time_zone(@time_zone).to_i
+        #     #  = " AND rewards.start + (unix_timestamp() -  unix_timestamp(convert_tz(now(), 'UTC', rewards.timezone))) >= :start_time"
+        #     # ended_rewards = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+        #   else
+        #     status_query_string = status_query_string + ' AND finish < (:ended_date)'
+        #     ended_date = Time.now
+        #   end
+        # end
         # elsif key == 'challenge_type' && filters[key].present?
         #   type_query_string = ' AND challenge_type IN (:challenge_type)'
         #   challenge_type << value
@@ -157,8 +172,8 @@ class Reward < ApplicationRecord
         end
       end
     end
-    final_query = query + status_query_string + tags_query #+ type_query_string + platform_query_string
-    rewards = self.where(final_query, active_start_date: active_start_date, active_end_date: active_end_date, scheduled_date: scheduled_date, ended_date: ended_date) #, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    final_query = query + status_query_string + tags_query
+    rewards = self.where(final_query)
 
     return rewards
   end
