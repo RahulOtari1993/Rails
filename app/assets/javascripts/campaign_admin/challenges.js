@@ -1168,23 +1168,28 @@ $(document).on('turbolinks:load', function () {
     $("input[name='filters[status][]']:checked").each(function () {
       status_checked.push($(this).parent().find('.filter_label').html());
     });
-    filter["status"] = status_checked
+
     $("input[name='filters[challenge_type][]']:checked").each(function () {
       type_checked.push($(this).data('val'));
     });
-    filter['challenge_type'] = type_checked
+
     $("input[name='filters[platform_type][]']:checked").each(function () {
-      type_checked.push($(this).data('val'));
+      platform_checked.push($(this).data('val'));
     });
-    filter['platform_type'] = platform_checked
+
     $("input[name='filters[reward_type][]']:checked").each(function () {
-      reward_checked.push($(this).parent().find('.filter_label').html());
+      reward_checked.push($(this).data('val'));
     });
-    filter['reward_type'] = reward_checked
 
     $('.challenge-tags-filter-chip').each(function () {
       tags.push($(this).data('tag-val'));
     });
+
+    filter['status'] = status_checked
+    filter['challenge_type'] = type_checked
+    filter['platform_type'] = platform_checked
+    filter['reward_type'] = reward_checked
+
     filter['tags'] = tags
 
     console.log("HHIII", filter)
