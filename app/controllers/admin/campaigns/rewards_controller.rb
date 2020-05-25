@@ -9,20 +9,24 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def generate_reward_json
+    filters_query = ''
+    search_string = []
+
     rewards = @campaign.rewards.all
      ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
-      search_string = []
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
-
-      rewards = rewards.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
+
+     ## Check for Filters
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
-      rewards = rewards.reward_side_bar_filter(filters)
+      filters_query = rewards.reward_side_bar_filter(filters)
     end
+
+    rewards = rewards.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%").where(filters_query)
     rewards = rewards.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
 
     rewards = rewards.page(datatable_page).per(datatable_per_page)
