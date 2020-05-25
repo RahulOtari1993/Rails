@@ -188,9 +188,9 @@ $(document).ready(function () {
   //front-end validations
   $('.reward-form').validate({
     errorElement: 'span',
-    onfocusout: function (element) {
-      return false;
-    },
+    // onfocusout: function (element) {
+    //   return false;
+    // },
     ignore: function (index, el) {
       var $el = $(el);
 

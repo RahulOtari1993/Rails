@@ -2,19 +2,27 @@ module ApplicationHelper
 
   def flash_toaster_class(level)
     case level
-    when 'notice' then "success"
-    when 'success' then "success"
-    when 'error' then "error"
-    when 'alert' then "warning"
+    when 'notice' then
+      "success"
+    when 'success' then
+      "success"
+    when 'error' then
+      "error"
+    when 'alert' then
+      "warning"
     end
   end
 
   def flash_class(level)
     case level
-    when 'notice' then "alert alert-info"
-    when 'success' then "alert alert-success"
-    when 'error' then "alert alert-danger"
-    when 'alert' then "alert alert-danger"
+    when 'notice' then
+      "alert alert-info"
+    when 'success' then
+      "alert alert-success"
+    when 'error' then
+      "alert alert-danger"
+    when 'alert' then
+      "alert alert-danger"
     end
   end
 
@@ -27,7 +35,7 @@ module ApplicationHelper
 
   ## Active Menu Controller Name Checks
   def controller?(name)
-     name.include?(controller_name)
+    name.include?(controller_name)
   end
 
   ## Active Menu Action Name Checks
@@ -192,7 +200,7 @@ module ApplicationHelper
           "Chatham Is." => "(GMT+12:45) Chatham Is.",
           "Nuku'alofa" => "(GMT+13:00) Nuku'alofa",
           "Samoa" => "(GMT+13:00) Samoa",
-          "Tokelau Is." => "(GMT+13:00) Tokelau Is." }
+          "Tokelau Is." => "(GMT+13:00) Tokelau Is."}
     ActiveSupport::TimeZone::MAPPING.each do |key, val|
       tz_list.push([tz[key], val])
     end

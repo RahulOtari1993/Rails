@@ -195,7 +195,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
         filter_data = {
             reward_event: c_param[:reward_event],
             reward_condition: c_param[:reward_condition],
-            reward_value: c_param[:reward_value]
+            reward_value: c_param["reward_value_#{c_param[:reward_event]}"]
         }
 
         if c_param.has_key?('id')

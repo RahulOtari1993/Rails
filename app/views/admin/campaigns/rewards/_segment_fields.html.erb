@@ -8,68 +8,89 @@
   <td width="30%">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_event]",
                    options_for_select(RewardFilter::EVENTS.map { |val| [val.humanize, val] },
-                    reward_event(filter, RewardFilter::EVENTS.first)),
-                   { class: 'form-control reward-event-dd',
-                   required: true }%>
+                                      reward_event(filter, RewardFilter::EVENTS.first)),
+                   {class: 'form-control reward-event-dd',
+                    required: true} %>
   </td>
 
   <td width="30%" class="reward-segment-conditions-container">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
-                   options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, reward_condition_value(filter, '')), {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-points',id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
-                   prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'points']),
-                   required: true, style: "display:#{reward_make_visible(filter, ['age', 'points'])};"} %>
+                   options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, reward_condition_value(filter, '')),
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-points',
+                    id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
+
+                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'points']),
+
+                    required: true, style: "display:#{reward_make_visible(filter, ['age', 'points'])};"} %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select([['Has', 'has'], ['Not', 'not']], reward_condition_value(filter, '')),
-                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-tags reward-segment-conditions-platforms',id: "segment-conditions-dd-#{reward_id_convention(filter)}",
-                   disabled: reward_make_disabled(filter, ['tags', 'platforms']),prompt: 'Select Condition', style: "display:#{reward_make_visible(filter, ['tags', 'platforms'])}",
-                   required: true }%>
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-tags reward-segment-conditions-platforms',
+                    id: "segment-conditions-dd-#{reward_id_convention(filter)}",
+                    disabled: reward_make_disabled(filter, ['tags', 'platforms']), prompt: 'Select Condition',
+                    style: "display:#{reward_make_visible(filter, ['tags', 'platforms'])}",
+                    required: true} %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select([['Is', 'is'], ['Not', 'not']], reward_condition_value(filter, '')),
                    {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-gender',
-                   id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}", disabled: reward_make_disabled(filter, ['gender']),prompt: 'Select Condition',style: "display:#{reward_make_visible(filter, ['gender'])};",required: true} %>
+                    id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
+                    disabled: reward_make_disabled(filter, ['gender']), prompt: 'Select Condition',
+                    style: "display:#{reward_make_visible(filter, ['gender'])};", required: true} %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][challenge_condition]",
                    options_for_select([['Is', 'is']], reward_condition_value(filter, 'is')),
-                   { class: 'form-control reward-segment-conditions-dd reward-segment-conditions-rewards sreward-egment-conditions-challenges', disabled: reward_make_disabled(filter, ['rewards', 'challenge']), style: "display:#{reward_make_visible(filter, ['rewards', 'challenge'])};",id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",readonly: true } %>
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-rewards sreward-egment-conditions-challenges',
+                    disabled: reward_make_disabled(filter, ['rewards', 'challenge']),
+                    style: "display:#{reward_make_visible(filter, ['rewards', 'challenge'])};",
+                    id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}", readonly: true} %>
 
   </td>
 
   <td width="30%" class="reward-segment-values-container">
-    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",
+    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_age]",
                        reward_event_value(filter, nil, 'age'),
                        class: 'form-control reward-segment-value-age', disabled: reward_make_disabled(filter, ['age']),
                        id: "reward-segment-value-age-#{reward_id_convention(filter)}",
                        placeholder: 'Enter Age', style: "display:#{reward_make_visible(filter, ['age'])};" %>
 
-    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]", reward_event_value(filter, nil, 'tags'),
-                       class: 'form-control reward-segment-value-tags',disabled: reward_make_disabled(filter, ['tags']),
+    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_tags]",
+                       reward_event_value(filter, nil, 'tags'),
+                       class: 'form-control reward-segment-value-tags', disabled: reward_make_disabled(filter, ['tags']),
                        id: "reward-segment-value-tags-#{reward_id_convention(filter)}",
                        placeholder: 'Enter Tag', style: "display:#{reward_make_visible(filter, ['tags'])};" %>
 
-    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]", reward_event_value(filter, nil, 'points'),
-                       class: 'form-control reward-segment-value-points',disabled: reward_make_disabled(filter, ['points']), id: "reward-segment-value-points-#{reward_id_convention(filter)}", placeholder: 'Enter Points', style: "display:#{reward_make_visible(filter, ['points'])};" %>
+    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_points]",
+                       reward_event_value(filter, nil, 'points'),
+                       class: 'form-control reward-segment-value-points', disabled: reward_make_disabled(filter, ['points']),
+                       id: "reward-segment-value-points-#{reward_id_convention(filter)}", placeholder: 'Enter Points',
+                       style: "display:#{reward_make_visible(filter, ['points'])};" %>
 
-    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",options_for_select(@campaign.rewards.all.pluck(:name, :id),reward_event_value(filter, '', 'rewards')),
-                   class: 'form-control reward-segment-value-rewards', disabled: reward_make_disabled(filter, ['rewards']), id: "reward-segment-value-rewards-#{reward_id_convention(filter)}",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_rewards]",
+                   options_for_select(@campaign.rewards.all.pluck(:name, :id), reward_event_value(filter, '', 'rewards')),
+                   class: 'form-control reward-segment-value-rewards', disabled: reward_make_disabled(filter, ['rewards']),
+                   id: "reward-segment-value-rewards-#{reward_id_convention(filter)}",
                    prompt: 'Select Reward', style: "display:#{reward_make_visible(filter, ['rewards'])};",
                    required: true %>
 
-    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_challenges]",
                    options_for_select(@campaign.challenges.all.pluck(:name, :id), reward_event_value(filter, '', 'challenges')),
-                   class: 'form-control reward-segment-value-challenges', disabled: reward_make_disabled(filter, ['challenges']), id: "reward-segment-value-challenges-#{reward_id_convention(filter)}",
+                   class: 'form-control reward-segment-value-challenges', disabled: reward_make_disabled(filter, ['challenges']),
+                   id: "reward-segment-value-challenges-#{reward_id_convention(filter)}",
                    prompt: 'Select Challenge', style: "display:#{reward_make_visible(filter, ['challenge'])};",
                    required: true %>
 
-    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",
-                   options_for_select(RewardFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] },reward_event_value(filter, '', 'platforms')),
-                   class: 'form-control reward-segment-conditions-platforms',disabled: reward_make_disabled(filter, ['platforms']), id: "reward-segment-value-platforms-#{reward_id_convention(filter)}",prompt: 'Select Platform', style: "display:#{reward_make_visible(filter, ['platforms'])};",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_platforms]",
+                   options_for_select(RewardFilter::SOCIAL_PLATFORMS.map { |val| [val.humanize, val] }, reward_event_value(filter, '', 'platforms')),
+                   class: 'form-control reward-segment-conditions-platforms', disabled: reward_make_disabled(filter, ['platforms']),
+                   id: "reward-segment-value-platforms-#{reward_id_convention(filter)}", prompt: 'Select Platform',
+                   style: "display:#{reward_make_visible(filter, ['platforms'])};",
                    required: true %>
 
-    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value]",
+    <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_gender]",
                    options_for_select([['Male', 'male'], ['Female', 'female']], reward_event_value(filter, '', 'gender')),
-                   class: 'form-control reward-segment-value-gender', disabled: reward_make_disabled(filter, ['gender']),id: "reward-segment-value-gender-#{reward_id_convention(filter)}",
+                   class: 'form-control reward-segment-value-gender', disabled: reward_make_disabled(filter, ['gender']),
+                   id: "reward-segment-value-gender-#{reward_id_convention(filter)}",
                    prompt: 'Select Gender', style: "display:#{reward_make_visible(filter, ['gender'])};",
                    required: true %>
   </td>
@@ -78,4 +99,3 @@
     <%= hidden_field_tag "reward[reward_filters_attributes][#{filter.id}][id]", filter.id %>
   <% end %>
 </tr>
-
