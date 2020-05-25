@@ -140,7 +140,6 @@ class Challenge < ApplicationRecord
     draft_keyword = ''
     ended_keyword = ''
 
-    binding.pry
     filters.each do |key, value|
       if key == 'status' && filters[key].present?
         value.each do |val|
@@ -182,6 +181,7 @@ class Challenge < ApplicationRecord
         end
       end
     end
+
     final_query = query +  tags_query + type_query_string + platform_query_string + reward_query_string # status_query_string + type_query_string
     challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, platform_type: platform_type.flatten, reward_type: reward_type.flatten) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
 

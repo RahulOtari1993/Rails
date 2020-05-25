@@ -1159,41 +1159,43 @@ $(document).on('turbolinks:load', function () {
 
   // Generates Challenge Filter Query String
   function generateFilterParams() {
-    var status_checked = []
-    var type_checked = []
-    var platform_checked = []
-    var reward_checked = []
-    var tags = []
-    var filter = {}
+    var filters = {
+      status: [],
+      challenge_type: [],
+      platform_type: [],
+      reward_type: [],
+      tags: []
+    }
+
     $("input[name='filters[status][]']:checked").each(function () {
-      status_checked.push($(this).parent().find('.filter_label').html());
+      filters['status'].push($(this).parent().find('.filter_label').html());
     });
 
     $("input[name='filters[challenge_type][]']:checked").each(function () {
-      type_checked.push($(this).data('val'));
+      filters['challenge_type'].push($(this).data('val'));
     });
 
     $("input[name='filters[platform_type][]']:checked").each(function () {
-      platform_checked.push($(this).data('val'));
+      filters['platform_type'].push($(this).data('val'));
     });
 
     $("input[name='filters[reward_type][]']:checked").each(function () {
-      reward_checked.push($(this).data('val'));
+      filters['reward_type'].push($(this).data('val'));
     });
 
     $('.challenge-tags-filter-chip').each(function () {
-      tags.push($(this).data('tag-val'));
+      filters['tags'].push($(this).data('tag-val'));
     });
 
-    filter['status'] = status_checked
-    filter['challenge_type'] = type_checked
-    filter['platform_type'] = platform_checked
-    filter['reward_type'] = reward_checked
+    // filter['status'] = status_checked
+    // filter['challenge_type'] = type_checked
+    // filter['platform_type'] = platform_checked
+    // filter['reward_type'] = reward_checked
+    //
+    // filter['tags'] = tags
 
-    filter['tags'] = tags
-
-    console.log("HHIII", filter)
-    return filter;
+    console.log("HHIII", filters)
+    return filters;
   }
 
   // Applly Challenge Filters
