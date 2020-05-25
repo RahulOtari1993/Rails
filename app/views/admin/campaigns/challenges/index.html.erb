@@ -20,7 +20,8 @@
           <div class="data_list_20">
             <div class="">
               <div class="filter_title">
-                <h4>Filters <span><button class="btn-xs btn-outline-primary reset_challenge_filter_checkboxes">Reset</button></span></h4>
+                <h4>Filters <span><button class="btn-xs btn-outline-primary reset_challenge_filter_checkboxes">Reset</button></span>
+                </h4>
               </div>
               <div class="">
                 <h6>Status</h6>
@@ -81,26 +82,81 @@
                 <ul class="list-unstyled mb-0">
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false" name="filters[challenge_type][]" class="challenge_sidebar_filter" id="share">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="share" data-val="share">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
-                      <span class="filter_label">share</span>
-                    </div>         
+                      <span class="filter_label">Share</span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="engage" data-val="engage">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">Engage</span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="share" data-val="amplify">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">Amplify</span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="collect" data-val="collection">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">Collect</span>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="vs-checkbox-con vs-checkbox-primary">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="connect" data-val="connect">
+                      <span class="vs-checkbox vs-checkbox-sm">
+                          <span class="vs-checkbox--check">
+                              <i class="vs-icon feather icon-check"></i>
+                          </span>
+                      </span>
+                      <span class="filter_label">Connect</span>
+                    </div>
                   </li>
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false" name="filters[challenge_type][]" class="challenge_sidebar_filter" id="connect">
+                      <input type="checkbox" value="false" name="filters[challenge_type][]"
+                             class="challenge_sidebar_filter" id="engage" data-val="engage">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
-                      <span class="filter_label">connect</span>
-                    </div> 
+                      <span class="filter_label">Engage</span>
+                    </div>
                   </li>
+
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
                       <input type="checkbox" value="false" name="filters[challenge_type][]" class="challenge_sidebar_filter" id="engage">
@@ -109,20 +165,10 @@
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
-                      <span class="filter_label">engage</span>
-                    </div> 
+                      <span class="filter_label">Grow</span>
+                    </div>
                   </li>
-                  <li>
-                    <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false" name="filters[challenge_type][]" class="challenge_sidebar_filter" id="collect">
-                      <span class="vs-checkbox vs-checkbox-sm">
-                          <span class="vs-checkbox--check">
-                              <i class="vs-icon feather icon-check"></i>
-                          </span>
-                      </span>
-                      <span class="filter_label">collect</span>
-                    </div> 
-                  </li>
+
                 </ul>
               </div>
 
@@ -131,47 +177,47 @@
                 <ul class="list-unstyled mb-0">
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false" name="filters[platform_type][]"class="challenge_sidebar_filter">
+                      <input type="checkbox" value="false" name="filters[platform_type][]" class="challenge_sidebar_filter">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
                       <span class="filter_label">facebook</span>
-                    </div> 
+                    </div>
                   </li>
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false"  name="filters[platform_type][]" class="challenge_sidebar_filter">
+                      <input type="checkbox" value="false" name="filters[platform_type][]" class="challenge_sidebar_filter">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
                       <span class="filter_label">instagram</span>
-                    </div> 
+                    </div>
                   </li>
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false"  name="filters[platform_type][]" class="challenge_sidebar_filter">
+                      <input type="checkbox" value="false" name="filters[platform_type][]" class="challenge_sidebar_filter">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
                       <span class="filter_label">pinterest</span>
-                    </div> 
+                    </div>
                   </li>
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
-                      <input type="checkbox" value="false"  name="filters[platform_type][]" class="challenge_sidebar_filter">
+                      <input type="checkbox" value="false" name="filters[platform_type][]" class="challenge_sidebar_filter">
                       <span class="vs-checkbox vs-checkbox-sm">
                           <span class="vs-checkbox--check">
                               <i class="vs-icon feather icon-check"></i>
                           </span>
                       </span>
                       <span class="filter_label">tumblr</span>
-                    </div> 
+                    </div>
                   </li>
                   <li>
                     <div class="vs-checkbox-con vs-checkbox-primary">
@@ -182,7 +228,7 @@
                           </span>
                       </span>
                       <span class="filter_label">twitter</span>
-                    </div> 
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -199,7 +245,7 @@
                           </span>
                       </span>
                       <span class="filter_label">points</span>
-                    </div> 
+                    </div>
                   </li>
 
                   <li class="">
@@ -251,12 +297,12 @@
               <div class="mt-1">
                 <h6>Tags</h6>
                 <%= select_tag :tags,
-                                options_for_select(all_tags_humanize),
-                                class: 'form-control-sm challenge-tags-filter', multiple: 'multiple' %>
+                               options_for_select(all_tags_humanize),
+                               class: 'form-control-sm challenge-tags-filter', multiple: 'multiple' %>
                 <div class="tag_box challenge-filter-tag-selection" style="padding-top: 5px;">
                 </div>
               </div>
-            </div>     
+            </div>
           </div>
           <div class="data_list_80">
             <div class="table-responsive">

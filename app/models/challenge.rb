@@ -157,10 +157,12 @@ class Challenge < ApplicationRecord
             ended_keyword = Time.now.in_time_zone(self.timezone).to_i
           end
         end
-      elsif key == 'challenge_type' && filters[key].present?
+      elsif key == 'challenge_type' && value.present?
         if Challenge.categories.values_at(*Array(value)).present?
           type_query_string = ' AND category IN (:challenge_type)'
-          challenge_type << value
+          value.each do |c_type|
+            challenge_type << Challenge::categories[c_type]
+          end
         end
       elsif key == 'platform_type' && filters[key].present?
         if Challenge.parameters.values_at(*Array(value)).present?
@@ -174,9 +176,10 @@ class Challenge < ApplicationRecord
         end
       end
     end
-    final_query = query +  tags_query # status_query_string + type_query_string + platform_query_string +
-    # challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
+    binding.pry
+    final_query = query +  tags_query + type_query_string # status_query_string + type_query_string + platform_query_string +
+    challenges = self.where(final_query, is_approved: status, challenge_type: challenge_type.flatten, parameters: Challenge.parameters.values_at(*Array(parameters.flatten))) #challenge_type: facebook_keyword, challenge_type:instagram_keyword, challenge_type: tumblr_keyword, challenge_type: twitter_keyword, challenge_type: pinterest_keyword )
 
-    return final_query
+    return challenges
   end
 end

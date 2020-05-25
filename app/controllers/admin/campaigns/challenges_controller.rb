@@ -16,17 +16,15 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
+        challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
       end
-
-      binding.pry
     end
 
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
-      filter_query = challenges.challenge_side_bar_filter(filters)
+      challenges = challenges.challenge_side_bar_filter(filters)
     end
 
-    challenges = challenges.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%").where(filter_query)
     challenges = challenges.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
     challenges = challenges.page(datatable_page).per(datatable_per_page)
 
