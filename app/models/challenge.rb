@@ -126,14 +126,10 @@ class Challenge < ApplicationRecord
   def self.challenge_side_bar_filter(filters)
     query = 'id IS NOT NULL'
     tags_query = ''
-    challenges = ''
     status = []
     platform_type = []
     challenge_type = []
     reward_type = []
-    # active_keyword = ''
-    # scheduled_keyword = ''
-    # ended_keyword = ''
 
     filters.each do |key, value|
       if key == 'status' && value.present?

@@ -224,7 +224,7 @@
                         </div>
                         <div class="col-sm-8 col-lg-8">
                           <div class="form-group">
-                            <%= form.time_zone_select(:timezone, ActiveSupport::TimeZone.all, {}, class: 'form-control') %>
+                            <%= form.select(:timezone, timezone_list, {}, class: 'form-control') %>
                           </div>
                         </div>
                       </div>
