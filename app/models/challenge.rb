@@ -133,45 +133,62 @@ class Challenge < ApplicationRecord
     reward_type = []
     # active_keyword = ''
     # scheduled_keyword = ''
-    # draft_keyword = ''
     # ended_keyword = ''
 
     filters.each do |key, value|
-      if key == 'status' && filters[key].present?
-        # value.each do |val|
-        #   if val == 'draft'
-        #     status_query_string = ' AND is_approved IS :draft_keyword'
-        #     draft_keyword = false
-        #   elsif val == 'active'
-        #     status_query_string = status_query_string + ' AND is_approved IS :active_keyword'
-        #     active_keyword = true
-        #   elsif val == 'scheduled'
-        #     #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
-        #     status_query_string = " AND timezone(challenges.timezone, challenges.start) > :schedule"
-        #     # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
-        #     scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
-        #   elsif val == 'ended'
-        #     status_query_string = " AND convert_tz(challenges.finish, 'UTC') < :ended_keyword"
-        #     ended_keyword = Time.now.in_time_zone(self.timezone).to_i
-        #   end
-        # end
+      if key == 'status' && value.present?
+        status_query = ''
+        value.each_with_index do |val, index|
+          keyword = ' OR'
+          if index == 0
+            keyword = 'AND'
+          end
+
+          if val == 'draft'
+            status_query = " #{keyword} (is_approved = false)"
+          elsif val == 'active'
+            status_query = status_query + " #{keyword} is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
+
+            ## Back up
+            # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
+            # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
+          elsif val == 'scheduled'
+            status_query = status_query + " #{keyword} is_approved = true AND start AT TIME ZONE timezone > timezone(timezone,now())"
+
+            ## Back up
+            # # status_query = status_query + " #{keyword} (is_approved = true AND start > convert_tz('#{current_utc_time}', 'UTC', timezone))"
+            # #unix_timestamp(convert_tz(now(), 'UTC', offers.timezone))
+            # status_query = " #{keyword} timezone(challenges.timezone, challenges.start) > :schedule"
+            # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
+            # scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
+          elsif val == 'ended'
+            status_query = status_query + " #{keyword} is_approved = true AND finish AT TIME ZONE timezone < timezone(timezone,now())"
+
+            ## Back up
+            # status_query = status_query + " #{keyword} (is_approved = true AND finish > convert_tz('#{current_utc_time}', 'UTC', timezone))"
+            # status_query = " #{keyword} convert_tz(challenges.finish, 'UTC') < :ended_keyword"
+            # ended_keyword = Time.now.in_time_zone(self.timezone).to_i
+          end
+        end
+
+        query = query + status_query
       elsif key == 'challenge_type' && value.present?
         value.each do |c_type|
           challenge_type << Challenge::categories[c_type]
         end
         query = query + ' AND category IN (:challenge_type)'
-      elsif key == 'platform_type' && filters[key].present?
+      elsif key == 'platform_type' && value.present?
         value.each do |c_type|
           platform_type << Challenge::parameters[c_type]
         end
         query = query + ' AND parameters IN (:platform_type)'
-      elsif key == 'reward_type' && filters[key].present?
+      elsif key == 'reward_type' && value.present?
         value.each do |c_type|
           reward_type << Challenge::reward_types[c_type]
         end
         query = query + ' AND parameters IN (:reward_type)'
-      elsif key == 'tags' && filters[key].present?
-        filters[key].each do |tag|
+      elsif key == 'tags' && value.present?
+        value.each do |tag|
           tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = challenges.id AND taggings.taggable_type = 'Challenge'" +
               " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
@@ -179,10 +196,8 @@ class Challenge < ApplicationRecord
         query = query + tags_query
       end
     end
-
     challenges = self.where(query, is_approved: status, challenge_type: challenge_type.flatten,
                             platform_type: platform_type.flatten, reward_type: reward_type.flatten)
-
     return challenges
   end
 end

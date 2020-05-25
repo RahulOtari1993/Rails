@@ -1168,7 +1168,7 @@ $(document).on('turbolinks:load', function () {
     }
 
     $("input[name='filters[status][]']:checked").each(function () {
-      filters['status'].push($(this).parent().find('.filter_label').html());
+      filters['status'].push($(this).data('val'));
     });
 
     $("input[name='filters[challenge_type][]']:checked").each(function () {
