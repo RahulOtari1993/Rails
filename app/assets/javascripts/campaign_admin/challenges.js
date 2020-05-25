@@ -1187,14 +1187,6 @@ $(document).on('turbolinks:load', function () {
       filters['tags'].push($(this).data('tag-val'));
     });
 
-    // filter['status'] = status_checked
-    // filter['challenge_type'] = type_checked
-    // filter['platform_type'] = platform_checked
-    // filter['reward_type'] = reward_checked
-    //
-    // filter['tags'] = tags
-
-    console.log("HHIII", filters)
     return filters;
   }
 
