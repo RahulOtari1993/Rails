@@ -62,7 +62,7 @@ $(document).ready(function () {
     });
 
     // Reward rule type number of logins
-    $('#rule-segment-value-number-of-logins-' + phaseCounter).each(function () {
+    $('#rule-segment-value-number_of_logins-' + phaseCounter).each(function () {
       $(this).rules('add', {
         required: true,
         min: 1,
@@ -94,7 +94,7 @@ $(document).ready(function () {
     });
 
     // Reward rule type challenge conditions Validation
-    $('#rule-segment-value-challenges-completed-' + phaseCounter).each(function () {
+    $('#rule-segment-value-challenges_completed-' + phaseCounter).each(function () {
       $(this).rules('add', {
         required: true,
         min: 1,
@@ -590,6 +590,31 @@ $(document).ready(function () {
     // Display Segment Values Inputs / Drop Downs
     tableRow.find('.reward-segment-value-' + $(this).val()).show().removeAttr('disabled');
     tableRow.find('.reward-segment-value-' + $(this).val()).next(".select2-container").show();
+  });
+
+  // Reward Event Change Event
+  $('body').on('change', '.reward-rule-event-dd', function (e) {
+    var tableRow = $(this).parent().parent();
+
+    // Remove Error Classes of JS Validation & Remove Error Messages
+    tableRow.find('span.error').remove();
+
+    // Hide & Disable All the Segmet Condition and Value Fields & Remove Error Class
+    tableRow.find('.segment-conditions-container .rule-conditions-dd').prop('disabled', true).hide().removeClass('error');
+    tableRow.find('.segment-values-container select').prop('disabled', true).hide().removeClass('error');
+    tableRow.find('.segment-values-container input').prop('disabled', true).hide().removeClass('error');
+
+    // Hide Select2 Dropdowns
+    tableRow.find('.segment-values-container select').next(".select2-container").hide();
+
+    // Display Segment Condition Drop Downs
+    console.log("CONDITION", '.rule-value-' + $(this).val());
+    tableRow.find('.rule-conditions-' + $(this).val()).show().removeAttr('disabled');
+
+    // Display Segment Values Inputs / Drop Downs
+    console.log("VALUE", '.rule-value-' + $(this).val());
+    tableRow.find('.rule-value-' + $(this).val()).show().removeAttr('disabled');
+    tableRow.find('.rule-value-' + $(this).val()).next(".select2-container").show();
   });
 
   // // Add Validations on Already Exists Reward Segments

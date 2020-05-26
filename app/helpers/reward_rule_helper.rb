@@ -42,7 +42,7 @@
     if filter.present?
       !type.include?(filter.type)
     else
-      !type.include?('challenges-completed')
+      !type.include?('challenges_completed')
     end
   end
 
@@ -51,7 +51,7 @@
     if filter.present?
       type.include?(filter.type) ? 'block' : 'none'
     else
-      type.include?('challenges-completed') ? 'block' : 'none'
+      type.include?('challenges_completed') ? 'block' : 'none'
     end
   end
 

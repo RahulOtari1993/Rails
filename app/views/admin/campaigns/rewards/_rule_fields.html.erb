@@ -8,46 +8,77 @@
   <td width="35%">
     <%= select_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][reward_rule]",
                    options_for_select(RewardRule::RULES.map { |val| [val.humanize, val] },
-                    rule_event(filter, RewardRule::RULES.first)),
-                   { class: 'form-control reward-rule-event-dd',
-                   required: true }%>
+                                      rule_event(filter, RewardRule::RULES.first)),
+                   {class: 'form-control reward-rule-event-dd',
+                    required: true} %>
   </td>
 
   <td width="35%" class="segment-conditions-container">
     <%= select_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_condition]",
-                   options_for_select(RewardRule::CONDITIONS.map { |val| [val.humanize, val] }, rule_condition_value(filter, '')), {class: 'form-control rule-conditions-dd rule-conditions-challenges-completed rule-conditions-number-of-logins rule-conditions-points rule-conditions-recruits',id: "rule-conditions-dd-#{rule_id_convention(filter)}",
-                   prompt: 'Select Condition', disabled: rule_make_disabled(filter, ['challenges-completed', 'points', 'number-of-logins', 'recruits']),
-                   required: true, style: "display:#{rule_make_visible(filter, ['challenges-completed', 'points', 'number-of-logins', 'recruits'])};"} %>
+                   options_for_select(RewardRule::CONDITIONS.map { |val| [val.humanize, val] }, rule_condition_value(filter, '')),
+                   {class: 'form-control rule-conditions-dd rule-conditions-challenges_completed',
+                    id: "rule-conditions-dd-#{rule_id_convention(filter)}",
+                    prompt: 'Select Condition',
+                    disabled: rule_make_disabled(filter, ['challenges_completed']),
+                    required: true,
+                    style: "display:#{rule_make_visible(filter, ['challenges_completed'])};"} %>
+
+    <%= select_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_condition]",
+                   options_for_select(RewardRule::CONDITIONS.map { |val| [val.humanize, val] }, rule_condition_value(filter, '')),
+                   {class: 'form-control rule-conditions-dd rule-conditions-number_of_logins',
+                    id: "rule-conditions-dd-#{rule_id_convention(filter)}",
+                    prompt: 'Select Condition',
+                    disabled: rule_make_disabled(filter, ['number_of_logins']),
+                    required: true,
+                    style: "display:#{rule_make_visible(filter, ['number_of_logins'])};"} %>
+
+    <%= select_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_condition]",
+                   options_for_select(RewardRule::CONDITIONS.map { |val| [val.humanize, val] }, rule_condition_value(filter, '')),
+                   {class: 'form-control rule-conditions-dd rule-conditions-recruits',
+                    id: "rule-conditions-dd-#{rule_id_convention(filter)}",
+                    prompt: 'Select Condition',
+                    disabled: rule_make_disabled(filter, ['recruits']),
+                    required: true,
+                    style: "display:#{rule_make_visible(filter, ['recruits'])};"} %>
+
+    <%= select_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_condition]",
+                   options_for_select(RewardRule::CONDITIONS.map { |val| [val.humanize, val] }, rule_condition_value(filter, '')),
+                   {class: 'form-control rule-conditions-dd rule-conditions-points',
+                    id: "rule-conditions-dd-#{rule_id_convention(filter)}",
+                    prompt: 'Select Condition',
+                    disabled: rule_make_disabled(filter, ['points']),
+                    required: true,
+                    style: "display:#{rule_make_visible(filter, ['points'])};"} %>
   </td>
 
   <td width="30%" class="segment-values-container">
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][challenges_completed_rule_value]",
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][points_rule_value]",
                        rule_event_value(filter, nil, 'points'),
                        class: 'form-control rule-value-points',
                        disabled: rule_make_disabled(filter, ['points']),
-                       id: "rule-segment-value-age-#{rule_id_convention(filter)}",
+                       id: "rule-segment-value-points-#{rule_id_convention(filter)}",
                        placeholder: 'Enter Points',
                        style: "display:#{rule_make_visible(filter, ['points'])};" %>
 
     <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][number_of_logins_rule_value]",
-                       reward_event_value(filter, nil, 'number-of-logins'),
-                       class: 'form-control segment-value-number-of-logins',
-                       disabled: rule_make_disabled(filter, ['number-of-logins']),
-                       id: "rule-segment-value-number-of-logins-#{rule_id_convention(filter)}",
+                       reward_event_value(filter, nil, 'number_of_logins'),
+                       class: 'form-control rule-value-number_of_logins',
+                       disabled: rule_make_disabled(filter, ['number_of-logins']),
+                       id: "rule-segment-value-number_of_logins-#{rule_id_convention(filter)}",
                        placeholder: 'Enter Login Count',
-                       style: "display:#{rule_make_visible(filter, ['number-of-logins'])};" %>
+                       style: "display:#{rule_make_visible(filter, ['number_of_logins'])};" %>
 
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][points_rule_value]",
-                       rule_event_value(filter, nil, 'challenges-completed'),
-                       class: 'form-control segment-value-challenges-completed',
-                       disabled: rule_make_disabled(filter, ['challenges-completed']),
-                       id: "rule-segment-value-challenges-completed-#{rule_id_convention(filter)}",
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][challenges_completed_rule_value]",
+                       rule_event_value(filter, nil, 'challenges_completed'),
+                       class: 'form-control rule-value-challenges_completed',
+                       disabled: rule_make_disabled(filter, ['challenges_completed']),
+                       id: "rule-segment-value-challenges_completed-#{rule_id_convention(filter)}",
                        placeholder: 'Enter Count',
-                       style: "display:#{rule_make_visible(filter, ['challenges-completed'])};" %>
-    
+                       style: "display:#{rule_make_visible(filter, ['challenges_completed'])};" %>
+
     <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][recruits_rule_value]",
                        rule_event_value(filter, nil, 'recruits'),
-                       class: 'form-control segment-value-recruits',
+                       class: 'form-control rule-value-recruits',
                        disabled: rule_make_disabled(filter, ['recruits']),
                        id: "rule-segment-value-recruits-#{rule_id_convention(filter)}",
                        placeholder: 'Enter Recruits Count',

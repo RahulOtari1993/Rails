@@ -1,4 +1,4 @@
-class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
+class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   before_action :set_reward, only: [:edit, :update]
   before_action :build_params, only: [:create, :update]
   require 'mini_magick'
@@ -13,14 +13,14 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     search_string = []
 
     rewards = @campaign.rewards.all
-     ## Check if Search Keyword is Present & Write it's Query
+    ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
     end
 
-     ## Check for Filters
+    ## Check for Filters
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
       filters_query = rewards.reward_side_bar_filter(filters)
@@ -45,15 +45,17 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
   end
 
   def create
-      # picture_file = params[:reward][:image]
-      # params[:reward].delete(:image) 
+    # picture_file = params[:reward][:image]
+    # params[:reward].delete(:image)
     @reward = @campaign.rewards.new(reward_params)
 
+    # binding.pry
+    # raise "hii"
     ## Manage Tags for a Reward
     tags_association
 
     # @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
-    if @reward.save 
+    if @reward.save
       # if !picture_file.blank?
       #   resp = update_reward_photo(@reward, picture_file)
       #   if resp[:success]
@@ -79,19 +81,19 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     results = CSV.generate do |csv|
       #generate the header
       csv << [
-        "first_name",
-        "family_name",
-        "email",
-        "earned_date"
+          "first_name",
+          "family_name",
+          "email",
+          "earned_date"
       ]
 
       #set the results
       @reward.reward_participants.each do |user_reward|
         csv << [
-          user_reward.user.first_name,
-          user_reward.user.full_name,
-          user_reward.user.email,
-          user_reward.created_at
+            user_reward.user.first_name,
+            user_reward.user.full_name,
+            user_reward.user.email,
+            user_reward.created_at
         ]
       end
     end
@@ -104,7 +106,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     @reward = @campaign.rewards.find_by(:id => params[:reward_id])
   end
 
-  def edit 
+  def edit
     # @reward = @campaign.rewards.find_by(:id => params[:id])
   end
 
@@ -116,7 +118,7 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
       ## Manage Tags for a Reward
       tags_association
-      
+
       if @reward.update(reward_params)
         ## Remove Deleted User Segments from a Reward
         @reward.reward_filters.where(id: removed_segments).delete_all if removed_segments.present?
@@ -158,15 +160,15 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
     # @reward = @campaign.reward.find_by(:id=>params[:reward_id])
     @reward_filter = RewardFilter.find_by(:id => params[:id])
     respond_to do |format|
-    if @reward_filter.destroy
-      format.html { }
-      format.json { }
-    else
-      flash[:notice] = "Post failed to delete."
-      format.html { }
-      format.json { }
+      if @reward_filter.destroy
+        format.html {}
+        format.json {}
+      else
+        flash[:notice] = "Post failed to delete."
+        format.html {}
+        format.json {}
+      end
     end
-  end
     # @reward_filter.destroy
     # redirect_to edit_campaign_reward_path(@reward), notice: 'Active Segment deleted.'
   end
@@ -175,10 +177,12 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
 
   def reward_params
     return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
-                           :image,:image_content_type, :selection, :start, :finish, :feature, :points,
-                            :is_active, :redemption_details, :description_details, :terms_conditions, :filter_applied, :filter_type,
-                            :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
-                            :reward_value, :reward_event], reward_rules_attributes: [:id, :reward_id, :type, :value, :condition])
+                                                   :image, :image_content_type, :selection, :start, :finish, :feature, :points,
+                                                   :is_active, :redemption_details, :description_details, :terms_conditions, :filter_applied, :filter_type,
+                                                   :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
+                                                                                                  :reward_value, :reward_event],
+                                                   reward_rules_attributes: [:id, :reward_id, :rule_type, :rule_condition, :rule_value])
+
     return_params[:start] = Chronic.parse(params[:reward][:start])
     return_params[:finish] = Chronic.parse(params[:reward][:finish])
     return_params
@@ -215,9 +219,9 @@ class Admin::Campaigns::RewardsController <  Admin::Campaigns::BaseController
       cust_params = params[:reward][:reward_rules_attributes]
       cust_params.each do |key, c_param|
         filter_data = {
-            type: c_param[:type],
-            condition: c_param[:condition],
-            value: c_param[:value]
+            rule_type: c_param[:reward_rule],
+            rule_condition: c_param[:rule_condition],
+            rule_value: c_param["#{c_param[:reward_rule]}_rule_value"]
         }
 
         if c_param.has_key?('id')
