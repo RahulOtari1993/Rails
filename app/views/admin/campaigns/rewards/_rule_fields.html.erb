@@ -21,22 +21,37 @@
   </td>
 
   <td width="30%" class="segment-values-container">
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_value]",
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][challenges_completed_rule_value]",
                        rule_event_value(filter, nil, 'points'),
-                       class: 'form-control rule-value-points', disabled: rule_make_disabled(filter, ['points']),
+                       class: 'form-control rule-value-points',
+                       disabled: rule_make_disabled(filter, ['points']),
                        id: "rule-segment-value-age-#{rule_id_convention(filter)}",
-                       placeholder: 'Enter Points', style: "display:#{rule_make_visible(filter, ['points'])};" %>
+                       placeholder: 'Enter Points',
+                       style: "display:#{rule_make_visible(filter, ['points'])};" %>
 
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_value]", reward_event_value(filter, nil, 'number-of-logins'),
-                       class: 'form-control segment-value-number-of-logins',disabled: rule_make_disabled(filter, ['number-of-logins']),
-                       d: "rule-segment-value-number-of-logins-#{rule_id_convention(filter)}",
-                       placeholder: 'Enter Login Count', style: "display:#{rule_make_visible(filter, ['number-of-logins'])};" %>
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][number_of_logins_rule_value]",
+                       reward_event_value(filter, nil, 'number-of-logins'),
+                       class: 'form-control segment-value-number-of-logins',
+                       disabled: rule_make_disabled(filter, ['number-of-logins']),
+                       id: "rule-segment-value-number-of-logins-#{rule_id_convention(filter)}",
+                       placeholder: 'Enter Login Count',
+                       style: "display:#{rule_make_visible(filter, ['number-of-logins'])};" %>
 
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_value]", rule_event_value(filter, nil, 'challenges-completed'),
-                       class: 'form-control segment-value-challenges-completed',disabled: rule_make_disabled(filter, ['challenges-completed']), id: "rule-segment-value-challenges-completed-#{rule_id_convention(filter)}", placeholder: 'Enter Count', style: "display:#{rule_make_visible(filter, ['challenges-completed'])};" %>
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][points_rule_value]",
+                       rule_event_value(filter, nil, 'challenges-completed'),
+                       class: 'form-control segment-value-challenges-completed',
+                       disabled: rule_make_disabled(filter, ['challenges-completed']),
+                       id: "rule-segment-value-challenges-completed-#{rule_id_convention(filter)}",
+                       placeholder: 'Enter Count',
+                       style: "display:#{rule_make_visible(filter, ['challenges-completed'])};" %>
     
-    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][rule_value]", rule_event_value(filter, nil, 'recruits'),
-                       class: 'form-control segment-value-recruits',disabled: rule_make_disabled(filter, ['recruits']), id: "rule-segment-value-recruits-#{rule_id_convention(filter)}", placeholder: 'Enter Recruits Count', style: "display:#{rule_make_visible(filter, ['recruits'])};" %>
+    <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][recruits_rule_value]",
+                       rule_event_value(filter, nil, 'recruits'),
+                       class: 'form-control segment-value-recruits',
+                       disabled: rule_make_disabled(filter, ['recruits']),
+                       id: "rule-segment-value-recruits-#{rule_id_convention(filter)}",
+                       placeholder: 'Enter Recruits Count',
+                       style: "display:#{rule_make_visible(filter, ['recruits'])};" %>
   </td>
   <% if filter.present? %>
     <!-- Display ID of Challenge Filter Only in Edit Mode-->

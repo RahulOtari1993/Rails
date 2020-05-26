@@ -52,53 +52,59 @@ $(document).ready(function () {
   // Adds Validation for New Added Reward Rule Fields
   function addRewardRuleValidations(phaseCounter) {
     // Reward rule Conditions Drop Down Require Validation
-    $('#rule-segment-conditions-dd-' + phaseCounter).each(function () {
-      $(this).rules("add", {
+    $('#rule-conditions-dd-' + phaseCounter).each(function () {
+      $(this).rules('add', {
         required: true,
         messages: {
-          required: "Please select a condition"
+          required: 'Please select a condition'
         }
       })
     });
 
     // Reward rule type number of logins
     $('#rule-segment-value-number-of-logins-' + phaseCounter).each(function () {
-      $(this).rules("add", {
+      $(this).rules('add', {
         required: true,
         min: 1,
         max: 10000,
         digits: true,
         messages: {
-          required: "Please enter logins count",
-          min: "Minimum count should be 1",
-          max: "Maximum count can be 10000",
-          digits: "Please enter only digits"
+          required: 'Please enter logins count',
+          min: 'Minimum count should be 1',
+          max: 'Maximum count can be 10000',
+          digits: 'Please enter only digits'
         }
       })
     });
 
     // Reward rule type Points Validation
     $('#rule-segment-value-points-' + phaseCounter).each(function () {
-      $(this).rules("add", {
+      $(this).rules('add', {
         required: true,
         min: 1,
         max: 10000,
         digits: true,
         messages: {
-          required: "Please enter points",
-          min: "Minimum points should be 1",
-          max: "Maximum points can be 10000",
-          digits: "Please enter only digits"
+          required: 'Please enter points',
+          min: 'Minimum points should be 1',
+          max: 'Maximum points can be 10000',
+          digits: 'Please enter only digits'
         }
       })
     });
 
     // Reward rule type challenge conditions Validation
     $('#rule-segment-value-challenges-completed-' + phaseCounter).each(function () {
-      $(this).rules("add", {
+      $(this).rules('add', {
         required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
         messages: {
-          required: "Please enter value"
+          required: 'Please enter challenges completed counts',
+          min: 'Minimum count should be 1',
+          max: 'Maximum count  can be 10000',
+          digits: 'Please enter only digits'
         }
       })
     });
@@ -108,8 +114,14 @@ $(document).ready(function () {
     $('#rule-segment-value-recruits-' + phaseCounter).each(function () {
       $(this).rules("add", {
         required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
         messages: {
-          required: "Please enter value"
+          required: 'Please enter recruits counts',
+          min: 'Minimum count should be 1',
+          max: 'Maximum count  can be 10000',
+          digits: 'Please enter only digits'
         }
       })
     });
