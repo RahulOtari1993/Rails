@@ -61,7 +61,7 @@
                        style: "display:#{rule_make_visible(filter, ['points'])};" %>
 
     <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][number_of_logins_rule_value]",
-                       reward_event_value(filter, nil, 'number_of_logins'),
+                       rule_event_value(filter, nil, 'number_of_logins'),
                        class: 'form-control rule-value-number_of_logins',
                        disabled: rule_make_disabled(filter, ['number_of-logins']),
                        id: "rule-segment-value-number_of_logins-#{rule_id_convention(filter)}",
