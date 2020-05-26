@@ -196,7 +196,8 @@
                             </div>
                           </div>
 
-                          <div class="col-12 milestone_reward" style="display: none; margin-bottom: 10px;">
+                          <% display_section =  (action_name == 'edit' && @reward.reward_rules.present?) ? 'block' : 'none' %>
+                          <div class="col-12 milestone_reward" style="display: <%= display_section %>; margin-bottom: 10px;">
                             <h3>REWARD RULES</h3>
                               <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">
                                 <%= f.check_box :filter_applied, {} %>

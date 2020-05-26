@@ -63,7 +63,7 @@
     <%= text_field_tag "reward[reward_rules_attributes][#{rule_name_convention(filter)}][number_of_logins_rule_value]",
                        rule_event_value(filter, nil, 'number_of_logins'),
                        class: 'form-control rule-value-number_of_logins',
-                       disabled: rule_make_disabled(filter, ['number_of-logins']),
+                       disabled: rule_make_disabled(filter, ['number_of_logins']),
                        id: "rule-segment-value-number_of_logins-#{rule_id_convention(filter)}",
                        placeholder: 'Enter Login Count',
                        style: "display:#{rule_make_visible(filter, ['number_of_logins'])};" %>
@@ -86,7 +86,7 @@
   </td>
   <% if filter.present? %>
     <!-- Display ID of Challenge Filter Only in Edit Mode-->
-    <%= hidden_field_tag "rule[rule_filters_attributes][#{filter.id}][id]", filter.id %>
+    <%= hidden_field_tag "reward[reward_rules_attributes][#{filter.id}][id]", filter.id %>
   <% end %>
 </tr>
 

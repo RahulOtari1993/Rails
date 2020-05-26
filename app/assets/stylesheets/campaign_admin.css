@@ -45,3 +45,8 @@
 .reward-image-preview {
   width: 100%;
 }
+
+.remove-btn-align {
+  font-size: 22px;
+  padding-top: 15px !important;
+}

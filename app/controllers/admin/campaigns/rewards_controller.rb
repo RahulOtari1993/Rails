@@ -114,14 +114,20 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
     # @reward = @campaign.rewards.find_by(:id => params[:id])
     respond_to do |format|
       previous_segments = @reward.reward_filters.pluck(:id)
+      previous_rules = @reward.reward_rules.pluck(:id)
       removed_segments = previous_segments - @available_segments
+      removed_rules = previous_rules - @available_rules
 
       ## Manage Tags for a Reward
       tags_association
 
+      # binding.pry
+      # raise "hi"
+
       if @reward.update(reward_params)
-        ## Remove Deleted User Segments from a Reward
+        ## Remove Deleted User Segments & Reward Rules from a Reward
         @reward.reward_filters.where(id: removed_segments).delete_all if removed_segments.present?
+        @reward.reward_rules.where(id: removed_rules).delete_all if removed_rules.present?
 
         format.html { redirect_to admin_campaign_rewards_path(@campaign), notice: 'Reward was successfully updated.' }
         format.json { render :edit, status: :updated }
@@ -191,6 +197,8 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   ## Build Nested Attributes Params for User Segments
   def build_params
     @available_segments = []
+    @available_rules = []
+
     if params[:reward].has_key?('reward_filters_attributes')
       new_params = []
 
@@ -214,7 +222,6 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
     end
     if params[:reward].has_key?('reward_rules_attributes')
       new_params = []
-      @available_rules = []
 
       cust_params = params[:reward][:reward_rules_attributes]
       cust_params.each do |key, c_param|
