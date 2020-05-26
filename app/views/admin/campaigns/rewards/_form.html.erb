@@ -129,6 +129,37 @@
 
                           <div class="col-12">
                             <div class="form-group">
+                              <%= f.label :points %>
+                              <span class="column-info">This is an 	to give points by assigning a user to a reward.
+																	</span>
+                              <div class="position-relative" style="width: 25%;">
+                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control" %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <div class="position-relative">
+                                <fieldset>
+                                  <div class="vs-checkbox-con vs-checkbox-primary">
+                                    <%= f.check_box :feature, class: '' %>
+                                    <span class="vs-checkbox">
+                                        <span class="vs-checkbox--check">
+                                            <i class="vs-icon feather icon-check"></i>
+                                        </span>
+                                      </span>
+                                    <span class="">Feature</span>
+                                    <span class="column-info">This is an option for if this content is to be featured in various locations on the site.
+																			</span>
+                                  </div>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
                               <%= f.label :selection %>
                               <span class="column-info">Selection is how the reward will be awarded. If manual its up to the admin to set the winners or through challenges. With selection it allows users to trade in points.
 															</span>
@@ -209,37 +240,6 @@
                               </div>
                                 </tbody>
                               </table>
-                          </div>
-
-                          <div class="col-12">
-                            <div class="form-group">
-                              <div class="position-relative">
-                                <fieldset>
-                                  <div class="vs-checkbox-con vs-checkbox-primary">
-                                    <%= f.check_box :feature, class: '' %>
-                                    <span class="vs-checkbox">
-                                        <span class="vs-checkbox--check">
-                                            <i class="vs-icon feather icon-check"></i>
-                                        </span>
-                                      </span>
-                                    <span class="">feature</span>
-                                    <span class="column-info">This is an option for if this content is to be featured in various locations on the site.
-																			</span>
-                                  </div>
-                                </fieldset>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-12">
-                            <div class="form-group">
-                              <%= f.label :points %>
-                              <span class="column-info">This is an 	to give points by assigning a user to a reward.
-																	</span>
-                              <div class="position-relative" style="width: 25%;">
-                                <%= f.text_field :points, id: 'first-name-icon', class: "form-control" %>
-                              </div>
-                            </div>
                           </div>
 
                           <div class="col-12">
