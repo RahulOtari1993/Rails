@@ -2,14 +2,15 @@
 #
 # Table name: questions
 #
-#  id           :bigint           not null, primary key
-#  challenge_id :bigint
-#  category     :integer
-#  title        :string
-#  is_required  :boolean          default(FALSE)
-#  answer_type  :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id                   :bigint           not null, primary key
+#  challenge_id         :bigint
+#  category             :integer
+#  title                :string
+#  is_required          :boolean          default(FALSE)
+#  answer_type          :integer
+#  profile_attribute_id :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
 #
 class Question < ApplicationRecord
   ## Associations

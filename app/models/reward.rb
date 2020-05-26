@@ -45,15 +45,15 @@ class Reward < ApplicationRecord
   has_many :users, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
   has_many :reward_rules, :dependent => :delete_all
-
   has_one_attached :image
-  has_one_attached :image_actual
-  has_one_attached :photo_image
-  has_one_attached :thumb_image
+  # has_one_attached :image_actual
+  # has_one_attached :photo_image
+  # has_one_attached :thumb_image
 
+  ## ENUM
   enum filter_type: {all_filters: 0, any_filter: 1}
   serialize :image
-  validates :image, presence: true
+
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
   accepts_nested_attributes_for :reward_rules, allow_destroy: true, :reject_if => :all_blank
@@ -61,25 +61,12 @@ class Reward < ApplicationRecord
   ## Tags
   acts_as_taggable_on :tags
 
+  ## Image Uploader
   mount_uploader :image, ImageUploader
 
-  SELECTIONS = [
-      "manual",
-      "redeem",
-      "instant",
-      "threshold",
-      "selection",
-      "sweepstake",
-      "milestone_reward"
-  ]
-
-  FULFILMENTS = [
-      "default",
-      "badge",
-      "points",
-      "download"
-  ]
-
+  ## Constants
+  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone_reward]
+  FULFILMENTS = %w[default badge points download]
 
   validates :campaign, presence: true
   validates :name, presence: true
@@ -87,6 +74,7 @@ class Reward < ApplicationRecord
   validates :selection, presence: true, inclusion: SELECTIONS
   # validates :fulfilment, presence: true, inclusion: FULFILMENTS
   validates :description, presence: true
+  validates :image, presence: true
 
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status

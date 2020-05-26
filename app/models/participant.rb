@@ -32,7 +32,7 @@
 #  utm_content            :string
 #  utm_name               :string
 #  birth_date             :date
-#  gender                 :integer
+#  gender                 :string
 #  phone                  :string
 #  city                   :string
 #  state                  :string
