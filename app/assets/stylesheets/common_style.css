@@ -36,8 +36,8 @@ table.data-list-view.dataTable thead th:first-child {
 }
 
 .table_image_thumb_size {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
 }
 
 .loader {
