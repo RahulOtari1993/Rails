@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_122103) do
+ActiveRecord::Schema.define(version: 2020_05_27_134746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,17 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
     t.string "caption"
     t.string "icon"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
+  end
+
+  create_table "configurations", force: :cascade do |t|
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.string "twitter_app_id"
+    t.string "twitter_app_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "coupons", force: :cascade do |t|
