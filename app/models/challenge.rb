@@ -71,6 +71,7 @@ class Challenge < ApplicationRecord
   ## Mount Uploader for File Upload
   mount_uploader :image, ImageUploader
   mount_uploader :social_image, ImageUploader
+  mount_uploader :icon, IconUploader
 
   ## Nested Attributes
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
@@ -83,7 +84,8 @@ class Challenge < ApplicationRecord
   scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
 
   ## Validations
-  validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, presence: true
+  validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
+            :caption, presence: true
   validate :reward_existence
 
   ## Check Whether Proper Inputs provided for Reward Type

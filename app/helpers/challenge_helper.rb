@@ -217,7 +217,7 @@ module ChallengeHelper
     if @challenge.new_record?
       "<img id='challenge-image-preview' />"
     else
-      "<img id='challenge-image-preview' src='#{@challenge.image.url}'/>"
+      "<img id='challenge-image-preview' src='#{@challenge.image.url(:banner)}'/>"
     end
   end
 
@@ -226,7 +226,7 @@ module ChallengeHelper
     if @challenge.new_record?
       "<img id='challenge-icon-image-preview' />"
     else
-      "<img id='challenge-icon-image-preview' src='#{@challenge.image.url(:banner)}'/>"
+      "<img id='challenge-icon-image-preview' src='#{@challenge.icon.url}'/>"
     end
   end
 

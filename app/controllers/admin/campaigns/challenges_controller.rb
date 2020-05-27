@@ -116,8 +116,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     ## Clone a Challenge With It's Active Record Relation
     cloned = @challenge.deep_clone include: :challenge_filters do |original, copy|
       if copy.is_a?(Challenge)
-        ## Clone Challenge Image
+        ## Clone Challenge Image & Icon
         copy.image = original.image
+        copy.icon = original.icon
 
         ## Clone Challenge Social Image
         copy.social_image = original.social_image
@@ -196,8 +197,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :name, :link, :description, :reward_type, :timezone,
                                                       :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
-                                                      :start, :finish, :creator_id, :feature, :parameters, :category,
-                                                      :title, :content, :duration, :longitude, :latitude, :address,
+                                                      :start, :finish, :creator_id, :feature, :parameters, :category, :icon,
+                                                      :title, :content, :duration, :longitude, :latitude, :address, :caption,
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
@@ -327,6 +328,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     [is_valid, response]
   end
 
+  ## Build Questions Params
   def build_question_params
     @questions = []
     @options = []

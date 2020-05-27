@@ -31,7 +31,7 @@
         <div class="form-group">
           <%= form.label :caption, 'Challenge Caption' %>
           <span class="column-info">To be used while displaying challenges to end users</span>
-          <%= form.text_field :name, class: 'form-control', placeholder: "Watch TBDBITL's Latest Performance" %>
+          <%= form.text_field :caption, class: 'form-control', placeholder: "Watch TBDBITL's Latest Performance" %>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="row">
       <div class="offset-sm-1 col-sm-4 offset-lg-2 col-lg-4">
         <div class="form-group">
-          <%= form.label :image, 'Challenge Type Icon' %>
+          <%= form.label :icon, 'Challenge Type Icon' %>
           <div class="custom-file">
             <%= form.file_field :icon, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}" %>
             <%= form.label :icon, 'Choose icon file', class: 'custom-file-label' %>
