@@ -12,7 +12,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
     filters_query = ''
     search_string = []
 
-    rewards = @campaign.rewards.all
+    rewards = @campaign.rewards
     ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_columns.each do |term|

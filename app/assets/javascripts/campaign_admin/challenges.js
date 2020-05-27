@@ -62,6 +62,29 @@ $(document).on('turbolinks:load', function () {
     return stringDetails;
   }
 
+  // Add Validations for Question Fields
+  function addOptionValidations() {
+    // Validation for Question
+    $('.question-field-req').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Please enter question"
+        }
+      })
+    });
+
+    // Validation for Option
+    $('.option-req-field').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Please enter option value"
+        }
+      })
+    });
+  }
+
   // Adds Validation for New Added User Segment Fields
   function addValidations(phaseCounter) {
     // Challenge User Segment Conditions Drop Down Require Validation
@@ -190,6 +213,7 @@ $(document).on('turbolinks:load', function () {
     if (challengeType == 'collect' && challengeParameters == 'profile') {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.question-selector').trigger('change');
+      addOptionValidations();
     }
 
     // Load Google Map if Challenge Type is Location
@@ -1236,6 +1260,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Load Challenge Icon Image on Selection
+  $('#challenge_icon').change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#challenge-icon-image-preview').attr('src', e.target.result);
+        $('#challenge_icon').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
   // Remove TAG from a Challenges
   $('body').on('click', '.remove-challenge-tag', function (e) {
     var campaignId = $('.challenge-name-container').data('campaign-id');
@@ -1428,6 +1464,7 @@ $(document).on('turbolinks:load', function () {
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
     autoSelectText();
+    addOptionValidations();
   });
 
   // Manage Auto Selection of Text
@@ -1449,6 +1486,7 @@ $(document).on('turbolinks:load', function () {
     $(`.question-box${customId} .${selectedVal[0]}-container`).show();
     $(`.question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
     autoSelectText();
+    addOptionValidations();
   });
 
   // Remove Question With Validation
@@ -1507,6 +1545,7 @@ $(document).on('turbolinks:load', function () {
     $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
 
     autoSelectText();
+    addOptionValidations();
   });
 
   // Auto Select Text While Edit Profile Question

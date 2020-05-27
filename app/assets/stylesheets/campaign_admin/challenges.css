@@ -371,6 +371,11 @@
   width: 100%;
 }
 
+#challenge-icon-image-preview {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
 .tag_box .select2-selection--multiple {
   border-color: #7367F0 !important;
 }

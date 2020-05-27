@@ -14,7 +14,7 @@
 
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][title]",
                            question_value(question),
-                           class: 'form-control form-control-option', id: "question-title-#{q_name_convention(template, question)}",
+                           class: 'form-control form-control-option question-field-req', id: "question-title-#{q_name_convention(template, question)}",
                            required: true %>
         <label for="first-name-column">Question</label>
       </div>
@@ -52,7 +52,7 @@
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
-                                 class: 'form-control form-control-option is-editable',
+                                 class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil) } %>
             </div>
@@ -66,7 +66,7 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -77,7 +77,7 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -103,7 +103,7 @@
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
-                                 class: 'form-control form-control-option is-editable',
+                                 class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil) } %>
             </div>
@@ -117,7 +117,8 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -128,7 +129,8 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
           <i class="feather icon-x que_edit_cross"></i>
@@ -154,7 +156,7 @@
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
-                                 class: 'form-control form-control-option is-editable',
+                                 class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil) } %>
             </div>
@@ -168,7 +170,8 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
           <i class="feather icon-x que_edit_cross dropdown"></i>
@@ -179,7 +182,8 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
           <i class="feather icon-x que_edit_cross dropdown"></i>
@@ -247,7 +251,7 @@
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
-                                 class: 'form-control form-control-option is-editable',
+                                 class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil) } %>
             </div>
@@ -260,7 +264,7 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
         </div>
@@ -270,7 +274,7 @@
             <% optIdentifire = rand.to_s[2..10] %>
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
         </div>

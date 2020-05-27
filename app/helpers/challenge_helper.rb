@@ -217,7 +217,16 @@ module ChallengeHelper
     if @challenge.new_record?
       "<img id='challenge-image-preview' />"
     else
-      "<img id='challenge-image-preview' src='#{@challenge.image.url}'/>"
+      "<img id='challenge-image-preview' src='#{@challenge.image.url(:banner)}'/>"
+    end
+  end
+
+  ## Icon Image Load While Editing a Challenge
+  def challenge_image_icon_load
+    if @challenge.new_record?
+      "<img id='challenge-icon-image-preview' />"
+    else
+      "<img id='challenge-icon-image-preview' src='#{@challenge.icon.url}'/>"
     end
   end
 
