@@ -3,7 +3,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   #thumb version
   version :thumb do
-    process :resize_to_fit => [100, 100]
+    process :resize_to_fill => [100, 100]
     process optimize: [{ quality: 50 }]
   end
   #Banner version
