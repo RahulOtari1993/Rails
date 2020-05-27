@@ -70,7 +70,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #optimizing the image
   def optimize(img)
     manipulate! do |img|
-        return img unless img.mime_type.match /image\/jpeg/
+        return img unless ["JPEG", "JPG", "PNG", "SVG", "GIF"].include?(img.type)
         img.strip
         img.combine_options do |c|
             c.quality "80"
@@ -83,8 +83,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   #optimizing the image quality
   def quality(percentage)
     manipulate! do |img|
-      img.quality(percentage.to_s)
-      img = yield(img) if block_given?
+      if img.size >= 1048576
+        img.quality(percentage.to_s)
+        img = yield(img) if block_given?
+      end
       img
     end
   end
