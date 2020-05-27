@@ -426,7 +426,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[image]': {
         required: true,
-        extension: "jpg|jpeg|png|gif"
+        extension: "jpg|jpeg|png|gif|svg"
       },
       'challenge[link]': {
         required: true,
@@ -479,6 +479,13 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[latitude]': {
         latLonElement: true
+      },
+      'challenge[caption]': {
+        required: true
+      },
+      'challenge[icon]': {
+        required: true,
+        extension: "jpg|jpeg|png|gif|svg"
       }
     },
     messages: {
@@ -524,6 +531,13 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[location_distance]': {
         required: 'Please select location radius'
+      },
+      'challenge[caption]': {
+        required: 'Please enter challenge caption'
+      },
+      'challenge[icon]': {
+        required: 'Please select challenge icon',
+        extension: 'Please select challenge icon with valid extension'
       }
     },
     errorPlacement: function (error, element) {
