@@ -1260,6 +1260,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Load Challenge Icon Image on Selection
+  $('#challenge_icon').change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#challenge-icon-image-preview').attr('src', e.target.result);
+        $('#challenge_icon').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
   // Remove TAG from a Challenges
   $('body').on('click', '.remove-challenge-tag', function (e) {
     var campaignId = $('.challenge-name-container').data('campaign-id');

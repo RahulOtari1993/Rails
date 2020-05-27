@@ -221,6 +221,15 @@ module ChallengeHelper
     end
   end
 
+  ## Icon Image Load While Editing a Challenge
+  def challenge_image_icon_load
+    if @challenge.new_record?
+      "<img id='challenge-icon-image-preview' />"
+    else
+      "<img id='challenge-icon-image-preview' src='#{@challenge.image.url(:banner)}'/>"
+    end
+  end
+
   ## Dynamically Pick Tags UI Class
   def tags_class
     ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary'].sample
