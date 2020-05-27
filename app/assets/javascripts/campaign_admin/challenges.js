@@ -69,7 +69,7 @@ $(document).on('turbolinks:load', function () {
       $(this).rules('add', {
         required: true,
         messages: {
-          required: "Question value can't be empty"
+          required: "Please enter question"
         }
       })
     });
@@ -79,7 +79,7 @@ $(document).on('turbolinks:load', function () {
       $(this).rules('add', {
         required: true,
         messages: {
-          required: "Option value can't be empty"
+          required: "Please enter option value"
         }
       })
     });
@@ -213,6 +213,7 @@ $(document).on('turbolinks:load', function () {
     if (challengeType == 'collect' && challengeParameters == 'profile') {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.question-selector').trigger('change');
+      addOptionValidations();
     }
 
     // Load Google Map if Challenge Type is Location
@@ -1451,6 +1452,7 @@ $(document).on('turbolinks:load', function () {
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
     autoSelectText();
+    addOptionValidations();
   });
 
   // Manage Auto Selection of Text
