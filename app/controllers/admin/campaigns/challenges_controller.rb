@@ -114,7 +114,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def duplicate
     ## Clone a Challenge With It's Active Record Relation
-    cloned = @challenge.deep_clone include: :challenge_filters do |original, copy|
+    cloned = @challenge.deep_clone include: [:challenge_filters, { questions: :question_options } ] do |original, copy|
       if copy.is_a?(Challenge)
         ## Clone Challenge Image & Icon
         copy.image = original.image
