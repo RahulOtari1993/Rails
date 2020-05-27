@@ -62,6 +62,29 @@ $(document).on('turbolinks:load', function () {
     return stringDetails;
   }
 
+  // Add Validations for Question Fields
+  function addOptionValidations() {
+    // Validation for Question
+    $('.question-field-req').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Question value can't be empty"
+        }
+      })
+    });
+
+    // Validation for Option
+    $('.option-req-field').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Option value can't be empty"
+        }
+      })
+    });
+  }
+
   // Adds Validation for New Added User Segment Fields
   function addValidations(phaseCounter) {
     // Challenge User Segment Conditions Drop Down Require Validation
@@ -1449,6 +1472,7 @@ $(document).on('turbolinks:load', function () {
     $(`.question-box${customId} .${selectedVal[0]}-container`).show();
     $(`.question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
     autoSelectText();
+    addOptionValidations();
   });
 
   // Remove Question With Validation
@@ -1507,6 +1531,7 @@ $(document).on('turbolinks:load', function () {
     $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
 
     autoSelectText();
+    addOptionValidations();
   });
 
   // Auto Select Text While Edit Profile Question
