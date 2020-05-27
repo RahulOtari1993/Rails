@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  //reward selection dropdown onchange 
+  //reward selection dropdown onchange
   $('#reward_selection').on('change', function () {
     if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
       $('.threshold').show();
@@ -31,7 +31,7 @@ $(document).ready(function () {
     });
   });
 
-  //Coupon popup 
+  //Coupon popup
   $('#reward-list-table').on('click', '.coupon-btn', function () {
     var rewardId = $(this).attr('reward_id')
     var campaignId = $(this).attr('campaign_id')
@@ -281,7 +281,7 @@ $(document).ready(function () {
           } else {
             html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
-          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="reward_listing_table_image" />'
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="table_image_thumb_size" />'
           return html
         },
         createdCell: function (td, cellData, rowData, row, col) {
@@ -738,5 +738,3 @@ $(document).ready(function () {
     }
   });
 })
-
-
