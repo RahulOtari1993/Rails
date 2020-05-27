@@ -39,6 +39,8 @@
 #  location_distance  :integer
 #  filter_type        :integer          default("all_filters")
 #  filter_applied     :boolean          default(FALSE)
+#  caption            :string
+#  icon               :string
 #
 
 class Challenge < ApplicationRecord
