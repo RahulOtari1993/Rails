@@ -24,7 +24,7 @@ ActiveAdmin.register Configuration do
       f.input :google_client_secret
       f.input :twitter_app_id
       f.input :twitter_app_secret
-      f.input :white_branding, as: :radio
+      f.input :white_branding
     end
     f.actions
   end
