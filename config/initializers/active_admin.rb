@@ -217,6 +217,7 @@ ActiveAdmin.setup do |config|
   # To load a javascript file:
   config.clear_javascripts!
     config.register_javascript 'super_admin/active_admin.js'
+    config.register_javascript 'super_admin/super_admin.js'
 
   # == CSV options
   #
