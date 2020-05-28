@@ -1,6 +1,6 @@
 <%
-   randNum = rand.to_s[2..10]
-   queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
+  randNum = rand.to_s[2..10]
+  queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
 %>
 <div class="container question_box <%= queIdentifire %>">
   <div class="row">
@@ -32,6 +32,13 @@
                            class: 'form-control form-control-option disabled-field', id: "temp_string",
                            placeholder: 'Short answer text' %>
       </div>
+
+      <div class="form-label-group">
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][answers_attributes][#{option_identifire(template, nil, rand.to_s[2..10], 1)}][value]",
+                           '', class: 'form-control is-editable',
+                           id: "answer-#{q_name_convention(template, question)}-1-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Type Question Answer', required: true %>
+      </div>
     </div>
 
     <div class="col-12 options-container radio_button-container <%= display_question_option(question, 'radio_button') %>">
@@ -45,7 +52,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
             <i class="feather icon-x que_edit_cross"></i>
           </div>
@@ -96,7 +103,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
             <i class="feather icon-x que_edit_cross"></i>
           </div>

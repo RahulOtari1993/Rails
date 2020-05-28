@@ -203,7 +203,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
                                                       :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type, :profile_attribute_id,
-                                                                                :question_options_attributes => [:id, :challenge_id, :question_id, :details]])
+                                                                                :question_options_attributes => [:id, :question_id, :details],
+                                                                                :answers_attributes => [:id, :question_id, :question_option_id, :value]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
