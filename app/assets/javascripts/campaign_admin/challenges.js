@@ -815,7 +815,7 @@ $(document).on('turbolinks:load', function () {
           } else {
             html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
-          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="table_image_thumb_size" />'
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
           return html
         },
         createdCell: function (td, cellData, rowData, row, col) {

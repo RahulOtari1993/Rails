@@ -281,7 +281,7 @@ $(document).ready(function () {
           } else {
             html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
-          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="table_image_thumb_size" />'
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
           return html
         },
         createdCell: function (td, cellData, rowData, row, col) {
@@ -334,8 +334,8 @@ $(document).ready(function () {
               + "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
               + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
               "<i class='feather icon-download'></i></button>" +
-              "<span style='display:inline'><button class='btn btn-sm btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-              + "'>Coupons</button></span>"
+              "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
+              + "'>Coupons</button>"
         }
       },
     ],
