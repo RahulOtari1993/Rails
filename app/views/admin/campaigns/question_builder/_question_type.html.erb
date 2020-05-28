@@ -27,6 +27,16 @@
     </select>
   <% end %>
 
+<% elsif type == 'quiz' %>
+  <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+          data-custom-id="<%= question_build_id(template, 'class', '') %>"
+          name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+    <optgroup>
+      <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
+      <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
+      <option value="check_box" data-icon="fa fa-check-square">Checkboxes</option>
+    </optgroup>
+  </select>
 <% else %>
   <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
           data-custom-id="<%= question_build_id(template, 'class', '') %>"
