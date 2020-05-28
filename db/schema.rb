@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_122103) do
+ActiveRecord::Schema.define(version: 2020_05_28_105825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
     t.integer "deleted_by"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "question_option_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_answers_on_question_option_id"
   end
 
   create_table "campaign_configs", force: :cascade do |t|
@@ -297,20 +307,6 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
     t.index ["campaign_id"], name: "index_profile_attributes_on_campaign_id"
   end
 
-  create_table "question_answers", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "question_id"
-    t.bigint "participant_id"
-    t.bigint "question_option_id"
-    t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_question_answers_on_challenge_id"
-    t.index ["participant_id"], name: "index_question_answers_on_participant_id"
-    t.index ["question_id"], name: "index_question_answers_on_question_id"
-    t.index ["question_option_id"], name: "index_question_answers_on_question_option_id"
-  end
-
   create_table "question_options", force: :cascade do |t|
     t.bigint "question_id"
     t.string "details"
@@ -407,6 +403,20 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
+  create_table "submitted_answers", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "question_id"
+    t.bigint "participant_id"
+    t.bigint "question_option_id"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_submitted_answers_on_challenge_id"
+    t.index ["participant_id"], name: "index_submitted_answers_on_participant_id"
+    t.index ["question_id"], name: "index_submitted_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -465,6 +475,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "question_options"
+  add_foreign_key "answers", "questions"
   add_foreign_key "campaign_configs", "campaigns"
   add_foreign_key "campaign_template_details", "campaigns"
   add_foreign_key "campaign_users", "campaigns"
@@ -477,10 +489,6 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "profile_attributes", "campaigns"
-  add_foreign_key "question_answers", "challenges"
-  add_foreign_key "question_answers", "participants"
-  add_foreign_key "question_answers", "question_options"
-  add_foreign_key "question_answers", "questions"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"
@@ -489,5 +497,9 @@ ActiveRecord::Schema.define(version: 2020_05_27_122103) do
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"
+  add_foreign_key "submitted_answers", "challenges"
+  add_foreign_key "submitted_answers", "participants"
+  add_foreign_key "submitted_answers", "question_options"
+  add_foreign_key "submitted_answers", "questions"
   add_foreign_key "taggings", "tags"
 end
