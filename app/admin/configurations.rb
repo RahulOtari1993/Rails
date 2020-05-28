@@ -2,7 +2,7 @@ ActiveAdmin.register Configuration do
   config.filters = false
   actions :all, :except => [:destroy]
 
-  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret
+  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret, :white_branding
 
   index do
     selectable_column
@@ -24,6 +24,7 @@ ActiveAdmin.register Configuration do
       f.input :google_client_secret
       f.input :twitter_app_id
       f.input :twitter_app_secret
+      f.input :white_branding, as: :radio
     end
     f.actions
   end

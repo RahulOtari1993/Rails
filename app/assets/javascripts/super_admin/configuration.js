@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function() {
 
   // hide new configuration button based on table data start
   var tableDataLength = $('#index_table_configurations tbody tr').length

@@ -13,4 +13,9 @@
 #  updated_at           :datetime         not null
 
 class Configuration < ApplicationRecord
+
+  ## Validations
+  validates_presence_of :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret
+  validates_inclusion_of :white_branding, :in => [true, false]
+
 end
