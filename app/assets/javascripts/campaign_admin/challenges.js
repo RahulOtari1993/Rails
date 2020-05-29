@@ -1479,7 +1479,8 @@ $(document).on('turbolinks:load', function () {
 
   // Add New Question
   $('.add-challenge-question').on('click', function (e) {
-    let questionTemplate = $('#question-template').html();
+
+    let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
     let optCounter = Math.floor(Math.random() * 90000) + 10000;
