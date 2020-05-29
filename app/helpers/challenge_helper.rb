@@ -329,6 +329,15 @@ module ChallengeHelper
     end
   end
 
+  ## Check Whether Answer  or Not
+  def option_is_answer(option = nil)
+    if option.present?
+      option.answer
+    else
+      false
+    end
+  end
+
   ## Display Relevant Question Options & Hide Others
   def display_question_option(question = nil, type = 'string')
     if question.present?
