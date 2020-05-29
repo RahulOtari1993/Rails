@@ -16,7 +16,6 @@ class Question < ApplicationRecord
   ## Associations
   belongs_to :challenge
   has_many :question_options, dependent: :destroy
-  has_many :answers, dependent: :destroy
   has_many :submitted_answers, dependent: :destroy
 
   ## ENUM
@@ -25,5 +24,4 @@ class Question < ApplicationRecord
 
   ## Nested Attributes
   accepts_nested_attributes_for :question_options, allow_destroy: true, :reject_if => :all_blank
-  accepts_nested_attributes_for :answers, allow_destroy: true, :reject_if => :all_blank
 end

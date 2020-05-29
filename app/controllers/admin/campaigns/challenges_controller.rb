@@ -341,6 +341,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
         option_params = []
+        answer_available = c_param.has_key?('answers_attributes')
+        answer_params = []
+
         if c_param.has_key?('question_options_attributes')
           c_param[:question_options_attributes].each do |key, option|
             option_data = {
@@ -352,6 +355,15 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             end
 
             option_params.push(option_data)
+
+            ## Manage Quiz Answers
+            if answer_available
+              answer_data= {
+                  question_id: true,
+                  question_option_id:true,
+                  value: true
+              }
+            end
           end
         end
         answer_type = c_param[:answer_type].split('--')
