@@ -58,14 +58,14 @@ class Challenge < ApplicationRecord
   # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
   #                 comment connect hashtag referal location subscribe submission play practice hr link collect)
 
-  CHALLENGE_TYPE = %w(share signup login video article referral location link engage survey quiz collect)
+  CHALLENGE_TYPE = %w(share signup login video article referral location link engage collect)
   RADIUS = [['0.1 Mile', 161], ['0.2 Mile', 321], ['0.3 Mile', 482], ['1 Mile', 1609], ['5 Mile', 8046], ["10 Mile", 16093]]
   END_DATE_YEARS = 500
 
   ## ENUM
   enum reward_type: [:points, :prize]
   enum category: [:share, :engage, :amplify, :collection, :connect, :grow]
-  enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom]
+  enum parameters: [:facebook, :twitter, :linked_in, :youtube, :instagram, :google, :email, :profile, :custom, :quiz, :survey]
   enum filter_type: {all_filters: 0, any_filter: 1}
 
   ## Mount Uploader for File Upload
