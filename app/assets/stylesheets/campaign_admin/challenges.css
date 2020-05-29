@@ -804,6 +804,23 @@
   width: 100%;
 }
 
+.que_option_header {
+  position: relative;
+  clear: both;
+  width: 100%;
+}
+
+.que_option_header .opt_answer_width {
+  width: 80%;
+  float: left;
+  left: 37%;
+}
+
+.que_option_header .opt_canswer_width {
+  width: 20%;
+  float: left;
+}
+
 .que_edit .que_ip_width {
   width: 75%;
   float: left;
@@ -819,9 +836,9 @@
 
 .que_edit .que_edit_cross {
   float: left;
-  font-size: 25px;
+  font-size: 22px;
   margin-top: 5px;
-  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .question_box .date_icon {
@@ -923,7 +940,7 @@
 
 .answer_fields {
   float: left;
-  padding-left: 15px;
+  left: 7%;
   padding-top: 5px;
 }
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
