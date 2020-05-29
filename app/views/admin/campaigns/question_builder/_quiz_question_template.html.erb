@@ -60,7 +60,7 @@
             </div>
 
             <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-              <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][answers_attributes][#{option.id}][value]", true, question_required(question),
+              <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][answer]", true, question_required(question),
                                 id: "option-is-answer-#{q_name_convention(template, question)}",
                                 class: 'custom-control-input is-editable' %>
               <span class="vs-checkbox">
@@ -86,7 +86,7 @@
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][answers_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][value]", true, question_required(question),
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", true, question_required(question),
                               id: "option-is-answer-#{q_name_convention(template, question)}",
                               class: 'custom-control-input is-editable' %>
             <span class="vs-checkbox">
@@ -110,7 +110,7 @@
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][answers_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][value]", true, question_required(question),
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", true, question_required(question),
                               id: "option-is-answer-#{q_name_convention(template, question)}",
                               class: 'custom-control-input is-editable' %>
             <span class="vs-checkbox">

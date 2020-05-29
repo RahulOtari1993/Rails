@@ -204,8 +204,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
                                                       :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type, :profile_attribute_id,
-                                                                                :question_options_attributes => [:id, :question_id, :details],
-                                                                                :answers_attributes => [:id, :question_id, :question_option_id, :value]])
+                                                                                :question_options_attributes => [:id, :question_id, :details, :answer]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
@@ -341,8 +340,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
         option_params = []
-        answer_available = c_param.has_key?('answers_attributes')
-        answer_params = []
 
         if c_param.has_key?('question_options_attributes')
           c_param[:question_options_attributes].each do |key, option|
@@ -355,15 +352,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             end
 
             option_params.push(option_data)
-
-            ## Manage Quiz Answers
-            if answer_available
-              answer_data= {
-                  question_id: true,
-                  question_option_id:true,
-                  value: true
-              }
-            end
           end
         end
         answer_type = c_param[:answer_type].split('--')
