@@ -397,6 +397,28 @@
         </div>
 
         <div class="row">
+          <div class="col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :success_message, 'Success Message' %>
+              <span class="column-info">This message will be displayed to end used when user complete quiz successfully</span>
+              <%= form.text_field :success_message, class: 'form-control',
+                                  placeholder: "Congratulation, You've completed quiz successfully" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :failed_message, 'Failed Message' %>
+              <span class="column-info">This message will be displayed to end used when user complete quiz un-successfully</span>
+              <%= form.text_field :failed_message, class: 'form-control',
+                                  placeholder: "Sorry, You failed to complete the quiz" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
           <div class="col-sm-8 col-lg-10 questions-container">
             <%= render 'admin/campaigns/challenges/quiz_questions', type: 'quiz' %>
           </div>

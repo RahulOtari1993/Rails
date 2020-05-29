@@ -462,7 +462,7 @@ $(document).on('turbolinks:load', function () {
         titleElement: true
       },
       'challenge[duration]': {
-        titleElement: true,
+        required: true,
         digits: true
       },
       'challenge[content]': {
@@ -486,6 +486,12 @@ $(document).on('turbolinks:load', function () {
       'challenge[icon]': {
         required: true,
         extension: "jpg|jpeg|png|gif|svg"
+      },
+      'challenge[success_message]': {
+        required: true
+      },
+      'challenge[failed_message]': {
+        required: true
       }
     },
     messages: {
@@ -538,6 +544,12 @@ $(document).on('turbolinks:load', function () {
       'challenge[icon]': {
         required: 'Please select challenge icon',
         extension: 'Please select challenge icon with valid extension'
+      },
+      'challenge[success_message]': {
+        required: 'Please enter success message'
+      },
+      'challenge[failed_message]': {
+        required: 'Please enter failure message'
       }
     },
     errorPlacement: function (error, element) {

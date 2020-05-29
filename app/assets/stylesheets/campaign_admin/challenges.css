@@ -921,4 +921,9 @@
   }
 }
 
+.answer_fields {
+  float: left;
+  padding-left: 15px;
+  padding-top: 5px;
+}
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
