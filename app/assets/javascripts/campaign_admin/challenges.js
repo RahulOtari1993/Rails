@@ -1415,10 +1415,6 @@ $(document).on('turbolinks:load', function () {
     $('.challenge-filter-tag-selection').html('');
 
     applyFilters(generateFilterParams());
-
-    // $('#challenge-list-table').DataTable().ajax.url(
-    //     "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-    // ).load()
   });
 
   // Dropdown Formate Icon
@@ -1440,8 +1436,6 @@ $(document).on('turbolinks:load', function () {
       var dropdownID = '';
     }
 
-    console.log("DD ID", dropdownID);
-
     $(`.question-selector${dropdownID}`).select2({
       dropdownAutoWidth: true,
       width: '100%',
@@ -1452,14 +1446,6 @@ $(document).on('turbolinks:load', function () {
         return es;
       }
     })
-    //     .on('select2:select', function (e) {
-    //   var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
-    //   var customId = $(this).data('custom-id');
-    //   console.log("Selected Val",selectedVal, customId);
-    //
-    //   $(`.question-box${customId} .options-container`).hide();
-    //   $(`.question-box${customId} .${selectedVal}-container`).show();
-    // });
   };
 
   // Question Selector Dropdown
