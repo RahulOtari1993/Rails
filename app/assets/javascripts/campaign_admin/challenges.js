@@ -212,7 +212,7 @@ $(document).on('turbolinks:load', function () {
     // Disable Question Builder Inputs
     if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
-      $('.question-selector').trigger('change');
+      $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
       addOptionValidations();
     }
 
@@ -1491,13 +1491,16 @@ $(document).on('turbolinks:load', function () {
   $('body').on('change', '.question-selector', function (e) {
     var selectedVal = $(this).val();
     var customId = $(this).data('custom-id');
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
     selectedVal = selectedVal.split("--");
 
-    $(`.question-box${customId} .options-container`).hide();
-    $(`.question-box${customId} .options-container input`).prop('disabled', true);
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .options-container`).hide();
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .options-container input`).prop('disabled', true);
 
-    $(`.question-box${customId} .${selectedVal[0]}-container`).show();
-    $(`.question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container`).show();
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
     autoSelectText();
     addOptionValidations();
   });
@@ -1577,6 +1580,7 @@ $(document).on('turbolinks:load', function () {
   // Check Uncheck Question Answer
   $('body').on('change', '.answer-field', function (e) {
     $(this).parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
     // $(this).attr('checked', true);
     // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
