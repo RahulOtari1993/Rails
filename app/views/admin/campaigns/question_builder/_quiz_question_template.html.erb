@@ -108,7 +108,6 @@
                                option_value(nil, 2),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
-
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
@@ -145,7 +144,6 @@
           <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][is_required]", true, question_required(question),
                             id: "question-is-required-#{q_name_convention(template, question)}",
                             class: 'custom-control-input' %>
-
           <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question) %>"></label>
         </div>
         <i class="feather icon-trash-2 question_del_icon"></i>
