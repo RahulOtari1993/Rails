@@ -35,7 +35,7 @@
 
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, rand.to_s[2..10], 1)}][answer]",
-                           '', class: 'form-control is-editable answer-field',
+                           quiz_short_answer(question), class: 'form-control is-editable answer-field',
                            id: "answer-#{q_name_convention(template, question)}-1-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Type Question Answer', required: true %>
       </div>
@@ -50,6 +50,8 @@
       <% if question.present? && question.answer_type == 'radio_button' %>
         <% question.question_options.each_with_index do |option, index| %>
           <div class="que_edit">
+            <i class="feather icon-trash-2 que_edit_cross"></i>
+
             <div class="form-label-group que_ip_width">
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
               <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
@@ -70,8 +72,6 @@
               </span>
             </span>
             </div>
-
-            <i class="feather icon-x que_edit_cross"></i>
           </div>
         <% end %>
       <% else %>

@@ -332,9 +332,18 @@ module ChallengeHelper
   ## Check Whether Answer or Not
   def option_is_answer(option = nil, default = false)
     if option.present?
-      option.answer
+      option.answer.present? ? true : false
     else
       default ? true : false
+    end
+  end
+
+  ## Quiz Short Answer Value
+  def quiz_short_answer(question)
+    if question.present? && question.question_options.present?
+      question.question_options.first.answer
+    else
+      ''
     end
   end
 
