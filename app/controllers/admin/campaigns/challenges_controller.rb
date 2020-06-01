@@ -344,7 +344,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
         if c_param.has_key?('question_options_attributes')
           c_param[:question_options_attributes].each do |key, option|
             option_data = {
-                details: option[:details]
+                details: option[:details],
+                answer: option.has_key?('answer') ? option[:answer] : false
             }
             if option.has_key?('id')
               option_data[:id] = option[:id]
