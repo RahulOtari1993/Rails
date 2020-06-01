@@ -43,6 +43,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def create
     @challenge = Challenge.new(challenge_params)
 
+    # binding.pry
+    # raise "hi"
+
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save
@@ -60,6 +63,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def update
     respond_to do |format|
+      # binding.pry
+      # raise "hi"
+
       previous_segments = @challenge.challenge_filters.pluck(:id)
       previous_questions = @challenge.questions.pluck(:id)
       previous_options = QuestionOption.where(question_id: previous_questions).pluck(:id)
@@ -345,7 +351,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
           c_param[:question_options_attributes].each do |key, option|
             option_data = {
                 details: option[:details],
-                answer: option.has_key?('answer') ? option[:answer] : nil
+                answer: option.has_key?('answer') ?
+                            (c_param[:answer_type] == 'radio_button') ?
+                                (option[:answer] == 'on') ? true : nil : option[:answer] : nil
             }
             if option.has_key?('id')
               option_data[:id] = option[:id]

@@ -1471,8 +1471,16 @@ $(document).on('turbolinks:load', function () {
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
     let optCounter = Math.floor(Math.random() * 90000) + 10000;
 
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    console.log("challengeType", challengeType);
+    console.log("challengeParameters", challengeParameters);
+
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
-    $('.questions-container').append(questionHtml);
+    console.log("questionHtml", questionHtml);
+
+    $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
@@ -1580,10 +1588,11 @@ $(document).on('turbolinks:load', function () {
   // Check Uncheck Question Answer
   $('body').on('change', '.answer-field', function (e) {
     $(this).parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
+
     // $(this).attr('checked', true);
-    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     //
     // $(this).parent().parent().parent().find(':checkbox').each(function () {
