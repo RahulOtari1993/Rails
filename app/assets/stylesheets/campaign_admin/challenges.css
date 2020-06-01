@@ -757,7 +757,7 @@
 
 .question_form_blocks {
   /*width: 80%;*/
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .dropdown-option-icon {
@@ -892,7 +892,7 @@
 @media only screen and (max-width: 414px) {
   .question_form_blocks {
     width: 100%;
-    margin: 0 auto;
+    margin: 20px auto;
   }
 
   .que_scale_label input {
