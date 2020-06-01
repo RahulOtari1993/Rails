@@ -1562,10 +1562,17 @@ $(document).on('turbolinks:load', function () {
     optionHtml = optionHtml.replace(oldIdent, newIdent);
 
     // Set New Option Identifire to Option
-    var optIdentifire = qOption.data('option-identifire');
+    // var optIdentifire = qOption.data('option-identifire');
     var oldName = `[question_options_attributes][${optIdentifire}][details]`
     var newName = `[question_options_attributes][${optionCounter}][details]`
     optionHtml = optionHtml.replace(oldName, newName);
+
+    // Set New Option Identifire to Answer
+    // var optIdentifire = qOption.data('option-identifire');
+    var oldAnsName = `[question_options_attributes][${optIdentifire}][answer]`
+    var newAnsName = `[question_options_attributes][${optionCounter}][answer]`
+    optionHtml = optionHtml.replace(oldAnsName, newAnsName);
+
     // optionHtml.replace(optIdentifire, optionCounter);
     // var lastThirty = optName.substr(optName.length - 30);
 

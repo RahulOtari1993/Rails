@@ -83,7 +83,8 @@
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
-                               disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
+                               disabled: true,
+                               data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
@@ -107,7 +108,8 @@
             <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
-                               disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
+                               disabled: true,
+                               data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
