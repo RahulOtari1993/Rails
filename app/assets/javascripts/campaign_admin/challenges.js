@@ -1573,6 +1573,9 @@ $(document).on('turbolinks:load', function () {
     var newAnsName = `[question_options_attributes][${optionCounter}][answer]`
     optionHtml = optionHtml.replace(oldAnsName, newAnsName);
 
+    // Remove Default Seelcted Answer Checkbox
+    optionHtml = optionHtml.replace('checked="checked"', '');
+
     // optionHtml.replace(optIdentifire, optionCounter);
     // var lastThirty = optName.substr(optName.length - 30);
 
