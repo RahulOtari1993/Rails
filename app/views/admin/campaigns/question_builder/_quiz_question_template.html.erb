@@ -35,7 +35,7 @@
 
       <div class="form-label-group">
         <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, rand.to_s[2..10], 1)}][answer]",
-                           '', class: 'form-control is-editable',
+                           '', class: 'form-control is-editable answer-field',
                            id: "answer-#{q_name_convention(template, question)}-1-#{o_id_convention(template, nil, 1)}",
                            placeholder: 'Type Question Answer', required: true %>
       </div>
@@ -63,7 +63,7 @@
               <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][answer]", true,
                                 option_is_answer(option),
                                 id: "option-is-answer-#{q_name_convention(template, question)}",
-                                class: 'custom-control-input is-editable' %>
+                                class: 'custom-control-input is-editable answer-field' %>
               <span class="vs-checkbox">
               <span class="vs-checkbox--check">
                   <i class="vs-icon feather icon-check"></i>
@@ -87,10 +87,10 @@
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", true,
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]", true,
                               option_is_answer(nil),
-                              id: "option-is-answer-#{q_name_convention(template, question)}",
-                              class: 'custom-control-input is-editable' %>
+                              id: "option-is-answer-#{q_name_convention(template, question)}-#{option_identifire(template, nil, optIdentifire, 1)}",
+                              class: 'custom-control-input is-editable answer-field' %>
             <span class="vs-checkbox">
               <span class="vs-checkbox--check">
                   <i class="vs-icon feather icon-check"></i>
@@ -113,8 +113,8 @@
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
             <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", true,
                               option_is_answer(nil),
-                              id: "option-is-answer-#{q_name_convention(template, question)}",
-                              class: 'custom-control-input is-editable' %>
+                              id: "option-is-answer-#{q_name_convention(template, question)}-#{option_identifire(template, nil, optIdentifire, 20)}",
+                              class: 'custom-control-input is-editable answer-field' %>
             <span class="vs-checkbox">
               <span class="vs-checkbox--check">
                   <i class="vs-icon feather icon-check"></i>

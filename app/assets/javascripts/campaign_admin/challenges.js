@@ -1577,4 +1577,20 @@ $(document).on('turbolinks:load', function () {
 
   // Auto Select Text While Edit Profile Question
   autoSelectText();
+
+  // Check Uncheck Question Answer
+  $('body').on('change', '.answer-field', function (e) {
+    $(this).parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).prop('checked', true);
+    // $(this).attr('checked', true);
+    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
+    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
+    //
+    // $(this).parent().parent().parent().find(':checkbox').each(function () {
+    //   // console.log("THIS", $(this), $(this).attr('id'));
+    //   $(`#${$(this).attr('id')}`).prop('checked', false);
+    //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
+    // });
+    // $(this).prop('checked', true);
+  })
 });
