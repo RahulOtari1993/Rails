@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_110001) do
+ActiveRecord::Schema.define(version: 2020_05_29_150520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,9 @@ ActiveRecord::Schema.define(version: 2020_05_28_110001) do
     t.boolean "filter_applied", default: false
     t.string "caption"
     t.string "icon"
+    t.string "success_message"
+    t.string "failed_message"
+    t.integer "correct_answer_count"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
@@ -319,25 +322,12 @@ ActiveRecord::Schema.define(version: 2020_05_28_110001) do
     t.index ["campaign_id"], name: "index_profile_attributes_on_campaign_id"
   end
 
-  create_table "question_answers", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "question_id"
-    t.bigint "participant_id"
-    t.bigint "question_option_id"
-    t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_question_answers_on_challenge_id"
-    t.index ["participant_id"], name: "index_question_answers_on_participant_id"
-    t.index ["question_id"], name: "index_question_answers_on_question_id"
-    t.index ["question_option_id"], name: "index_question_answers_on_question_option_id"
-  end
-
   create_table "question_options", force: :cascade do |t|
     t.bigint "question_id"
     t.string "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "answer"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
@@ -429,6 +419,20 @@ ActiveRecord::Schema.define(version: 2020_05_28_110001) do
     t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
+  create_table "submitted_answers", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "question_id"
+    t.bigint "participant_id"
+    t.bigint "question_option_id"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_submitted_answers_on_challenge_id"
+    t.index ["participant_id"], name: "index_submitted_answers_on_participant_id"
+    t.index ["question_id"], name: "index_submitted_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -500,10 +504,6 @@ ActiveRecord::Schema.define(version: 2020_05_28_110001) do
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "networks", "campaigns"
   add_foreign_key "profile_attributes", "campaigns"
-  add_foreign_key "question_answers", "challenges"
-  add_foreign_key "question_answers", "participants"
-  add_foreign_key "question_answers", "question_options"
-  add_foreign_key "question_answers", "questions"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"
@@ -512,5 +512,9 @@ ActiveRecord::Schema.define(version: 2020_05_28_110001) do
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "submissions", "users"
+  add_foreign_key "submitted_answers", "challenges"
+  add_foreign_key "submitted_answers", "participants"
+  add_foreign_key "submitted_answers", "question_options"
+  add_foreign_key "submitted_answers", "questions"
   add_foreign_key "taggings", "tags"
 end

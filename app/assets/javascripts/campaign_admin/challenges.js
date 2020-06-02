@@ -210,9 +210,9 @@ $(document).on('turbolinks:load', function () {
     $('.' + challengeType + '-' + challengeParameters + '-div hidden').prop("disabled", false);
 
     // Disable Question Builder Inputs
-    if (challengeType == 'collect' && challengeParameters == 'profile') {
+    if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
-      $('.question-selector').trigger('change');
+      $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
       addOptionValidations();
     }
 
@@ -426,7 +426,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[image]': {
         required: true,
-        extension: "jpg|jpeg|png|gif"
+        extension: "jpg|jpeg|png|gif|svg"
       },
       'challenge[link]': {
         required: true,
@@ -462,7 +462,7 @@ $(document).on('turbolinks:load', function () {
         titleElement: true
       },
       'challenge[duration]': {
-        titleElement: true,
+        required: true,
         digits: true
       },
       'challenge[content]': {
@@ -479,6 +479,19 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[latitude]': {
         latLonElement: true
+      },
+      'challenge[caption]': {
+        required: true
+      },
+      'challenge[icon]': {
+        required: true,
+        extension: "jpg|jpeg|png|gif|svg"
+      },
+      'challenge[success_message]': {
+        required: true
+      },
+      'challenge[failed_message]': {
+        required: true
       }
     },
     messages: {
@@ -524,6 +537,19 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[location_distance]': {
         required: 'Please select location radius'
+      },
+      'challenge[caption]': {
+        required: 'Please enter challenge caption'
+      },
+      'challenge[icon]': {
+        required: 'Please select challenge icon',
+        extension: 'Please select challenge icon with valid extension'
+      },
+      'challenge[success_message]': {
+        required: 'Please enter success message'
+      },
+      'challenge[failed_message]': {
+        required: 'Please enter failure message'
       }
     },
     errorPlacement: function (error, element) {
@@ -801,7 +827,7 @@ $(document).on('turbolinks:load', function () {
           } else {
             html = '<i class="data_table_status_icon fa fa-circle fa_ended fa_circle_sm" aria-hidden="true"></i>'
           }
-          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:20px;" class="table_image_thumb_size" />'
+          html += '<img src="' + data.image['thumb']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
           return html
         },
         createdCell: function (td, cellData, rowData, row, col) {
@@ -1389,10 +1415,6 @@ $(document).on('turbolinks:load', function () {
     $('.challenge-filter-tag-selection').html('');
 
     applyFilters(generateFilterParams());
-
-    // $('#challenge-list-table').DataTable().ajax.url(
-    //     "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/fetch_challenges"
-    // ).load()
   });
 
   // Dropdown Formate Icon
@@ -1414,8 +1436,6 @@ $(document).on('turbolinks:load', function () {
       var dropdownID = '';
     }
 
-    console.log("DD ID", dropdownID);
-
     $(`.question-selector${dropdownID}`).select2({
       dropdownAutoWidth: true,
       width: '100%',
@@ -1426,14 +1446,6 @@ $(document).on('turbolinks:load', function () {
         return es;
       }
     })
-    //     .on('select2:select', function (e) {
-    //   var selectedVal = $(`.question-selector${dropdownID} :selected`).val();
-    //   var customId = $(this).data('custom-id');
-    //   console.log("Selected Val",selectedVal, customId);
-    //
-    //   $(`.question-box${customId} .options-container`).hide();
-    //   $(`.question-box${customId} .${selectedVal}-container`).show();
-    // });
   };
 
   // Question Selector Dropdown
@@ -1453,13 +1465,22 @@ $(document).on('turbolinks:load', function () {
 
   // Add New Question
   $('.add-challenge-question').on('click', function (e) {
-    let questionTemplate = $('#question-template').html();
+
+    let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
     let optCounter = Math.floor(Math.random() * 90000) + 10000;
 
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    console.log("challengeType", challengeType);
+    console.log("challengeParameters", challengeParameters);
+
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
-    $('.questions-container').append(questionHtml);
+    console.log("questionHtml", questionHtml);
+
+    $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
@@ -1478,13 +1499,16 @@ $(document).on('turbolinks:load', function () {
   $('body').on('change', '.question-selector', function (e) {
     var selectedVal = $(this).val();
     var customId = $(this).data('custom-id');
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
     selectedVal = selectedVal.split("--");
 
-    $(`.question-box${customId} .options-container`).hide();
-    $(`.question-box${customId} .options-container input`).prop('disabled', true);
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .options-container`).hide();
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .options-container input`).prop('disabled', true);
 
-    $(`.question-box${customId} .${selectedVal[0]}-container`).show();
-    $(`.question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container`).show();
+    $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
     autoSelectText();
     addOptionValidations();
   });
@@ -1535,10 +1559,20 @@ $(document).on('turbolinks:load', function () {
     optionHtml = optionHtml.replace(oldIdent, newIdent);
 
     // Set New Option Identifire to Option
-    var optIdentifire = qOption.data('option-identifire');
+    // var optIdentifire = qOption.data('option-identifire');
     var oldName = `[question_options_attributes][${optIdentifire}][details]`
     var newName = `[question_options_attributes][${optionCounter}][details]`
     optionHtml = optionHtml.replace(oldName, newName);
+
+    // Set New Option Identifire to Answer
+    // var optIdentifire = qOption.data('option-identifire');
+    var oldAnsName = `[question_options_attributes][${optIdentifire}][answer]`
+    var newAnsName = `[question_options_attributes][${optionCounter}][answer]`
+    optionHtml = optionHtml.replace(oldAnsName, newAnsName);
+
+    // Remove Default Seelcted Answer Checkbox
+    optionHtml = optionHtml.replace('checked="checked"', '');
+
     // optionHtml.replace(optIdentifire, optionCounter);
     // var lastThirty = optName.substr(optName.length - 30);
 
@@ -1550,4 +1584,22 @@ $(document).on('turbolinks:load', function () {
 
   // Auto Select Text While Edit Profile Question
   autoSelectText();
+
+  // Check Uncheck Question Answer
+  $('body').on('change', '.answer-field', function (e) {
+    $(this).parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
+    $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
+    $(this).prop('checked', true);
+
+    // $(this).attr('checked', true);
+    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
+    //
+    // $(this).parent().parent().parent().find(':checkbox').each(function () {
+    //   // console.log("THIS", $(this), $(this).attr('id'));
+    //   $(`#${$(this).attr('id')}`).prop('checked', false);
+    //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
+    // });
+    // $(this).prop('checked', true);
+  })
 });

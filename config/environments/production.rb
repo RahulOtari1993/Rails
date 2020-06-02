@@ -96,13 +96,13 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :address        => Rails.application.credentials[Rails.env.to_sym][:email_config][:address],
-    :user_name      => Rails.application.credentials[Rails.env.to_sym][:email_config][:user_name],
-    :password       => Rails.application.credentials[Rails.env.to_sym][:email_config][:password],
-    :domain         => Rails.application.credentials[Rails.env.to_sym][:email_config][:domain],
-    :enable_starttls_auto => true,
-    :port           => 587,
-    :authentication => :login
+      :address        => Rails.application.credentials[Rails.env.to_sym][:email_config][:host],
+      :port           => 587,
+      :authentication => :login,
+      :user_name      => Rails.application.credentials[Rails.env.to_sym][:email_config][:user_name],
+      :password       => Rails.application.credentials[Rails.env.to_sym][:email_config][:password],
+      :domain         => Rails.application.credentials[Rails.env.to_sym][:email_config][:domain],
+      :enable_starttls_auto => true
   }
 
   ## Load Libs

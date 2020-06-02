@@ -1,0 +1,155 @@
+<%
+  randNum = rand.to_s[2..10]
+  queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
+%>
+<div class="container question_box <%= queIdentifire %>">
+  <div class="row">
+    <div class="col-md-7 col-12">
+      <div class="form-label-group">
+        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][category]", 0 %>
+
+        <% if question.present? %>
+          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][id]", question.id %>
+        <% end %>
+
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][title]",
+                           question_value(question),
+                           class: 'form-control form-control-option question-field-req', id: "question-title-#{q_name_convention(template, question)}",
+                           required: true %>
+        <label for="first-name-column">Question</label>
+      </div>
+    </div>
+    <div class="col-md-5 col-12">
+      <div class="form-group">
+        <%= render 'admin/campaigns/question_builder/question_type', template: template, question: question, type: type, randNum: randNum %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-7 options-container string-container <%= display_question_option(question, 'string') %>">
+      <div class="form-label-group">
+        <%= text_field_tag "temp",
+                           '', disabled: true,
+                           class: 'form-control form-control-option disabled-field', id: "temp_string",
+                           placeholder: 'Short answer text' %>
+      </div>
+
+      <div class="form-label-group">
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, rand.to_s[2..10], 1)}][answer]",
+                           quiz_short_answer(question), class: 'form-control is-editable answer-field',
+                           id: "answer-#{q_name_convention(template, question)}-1-#{o_id_convention(template, nil, 1)}",
+                           placeholder: 'Type Question Answer', required: true %>
+      </div>
+    </div>
+
+    <div class="col-12 options-container radio_button-container <%= display_question_option(question, 'radio_button') %>">
+      <div class="que_option_header">
+        <div class="form-label-group opt_answer_width">Answers</div>
+        <div class="form-label-group opt_canswer_width">Correct Answer</div>
+      </div>
+
+      <% if question.present? && question.answer_type == 'radio_button' %>
+        <% question.question_options.each_with_index do |option, index| %>
+          <div class="que_edit">
+            <i class="feather icon-trash-2 que_edit_cross"></i>
+
+            <div class="form-label-group que_ip_width">
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
+                                 option_value(option, 1),
+                                 class: 'form-control form-control-option is-editable option-req-field',
+                                 id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
+            </div>
+
+            <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
+              <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][answer]", true,
+                                option_is_answer(option),
+                                id: "option-is-answer-#{q_name_convention(template, question)}",
+                                class: 'custom-control-input is-editable answer-field' %>
+              <span class="vs-checkbox">
+              <span class="vs-checkbox--check">
+                  <i class="vs-icon feather icon-check"></i>
+              </span>
+            </span>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="que_edit">
+          <i class="feather icon-trash-2 que_edit_cross"></i>
+
+          <div class="form-label-group que_ip_width">
+            <% optIdentifire = rand.to_s[2..10] %>
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+                               option_value(nil, 1),
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               disabled: true,
+                               data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
+          </div>
+
+          <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]", nil,
+                              option_is_answer(nil, true),
+                              id: "option-is-answer-#{q_name_convention(template, question)}-#{option_identifire(template, nil, optIdentifire, 1)}",
+                              class: 'custom-control-input is-editable answer-field' %>
+            <span class="vs-checkbox">
+              <span class="vs-checkbox--check">
+                  <i class="vs-icon feather icon-check"></i>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="que_edit">
+          <i class="feather icon-trash-2 que_edit_cross"></i>
+
+          <div class="form-label-group que_ip_width">
+            <% optIdentifire = rand.to_s[2..10] %>
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+                               option_value(nil, 2),
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               disabled: true,
+                               data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
+          </div>
+
+          <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", nil,
+                              option_is_answer(nil),
+                              id: "option-is-answer-#{q_name_convention(template, question)}-#{option_identifire(template, nil, optIdentifire, 20)}",
+                              class: 'custom-control-input is-editable answer-field' %>
+            <span class="vs-checkbox">
+              <span class="vs-checkbox--check">
+                  <i class="vs-icon feather icon-check"></i>
+              </span>
+            </span>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="que_edit">
+        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
+        <div class="form-label-group que_ip_width">
+          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+            <span><i class="feather icon-plus"></i> Add Option</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-0">
+    <div class="col-12">
+      <hr>
+      <div class="question_delete_box">
+        <div class="custom-control custom-switch mr-2 mb-1" style="">
+          <p>Required</p>
+          <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][is_required]", true, question_required(question),
+                            id: "question-is-required-#{q_name_convention(template, question)}",
+                            class: 'custom-control-input' %>
+          <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question) %>"></label>
+        </div>
+        <i class="feather icon-trash-2 question_del_icon"></i>
+      </div>
+    </div>
+  </div>
+</div>

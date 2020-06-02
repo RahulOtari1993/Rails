@@ -11,7 +11,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
-class QuestionAnswer < ApplicationRecord
+class SubmittedAnswer < ApplicationRecord
   ## Associations
   belongs_to :challenge
   belongs_to :question

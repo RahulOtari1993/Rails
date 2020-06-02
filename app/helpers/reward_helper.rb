@@ -24,7 +24,7 @@
     if @reward.new_record?
       "<img id='reward-image-preview' class = 'reward-image-preview' />"
     else
-      "<img id='reward-image-preview' class = 'reward-image-preview' src='#{@reward.image.url}'/>"
+      "<img id='reward-image-preview' class = 'reward-image-preview' src='#{@reward.image.url(:banner)}'/>"
     end
   end
 

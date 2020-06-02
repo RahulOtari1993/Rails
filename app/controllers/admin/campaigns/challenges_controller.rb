@@ -114,7 +114,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def duplicate
     ## Clone a Challenge With It's Active Record Relation
-    cloned = @challenge.deep_clone include: :challenge_filters do |original, copy|
+    cloned = @challenge.deep_clone include: [:challenge_filters, {questions: :question_options}] do |original, copy|
       if copy.is_a?(Challenge)
         ## Clone Challenge Image & Icon
         copy.image = original.image
@@ -200,10 +200,11 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :start, :finish, :creator_id, :feature, :parameters, :category, :icon,
                                                       :title, :content, :duration, :longitude, :latitude, :address, :caption,
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
+                                                      :success_message, :failed_message, :correct_answer_count,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
                                                       :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type, :profile_attribute_id,
-                                                                                :question_options_attributes => [:id, :challenge_id, :question_id, :details]])
+                                                                                :question_options_attributes => [:id, :question_id, :details, :answer]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
@@ -339,10 +340,14 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       cust_params = params[:challenge][:questions_attributes]
       cust_params.each do |key, c_param|
         option_params = []
+
         if c_param.has_key?('question_options_attributes')
           c_param[:question_options_attributes].each do |key, option|
             option_data = {
-              details: option[:details]
+                details: option[:details],
+                answer: option.has_key?('answer') ?
+                            (c_param[:answer_type] == 'radio_button') ?
+                                (option[:answer] == 'on') ? true : nil : option[:answer] : nil
             }
             if option.has_key?('id')
               option_data[:id] = option[:id]
