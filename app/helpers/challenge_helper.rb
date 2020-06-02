@@ -364,4 +364,17 @@ module ChallengeHelper
       identifire
     end
   end
+
+  ## Create Short Answer Name
+  def quiz_short_answer_name(template = nil, question = nil, identifire = 1, count = 1)
+    if template
+      if question.present? && question.question_options.present?
+        question.question_options.first.id
+      else
+        "___O_IDENTIFIRE_#{count}___"
+      end
+    else
+      identifire
+    end
+  end
 end

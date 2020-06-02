@@ -34,9 +34,9 @@
       </div>
 
       <div class="form-label-group">
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, rand.to_s[2..10], 1)}][answer]",
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][answer]",
                            quiz_short_answer(question), class: 'form-control is-editable answer-field',
-                           id: "answer-#{q_name_convention(template, question, randNum)}-1-#{o_id_convention(template, nil, 1)}",
+                           id: "answer-#{q_name_convention(template, question, randNum)}-1-#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}",
                            placeholder: 'Type Question Answer', required: true %>
       </div>
     </div>
@@ -88,8 +88,8 @@
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]", nil,
-                              option_is_answer(nil, true),
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]",
+                              nil, option_is_answer(nil, true), disabled: true,
                               id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 1)}",
                               class: 'custom-control-input is-editable answer-field' %>
             <span class="vs-checkbox">
@@ -113,8 +113,8 @@
           </div>
 
           <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]", nil,
-                              option_is_answer(nil),
+            <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]",
+                              nil, option_is_answer(nil), disabled: true,
                               id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 20)}",
                               class: 'custom-control-input is-editable answer-field' %>
             <span class="vs-checkbox">
