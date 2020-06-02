@@ -142,14 +142,8 @@
     </div>
 
     <div class="col-12 col-md-12 options-container wysiwyg-container <%= display_question_option(question, 'wysiwyg') %>">
-      <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %>">
-        <%= wysiwyg_content(question) %>
-      </div>
-      <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
-        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][id]",
-                             question.question_options.first.id %>
-      <% end %>
-      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][answer]" %>
+      <%= render 'admin/campaigns/question_builder/wysiwyg_editor',
+                 template: template, question: question, type: type, randNum: randNum %>
     </div>
   </div>
 
