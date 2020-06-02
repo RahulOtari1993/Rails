@@ -5,7 +5,7 @@
 <div class="container question_box <%= queIdentifire %>">
   <div class="row">
     <div class="col-md-7 col-12">
-      <div class="form-label-group">
+      <div class="form-label-group non-wysiwyg-field">
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][category]", 0 %>
 
         <% if question.present? %>
@@ -140,13 +140,17 @@
         </div>
       </div>
     </div>
+
+    <div class="col-12 col-md-7 options-container wysiwyg-container <%= display_question_option(question, 'wysiwyg') %>">
+     <H1>EDITOR</H1>
+    </div>
   </div>
 
   <div class="row m-0">
     <div class="col-12">
       <hr>
       <div class="question_delete_box">
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
+        <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
           <p>Required</p>
           <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][is_required]", true, question_required(question),
                             id: "question-is-required-#{q_name_convention(template, question, randNum)}",

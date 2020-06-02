@@ -1509,6 +1509,13 @@ $(document).on('turbolinks:load', function () {
 
     $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container`).show();
     $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
+
+    if (selectedVal[0] == "wysiwyg") {
+      $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
+    } else {
+      $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
+    }
+
     autoSelectText();
     addOptionValidations();
   });
