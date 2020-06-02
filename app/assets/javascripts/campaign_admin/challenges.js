@@ -1536,6 +1536,7 @@ $(document).on('turbolinks:load', function () {
 
     if (selectedVal[0] == "wysiwyg") {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
+      $(`.question-wysiwyg-editor${customId}`).show();
 
       // Quill Editor Integration for Campaign Rules
       if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
@@ -1543,6 +1544,7 @@ $(document).on('turbolinks:load', function () {
         new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
       }
     } else {
+      $(`.question-wysiwyg-editor${customId}`).hide();
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
     }
 

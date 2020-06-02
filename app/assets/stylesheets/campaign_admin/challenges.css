@@ -952,4 +952,7 @@
   min-height: 200px;
 }
 
+.question-wysiwyg-editor {
+  display: none;
+}
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
