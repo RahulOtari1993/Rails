@@ -273,11 +273,11 @@ module ChallengeHelper
   end
 
   ## Set Name Convention String for Question
-  def q_name_convention(template = false, question = nil)
+  def q_name_convention(template = false, question = nil, identifier = nil)
     if template
       question.present? ? question.id : '___NUM___'
     else
-      '12Q21'
+      identifier.present? ? identifier : '12Q21'
     end
   end
 
