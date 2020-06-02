@@ -377,4 +377,13 @@ module ChallengeHelper
       identifire
     end
   end
+
+  ## Get wysiwyg content of a Question
+  def wysiwyg_content(question = nil)
+    if question.present? && question.question_options.present?
+      question.question_options.first.details
+    else
+      ''
+    end
+  end
 end

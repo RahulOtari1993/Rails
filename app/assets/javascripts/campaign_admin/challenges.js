@@ -1,4 +1,28 @@
 $(document).on('turbolinks:load', function () {
+  // Fonts Config for Quill Editor
+  var Font = Quill.import('formats/font');
+  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
+  Quill.register(Font, true);
+
+  // Quill Editor Toolbar Config
+  var toolbar = {
+    modules: {
+      'formula': true,
+      'syntax': true,
+      'toolbar': [
+        [{'font': []}, {'size': []}],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{'color': []}, {'background': []}],
+        [{'script': 'super'}, {'script': 'sub'}],
+        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
+        ['clean']
+      ]
+    },
+    theme: 'snow'
+  };
+
   var form = $(".challenge-wizard");
 
   $('.challenge-wizard').steps({
@@ -1512,6 +1536,9 @@ $(document).on('turbolinks:load', function () {
 
     if (selectedVal[0] == "wysiwyg") {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
+
+      // Quill Editor Integration for Campaign Rules
+      new Quill('.question-wysiwyg-editor', toolbar);
     } else {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
     }
@@ -1608,5 +1635,9 @@ $(document).on('turbolinks:load', function () {
     //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
     // });
     // $(this).prop('checked', true);
-  })
+  });
+
+  // $('.edit-campaign-form').on('submit', function () {
+  //   $('.rules-txt-area').val($('.campaign-rules-editor .ql-editor').html());
+  // });
 });

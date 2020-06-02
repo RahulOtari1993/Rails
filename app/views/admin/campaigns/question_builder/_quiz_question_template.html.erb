@@ -141,13 +141,20 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-7 options-container wysiwyg-container <%= display_question_option(question, 'wysiwyg') %>">
-     <H1>EDITOR</H1>
+    <div class="col-12 col-md-12 options-container wysiwyg-container <%= display_question_option(question, 'wysiwyg') %>">
+      <div class="question-wysiwyg-editor">
+        <%= wysiwyg_content(question) %>
+      </div>
+      <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
+        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][id]",
+                             question.question_options.first.id %>
+      <% end %>
+      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][answer]" %>
     </div>
   </div>
 
   <div class="row m-0">
-    <div class="col-12">
+    <div class="col-12" style="padding: 0px;">
       <hr>
       <div class="question_delete_box">
         <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
