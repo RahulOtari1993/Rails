@@ -51,7 +51,7 @@ Rails.application.routes.draw do
           resources :configs, only: [:edit, :update], :controller => "campaign_configs"
 
           ## Rewards Routes
-          resources :rewards do 
+          resources :rewards do
             collection do
               get '/generate_reward_json', to: 'rewards#generate_reward_json', as: :generate_reward_json
             end
@@ -78,6 +78,13 @@ Rails.application.routes.draw do
 
           ## Profile Attributes Routes
           resources :profile_attributes
+
+          ## Network Routes
+          resources :networks do
+            collection do
+              get :connect_facebook
+            end
+          end
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end

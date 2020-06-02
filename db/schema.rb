@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_095824) do
+ActiveRecord::Schema.define(version: 2020_05_28_110001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,16 @@ ActiveRecord::Schema.define(version: 2020_05_28_095824) do
     t.index ["campaign_id"], name: "index_domain_lists_on_campaign_id"
     t.index ["domain"], name: "index_domain_lists_on_domain", unique: true
     t.index ["organization_id"], name: "index_domain_lists_on_organization_id"
+  end
+
+  create_table "networks", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.integer "platform"
+    t.string "auth_token"
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_networks_on_campaign_id"
   end
 
   create_table "organization_admins", force: :cascade do |t|
@@ -488,6 +498,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_095824) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
+  add_foreign_key "networks", "campaigns"
   add_foreign_key "profile_attributes", "campaigns"
   add_foreign_key "question_answers", "challenges"
   add_foreign_key "question_answers", "participants"

@@ -49,6 +49,11 @@
             <i class="feather icon-map"></i><span class="menu-title" data-i18n="Profile Attributes">Profile Attributes</span>
           </a>
         </li>
+        <li class="nav-item <%= is_active_menu(['networks']) %>">
+          <a href="<%= admin_campaign_networks_path(@campaign) %>">
+            <i class="feather icon-map"></i><span class="menu-title" data-i18n="Network">Network</span>
+          </a>
+        </li>
      <% end %>
     </ul>
   </div>

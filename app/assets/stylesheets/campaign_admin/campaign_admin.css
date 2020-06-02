@@ -48,6 +48,6 @@
 
  *= require style
  *= require ../campaign_admin
+ *= require ../campaign_admin/networks
  *= require ../common_style
  */
-
