@@ -104,5 +104,3 @@ gem 'acts-as-taggable-on', '~> 6.0'
 
 ## Image Compression
 gem 'carrierwave-imageoptimizer'
-# gem 'image_optim', '~> 0.25'
-# gem 'image_optim_pack', '= 0.2.3'
