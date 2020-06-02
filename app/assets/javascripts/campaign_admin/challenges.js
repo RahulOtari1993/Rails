@@ -1538,7 +1538,10 @@ $(document).on('turbolinks:load', function () {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
 
       // Quill Editor Integration for Campaign Rules
-      new Quill('.question-wysiwyg-editor', toolbar);
+      if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
+        $(`.question-wysiwyg-editor${customId}`).addClass('editor-initialize');
+        new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+      }
     } else {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
     }

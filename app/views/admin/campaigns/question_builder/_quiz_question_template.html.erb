@@ -142,7 +142,7 @@
     </div>
 
     <div class="col-12 col-md-12 options-container wysiwyg-container <%= display_question_option(question, 'wysiwyg') %>">
-      <div class="question-wysiwyg-editor">
+      <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %>">
         <%= wysiwyg_content(question) %>
       </div>
       <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
