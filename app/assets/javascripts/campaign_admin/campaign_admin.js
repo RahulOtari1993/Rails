@@ -49,7 +49,6 @@
 //= require libraries/scripts/components
 //= require libraries/scripts/modal/components-modal
 //= require libraries/scripts/pages/dashboard-analytics
-//= require libraries/scripts/extensions/noui-slider.js
 
 //= require jquery.minicolors
 //= require ../campaign_admin
