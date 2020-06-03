@@ -1489,15 +1489,17 @@ $(document).on('turbolinks:load', function () {
   // Manage Correct Answer Dropdown Options
   function increaseCorrectCountOption(challengeType, challengeParameters) {
     if (challengeType == 'collect' && challengeParameters == 'quiz') {
-      var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector option[value="string"]:selected');
+      var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector');
       $('.correct_answer_count_dd').empty();
+      var counter = 1;
 
       dropDowns.each(function (index) {
         if ($(this).val() != 'wysiwyg') {
           $('.correct_answer_count_dd').append($('<option/>', {
-            value: index + 1,
-            text : index + 1
+            value: counter,
+            text : counter
           }));
+          counter++;
         }
       });
     }
