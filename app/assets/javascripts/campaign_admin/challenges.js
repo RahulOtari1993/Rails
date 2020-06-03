@@ -1487,7 +1487,7 @@ $(document).on('turbolinks:load', function () {
   }
 
   // Manage Correct Answer Dropdown Options
-  function increaseCorrectCountOption(challengeType, challengeParameters) {
+  function changeCorrectCountOption(challengeType, challengeParameters) {
     if (challengeType == 'collect' && challengeParameters == 'quiz') {
       var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector');
       $('.correct_answer_count_dd').empty();
@@ -1497,7 +1497,7 @@ $(document).on('turbolinks:load', function () {
         if ($(this).val() != 'wysiwyg') {
           $('.correct_answer_count_dd').append($('<option/>', {
             value: counter,
-            text : counter
+            text: counter
           }));
           counter++;
         }
@@ -1518,7 +1518,7 @@ $(document).on('turbolinks:load', function () {
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
-    increaseCorrectCountOption(challengeType, challengeParameters);
+    changeCorrectCountOption(challengeType, challengeParameters);
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
@@ -1564,6 +1564,7 @@ $(document).on('turbolinks:load', function () {
 
     autoSelectText();
     addOptionValidations();
+    changeCorrectCountOption(challengeType, challengeParameters);
   });
 
   // Remove Question With Validation
@@ -1573,6 +1574,7 @@ $(document).on('turbolinks:load', function () {
 
     if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
+      changeCorrectCountOption(challengeType, challengeParameters);
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
     }
