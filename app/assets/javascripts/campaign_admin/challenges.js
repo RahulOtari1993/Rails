@@ -1492,12 +1492,14 @@ $(document).on('turbolinks:load', function () {
       var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector option[value="string"]:selected');
       $('.correct_answer_count_dd').empty();
 
-      for (k = 0; k < dropDowns.length; k++){
-        $('.correct_answer_count_dd').append($('<option/>', {
-          value: k + 1,
-          text : k + 1
-        }));
-      }
+      dropDowns.each(function (index) {
+        if ($(this).val() != 'wysiwyg') {
+          $('.correct_answer_count_dd').append($('<option/>', {
+            value: index + 1,
+            text : index + 1
+          }));
+        }
+      });
     }
   }
 
