@@ -1095,7 +1095,9 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Quill Editor Integration for Challenge Articles
-  new Quill('.article-content-editor', toolbar);
+  if ($('.article-content-editor').length) {
+    new Quill('.article-content-editor', toolbar);
+  }
 
   // Add Quill Editor's Content to Actual Element
   $('.article-content-editor').focusout(function () {
