@@ -1486,9 +1486,23 @@ $(document).on('turbolinks:load', function () {
     return stringDetails;
   }
 
+  // Manage Correct Answer Dropdown Options
+  function increaseCorrectCountOption(challengeType, challengeParameters) {
+    if (challengeType == 'collect' && challengeParameters == 'quiz') {
+      var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector option[value="string"]:selected');
+      $('.correct_answer_count_dd').empty();
+
+      for (k = 0; k < dropDowns.length; k++){
+        $('.correct_answer_count_dd').append($('<option/>', {
+          value: k + 1,
+          text : k + 1
+        }));
+      }
+    }
+  }
+
   // Add New Question
   $('.add-challenge-question').on('click', function (e) {
-
     let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
@@ -1500,6 +1514,7 @@ $(document).on('turbolinks:load', function () {
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
+    increaseCorrectCountOption(challengeType, challengeParameters);
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);

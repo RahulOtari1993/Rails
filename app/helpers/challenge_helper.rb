@@ -386,4 +386,12 @@ module ChallengeHelper
       ''
     end
   end
+
+  def correct_answer_count
+    if @challenge.new_record?
+      [[1, 1]]
+    else
+      [[1,1], [2,2], [3,3]]
+    end
+  end
 end
