@@ -45,6 +45,18 @@ $(document).on('turbolinks:load', function () {
       return form.valid();
     },
     onFinished: function (event, currentIndex) {
+      // Pass Quill Editor Details to Form
+      var challengeType = $('#challenge_challenge_type').val();
+      var challengeParameters = $('#challenge_parameters').val();
+
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+        $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
+          if ($(this).hasClass('display-editor')) {
+            $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
+          }
+        });
+      }
+
       $('.challenge-wizard').submit();
     }
   });
@@ -237,6 +249,17 @@ $(document).on('turbolinks:load', function () {
     if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
+
+      // Quill Editor Initialization While Edit
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+        $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
+          if ($(this).hasClass('display-editor')) {
+            $(this).show();
+            $(`.${challengeType}-${challengeParameters}-div .question-box${$(this).data('editor-identifire')} .non-wysiwyg-field`).hide();
+            new Quill(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`, toolbar);
+          }
+        });
+      }
       addOptionValidations();
     }
 
@@ -1065,30 +1088,6 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
-  // Fonts Config for Quill Editor
-  var Font = Quill.import('formats/font');
-  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
-  Quill.register(Font, true);
-
-  // Quill Editor Toolbar Config
-  var toolbar = {
-    modules: {
-      'formula': true,
-      'syntax': true,
-      'toolbar': [
-        [{'font': []}, {'size': []}],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{'color': []}, {'background': []}],
-        [{'script': 'super'}, {'script': 'sub'}],
-        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
-        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
-        ['clean']
-      ]
-    },
-    theme: 'snow'
-  };
-
   // Quill Editor Integration for Challenge Articles
   new Quill('.article-content-editor', toolbar);
 
@@ -1592,7 +1591,7 @@ $(document).on('turbolinks:load', function () {
     // Set New Name to Option
     var optIdentifire = qOption.data('option-identifire');
     var oldIdent = `data-option-identifire="${optIdentifire}"`
-    var newIdent =  `data-option-identifire="${optionCounter}"`
+    var newIdent = `data-option-identifire="${optionCounter}"`
     optionHtml = optionHtml.replace(oldIdent, newIdent);
 
     // Set New Option Identifire to Option
@@ -1628,31 +1627,5 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
-
-    // $(this).attr('checked', true);
-    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
-    //
-    // $(this).parent().parent().parent().find(':checkbox').each(function () {
-    //   // console.log("THIS", $(this), $(this).attr('id'));
-    //   $(`#${$(this).attr('id')}`).prop('checked', false);
-    //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
-    // });
-    // $(this).prop('checked', true);
-  });
-
-  $('.add-challenge-form').on('sumbit', function () {
-    var challengeType = $('#challenge_challenge_type').val();
-    var challengeParameters = $('#challenge_parameters').val();
-
-    console.log("Submit Called");
-
-    if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
-      $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function(index) {
-        if ($(this).hasClass('display-editor')) {
-          console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
-          $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
-        }
-      });
-    }
   });
 });
