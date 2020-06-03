@@ -32,6 +32,7 @@
                         <div class="text-center facebook_bg_color text-white height-100 d-flex align-items-center justify-content-center shadow">
                           <div class="size-50"><i class="fa fa-facebook-square"></i></div>
                         </div><br>
+                        <!-- <a href="<%#= connect_facebook_admin_campaign_networks_path(@campaign) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a> -->
                         <!-- <button type="button" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></button> -->
                         <div class="fb-login-button" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
                       </div>
@@ -59,5 +60,89 @@
   </div>
 </div>
 
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=1585668911602610&autoLogAppEvents=1"></script>
+<!-- <div id="fb-root"></div> -->
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=<%=@config.facebook_app_id%>&autoLogAppEvents=1"></script> -->
+
+<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+<script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : "<%= @config.facebook_app_id %>",
+        autoLogAppEvents : true,
+        xfbml            : true,
+        version          : 'v7.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+
+
+     function checkLoginState() {               // Called when a person is finished with the Login Button.
+       FB.getLoginStatus(function(response) {
+         console.log("test");   // See the onlogin handler
+         console.log(response);   // See the onlogin handler
+         // statusChangeCallback(response);
+       });
+     }
+
+    // function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+    //   console.log('statusChangeCallback');
+    //   console.log(response);                   // The current login status of the person.
+    //   if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+    //     testAPI();
+    //   } else {                                 // Not logged into your webpage or we are unable to tell.
+    //     document.getElementById('status').innerHTML = 'Please log ' +
+    //       'into this webpage.';
+    //   }
+    // }
+
+
+    // function checkLoginState() {               // Called when a person is finished with the Login Button.
+    //   FB.getLoginStatus(function(response) {   // See the onlogin handler
+    //     statusChangeCallback(response);
+    //   });
+    // }
+
+
+    // window.fbAsyncInit = function() {
+    //   FB.init({
+    //     appId      : '{app-id}',
+    //     cookie     : true,                     // Enable cookies to allow the server to access the session.
+    //     xfbml      : true,                     // Parse social plugins on this webpage.
+    //     version    : '{api-version}'           // Use this Graph API version for this call.
+    //   });
+    //
+    //
+    //   FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+    //     statusChangeCallback(response);        // Returns the login status.
+    //   });
+    // };
+
+
+    // (function(d, s, id) {                      // Load the SDK asynchronously
+    //   var js, fjs = d.getElementsByTagName(s)[0];
+    //   if (d.getElementById(id)) return;
+    //   js = d.createElement(s); js.id = id;
+    //   js.src = "https://connect.facebook.net/en_US/sdk.js";
+    //   fjs.parentNode.insertBefore(js, fjs);
+    // }(document, 'script', 'facebook-jssdk'));
+
+
+    // function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    //   console.log('Welcome!  Fetching your information.... ');
+    //   FB.api('/me', function(response) {
+    //     console.log('Successful login for: ' + response.name);
+    //     document.getElementById('status').innerHTML =
+    //       'Thanks for logging in, ' + response.name + '!';
+    //   });
+    // }
+
+</script>

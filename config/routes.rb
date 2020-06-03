@@ -83,6 +83,7 @@ Rails.application.routes.draw do
           resources :networks do
             collection do
               get :connect_facebook
+              get '/auth/facebook/callback', to: 'networks#facebook_callback'
             end
           end
         end
