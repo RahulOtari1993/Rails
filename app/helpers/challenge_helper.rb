@@ -391,7 +391,13 @@ module ChallengeHelper
     if @challenge.new_record?
       [[1, 1]]
     else
-      [[1,1], [2,2], [3,3]]
+      response = []
+      counts = @challenge.questions.where.not(answer_type: 'wysiwyg').count
+      counts.times.each do |cnt|
+        response.push([cnt + 1, cnt + 1])
+      end
+
+      response
     end
   end
 end
