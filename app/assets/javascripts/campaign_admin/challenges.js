@@ -1536,7 +1536,7 @@ $(document).on('turbolinks:load', function () {
 
     if (selectedVal[0] == "wysiwyg") {
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
-      $(`.question-wysiwyg-editor${customId}`).show();
+      $(`.question-wysiwyg-editor${customId}`).addClass('display-editor').show();
 
       // Quill Editor Integration for Campaign Rules
       if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
@@ -1544,7 +1544,7 @@ $(document).on('turbolinks:load', function () {
         new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
       }
     } else {
-      $(`.question-wysiwyg-editor${customId}`).hide();
+      $(`.question-wysiwyg-editor${customId}`).removeClass('display-editor').hide();
       $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
     }
 
@@ -1644,7 +1644,17 @@ $(document).on('turbolinks:load', function () {
     // $(this).prop('checked', true);
   });
 
-  // $('.edit-campaign-form').on('submit', function () {
-  //   $('.rules-txt-area').val($('.campaign-rules-editor .ql-editor').html());
-  // });
+  $('.validate-editor').on('click', function () {
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function(index) {
+        if ($(this).hasClass('display-editor')) {
+          // console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
+          $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
+        }
+      });
+    }
+  });
 });
