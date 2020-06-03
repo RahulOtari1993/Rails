@@ -539,6 +539,9 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[failed_message]': {
         required: true
+      },
+      'challenge[correct_answer_count]': {
+        required: true
       }
     },
     messages: {
@@ -597,6 +600,9 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[failed_message]': {
         required: 'Please enter failure message'
+      },
+      'challenge[correct_answer_count]': {
+        required: 'Please select correct answer count'
       }
     },
     errorPlacement: function (error, element) {
