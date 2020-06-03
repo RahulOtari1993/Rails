@@ -1,6 +1,6 @@
 <% if question.present? %>
   <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
-    <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %> display-editor" data-editor-identifire="-<%= randNum %>">
+    <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %> display-editor editor-added" data-editor-identifire="-<%= randNum %>">
       <%= wysiwyg_content(question).html_safe %>
     </div>
 

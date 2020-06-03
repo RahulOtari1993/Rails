@@ -1561,7 +1561,10 @@ $(document).on('turbolinks:load', function () {
       // Quill Editor Integration for Campaign Rules
       if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
         $(`.question-wysiwyg-editor${customId}`).addClass('editor-initialize');
-        new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+
+        if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-added')) {
+          new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+        }
       }
     } else {
       $(`.question-wysiwyg-editor${customId}`).removeClass('display-editor').hide();
