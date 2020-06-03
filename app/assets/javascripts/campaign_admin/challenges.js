@@ -1498,11 +1498,7 @@ $(document).on('turbolinks:load', function () {
     var challengeType = $('#challenge_challenge_type').val();
     var challengeParameters = $('#challenge_parameters').val();
 
-    console.log("challengeType", challengeType);
-    console.log("challengeParameters", challengeParameters);
-
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
-    console.log("questionHtml", questionHtml);
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
 
@@ -1644,14 +1640,16 @@ $(document).on('turbolinks:load', function () {
     // $(this).prop('checked', true);
   });
 
-  $('.validate-editor').on('click', function () {
+  $('.add-challenge-form').on('sumbit', function () {
     var challengeType = $('#challenge_challenge_type').val();
     var challengeParameters = $('#challenge_parameters').val();
+
+    console.log("Submit Called");
 
     if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
       $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function(index) {
         if ($(this).hasClass('display-editor')) {
-          // console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
+          console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
           $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
         }
       });
