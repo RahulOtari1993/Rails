@@ -273,11 +273,11 @@ module ChallengeHelper
   end
 
   ## Set Name Convention String for Question
-  def q_name_convention(template = false, question = nil)
+  def q_name_convention(template = false, question = nil, identifier = nil)
     if template
       question.present? ? question.id : '___NUM___'
     else
-      '12Q21'
+      identifier.present? ? identifier : '12Q21'
     end
   end
 
@@ -362,6 +362,28 @@ module ChallengeHelper
       option.present? ? option.id : "___O_IDENTIFIRE_#{count}___"
     else
       identifire
+    end
+  end
+
+  ## Create Short Answer Name
+  def quiz_short_answer_name(template = nil, question = nil, identifire = 1, count = 1)
+    if template
+      if question.present? && question.question_options.present?
+        question.question_options.first.id
+      else
+        "___O_IDENTIFIRE_#{count}___"
+      end
+    else
+      identifire
+    end
+  end
+
+  ## Get wysiwyg content of a Question
+  def wysiwyg_content(question = nil)
+    if question.present? && question.question_options.present?
+      question.question_options.first.details
+    else
+      ''
     end
   end
 end

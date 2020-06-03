@@ -1,4 +1,28 @@
 $(document).on('turbolinks:load', function () {
+  // Fonts Config for Quill Editor
+  var Font = Quill.import('formats/font');
+  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
+  Quill.register(Font, true);
+
+  // Quill Editor Toolbar Config
+  var toolbar = {
+    modules: {
+      'formula': true,
+      'syntax': true,
+      'toolbar': [
+        [{'font': []}, {'size': []}],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{'color': []}, {'background': []}],
+        [{'script': 'super'}, {'script': 'sub'}],
+        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
+        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
+        ['clean']
+      ]
+    },
+    theme: 'snow'
+  };
+
   var form = $(".challenge-wizard");
 
   $('.challenge-wizard').steps({
@@ -1474,11 +1498,7 @@ $(document).on('turbolinks:load', function () {
     var challengeType = $('#challenge_challenge_type').val();
     var challengeParameters = $('#challenge_parameters').val();
 
-    console.log("challengeType", challengeType);
-    console.log("challengeParameters", challengeParameters);
-
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
-    console.log("questionHtml", questionHtml);
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
 
@@ -1509,14 +1529,31 @@ $(document).on('turbolinks:load', function () {
 
     $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container`).show();
     $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .${selectedVal[0]}-container .is-editable`).prop('disabled', false);
+
+    if (selectedVal[0] == "wysiwyg") {
+      $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).hide();
+      $(`.question-wysiwyg-editor${customId}`).addClass('display-editor').show();
+
+      // Quill Editor Integration for Campaign Rules
+      if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
+        $(`.question-wysiwyg-editor${customId}`).addClass('editor-initialize');
+        new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+      }
+    } else {
+      $(`.question-wysiwyg-editor${customId}`).removeClass('display-editor').hide();
+      $(`.${challengeType}-${challengeParameters}-div .question-box${customId} .non-wysiwyg-field`).show();
+    }
+
     autoSelectText();
     addOptionValidations();
   });
 
   // Remove Question With Validation
   $('body').on('click', '.question_del_icon', function (e) {
-    console.log("Length", $('.question_del_icon').length);
-    if ($('.question_del_icon').length > 1) {
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
@@ -1601,5 +1638,21 @@ $(document).on('turbolinks:load', function () {
     //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
     // });
     // $(this).prop('checked', true);
-  })
+  });
+
+  $('.add-challenge-form').on('sumbit', function () {
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    console.log("Submit Called");
+
+    if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function(index) {
+        if ($(this).hasClass('display-editor')) {
+          console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
+          $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
+        }
+      });
+    }
+  });
 });

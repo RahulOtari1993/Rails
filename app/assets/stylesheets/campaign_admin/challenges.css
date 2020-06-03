@@ -943,4 +943,16 @@
   left: 7%;
   padding-top: 5px;
 }
+
+.wysiwyg-container {
+  display: grid;
+}
+
+.question-wysiwyg-editor {
+  min-height: 200px;
+}
+
+.question-wysiwyg-editor {
+  display: none;
+}
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

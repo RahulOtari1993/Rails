@@ -28,14 +28,27 @@
   <% end %>
 
 <% elsif type == 'quiz' %>
-  <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-          data-custom-id="<%= question_build_id(template, 'class', '') %>"
-          name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
-    <optgroup>
-      <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
-      <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
-    </optgroup>
-  </select>
+  <% if question.present? %>
+    <select class="question-selector question-selector-<%= randNum %> form-control"
+            data-custom-id="-<%= randNum %>"
+            name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
+      <optgroup>
+        <option value="string" data-icon="fa fa-align-left" <%= question.answer_type == 'string' ? 'selected' : '' %>>Short answer</option>
+        <option value="radio_button" data-icon="fa fa-dot-circle-o" <%= question.answer_type == 'radio_button' ? 'selected' : '' %>>Multiple choice</option>
+        <option value="wysiwyg" data-icon="fa icon-edit" <%= question.answer_type == 'wysiwyg' ? 'selected' : '' %>>WYSIWYG Editor</option>
+      </optgroup>
+    </select>
+  <% else %>
+    <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+            data-custom-id="<%= question_build_id(template, 'class', '') %>"
+            name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
+      <optgroup>
+        <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
+        <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
+        <option value="wysiwyg" data-icon="fa icon-edit">WYSIWYG Editor</option>
+      </optgroup>
+    </select>
+  <% end %>
 <% else %>
   <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
           data-custom-id="<%= question_build_id(template, 'class', '') %>"
