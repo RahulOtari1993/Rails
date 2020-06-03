@@ -1554,8 +1554,10 @@ $(document).on('turbolinks:load', function () {
 
   // Remove Question With Validation
   $('body').on('click', '.question_del_icon', function (e) {
-    console.log("Length", $('.question_del_icon').length);
-    if ($('.question_del_icon').length > 1) {
+    var challengeType = $('#challenge_challenge_type').val();
+    var challengeParameters = $('#challenge_parameters').val();
+
+    if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
