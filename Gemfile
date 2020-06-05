@@ -43,11 +43,6 @@ gem 'bootstrap-sass', '~> 3.3.4'
 #setup date time parsing
 gem 'chronic'
 
-#social platform logim gem
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -104,8 +99,9 @@ gem 'acts-as-taggable-on', '~> 6.0'
 
 ## Image Compression
 gem 'carrierwave-imageoptimizer'
-# gem 'image_optim', '~> 0.25'
-# gem 'image_optim_pack', '= 0.2.3'
 
 ## Use Omniauth Facebook plugin
 gem 'omniauth-facebook'
+
+## Use Omniauth Google plugin
+gem 'omniauth-google-oauth2'

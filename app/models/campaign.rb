@@ -27,6 +27,7 @@
 #  updated_at          :datetime         not null
 #  general_title       :string
 #  my_account_title    :string
+#  white_branding      :boolean          default(FALSE)
 #
 class Campaign < ApplicationRecord
   ## Associations
