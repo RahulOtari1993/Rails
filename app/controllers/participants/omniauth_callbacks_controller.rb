@@ -33,7 +33,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   def setup
     ## Generate random number
     number =  rand(8)
-    Rails.logger.info "======================== Random Number #{number} ========================"
+    Rails.logger.info "======================== Random Number #{number} #{params} ========================"
 
     if ((number % 2) == 0)
       ## HK FB App

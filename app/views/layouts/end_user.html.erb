@@ -135,7 +135,7 @@
                         <div class="card-btns">
                           <p class="card-buttons-text">Earn 250 GoBucks for joining now, double it to 500 by continuing
                             with Facebook.</p>
-                          <a id="connect-bttn" href=<%= participant_facebook_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
+                          <a id="connect-bttn" href=<%= participant_facebook_omniauth_authorize_path(cust_id: 'sign_up') %> class="dark-fb-button btn-has-icon btn-join-facebook">
                             <span class="icon-btn-share fa fa-facebook"></span>
                             <span class="btn-share-text">Continue With Facebook</span>
                           </a>
