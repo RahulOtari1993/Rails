@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2020_06_05_141239) do
     t.datetime "updated_at", null: false
     t.string "general_title"
     t.string "my_account_title"
-    t.boolean "white_branding"
+    t.boolean "white_branding", default: false
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
