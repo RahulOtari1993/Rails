@@ -4,7 +4,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
   def facebook
+    Rails.logger.info "************************ Call Back Called ************************"
+    Rails.logger.info "************************ AUTH Params --> #{request.env["omniauth.auth"]} ************************"
     @participant = Participant.from_omniauth(request.env["omniauth.auth"])
+
+    Rails.logger.info "************************ Participant --> #{@participant} ************************"
 
     if @participant.persisted?
       sign_in_and_redirect @participant, :event => :authentication

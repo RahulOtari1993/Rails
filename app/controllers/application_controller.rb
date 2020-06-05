@@ -11,10 +11,12 @@ class ApplicationController < ActionController::Base
 
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
+    Rails.logger.info "========IN request.subdomain ---> #{request.subdomain}"
     @domain = DomainList.where(domain: request.subdomain).first
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first
       @campaign = Campaign.where(id: @domain.campaign_id).first
+      Rails.logger.info "========IN #{@campaign.inspect} ORG #{@organization}"
     else
       # binding.pry
       @organization = Organization.where(sub_domain: request.subdomain).first

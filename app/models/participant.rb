@@ -123,7 +123,7 @@ class Participant < ApplicationRecord
 
   #facebook omniauth
   def self.from_omniauth(auth)
-    participant = find_or_create_by(uid: auth[‘uid’], provider: auth[‘provider’])
+    participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
     if Participant.exists?(participant)
       participant
     else
