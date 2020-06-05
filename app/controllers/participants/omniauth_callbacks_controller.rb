@@ -41,8 +41,8 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
     else
       ## Ranga FB App
-      client_id = "1933528990112651"
-      client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
+      client_id = "1585668911602610"
+      client_secret = "3ef4e739b9274bdd3e9242cb8b09054e"
     end
 
     request.env['omniauth.strategy'].options[:client_id] = client_id
