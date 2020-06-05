@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_29_150520) do
+ActiveRecord::Schema.define(version: 2020_06_05_141239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2020_05_29_150520) do
     t.datetime "updated_at", null: false
     t.string "general_title"
     t.string "my_account_title"
+    t.boolean "white_branding"
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
@@ -203,7 +204,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_150520) do
     t.string "twitter_app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "white_branding"
   end
 
   create_table "coupons", force: :cascade do |t|
