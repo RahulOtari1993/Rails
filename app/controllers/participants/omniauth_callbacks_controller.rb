@@ -29,6 +29,13 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
     redirect_to root_url
   end
+
+  def setup
+    request.env['omniauth.strategy'].options[:client_id] = "1933528990112651"
+    request.env['omniauth.strategy'].options[:client_secret] = "ff21b05bb523c36c4509b9f7a24e46d7"
+    render :text => "Setup complete.", :status => 404
+  end
+
   # You should also create an action method in this controller like this:
   # def twitter
   # end

@@ -20,8 +20,9 @@ Rails.application.routes.draw do
       sessions: 'participants/sessions',
       passwords: 'participants/passwords',
       confirmations: 'participants/confirmations',
-      :omniauth_callbacks => "participants/omniauth_callbacks"
+      omniauth_callbacks: "participants/omniauth_callbacks"
     }
+    get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
 
     namespace :admin do
       namespace :organizations do
