@@ -53,15 +53,16 @@
         </div>
       </div>
 
-<!--      <div class="col-6">-->
-<!--        <div class="form-group">-->
-          <%#= form.label :twitter, 'Twitter Handle' %>
-<!--          <span class="column-info">Enter a twitter handle to pull the social feed.</span>-->
-<!--          <div class="position-relative">-->
-            <%#= form.text_field :twitter, class: "form-control", placeholder: "Twitter Handle" %>
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+      <div class="col-6">
+        <div class="form-group">
+          <div class="custom-control custom-switch mr-2 mb-1" style="">
+            <%= form.label :white_branding, 'White Branding' %>
+            <span class="column-info">Campaign uses white branding or not.</span>
+            <%= form.check_box :white_branding, id: 'campaign_white_branding', class: 'custom-control-input' %>
+            <label class="custom-control-label" for="campaign_white_branding"></label>
+          </div>
+        </div>
+      </div>
 
       <div class="col-12">
         <div class="form-group">
