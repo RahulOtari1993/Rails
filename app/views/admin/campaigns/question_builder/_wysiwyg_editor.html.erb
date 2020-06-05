@@ -1,22 +1,20 @@
 <% if question.present? %>
-  <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %>" data-editor-identifire="-<%= randNum %>">
-    <%= wysiwyg_content(question) %>
-  </div>
   <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
+    <div class="question-wysiwyg-editor question-wysiwyg-editor-<%= randNum %> display-editor editor-added" data-editor-identifire="-<%= randNum %>">
+      <%= wysiwyg_content(question).html_safe %>
+    </div>
+
     <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][id]",
                          question.question_options.first.id %>
+
+    <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][details]",
+                         nil, class: "is-editable details-question-wysiwyg-editor-#{randNum}" %>
   <% end %>
-  <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][details]",
-                       nil, class: "is-editable details-question-wysiwyg-editor-#{randNum}" %>
 <% else %>
   <div class="question-wysiwyg-editor question-wysiwyg-editor<%= question_build_id(template, 'class', '') %>"
        data-editor-identifire="<%= question_build_id(template, 'class', '') %>">
     <%= wysiwyg_content(question) %>
   </div>
-  <% if question.present? && question.answer_type == 'wysiwyg' && question.question_options.present? %>
-    <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][id]",
-                         question.question_options.first.id %>
-  <% end %>
-  <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][details]",
+   <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{quiz_short_answer_name(template, question, rand.to_s[2..10], 1)}][details]",
                        nil, class: "is-editable details-question-wysiwyg-editor#{question_build_id(template, 'class', '')}" %>
 <% end %>

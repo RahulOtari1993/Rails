@@ -386,4 +386,18 @@ module ChallengeHelper
       ''
     end
   end
+
+  def correct_answer_count
+    if @challenge.new_record?
+      [[1, 1]]
+    else
+      response = []
+      counts = @challenge.questions.where.not(answer_type: 'wysiwyg').count
+      counts.times.each do |cnt|
+        response.push([cnt + 1, cnt + 1])
+      end
+
+      response
+    end
+  end
 end

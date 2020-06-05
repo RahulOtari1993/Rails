@@ -433,6 +433,18 @@
             </button>
           </div>
         </div>
+
+        <div class="row">
+          <div class="col-sm-10 col-lg-8">
+            <div class="form-group">
+              <%= form.label :correct_answer_count, 'Correct Answer Count' %>
+              <span class="column-info">Select how many question needs to be correct to win the quiz</span>
+              <%= form.select :correct_answer_count,
+                              options_for_select(correct_answer_count, @challenge.correct_answer_count),
+                              {}, class: 'form-control correct_answer_count_dd' %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

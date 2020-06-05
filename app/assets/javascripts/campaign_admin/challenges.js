@@ -45,6 +45,18 @@ $(document).on('turbolinks:load', function () {
       return form.valid();
     },
     onFinished: function (event, currentIndex) {
+      // Pass Quill Editor Details to Form
+      var challengeType = $('#challenge_challenge_type').val();
+      var challengeParameters = $('#challenge_parameters').val();
+
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+        $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
+          if ($(this).hasClass('display-editor')) {
+            $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
+          }
+        });
+      }
+
       $('.challenge-wizard').submit();
     }
   });
@@ -237,6 +249,17 @@ $(document).on('turbolinks:load', function () {
     if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
+
+      // Quill Editor Initialization While Edit
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+        $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
+          if ($(this).hasClass('display-editor')) {
+            $(this).show();
+            $(`.${challengeType}-${challengeParameters}-div .question-box${$(this).data('editor-identifire')} .non-wysiwyg-field`).hide();
+            new Quill(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`, toolbar);
+          }
+        });
+      }
       addOptionValidations();
     }
 
@@ -516,6 +539,9 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[failed_message]': {
         required: true
+      },
+      'challenge[correct_answer_count]': {
+        required: true
       }
     },
     messages: {
@@ -574,6 +600,9 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[failed_message]': {
         required: 'Please enter failure message'
+      },
+      'challenge[correct_answer_count]': {
+        required: 'Please select correct answer count'
       }
     },
     errorPlacement: function (error, element) {
@@ -1065,32 +1094,10 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
-  // Fonts Config for Quill Editor
-  var Font = Quill.import('formats/font');
-  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
-  Quill.register(Font, true);
-
-  // Quill Editor Toolbar Config
-  var toolbar = {
-    modules: {
-      'formula': true,
-      'syntax': true,
-      'toolbar': [
-        [{'font': []}, {'size': []}],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{'color': []}, {'background': []}],
-        [{'script': 'super'}, {'script': 'sub'}],
-        [{'header': '1'}, {'header': '2'}, 'blockquote', 'code-block'],
-        [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-        ['direction', {'align': []}], ['link', 'image', 'video', 'formula'],
-        ['clean']
-      ]
-    },
-    theme: 'snow'
-  };
-
   // Quill Editor Integration for Challenge Articles
-  new Quill('.article-content-editor', toolbar);
+  if ($('.article-content-editor').length) {
+    new Quill('.article-content-editor', toolbar);
+  }
 
   // Add Quill Editor's Content to Actual Element
   $('.article-content-editor').focusout(function () {
@@ -1487,9 +1494,27 @@ $(document).on('turbolinks:load', function () {
     return stringDetails;
   }
 
+  // Manage Correct Answer Dropdown Options
+  function changeCorrectCountOption(challengeType, challengeParameters) {
+    if (challengeType == 'collect' && challengeParameters == 'quiz') {
+      var dropDowns = $(`.${challengeType}-${challengeParameters}-div`).find('.question-selector');
+      $('.correct_answer_count_dd').empty();
+      var counter = 1;
+
+      dropDowns.each(function (index) {
+        if ($(this).val() != 'wysiwyg') {
+          $('.correct_answer_count_dd').append($('<option/>', {
+            value: counter,
+            text: counter
+          }));
+          counter++;
+        }
+      });
+    }
+  }
+
   // Add New Question
   $('.add-challenge-question').on('click', function (e) {
-
     let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
@@ -1501,6 +1526,7 @@ $(document).on('turbolinks:load', function () {
     questionHtml = replaceQuestionContainerFieldIds(questionTemplate, phaseCounter, optionCounter, optCounter);
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container`).append(questionHtml);
+    changeCorrectCountOption(challengeType, challengeParameters);
 
     // Question Selector Dropdown
     questionTypeSelect2(phaseCounter);
@@ -1537,7 +1563,10 @@ $(document).on('turbolinks:load', function () {
       // Quill Editor Integration for Campaign Rules
       if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-initialize')) {
         $(`.question-wysiwyg-editor${customId}`).addClass('editor-initialize');
-        new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+
+        if (!$(`.question-wysiwyg-editor${customId}`).hasClass('editor-added')) {
+          new Quill(`.question-wysiwyg-editor${customId}`, toolbar);
+        }
       }
     } else {
       $(`.question-wysiwyg-editor${customId}`).removeClass('display-editor').hide();
@@ -1546,6 +1575,7 @@ $(document).on('turbolinks:load', function () {
 
     autoSelectText();
     addOptionValidations();
+    changeCorrectCountOption(challengeType, challengeParameters);
   });
 
   // Remove Question With Validation
@@ -1555,6 +1585,7 @@ $(document).on('turbolinks:load', function () {
 
     if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
+      changeCorrectCountOption(challengeType, challengeParameters);
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
     }
@@ -1592,7 +1623,7 @@ $(document).on('turbolinks:load', function () {
     // Set New Name to Option
     var optIdentifire = qOption.data('option-identifire');
     var oldIdent = `data-option-identifire="${optIdentifire}"`
-    var newIdent =  `data-option-identifire="${optionCounter}"`
+    var newIdent = `data-option-identifire="${optionCounter}"`
     optionHtml = optionHtml.replace(oldIdent, newIdent);
 
     // Set New Option Identifire to Option
@@ -1628,31 +1659,5 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
-
-    // $(this).attr('checked', true);
-    // $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
-    //
-    // $(this).parent().parent().parent().find(':checkbox').each(function () {
-    //   // console.log("THIS", $(this), $(this).attr('id'));
-    //   $(`#${$(this).attr('id')}`).prop('checked', false);
-    //  // console.log("(" + $(this).val() + "-" + (this.checked ? "checked" : "not checked") + ")");
-    // });
-    // $(this).prop('checked', true);
-  });
-
-  $('.add-challenge-form').on('sumbit', function () {
-    var challengeType = $('#challenge_challenge_type').val();
-    var challengeParameters = $('#challenge_parameters').val();
-
-    console.log("Submit Called");
-
-    if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
-      $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function(index) {
-        if ($(this).hasClass('display-editor')) {
-          console.log("EDITOR --->", index, $(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html(), $(this).data('editor-identifire'));
-          $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
-        }
-      });
-    }
   });
 });
