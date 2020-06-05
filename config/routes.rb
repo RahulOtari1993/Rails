@@ -22,7 +22,10 @@ Rails.application.routes.draw do
       confirmations: 'participants/confirmations',
       omniauth_callbacks: "participants/omniauth_callbacks"
     }
-    get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
+
+    devise_scope :participant do
+      get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
+    end
 
     namespace :admin do
       namespace :organizations do

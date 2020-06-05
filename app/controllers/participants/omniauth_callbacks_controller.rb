@@ -31,9 +31,23 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   end
 
   def setup
-    request.env['omniauth.strategy'].options[:client_id] = "1933528990112651"
-    request.env['omniauth.strategy'].options[:client_secret] = "ff21b05bb523c36c4509b9f7a24e46d7"
-    render :text => "Setup complete.", :status => 404
+    ## Generate random number
+    number =  rand(8)
+    Rails.logger.info "======================== Random Number #{number} ========================"
+
+    if ((number % 2) == 0)
+      ## HK FB App
+      client_id = "1933528990112651"
+      client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
+    else
+      ## Ranga FB App
+      client_id = "1933528990112651"
+      client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
+    end
+
+    request.env['omniauth.strategy'].options[:client_id] = client_id
+    request.env['omniauth.strategy'].options[:client_secret] = client_secret
+    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
   # You should also create an action method in this controller like this:
