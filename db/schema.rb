@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_141239) do
+ActiveRecord::Schema.define(version: 2020_06_08_072601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,17 +195,6 @@ ActiveRecord::Schema.define(version: 2020_06_05_141239) do
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
-  create_table "configurations", force: :cascade do |t|
-    t.string "facebook_app_id"
-    t.string "facebook_app_secret"
-    t.string "google_client_id"
-    t.string "google_client_secret"
-    t.string "twitter_app_id"
-    t.string "twitter_app_secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
     t.integer "reward_participant_id"
@@ -225,6 +214,17 @@ ActiveRecord::Schema.define(version: 2020_06_05_141239) do
     t.index ["campaign_id"], name: "index_domain_lists_on_campaign_id"
     t.index ["domain"], name: "index_domain_lists_on_domain", unique: true
     t.index ["organization_id"], name: "index_domain_lists_on_organization_id"
+  end
+
+  create_table "global_configurations", force: :cascade do |t|
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.string "twitter_app_id"
+    t.string "twitter_app_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "networks", force: :cascade do |t|
@@ -292,6 +292,8 @@ ActiveRecord::Schema.define(version: 2020_06_05_141239) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
     t.string "utm_source"
     t.string "utm_medium"
     t.string "utm_term"
@@ -371,6 +373,14 @@ ActiveRecord::Schema.define(version: 2020_06_05_141239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
+  end
+
+  create_table "reward_users", force: :cascade do |t|
+    t.integer "reward_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
