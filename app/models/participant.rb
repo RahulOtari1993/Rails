@@ -83,7 +83,7 @@ class Participant < ApplicationRecord
       )/x # End of group
 
   # Validations
-  validates :first_name, :last_name, presence: true
+  validates :first_name, presence: true
   validates :email, confirmation: true
 
   # From Devise module Validatable
@@ -161,7 +161,8 @@ class Participant < ApplicationRecord
           campaign_id: camp.id,
           provider: auth.provider,
           uid: auth.uid,
-          email: auth.uid,
+          email: auth.email,
+          password: SecureRandom.urlsafe_base64,
           first_name: auth.info.name,
           oauth_token: auth.credentials.token,
           oauth_expires_at: Time.at(auth.credentials.expires_at)
