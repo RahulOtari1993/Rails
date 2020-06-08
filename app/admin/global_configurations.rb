@@ -1,4 +1,4 @@
-ActiveAdmin.register Configuration do
+ActiveAdmin.register GlobalConfiguration do
   config.filters = false
   actions :all, :except => [:destroy]
 

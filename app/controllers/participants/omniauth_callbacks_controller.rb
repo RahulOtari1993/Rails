@@ -38,7 +38,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
     else
-      conf = Configuration.where(campaign_id: @campaign.id).first
+      conf = GlobalConfiguration.first
     end
 
     # if ((number % 2) == 0)
