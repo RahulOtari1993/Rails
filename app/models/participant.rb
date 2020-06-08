@@ -152,10 +152,11 @@ class Participant < ApplicationRecord
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, uid: auth['uid']).first
     # participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
     if participant.present?
-      Rails.logger.info "============= Save IF ================="
+      Rails.logger.info "============= Save IF  #{participant.inspect} ================="
       participant.oauth_token = auth.credentials.token
       participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      participant.save!
+      # participant.password = Devise.friendly_token[0, 20]
+      participant.save(:validate => false)
     else
       Rails.logger.info "============= Save ELSE ================="
       params = {
@@ -174,7 +175,7 @@ class Participant < ApplicationRecord
       Rails.logger.info "============= Participant Params #{params.inspect} ================="
 
       participant = Participant.new(params)
-      # participant.skip_confirmation!
+      participant.skip_confirmation!
       participant.save!
     end
   end
