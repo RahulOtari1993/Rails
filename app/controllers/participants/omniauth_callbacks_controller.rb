@@ -11,7 +11,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     Rails.logger.info "************************ AUTH Params URL--> #{request.env["omniauth.params"]["url"]} ************************"
 
-    if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key('ci') && request.env['omniauth.params'].has_key('oi')
+    if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
       Rails.logger.info "************************ IN IF ************************"
       @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
 
