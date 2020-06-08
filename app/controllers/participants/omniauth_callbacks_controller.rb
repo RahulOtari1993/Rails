@@ -18,10 +18,13 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       Rails.logger.info "************************ Participant --> #{@participant.inspect} ************************"
 
       if @participant.new_record?
+        Rails.logger.info "************************ NEW PARTICIPANT RECORD ************************"
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         redirect_to root_url
       else
+        Rails.logger.info "************************ EXISTING RECORD BEFORE SIGN IN ************************"
         sign_in(@participant)
+        Rails.logger.info "************************ EXISTING RECORD AFTER SIGN IN #{current_participant} ************************"
         redirect_to welcome_path
         # sign_in_and_redirect @participant, :event => :authentication
         # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
