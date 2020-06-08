@@ -5,19 +5,25 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   # devise :omniauthable, omniauth_providers: [:twitter]
   def facebook
     Rails.logger.info "************************ Call Back Called ************************"
-    Rails.logger.info "************************ AUTH Params --> #{request.env["omniauth.auth"]} ************************"
+    Rails.logger.info "************************ AUTH auth --> #{request.env["omniauth.auth"]} ************************"
 
     Rails.logger.info "************************ AUTH Params --> #{request.env["omniauth.params"]} ************************"
 
     Rails.logger.info "************************ AUTH Params URL--> #{request.env["omniauth.params"]["url"]} ************************"
 
-    @participant = Participant.from_omniauth(request.env["omniauth.auth"])
+    if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key('ci') && request.env['omniauth.params'].has_key('oi')
+      Rails.logger.info "************************ IN IF ************************"
+      @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
 
-    Rails.logger.info "************************ Participant --> #{@participant} ************************"
+      Rails.logger.info "************************ Participant --> #{@participant} ************************"
 
-    if @participant.persisted?
-      sign_in_and_redirect @participant, :event => :authentication
-      set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      if @participant.persisted?
+        sign_in_and_redirect @participant, :event => :authentication
+        set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+      else
+        session["devise.facebook_data"] = request.env["omniauth.auth"]
+        redirect_to root_url
+      end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
       redirect_to root_url

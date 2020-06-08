@@ -126,12 +126,20 @@ class Participant < ApplicationRecord
   end
 
   #facebook omniauth
-  def self.from_omniauth(auth)
+  def self.from_omniauth(auth, params)
+    Rails.logger.info "============= Campaign ID: #{params['ci']} ================="
+    Rails.logger.info "============= Org ID: #{params['oi']} ================="
+
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+
+    Rails.logger.info "============= ORG OBJ: #{org.inspect} ================="
+    Rails.logger.info "============= CAMP OBJ: #{camp.inspect} ================="
+
     Rails.logger.info "============= AUTH UID: #{auth['uid']} ================="
     Rails.logger.info "============= AUTH Provider: #{auth['provider']} ================="
 
     Rails.logger.info "============= Additional Details ================="
-
 
     Rails.logger.info "============= AUTH auth.provider: #{auth.provider} ================="
     Rails.logger.info "============= AUTH auth.uid: #{auth.uid} ================="
