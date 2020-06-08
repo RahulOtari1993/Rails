@@ -17,7 +17,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
       Rails.logger.info "************************ Participant --> #{@participant} ************************"
 
-      if @participant
+      if @participant.new_record?
         sign_in_and_redirect @participant, :event => :authentication
         # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       else
