@@ -165,6 +165,7 @@ class Participant < ApplicationRecord
           uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
+          is_active: true,
           first_name: auth.info.name,
           oauth_token: auth.credentials.token,
           oauth_expires_at: Time.at(auth.credentials.expires_at),
