@@ -46,10 +46,11 @@
 #  oauth_expires_at       :datetime
 #
 class Participant < ApplicationRecord
-
+  ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
-         :authentication_keys => [:email, :organization_id], :reset_password_keys => [:email, :organization_id]
+         :authentication_keys => [:email, :organization_id, :campaign_id],
+         :reset_password_keys => [:email, :organization_id, :campaign_id]
 
   ## Associations
   has_and_belongs_to_many :campaigns
@@ -170,6 +171,7 @@ class Participant < ApplicationRecord
       }
 
       participant = Participant.new(params)
+      participant.skip_confirmation!
       participant.save!
     end
   end

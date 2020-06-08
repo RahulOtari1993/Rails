@@ -17,9 +17,9 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
       Rails.logger.info "************************ Participant --> #{@participant} ************************"
 
-      if @participant.persisted?
+      if @participant
         sign_in_and_redirect @participant, :event => :authentication
-        set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+        # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         redirect_to root_url
