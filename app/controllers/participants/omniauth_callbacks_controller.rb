@@ -23,10 +23,10 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
         redirect_to root_url
       else
         Rails.logger.info "************************ EXISTING RECORD BEFORE SIGN IN ************************"
-        sign_in(@participant)
+        # sign_in(@participant)
+        sign_in_and_redirect @participant, :event => :authentication
         Rails.logger.info "************************ EXISTING RECORD AFTER SIGN IN #{current_participant} ************************"
-        redirect_to welcome_path
-        # sign_in_and_redirect @participant, :event => :authentication
+        # redirect_to welcome_path
         # set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
       end
     else
