@@ -32,21 +32,27 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
   def setup
     ## Generate random number
-    number =  rand(8)
-    Rails.logger.info "======================== Random Number #{number} #{params} ========================"
+    # number =  rand(8)
+    # Rails.logger.info "======================== Random Number #{number} #{params} ========================"
 
-    if ((number % 2) == 0)
-      ## HK FB App
-      client_id = "1933528990112651"
-      client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: @campaign.id).first
     else
-      ## Ranga FB App
-      client_id = "1585668911602610"
-      client_secret = "3ef4e739b9274bdd3e9242cb8b09054e"
+      conf = Configuration.where(campaign_id: @campaign.id).first
     end
 
-    request.env['omniauth.strategy'].options[:client_id] = client_id
-    request.env['omniauth.strategy'].options[:client_secret] = client_secret
+    # if ((number % 2) == 0)
+    #   ## HK FB App
+    #   client_id = "1933528990112651"
+    #   client_secret = "ff21b05bb523c36c4509b9f7a24e46d7"
+    # else
+    #   ## Ranga FB App
+    #   client_id = "1585668911602610"
+    #   client_secret = "3ef4e739b9274bdd3e9242cb8b09054e"
+    # end
+
+    request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
+    request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
