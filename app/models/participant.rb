@@ -148,26 +148,27 @@ class Participant < ApplicationRecord
     Rails.logger.info "============= AUTH oauth_expires_at: #{Time.at(auth.credentials.expires_at)} ================="
 
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, uid: auth['uid']).first
+    # participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
     if participant.present?
+      Rails.logger.info "============= Save IF ================="
       participant.oauth_token = auth.credentials.token
       participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
       participant.save!
     else
+      Rails.logger.info "============= Save ELSE ================="
+      params = {
+          organization_id: org.id,
+          campaign_id: camp.id,
+          provider: auth.provider,
+          uid: auth.uid,
+          email: auth.uid,
+          first_name: auth.info.name,
+          oauth_token: auth.credentials.token,
+          oauth_expires_at: Time.at(auth.credentials.expires_at)
+      }
 
-    end
-
-    participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
-    if Participant.exists?(participant)
-      participant
-    else
-      where(auth.slice(:provider, :uid)).first_or_initialize.tap do |participant|
-        participant.provider = auth.provider
-        participant.uid = auth.uid
-        participant.first_name = auth.info.name
-        participant.oauth_token = auth.credentials.token
-        participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
-        participant.save!
-      end
+      participant = Participant.new(params)
+      participant.save!
     end
   end
 
