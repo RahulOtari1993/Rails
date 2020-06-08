@@ -128,36 +128,14 @@ class Participant < ApplicationRecord
 
   #facebook omniauth
   def self.from_omniauth(auth, params)
-    Rails.logger.info "============= Campaign ID: #{params['ci']} ================="
-    Rails.logger.info "============= Org ID: #{params['oi']} ================="
-
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
-
-    Rails.logger.info "============= ORG OBJ: #{org.inspect} ================="
-    Rails.logger.info "============= CAMP OBJ: #{camp.inspect} ================="
-
-    Rails.logger.info "============= AUTH UID: #{auth['uid']} ================="
-    Rails.logger.info "============= AUTH Provider: #{auth['provider']} ================="
-
-    Rails.logger.info "============= Additional Details ================="
-
-    Rails.logger.info "============= AUTH auth.provider: #{auth.provider} ================="
-    Rails.logger.info "============= AUTH auth.uid: #{auth.uid} ================="
-    Rails.logger.info "============= AUTH auth.email: #{auth.info.email} ================="
-    Rails.logger.info "============= AUTH auth.info.name: #{auth.info.name} ================="
-    Rails.logger.info "============= AUTH auth.credentials.token: #{auth.credentials.token} ================="
-    Rails.logger.info "============= AUTH oauth_expires_at: #{Time.at(auth.credentials.expires_at)} ================="
-
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, uid: auth['uid']).first
-    # participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
+
     if participant.present?
-      Rails.logger.info "============= Save IF  #{participant.inspect} ================="
       participant.oauth_token = auth.credentials.token
       participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
-      # participant.password = Devise.friendly_token[0, 20]
     else
-      Rails.logger.info "============= Save ELSE ================="
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
@@ -172,11 +150,8 @@ class Participant < ApplicationRecord
           confirmed_at: DateTime.now
       }
 
-      Rails.logger.info "============= Participant Params #{params.inspect} ================="
-
       participant = Participant.new(params)
       participant.skip_confirmation!
-      # participant.save!
     end
 
     if participant.save(:validate => false)
@@ -188,8 +163,8 @@ class Participant < ApplicationRecord
 
   private
 
-  def save_participant_details
-    campaign = Campaign.find(self.campaign_id)
-    campaign.participants << self
-  end
+    def save_participant_details
+      campaign = Campaign.find(self.campaign_id)
+      campaign.participants << self
+    end
 end
