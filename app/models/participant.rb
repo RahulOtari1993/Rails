@@ -42,6 +42,8 @@
 #  address_1              :string
 #  address_2              :string
 #  bio                    :text
+#  oauth_token            :string
+#  oauth_expires_at       :datetime
 #
 class Participant < ApplicationRecord
 
@@ -125,6 +127,18 @@ class Participant < ApplicationRecord
 
   #facebook omniauth
   def self.from_omniauth(auth)
+    Rails.logger.info "============= AUTH UID: #{auth['uid']} ================="
+    Rails.logger.info "============= AUTH Provider: #{auth['provider']} ================="
+
+    Rails.logger.info "============= Additional Details ================="
+
+
+    Rails.logger.info "============= AUTH auth.provider: #{auth.provider} ================="
+    Rails.logger.info "============= AUTH auth.uid: #{auth.uid} ================="
+    Rails.logger.info "============= AUTH auth.info.name: #{auth.info.name} ================="
+    Rails.logger.info "============= AUTH auth.credentials.token: #{auth.credentials.token} ================="
+    Rails.logger.info "============= AUTH oauth_expires_at: #{Time.at(auth.credentials.expires_at)} ================="
+
     participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
     if Participant.exists?(participant)
       participant
@@ -132,7 +146,7 @@ class Participant < ApplicationRecord
       where(auth.slice(:provider, :uid)).first_or_initialize.tap do |participant|
         participant.provider = auth.provider
         participant.uid = auth.uid
-        participant.name = auth.info.name
+        participant.first_name = auth.info.name
         participant.oauth_token = auth.credentials.token
         participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
         participant.save!
