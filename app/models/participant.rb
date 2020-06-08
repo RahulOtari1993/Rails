@@ -147,6 +147,15 @@ class Participant < ApplicationRecord
     Rails.logger.info "============= AUTH auth.credentials.token: #{auth.credentials.token} ================="
     Rails.logger.info "============= AUTH oauth_expires_at: #{Time.at(auth.credentials.expires_at)} ================="
 
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, uid: auth['uid']).first
+    if participant.present?
+      participant.oauth_token = auth.credentials.token
+      participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      participant.save!
+    else
+
+    end
+
     participant = find_or_create_by(uid: auth['uid'], provider: auth['provider'])
     if Participant.exists?(participant)
       participant
