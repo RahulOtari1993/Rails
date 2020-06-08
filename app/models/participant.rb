@@ -167,8 +167,11 @@ class Participant < ApplicationRecord
           password: Devise.friendly_token[0, 20],
           first_name: auth.info.name,
           oauth_token: auth.credentials.token,
-          oauth_expires_at: Time.at(auth.credentials.expires_at)
+          oauth_expires_at: Time.at(auth.credentials.expires_at),
+          :confirmed_at => DateTime.now
       }
+
+      Rails.logger.info "============= Participant Params #{params.inspect} ================="
 
       participant = Participant.new(params)
       participant.skip_confirmation!
