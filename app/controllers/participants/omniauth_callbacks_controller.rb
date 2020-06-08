@@ -42,8 +42,10 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
+      Rails.logger.info "======================== Campaign Configs #{conf.inspect} ========================"
     else
       conf = GlobalConfiguration.first
+      Rails.logger.info "======================== Perk Configs #{conf.inspect} ========================"
     end
 
     # if ((number % 2) == 0)
