@@ -143,6 +143,7 @@ class Participant < ApplicationRecord
 
     Rails.logger.info "============= AUTH auth.provider: #{auth.provider} ================="
     Rails.logger.info "============= AUTH auth.uid: #{auth.uid} ================="
+    Rails.logger.info "============= AUTH auth.email: #{auth.info.email} ================="
     Rails.logger.info "============= AUTH auth.info.name: #{auth.info.name} ================="
     Rails.logger.info "============= AUTH auth.credentials.token: #{auth.credentials.token} ================="
     Rails.logger.info "============= AUTH oauth_expires_at: #{Time.at(auth.credentials.expires_at)} ================="
@@ -161,8 +162,8 @@ class Participant < ApplicationRecord
           campaign_id: camp.id,
           provider: auth.provider,
           uid: auth.uid,
-          email: auth.email,
-          password: SecureRandom.urlsafe_base64,
+          email: auth.info.email,
+          password: Devise.friendly_token[0, 20],
           first_name: auth.info.name,
           oauth_token: auth.credentials.token,
           oauth_expires_at: Time.at(auth.credentials.expires_at)
