@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'constraints/subdomain_not_required'
+  require 'constraints/subdomain_required'
 
   ## Routes for Admin Users
   constraints(Constraints::SubdomainNotRequired) do
