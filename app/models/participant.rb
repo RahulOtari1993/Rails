@@ -26,6 +26,8 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  provider               :string
+#  uid                    :string
 #  utm_source             :string
 #  utm_medium             :string
 #  utm_term               :string
