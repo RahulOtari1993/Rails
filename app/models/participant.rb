@@ -168,13 +168,13 @@ class Participant < ApplicationRecord
           first_name: auth.info.name,
           oauth_token: auth.credentials.token,
           oauth_expires_at: Time.at(auth.credentials.expires_at),
-          :confirmed_at => DateTime.now
+          confirmed_at: DateTime.now
       }
 
       Rails.logger.info "============= Participant Params #{params.inspect} ================="
 
       participant = Participant.new(params)
-      participant.skip_confirmation!
+      # participant.skip_confirmation!
       participant.save!
     end
   end
