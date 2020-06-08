@@ -6,6 +6,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   def facebook
     Rails.logger.info "************************ Call Back Called ************************"
     Rails.logger.info "************************ AUTH Params --> #{request.env["omniauth.auth"]} ************************"
+
+    Rails.logger.info "************************ AUTH Params --> #{request.env["omniauth.params"]} ************************"
+
+    Rails.logger.info "************************ AUTH Params URL--> #{request.env["omniauth.params"]["url"]} ************************"
+
     @participant = Participant.from_omniauth(request.env["omniauth.auth"])
 
     Rails.logger.info "************************ Participant --> #{@participant} ************************"
