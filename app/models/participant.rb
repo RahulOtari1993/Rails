@@ -144,7 +144,6 @@ class Participant < ApplicationRecord
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
-          provider: auth.provider,
           facebook_uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
@@ -181,7 +180,6 @@ class Participant < ApplicationRecord
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
-          provider: auth.provider,
           google_uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
