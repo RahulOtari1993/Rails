@@ -6,7 +6,7 @@
 #  organization_id     :bigint
 #  name                :string           not null
 #  domain              :string           not null
-#  domain_type         :integer          not null
+#  domain_type         :integer          default("include_in_domain"), not null
 #  twitter             :string
 #  rules               :text
 #  privacy             :text

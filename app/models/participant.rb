@@ -26,8 +26,6 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  provider               :string
-#  uid                    :string
 #  utm_source             :string
 #  utm_medium             :string
 #  utm_term               :string
@@ -42,8 +40,14 @@
 #  address_1              :string
 #  address_2              :string
 #  bio                    :text
-#  oauth_token            :string
-#  oauth_expires_at       :datetime
+#  p_id                   :string
+#  facebook_uid           :string
+#  facebook_token         :string
+#  facebook_expires_at    :datetime
+#  google_uid             :string
+#  google_token           :string
+#  google_refresh_token   :string
+#  google_expires_at      :datetime
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
@@ -127,29 +131,70 @@ class Participant < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  #facebook omniauth
-  def self.from_omniauth(auth, params)
+  ## Facebook OmniAuth
+  def self.facebook_omniauth(auth, params)
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
-    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, uid: auth['uid']).first
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
 
     if participant.present?
-      participant.oauth_token = auth.credentials.token
-      participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
     else
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
           provider: auth.provider,
-          uid: auth.uid,
+          facebook_uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
           is_active: true,
-          first_name: auth.info.name,
-          oauth_token: auth.credentials.token,
-          oauth_expires_at: Time.at(auth.credentials.expires_at),
+          first_name: auth.info.first_name,
+          last_name: auth.info.last_name,
+          facebook_token: auth.credentials.token,
+          facebook_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now
       }
+
+      participant = Participant.new(params)
+      participant.skip_confirmation!
+    end
+
+    if participant.save(:validate => false)
+      participant
+    else
+      Participant.new
+    end
+  end
+
+  ## Google OmniAuth
+  def self.google_omniauth(auth, params)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
+
+    if participant.present?
+      participant.google_token = auth.credentials.token
+      participant.google_refresh_token = Time.at(auth.credentials.expires_at)
+      participant.google_refresh_token = Time.at(auth.credentials.expires_at)
+    else
+      params = {
+          organization_id: org.id,
+          campaign_id: camp.id,
+          provider: auth.provider,
+          google_uid: auth.uid,
+          email: auth.info.email,
+          password: Devise.friendly_token[0, 20],
+          is_active: true,
+          first_name: auth.info.first_name,
+          last_name: auth.info.last_name,
+          google_token: auth.credentials.token,
+          google_refresh_token: auth.credentials.refresh_token,
+          google_expires_at: Time.at(auth.credentials.expires_at),
+          confirmed_at: DateTime.now
+      }
+
+      Rails.logger.info "************************* Google Params --> #{params} *************************"
 
       participant = Participant.new(params)
       participant.skip_confirmation!

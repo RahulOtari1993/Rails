@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_09_082823) do
+ActiveRecord::Schema.define(version: 2020_06_09_115641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,8 +292,6 @@ ActiveRecord::Schema.define(version: 2020_06_09_082823) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "provider"
-    t.string "uid"
     t.string "utm_source"
     t.string "utm_medium"
     t.string "utm_term"
@@ -308,9 +306,14 @@ ActiveRecord::Schema.define(version: 2020_06_09_082823) do
     t.string "address_1"
     t.string "address_2"
     t.text "bio"
-    t.string "oauth_token"
-    t.datetime "oauth_expires_at"
     t.string "p_id"
+    t.string "facebook_uid"
+    t.string "facebook_token"
+    t.datetime "facebook_expires_at"
+    t.string "google_uid"
+    t.string "google_token"
+    t.string "google_refresh_token"
+    t.datetime "google_expires_at"
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end

@@ -5,7 +5,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   # devise :omniauthable, omniauth_providers: [:twitter]
   def facebook
     if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
-      @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
+      @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
 
       if @participant.new_record?
         session["devise.facebook_data"] = request.env["omniauth.auth"]
@@ -24,19 +24,19 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     Rails.logger.info "************************* CONF Params --> #{request.env["omniauth.params"]} *************************"
 
     if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
-      @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
+      @participant = Participant.google_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
 
       if @participant.new_record?
-        session["devise.facebook_data"] = request.env["omniauth.auth"]
+        session["devise.google_data"] = request.env["omniauth.auth"]
         redirect_to root_url
       else
         sign_in_and_redirect @participant, :event => :authentication
       end
     else
-      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      session["devise.google_data"] = request.env["omniauth.auth"]
       redirect_to root_url
     end
-    
+
     # @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
     # if @participant.persisted?
     #   sign_in @participant, :event => :authentication #this will throw if @participant is not activated
