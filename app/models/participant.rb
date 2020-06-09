@@ -154,6 +154,7 @@ class Participant < ApplicationRecord
           facebook_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now
       }
+      Rails.logger.info "************************* Facebook Params --> #{params} *************************"
 
       participant = Participant.new(params)
       participant.skip_confirmation!
@@ -177,6 +178,8 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = Time.at(auth.credentials.expires_at)
       participant.google_refresh_token = Time.at(auth.credentials.expires_at)
     else
+      Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
+
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
@@ -218,6 +221,8 @@ class Participant < ApplicationRecord
   private
     def generate_participant_id
       self.p_id = Participant.get_participant_id
+
+      Rails.logger.info "************************* generate_participant_id --> #{self} *************************"
       self.save
     end
 
