@@ -181,7 +181,7 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = Time.at(auth.credentials.expires_at)
     else
       Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
-
+      name = auth.info.split(" ")
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
@@ -189,8 +189,8 @@ class Participant < ApplicationRecord
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
           is_active: true,
-          first_name: auth.info.first_name,
-          last_name: auth.info.last_name,
+          first_name: name[0],
+          last_name: name[1],
           google_token: auth.credentials.token,
           google_refresh_token: auth.credentials.refresh_token,
           google_expires_at: Time.at(auth.credentials.expires_at),
@@ -222,10 +222,11 @@ class Participant < ApplicationRecord
 
   private
     def generate_participant_id
-      self.p_id = Participant.get_participant_id
+      # self.p_id = Participant.get_participant_id
+      self.update_attribute('p_id', Participant.get_participant_id)
 
       Rails.logger.info "************************* generate_participant_id --> #{self.inspect} *************************"
-      self.save
+      # self.save
     end
 
     def save_participant_details
