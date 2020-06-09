@@ -143,6 +143,8 @@ class Participant < ApplicationRecord
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
     else
+      name = auth.info.name.split(" ")
+
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
@@ -150,8 +152,8 @@ class Participant < ApplicationRecord
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
           is_active: true,
-          first_name: auth.info.first_name,
-          last_name: auth.info.last_name,
+          first_name: name[0],
+          last_name: name[1],
           facebook_token: auth.credentials.token,
           facebook_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now
@@ -181,7 +183,7 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = Time.at(auth.credentials.expires_at)
     else
       Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
-      name = auth.info.split(" ")
+
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
@@ -189,8 +191,8 @@ class Participant < ApplicationRecord
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
           is_active: true,
-          first_name: name[0],
-          last_name: name[1],
+          first_name: auth.info.first_name,
+          last_name: auth.info.last_name,
           google_token: auth.credentials.token,
           google_refresh_token: auth.credentials.refresh_token,
           google_expires_at: Time.at(auth.credentials.expires_at),
