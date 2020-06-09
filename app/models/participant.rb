@@ -163,18 +163,18 @@ class Participant < ApplicationRecord
   end
 
   def self.get_participant_id
-    donation_id = SecureRandom.hex (6)
-    p_id = self.where(p_id: donation_id.upcase)
+    new_id = SecureRandom.hex (6)
+    p_id = self.where(p_id: new_id.upcase)
     if p_id.present?
-      generate_participant_id
+      self.get_participant_id
     else
-      donation_id.upcase
+      new_id.upcase
     end
   end
 
   private
     def generate_participant_id
-      self.p_id = get_participant_id
+      self.p_id = Participant.get_participant_id
       self.save
     end
 
