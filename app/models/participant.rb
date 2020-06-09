@@ -60,6 +60,7 @@ class Participant < ApplicationRecord
 
   ## Callbacks
   after_create :save_participant_details
+  after_create :generate_participant_id
 
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group
@@ -161,7 +162,21 @@ class Participant < ApplicationRecord
     end
   end
 
+  def self.get_participant_id
+    donation_id = SecureRandom.hex (6)
+    p_id = self.where(p_id: donation_id.upcase)
+    if p_id.present?
+      generate_participant_id
+    else
+      donation_id.upcase
+    end
+  end
+
   private
+    def generate_participant_id
+      self.p_id = get_participant_id
+      self.save
+    end
 
     def save_participant_details
       campaign = Campaign.find(self.campaign_id)
