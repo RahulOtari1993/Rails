@@ -137,6 +137,8 @@ class Participant < ApplicationRecord
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
 
+    Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
+
     if participant.present?
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
@@ -222,7 +224,7 @@ class Participant < ApplicationRecord
     def generate_participant_id
       self.p_id = Participant.get_participant_id
 
-      Rails.logger.info "************************* generate_participant_id --> #{self} *************************"
+      Rails.logger.info "************************* generate_participant_id --> #{self.inspect} *************************"
       self.save
     end
 
