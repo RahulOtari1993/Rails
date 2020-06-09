@@ -20,7 +20,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   end
 
   def google_oauth2
-    @participant = Participant.from_omniauth(request.env["omniauth.auth"])
+    @participant = Participant.from_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
     if @participant.persisted?
       sign_in @participant, :event => :authentication #this will throw if @participant is not activated
       set_flash_message(:notice, :success, :kind => "Google") if is_navigational_format?
@@ -31,6 +31,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   end
 
   def setup
+    binding.pry
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
     else
@@ -39,6 +40,18 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
+    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
+  end
+
+  def google_oauth2_setup
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
+
+    request.env['omniauth.strategy'].options[:client_id] = conf.google_client_id
+    request.env['omniauth.strategy'].options[:client_secret] = conf.google_client_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
