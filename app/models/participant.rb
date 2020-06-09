@@ -136,7 +136,9 @@ class Participant < ApplicationRecord
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
-
+    unless participant.present?
+      participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
+    end
     Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
 
     if participant.present?
@@ -175,11 +177,15 @@ class Participant < ApplicationRecord
   def self.google_omniauth(auth, params)
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
+    unless participant.present?
+      participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
+    end
 
     if participant.present?
       participant.google_token = auth.credentials.token
-      participant.google_refresh_token = Time.at(auth.credentials.expires_at)
+      participant.google_refresh_token = auth.credentials.refresh_token
       participant.google_refresh_token = Time.at(auth.credentials.expires_at)
     else
       Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
