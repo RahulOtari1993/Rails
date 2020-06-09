@@ -142,6 +142,7 @@ class Participant < ApplicationRecord
     Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
 
     if participant.present?
+      participant.facebook_uid = auth.uid,
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
     else
@@ -184,9 +185,10 @@ class Participant < ApplicationRecord
     end
 
     if participant.present?
+      participant.google_uid = auth.uid,
       participant.google_token = auth.credentials.token
       participant.google_refresh_token = auth.credentials.refresh_token
-      participant.google_refresh_token = Time.at(auth.credentials.expires_at)
+      participant.google_expires_at = Time.at(auth.credentials.expires_at)
     else
       Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
 
