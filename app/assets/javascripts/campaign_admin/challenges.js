@@ -838,8 +838,8 @@ $(document).on('turbolinks:load', function () {
   // Format Date
   function formatDate(date) {
     let dateObj = new Date(date);
-    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
-        ("0" + (dateObj.getDate() + 1)).slice(-2) +
+    return ("0" + (dateObj.getMonth())).slice(-2) + '/' +
+        ("0" + (dateObj.getDate())).slice(-2) +
         '/' + dateObj.getFullYear()
   }
 

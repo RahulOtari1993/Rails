@@ -86,7 +86,7 @@ class Challenge < ApplicationRecord
   ## Scopes
   # scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
-  scope :current_active, -> { where("start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())")  }
+  scope :current_active, -> { where("is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
 
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
@@ -152,13 +152,15 @@ class Challenge < ApplicationRecord
           if val == 'draft'
             status_query = " #{keyword} (is_approved = false)"
           elsif val == 'active'
-            status_query = status_query + " #{keyword} is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
+            status_query = status_query +
+                " #{keyword} is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
 
             ## Back up
             # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
             # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
           elsif val == 'scheduled'
-            status_query = status_query + " #{keyword} is_approved = true AND start AT TIME ZONE timezone > timezone(timezone,now())"
+            status_query = status_query +
+                " #{keyword} is_approved = true AND start AT TIME ZONE timezone > timezone(timezone,now())"
 
             ## Back up
             # # status_query = status_query + " #{keyword} (is_approved = true AND start > convert_tz('#{current_utc_time}', 'UTC', timezone))"
@@ -167,7 +169,8 @@ class Challenge < ApplicationRecord
             # ended_challenges = self.select{|challenge| challenge.finish.in_time_zone(challenge.timezone) < Time.now.in_time_zone(challenge.timezone)}
             # scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
           elsif val == 'ended'
-            status_query = status_query + " #{keyword} is_approved = true AND finish AT TIME ZONE timezone < timezone(timezone,now())"
+            status_query = status_query +
+                " #{keyword} is_approved = true AND finish AT TIME ZONE timezone < timezone(timezone,now())"
 
             ## Back up
             # status_query = status_query + " #{keyword} (is_approved = true AND finish > convert_tz('#{current_utc_time}', 'UTC', timezone))"
