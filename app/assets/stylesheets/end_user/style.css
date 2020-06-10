@@ -1,0 +1,82 @@
+
+.modal-dialog{
+  max-width: 620px;
+}
+
+.modal_box {
+  border: 2px solid #ccc;
+  padding: 20px 40px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-header{
+  padding: 0px;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.modal_box a {
+  color: #1bb0ce;
+}
+
+.modal_box h5 {
+  font-size: 18px;
+  margin-bottom: 17px;
+}
+
+.modal_box .fa {
+  float: left;
+  line-height: 24px;
+}
+
+.modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
+  position: absolute;
+  z-index: 555;
+  top: 22px;
+  right: 26px;
+}
+
+.modal_box .form-control {
+  margin-bottom: 13px;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.facebook_btn {
+  background-color: #4060B2;
+  color: #f2f2f2 !important;
+}
+
+.google_btn {
+  background-color: #000;
+  color: #f2f2f2 !important;
+}
+
+.email_btn {
+  background-color: #fff;
+  border:2px solid #000 ;
+  color: #000;
+}
+
+span.error {
+  color: red;
+  float: left;
+  font-size: 13px;
+}
+
+.box1_btn{
+  font-weight: 100;
+  border-radius: 22px;
+  padding: 7px 23px;
+  margin-bottom: 17px;
+  background-color: #818a91;
+  color: #fff;
+}
