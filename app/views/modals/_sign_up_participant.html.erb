@@ -14,18 +14,16 @@
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box1">
             <h5>Join the other members who are already winning great prizes and rewards.</h5>
-            <button type="button" class="btn box1_btn facebook_btn btn-block"><i class="fa fa-facebook"></i> Continue With Facebook</button>
-            <div class="clear"></div>
             <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
-                class="dark-fb-button btn-has-icon btn-join-facebook">
+                class="btn box1_btn facebook_btn btn-block">
               <span class="icon-btn-share fa fa-facebook"></span>
               <span class="btn-share-text">Continue With Facebook</span>
             </a>
-            <button type="button" class="btn box1_btn google_btn btn-block"><i class="fa fa-google" aria-hidden="true"></i> Continue With Google</button>
+            <div class="clear"></div>
             <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
-                class="dark-fb-button btn-has-icon btn-join-facebook">
+                class="btn box1_btn google_btn btn-block">
               <span class="icon-btn-share fa fa-google"></span>
-              <span class="btn-share-text">Continue With Gmail</span>
+              <span class="btn-share-text">Continue With Google</span>
             </a>
             <div class="clear"></div>
             <button type="button" class="btn box1_btn email_btn btn-block" id="signup_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Continue With Email</button>
@@ -186,12 +184,12 @@
 
   .facebook_btn {
     background-color: #4060B2;
-    color: #f2f2f2;
+    color: #f2f2f2 !important;
   }
 
   .google_btn {
     background-color: #000;
-    color: #f2f2f2;
+    color: #f2f2f2 !important;
   }
 
   .email_btn {

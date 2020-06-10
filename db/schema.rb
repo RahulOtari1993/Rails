@@ -382,6 +382,14 @@ ActiveRecord::Schema.define(version: 2020_06_09_115641) do
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
   end
 
+  create_table "reward_users", force: :cascade do |t|
+    t.integer "reward_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rewards", force: :cascade do |t|
     t.bigint "campaign_id"
     t.string "name"
