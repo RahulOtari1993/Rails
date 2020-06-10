@@ -61,7 +61,7 @@ class Participants::RegistrationsController < Devise::RegistrationsController
   # def after_sign_up_path_for(resource)
   #   after_sign_in_path_for(resource) if is_navigational_format?
   # end
-
+  
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   participant_dashboard_path

@@ -400,4 +400,9 @@ module ChallengeHelper
       response
     end
   end
+
+  def challenge_reward_list
+    used_rewards = Challenge.all.pluck(:reward_id)
+    Reward.active.where.not(id: used_rewards).map { |v| [v.name.titleize, v.id] }.compact
+  end
 end

@@ -1,14 +1,14 @@
 # == Schema Information
 #
-# Table name: network
+# Table name: networks
 #
-#  id                 :bigint           not null, primary key
-#  campaign_id        :bigint
-#  platform           :integer
-#  auth_token         :string
-#  username           :string
-#  created_at         :datetime   , not null
-#  updated_at         :datetime   , not null
+#  id          :bigint           not null, primary key
+#  campaign_id :bigint
+#  platform    :integer
+#  auth_token  :string
+#  username    :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 class Network < ApplicationRecord
   ## Associations

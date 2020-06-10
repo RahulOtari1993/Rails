@@ -21,7 +21,7 @@
           <%= form.label :domain_type, 'Domain type' %>
           <div class="position-relative">
             <%= form.select :domain_type,
-                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact),
+                            options_for_select([['Include in Domain', 'include_in_domain']]), # Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact
                             {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
           </div>
         </div>

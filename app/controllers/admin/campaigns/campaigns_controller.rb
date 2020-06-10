@@ -52,6 +52,6 @@ class Admin::Campaigns::CampaignsController < ApplicationController
     params.require(:campaign).permit(:name, :domain, :organization_id, :domain_type, :twitter, :rules,
                                      :privacy, :terms, :contact_us, :faq_title, :faq_content, :prizes_title,
                                      :general_title, :general_content, :my_account_title, :how_to_earn_title,
-                                     :how_to_earn_content, :css, :seo)
+                                     :how_to_earn_content, :css, :seo, :white_branding)
   end
 end

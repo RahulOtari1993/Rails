@@ -40,12 +40,21 @@
 #  address_1              :string
 #  address_2              :string
 #  bio                    :text
+#  p_id                   :string
+#  facebook_uid           :string
+#  facebook_token         :string
+#  facebook_expires_at    :datetime
+#  google_uid             :string
+#  google_token           :string
+#  google_refresh_token   :string
+#  google_expires_at      :datetime
 #
 class Participant < ApplicationRecord
-
+  ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
-         :authentication_keys => [:email, :organization_id], :reset_password_keys => [:email, :organization_id]
+         :authentication_keys => [:email, :organization_id, :campaign_id],
+         :reset_password_keys => [:email, :organization_id, :campaign_id]
 
   ## Associations
   has_and_belongs_to_many :campaigns
@@ -55,6 +64,7 @@ class Participant < ApplicationRecord
 
   ## Callbacks
   after_create :save_participant_details
+  after_create :generate_participant_id
 
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group
@@ -79,7 +89,7 @@ class Participant < ApplicationRecord
       )/x # End of group
 
   # Validations
-  validates :first_name, :last_name, presence: true
+  validates :first_name, presence: true
   validates :email, confirmation: true
 
   # From Devise module Validatable
@@ -121,27 +131,107 @@ class Participant < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  #facebook omniauth
-  def self.from_omniauth(auth)
-    participant = find_or_create_by(uid: auth[‘uid’], provider: auth[‘provider’])
-    if Participant.exists?(participant)
+  ## Facebook OmniAuth
+  def self.facebook_omniauth(auth, params)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
+    unless participant.present?
+      participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
+    end
+
+    if participant.present?
+      participant.facebook_uid = auth.uid
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+    else
+      name = auth.info.name.split(" ")
+
+      params = {
+          organization_id: org.id,
+          campaign_id: camp.id,
+          facebook_uid: auth.uid,
+          email: auth.info.email,
+          password: Devise.friendly_token[0, 20],
+          is_active: true,
+          first_name: name[0],
+          last_name: name[1],
+          facebook_token: auth.credentials.token,
+          facebook_expires_at: Time.at(auth.credentials.expires_at),
+          confirmed_at: DateTime.now
+      }
+
+      participant = Participant.new(params)
+      participant.skip_confirmation!
+    end
+
+    if participant.save(:validate => false)
       participant
     else
-      where(auth.slice(:provider, :uid)).first_or_initialize.tap do |participant|
-        participant.provider = auth.provider
-        participant.uid = auth.uid
-        participant.name = auth.info.name
-        participant.oauth_token = auth.credentials.token
-        participant.oauth_expires_at = Time.at(auth.credentials.expires_at)
-        participant.save!
-      end
+      Participant.new
+    end
+  end
+
+  ## Google OmniAuth
+  def self.google_omniauth(auth, params)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
+    unless participant.present?
+      participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
+    end
+    refresh_token = auth.credentials.refresh_token.present?
+
+    if participant.present?
+      participant.google_uid = auth.uid
+      participant.google_token = auth.credentials.token
+      participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
+      participant.google_expires_at = Time.at(auth.credentials.expires_at)
+    else
+      params = {
+          organization_id: org.id,
+          campaign_id: camp.id,
+          google_uid: auth.uid,
+          email: auth.info.email,
+          password: Devise.friendly_token[0, 20],
+          is_active: true,
+          first_name: auth.info.first_name,
+          last_name: auth.info.last_name,
+          google_token: auth.credentials.token,
+          google_refresh_token: auth.credentials.refresh_token,
+          google_expires_at: Time.at(auth.credentials.expires_at),
+          confirmed_at: DateTime.now
+      }
+
+      participant = Participant.new(params)
+      participant.skip_confirmation!
+    end
+
+    if participant.save(:validate => false)
+      participant
+    else
+      Participant.new
+    end
+  end
+
+  def self.get_participant_id
+    new_id = SecureRandom.hex (6)
+    p_id = self.where(p_id: new_id.upcase)
+    if p_id.present?
+      self.get_participant_id
+    else
+      new_id.upcase
     end
   end
 
   private
+    def generate_participant_id
+      self.update_attribute('p_id', Participant.get_participant_id)
+    end
 
-  def save_participant_details
-    campaign = Campaign.find(self.campaign_id)
-    campaign.participants << self
-  end
+    def save_participant_details
+      campaign = Campaign.find(self.campaign_id)
+      campaign.participants << self
+    end
 end

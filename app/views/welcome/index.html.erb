@@ -1,3 +1,4 @@
+
 <section class="hero_section">
   <div class="container">
     <div class="row">
@@ -36,6 +37,14 @@
 <!-- Challenges section start -->
 <section class="section1">
   <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <% if current_participant.present? %>
+          <H1>Welcome, You are logged in successfully!</H1>
+          <%= link_to('Logout Participant', destroy_participant_session_path, method: :delete) %>
+        <% end %>
+      </div>
+    </div>
     <div class="row">
       <div class="col-12">
         <h3>Earn GoBucks</h3>

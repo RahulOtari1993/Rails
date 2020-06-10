@@ -2,45 +2,48 @@
 #
 # Table name: challenges
 #
-#  id                 :bigint           not null, primary key
-#  campaign_id        :bigint
-#  name               :text
-#  start              :datetime
-#  finish             :datetime
-#  timezone           :string
-#  points             :integer
-#  challenge_type     :string
-#  feature            :boolean
-#  creator_id         :integer
-#  approver_id        :integer
-#  content            :text
-#  link               :text
-#  clicks             :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  description        :text
-#  reward_type        :integer
-#  reward_id          :bigint
-#  is_approved        :boolean          default(FALSE)
-#  image              :string
-#  social_title       :string
-#  social_description :string
-#  social_image       :string
-#  login_count        :integer
-#  title              :string
-#  points_click       :string
-#  points_maximum     :string
-#  duration           :integer
-#  parameters         :integer
-#  category           :integer
-#  address            :string
-#  longitude          :float
-#  latitude           :float
-#  location_distance  :integer
-#  filter_type        :integer          default("all_filters")
-#  filter_applied     :boolean          default(FALSE)
-#  caption            :string
-#  icon               :string
+#  id                   :bigint           not null, primary key
+#  campaign_id          :bigint
+#  name                 :text
+#  start                :datetime
+#  finish               :datetime
+#  timezone             :string
+#  points               :integer
+#  challenge_type       :string
+#  feature              :boolean
+#  creator_id           :integer
+#  approver_id          :integer
+#  content              :text
+#  link                 :text
+#  clicks               :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  description          :text
+#  reward_type          :integer
+#  reward_id            :bigint
+#  is_approved          :boolean          default(FALSE)
+#  image                :string
+#  social_title         :string
+#  social_description   :string
+#  social_image         :string
+#  login_count          :integer
+#  title                :string
+#  points_click         :string
+#  points_maximum       :string
+#  duration             :integer
+#  parameters           :integer
+#  category             :integer
+#  address              :string
+#  longitude            :float
+#  latitude             :float
+#  location_distance    :integer
+#  filter_type          :integer          default("all_filters")
+#  filter_applied       :boolean          default(FALSE)
+#  caption              :string
+#  icon                 :string
+#  success_message      :string
+#  failed_message       :string
+#  correct_answer_count :integer
 #
 
 class Challenge < ApplicationRecord

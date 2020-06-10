@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'constraints/subdomain_not_required'
+  require 'constraints/subdomain_required'
 
   ## Routes for Admin Users
   constraints(Constraints::SubdomainNotRequired) do
@@ -20,8 +22,13 @@ Rails.application.routes.draw do
       sessions: 'participants/sessions',
       passwords: 'participants/passwords',
       confirmations: 'participants/confirmations',
-      :omniauth_callbacks => "participants/omniauth_callbacks"
+      omniauth_callbacks: "participants/omniauth_callbacks"
     }
+
+    devise_scope :participant do
+      get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
+      get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
+    end
 
     namespace :admin do
       namespace :organizations do
@@ -96,5 +103,6 @@ Rails.application.routes.draw do
     get '/template', to: 'welcome#home', as: :template
     get '/participants/dashboard', to: 'welcome#participant_dashboard', as: :participant_dashboard
     get '/participants', to: 'welcome#participants', as: :participants
+    get '/welcome', to: 'welcome#welcome'
   end
 end

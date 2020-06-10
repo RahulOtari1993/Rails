@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_071349) do
+ActiveRecord::Schema.define(version: 2020_06_09_115641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2020_06_05_071349) do
     t.bigint "organization_id"
     t.string "name", null: false
     t.string "domain", null: false
-    t.integer "domain_type", null: false
+    t.integer "domain_type", default: 1, null: false
     t.string "twitter"
     t.text "rules"
     t.text "privacy"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2020_06_05_071349) do
     t.datetime "updated_at", null: false
     t.string "general_title"
     t.string "my_account_title"
+    t.boolean "white_branding", default: false
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
   end
 
@@ -195,18 +196,6 @@ ActiveRecord::Schema.define(version: 2020_06_05_071349) do
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
-  create_table "configurations", force: :cascade do |t|
-    t.string "facebook_app_id"
-    t.string "facebook_app_secret"
-    t.string "google_client_id"
-    t.string "google_client_secret"
-    t.string "twitter_app_id"
-    t.string "twitter_app_secret"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "white_branding"
-  end
-
   create_table "coupons", force: :cascade do |t|
     t.bigint "reward_id"
     t.integer "reward_participant_id"
@@ -226,6 +215,17 @@ ActiveRecord::Schema.define(version: 2020_06_05_071349) do
     t.index ["campaign_id"], name: "index_domain_lists_on_campaign_id"
     t.index ["domain"], name: "index_domain_lists_on_domain", unique: true
     t.index ["organization_id"], name: "index_domain_lists_on_organization_id"
+  end
+
+  create_table "global_configurations", force: :cascade do |t|
+    t.string "facebook_app_id"
+    t.string "facebook_app_secret"
+    t.string "google_client_id"
+    t.string "google_client_secret"
+    t.string "twitter_app_id"
+    t.string "twitter_app_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "networks", force: :cascade do |t|
@@ -307,6 +307,14 @@ ActiveRecord::Schema.define(version: 2020_06_05_071349) do
     t.string "address_1"
     t.string "address_2"
     t.text "bio"
+    t.string "p_id"
+    t.string "facebook_uid"
+    t.string "facebook_token"
+    t.datetime "facebook_expires_at"
+    t.string "google_uid"
+    t.string "google_token"
+    t.string "google_refresh_token"
+    t.datetime "google_expires_at"
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end

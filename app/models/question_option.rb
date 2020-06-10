@@ -7,6 +7,7 @@
 #  details     :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  answer      :string
 #
 class QuestionOption < ApplicationRecord
   ## Associations

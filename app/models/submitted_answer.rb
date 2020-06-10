@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: question_answers
+# Table name: submitted_answers
 #
 #  id                 :bigint           not null, primary key
 #  challenge_id       :bigint

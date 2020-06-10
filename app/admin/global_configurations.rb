@@ -1,8 +1,8 @@
-ActiveAdmin.register Configuration do
+ActiveAdmin.register GlobalConfiguration do
   config.filters = false
   actions :all, :except => [:destroy]
 
-  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret, :white_branding
+  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret
 
   index do
     selectable_column
@@ -17,14 +17,13 @@ ActiveAdmin.register Configuration do
   end
 
   form do |f|
-    f.inputs 'Configuration Details' do
+    f.inputs 'Perk Configuration Details' do
       f.input :facebook_app_id
       f.input :facebook_app_secret
       f.input :google_client_id
       f.input :google_client_secret
       f.input :twitter_app_id
       f.input :twitter_app_secret
-      f.input :white_branding
     end
     f.actions
   end

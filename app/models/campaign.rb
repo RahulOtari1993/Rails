@@ -6,7 +6,7 @@
 #  organization_id     :bigint
 #  name                :string           not null
 #  domain              :string           not null
-#  domain_type         :integer          not null
+#  domain_type         :integer          default("include_in_domain"), not null
 #  twitter             :string
 #  rules               :text
 #  privacy             :text
@@ -27,6 +27,7 @@
 #  updated_at          :datetime         not null
 #  general_title       :string
 #  my_account_title    :string
+#  white_branding      :boolean          default(FALSE)
 #
 class Campaign < ApplicationRecord
   ## Associations
