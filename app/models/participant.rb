@@ -139,7 +139,7 @@ class Participant < ApplicationRecord
     unless participant.present?
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
-    
+
     Rails.logger.info "************************* FB AUTO INFO --> #{auth.info} *************************"
     Rails.logger.info "************************* FB AUTO facebook_uid --> #{auth.uid} *************************"
     Rails.logger.info "************************* FB AUTO facebook_token --> #{auth.credentials.token} *************************"
@@ -193,11 +193,13 @@ class Participant < ApplicationRecord
     Rails.logger.info "************************* Google AUTO Google_token --> #{auth.credentials.token} *************************"
     Rails.logger.info "************************* Google AUTO Google_refresh_token --> #{auth.credentials.refresh_token} *************************"
     Rails.logger.info "************************* Google AUTO Google_expires_at --> #{auth.credentials.expires_at} *************************"
+    refresh_token = auth.credentials.refresh_token.present?
+    Rails.logger.info "************************* Google AUTO TOKEN PRESENT --> #{refresh_token} *************************"
 
     if participant.present?
       participant.google_uid = auth.uid,
       participant.google_token = auth.credentials.token
-      participant.google_refresh_token = auth.credentials.refresh_token
+      participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
     else
       params = {
