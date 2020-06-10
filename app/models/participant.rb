@@ -139,7 +139,11 @@ class Participant < ApplicationRecord
     unless participant.present?
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
-    Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
+    
+    Rails.logger.info "************************* FB AUTO INFO --> #{auth.info} *************************"
+    Rails.logger.info "************************* FB AUTO facebook_uid --> #{auth.uid} *************************"
+    Rails.logger.info "************************* FB AUTO facebook_token --> #{auth.credentials.token} *************************"
+    Rails.logger.info "************************* FB AUTO facebook_expires_at --> #{auth.credentials.expires_at} *************************"
 
     if participant.present?
       participant.facebook_uid = auth.uid,
@@ -184,14 +188,18 @@ class Participant < ApplicationRecord
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
 
+    Rails.logger.info "************************* Google AUTO INFO --> #{auth.info} *************************"
+    Rails.logger.info "************************* Google AUTO Google_uid --> #{auth.uid} *************************"
+    Rails.logger.info "************************* Google AUTO Google_token --> #{auth.credentials.token} *************************"
+    Rails.logger.info "************************* Google AUTO Google_refresh_token --> #{auth.credentials.refresh_token} *************************"
+    Rails.logger.info "************************* Google AUTO Google_expires_at --> #{auth.credentials.expires_at} *************************"
+
     if participant.present?
       participant.google_uid = auth.uid,
       participant.google_token = auth.credentials.token
       participant.google_refresh_token = auth.credentials.refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
     else
-      Rails.logger.info "************************* auth.info --> #{auth.info} *************************"
-
       params = {
           organization_id: org.id,
           campaign_id: camp.id,
