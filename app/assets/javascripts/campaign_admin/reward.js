@@ -240,8 +240,8 @@ $(document).ready(function () {
   // Format Date
   function formatDate(date) {
     let dateObj = new Date(date);
-    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
-        ("0" + (dateObj.getDate() + 1)).slice(-2) +
+    return ("0" + (dateObj.getMonth())).slice(-2) + '/' +
+        ("0" + (dateObj.getDate())).slice(-2) +
         '/' + dateObj.getFullYear()
   }
 
@@ -264,7 +264,6 @@ $(document).ready(function () {
       "url": "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "/rewards/generate_reward_json",
       "dataSrc": "rewards",
       dataFilter: function (data, callback, settings) {
-        console.log("------CampaignId-------", $('#reward-list-table').attr('campaign_id'))
         var json = jQuery.parseJSON(data);
         return JSON.stringify(json);
       },

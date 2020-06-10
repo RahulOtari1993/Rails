@@ -188,9 +188,9 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
                                                    :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                                                                                                   :reward_value, :reward_event],
                                                    reward_rules_attributes: [:id, :reward_id, :rule_type, :rule_condition, :rule_value])
+    return_params[:start] = Chronic.parse(params[:reward][:start]).beginning_of_day
+    return_params[:finish] = Chronic.parse(params[:reward][:finish]).end_of_day
 
-    return_params[:start] = Chronic.parse(params[:reward][:start])
-    return_params[:finish] = Chronic.parse(params[:reward][:finish])
     return_params
   end
 
