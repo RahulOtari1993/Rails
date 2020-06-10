@@ -14,9 +14,17 @@
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box1">
             <h5>Welcome back, please login to your account.</h5>
-            <button type="button" class="btn box1_btn facebook-login-btn btn-block"><i class="fa fa-facebook"></i> Login With Facebook</button>
+            <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+               class="btn box1_btn facebook_btn btn-block">
+              <span class="icon-btn-share fa fa-facebook"></span>
+              <span class="btn-share-text">Login With Facebook</span>
+            </a>
             <div class="clear"></div>
-            <button type="button" class="btn box1_btn google-login-btn btn-block"><i class="fa fa-google" aria-hidden="true"></i> Login With Google</button>
+            <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+               class="btn box1_btn google_btn btn-block">
+              <span class="icon-btn-share fa fa-google"></span>
+              <span class="btn-share-text">Continue With Google</span>
+            </a>
             <div class="clear"></div>
             <button type="button" class="btn box1_btn email-login-btn btn-block" id="signin_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Login With Email</button>
             <div class="clear"></div>
