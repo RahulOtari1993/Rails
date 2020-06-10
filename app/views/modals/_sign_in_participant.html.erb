@@ -1,0 +1,166 @@
+<div class="modal" id="sign_in_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal_box signin-type">
+          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <div class="box1">
+            <h5>Welcome back, please login to your account.</h5>
+            <button type="button" class="btn box1_btn facebook-login-btn btn-block"><i class="fa fa-facebook"></i> Login With Facebook</button>
+            <div class="clear"></div>
+            <button type="button" class="btn box1_btn google-login-btn btn-block"><i class="fa fa-google" aria-hidden="true"></i> Login With Google</button>
+            <div class="clear"></div>
+            <button type="button" class="btn box1_btn email-login-btn btn-block" id="signin_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Login With Email</button>
+            <div class="clear"></div>
+          </div>
+        </div>
+
+        <div class="modal_box signin-step1 hide">
+          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <div class="box2">
+            <h5>Welcome back, please login to your account.</h5>
+            <%= form_for(Participant.new, as: :participant, url: participant_session_path, html: {class: 'login_form' } ) do |f| %>
+              <%#= render 'shared/flash_messages' %>
+
+              <% if @organization.present? %>
+                <%= hidden_field_tag 'participant[organization_id]', @organization.id %>
+              <% else %>
+                <%= hidden_field_tag 'participant[organization_id]', 0 %>
+              <% end %>
+
+              <div class="row">
+                <div class="col-md-12">
+                  <%= f.email_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
+                </div>
+                <div class="col-md-12">
+                  <%= f.password_field :password, required: true, class: 'form-control', placeholder: 'Password' %>
+                </div>
+                <div class="col-12">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
+                <div class="col-12">
+                  <%= f.submit "Log in", class: 'btn box1_btn btn-block' %>
+                </div>
+                <div class="col-12">
+                  <%= link_to "Forgot password?", new_participant_password_path %>
+                </div>
+              </div>
+
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#signin_with_email').click(function(){
+      $('.signin-type').hide();
+      $('.signin-step1').show();
+    });
+
+    $("#sign_in_modal").on("hidden.bs.modal", function () {
+      $('.signin-type').show()
+      $('.signin-step1').hide()
+      $(".login_form").validate().resetForm();
+    });
+
+  });
+</script>
+
+<style media="screen">
+  #sign_in_modal .modal-dialog{
+    max-width: 620px;
+  }
+
+  .modal_box{
+    border: 2px solid #ccc;
+    padding: 20px 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .box1_btn{
+    font-weight: 100;
+    border-radius: 22px;
+    padding: 7px 23px;
+    margin-bottom: 17px;
+    background-color: #818a91;
+    color: #fff;
+  }
+
+  .facebook-login-btn {
+    background-color: #4060B2;
+    color: #f2f2f2;
+  }
+
+  .google-login-btn {
+    background-color: #000;
+    color: #f2f2f2;
+  }
+
+  .email-login-btn {
+    background-color: #fff;
+    border:2px solid #000 ;
+    color: #000;
+  }
+
+  .modal_box .fa {
+    float: left;
+    line-height: 24px;
+  }
+
+  .box1_para {
+    font-size: 12px;
+  }
+  .modal_box a {
+    color: #1bb0ce;
+  }
+  .modal_box h5 {
+    font-size: 18px;
+    margin-bottom: 17px;
+  }
+
+  .modal_box .form-control {
+    margin-bottom: 13px;
+  }
+
+  #sign_in_modal .modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+    position: absolute;
+    z-index: 555;
+    top: 22px;
+    right: 26px;
+  }
+  #sign_in_modal .modal-header{
+    padding: 0px;
+  }
+  #sign_in_modal .modal-title {
+    text-align: center;
+  }
+
+  span.error {
+    color: red;
+    float: left;
+    font-size: 13px;
+  }
+</style>
