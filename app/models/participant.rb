@@ -146,7 +146,7 @@ class Participant < ApplicationRecord
     Rails.logger.info "************************* FB AUTO facebook_expires_at --> #{auth.credentials.expires_at} *************************"
 
     if participant.present?
-      participant.facebook_uid = auth.uid,
+      participant.facebook_uid = auth.uid
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
     else
@@ -197,7 +197,7 @@ class Participant < ApplicationRecord
     Rails.logger.info "************************* Google AUTO TOKEN PRESENT --> #{refresh_token} *************************"
 
     if participant.present?
-      participant.google_uid = auth.uid,
+      participant.google_uid = auth.uid
       participant.google_token = auth.credentials.token
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
@@ -242,11 +242,7 @@ class Participant < ApplicationRecord
 
   private
     def generate_participant_id
-      # self.p_id = Participant.get_participant_id
       self.update_attribute('p_id', Participant.get_participant_id)
-
-      Rails.logger.info "************************* generate_participant_id --> #{self.inspect} *************************"
-      # self.save
     end
 
     def save_participant_details
