@@ -85,7 +85,7 @@
                               <div class="form-group">
                                 <div class="position-relative">
                                   <%= form.select :reward_id,
-                                                  options_for_select(Reward.all.map { |v| [v.name.titleize, v.id] }.compact),
+                                                  options_for_select(challenge_reward_list),
                                                   {prompt: 'Select Prize'}, class: 'form-control reward_id_dd' %>
                                 </div>
                               </div>

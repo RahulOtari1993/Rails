@@ -54,7 +54,6 @@ class Reward < ApplicationRecord
   enum filter_type: {all_filters: 0, any_filter: 1}
   serialize :image
 
-
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
   accepts_nested_attributes_for :reward_rules, allow_destroy: true, :reject_if => :all_blank
 
@@ -67,6 +66,9 @@ class Reward < ApplicationRecord
   ## Constants
   SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone_reward]
   FULFILMENTS = %w[default badge points download]
+
+  ## Scopes
+  scope :active, -> { where("finish > ?", Time.zone.now) }
 
   validates :campaign, presence: true
   validates :name, presence: true
