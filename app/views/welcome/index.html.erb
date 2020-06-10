@@ -39,14 +39,6 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <% if current_participant.present? %>
-          <H1>Welcome, You are logged in successfully!</H1>
-          <%= link_to('Logout Participant', destroy_participant_session_path, method: :delete) %>
-        <% end %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
         <h3>Earn GoBucks</h3>
         <p>Stay connected with these challenges <span>to earn discounts and rewards.</span> </p>
       </div>
@@ -124,6 +116,22 @@
   </div>
 </section>
 <!-- Rewards Section end -->
+<!-- Top footer start -->
+<section class="footer_top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-9">
+        <h4 class="text-white">The sooner the join, the better your chances!</h4>
+        <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
+      </div>
+      <div class="col-md-4 col-lg-3">
+       <button class="footer_top_btn">JOIN NOW</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="clear"></div>
+<!-- Top footer end -->
 
 
 <script type="text/javascript">

@@ -24,7 +24,8 @@ module Devise
 
       ## Custom Login To Validate a User
       def custom_validate(resource)
-        if is_campaign_participant?(resource)
+
+        if is_participant?(resource)
           check_subdomain_access(resource)
         else
           true
@@ -33,18 +34,18 @@ module Devise
 
       ## CHeck if USer do Have Access on Sub Domain
       def check_subdomain_access(resource)
-        subdomain = request.subdomain.split('.')
-        organization = Organization.where(sub_domain: subdomain[0]).first
-        campaign = Campaign.where(domain: subdomain[1]).first
+        # subdomain = request.subdomain.split('.')
+        # organization = Organization.where(sub_domain: subdomain[0]).first
+        # campaign = Campaign.where(domain: subdomain[1]).first
 
-        # domain = DomainList.where(domain: request.subdomain).first
-        # campaign = nil
-        # if domain.present?
-        #   organization = Organization.where(id: domain.organization_id).first
-        #   campaign = Campaign.where(id: domain.campaign_id).first
-        # else
-        #   organization = Organization.where(sub_domain: request.subdomain).first
-        # end
+        domain = DomainList.where(domain: request.subdomain).first
+        campaign = nil
+        if domain.present?
+          organization = Organization.where(id: domain.organization_id).first
+          campaign = Campaign.where(id: domain.campaign_id).first
+        else
+          false
+        end
 
         if organization.present? && campaign.present?
           # if campaign.present?
@@ -52,7 +53,7 @@ module Devise
           #   return camp_user.present?
           # end
 
-          return is_campaign_participant?(resource)
+          return true
         else
           return false
         end
@@ -68,14 +69,6 @@ module Devise
       #   OrganizationAdmin.where(organization_id: organization.id, user_id: resource.id).first
       # end
 
-      ## Check if User is not Campaign Participant
-      def is_campaign_participant?(resource)
-        if is_participant?(resource)
-          Campaign.joins(:campaigns_participants).where("campaigns_participants.particpant_id = #{resource.id} ")
-        # Campaign.joins(:campaign).where(campaigns: {organization_id: organization.id, is_active: true},
-        #                                     camparticipants: {user_id: resource.id}).where.not(campaign_users: {role: 0}).first
-        end
-      end
     end
   end
 end

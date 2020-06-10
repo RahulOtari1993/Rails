@@ -4,6 +4,7 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   require 'devise/strategies/database_authenticatable_for_admin'
+  require 'devise/strategies/database_authenticatable_for_participant'
 
   config.warden do |manager|
     Warden::Strategies.add(:database_authenticatable_for_admin,
