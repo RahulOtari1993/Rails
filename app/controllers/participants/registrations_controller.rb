@@ -49,7 +49,7 @@ class Participants::RegistrationsController < Devise::RegistrationsController
   # end
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :email, :organization_id, :is_active, :campaign_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :email, :password, :password_confirmation, :organization_id, :is_active, :campaign_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -58,12 +58,12 @@ class Participants::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    redirect_to participants_path
-  end
+  # def after_sign_up_path_for(resource)
+  #   after_sign_in_path_for(resource) if is_navigational_format?
+  # end
 
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
+  #   participant_dashboard_path
   # end
 end

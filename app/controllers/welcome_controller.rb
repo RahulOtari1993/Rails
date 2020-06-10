@@ -4,6 +4,8 @@ class WelcomeController < ApplicationController
   layout 'end_user'
 
   def index
+    @challenges = @campaign.challenges.featured.current_active
+    @rewards = @campaign.rewards.featured.current_active
   end
 
   def home
@@ -13,5 +15,8 @@ class WelcomeController < ApplicationController
   end
 
   def participants
+  end
+
+  def participant_dashboard
   end
 end

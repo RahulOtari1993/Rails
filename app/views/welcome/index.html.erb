@@ -1,3 +1,140 @@
-<H1>Welcome, You are logged in successfully!</H1>
+<section class="hero_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 left">
+        <h1>THE Offical Loyalty Program of Buckeye Nation</h1>
+        <h5>Take your Buckeye Pride to the next level with Buckeye Nation Rewards. The only way to get insider access and perks for your pride. </h5>
+        <button class="banner_btn">Get Started!</button>
+      </div>
+      <div class="col-lg-6">
+        <% unless @rewards.blank? %>
+          <h4 class="right_title">What you can win:</h4>
+          <div id="banner_carousel" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+            <div class="carousel-inner">
+              <% @rewards.each_with_index do |reward, index| %>
+                <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
+                  <%= image_tag(reward.image.banner.url) %>
+                  <h3><%= reward.name %></h3>
+                  <div class="carousel-caption">
+                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
 
-<%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+<!-- Challenges section start -->
+<section class="section1">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Earn GoBucks</h3>
+        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span> </p>
+      </div>
+      <% unless @challenges.blank? %>
+        <% @challenges.each_with_index do |challenge| %>
+          <div class="col-12 col-md-4">
+            <div class="image_box_bg">
+              <%= image_tag(challenge.image.banner.url, class: 'box_img_style') %>
+              <div class="card image_box position_abs">
+                <div class="image_inner_text">
+                  <div class="width_100">
+                    <div class="width_50" style="float: left;"><span class="left"><%= "+#{challenge.points.to_i}" %></span> </div>
+                    <div class="width_50" style="float: right;"><%= image_tag("end-user/play-button.svg", style: "width: 40px;float: right;") %></div>
+                  </div>
+                  <div class="clear"></div>
+                  <h2 class="image_box_title"><%= challenge.name %></h2>
+                  <div class="width_100">
+                    <% if challenge.challenge_type = "signup" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %></button></div>
+                    <% elsif challenge.challenge_type == "video" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn">Watch Now</button> </div>
+                    <% elsif challenge.challenge_type == "article" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn">Read Article</button> </div>
+                    <% elsif challenge.challenge_type == "referral" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Refer #{challenge.parameters.titleize}" %></button> </div>
+                    <% elsif challenge.challenge_type == "collect" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Take a #{challenge.parameters.titleize} Now" %></button> </div>
+                    <% end %>
+                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, challenge.finish) %></span></div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Challenges section end -->
+
+<!-- Rewards Section start -->
+<section class="section2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Current Prizes</h3>
+        <p>The more GoBucks you earn <span>the more you can win.</span> </p>
+      </div>
+      <% unless @rewards.blank? %>
+        <% @rewards.each_with_index do |reward, index| %>
+          <div class="col-12 col-md-4">
+            <div class="card image_box">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <div class="width_50" style="float: left;"><span class="left">CASH-IN <br> REWARD</span> </div>
+                  <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
+                </div>
+                <div class="clear"></div>
+                <%= image_tag(reward.image.banner.url, style: "width:100%;height: 200px;margin: 12px 0px;") %>
+                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
+                <h5><%= reward.description %></h5>
+                <div class="width_100">
+                  <div class="width_50" style="float: left;"><button class="watch_btn">Learn More</button> </div>
+                  <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, reward.finish) %></span></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Rewards Section end -->
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var height;
+    $('.image_box_bg .card').each(function() {
+      height = $(this).innerHeight()
+      imageDiv = $(this).parent().find('.box_img_style');
+      imageDiv.css('height', height);
+    });
+  });
+</script>
+
+<style media="screen">
+  .hero_section{
+    margin-top: 60px;
+    padding: 100px 0px 100px;
+    background-image: url('<%= asset_path 'end-user/banner_bg.png' %>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+</style>

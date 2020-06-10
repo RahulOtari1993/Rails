@@ -1,0 +1,253 @@
+<div class="modal" id="join_now_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="modal_box signup-type">
+          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <div class="box1">
+            <h5>Join the other members who are already winning great prizes and rewards.</h5>
+            <button type="button" class="btn box1_btn facebook_btn btn-block"><i class="fa fa-facebook"></i> Continue With Facebook</button>
+            <div class="clear"></div>
+            <button type="button" class="btn box1_btn google_btn btn-block"><i class="fa fa-google" aria-hidden="true"></i> Continue With Google</button>
+            <div class="clear"></div>
+            <button type="button" class="btn box1_btn email_btn btn-block" id="signup_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Continue With Email</button>
+            <div class="clear"></div>
+            <p class="box1_para">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+          </div>
+        </div>
+
+        <div class="modal_box signup-step1 hide">
+          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <div class="box2">
+            <h5>Join the other members who are already winning great prizes and rewards.</h5>
+
+            <%= form_for(Participant.new, as: :participant, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
+              <div class="row">
+                <%= f.hidden_field :campaign_id, value: @campaign.id %>
+                <%= f.hidden_field :organization_id, value: @campaign.organization_id %>
+
+                <div class="col-md-6">
+                  <%= f.text_field :first_name, class: "form-control", placeholder: "First Name*", autocomplete: "off" %>
+                </div>
+
+                <div class="col-md-6">
+                  <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name*", autocomplete: "off" %>
+                </div>
+
+                <div class="col-md-12">
+                  <%= f.email_field :email, class: "form-control", placeholder: "Email Address*", autocomplete: "off" %>
+                </div>
+                <div class="col-md-12">
+                  <%= email_field_tag 'participant[email_confirmation]', nil, class: "form-control email-confirmation-txt", placeholder: "Confirm Email Address*", autocomplete: "off" %>
+                </div>
+
+                <div class="col-md-6">
+                  <%= f.password_field :password, class: "form-control", placeholder: "Choose Password*", autocomplete: "off" %>
+                </div>
+
+                <div class="col-md-6">
+                  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Re Enter Password*", autocomplete: "off" %>
+                </div>
+
+                <div class="col-md-12">
+                  <%= f.submit "Sign Up", class: 'btn box1_btn btn-block' %>
+                  <p class="box1_para">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+                </div>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+
+        <div class="modal_box signup-step2 hide">
+          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <div class="box3">
+            <h5 class="text-center">Nice! You just earned <span style=" color: #ff0000; ">{SignUpPoints} Points</span>. Now lets personalize your content. </h5>
+            <h5 class="text-center">Earn a bonus <span style=" color: #ff0000; ">{ProfilePrefPoints} Points</span>.  now by completing your profile: </h5>
+            <form>
+              <div class="form-group">
+                <label for="Phone Number">Phone Number</label>
+                <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number*" required="required">
+              </div>
+              <div class="form-group">
+                <label for = "name">How are you tied to Ohio State University? (affiliation)</label>
+                <div>
+                  <label class = "checkbox-inline">
+                    <input type = "checkbox" id = "inlineCheckbox1" value = "option1"> Option1
+                  </label>
+                  <label class = "checkbox-inline">
+                    <input type = "checkbox" id = "inlineCheckbox2" value = "option2"> Option2
+                  </label>
+                  <label class = "checkbox-inline">
+                    <input type = "checkbox" id = "inlineCheckbox3" value = "option3"> Option3
+                  </label>
+                  <label class = "checkbox-inline">
+                    <input type = "checkbox" id = "inlineCheckbox4" value = "option4"> Option4
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="Your Zip">What is your Zipcode?</label>
+                <input type="text" class="form-control" id="Your Zip" placeholder="Your Zip">
+                <p class="Zipcode_text">We send you localized content and rewards.</p>
+              </div>
+
+              <div class="form-group">
+                <label for="Gender">Gender</label>
+                <select id="Gender" class="form-control">
+                  <option selected="">Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="Birthday">Birthday</label>
+                <input type="date" class="form-control" id="Birthday" placeholder="Select Your Birthday">
+              </div>
+
+              <div class="form-group">
+                <label for="Custom Question">Custom Question</label>
+                <input type="text" class="form-control" id="Custom Question" placeholder="Custom Answer">
+              </div>
+
+              <button type="button" class="btn box1_btn btn-block"> Complete Signup</button>
+              <p class="box1_para text-center">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#signup_with_email').click(function(){
+      $('.signup-type').hide();
+      $('.signup-step2').hide();
+      $('.signup-step1').show();
+    });
+
+    $("#join_now_modal").on("hidden.bs.modal", function () {
+      $('.signup-type').show()
+      $('.signup-step1').hide()
+      $(".participant-sign-up-form").validate().resetForm();
+    });
+
+  });
+</script>
+
+<style media="screen">
+  #join_now_modal .modal-dialog{
+    max-width: 620px;
+  }
+
+  .modal_box{
+    border: 2px solid #ccc;
+    padding: 20px 40px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .box1_btn{
+    font-weight: 100;
+    border-radius: 22px;
+    padding: 7px 23px;
+    margin-bottom: 17px;
+    background-color: #818a91;
+    color: #fff;
+  }
+
+  .facebook_btn {
+    background-color: #4060B2;
+    color: #f2f2f2;
+  }
+
+  .google_btn {
+    background-color: #000;
+    color: #f2f2f2;
+  }
+
+  .email_btn {
+    background-color: #fff;
+    border:2px solid #000 ;
+    color: #000;
+  }
+
+  .modal_box .fa {
+    float: left;
+    line-height: 24px;
+  }
+
+  .box1_para {
+    font-size: 12px;
+  }
+  .modal_box a {
+    color: #1bb0ce;
+  }
+  .modal_box h5 {
+    font-size: 18px;
+    margin-bottom: 17px;
+  }
+
+  .modal_box .form-control {
+    margin-bottom: 13px;
+  }
+  .box3{
+    text-align: left;
+  }
+  .Zipcode_text{
+    font-size: 12px;
+    font-weight: 100;
+    margin-bottom: 0px;
+    margin-top: -8px;
+  }
+  .box3 label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #3D3D3D;
+    font-weight: 600;
+  }
+  .box3 .checkbox-inline {
+    color: inherit;
+    font-weight: 100;
+    padding-right: 10px;
+  }
+
+  #join_now_modal .modal-header .close {
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+    position: absolute;
+    z-index: 555;
+    top: 22px;
+    right: 26px;
+  }
+  #join_now_modal .modal-header{
+    padding: 0px;
+  }
+  #join_now_modal .modal-title {
+    text-align: center;
+  }
+
+  span.error {
+    color: red;
+    float: left;
+    font-size: 13px;
+  }
+</style>

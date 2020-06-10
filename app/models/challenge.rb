@@ -81,7 +81,9 @@ class Challenge < ApplicationRecord
   acts_as_taggable_on :tags
 
   ## Scopes
-  scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
+  # scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
+  scope :featured, -> { where(arel_table[:feature].eq(true)) }
+  scope :current_active, -> { where("start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())")  }
 
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,

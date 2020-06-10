@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% template = @campaign.campaign_template_detail %>
+  <meta charset="UTF-8">
+  <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
+    <%= raw @campaign.seo %>
+  <% else %>
+    <title>The Ohio State | My Rewards</title>
+  <% end %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
+
+  <!-- Favicon Icon -->
+  <link rel="shortcut icon" type="image/x-icon" href="<%= template.favicon_file.url %>">
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Lato:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Holtwood+One+SC:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link id='font-import' href="https://fonts.googleapis.com/css?family=Corben:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<style>
+  .page-footer {
+    background-color: <%= template.footer_background_color.present? ? template.footer_background_color : '#BB0000' %> !important;
+    color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
+  }
+
+  .page-footer a,
+  .page-footer a:visited {
+    color: #C9C9C9;
+  }
+
+  .page-footer a:hover {
+    color: #969696;
+  }
+
+  .page-footer p, .page-footer a {
+    font-size: <%= template.footer_font_size.present? ? "#{template.footer_font_size}px" : '1.1rem' %>;
+    color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
+  }
+
+  .custom-header {
+    font-size: <%= template.header_font_size.present? ? "#{template.header_font_size}px" : '1.1rem' %>;
+    color: <%= template.header_font_color.present? ? "#{template.header_font_color}" : '#fefefe' %>;
+  }
+
+  /* Custom CSS from Campaign Settings */
+  <%= @campaign.css %>
+</style>
+
+<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static"
+      id="logged-out-user-page" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="content-wrapper">
+    <div class="content-body">
+      <div id="user-profile">
+        <div class="row">
+          <div class="col-12">
+            <div class="profile-header mb-2">
+              <div class="relative">
+                <div class="cover-container" id="bg-cover-image" style="background-image: url(<%= template.header_background_image.url %>)">
+                  <nav class="top-nav">
+                    <span class="logged-out">
+                      <div class="wrap">
+                        <div class="nav-login">
+                        <!-- <img src="/osu/img/site/logged-out-logo.svg" class="logged-out-logo"> -->
+                          <a href="<%= new_participant_registration_path %>" class="nav-link">Sign Up</a>
+                          <a href="<%= new_participant_session_path %>" class="nav-link"><svg viewBox="0 0 100 100" class="icon-nav-item"><use xlink:href="#svg-sign-out"></use></svg>Log In</a>
+                        </div>
+                      </div>
+                    </span>
+                  </nav>
+
+                  <div class="wrap">
+                    <div class="hero-content">
+                      <div class="hero-content-block left_slider">
+
+                        <img class="header-logo" src="<%= template.header_logo.url %>" alt="" class="hero-logo initial loaded" data-was-processed="true">
+                        <p class="custom-header">
+                          <%= template.header_text %>
+                        </p>
+                        <h6 class="hero-sub-title">This Week's Rewards:</h6>
+
+                        <div class="slider">
+                          <div>
+                            <%= image_tag('end-user/Cedar-Point.jpg', class: 'initial loaded') %>
+                            <p>Buckeyes take over Cedar Point! Both Ohio State and Cedar Point are celebrating 150 years
+                              in 2020, so this year’s Cedar Point Day is bound to be the biggest yet! Enjoy this
+                              exclusive day just for Buckeyes at the best theme park in the country! </p>
+                          </div>
+                          <div>
+                            <%= image_tag('end-user/_50-Gift-Card-to-Buckeye-Corner---BNR', class: 'initial loaded') %>
+                            <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>
+                          </div>
+                          <div>
+                            <%= image_tag('end-user/Cedar-Point.jpg', class: 'initial loaded') %>
+                            <p>Buckeyes take over Cedar Point! Both Ohio State and Cedar Point are celebrating 150 years
+                              in 2020, so this year’s Cedar Point Day is bound to be the biggest yet! Enjoy this
+                              exclusive day just for Buckeyes at the best theme park in the country! </p>
+                          </div>
+                          <div>
+                            <%= image_tag('end-user/_50-Gift-Card-to-Buckeye-Corner---BNR', class: 'initial loaded') %>
+                            <p>3 Members will win this Gift Card redeemable at The Buckeye Corner and Lids.com</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="hero-content-block -card logged-out-carousel-container right_slider">
+                        <div class="slider">
+                          <div class="slider_2_box">
+                            <%= image_tag('end-user/win.svg', class: 'logged-out-img initial loaded') %>
+                            <h1 class="card-title">WIN</h1>
+                            <p class="card-desc">The more GoBucks you earn,<br> the more you win. It’s easy!</p>
+                          </div>
+
+                          <div class="slider_2_box">
+                            <%= image_tag('end-user/join.svg', class: 'logged-out-img initial loaded') %>
+                            <h1 class="card-title">JOIN</h1>
+                            <p class="card-desc">Join for instant access to exclusive<br> prizes &amp; rewards.</p>
+                          </div>
+
+                          <div class="slider_2_box">
+                            <%= image_tag('end-user/engage.svg', class: 'logged-out-img initial loaded') %>
+                            <h1 class="card-title">ENGAGE</h1>
+                            <p class="card-desc">Earn 250+ GoBucks just for joining, and even more for completing
+                              fun &amp; easy challenges.</p>
+                          </div>
+                        </div>
+                        <div class="card-btns">
+                          <p class="card-buttons-text">Earn 250 GoBucks for joining now, double it to 500 by continuing
+                            with Facebook.</p>
+                          <a id="connect-bttn" href=<%= participant_facebook_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
+                            <span class="icon-btn-share fa fa-facebook"></span>
+                            <span class="btn-share-text">Continue With Facebook</span>
+                          </a>
+                          <a id="connect-bttn" href=<%= participant_google_oauth2_omniauth_authorize_path %> class="dark-fb-button btn-has-icon btn-join-facebook">
+                            <span class="icon-btn-share fa fa-google"></span>
+                            <span class="btn-share-text">Continue With Gmail</span>
+                          </a>
+                          <%#= link_to "Authenticate with Google!", '/auth/google_oauth2' %>
+
+                          <div class="spinner-section">
+                            <img id="connect-spin" src="../../../app-assets/images/slider/spinner.svg" class="spinner-scale">
+                          </div>
+                          <p class="small-link">or <a href="<%= new_user_registration_path %>">Sign Up with Email</a>
+                          </p>
+                        </div>
+                        <span class="logged-out-terms"><p> By joining, you agree to our
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#termsModal">Terms and Conditions</a>
+                            and
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a></p></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section id="profile-info" style="padding: 15px;">
+          <%= yield %>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<!--   Contact Us Modal-->
+<%= render 'modals/contact_us' %>
+
+<!--  Rules Modal-->
+<%= render 'modals/rules' %>
+
+<!-- Privacy Modal-->
+<%= render 'modals/privacy' %>
+
+<!--   Privacy Modal-->
+<%= render 'modals/terms' %>
+
+<!--  FAQ Modal-->
+<%= render 'modals/faq' %>
+
+<!-- Sign Up Modal-->
+<%#= render 'modals/sign_up' %>
+
+<footer class="page-footer">
+  <div class="wrap grid spacer">
+    <p>© <%= Time.current.year %> <%= @campaign.name %></p>
+    <nav class="footer-nav">
+      <p>
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#contactUsModal">
+          Contact Us
+        </a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#faqModal">FAQ</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#rulesModal">Rules</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#privacyModal">Privacy</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="javascript:void(0);" class="footer-nav-link" data-toggle="modal" data-target="#termsModal">Terms &amp;
+          Conditions</a>
+      </p>
+    </nav>
+  </div>
+</footer>
+</body>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.slider').bxSlider({
+      auto: true,
+      autoStart: true,
+      controls: false,
+      autoControls: false
+    });
+  });
+</script>
+
+</html>

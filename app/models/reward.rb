@@ -76,6 +76,10 @@ class Reward < ApplicationRecord
   validates :description, presence: true
   validates :image, presence: true
 
+  # Scopes
+  scope :featured, -> { where(arel_table[:feature].eq(true)) }
+  scope :current_active, -> (date = Time.now) { where(arel_table[:start].lteq(date).and(arel_table[:finish].gteq(date))) }
+
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
     if self.start.in_time_zone('UTC') > Time.now.in_time_zone('UTC')

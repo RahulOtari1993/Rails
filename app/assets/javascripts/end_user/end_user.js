@@ -10,3 +10,4 @@
 //= require jquery.validate.additional-methods
 
 //= require ../main
+//= require ../participant

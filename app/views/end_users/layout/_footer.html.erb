@@ -1,0 +1,56 @@
+<section class="footer_top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-9">
+        <h4 class="text-white">The sooner the join, the better your chances!</h4>
+        <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
+      </div>
+      <div class="col-md-4 col-lg-3">
+       <button class="footer_top_btn">JOIN NOW</button>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="clear"></div>
+
+<section class="footer_bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <ul class="ft_menu_list">
+          <li><a href="#" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#termsModal">Terms</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#rulesModal">Rules</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#faqModal">FAQs</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#contactUsModal">Contact</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#contactUsModal">Help & Support</a></li>
+        </ul>
+        <div class="clear"></div>
+        <p>© <%= Time.current.year %> <%= @campaign.name %> All rights Reserved.</p>
+      </div>
+      <div class="col-md-4">
+        <%= image_tag('end-user/Powered-by-Perk-Social.svg') %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--   Contact Us Modal-->
+<%= render 'modals/contact_us' %>
+<!--  Rules Modal-->
+<%= render 'modals/rules' %>
+<!-- Privacy Modal-->
+<%= render 'modals/privacy' %>
+<!--   Privacy Modal-->
+<%= render 'modals/terms' %>
+<!--  FAQ Modal-->
+<%= render 'modals/faq' %>
+
+<style media="screen">
+  .footer_bottom a {
+    color: #333 !important;
+  }
+  .footer_bottom a:hover {
+    text-decoration: none;
+  }
+</style>
