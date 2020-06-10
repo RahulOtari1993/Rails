@@ -14,21 +14,43 @@
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box1">
             <h5>Join the other members who are already winning great prizes and rewards.</h5>
-            <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
-                class="btn box1_btn facebook_btn btn-block">
-              <span class="icon-btn-share fa fa-facebook"></span>
-              <span class="btn-share-text">Continue With Facebook</span>
-            </a>
-            <div class="clear"></div>
-            <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
-                class="btn box1_btn google_btn btn-block">
-              <span class="icon-btn-share fa fa-google"></span>
-              <span class="btn-share-text">Continue With Google</span>
-            </a>
-            <div class="clear"></div>
-            <button type="button" class="btn box1_btn email_btn btn-block" id="signup_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Continue With Email</button>
-            <div class="clear"></div>
-            <p class="font-12">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+            <%
+              google_button = display_google_button
+              facebook_button = display_facebook_button
+              email_button = display_email_button
+            %>
+            <% if facebook_button %>
+              <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+                  class="btn box1_btn facebook_btn btn-block">
+                <span class="icon-btn-share fa fa-facebook"></span>
+                <span class="btn-share-text">Continue With Facebook</span>
+              </a>
+              <div class="clear"></div>
+            <% end %>
+
+            <% if google_button %>
+              <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+                  class="btn box1_btn google_btn btn-block">
+                <span class="icon-btn-share fa fa-google"></span>
+                <span class="btn-share-text">Continue With Google</span>
+              </a>
+              <div class="clear"></div>
+            <% end %>
+
+            <% if email_button %>
+              <button type="button" class="btn box1_btn email_btn btn-block" id="signup_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Continue With Email</button>
+              <div class="clear"></div>
+            <% end %>
+
+            <% if facebook_button || google_button || email_button %>
+              <p class="box1_para">By continuing, I agree to the <span style="text-decoration: underline;">
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">privacy policy</a></span>,
+                <span style="text-decoration: underline;">
+                  <a href="javascript:void(0);" data-toggle="modal" data-target="#rulesModal">rules</a></span>
+                and <span style="text-decoration: underline;">
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#termsModal" >terms</a></span>
+                &nbsp;of this program.&nbsp;</p>
+            <% end %>
           </div>
         </div>
 
