@@ -16,8 +16,14 @@ class Participants::SessionsController < Devise::SessionsController
   def create
     org_participant = @organization.participants.find_by(:email => params[:participant][:email])
     campaign_participant = @campaign.participants.where(:id => org_participant.id)
-    if org_participant.present? && campaign_participant.present? 
-      super
+    if org_participant.present? && campaign_participant.present?
+
+      self.resource = warden.authenticate!(auth_options)
+      set_flash_message!(:notice, :signed_in)
+      sign_in(resource_name, resource)
+      yield resource if block_given?
+      redirect_to participant_dashboard_path
+
     elsif org_participant.present?
       @campaign.participants << org_participant
       redirect_to new_participant_session_path(resource)

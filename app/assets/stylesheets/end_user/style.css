@@ -50,28 +50,6 @@
   font-size: 12px;
 }
 
-.facebook_btn {
-  background-color: #4060B2;
-  color: #f2f2f2 !important;
-}
-
-.google_btn {
-  background-color: #000;
-  color: #f2f2f2 !important;
-}
-
-.email_btn {
-  background-color: #fff;
-  border:2px solid #000 ;
-  color: #000;
-}
-
-span.error {
-  color: red;
-  float: left;
-  font-size: 13px;
-}
-
 .box1_btn{
   font-weight: 100;
   border-radius: 22px;
@@ -79,4 +57,26 @@ span.error {
   margin-bottom: 17px;
   background-color: #818a91;
   color: #fff;
+}
+
+.facebook_btn {
+  background-color: #4060B2 !important;
+  color: #f2f2f2 !important;
+}
+
+.google_btn {
+  background-color: #000 !important;
+  color: #f2f2f2 !important;
+}
+
+.email_btn {
+  background-color: #fff !important;
+  border:2px solid #000 !important;
+  color: #000 !important;
+}
+
+span.error {
+  color: red;
+  float: left;
+  font-size: 13px;
 }

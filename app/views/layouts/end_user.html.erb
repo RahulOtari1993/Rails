@@ -24,9 +24,17 @@
     <%= render 'end_users/layout/header' %>
 
     <!-- Body Part -->
-    <%= yield %>
+    <section class="body-content">
+      <%= yield %>
+    </section>
 
     <!-- Footer Part -->
     <%= render 'end_users/layout/footer' %>
   </body>
+
+  <style media="screen">
+    .body-content{
+      margin-top: 60px;
+    }
+  </style>
 </html>
