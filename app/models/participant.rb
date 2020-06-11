@@ -75,7 +75,7 @@ class Participant < ApplicationRecord
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
-  after_create :connect_challenge_completed
+  # after_create :connect_challenge_completed
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
@@ -182,6 +182,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
+      participant.connect_challenge_completed
       participant
     else
       Participant.new
@@ -227,6 +228,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
+      participant.connect_challenge_completed
       participant
     else
       Participant.new
@@ -258,6 +260,7 @@ class Participant < ApplicationRecord
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed
+    Rails.logger.info "***************** connect_challenge_completed *****************"
     Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
     Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
     ## Create Participant Action Log
