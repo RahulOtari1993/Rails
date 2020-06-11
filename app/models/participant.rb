@@ -266,7 +266,7 @@ class Participant < ApplicationRecord
         unless is_submitted
           ## Update User's Points
           challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
-          points = self.point + challenge_points
+          points = self.points + challenge_points
           unused_points = self.unused_points + challenge_points
           self.update_attributes(:points => points, :unused_points => unused_points)
 
