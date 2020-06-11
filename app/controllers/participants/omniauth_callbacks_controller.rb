@@ -2,9 +2,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   def facebook
     Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
     Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
+    user_agent = request.user_agent
+    remote_ip = request.remote_ip
 
     if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
-      @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
+      @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
       if @participant.new_record?
         session["devise.facebook_data"] = request.env["omniauth.auth"]
@@ -21,9 +23,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   def google_oauth2
     Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
     Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
+    user_agent = request.user_agent
+    remote_ip = request.remote_ip
 
     if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
-      @participant = Participant.google_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"])
+      @participant = Participant.google_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
       if @participant.new_record?
         session["devise.google_data"] = request.env["omniauth.auth"]

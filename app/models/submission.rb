@@ -8,6 +8,8 @@
 #  updated_at     :datetime         not null
 #  participant_id :bigint
 #  challenge_id   :bigint
+#  useragent      :text
+#  ipaddress      :string
 #
 class Submission < ApplicationRecord
   ## Associations

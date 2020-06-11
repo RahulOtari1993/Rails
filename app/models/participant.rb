@@ -146,7 +146,7 @@ class Participant < ApplicationRecord
   end
 
   ## Facebook OmniAuth
-  def self.facebook_omniauth(auth, params)
+  def self.facebook_omniauth(auth, params, user_agent = '', remote_ip = '')
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
@@ -190,7 +190,7 @@ class Participant < ApplicationRecord
   end
 
   ## Google OmniAuth
-  def self.google_omniauth(auth, params)
+  def self.google_omniauth(auth, params, user_agent = '', remote_ip = '')
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
 
@@ -228,7 +228,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed
+      participant.connect_challenge_completed(user_agent = '', remote_ip = '')
       participant
     else
       Participant.new
@@ -246,7 +246,7 @@ class Participant < ApplicationRecord
   end
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
-  def connect_challenge_completed
+  def connect_challenge_completed(user_agent = '', remote_ip = '')
     Rails.logger.info "***************** connect_challenge_completed *****************"
 
     ## Fetch the Campaign
@@ -257,7 +257,8 @@ class Participant < ApplicationRecord
       if challenge.present?
         ## Create Participant Action Log
         action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
-                                             action_type: 'sign_up', title: 'Signed up'})
+                                             action_type: 'sign_up', title: 'Signed up',
+                                             user_agent: user_agent, ipaddress: remote_ip})
         action_item.save
 
         ## Check if the Challenge is Submitted Previously
@@ -268,16 +269,20 @@ class Participant < ApplicationRecord
           challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
           points = self.points + challenge_points
           unused_points = self.unused_points + challenge_points
-          self.update_attributes(:points => points, :unused_points => unused_points)
+          self.points = points
+          self.unused_points = unused_points
+          self.save(:validate => false)
 
           ## Submit Challenge
-          submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id})
+          submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id,
+                                   user_agent: user_agent, ipaddress: remote_ip})
           submit.save
 
           ## Create Participant Action Log
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                                action_type: 'sign_up', title: 'Signed up', actionable_id: challenge.id,
-                                               actionable_type: 'Challenge', details: challenge.caption})
+                                               actionable_type: 'Challenge', details: challenge.caption,
+                                               user_agent: user_agent, ipaddress: remote_ip})
           sign_up_log.save
         end
       end
