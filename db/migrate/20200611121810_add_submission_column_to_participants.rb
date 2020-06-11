@@ -7,5 +7,6 @@ class AddSubmissionColumnToParticipants < ActiveRecord::Migration[5.2]
     add_column :participants, :comments, :integer, default: 0
     add_column :participants, :reshares, :integer, default: 0
     add_column :participants, :recruits, :integer, default: 0
+    add_column :participants, :connect_type, :integer
   end
 end

@@ -337,6 +337,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_121810) do
     t.integer "comments", default: 0
     t.integer "reshares", default: 0
     t.integer "recruits", default: 0
+    t.integer "connect_type"
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end

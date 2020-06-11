@@ -55,6 +55,7 @@
 #  comments               :integer          default(0)
 #  reshares               :integer          default(0)
 #  recruits               :integer          default(0)
+#  connect_type           :integer
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
@@ -64,7 +65,7 @@ class Participant < ApplicationRecord
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
   ## Associations
-  has_and_belongs_to_many :campaigns
+  has_and_belongs_to_many :campaigns ##TODO: Remove this Relationship
   belongs_to :organization
   has_many :challenge_participants, dependent: :destroy
   has_many :challenges, through: :challenge_participants
@@ -74,6 +75,11 @@ class Participant < ApplicationRecord
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
+  after_create :sign_up_challenge_completed
+
+
+  ## ENUM
+  enum connect_type: { facebook: 0, google: 1, email: 3 }
 
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group
@@ -153,6 +159,7 @@ class Participant < ApplicationRecord
       participant.facebook_uid = auth.uid
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+      participant.connect_type = 'facebook'
     else
       name = auth.info.name.split(" ")
 
@@ -167,7 +174,8 @@ class Participant < ApplicationRecord
           last_name: name[1],
           facebook_token: auth.credentials.token,
           facebook_expires_at: Time.at(auth.credentials.expires_at),
-          confirmed_at: DateTime.now
+          confirmed_at: DateTime.now,
+          connect_type: 'facebook'
       }
 
       participant = Participant.new(params)
@@ -197,6 +205,7 @@ class Participant < ApplicationRecord
       participant.google_token = auth.credentials.token
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
+      participant.connect_type = 'google'
     else
       params = {
           organization_id: org.id,
@@ -210,7 +219,8 @@ class Participant < ApplicationRecord
           google_token: auth.credentials.token,
           google_refresh_token: auth.credentials.refresh_token,
           google_expires_at: Time.at(auth.credentials.expires_at),
-          confirmed_at: DateTime.now
+          confirmed_at: DateTime.now,
+          connect_type: 'google'
       }
 
       participant = Participant.new(params)
@@ -235,12 +245,19 @@ class Participant < ApplicationRecord
   end
 
   private
+    ## Generate Uniq Participant ID
     def generate_participant_id
       self.update_attribute('p_id', Participant.get_participant_id)
     end
 
+    ## Add Participant to Campaign
     def save_participant_details
       campaign = Campaign.find(self.campaign_id)
       campaign.participants << self
+    end
+
+    ## Check If Participant Completed SignUp Challenge & Assign Point
+    def sign_up_challenge_completed
+      # @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').present?
     end
 end
