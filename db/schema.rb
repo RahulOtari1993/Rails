@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_114301) do
+ActiveRecord::Schema.define(version: 2020_06_11_121810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,6 +277,8 @@ ActiveRecord::Schema.define(version: 2020_06_11_114301) do
     t.string "details"
     t.integer "actionable_id"
     t.string "actionable_type"
+    t.text "useragent"
+    t.string "ipaddress", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
@@ -328,6 +330,13 @@ ActiveRecord::Schema.define(version: 2020_06_11_114301) do
     t.string "google_token"
     t.string "google_refresh_token"
     t.datetime "google_expires_at"
+    t.integer "points", default: 0
+    t.integer "unused_points", default: 0
+    t.integer "clicks", default: 0
+    t.integer "likes", default: 0
+    t.integer "comments", default: 0
+    t.integer "reshares", default: 0
+    t.integer "recruits", default: 0
     t.index ["email", "organization_id"], name: "index_participants_on_email_and_organization_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end

@@ -48,6 +48,13 @@
 #  google_token           :string
 #  google_refresh_token   :string
 #  google_expires_at      :datetime
+#  points                 :integer          default(0)
+#  unused_points          :integer          default(0)
+#  clicks                 :integer          default(0)
+#  likes                  :integer          default(0)
+#  comments               :integer          default(0)
+#  reshares               :integer          default(0)
+#  recruits               :integer          default(0)
 #
 class Participant < ApplicationRecord
   ## Devise Configurations

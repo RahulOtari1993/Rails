@@ -8,6 +8,8 @@ class CreateParticipantActions < ActiveRecord::Migration[5.2]
       t.string     :details
       t.integer    :actionable_id
       t.string     :actionable_type
+      t.text       :useragent,  limit: 65535
+      t.string     :ipaddress,  limit: 255
 
       t.timestamps
     end
