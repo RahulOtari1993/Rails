@@ -62,6 +62,7 @@ class Participant < ApplicationRecord
   has_many :challenge_participants, dependent: :destroy
   has_many :challenges, through: :challenge_participants
   has_many :submissions, dependent: :destroy
+  has_many :participant_actions, dependent: :destroy
 
   ## Callbacks
   after_create :save_participant_details
