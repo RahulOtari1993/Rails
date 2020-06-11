@@ -15,6 +15,7 @@
 #  header_font_size        :float
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  header_description      :text
 #
 class CampaignTemplateDetail < ApplicationRecord
   ## Associations
