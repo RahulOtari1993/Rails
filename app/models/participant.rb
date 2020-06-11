@@ -182,7 +182,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed
+      participant.connect_challenge_completed(user_agent, remote_ip)
       participant
     else
       Participant.new
@@ -228,7 +228,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent = '', remote_ip = '')
+      participant.connect_challenge_completed(user_agent, remote_ip)
       participant
     else
       Participant.new
@@ -256,7 +256,7 @@ class Participant < ApplicationRecord
       challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
       if challenge.present?
         ## Create Participant Action Log
-        action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
+        action_item = ParticipantAction.new({participant_id: self.id, points: 0,
                                              action_type: 'sign_up', title: 'Signed up',
                                              user_agent: user_agent, ip_address: remote_ip})
         action_item.save
