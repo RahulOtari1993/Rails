@@ -248,8 +248,6 @@ class Participant < ApplicationRecord
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed
     Rails.logger.info "***************** connect_challenge_completed *****************"
-    Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
-    Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
     ## Create Participant Action Log
     action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                          action_type: 'sign_up', title: 'Signed up'})
