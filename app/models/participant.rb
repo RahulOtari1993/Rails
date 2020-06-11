@@ -258,7 +258,7 @@ class Participant < ApplicationRecord
         ## Create Participant Action Log
         action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                              action_type: 'sign_up', title: 'Signed up',
-                                             user_agent: user_agent, ipaddress: remote_ip})
+                                             user_agent: user_agent, ip_address: remote_ip})
         action_item.save
 
         ## Check if the Challenge is Submitted Previously
@@ -275,14 +275,14 @@ class Participant < ApplicationRecord
 
           ## Submit Challenge
           submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id,
-                                   user_agent: user_agent, ipaddress: remote_ip})
+                                   user_agent: user_agent, ip_address: remote_ip})
           submit.save
 
           ## Create Participant Action Log
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                                action_type: 'sign_up', title: 'Signed up', actionable_id: challenge.id,
                                                actionable_type: 'Challenge', details: challenge.caption,
-                                               user_agent: user_agent, ipaddress: remote_ip})
+                                               user_agent: user_agent, ip_address: remote_ip})
           sign_up_log.save
         end
       end
