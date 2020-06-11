@@ -75,11 +75,10 @@ class Participant < ApplicationRecord
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
-  after_create :sign_up_challenge_completed
-
+  after_create :connect_challenge_completed
 
   ## ENUM
-  enum connect_type: { facebook: 0, google: 1, email: 3 }
+  enum connect_type: {facebook: 0, google: 1, email: 3}
 
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group
@@ -245,19 +244,53 @@ class Participant < ApplicationRecord
   end
 
   private
-    ## Generate Uniq Participant ID
-    def generate_participant_id
-      self.update_attribute('p_id', Participant.get_participant_id)
+
+  ## Generate Uniq Participant ID
+  def generate_participant_id
+    self.update_attribute('p_id', Participant.get_participant_id)
+  end
+
+  ## Add Participant to Campaign
+  def save_participant_details
+    campaign = Campaign.find(self.campaign_id)
+    campaign.participants << self
+  end
+
+  ## Check If Participant Completed SignUp Challenge & Assign Point
+  def connect_challenge_completed
+    ## Fetch the Campaign
+    campaign = Campaign.where(id: self.campaign_id).first
+    if campaign.present?
+      ## Fetch the Challenge (Facebook, Google, Email)
+      challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
+      if challenge.present?
+        ## Check if the Challenge is Submitted Previously
+        is_submitted = false
+        unless is_submitted
+          ## Update User's Points
+          challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
+          points = self.point + challenge_points
+          unused_points = self.unused_points + challenge_points
+          self.update_attributes(:points => points, :unused_points => unused_points)
+
+          Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
+          Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
+          ## Create Participant Action Log
+          data = {
+              participant_id: self.id,
+              points: challenge.points.to_i,
+              action_type: 'sign_up',
+              title: 'Signed up'
+          }
+          action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
+                                               action_type: 'sign_up', title: 'Signed up'})
+          action_item.save
+
+          ## Submit Challenge
+
+        end
+      end
     end
 
-    ## Add Participant to Campaign
-    def save_participant_details
-      campaign = Campaign.find(self.campaign_id)
-      campaign.participants << self
-    end
-
-    ## Check If Participant Completed SignUp Challenge & Assign Point
-    def sign_up_challenge_completed
-      # @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').present?
-    end
+  end
 end
