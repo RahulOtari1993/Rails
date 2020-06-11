@@ -248,10 +248,6 @@ class Participant < ApplicationRecord
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed
     Rails.logger.info "***************** connect_challenge_completed *****************"
-    ## Create Participant Action Log
-    action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
-                                         action_type: 'sign_up', title: 'Signed up'})
-    action_item.save
 
     ## Fetch the Campaign
     campaign = Campaign.where(id: self.campaign_id).first
@@ -259,6 +255,11 @@ class Participant < ApplicationRecord
       ## Fetch the Challenge (Facebook, Google, Email)
       challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
       if challenge.present?
+        ## Create Participant Action Log
+        action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
+                                             action_type: 'sign_up', title: 'Signed up'})
+        action_item.save
+
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
 
