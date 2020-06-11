@@ -245,19 +245,6 @@ class Participant < ApplicationRecord
     end
   end
 
-  private
-
-  ## Generate Uniq Participant ID
-  def generate_participant_id
-    self.update_attribute('p_id', Participant.get_participant_id)
-  end
-
-  ## Add Participant to Campaign
-  def save_participant_details
-    campaign = Campaign.find(self.campaign_id)
-    campaign.participants << self
-  end
-
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed
     Rails.logger.info "***************** connect_challenge_completed *****************"
@@ -297,5 +284,18 @@ class Participant < ApplicationRecord
       end
     end
 
+  end
+
+  private
+
+  ## Generate Uniq Participant ID
+  def generate_participant_id
+    self.update_attribute('p_id', Participant.get_participant_id)
+  end
+
+  ## Add Participant to Campaign
+  def save_participant_details
+    campaign = Campaign.find(self.campaign_id)
+    campaign.participants << self
   end
 end
