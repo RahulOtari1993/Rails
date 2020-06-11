@@ -258,6 +258,13 @@ class Participant < ApplicationRecord
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed
+    Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
+    Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
+    ## Create Participant Action Log
+    action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
+                                         action_type: 'sign_up', title: 'Signed up'})
+    action_item.save
+
     ## Fetch the Campaign
     campaign = Campaign.where(id: self.campaign_id).first
     if campaign.present?
@@ -265,7 +272,8 @@ class Participant < ApplicationRecord
       challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
       if challenge.present?
         ## Check if the Challenge is Submitted Previously
-        is_submitted = false
+        is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
+
         unless is_submitted
           ## Update User's Points
           challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
@@ -273,21 +281,15 @@ class Participant < ApplicationRecord
           unused_points = self.unused_points + challenge_points
           self.update_attributes(:points => points, :unused_points => unused_points)
 
-          Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
-          Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
-          ## Create Participant Action Log
-          data = {
-              participant_id: self.id,
-              points: challenge.points.to_i,
-              action_type: 'sign_up',
-              title: 'Signed up'
-          }
-          action_item = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
-                                               action_type: 'sign_up', title: 'Signed up'})
-          action_item.save
-
           ## Submit Challenge
+          submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id})
+          submit.save
 
+          ## Create Participant Action Log
+          sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
+                                               action_type: 'sign_up', title: 'Signed up', actionable_id: challenge.id,
+                                               actionable_type: 'Challenge', details: challenge.caption})
+          sign_up_log.save
         end
       end
     end

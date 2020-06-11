@@ -2,13 +2,12 @@
 #
 # Table name: submissions
 #
-#  id               :bigint           not null, primary key
-#  campaign_id      :bigint
-#  submissible_id   :integer
-#  submissible_type :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  participant_id   :bigint
+#  id             :bigint           not null, primary key
+#  campaign_id    :bigint
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  participant_id :bigint
+#  challenge_id   :bigint
 #
 class Submission < ApplicationRecord
   ## Associations

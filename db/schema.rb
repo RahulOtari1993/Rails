@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_121810) do
+ActiveRecord::Schema.define(version: 2020_06_11_162036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -450,12 +450,12 @@ ActiveRecord::Schema.define(version: 2020_06_11_121810) do
 
   create_table "submissions", force: :cascade do |t|
     t.bigint "campaign_id"
-    t.integer "submissible_id"
-    t.string "submissible_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "participant_id"
+    t.bigint "challenge_id"
     t.index ["campaign_id"], name: "index_submissions_on_campaign_id"
+    t.index ["challenge_id"], name: "index_submissions_on_challenge_id"
     t.index ["participant_id"], name: "index_submissions_on_participant_id"
   end
 
