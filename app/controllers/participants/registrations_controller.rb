@@ -14,14 +14,12 @@ class Participants::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    # binding.pry
     user_agent = request.user_agent
     remote_ip = request.remote_ip
 
     ## Check if Participant Exists who Logged in Via Social Platform
     participant = Participant.where(organization_id: @organization.id, campaign_id: @campaign.id, email: params[:participant][:email]).first
     if participant.present? && (participant.google_uid.present? || participant.facebook_uid.present?)
-      # binding.pry
       ## Update Existing Participant Details
       participant.first_name = params[:participant][:first_name]
       participant.last_name = params[:participant][:last_name]
@@ -35,11 +33,9 @@ class Participants::RegistrationsController < Devise::RegistrationsController
 
       sign_in_and_redirect participant, :event => :authentication
     else
-      # binding.pry
       ## Regular Sign Up Using Devise
       super
 
-      # binding.pry
       unless resource.errors.present?
         ## Mark Challenge as Completed & It's Relevant Entries
         resource.connect_challenge_completed(user_agent, remote_ip)
