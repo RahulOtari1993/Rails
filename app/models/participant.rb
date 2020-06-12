@@ -79,9 +79,12 @@ class Participant < ApplicationRecord
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
 
+  ## Get Current Participant
   def self.current
     Thread.current[:participant]
   end
+
+  ## Set Current Participant
   def self.current=(participant)
     Thread.current[:participant] = participant
   end

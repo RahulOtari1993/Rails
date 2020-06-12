@@ -55,7 +55,7 @@ class ChallengeFilter < ApplicationRecord
 
   ## Check Gender Conditions
   def gender_check participant
-    true
+    self.challenge_value == participant.gender
   end
 
   ## Check Points Conditions
