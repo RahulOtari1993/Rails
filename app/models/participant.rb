@@ -79,6 +79,13 @@ class Participant < ApplicationRecord
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
 
+  def self.current
+    Thread.current[:participant]
+  end
+  def self.current=(participant)
+    Thread.current[:participant] = participant
+  end
+
   ## Password Validation Condition
   PASSWORD_VALIDATOR = /(          # Start of group
         (?:                        # Start of nonmatching group, 4 possible solutions

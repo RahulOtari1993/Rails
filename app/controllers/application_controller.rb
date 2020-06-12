@@ -74,4 +74,9 @@ class ApplicationController < ActionController::Base
     File.delete(Rails.root.join('public', 'image_compression', photo_filename))
     File.delete(Rails.root.join('public', 'image_compression', thumb_filename))
   end
+
+  ## Set Current Participant to Access in Models
+  def set_current_participant
+    Participant.current = current_participant
+  end
 end

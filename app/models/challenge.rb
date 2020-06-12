@@ -125,14 +125,14 @@ class Challenge < ApplicationRecord
     end
   end
 
-  ##for adding status column to datatable json response
+  ## For Adding Status Column to Datatable JSO Response
   def as_json(*)
     super.tap do |hash|
       hash["status"] = status
     end
   end
 
-  ##challenge platform filter
+  ## Challenge Filter
   def self.challenge_side_bar_filter(filters)
     query = 'id IS NOT NULL'
     tags_query = ''
@@ -208,5 +208,28 @@ class Challenge < ApplicationRecord
     challenges = self.where(query, is_approved: status, challenge_type: challenge_type.flatten,
                             platform_type: platform_type.flatten, reward_type: reward_type.flatten)
     return challenges
+  end
+
+  ## Check if Challenge is Available for Participant
+  def activate?() # campaign, contact = nil
+    Rails.logger.info "----------------- #{Participant.current.inspect} -----------------------"
+    # #set the contact
+    # contact ||= current_contact
+    #
+    # #check the current date first to see if this is active
+    # return false if self.start <= Time.now && self.finish <= Time.now
+    #
+    # #we are ssetting this to true by default because if there are no filters its active
+    # result = true
+    #
+    # #go through the filters and see if they are active
+    # self.challenge_filters.each do |challenge_filter|
+    #
+    #   #check if we have an active filter
+    #   result &&= challenge_filter.active?(campaign, contact)
+    # end
+    #
+    # #check if we are active and we can participate based on the filters
+    # result && self.is_active
   end
 end
