@@ -109,8 +109,8 @@ class Participant < ApplicationRecord
   validates_presence_of :email, if: :email_required?
 
   validates_uniqueness_of :email,
-                          scope: [:organization_id],
-                          message: "Email already exists for this organization"
+                          scope: [:organization_id, :campaign_id],
+                          message: "already exists for this campaign"
 
   validates_format_of :email,
                       with: /\A[^@]+@[^@]+\z/,
