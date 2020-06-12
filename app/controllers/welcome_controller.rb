@@ -4,8 +4,12 @@ class WelcomeController < ApplicationController
   layout 'end_user'
 
   def index
-    @challenges = @campaign.challenges.featured.current_active
-    @rewards = @campaign.rewards.featured.current_active
+    if @campaign.nil?
+      redirect_to admin_organizations_campaigns_path
+    else
+      @challenges = @campaign.challenges.featured.current_active
+      @rewards = @campaign.rewards.featured.current_active
+    end
   end
 
   def home
