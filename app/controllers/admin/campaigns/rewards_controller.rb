@@ -45,28 +45,12 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   end
 
   def create
-    # picture_file = params[:reward][:image]
-    # params[:reward].delete(:image)
     @reward = @campaign.rewards.new(reward_params)
 
-    # binding.pry
-    # raise "hii"
-    ## Manage Tags for a Reward
+    ## Manage Reward Tags
     tags_association
 
-    # @reward.feature = params[:reward][:feature].nil? ? false : (params[:reward][:feature] == "on")
     if @reward.save
-      # if !picture_file.blank?
-      #   resp = update_reward_photo(@reward, picture_file)
-      #   if resp[:success]
-      #     flash[:success] = "Reward successfully saved with image"
-      #   else
-      #     flash[:danger] = "Reward successfully saved, image was not updated."
-      #   end
-      # else
-      #   flash[:danger] = "Reward successfully saved, image was not updated.."
-      # end
-      # remove this so it stays out of the way
       redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
     else
       render :new, notice: "Error creating rewards"
@@ -254,49 +238,6 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   def sort_column
     columns = %w(name start finish)
     columns[params[:order]['0'][:column].to_i - 1]
-  end
-
-  def update_reward_photo(reward, photo, is_recurring = false)
-    begin
-      ## Store Actual Image
-      # reward.image_actual.purge_later
-      # reward.image_actual.attach(photo)
-      # actual_image_url = reward.image_actual.attachment.service_url
-      # reward.actual_image_url = actual_image_url
-
-      ## Image File Names
-      image_name_hax = SecureRandom.hex(16)
-      photo_filename = image_name_hax + '_photo.jpg'
-      thumb_filename = image_name_hax + '_thumb.jpg'
-
-      image_compression(image_name_hax, photo_filename, thumb_filename, reward.actual_image_url)
-
-      ## Store Compressed Image
-      reward.photo_image.attach(io: File.open(Rails.root.join('public', 'image_compression', photo_filename)), filename: photo_filename)
-      photo_image_url = reward.photo_image.attachment.service_url
-      reward.photo_url = photo_image_url
-
-      ## Store Thumbnail Image
-      reward.thumb_image.attach(io: File.open(Rails.root.join('public', 'image_compression', thumb_filename)), filename: thumb_filename)
-      thumb_image_url = reward.thumb_image.attachment.service_url
-      reward.thumb_url = thumb_image_url
-
-      ## Save Image Height & Width
-      image = MiniMagick::Image.open(photo_image_url)
-      reward.image_width = image[:width]
-      reward.image_height = image[:height]
-
-      ## Remove Local Files
-      # remove_local_files(image_name_hax, photo_filename, thumb_filename)
-
-      reward.save
-
-      # File.delete(Rails.root.join('public', photo_filename, thumb_filename))
-      return {success: true}
-    rescue Exception => e
-      Rails.logger.error "Image exception_handling: --------------------------> #{e.message}"
-      return {success: false, message: e.message}
-    end
   end
 
   ## Assign/Remove Tags to a Challenge
