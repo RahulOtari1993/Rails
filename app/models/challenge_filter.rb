@@ -63,9 +63,22 @@ class ChallengeFilter < ApplicationRecord
     self.challenge_value == participant.gender
   end
 
-  ## Check Points Conditions
+  ## Check Unused Points Conditions
   def points_check participant
-    true
+    case self.challenge_condition
+      when 'equals' then
+        participant.unused_points.to_i == self.challenge_value.to_i
+      when 'greater_than' then
+        participant.unused_points.to_i > self.challenge_value.to_i
+      when 'less_than' then
+        participant.unused_points.to_i < self.challenge_value.to_i
+      when 'greater_than_or_equal' then
+        participant.unused_points.to_i >= self.challenge_value.to_i
+      when 'less_than_or_Equal' then
+        participant.unused_points.to_i <= self.challenge_value.to_i
+      else
+        false
+    end
   end
 
   ## Check Rewards Conditions
