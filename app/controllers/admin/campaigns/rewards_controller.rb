@@ -95,7 +95,6 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   end
 
   def update
-    # @reward = @campaign.rewards.find_by(:id => params[:id])
     respond_to do |format|
       previous_segments = @reward.reward_filters.pluck(:id)
       previous_rules = @reward.reward_rules.pluck(:id)
@@ -104,9 +103,6 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
 
       ## Manage Tags for a Reward
       tags_association
-
-      # binding.pry
-      # raise "hi"
 
       if @reward.update(reward_params)
         ## Remove Deleted User Segments & Reward Rules from a Reward

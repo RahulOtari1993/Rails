@@ -11,7 +11,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
   def connect_facebook
     Rails.logger.info "******** Call back from facebook started *********"
     @config = @campaign.campaign_config
-    binding.pry
+    # binding.pry
     # @oauth = Koala::Facebook::OAuth.new(@config.facebook_app_id, @config.facebook_app_secret, "http://osu.perksocial.local:3000/admin/campaigns/1/networks")
     # @oauth.get_app_access_token
 
