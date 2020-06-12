@@ -44,6 +44,7 @@
 #  success_message      :string
 #  failed_message       :string
 #  correct_answer_count :integer
+#  completions          :integer          default(0)
 #
 
 class Challenge < ApplicationRecord

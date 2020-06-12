@@ -10,8 +10,8 @@
 #  details         :string
 #  actionable_id   :integer
 #  actionable_type :string
-#  useragent       :text
-#  ipaddress       :string(255)
+#  user_agent      :text
+#  ip_address      :string(255)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

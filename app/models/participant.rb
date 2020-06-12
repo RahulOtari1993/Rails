@@ -75,7 +75,6 @@ class Participant < ApplicationRecord
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
-  # after_create :connect_challenge_completed
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
