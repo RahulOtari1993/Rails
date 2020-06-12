@@ -79,6 +79,9 @@ class Participant < ApplicationRecord
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
 
+  ## Tags
+  acts_as_taggable_on :tags
+
   ## Get Current Participant
   def self.current
     Thread.current[:participant]

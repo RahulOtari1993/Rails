@@ -50,7 +50,12 @@ class ChallengeFilter < ApplicationRecord
 
   ## Check Tags Conditions
   def tags_check participant
-    true
+    tags = participant.tags.pluck(:name)
+    if self.challenge_condition == 'has'
+      tags.include?(challenge_value)
+    else
+      !tags.include?(challenge_value)
+    end
   end
 
   ## Check Gender Conditions
