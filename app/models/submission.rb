@@ -18,7 +18,7 @@ class Submission < ApplicationRecord
   belongs_to :challenge
 
   ## Callbacks
-  after_create :generate_participant_id
+  after_create :submission_count_change
 
   private
 
@@ -26,8 +26,8 @@ class Submission < ApplicationRecord
   def submission_count_change
     challenge = self.challenge
     if challenge.present?
-      count = self.completions + 1
-      challenge.update_attribut(:completions, count)
+      count = challenge.completions + 1
+      challenge.update_attribute(:completions, count)
     end
   end
 end
