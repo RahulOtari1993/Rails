@@ -33,13 +33,15 @@
   line-height: 24px;
 }
 
-.modal-header .close {
+#join_now_modal .modal-header .close, #sign_in_modal .modal-header .close {
   padding: 1rem;
   margin: -1rem -1rem -1rem auto;
   position: absolute;
   z-index: 555;
   top: 22px;
   right: 26px;
+  outline: none;
+  border: none;
 }
 
 .modal_box .form-control {
