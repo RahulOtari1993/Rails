@@ -181,6 +181,38 @@ $(document).on('turbolinks:load', function () {
       })
     });
 
+    // Challenge User Segment Challenges Completed Validation
+    $('#segment-value-challenge-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter challenge completed count",
+          min: "Minimum count should be 1",
+          max: "Maximum count can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Logins Count Validation
+    $('#segment-value-login-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter no of logins",
+          min: "Minimum count should be 1",
+          max: "Maximum count can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
     // Challenge User Segment Tags Validation
     $('#segment-value-tags-' + phaseCounter).each(function () {
       $(this).rules("add", {
@@ -191,25 +223,25 @@ $(document).on('turbolinks:load', function () {
       })
     });
 
-    // Challenge User Segment Rewards Validation
-    $('#segment-value-rewards-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a reward"
-        }
-      })
-    });
-
-    // Challenge User Segment Platform Validation
-    $('#segment-conditions-platforms-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a platform"
-        }
-      })
-    });
+    // // Challenge User Segment Rewards Validation
+    // $('#segment-value-rewards-' + phaseCounter).each(function () {
+    //   $(this).rules("add", {
+    //     required: true,
+    //     messages: {
+    //       required: "Please select a reward"
+    //     }
+    //   })
+    // });
+    //
+    // // Challenge User Segment Platform Validation
+    // $('#segment-conditions-platforms-' + phaseCounter).each(function () {
+    //   $(this).rules("add", {
+    //     required: true,
+    //     messages: {
+    //       required: "Please select a platform"
+    //     }
+    //   })
+    // });
 
     // Challenge User Segment Gender Validation
     $('#segment-value-gender-' + phaseCounter).each(function () {
@@ -221,31 +253,31 @@ $(document).on('turbolinks:load', function () {
       })
     });
 
-    // Challenge User Segment Challenge Validation
-    $('#segment-value-challenge-' + phaseCounter).each(function () {
-      $(this).rules("add", {
-        required: true,
-        messages: {
-          required: "Please select a challenge"
-        }
-      })
-    });
+    // // Challenge User Segment Challenge Validation
+    // $('#segment-value-challenge-' + phaseCounter).each(function () {
+    //   $(this).rules("add", {
+    //     required: true,
+    //     messages: {
+    //       required: "Please select a challenge"
+    //     }
+    //   })
+    // });
   }
 
   // Replace ID of Newly Added Fields of User Segment
-  function addSelect2(phaseCounter) {
-    // Select2 for Reward Dropdown in User Segment Conditions
-    $('#segment-value-rewards-' + phaseCounter).select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    }).next().hide();
-
-    // Select2 for Challenge Dropdown in User Segment Conditions
-    $('#segment-value-challenge-' + phaseCounter).select2({
-      dropdownAutoWidth: true,
-      width: '100%'
-    }).next().hide();
-  }
+  // function addSelect2(phaseCounter) {
+  //   // Select2 for Reward Dropdown in User Segment Conditions
+  //   $('#segment-value-rewards-' + phaseCounter).select2({
+  //     dropdownAutoWidth: true,
+  //     width: '100%'
+  //   }).next().hide();
+  //
+  //   // Select2 for Challenge Dropdown in User Segment Conditions
+  //   $('#segment-value-challenge-' + phaseCounter).select2({
+  //     dropdownAutoWidth: true,
+  //     width: '100%'
+  //   }).next().hide();
+  // }
 
   // Used to Manage Step Two UI Components
   function stepTwoContent(challengeType, challengeParameters) {
@@ -777,7 +809,7 @@ $(document).on('turbolinks:load', function () {
     addValidations(phaseCounter);
 
     // Add Select2 Drop Down
-    addSelect2(phaseCounter);
+    // addSelect2(phaseCounter);
   });
 
   // Remove User Segment of Challenges Module
