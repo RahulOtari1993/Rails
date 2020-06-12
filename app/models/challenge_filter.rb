@@ -32,8 +32,10 @@ class ChallengeFilter < ApplicationRecord
         tags_check(participant)
       when 'gender' then
         gender_check(participant)
-      when 'points' then
-        points_check(participant)
+      when 'current-points' then
+        current_points_check(participant)
+      when 'lifetime-points' then
+        lifetime_points_check(participant)
       when 'rewards' then
         rewards_check(participant)
       when 'platforms' then
@@ -64,7 +66,7 @@ class ChallengeFilter < ApplicationRecord
   end
 
   ## Check Unused Points Conditions
-  def points_check participant
+  def current_points_check participant
     case self.challenge_condition
       when 'equals' then
         participant.unused_points.to_i == self.challenge_value.to_i
@@ -76,6 +78,24 @@ class ChallengeFilter < ApplicationRecord
         participant.unused_points.to_i >= self.challenge_value.to_i
       when 'less_than_or_Equal' then
         participant.unused_points.to_i <= self.challenge_value.to_i
+      else
+        false
+    end
+  end
+
+  ## Check Unused Points Conditions
+  def lifetime_points_check participant
+    case self.challenge_condition
+      when 'equals' then
+        participant.points.to_i == self.challenge_value.to_i
+      when 'greater_than' then
+        participant.points.to_i > self.challenge_value.to_i
+      when 'less_than' then
+        participant.points.to_i < self.challenge_value.to_i
+      when 'greater_than_or_equal' then
+        participant.points.to_i >= self.challenge_value.to_i
+      when 'less_than_or_Equal' then
+        participant.points.to_i <= self.challenge_value.to_i
       else
         false
     end
