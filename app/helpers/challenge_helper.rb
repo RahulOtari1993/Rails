@@ -387,6 +387,7 @@ module ChallengeHelper
     end
   end
 
+  ## Return Actual Question Count
   def correct_answer_count
     if @challenge.new_record?
       [[1, 1]]
@@ -401,8 +402,9 @@ module ChallengeHelper
     end
   end
 
+  ## Fetch Unused Rewards of a Campaign
   def challenge_reward_list
-    used_rewards = Challenge.all.pluck(:reward_id)
-    Reward.active.where.not(id: used_rewards).map { |v| [v.name.titleize, v.id] }.compact
+    used_rewards = @campaign.challenges.all.pluck(:reward_id)
+    @campaign.rewards.active.where.not(id: used_rewards).map { |v| [v.name.titleize, v.id] }.compact
   end
 end
