@@ -567,7 +567,7 @@ $(document).on('turbolinks:load', function () {
         digits: 'Please enter only digits'
       },
       'challenge[reward_id]': {
-        required: 'Please select reward'
+        required: 'Please select prize'
       },
       'challenge_start_date': {
         required: 'Please enter start date'
