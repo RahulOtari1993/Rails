@@ -211,25 +211,23 @@ class Challenge < ApplicationRecord
   end
 
   ## Check if Challenge is Available for Participant
-  def activate?() # campaign, contact = nil
-    Rails.logger.info "----------------- #{Participant.current.inspect} -----------------------"
-    # #set the contact
-    # contact ||= current_contact
-    #
-    # #check the current date first to see if this is active
-    # return false if self.start <= Time.now && self.finish <= Time.now
-    #
-    # #we are ssetting this to true by default because if there are no filters its active
-    # result = true
-    #
-    # #go through the filters and see if they are active
-    # self.challenge_filters.each do |challenge_filter|
-    #
-    #   #check if we have an active filter
-    #   result &&= challenge_filter.active?(campaign, contact)
-    # end
-    #
-    # #check if we are active and we can participate based on the filters
-    # result && self.is_active
+  def available?
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Filters
+    self.challenge_filters.each do |filter|
+      result_array.push(filter.available? Participant.current)
+    end
+
+    ## Check If We need to Include ALL/ANY Filter
+    if self.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
   end
 end

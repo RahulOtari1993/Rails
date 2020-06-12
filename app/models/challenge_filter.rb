@@ -22,4 +22,59 @@ class ChallengeFilter < ApplicationRecord
 
   ## Validations
   validates :challenge_event, :challenge_condition, :challenge_value, presence: true
+
+  ## Check if Challenge Filter is Applicable for Participant & Challenge
+  def available? participant
+    case self.challenge_event
+      when 'age' then
+        age_check(participant)
+      when 'tags' then
+        tags_check(participant)
+      when 'gender' then
+        gender_check(participant)
+      when 'points' then
+        points_check(participant)
+      when 'rewards' then
+        rewards_check(participant)
+      when 'platforms' then
+        platform_check(participant)
+      when 'challenge' then
+        challenge_check(participant)
+    end
+  end
+
+  ## Check Age Conditions
+  def age_check participant
+    true
+  end
+
+  ## Check Tags Conditions
+  def tags_check participant
+    true
+  end
+
+  ## Check Gender Conditions
+  def gender_check participant
+    true
+  end
+
+  ## Check Points Conditions
+  def points_check participant
+    true
+  end
+
+  ## Check Rewards Conditions
+  def rewards_check participant
+    true
+  end
+
+  ## Check Platform Conditions
+  def platform_check participant
+    true
+  end
+
+  ## Check Challenge Conditions
+  def challenge_check participant
+    true
+  end
 end

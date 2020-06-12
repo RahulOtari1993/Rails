@@ -9,9 +9,13 @@ class WelcomeController < ApplicationController
     if @campaign.nil?
       redirect_to admin_organizations_campaigns_path
     else
-      Challenge.last.activate?
-      @challenges = @campaign.challenges.featured.current_active
-      @rewards = @campaign.rewards.featured.current_active
+      if current_participant.present?
+        @challenges = @campaign.challenges.current_active.select {|x| x.available? }
+        @rewards = @campaign.rewards.current_active
+      else
+        @challenges = @campaign.challenges.featured.current_active
+        @rewards = @campaign.rewards.featured.current_active
+      end
     end
   end
 
