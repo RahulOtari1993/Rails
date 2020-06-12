@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_172336) do
+ActiveRecord::Schema.define(version: 2020_06_12_073413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_06_11_172336) do
     t.string "success_message"
     t.string "failed_message"
     t.integer "correct_answer_count"
+    t.integer "completions"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
