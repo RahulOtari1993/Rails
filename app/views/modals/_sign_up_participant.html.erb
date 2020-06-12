@@ -63,6 +63,7 @@
               <div class="row">
                 <%= f.hidden_field :campaign_id, value: @campaign.id %>
                 <%= f.hidden_field :organization_id, value: @campaign.organization_id %>
+                <%= f.hidden_field :connect_type, value: 'email' %>
 
                 <div class="col-md-6">
                   <%= f.text_field :first_name, class: "form-control", placeholder: "First Name*", autocomplete: "off" %>

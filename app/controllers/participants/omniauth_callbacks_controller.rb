@@ -1,7 +1,5 @@
 class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def facebook
-    Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
-    Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
     user_agent = request.user_agent
     remote_ip = request.remote_ip
 
@@ -21,8 +19,6 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   end
 
   def google_oauth2
-    Rails.logger.info "***************** USER AGENT --> #{request.user_agent} *****************"
-    Rails.logger.info "***************** USER IP --> #{request.remote_ip} *****************"
     user_agent = request.user_agent
     remote_ip = request.remote_ip
 
