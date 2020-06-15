@@ -16,12 +16,10 @@
   <td width="30%" class="reward-segment-conditions-container">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, reward_condition_value(filter, '')),
-                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-points',
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-current-points',
                     id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
-
-                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'points']),
-
-                    required: true, style: "display:#{reward_make_visible(filter, ['age', 'points'])};"} %>
+                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'current-points']),
+                    required: true, style: "display:#{reward_make_visible(filter, ['age', 'current-points'])};"} %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select([['Has', 'has'], ['Not', 'not']], reward_condition_value(filter, '')),
@@ -60,11 +58,11 @@
                        id: "reward-segment-value-tags-#{reward_id_convention(filter)}",
                        placeholder: 'Enter Tag', style: "display:#{reward_make_visible(filter, ['tags'])};" %>
 
-    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_points]",
-                       reward_event_value(filter, nil, 'points'),
-                       class: 'form-control reward-segment-value-points', disabled: reward_make_disabled(filter, ['points']),
-                       id: "reward-segment-value-points-#{reward_id_convention(filter)}", placeholder: 'Enter Points',
-                       style: "display:#{reward_make_visible(filter, ['points'])};" %>
+    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_current-points]",
+                       reward_event_value(filter, nil, 'current-points'),
+                       class: 'form-control reward-segment-value-current-points', disabled: reward_make_disabled(filter, ['current-points']),
+                       id: "reward-segment-value-current-points-#{reward_id_convention(filter)}", placeholder: 'Enter Current Points',
+                       style: "display:#{reward_make_visible(filter, ['current-points'])};" %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_rewards]",
                    options_for_select(@campaign.rewards.all.pluck(:name, :id), reward_event_value(filter, '', 'rewards')),
@@ -95,7 +93,7 @@
                    required: true %>
   </td>
   <% if filter.present? %>
-    <!-- Display ID of Challenge Filter Only in Edit Mode-->
+    <!-- Display ID of Reward Filter Only in Edit Mode-->
     <%= hidden_field_tag "reward[reward_filters_attributes][#{filter.id}][id]", filter.id %>
   <% end %>
 </tr>

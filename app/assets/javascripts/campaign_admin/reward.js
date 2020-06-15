@@ -156,14 +156,14 @@ $(document).ready(function () {
     });
 
     // Challenge User Segment Points Validation
-    $('#reward-segment-value-points-' + phaseCounter).each(function () {
+    $('#reward-segment-value-current-points-' + phaseCounter).each(function () {
       $(this).rules("add", {
         required: true,
         min: 1,
         max: 10000,
         digits: true,
         messages: {
-          required: "Please enter points",
+          required: "Please enter current points",
           min: "Minimum points should be 1",
           max: "Maximum points can be 10000",
           digits: "Please enter only digits"
