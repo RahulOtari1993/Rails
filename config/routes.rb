@@ -102,7 +102,7 @@ Rails.application.routes.draw do
     namespace :participants do
       resources :challenges do
         member do
-          get :challenge_details
+          get :details
         end
         collection do
           post :challenge_submission
@@ -116,6 +116,5 @@ Rails.application.routes.draw do
     get '/participants/dashboard', to: 'welcome#participant_dashboard', as: :participant_dashboard
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
-    get '/challenges/:id', to: 'welcome#challenge_details'
   end
 end

@@ -3,7 +3,8 @@ class Participants::ChallengesController < ApplicationController
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
   before_action :set_challenge
 
-  def challenge_details
+  def details
+    @challenge = @campaign.challenges.where(id: params[:id]).first
   end
 
   def challenge_submission

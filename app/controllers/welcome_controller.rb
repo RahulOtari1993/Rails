@@ -33,8 +33,4 @@ class WelcomeController < ApplicationController
     @rewards = @campaign.rewards.current_active
   end
 
-  def challenge_details
-    @challenge = @campaign.challenges.where(id: params[:id]).first
-  end
-
 end
