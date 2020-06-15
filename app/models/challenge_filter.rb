@@ -16,7 +16,7 @@ class ChallengeFilter < ApplicationRecord
   belongs_to :challenge
 
   ## Constants
-  EVENTS = %w(age tags gender current-points lifetime-points rewards platforms challenge )
+  EVENTS = %w(age tags gender current-points lifetime-points challenge login) #rewards platforms
   CONDITIONS = %w(equals greater_than less_than greater_than_or_equal less_than_or_Equal)
   SOCIAL_PLATFORMS = %w(facebook twitter google instagram youtube)
 
@@ -42,6 +42,8 @@ class ChallengeFilter < ApplicationRecord
         platform_check(participant)
       when 'challenge' then
         challenge_check(participant)
+      when 'login' then
+        login_check(participant)
     end
   end
 
@@ -114,5 +116,23 @@ class ChallengeFilter < ApplicationRecord
   ## Check Challenge Conditions
   def challenge_check participant
     true
+  end
+
+  ## Check Login Conditions
+  def login_check participant
+    case self.challenge_condition
+    when 'equals' then
+      participant.sign_in_count.to_i == self.challenge_value.to_i
+    when 'greater_than' then
+      participant.sign_in_count.to_i > self.challenge_value.to_i
+    when 'less_than' then
+      participant.sign_in_count.to_i < self.challenge_value.to_i
+    when 'greater_than_or_equal' then
+      participant.sign_in_count.to_i >= self.challenge_value.to_i
+    when 'less_than_or_Equal' then
+      participant.sign_in_count.to_i <= self.challenge_value.to_i
+    else
+      false
+    end
   end
 end

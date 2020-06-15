@@ -955,4 +955,8 @@
 .question-wysiwyg-editor {
   display: none;
 }
+
+.table.data-list-view.dataTable tbody tr, table.data-thumb-view.dataTable tbody tr{
+  transition: none;
+}
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

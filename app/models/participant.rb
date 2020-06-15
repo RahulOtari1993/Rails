@@ -56,10 +56,12 @@
 #  reshares               :integer          default(0)
 #  recruits               :integer          default(0)
 #  connect_type           :integer
+#  age                    :integer          default(0)
+#  completed_challenges   :integer          default(0)
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, :confirmable, :trackable,
          :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
          :authentication_keys => [:email, :organization_id, :campaign_id],
          :reset_password_keys => [:email, :organization_id, :campaign_id]
