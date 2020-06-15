@@ -16,10 +16,10 @@
   <td width="30%" class="reward-segment-conditions-container">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select(RewardFilter::CONDITIONS.map { |val| [val.humanize, val] }, reward_condition_value(filter, '')),
-                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-current-points reward-segment-conditions-lifetime-points',
+                   {class: 'form-control reward-segment-conditions-dd reward-segment-conditions-age reward-segment-conditions-current-points reward-segment-conditions-lifetime-points reward-segment-conditions-login',
                     id: "reward-segment-conditions-dd-#{reward_id_convention(filter)}",
-                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'current-points', 'lifetime-points']),
-                    required: true, style: "display:#{reward_make_visible(filter, ['age', 'current-points', 'lifetime-points'])};"} %>
+                    prompt: 'Select Condition', disabled: reward_make_disabled(filter, ['age', 'current-points', 'lifetime-points', 'login']),
+                    required: true, style: "display:#{reward_make_visible(filter, ['age', 'current-points', 'lifetime-points', 'login'])};"} %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_condition]",
                    options_for_select([['Has', 'has'], ['Not', 'not']], reward_condition_value(filter, '')),
@@ -69,6 +69,12 @@
                        class: 'form-control reward-segment-value-lifetime-points', disabled: reward_make_disabled(filter, ['lifetime-points']),
                        id: "reward-segment-value-lifetime-points-#{reward_id_convention(filter)}", placeholder: 'Enter Lifetime Points',
                        style: "display:#{reward_make_visible(filter, ['lifetime-points'])};" %>
+
+    <%= text_field_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_login]",
+                       reward_event_value(filter, nil, 'login'),
+                       class: 'form-control reward-segment-value-login', disabled: reward_make_disabled(filter, ['login']),
+                       id: "reward-segment-value-login-#{reward_id_convention(filter)}", placeholder: 'Enter Login Count',
+                       style: "display:#{reward_make_visible(filter, ['login'])};" %>
 
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_value_rewards]",
                    options_for_select(@campaign.rewards.all.pluck(:name, :id), reward_event_value(filter, '', 'rewards')),

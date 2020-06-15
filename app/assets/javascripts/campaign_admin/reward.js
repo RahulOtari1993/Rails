@@ -187,6 +187,22 @@ $(document).ready(function () {
       })
     });
 
+    // Challenge User Segment Login Counts Validation
+    $('#reward-segment-value-login-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter no of logins",
+          min: "Minimum points should be 1",
+          max: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
     // Challenge User Segment Tags Validation
     $('#reward-segment-value-tags-' + phaseCounter).each(function () {
       $(this).rules("add", {
