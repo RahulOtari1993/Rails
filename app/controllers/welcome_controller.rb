@@ -32,7 +32,7 @@ class WelcomeController < ApplicationController
   end
 
   def challenge_details
-    binding.pry
+    @challenge = @campaign.challenges.where(id: params[:id]).first
   end
 
 end

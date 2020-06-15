@@ -1,1 +1,10 @@
-console.log("IININI");
+<% if @challenge.challenge_type == "link" %>
+console.log("IININI LINK");
+$('.challenge-submission-modal').html("<%= escape_javascript render '/challenge_submission/visit_url_modal', challenge: @challenge %>");
+$('#visit_url_modal').modal('show');
+<% elsif @challenge.challenge_type == "video" %>
+<% elsif @challenge.challenge_type == "article" %>
+<% elsif @challenge.challenge_type == "referral" %>
+<% elsif @challenge.challenge_type == "collect" %>
+<% elsif @challenge.challenge_type == "signup" %>
+<% end %>
