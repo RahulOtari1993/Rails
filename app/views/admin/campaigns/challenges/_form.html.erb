@@ -119,7 +119,7 @@
                       <div class="filter-type-container filters-container" style="display: <%= display_user_segments %>">
                         User match
                         <%= form.select :filter_type,
-                                        options_for_select(filter_type), {}, class: 'form-control filter-type-dd' %>
+                                        options_for_select(filter_type, @challenge.filter_type), {}, class: 'form-control filter-type-dd' %>
                         of the following condition
 
                         <hr style="margin-bottom: 0px !important;">
