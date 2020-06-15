@@ -155,7 +155,7 @@ $(document).ready(function () {
       })
     });
 
-    // Challenge User Segment Points Validation
+    // Challenge User Segment Current Points Validation
     $('#reward-segment-value-current-points-' + phaseCounter).each(function () {
       $(this).rules("add", {
         required: true,
@@ -164,6 +164,22 @@ $(document).ready(function () {
         digits: true,
         messages: {
           required: "Please enter current points",
+          min: "Minimum points should be 1",
+          max: "Maximum points can be 10000",
+          digits: "Please enter only digits"
+        }
+      })
+    });
+
+    // Challenge User Segment Lifetime Points Validation
+    $('#reward-segment-value-lifetime-points-' + phaseCounter).each(function () {
+      $(this).rules("add", {
+        required: true,
+        min: 1,
+        max: 10000,
+        digits: true,
+        messages: {
+          required: "Please enter lifetime points",
           min: "Minimum points should be 1",
           max: "Maximum points can be 10000",
           digits: "Please enter only digits"
