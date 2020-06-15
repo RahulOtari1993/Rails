@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_12_084822) do
+ActiveRecord::Schema.define(version: 2020_06_15_052956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -339,6 +339,8 @@ ActiveRecord::Schema.define(version: 2020_06_12_084822) do
     t.integer "reshares", default: 0
     t.integer "recruits", default: 0
     t.integer "connect_type"
+    t.integer "age"
+    t.integer "login_count"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -404,14 +406,6 @@ ActiveRecord::Schema.define(version: 2020_06_12_084822) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
-  end
-
-  create_table "reward_users", force: :cascade do |t|
-    t.integer "reward_id"
-    t.integer "user_id"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|

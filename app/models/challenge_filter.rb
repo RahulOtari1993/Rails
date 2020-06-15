@@ -43,7 +43,7 @@ class ChallengeFilter < ApplicationRecord
       when 'challenge' then
         challenge_check(participant)
       when 'login' then
-        challenge_check(participant)
+        login_check(participant)
     end
   end
 

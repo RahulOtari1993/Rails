@@ -56,6 +56,8 @@
 #  reshares               :integer          default(0)
 #  recruits               :integer          default(0)
 #  connect_type           :integer
+#  age                    :integer
+#  login_count            :integer
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
