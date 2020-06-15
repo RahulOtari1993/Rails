@@ -44,7 +44,13 @@ module Devise
           organization = Organization.where(id: domain.organization_id).first
           campaign = Campaign.where(id: domain.campaign_id).first
 
-          (organization.present? && campaign.present?)
+          if (organization.present? && campaign.present?)
+
+            valid_participant = Participant.where(email: resource.email, organization_id: organization.id, campaign_id: campaign.id).first
+            (valid_participant.present?)
+          else
+            false
+          end
         else
           false
         end
