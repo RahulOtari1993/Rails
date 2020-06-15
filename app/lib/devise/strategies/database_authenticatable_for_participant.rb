@@ -43,19 +43,10 @@ module Devise
         if domain.present?
           organization = Organization.where(id: domain.organization_id).first
           campaign = Campaign.where(id: domain.campaign_id).first
+
+          (organization.present? && campaign.present?)
         else
           false
-        end
-
-        if organization.present? && campaign.present?
-          # if campaign.present?
-          #   camp_user = CampaignUser.where.not(role: 0).where(campaign_id: campaign.id, user_id: resource.id).first
-          #   return camp_user.present?
-          # end
-
-          return true
-        else
-          return false
         end
       end
 

@@ -13,30 +13,30 @@ class Participants::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  def create
-    Rails.logger.info "======== IN @organization ---> #{@organization.inspect}"
-    Rails.logger.info "======== IN EMAIL ---> #{params[:participant][:email].inspect}"
-    org_participant = @organization.participants.find_by(:email => params[:participant][:email])
-    Rails.logger.info "======== IN org_participant ---> #{org_participant.inspect}"
-
-    campaign_participant = @campaign.participants.where(:id => org_participant.id)
-    Rails.logger.info "======== IN campaign_participant ---> #{campaign_participant.inspect}"
-
-    if org_participant.present? && campaign_participant.present?
-
-      self.resource = warden.authenticate!(auth_options)
-      set_flash_message!(:notice, :signed_in)
-      sign_in(resource_name, resource)
-      yield resource if block_given?
-      redirect_to participant_dashboard_path
-
-    elsif org_participant.present?
-      @campaign.participants << org_participant
-      redirect_to new_participant_session_path(resource)
-    else
-      redirect_to new_participant_session_path(resource) #new_participant_session_path(resource)
-    end
-  end
+  # def create
+  #   Rails.logger.info "======== IN @organization ---> #{@organization.inspect}"
+  #   Rails.logger.info "======== IN EMAIL ---> #{params[:participant][:email].inspect}"
+  #   org_participant = @organization.participants.find_by(:email => params[:participant][:email])
+  #   Rails.logger.info "======== IN org_participant ---> #{org_participant.inspect}"
+  #
+  #   campaign_participant = @campaign.participants.where(:id => org_participant.id)
+  #   Rails.logger.info "======== IN campaign_participant ---> #{campaign_participant.inspect}"
+  #
+  #   if org_participant.present? && campaign_participant.present?
+  #
+  #     self.resource = warden.authenticate!(auth_options)
+  #     set_flash_message!(:notice, :signed_in)
+  #     sign_in(resource_name, resource)
+  #     yield resource if block_given?
+  #     redirect_to participant_dashboard_path
+  #
+  #   elsif org_participant.present?
+  #     @campaign.participants << org_participant
+  #     redirect_to new_participant_session_path(resource)
+  #   else
+  #     redirect_to new_participant_session_path(resource) #new_participant_session_path(resource)
+  #   end
+  # end
 
   # DELETE /resource/sign_out
   # def destroy
