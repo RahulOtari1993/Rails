@@ -24,14 +24,8 @@
                     <div class="card-body pt-1">
                       <%= render 'shared/flash_messages' %>
                       <%= form_for(resource, as: resource_name, url: participant_session_path, html: {class: 'login_form' } ) do |f| %>
-                        <% if @organization.present? %>
-                          <%#= hidden_field_tag 'user[role]', 'admin' %>
-                          <%= hidden_field_tag 'participant[organization_id]', @organization.id %>
-                        <% else %>
-                          <%#= hidden_field_tag 'user[role]', 'participant' %>
-                          <%= hidden_field_tag 'participant[organization_id]', 0 %>
-                        <% end %>
-
+                        <%= hidden_field_tag 'participant[organization_id]', (@organization.present? ? @organization.id : 0) %>
+                        <%= hidden_field_tag 'participant[campaign_id]', (@campaign.present? ? @campaign.id : 0) %>
 
                         <fieldset class="form-label-group form-group position-relative has-icon-left">
                           <%= f.email_field :email, required: true, class: 'form-control', placeholder: 'Email' %>
@@ -69,7 +63,7 @@
                             <%= link_to "Forgot password?", new_participant_password_path, class: 'card-link' %>
                           </div>
                         </div>
-                        <a href="<%= new_participant_registration_path %>" class="btn btn-outline-primary float-left btn-inline">Register</a>
+                        <a href="<%= root_path %>" class="btn btn-outline-primary float-left btn-inline">Back to Home</a>
                         <%= f.submit "Log in", class: 'btn btn-primary float-right btn-inline' %>
                       <% end %>
                     </div>
