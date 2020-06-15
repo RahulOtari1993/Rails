@@ -7,7 +7,7 @@
 
   <td width="30%">
     <%= select_tag "reward[reward_filters_attributes][#{reward_name_convention(filter)}][reward_event]",
-                   options_for_select(RewardFilter::EVENTS.map { |val| [val.humanize, val] },
+                   options_for_select(reward_user_segment_list,
                                       reward_event(filter, RewardFilter::EVENTS.first)),
                    {class: 'form-control reward-event-dd',
                     required: true} %>

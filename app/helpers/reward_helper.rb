@@ -82,4 +82,24 @@
       type.include?('age') ? 'block' : 'none'
     end
   end
-end
+
+  ## User Segment List for Rewards
+  def reward_user_segment_list
+    filter_list = []
+    RewardFilter::EVENTS.each do |filter_type|
+      if filter_type == 'age' || filter_type == 'tags' || filter_type == 'gender'
+        filter_list.push([filter_type.titleize, filter_type])
+      elsif filter_type == 'current-points'
+        filter_list.push(['Current Points', filter_type])
+      elsif filter_type == 'lifetime-points'
+        filter_list.push(['Lifetime Points', filter_type])
+      elsif filter_type == 'challenge'
+        filter_list.push(['Challenges Completed', filter_type])
+      elsif filter_type == 'login'
+        filter_list.push(['User Logins', filter_type])
+      end
+    end
+
+    filter_list
+  end
+ end
