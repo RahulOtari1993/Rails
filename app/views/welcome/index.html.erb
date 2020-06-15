@@ -57,17 +57,17 @@
                   <h2 class="image_box_title"><%= challenge.name %></h2>
                   <div class="width_100">
                     <% if challenge.challenge_type == "signup" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %></button></div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %></button></div>
                     <% elsif challenge.challenge_type == "video" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn">Watch Now</button> </div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Watch Now</button> </div>
                     <% elsif challenge.challenge_type == "article" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn">Read Article</button> </div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Read Article</button> </div>
                     <% elsif challenge.challenge_type == "referral" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Refer #{challenge.parameters.titleize}" %></button> </div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= "Refer #{challenge.parameters.titleize}" %></button> </div>
                     <% elsif challenge.challenge_type == "collect" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Take a #{challenge.parameters.titleize} Now" %></button> </div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= "Take a #{challenge.parameters.titleize} Now" %></button> </div>
                     <% elsif challenge.challenge_type == "link" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn">Visit a URL</button> </div>
+                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Visit a URL</button> </div>
                     <% end %>
                       <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, challenge.finish) %></span></div>
                   </div>

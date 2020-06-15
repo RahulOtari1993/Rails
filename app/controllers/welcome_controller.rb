@@ -30,4 +30,9 @@ class WelcomeController < ApplicationController
 
   def participant_dashboard
   end
+
+  def challenge_details
+    binding.pry
+  end
+
 end
