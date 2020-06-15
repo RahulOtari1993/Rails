@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
-    Rails.logger.info "========IN request.subdomain ---> #{request.subdomain}"
+    Rails.logger.info "======== IN REQUEST ---> #{request}"
+    Rails.logger.info "======== IN request.subdomain ---> #{request.subdomain}"
     @domain = DomainList.where(domain: request.subdomain).first
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first

@@ -15,7 +15,11 @@ class Participants::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
   def create
     org_participant = @organization.participants.find_by(:email => params[:participant][:email])
+    Rails.logger.info "======== IN org_participant ---> #{org_participant.inspect}"
+
     campaign_participant = @campaign.participants.where(:id => org_participant.id)
+    Rails.logger.info "======== IN campaign_participant ---> #{campaign_participant.inspect}"
+
     if org_participant.present? && campaign_participant.present?
 
       self.resource = warden.authenticate!(auth_options)
