@@ -29,6 +29,8 @@ class WelcomeController < ApplicationController
   end
 
   def participant_dashboard
+    @challenges = @campaign.challenges.current_active
+    @rewards = @campaign.rewards.current_active
   end
 
   def challenge_details

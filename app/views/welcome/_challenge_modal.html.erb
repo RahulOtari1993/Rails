@@ -1,5 +1,5 @@
 
-<div class="modal fade text-left" id="challenge_modal_5">
+<div class="modal fade text-left" id="challenge_submission_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -38,15 +38,19 @@
 </div>
 
 <script type="text/javascript">
+
+    $(document).ready(function() {
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+    })
     // Initialise the iframe  start
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
     var player, timer, timeSpent = [], completeWatchPercent, completeWatchStatus;
 
     function onYouTubeIframeAPIReady() {
+      alert("ss")
       player = new YT.Player('player', {
         height: '260',
         width: '465',
