@@ -340,7 +340,6 @@ ActiveRecord::Schema.define(version: 2020_06_15_052956) do
     t.integer "recruits", default: 0
     t.integer "connect_type"
     t.integer "age"
-    t.integer "login_count"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
