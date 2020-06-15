@@ -115,7 +115,20 @@ class ChallengeFilter < ApplicationRecord
 
   ## Check Challenge Conditions
   def challenge_check participant
-    true
+    case self.challenge_condition
+    when 'equals' then
+      participant.completed_challenges.to_i == self.challenge_value.to_i
+    when 'greater_than' then
+      participant.completed_challenges.to_i > self.challenge_value.to_i
+    when 'less_than' then
+      participant.completed_challenges.to_i < self.challenge_value.to_i
+    when 'greater_than_or_equal' then
+      participant.completed_challenges.to_i >= self.challenge_value.to_i
+    when 'less_than_or_Equal' then
+      participant.completed_challenges.to_i <= self.challenge_value.to_i
+    else
+      false
+    end
   end
 
   ## Check Login Conditions
