@@ -14,8 +14,7 @@ class Participants::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    Rails.logger.info "======== IN @organization ---> #{org_participant.inspect}"
-    Rails.logger.info "======== IN org_participant ---> #{org_participant.inspect}"
+    Rails.logger.info "======== IN @organization ---> #{@organization.inspect}"
     Rails.logger.info "======== IN EMAIL ---> #{params[:participant][:email].inspect}"
     org_participant = @organization.participants.find_by(:email => params[:participant][:email])
     Rails.logger.info "======== IN org_participant ---> #{org_participant.inspect}"
