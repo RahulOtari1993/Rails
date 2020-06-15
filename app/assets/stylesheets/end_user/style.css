@@ -1,6 +1,16 @@
 
-.modal-dialog{
+#join_now_modal .modal-dialog, #sign_in_modal .modal-dialog {
   max-width: 620px;
+}
+
+#join_now_modal .modal-header .close, #sign_in_modal .modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
+  position: absolute;
+  z-index: 555;
+  top: 22px;
+  right: 26px;
+  border: none;
 }
 
 .modal_box {
@@ -9,14 +19,6 @@
   border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
-}
-
-.modal-header{
-  padding: 0px;
-}
-
-.modal-title {
-  text-align: center;
 }
 
 .modal_box a {
@@ -33,26 +35,19 @@
   line-height: 24px;
 }
 
-#join_now_modal .modal-header .close, #sign_in_modal .modal-header .close {
-  padding: 1rem;
-  margin: -1rem -1rem -1rem auto;
-  position: absolute;
-  z-index: 555;
-  top: 22px;
-  right: 26px;
-  outline: none;
-  border: none;
-}
-
 .modal_box .form-control {
   margin-bottom: 13px;
+}
+
+.modal-header .close {
+  outline: none;
 }
 
 .font-12 {
   font-size: 12px;
 }
 
-.box1_btn{
+.box1_btn {
   font-weight: 100;
   border-radius: 22px;
   padding: 7px 23px;

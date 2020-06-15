@@ -98,6 +98,18 @@ Rails.application.routes.draw do
       end
     end
 
+    # routes for end user participants challenge submission
+    namespace :participants do
+      resources :challenges do
+        member do
+          get :challenge_details
+        end
+        collection do
+          post :challenge_submission
+        end
+      end
+    end
+
     ## Root Route
     root to: "welcome#index"
     get '/template', to: 'welcome#home', as: :template

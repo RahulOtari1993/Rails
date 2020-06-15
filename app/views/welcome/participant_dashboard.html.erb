@@ -1,8 +1,114 @@
 
-<div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Welcome, You are logged in successfully!</h1>
+<!-- Challenges section start -->
+<section class="section1">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Earn GoBucks</h3>
+        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span> </p>
+      </div>
+      <% unless @challenges.blank? %>
+        <% @challenges.each_with_index do |challenge| %>
+          <div class="col-12 col-md-4">
+            <div class="image_box_bg">
+              <%= image_tag(challenge.image.banner.url, class: 'box_img_style') %>
+              <div class="card image_box position_abs">
+                <div class="image_inner_text">
+                  <div class="width_100">
+                    <div class="width_50" style="float: left;"><span class="left"><%= "+#{challenge.points.to_i}" %></span> </div>
+                    <div class="width_50" style="float: right;"><%= image_tag("end-user/play-button.svg", style: "width: 40px;float: right;") %></div>
+                  </div>
+                  <div class="clear"></div>
+                  <h2 class="image_box_title"><%= challenge.name %></h2>
+                  <div class="width_100">
+                    <% if challenge.challenge_type == "signup" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %></button></div>
+                    <% elsif challenge.challenge_type == "video" %>
+                      <div class="width_50" style="float: left;"><a href="#" class="watch_btn" onclick="watchVideoModal(<%= challenge.id %>)">Watch Now</a></div>
+                      <!-- <div class="width_50" style="float: left;"><a href="#" class="watch_btn"  data-toggle="modal" data-target="#challenge_submission_modal_<%#= challenge.id %>">Watch Now</a></div> -->
+                    <% elsif challenge.challenge_type == "article" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn">Read Article</button> </div>
+                    <% elsif challenge.challenge_type == "referral" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Refer #{challenge.parameters.titleize}" %></button> </div>
+                    <% elsif challenge.challenge_type == "collect" %>
+                      <div class="width_50" style="float: left;"><button class="watch_btn"><%= "Take a #{challenge.parameters.titleize} Now" %></button> </div>
+                    <% end %>
+                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, challenge.finish) %></span></div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
+</section>
+<!-- Challenges section end -->
+
+<!-- Rewards Section start -->
+<section class="section2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Current Prizes</h3>
+        <p>The more GoBucks you earn <span>the more you can win.</span> </p>
+      </div>
+      <% unless @rewards.blank? %>
+        <% @rewards.each_with_index do |reward, index| %>
+          <div class="col-12 col-md-4">
+            <div class="card image_box">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <div class="width_50" style="float: left;"><span class="left">CASH-IN <br> REWARD</span> </div>
+                  <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
+                </div>
+                <div class="clear"></div>
+                <%= image_tag(reward.image.banner.url, style: "width:100%;height: 200px;margin: 12px 0px;") %>
+                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
+                <h5><%= reward.description %></h5>
+                <div class="width_100">
+                  <div class="width_50" style="float: left;"><button class="watch_btn">Learn More</button> </div>
+                  <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, reward.finish) %></span></div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Rewards Section end -->
+
+<div class="challenge-submission-modal-div">
 </div>
+
+<%#= render 'challenge_modal', challenge: @challenges.third %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var height;
+    $('.image_box_bg .card').each(function() {
+      height = $(this).innerHeight()
+      imageDiv = $(this).parent().find('.box_img_style');
+      imageDiv.css('height', height);
+    });
+  });
+
+  function watchVideoModal(challenge_id) {
+    $.ajax({
+      url: "/participants/challenges/"+ challenge_id + "/challenge_details",
+      type: 'GET'
+      // dataType: 'script',
+      // success: function(response) {
+      // }
+    });
+  }
+</script>
+
+<style media="screen">
+
+</style>
