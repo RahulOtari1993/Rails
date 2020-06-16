@@ -13,4 +13,9 @@ module EndUserHelper
   def display_email_button
     @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').present?
   end
+
+  ## Check whether Onboarding Challenge is Available & Active
+  def check_onboarding_challege
+    @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile')
+  end
 end

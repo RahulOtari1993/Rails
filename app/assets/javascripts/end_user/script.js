@@ -24,6 +24,22 @@ $(document).on('turbolinks:load', function () {
     });
   }
 
+  // Function for fetching particular URL Param
+  function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+      }
+    }
+  };
+
   // Submit Visit a URL Challenge
   $('.challenge-submission-modal').on('click', '.submit-link-challenge', function (e) {
     var challengeId = $(this).data('challenge-id');
@@ -46,4 +62,14 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
+  
+  setTimeout(function () {
+    var new_connect = getUrlParameter('c');
+    console.log("New Connect", new_connect);
+    console.log("New onboarding_questions_modal", onboarding_questions_modal);
+
+    if (typeof new_connect !== "undefined" && $('#onboarding_questions_modal').length > 0 ) {
+      $('#onboarding_questions_modal').modal('show');
+    }
+  }, 2000);
 });
