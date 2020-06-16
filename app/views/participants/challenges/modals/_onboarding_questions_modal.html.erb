@@ -16,12 +16,17 @@
       <div class="modal-body">
         <h4><b class="text-center"><%= challenge.title %></b></h4>
         <h6><%= challenge.description %></h6>
-        <div class="row">
-          <div class="col-12">
-            <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge"
-               data-challenge-id="<%= challenge.id %>">Submit</a>
-          </div>
-        </div>
+
+        <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'POST', class: 'onboarding-questions-form', model: current_participant, local: false) do |f| %>
+          <% challenge.questions.each do |question| %>
+            <div class="row">
+              <div class="col-12">
+               <h5><%= question.title %></h5>
+                <h6><%= question.answer_type %> AND <%= question.is_required %></h6>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       </div>
 
       <!-- Modal footer -->
