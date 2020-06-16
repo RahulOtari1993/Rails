@@ -261,8 +261,6 @@ class Participant < ApplicationRecord
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed(user_agent = '', remote_ip = '')
-    Rails.logger.info "***************** connect_challenge_completed *****************"
-
     ## Fetch the Campaign
     campaign = Campaign.where(id: self.campaign_id).first
     if campaign.present?
@@ -279,14 +277,6 @@ class Participant < ApplicationRecord
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
 
         unless is_submitted
-          ## Update User's Points
-          challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
-          points = self.points + challenge_points
-          unused_points = self.unused_points + challenge_points
-          self.points = points
-          self.unused_points = unused_points
-          self.save(:validate => false)
-
           ## Submit Challenge
           submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id,
                                    user_agent: user_agent, ip_address: remote_ip})
