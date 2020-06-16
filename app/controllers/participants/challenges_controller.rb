@@ -5,7 +5,6 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
-    @challenge = @campaign.challenges.where(id: params[:id]).first
   end
 
   ## Submit Challenges
@@ -32,25 +31,21 @@ class Participants::ChallengesController < ApplicationController
 
   def challenge_submission
     if current_participant.present?
-      unless @challenge.blank?
-
-        @submission = Submission.where(campaign_id: @campaign.id, participant_id: current_participant.id, challenge_id: @challenge.id).first_or_initialize
-        if @submission.new_record?
-          @submission.user_agent = request.user_agent
-          @submission.ip_address = request.ip
-          @submission.save
-          render json: {status: 200, message: "Your points have been rewarded successfully in your account."}
-        else
-          if @challenge.challenge_type == "video"
-            action_type = "watch_video"
-            title = "Watch a video again"
-            participant_action = ParticipantAction.new(participant_id: @submission.participant_id, points: @challenge.points, action_type: action_type, title: title, details: @challenge.caption, actionable_id: @challenge.id, actionable_type: @challenge.class.name, user_agent: request.user_agent, ip_address: request.ip)
-            participant_action.save
-          end
-          render json: {status: 200, message: "You have already watched this video earlier."}
-        end
+      @submission = Submission.where(campaign_id: @campaign.id, participant_id: current_participant.id, challenge_id: @challenge.id).first_or_initialize
+      if @submission.new_record?
+        @submission.user_agent = request.user_agent
+        @submission.ip_address = request.ip
+        @submission.save
+        render json: { status: 200, message: "Your points have been rewarded successfully in your account." }
       else
-        render json: {status: 300, message: "Something is went wrong. Please try again later .."}
+        if @challenge.challenge_type == "video"
+          action_type = "watch_video"
+          title = "Watch a video again"
+          participant_action = ParticipantAction.new( participant_id: @submission.participant_id, points: 0, action_type: action_type, title: title, details: @challenge.caption, actionable_id: @challenge.id, actionable_type: @challenge.class.name, user_agent: request.user_agent, ip_address: request.ip)
+          participant_action.save
+        end
+        render json: { status: 200, message: "You have already submitted this challenge earlier." }
+
       end
     else
       render json: {status: 400, message: "Your session has been expired. Please login back again."}

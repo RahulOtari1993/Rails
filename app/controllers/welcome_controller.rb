@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_participant!, only: [ :welcome, :participant_dashboard ]
+  before_action :authenticate_participant!, only: [ :welcome ]
   before_action :authenticate_user!, only: :index, if: -> { @campaign.nil? }
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
 
@@ -26,11 +26,6 @@ class WelcomeController < ApplicationController
   end
 
   def welcome
-  end
-
-  def participant_dashboard
-    @challenges = @campaign.challenges.current_active
-    @rewards = @campaign.rewards.current_active
   end
 
 end

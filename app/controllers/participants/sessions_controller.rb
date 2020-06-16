@@ -28,7 +28,7 @@ class Participants::SessionsController < Devise::SessionsController
   #     set_flash_message!(:notice, :signed_in)
   #     sign_in(resource_name, resource)
   #     yield resource if block_given?
-  #     redirect_to participant_dashboard_path
+  #     redirect_to root_path
   #
   #   elsif org_participant.present?
   #     @campaign.participants << org_participant

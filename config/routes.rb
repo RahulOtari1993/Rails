@@ -114,7 +114,6 @@ Rails.application.routes.draw do
     ## Root Route
     root to: "welcome#index"
     get '/template', to: 'welcome#home', as: :template
-    get '/participants/dashboard', to: 'welcome#participant_dashboard', as: :participant_dashboard
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
   end

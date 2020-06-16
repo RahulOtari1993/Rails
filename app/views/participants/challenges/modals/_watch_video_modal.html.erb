@@ -1,5 +1,5 @@
 
-<div class="modal fade text-left" id="challenge_submission_modal">
+<div class="modal fade text-left" id="watch_video_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -40,21 +40,23 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+      // create a element for watch a video start
       var tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+      // create a element for watch a video end
     })
-    // Initialise the iframe  start
 
+    // Initialise the iframe  start
     var player, timer, timeSpent = [], completeWatchPercent, completeWatchStatus;
+    var challengeId = <%= challenge.id %> ;
 
     function onYouTubeIframeAPIReady() {
-      alert("ss")
       player = new YT.Player('player', {
         height: '260',
         width: '465',
-        videoId: '2_BkCz3OnlY',
+        videoId: "<%= get_challenge_video_id(challenge) %>",
         events: {
           'onStateChange': onPlayerStateChange
         }
@@ -64,59 +66,57 @@
 
 
     // Iframe Events listeners and record watch video progress start
-     function onPlayerStateChange(event) {
-       if (event.data === 1) { // Started playing
-         if (!timeSpent.length) {
-           for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
-         }
-         timer = setInterval(record, 100);
-       } else {
-         clearInterval(timer);
-       }
-     }
+    function onPlayerStateChange(event) {
+      if (event.data === 1) { // Started playing
+        if (!timeSpent.length) {
+         for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+        }
+        timer = setInterval(record, 100);
+      } else {
+        clearInterval(timer);
+      }
+    }
 
-     // record watch video progress start
-     function record() {
-       timeSpent[parseInt(player.getCurrentTime())] = true;
-       if (completeWatchStatus == '' || completeWatchStatus == undefined) {
-         completeWatchPercent = showPercentage();
-         if (completeWatchPercent === 100) {
-           completeWatchStatus = true
-           console.log(completeWatchPercent);
-           submitChallenge("<%= challenge.id %>", completeWatchStatus)
-         }
-       }
-     }
+    // record watch video progress start
+    function record() {
+      timeSpent[parseInt(player.getCurrentTime())] = true;
+      if (completeWatchStatus == '' || completeWatchStatus == undefined) {
+        completeWatchPercent = showPercentage();
+        if (completeWatchPercent === 100) {
+          completeWatchStatus = true
+          submitChallenge(challengeId)
+        }
+      }
+    }
 
-     // Calculate and Show the percentage
-     function showPercentage() {
-       var percent = 0;
-       for (var i = 0, l = timeSpent.length; i < l; i++) {
-         if (timeSpent[i]) percent++;
-       }
-       percent = Math.round(percent / timeSpent.length * 100);
+    // Calculate and Show the percentage
+    function showPercentage() {
+      var percent = 0;
+      for (var i = 0, l = timeSpent.length; i < l; i++) {
+        if (timeSpent[i]) percent++;
+      }
+      percent = Math.round(percent / timeSpent.length * 100);
 
-       $('#display').text(percent + "%");
-       $( ".progress-bar" ).css("width", percent + "%");
-       return percent;
-     }
-     // Iframe Events listeners and record watch video progress end
-
-
+      $('#display').text(percent + "%");
+      $( ".progress-bar" ).css("width", percent + "%");
+      return percent;
+    }
+    // Iframe Events listeners and record watch video progress end
 
     // submit Challenge start
-    function submitChallenge(challenge_id, status) {
+    function submitChallenge(challenge_id) {
       $.ajax({
-        url: "/participants/challenges/challenge_submission",
+        url: `/participants/challenges/${challengeId}/challenge_submission`,
         type: 'POST',
         dataType: 'JSON',
-        data: { id: challenge_id, status: status },
+        data: { status: status },
         success: function(response) {
           if (response.status == 200) {
-            alert("Success")
+            console.log("Success")
           } else {
-            alert("Failed")
+            console.log("Failed")
           }
+          console.log(response.message)
         }
       });
     }
