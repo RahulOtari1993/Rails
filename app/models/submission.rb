@@ -19,7 +19,7 @@ class Submission < ApplicationRecord
 
   ## Callbacks
   after_create :submission_count_change
-  after_create :challenge_submission_count_change
+  after_create :challenge_submission_changes_for_participant
 
   private
 
@@ -32,12 +32,24 @@ class Submission < ApplicationRecord
     end
   end
 
-  ## Increase Completed Challenges Counter of Participant
-  def challenge_submission_count_change
+  ## Challenge Submission Changes for Participant
+  def challenge_submission_changes_for_participant
     participant = self.participant
-    if participant.present?
-      count = participant.completed_challenges + 1
-      participant.update_attribute(:completed_challenges, count)
+    challenge = self.challenge
+
+    if participant.present? && challenge.present?
+      ## Points Calculations
+      challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
+      points = participant.points + challenge_points
+      unused_points = participant.unused_points + challenge_points
+
+      ## Submitted Challenges Counter Changes
+      completed_challenges = participant.completed_challenges + 1
+
+      participant.points = points
+      participant.unused_points = unused_points
+      participant.completed_challenges = completed_challenges
+      participant.save(:validate => false)
     end
   end
 end

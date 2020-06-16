@@ -135,9 +135,7 @@
 <div class="clear"></div>
 <!-- Top footer end -->
 
-<div class="challenge-submission-modal">
-
-</div>
+<div class="challenge-submission-modal"></div>
 
 <script type="text/javascript">
   $(document).ready(function () {
@@ -146,15 +144,6 @@
       height = $(this).innerHeight()
       imageDiv = $(this).parent().find('.box_img_style');
       imageDiv.css('height', height);
-    });
-
-    $('body').on('click', '.challenge-submission-btn', function (e) {
-      var challengeId = $(this).data('challenge-id');
-
-      $.ajax({
-        type: 'GET',
-        url: `/participants/challenges/${challengeId}/details`
-      });
     });
   });
 </script>

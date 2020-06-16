@@ -103,6 +103,7 @@ Rails.application.routes.draw do
       resources :challenges do
         member do
           get :details
+          post :submission
         end
         collection do
           post :challenge_submission

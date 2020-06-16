@@ -19,7 +19,6 @@ class ApplicationController < ActionController::Base
       @campaign = Campaign.where(id: @domain.campaign_id).first
       Rails.logger.info "========IN #{@campaign.inspect} ORG #{@organization}"
     else
-      # binding.pry
       @organization = Organization.where(sub_domain: request.subdomain).first
     end
 

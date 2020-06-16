@@ -18,7 +18,14 @@
         <h6><%= challenge.description %></h6>
         <div class="row">
           <div class="col-12">
-            <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary">Visit URL</a>
+            <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge"
+            data-challenge-id="<%= challenge.id %>">Visit URL</a>
+          </div>
+        </div>
+
+        <div class="row challenge-completion-container" style="display: none;">
+          <div class="col-12">
+            <h4>Congratulation, You've completed this challenge successfully.</h4>
           </div>
         </div>
       </div>
