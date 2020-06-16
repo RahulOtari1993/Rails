@@ -105,3 +105,6 @@ gem 'omniauth-facebook'
 
 ## Use Omniauth Google plugin
 gem 'omniauth-google-oauth2'
+
+# fetch video id from url
+gem 'video_info'

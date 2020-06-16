@@ -151,10 +151,15 @@
     $('body').on('click', '.challenge-submission-btn', function (e) {
       var challengeId = $(this).data('challenge-id');
 
-      $.ajax({
-        type: 'GET',
-        url: `/participants/challenges/${challengeId}/details`
-      });
+      if (<%= current_participant.present? %>) {
+        $.ajax({
+          type: 'GET',
+          url: `/participants/challenges/${challengeId}/details`
+        });
+      } else {
+        $('#sign_in_modal').modal();
+      }
+
     });
   });
 </script>
