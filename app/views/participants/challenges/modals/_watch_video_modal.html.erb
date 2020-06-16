@@ -27,6 +27,12 @@
             <p class="pull-right" id="display"></p>
           </div>
         </div>
+
+        <div class="row challenge-completion-container" style="display: none;">
+          <div class="col-12">
+            <h4>Congratulation, You've completed this challenge successfully.</h4>
+          </div>
+        </div>
       </div>
 
       <!-- Modal footer -->
@@ -61,6 +67,11 @@
           'onStateChange': onPlayerStateChange
         }
       });
+
+      // stop the video playback on close
+      $('#watch_video_modal').on('hide.bs.modal', () => {
+        player.pauseVideo()
+      })
     }
     // Initialise the iframe end
 
@@ -103,20 +114,30 @@
     }
     // Iframe Events listeners and record watch video progress end
 
+    // Trigger SWAL Notificaton
+    function swalNotify(title, message) {
+      Swal.fire({
+        title: title,
+        text: message,
+        confirmButtonClass: 'btn btn-primary',
+        buttonsStyling: false,
+      });
+    }
+
     // submit Challenge start
     function submitChallenge(challenge_id) {
       $.ajax({
-        url: `/participants/challenges/${challengeId}/challenge_submission`,
+        url: `/participants/challenges/${challengeId}/submission`,
         type: 'POST',
         dataType: 'JSON',
         data: { status: status },
-        success: function(response) {
-          if (response.status == 200) {
-            console.log("Success")
+        success: function (data) {
+          if (data.success) {
+            // Display Challenge Completion Message
+            $('.challenge-completion-container').show();
           } else {
-            console.log("Failed")
+            swalNotify('Challenge Submission', data.message);
           }
-          console.log(response.message)
         }
       });
     }

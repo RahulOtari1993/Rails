@@ -29,29 +29,6 @@ class Participants::ChallengesController < ApplicationController
     end
   end
 
-  def challenge_submission
-    if current_participant.present?
-      @submission = Submission.where(campaign_id: @campaign.id, participant_id: current_participant.id, challenge_id: @challenge.id).first_or_initialize
-      if @submission.new_record?
-        @submission.user_agent = request.user_agent
-        @submission.ip_address = request.ip
-        @submission.save
-        render json: { status: 200, message: "Your points have been rewarded successfully in your account." }
-      else
-        if @challenge.challenge_type == "video"
-          action_type = "watch_video"
-          title = "Watch a video again"
-          participant_action = ParticipantAction.new( participant_id: @submission.participant_id, points: 0, action_type: action_type, title: title, details: @challenge.caption, actionable_id: @challenge.id, actionable_type: @challenge.class.name, user_agent: request.user_agent, ip_address: request.ip)
-          participant_action.save
-        end
-        render json: { status: 200, message: "You have already submitted this challenge earlier." }
-
-      end
-    else
-      render json: {status: 400, message: "Your session has been expired. Please login back again."}
-    end
-  end
-
   private
 
   def set_challenge
@@ -68,6 +45,12 @@ class Participants::ChallengesController < ApplicationController
         title = "Again Watched a Video"
       end
     elsif @challenge.challenge_type == 'video'
+      action_type = 'watch_video'
+      unless re_submission
+        title = "Watched a Video"
+      else
+        title = "Again Watched a Video"
+      end
     elsif @challenge.challenge_type == 'article'
     elsif @challenge.challenge_type == 'referral'
     elsif @challenge.challenge_type == 'collect'

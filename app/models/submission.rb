@@ -20,8 +20,6 @@ class Submission < ApplicationRecord
   ## Callbacks
   after_create :submission_count_change
   after_create :challenge_submission_changes_for_participant
-  after_create :participant_details_change
-  after_create :insert_participant_action
 
   private
 
@@ -52,22 +50,6 @@ class Submission < ApplicationRecord
       participant.unused_points = unused_points
       participant.completed_challenges = completed_challenges
       participant.save(:validate => false)
-    end
-  end
-
-  ##  update participants earned points
-  def participant_details_change
-  end
-
-  ## create participate action after successfull challenge submission
-  def insert_participant_action
-    challenge = self.challenge
-    if challenge.challenge_type == "video"
-      action_type = "watch_video"
-      title = "Watch a video"
-      details = challenge.caption
-      participant_action = ParticipantAction.new( participant_id: participant_id, points: challenge.points, action_type: action_type, title: title, details: details, actionable_id: challenge.id, actionable_type: challenge.class.name, user_agent: self.user_agent, ip_address: self.ip_address)
-      participant_action.save
     end
   end
 

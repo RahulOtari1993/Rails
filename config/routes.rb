@@ -105,9 +105,6 @@ Rails.application.routes.draw do
           get :details
           post :submission
         end
-        collection do
-          post :challenge_submission
-        end
       end
     end
 
