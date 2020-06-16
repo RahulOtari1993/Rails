@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_15_052956) do
+ActiveRecord::Schema.define(version: 2020_06_16_143007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,6 +285,16 @@ ActiveRecord::Schema.define(version: 2020_06_15_052956) do
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
+  create_table "participant_profiles", force: :cascade do |t|
+    t.bigint "participant_id"
+    t.bigint "profile_attribute_id"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_participant_profiles_on_participant_id"
+    t.index ["profile_attribute_id"], name: "index_participant_profiles_on_profile_attribute_id"
+  end
+
   create_table "participants", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -406,6 +416,14 @@ ActiveRecord::Schema.define(version: 2020_06_15_052956) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
+  end
+
+  create_table "reward_users", force: :cascade do |t|
+    t.integer "reward_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
@@ -541,6 +559,8 @@ ActiveRecord::Schema.define(version: 2020_06_15_052956) do
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "networks", "campaigns"
   add_foreign_key "participant_actions", "participants"
+  add_foreign_key "participant_profiles", "participants"
+  add_foreign_key "participant_profiles", "profile_attributes"
   add_foreign_key "profile_attributes", "campaigns"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
