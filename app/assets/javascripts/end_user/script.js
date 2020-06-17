@@ -156,7 +156,13 @@ $(document).on('turbolinks:load', function () {
       }
     }
   })
-  
+
+  $('.answer-radio-button-required').each(function () {
+    $(this).rules('add', {
+      required: true
+    });
+  });
+
   $('.answer-check-box-required').each(function () {
     $(this).rules('add', {
       required: true
