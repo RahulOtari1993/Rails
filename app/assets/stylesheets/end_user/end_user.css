@@ -32,6 +32,8 @@
 /*
  * Custom Integration
  *= require ../end_user/libraries/bootstrap.min
+ *= require vendors/pickers/pickadate/pickadate
+ *= require vendors/extensions/sweetalert2.min
  *= require ../end_user
  *= require ../end_user/style
  * require ../end_user/welcome

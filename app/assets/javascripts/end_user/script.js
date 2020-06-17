@@ -62,14 +62,20 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
-  
+
+  // Load Profile Onboarding Questions
   setTimeout(function () {
     var new_connect = getUrlParameter('c');
-    console.log("New Connect", new_connect);
-    console.log("New onboarding_questions_modal", onboarding_questions_modal);
 
     if (typeof new_connect !== "undefined" && $('#onboarding_questions_modal').length > 0 ) {
       $('#onboarding_questions_modal').modal('show');
     }
   }, 2000);
+
+  // Date Picker for Onboarding Questions
+  $('.answer-date').pickadate({
+    format: 'mm/d/yyyy',
+    selectYears: true,
+    selectMonths: true
+  });
 });
