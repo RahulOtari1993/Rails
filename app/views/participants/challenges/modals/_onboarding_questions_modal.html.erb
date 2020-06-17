@@ -28,6 +28,7 @@
                   <div class="position-relative">
                     <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
                     <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>
+                    <%= hidden_field_tag "questions[#{question.id}][attribute_name]", profile_attribute.attribute_name %>
 
                     <% case profile_attribute.field_type %>
                     <% when 'string' then %>
@@ -77,7 +78,7 @@
                                          placeholder: "Answer here" %>
                     <% when 'radio_button' then %>
                       <% question.question_options.each do |option| %>
-                        <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
+                        <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
                                              id: "questions_#{question.id}_answer_#{option.id}",
                                              class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}",
                                              data: {error: "radio-button-error-#{index}"} %>
@@ -87,7 +88,7 @@
                       <div class="custom-error-class radio-button-error-<%= index %>"></div>
                     <% when 'check_box' then %>
                       <% question.question_options.each do |option| %>
-                        <%= check_box_tag "questions[#{question.id}][answer][]", true, false,
+                        <%= check_box_tag "questions[#{question.id}][answer][]", option.details, false,
                                           id: "questions_#{question.id}_answer_#{option.id}",
                                           class: "answer-check-box #{answer_required('answer-check-box', question.is_required)}",
                                           data: {error: "check-box-error-#{index}"} %>

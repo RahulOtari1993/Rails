@@ -73,6 +73,7 @@ class Participant < ApplicationRecord
   has_many :challenges, through: :challenge_participants
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
+  has_many :participant_profiles, dependent: :destroy
 
   ## Callbacks
   after_create :save_participant_details
@@ -80,6 +81,9 @@ class Participant < ApplicationRecord
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
+
+  ## Nested Attributes
+  accepts_nested_attributes_for :participant_profiles, allow_destroy: true, :reject_if => :all_blank
 
   ## Tags
   acts_as_taggable_on :tags

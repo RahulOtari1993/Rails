@@ -93,7 +93,7 @@ $(document).on('turbolinks:load', function () {
     }
   }).pickadate('picker')
 
-  var timePicker = $('.date-answer-hidden-field').pickatime({
+  var timePicker = $('.time-answer-hidden-field').pickatime({
     container: '.date-time-picker-output',
     onRender: function () {
       $('<button class="btn btn-primary">back to date</button>').on('click', function () {
@@ -103,7 +103,7 @@ $(document).on('turbolinks:load', function () {
     },
     onSet: function (item) {
       if ('select' in item) setTimeout(function () {
-        $datetime.off('focus').val(datePicker.get() + ' @ ' + timePicker.get()).focus().on('focus', datePicker.open)
+        $datetime.off('focus').val(datePicker.get() + ' ' + timePicker.get()).focus().on('focus', datePicker.open)
       }, 0)
     }
   }).pickatime('picker')

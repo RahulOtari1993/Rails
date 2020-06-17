@@ -100,7 +100,7 @@ class ProfileAttributeService
             display_name: 'Affiliation',
             field_type: 'check_box',
             is_active: true,
-            is_custom: false,
+            is_custom: true,
             campaign_id: @campaign_id
 
         }
