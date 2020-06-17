@@ -57,7 +57,7 @@ $(document).on('turbolinks:load', function () {
           $('.challenge-completion-container').show();
           _this.hide();
         } else {
-          swalNotify('CHallenge Submission', data.message);
+          swalNotify('Challenge Submission', data.message);
         }
       }
     });

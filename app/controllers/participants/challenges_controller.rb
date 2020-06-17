@@ -20,20 +20,32 @@ class Participants::ChallengesController < ApplicationController
         ## Save Onboarding Profile Questions
         if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
           unless current_participant.update(onboarding_question_params)
-            return render json: {success: false, message: 'Something went wrong, Please try again.'}
+            respond_to do |format|
+              @response = {success: false, message: 'Something went wrong, Please try again.'}
+              format.json { render json: @response }
+              format.js { render layout: false }
+            end
           end
         end
 
         if @submission.save
           participant_action false
         else
-          render json: {success: false, message: 'Challenge submission failed, Please try again.'}
+          respond_to do |format|
+            @response = {success: false, message: 'Challenge submission failed, Please try again.'}
+            format.json { render json: @response }
+            format.js { render layout: false }
+          end
         end
       else
         participant_action true
       end
     else
-      render json: {success: false, message: 'Challenge not found, Please contact administrator.'}
+      respond_to do |format|
+        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        format.json { render json: @response }
+        format.js { render layout: false }
+      end
     end
   end
 
@@ -108,10 +120,19 @@ class Participants::ChallengesController < ApplicationController
                                                    user_agent: request.user_agent, ip_address: request.ip)
         participant_action.save!
 
-        render json: {success: true, message: 'Challenge submitted successfully.'}
+        respond_to do |format|
+          @response = {success: true, message: 'Challenge submitted successfully.'}
+          format.json { render json: @response }
+          format.js { render layout: false }
+        end
       rescue Exception => e
         Rails.logger.info "Participant Action Entry Failed --> #{e.message}"
-        render json: {success: false, message: 'Challenge submitted successfully, User Audit Entry failed.'}
+
+        respond_to do |format|
+          @response = {success: false, message: 'Challenge submitted successfully, User Audit Entry failed.'}
+          format.json { render json: @response }
+          format.js { render layout: false }
+        end
       end
     end
 end
