@@ -84,7 +84,7 @@
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                       <% end %>
-                      <div class="radio-button-error-<%= index %>"></div>
+                      <div class="custom-error-class radio-button-error-<%= index %>"></div>
                     <% when 'check_box' then %>
                       <% question.question_options.each do |option| %>
                         <%= check_box_tag "questions[#{question.id}][answer][]", true, false,
@@ -94,7 +94,7 @@
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                       <% end %>
-                      <div class="check-box-error-<%= index %>"></div>
+                      <div class="custom-error-class check-box-error-<%= index %>"></div>
                     <% end %>
                   </div>
                 </div>

@@ -90,3 +90,7 @@ span.error {
   height: 1px;
   overflow: hidden;
 }
+
+.custom-error-class {
+  margin-top: -10px;
+}
