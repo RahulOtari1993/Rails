@@ -22,7 +22,7 @@
           <% challenge.questions.each do |question| %>
             <% profile_attribute = question.profile_attribute %>
             <div class="row">
-              <div class="col-6">
+              <div class="col-12">
                 <div class="form-group">
                   <%= label :facebook_app_id, question.title %>
                   <div class="position-relative">
@@ -37,7 +37,7 @@
                     <% when 'text_area' then %>
                       <%= text_area_tag "questions[#{question.id}][answer]", "",
                                         class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)}",
-                                         placeholder: "Add details here" %>
+                                        placeholder: "Add details here" %>
                     <% when 'boolean' then %>
                     <% when 'date' then %>
                       <%= text_field_tag "questions[#{question.id}][answer]", "",
@@ -60,7 +60,21 @@
                                          class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)}",
                                          placeholder: "Answer here" %>
                     <% when 'radio_button' then %>
+                      <% question.question_options.each do |option| %>
+                        <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
+                                          id: "questions_#{question.id}_answer_#{option.id}",
+                                          class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}" %>
+
+                        <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                      <% end %>
                     <% when 'check_box' then %>
+                      <% question.question_options.each do |option| %>
+                        <%= check_box_tag "questions[#{question.id}][answer][]", true, false,
+                                          id: "questions_#{question.id}_answer_#{option.id}",
+                                          class: "answer-check-box #{answer_required('answer-check-box', question.is_required)}" %>
+
+                        <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
