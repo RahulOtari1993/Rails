@@ -81,4 +81,35 @@ $(document).on('turbolinks:load', function () {
 
   // Time Picker for Onboarding Questions
   $('.answer-time').pickatime();
+
+  // Date Time Picker for Onboarding Questions
+  var datePicker = $('.date-answer-hidden-field').pickadate({
+    format: 'mm/d/yyyy',
+    selectYears: true,
+    selectMonths: true,
+    container: '.date-time-picker-output',
+    onSet: function (item) {
+      if ('select' in item) setTimeout(timePicker.open, 0)
+    }
+  }).pickadate('picker')
+
+  var timePicker = $('.date-answer-hidden-field').pickatime({
+    container: '.date-time-picker-output',
+    onRender: function () {
+      $('<button class="btn btn-primary">back to date</button>').on('click', function () {
+        timePicker.close()
+        datePicker.open()
+      }).prependTo(this.$root.find('.picker__box'))
+    },
+    onSet: function (item) {
+      if ('select' in item) setTimeout(function () {
+        $datetime.off('focus').val(datePicker.get() + ' @ ' + timePicker.get()).focus().on('focus', datePicker.open)
+      }, 0)
+    }
+  }).pickatime('picker')
+
+  var $datetime = $('.answer-date-time').on('focus', datePicker.open).on('click', function (event) {
+    event.stopPropagation();
+    datePicker.open()
+  });
 });

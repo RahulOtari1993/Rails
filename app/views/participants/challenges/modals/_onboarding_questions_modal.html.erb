@@ -48,9 +48,18 @@
                                          class: "form-control answer-time #{answer_required('answer-time', question.is_required)}",
                                          placeholder: "Select time" %>
                     <% when 'date_time' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)}",
-                                         placeholder: "Select date time" %>
+                      <div class="wrap-date-time">
+                        <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                           class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)}",
+                                           placeholder: "Select date time", readonly: true %>
+                        <div class="hidden-date-time-field">
+                          <input type="text" class="date-answer-hidden-field"/>
+                          <input type="text" class="time-answer-hidden-field"/>
+                        </div>
+                        <div class="date-time-picker-output"></div>
+                      </div>
+
+
                     <% when 'number' then %>
                       <%= text_field_tag "questions[#{question.id}][answer]", "",
                                          class: "form-control answer-number #{answer_required('answer-number', question.is_required)}",
@@ -62,8 +71,8 @@
                     <% when 'radio_button' then %>
                       <% question.question_options.each do |option| %>
                         <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
-                                          id: "questions_#{question.id}_answer_#{option.id}",
-                                          class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}" %>
+                                             id: "questions_#{question.id}_answer_#{option.id}",
+                                             class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}" %>
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                       <% end %>
