@@ -19,6 +19,12 @@ module EndUserHelper
     @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile')
   end
 
+  ## Check whether Onboarding Challenge is Submitted Previously
+  def check_onboarding_challege_submission challenge
+    Submission.where(campaign_id: challenge.campaign_id, participant_id: current_participant.id,
+                                  challenge_id: challenge.id).present?
+  end
+
   ## Add Required Class to Answer Fields
   def answer_required(str, is_required)
     is_required ? str + '-required' : ''

@@ -39,6 +39,9 @@
   <!-- On-boarding Questions Modal -->
   <% challenge = check_onboarding_challege %>
   <% if challenge.present? %>
-    <%= render 'participants/challenges/modals/onboarding_questions_modal', challenge: challenge.first %>
+    <% submitted = check_onboarding_challege_submission challenge.first %>
+    <% unless submitted %>
+      <%= render 'participants/challenges/modals/onboarding_questions_modal', challenge: challenge.first %>
+    <% end %>
   <% end %>
 <% end %>
