@@ -7,7 +7,7 @@
       <div class="modal-header">
         <div class="row">
           <div class="col-12">
-            <h4 class="modal-title"><%= challenge.name %></h4>
+            <h4 class="modal-title"><%= challenge.caption %></h4>
           </div>
         </div>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -69,7 +69,8 @@
       });
 
       // stop the video playback on close
-      $('#watch_video_modal').on('hide.bs.modal', () => {
+
+      $('#watch_video_modal').on("hidden.bs.modal", function () {
         player.pauseVideo()
       })
     }

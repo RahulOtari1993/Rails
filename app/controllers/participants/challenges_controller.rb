@@ -39,19 +39,13 @@ class Participants::ChallengesController < ApplicationController
   def participant_action re_submission
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
-      unless re_submission
-        title = "Watched a Video"
-      else
-        title = "Again Watched a Video"
-      end
+      title = re_submission ? "Again Visited a url" : "Visited a url"
     elsif @challenge.challenge_type == 'video'
       action_type = 'watch_video'
-      unless re_submission
-        title = "Watched a Video"
-      else
-        title = "Again Watched a Video"
-      end
+      title = re_submission ? "Again Watched a Video" : "Watched a Video"
     elsif @challenge.challenge_type == 'article'
+      action_type = 'read_article'
+      title = re_submission ? "Again had read a article" : "Read a article"
     elsif @challenge.challenge_type == 'referral'
     elsif @challenge.challenge_type == 'collect'
     elsif @challenge.challenge_type == 'signup'
