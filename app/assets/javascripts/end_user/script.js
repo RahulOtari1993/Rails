@@ -113,7 +113,7 @@ $(document).on('turbolinks:load', function () {
     datePicker.open()
   });
 
-  // Custom Validation of Onboarding Questions
+  // Custom Validation of Onboarding Questions - START
   $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required');
 
   $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals');
@@ -168,4 +168,6 @@ $(document).on('turbolinks:load', function () {
       required: true
     });
   });
+
+  // Custom Validation of Onboarding Questions - END
 });
