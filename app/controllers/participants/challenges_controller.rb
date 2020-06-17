@@ -10,23 +10,20 @@ class Participants::ChallengesController < ApplicationController
   ## Submit Challenges
   def submission
     if @challenge.present?
-
-      if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
-        a = onboarding_question_params
-
-        # binding.pry
-
-        b = current_participant.update!(a)
-
-        # binding.pry
-      end
-
       @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
                                      challenge_id: @challenge.id).first_or_initialize
 
       if @submission.new_record?
         @submission.user_agent = request.user_agent
         @submission.ip_address = request.ip
+
+        ## Save Onboarding Profile Questions
+        if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
+          unless current_participant.update(onboarding_question_params)
+            return render json: {success: false, message: 'Something went wrong, Please try again.'}
+          end
+        end
+
         if @submission.save
           participant_action false
         else
@@ -96,6 +93,8 @@ class Participants::ChallengesController < ApplicationController
         else
           title = "Again Watched a Video"
         end
+      elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile'
+        title = "Submitted Onboarding Profile Question"
       elsif @challenge.challenge_type == 'article'
       elsif @challenge.challenge_type == 'referral'
       elsif @challenge.challenge_type == 'collect'

@@ -137,7 +137,8 @@ class Participant < ApplicationRecord
                       if: :email_changed?
 
   ## Password Validations
-  validates_presence_of :password
+  # validates_presence_of :password
+  validates :password, presence: true, if: Proc.new { |participant| participant.password.present? }, confirmation: true, on: :update
   validates_confirmation_of :password, if: :confirmation_password_required?
   validates_length_of :password, within: 8..20, allow_blank: true
   validate :password_complexity
