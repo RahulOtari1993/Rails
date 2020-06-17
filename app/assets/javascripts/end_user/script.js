@@ -112,4 +112,54 @@ $(document).on('turbolinks:load', function () {
     event.stopPropagation();
     datePicker.open()
   });
+
+  // Custom Validation of Onboarding Questions
+  $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required');
+
+  $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals');
+
+  $.validator.addMethod('numberRequired', $.validator.methods.digits, 'This field accepts only numbers');
+
+  $.validator.addClassRules({
+    'answer-string-required': {
+      stringRequired: true
+    },
+    'answer-text-area-required': {
+      stringRequired: true
+    },
+    'answer-date-required': {
+      stringRequired: true
+    },
+    'answer-time-required': {
+      stringRequired: true
+    },
+    'answer-date-time-required': {
+      stringRequired: true
+    },
+    'answer-number-required': {
+      stringRequired: true,
+      numberRequired: true
+    },
+    'answer-decimal-required': {
+      stringRequired: true,
+      decimalRequired: true
+    }
+  })
+
+  $('.onboarding-questions-form').validate({
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).html(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  })
+  
+  $('.answer-check-box-required').each(function () {
+    $(this).rules('add', {
+      required: true
+    });
+  });
 });
