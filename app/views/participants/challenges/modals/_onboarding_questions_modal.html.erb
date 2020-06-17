@@ -17,9 +17,47 @@
         <h4><b class="text-center"><%= challenge.title %></b></h4>
         <h6><%= challenge.description %></h6>
 
-        <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'POST', class: 'onboarding-questions-form', model: current_participant, local: false) do |f| %>
+        <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'post',
+                      class: 'onboarding-questions-form', model: current_participant, local: false) do |f| %>
           <% challenge.questions.each do |question| %>
+            <% profile_attribute = question.profile_attribute %>
             <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <%= label :facebook_app_id, question.title %>
+                  <div class="position-relative">
+                    <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
+                    <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>
+
+                    <% case profile_attribute.field_type %>
+                    <% when 'string' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-string',
+                                         placeholder: "Answer here" %>
+                    <% when 'text_area' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-text-area',
+                                         placeholder: "Add details here" %>
+                    <% when 'boolean' then %>
+                    <% when 'date' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-date',
+                                         placeholder: "Select date" %>
+                    <% when 'time' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-time',
+                                         placeholder: "Select time" %>
+                    <% when 'date_time' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-date-time',
+                                         placeholder: "Select date time" %>
+                    <% when 'number' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-number',
+                                         placeholder: "Answer here" %>
+                    <% when 'decimal' then %>
+                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-decimal',
+                                         placeholder: "Answer here" %>
+                    <% when 'radio_button' then %>
+                    <% when 'check_box' then %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
               <div class="col-12">
                <h5><%= question.title %></h5>
                 <h6><%= question.answer_type %> AND <%= question.is_required %></h6>

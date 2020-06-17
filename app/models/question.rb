@@ -17,6 +17,7 @@ class Question < ApplicationRecord
   belongs_to :challenge
   has_many :question_options, dependent: :destroy
   has_many :submitted_answers, dependent: :destroy
+  belongs_to :profile_attribute, optional: true
 
   ## ENUM
   enum filter_type: {profile: 0, survey: 1, quiz: 1}
