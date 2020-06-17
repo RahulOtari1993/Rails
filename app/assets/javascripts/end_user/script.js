@@ -78,4 +78,7 @@ $(document).on('turbolinks:load', function () {
     selectYears: true,
     selectMonths: true
   });
+
+  // Time Picker for Onboarding Questions
+  $('.answer-time').pickatime();
 });
