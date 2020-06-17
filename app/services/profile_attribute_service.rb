@@ -94,6 +94,15 @@ class ProfileAttributeService
             is_custom: false,
             campaign_id: @campaign_id
 
+        },
+        {
+            attribute_name: 'affiliation',
+            display_name: 'Affiliation',
+            field_type: 'check_box',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+
         }
     ]
   end
