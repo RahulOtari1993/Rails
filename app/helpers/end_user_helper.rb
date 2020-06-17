@@ -18,4 +18,9 @@ module EndUserHelper
   def check_onboarding_challege
     @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile')
   end
+
+  ## Add Required Class to Answer Fields
+  def answer_required(str, is_required)
+    is_required ? str + '-required' : ''
+  end
 end

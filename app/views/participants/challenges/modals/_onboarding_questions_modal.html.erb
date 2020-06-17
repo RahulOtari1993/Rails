@@ -31,36 +31,39 @@
 
                     <% case profile_attribute.field_type %>
                     <% when 'string' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-string',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-string #{answer_required('answer-string', question.is_required)}",
                                          placeholder: "Answer here" %>
                     <% when 'text_area' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-text-area',
+                      <%= text_area_tag "questions[#{question.id}][answer]", "",
+                                        class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)}",
                                          placeholder: "Add details here" %>
                     <% when 'boolean' then %>
                     <% when 'date' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-date',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-date #{answer_required('answer-date', question.is_required)}",
                                          placeholder: "Select date" %>
                     <% when 'time' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-time',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-time #{answer_required('answer-time', question.is_required)}",
                                          placeholder: "Select time" %>
                     <% when 'date_time' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-date-time',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)}",
                                          placeholder: "Select date time" %>
                     <% when 'number' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-number',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-number #{answer_required('answer-number', question.is_required)}",
                                          placeholder: "Answer here" %>
                     <% when 'decimal' then %>
-                      <%= text_field_tag "questions[#{question.id}][answer]", "", class: 'form-control answer-decimal',
+                      <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                         class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)}",
                                          placeholder: "Answer here" %>
                     <% when 'radio_button' then %>
                     <% when 'check_box' then %>
                     <% end %>
                   </div>
                 </div>
-              </div>
-              <div class="col-12">
-               <h5><%= question.title %></h5>
-                <h6><%= question.answer_type %> AND <%= question.is_required %></h6>
               </div>
             </div>
           <% end %>
