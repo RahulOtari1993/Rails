@@ -18,7 +18,7 @@
             <div class="carousel-inner">
               <% @rewards.each_with_index do |reward, index| %>
                 <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
-                  <%= image_tag(reward.image.banner.url) %>
+                  <%= image_tag(reward.image.url) %>
                   <h3><%= reward.name %></h3>
                   <div class="carousel-caption">
                     <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
@@ -44,9 +44,9 @@
       <% unless @challenges.blank? %>
         <% @challenges.each_with_index do |challenge| %>
           <div class="col-12 col-md-4">
-            <div class="image_box_bg">
-              <%= image_tag(challenge.image.banner.url, class: 'box_img_style') %>
-              <div class="card image_box position_abs">
+            <!-- <div class="image_box_bg"> -->
+              <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
+              <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
                 <div class="image_inner_text">
                   <div class="width_100">
                     <div class="width_50" style="float: left;"><span class="left"><%= "+#{challenge.points.to_i}" %></span> </div>
@@ -73,7 +73,7 @@
                   <div class="clear"></div>
                 </div>
               </div>
-            </div>
+            <!-- </div> -->
           </div>
         <% end %>
       <% end %>
@@ -100,7 +100,7 @@
                   <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
                 </div>
                 <div class="clear"></div>
-                <%= image_tag(reward.image.banner.url, style: "width:100%;height: 200px;margin: 12px 0px;") %>
+                <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
                 <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
                 <h5><%= reward.description %></h5>
                 <div class="width_100">
@@ -138,12 +138,15 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    var height;
-    $('.image_box_bg .card').each(function() {
-      height = $(this).innerHeight()
-      imageDiv = $(this).parent().find('.box_img_style');
-      imageDiv.css('height', height);
-    });
+
+  // old code
+    // var height;
+    // $('.image_box_bg .card').each(function() {
+    //   height = $(this).innerHeight()
+    //   imageDiv = $(this).parent().find('.box_img_style');
+    //   imageDiv.css('height', height);
+    // });
+  // old code
 
     // ---------------------------------------------------------------------------------
     // I've Shift this code to script.js consider that JS File and Do the Needed Changes
