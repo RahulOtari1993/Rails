@@ -101,7 +101,7 @@ class Reward < ApplicationRecord
     end
   end
 
-  ##challenge platform filter
+  ## Rewards Filters
   def self.reward_side_bar_filter(filters)
     query = 'id IS NOT NULL'
     status_query_string = ''
@@ -144,5 +144,26 @@ class Reward < ApplicationRecord
     final_query = query + status_query_string + tags_query
 
     return final_query
+  end
+
+  ## Check if Reward is Available for Participant
+  def available?
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Filters
+    self.reward_filters.each do |filter|
+      result_array.push(filter.available? Participant.current)
+    end
+
+    ## Check If We need to Include ALL/ANY Filter
+    if self.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
   end
 end
