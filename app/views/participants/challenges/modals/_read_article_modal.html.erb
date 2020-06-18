@@ -1,0 +1,131 @@
+<div class="modal fade text-left" id="read_article_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-12">
+            <h4 class="modal-title"><%= challenge.caption %></h4>
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-11">
+            <h4><b class="text-center"><%= challenge.title %></b></h4>
+            <span><%= challenge.description %></span>
+            <div class="row">
+              <div class="col-12">
+                <%= raw(challenge.content).html_safe %>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-1 p-0">
+            <div class="percent">
+              <div class="fill"></div>
+              <div class="counter"><h6 class="percentage"></h6></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row challenge-completion-container" style="display: none;">
+          <div class="col-12">
+            <h4>Congratulation, You've completed this challenge successfully.</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  var counter = 0;
+  $(document).ready(function () {
+    progress();
+    $("#read_article_modal .modal-body").on("scroll", progress);
+  });
+
+  function progress() {
+    var windowScrollTop = $("#read_article_modal .modal-body").scrollTop();
+    var docHeight = $("#read_article_modal .modal-body").prop('scrollHeight');
+    var windowHeight = $("#read_article_modal .modal-body").height();
+
+    var progress = (windowScrollTop / (docHeight - (windowHeight + 32))) * 100;
+
+    if(isNaN(progress)) {
+      progress = 0
+    }
+
+    $('.percentage').text(Math.round(progress) + "%");
+    $(".fill").height(progress + "%");
+
+    if (progress == 100 && counter == 0) {
+      counter = counter + 1;
+      submitChallenge();
+    }
+  }
+
+  // submit Challenge start
+  function submitChallenge() {
+    var challengeId = <%= challenge.id %>;
+    $.ajax({
+      url: `/participants/challenges/${challengeId}/submission`,
+      type: 'POST',
+      dataType: 'JSON',
+      data: { status: status },
+      success: function (data) {
+        if (data.success) {
+          $('.challenge-completion-container').show();     // Display Challenge Completion Message
+        } else {
+          swalNotify('Challenge Submission', data.message);
+        }
+      }
+    });
+  }
+  // submit Challenge end
+
+</script>
+
+<style media="screen">
+  .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+  }
+
+  .percent {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background: rgb(169,169,169);
+    height: 140px;
+    width: 1px;
+    margin-top: 40px;
+  }
+
+  .fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: red;
+    transition: background 0.15s ease;
+  }
+
+  .percentage {
+    color: #333;
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+</style>

@@ -50,7 +50,7 @@ class Participants::ChallengesController < ApplicationController
   end
 
   protected
-
+    ## Manage & Build Extended Profile Question Params
     def onboarding_question_params
       profile_params = {participant_profiles_attributes: []}
       params[:questions].each do |key, question|
@@ -85,29 +85,24 @@ class Participants::ChallengesController < ApplicationController
 
   private
 
+    ## Set Challenge
     def set_challenge
       @challenge = Challenge.where(id: params[:id]).first rescue nil
     end
 
-  ## Create Participant Action Entry
+    ## Create Participant Action Entry
     def participant_action re_submission
       if @challenge.challenge_type == 'link'
         action_type = 'visit_url'
-        unless re_submission
-          title = "Watched a Video"
-        else
-          title = "Again Watched a Video"
-        end
+        title = re_submission ? "Again Visited a url" : "Visited a url"
       elsif @challenge.challenge_type == 'video'
         action_type = 'watch_video'
-        unless re_submission
-          title = "Watched a Video"
-        else
-          title = "Again Watched a Video"
-        end
-      elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile'
-        title = "Submitted Onboarding Profile Question"
+        title = re_submission ? "Again Watched a Video" : "Watched a Video"
       elsif @challenge.challenge_type == 'article'
+        action_type = 'read_article'
+        title = re_submission ? "Again read an article" : "Read an article"
+      elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile'
+        title = "Submitted Extended Profile Question"
       elsif @challenge.challenge_type == 'referral'
       elsif @challenge.challenge_type == 'collect'
       elsif @challenge.challenge_type == 'signup'
