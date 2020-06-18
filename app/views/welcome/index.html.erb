@@ -42,7 +42,7 @@
         <p>Stay connected with these challenges <span>to earn discounts and rewards.</span> </p>
       </div>
       <% unless @challenges.blank? %>
-        <% @challenges.each_with_index do |challenge| %>
+        <% @challenges.each_with_index do |challenge, index| %>
           <div class="col-12 col-md-4">
             <!-- <div class="image_box_bg"> -->
               <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
@@ -68,7 +68,7 @@
                     <% elsif challenge.challenge_type == "link" %>
                       <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Visit a URL</button> </div>
                     <% end %>
-                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, challenge.finish) %></span></div>
+                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= TimeDifference.between(Time.now, challenge.finish ).humanize %></span></div>
                   </div>
                   <div class="clear"></div>
                 </div>
