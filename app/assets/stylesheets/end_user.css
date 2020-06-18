@@ -254,11 +254,11 @@ body{
   margin-bottom: 15px;
 }
 
-.image_box_bg {
+/* .image_box_bg {
   position: relative;
   margin-bottom: 30px;
   height: auto;
-}
+} */
 
 .position_abs{
   position: absolute;
