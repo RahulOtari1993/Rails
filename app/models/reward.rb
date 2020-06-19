@@ -54,6 +54,7 @@ class Reward < ApplicationRecord
 
   ## ENUM
   enum filter_type: {all_filters: 0, any_filter: 1}
+  enum rule_type: {all_rules: 0, any_rule: 1}, _prefix: :rule
   serialize :image
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank

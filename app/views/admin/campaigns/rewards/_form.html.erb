@@ -212,7 +212,7 @@
                             <div class="filter-type-container rule-filters-container" style="display: <%= rule_display_user_segments %>">
                               User match
                               <%= f.select :rule_type,
-                                           options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
+                                           options_for_select(reward_rule_type, @reward.rule_type), {}, class: 'form-control reward-filter-type-dd' %>
                               of the following condition
 
                               <hr style="margin-bottom: 0px !important;">
@@ -310,7 +310,7 @@
                             <div class="filter-type-container filters-container" style="display: <%= display_reward_user_segments %>">
                               User match
                               <%= f.select :filter_type,
-                                           options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
+                                           options_for_select(reward_filter_type, @reward.filter_type), {}, class: 'form-control reward-filter-type-dd' %>
                               of the following condition
 
                               <hr style="margin-bottom: 0px !important;">
