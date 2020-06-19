@@ -15,6 +15,18 @@ class RewardParticipant < ApplicationRecord
   belongs_to :participant
   has_one :coupon, dependent: :destroy
 
+  ## Callbacks
+  after_create :reward_claims_change
+
+  private
+
+  ## Increase Rewards Claims Counter
+  def reward_claims_change
+    reward = self.reward
+    count = reward.claims + 1
+    reward.update_attribute(:claims, count)
+  end
+
   # after_create do |current|
 	# #we have created the relationship...if there are coupons lets bind one if its available
 	# if current.reward.coupons.where(reward_participant_id: nil).count > 0

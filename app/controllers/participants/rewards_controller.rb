@@ -10,12 +10,13 @@ class Participants::RewardsController < ApplicationController
 
   ## Claim Reward
   def claim
-    if @reward.present? && @reward.available_quantity > 0
+    if @reward.present? && (@reward.limit.to_i < @reward.claims)
       @reward_participant = @reward.reward_participants.where(participant_id: current_participant.id).first_or_initialize
 
       if @reward_participant.new_record?
          @reward_participant.save
-        @coupon = Coupon.where(reward_id: @reward.id, reward_participant_id: nil).first
+
+        @coupon = @reward.coupons.where(reward_participant_id: nil).first
         if @coupon.present?
           @coupon.update(reward_participant_id: @reward_participant.id)
           participant_action
