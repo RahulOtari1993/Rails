@@ -10,7 +10,7 @@ class Participants::RewardsController < ApplicationController
 
   ## Claim Reward
   def claim
-    if @reward.present? && (@reward.limit.to_i < @reward.claims)
+    if @reward.present? && (@reward.limit.to_i > @reward.claims)
       @reward_participant = @reward.reward_participants.where(participant_id: current_participant.id).first_or_initialize
 
       if @reward_participant.new_record?
