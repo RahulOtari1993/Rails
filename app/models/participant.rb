@@ -67,8 +67,8 @@ class Participant < ApplicationRecord
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
   ## Associations
-  has_and_belongs_to_many :campaigns ##TODO: Remove this Relationship
   belongs_to :organization
+  belongs_to :campaign
   has_many :challenge_participants, dependent: :destroy
   has_many :challenges, through: :challenge_participants
   has_many :submissions, dependent: :destroy
@@ -76,8 +76,8 @@ class Participant < ApplicationRecord
   has_many :participant_profiles, dependent: :destroy
 
   ## Callbacks
-  after_create :save_participant_details
   after_create :generate_participant_id
+  after_save :check_milestone_reward
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
@@ -306,9 +306,11 @@ class Participant < ApplicationRecord
     self.update_attribute('p_id', Participant.get_participant_id)
   end
 
-  ## Add Participant to Campaign
-  def save_participant_details
-    campaign = Campaign.find(self.campaign_id)
-    campaign.participants << self
+  ## Check If User is Eligible for Milestone Reward
+  def check_milestone_reward
+    if saved_change_to_unused_points? || saved_change_to_completed_challenges? || saved_change_to_sign_in_count? || saved_change_to_recruits?
+      reward_check = RewardsService.new(self.id)
+      reward_check.process
+    end
   end
 end
