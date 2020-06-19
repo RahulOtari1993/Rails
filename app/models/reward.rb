@@ -176,13 +176,10 @@ class Reward < ApplicationRecord
     result = true
     result_array = []
 
-
     # Loop Through the Rules
     self.reward_rules.each do |rule|
       result_array.push(rule.eligible? participant)
     end
-
-    Rails.logger.info "====================== #{result_array.inspect} ======================"
 
     ## Check If We need to Include ALL/ANY Rules
     if self.rule_type == 'all_rules'
