@@ -14,6 +14,16 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
+  // Open Reward Claim Modal Popup
+  $('body').on('click', '.reward-claim-modal-btn', function (e) {
+    var rewardId = $(this).data('reward-id');
+
+    $.ajax({
+      type: 'GET',
+      url: `/participants/rewards/${rewardId}/details`
+    });
+  });
+
   // Trigger SWAL Notificaton
   function swalNotify(title, message) {
     Swal.fire({

@@ -34,8 +34,9 @@
 #  image_height        :integer
 #  filter_type         :integer          default("all_filters")
 #  filter_applied      :boolean          default(FALSE)
-#  rule_type           :integer          default(0)
+#  rule_type           :integer          default("all_rules")
 #  rule_applied        :boolean          default(FALSE)
+#  claims              :integer          default(0)
 #
 class Reward < ApplicationRecord
 
@@ -43,8 +44,10 @@ class Reward < ApplicationRecord
   belongs_to :campaign
   has_many :coupons
   has_many :reward_filters, inverse_of: :reward
+
   has_many :reward_participants, dependent: :destroy
-  has_many :users, through: :reward_participants
+  # has_many :users, through: :reward_participants
+  has_many :participants, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
   has_many :reward_rules, :dependent => :delete_all
   has_one_attached :image

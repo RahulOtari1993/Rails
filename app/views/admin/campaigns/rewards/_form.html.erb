@@ -116,7 +116,7 @@
 
                           <div class="col-12">
                             <div class="form-group">
-                              <%= f.label :limit %>
+                              <%= f.label :limit, "Available Quantity" %>
                               <span class="column-info">The number of people who can get this reward.
 															</span>
                               <div class="position-relative" style="width: 25%;">
@@ -335,6 +335,7 @@
                                       <span>
                                         <i class="feather icon-plus"></i> Add Segment
                                       </span>
+
                                 </button>
                               </div>
                             </div>
@@ -374,6 +375,3 @@
 <script id="reward-rule-segments-template" type="text/x-custom-template">
   <%= render 'rule_fields', filter: nil %>
 </script>
-
-
-

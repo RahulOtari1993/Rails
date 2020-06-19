@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_18_115644) do
+ActiveRecord::Schema.define(version: 2020_06_19_133722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -400,12 +400,10 @@ ActiveRecord::Schema.define(version: 2020_06_18_115644) do
 
   create_table "reward_participants", force: :cascade do |t|
     t.bigint "reward_id"
-    t.bigint "user_id"
-    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "participant_id"
     t.index ["reward_id"], name: "index_reward_participants_on_reward_id"
-    t.index ["user_id"], name: "index_reward_participants_on_user_id"
   end
 
   create_table "reward_rules", force: :cascade do |t|
@@ -460,6 +458,7 @@ ActiveRecord::Schema.define(version: 2020_06_18_115644) do
     t.boolean "filter_applied", default: false
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
+    t.integer "claims", default: 0
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
@@ -567,7 +566,6 @@ ActiveRecord::Schema.define(version: 2020_06_18_115644) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"
-  add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
