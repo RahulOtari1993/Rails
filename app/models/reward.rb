@@ -41,8 +41,10 @@ class Reward < ApplicationRecord
   belongs_to :campaign
   has_many :coupons
   has_many :reward_filters, inverse_of: :reward
+
   has_many :reward_participants, dependent: :destroy
-  has_many :users, through: :reward_participants
+  # has_many :users, through: :reward_participants
+  has_many :participants, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
   has_many :reward_rules, :dependent => :delete_all
   has_one_attached :image
@@ -145,4 +147,13 @@ class Reward < ApplicationRecord
 
     return final_query
   end
+
+  ## fetch the remaining quantity available for a reward to redeem
+  def available_quantity
+    total_quantity = self.limit.to_i
+    used_quantity = self.coupons.where.not(reward_participant_id: nil).count
+    remaining_quantity = total_quantity - used_quantity
+    remaining_quantity
+  end
+
 end

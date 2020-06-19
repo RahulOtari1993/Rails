@@ -100,10 +100,16 @@ Rails.application.routes.draw do
 
     # routes for end user participants challenge submission
     namespace :participants do
-      resources :challenges do
+      resources :challenges, only: [] do
         member do
           get :details
           post :submission
+        end
+      end
+      resources :rewards, only: [] do
+        member do
+          get :details
+          post :claim
         end
       end
     end

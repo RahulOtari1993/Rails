@@ -96,7 +96,7 @@
             <div class="card image_box">
               <div class="image_inner_text">
                 <div class="width_100">
-                  <div class="width_50" style="float: left;"><span class="left">CASH-IN <br> REWARD</span> </div>
+                  <div class="width_50" style="float: left;"><span class="left"><%= reward.selection.titleize %> <br> REWARD</span> </div>
                   <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
                 </div>
                 <div class="clear"></div>
@@ -104,7 +104,7 @@
                 <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
                 <h5><%= reward.description %></h5>
                 <div class="width_100">
-                  <div class="width_50" style="float: left;"><button class="watch_btn">Learn More</button> </div>
+                  <div class="width_50" style="float: left;"><button class="watch_btn reward-claim-modal-btn" data-reward-id="<%= reward.id %>">Learn More</button> </div>
                   <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, reward.finish) %></span></div>
                 </div>
                 <div class="clear"></div>
@@ -135,6 +135,7 @@
 <!-- Top footer end -->
 
 <div class="challenge-submission-modal"></div>
+<div class="reward-claim-modal"></div>
 
 <script type="text/javascript">
   $(document).ready(function () {

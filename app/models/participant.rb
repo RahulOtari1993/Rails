@@ -75,6 +75,10 @@ class Participant < ApplicationRecord
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
 
+  has_many :reward_participants, dependent: :destroy
+  has_many :rewards, through: :reward_participants
+  has_many :coupons, through: :reward_participants
+
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
