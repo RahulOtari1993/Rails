@@ -1,5 +1,5 @@
 class RewardMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'systems@perksocial.com'
   layout 'mailer'
 
   def cash_in_reward(reward, participant, coupon)
