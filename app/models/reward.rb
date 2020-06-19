@@ -182,8 +182,10 @@ class Reward < ApplicationRecord
       result_array.push(rule.eligible? participant)
     end
 
+    Rails.logger.info "====================== #{result_array.inspect} ======================"
+
     ## Check If We need to Include ALL/ANY Rules
-    if self.filter_type == 'all_rules'
+    if self.rule_type == 'all_rules'
       result = !result_array.include?(false)
     else
       result = result_array.include?(true)
