@@ -67,7 +67,7 @@ class Reward < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   ## Constants
-  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone_reward]
+  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone]
   FULFILMENTS = %w[default badge points download]
 
   ## Scopes
@@ -162,6 +162,28 @@ class Reward < ApplicationRecord
 
     ## Check If We need to Include ALL/ANY Filter
     if self.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
+
+  ## Check if Participant is Eligible for Reward
+  def eligible? participant
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+
+    # Loop Through the Rules
+    self.reward_rules.each do |rule|
+      result_array.push(rule.eligible? participant)
+    end
+
+    ## Check If We need to Include ALL/ANY Rules
+    if self.filter_type == 'all_rules'
       result = !result_array.include?(false)
     else
       result = result_array.include?(true)
