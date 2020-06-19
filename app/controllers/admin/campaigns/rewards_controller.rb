@@ -164,7 +164,8 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   def reward_params
     return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
                                                    :image, :image_content_type, :selection, :start, :finish, :feature, :points,
-                                                   :is_active, :redemption_details, :description_details, :terms_conditions, :filter_applied, :filter_type,
+                                                   :is_active, :redemption_details, :description_details, :terms_conditions,
+                                                   :filter_applied, :filter_type, :rule_type, :rule_applied,
                                                    :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
                                                                                                   :reward_value, :reward_event],
                                                    reward_rules_attributes: [:id, :reward_id, :rule_type, :rule_condition, :rule_value])

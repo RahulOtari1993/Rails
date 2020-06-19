@@ -209,7 +209,7 @@
                               <span class="">Apply rules to target this reward to specific users</span>
                             </div>
 
-                            <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
+                            <div class="filter-type-container rule-filters-container" style="display: <%= rule_display_user_segments %>">
                               User match
                               <%= f.select :rule_type,
                                            options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
@@ -217,7 +217,7 @@
 
                               <hr style="margin-bottom: 0px !important;">
                             </div>
-                            <div class="form-group filters-container" style="display: <%= rule_display_user_segments %>">
+                            <div class="form-group rule-filters-container" style="display: <%= rule_display_user_segments %>">
                               <div class="table-responsive">
                                 <table class="segment_table table table-striped mb-0 tbl-user-segments">
                                   <tbody class="reward-rule-segments-container">
@@ -307,7 +307,7 @@
                               <span class="">Apply segments to target this rewards to specific users</span>
                             </div>
 
-                            <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
+                            <div class="filter-type-container filters-container" style="display: <%= display_reward_user_segments %>">
                               User match
                               <%= f.select :filter_type,
                                            options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>

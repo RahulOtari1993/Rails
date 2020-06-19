@@ -674,16 +674,29 @@ $(document).ready(function () {
   //   }
   // }, 2000);
 
-  // Add Tag Addition UI from Challenge Popup
+  // Reward User Segment Show/Hide Content
   $('body').on('click', '#reward_filter_applied', function (e) {
     if ($('#reward_filter_applied').is(":checked")) {
       $('.filters-container').show();
+      $('.reward-segments-container input').prop('disabled', false);
+      $('.reward-segments-container select').prop('disabled', false);
+    } else {
+      $('.reward-segments-container input').prop('disabled', true);
+      $('.reward-segments-container select').prop('disabled', true);
+      $('.filters-container').hide();
+    }
+  });
+
+  // Reward Rules Segment Show/Hide Content
+  $('body').on('click', '#reward_rule_applied', function (e) {
+    if ($('#reward_rule_applied').is(":checked")) {
+      $('.rule-filters-container').show();
       $('.reward-rule-segments-container input').prop('disabled', false);
       $('.reward-rule-segments-container select').prop('disabled', false);
     } else {
       $('.reward-rule-segments-container input').prop('disabled', true);
       $('.reward-rule-segments-container select').prop('disabled', true);
-      $('.filters-container').hide();
+      $('.rule-filters-container').hide();
     }
   });
 

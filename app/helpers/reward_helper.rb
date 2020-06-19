@@ -102,4 +102,9 @@
 
     filter_list
   end
+
+  ## Show Hide RewardUser Segment
+  def display_reward_user_segments
+    @reward.filter_applied ? 'block' : 'none'
+  end
  end
