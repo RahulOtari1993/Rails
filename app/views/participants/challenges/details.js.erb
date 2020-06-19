@@ -8,6 +8,8 @@
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/read_article_modal', challenge: @challenge %>");
   $('#read_article_modal').modal('show');
 <% elsif @challenge.challenge_type == "referral" %>
+  $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/recruit_modal', challenge: @challenge %>");
+  $('#recruit_modal').modal('show');
 <% elsif @challenge.challenge_type == "collect" %>
 <% elsif @challenge.challenge_type == "signup" %>
 <% end %>

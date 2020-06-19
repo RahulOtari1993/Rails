@@ -90,6 +90,8 @@ class Challenge < ApplicationRecord
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
   scope :current_active, -> { where("is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
 
+  scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
+
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
             :caption, presence: true
