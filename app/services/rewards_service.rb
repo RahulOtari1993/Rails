@@ -16,7 +16,7 @@ class RewardsService
       rewards.each do |reward|
         if reward.selection == 'milestone'
           ## Check for Reward Availability
-          if reward.available_quantity > 0
+          if reward.claims < reward.limit
             ## Check Whether Participant Claimed Reward Previously or Not
             reward_participant = reward.reward_participants.where(participant_id: @participant.id).first_or_initialize
             if reward_participant.new_record?
@@ -41,11 +41,11 @@ class RewardsService
                     begin
                       participant_action = ParticipantAction.new(participant_id: @participant.id, points: reward.points,
                                                                  action_type: action_type, title: 'Won a Milestone Reward',
-                                                                 details: reward.name, actionable_id: reward.id, actionable_type: reward.class.name,
-                                                                 user_agent: request.user_agent, ip_address: request.ip)
+                                                                 details: reward.name, actionable_id: reward.id,
+                                                                 actionable_type: reward.class.name)
                       participant_action.save!
 
-                      RewardMailer.cash_in_reward(reward, @participant, coupon).deliver
+                      RewardMailer.milestone_reward_completion(reward, @participant, coupon).deliver
                     rescue Exception => e
                       Rails.logger.info "ERROR: Milestone Reward Completion Participant Action Entry Failed --> #{e.message}"
                     end
