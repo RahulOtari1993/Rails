@@ -37,6 +37,7 @@
 #  rule_type           :integer          default("all_rules")
 #  rule_applied        :boolean          default(FALSE)
 #  claims              :integer          default(0)
+#  date_range          :boolean          default(FALSE)
 #
 class Reward < ApplicationRecord
 

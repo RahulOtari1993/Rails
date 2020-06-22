@@ -58,6 +58,7 @@
 #  connect_type           :integer
 #  age                    :integer          default(0)
 #  completed_challenges   :integer          default(0)
+#  avatar                 :string
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
