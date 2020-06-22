@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   //reward selection dropdown onchange
   $('#reward_selection').on('change', function () {
     if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {

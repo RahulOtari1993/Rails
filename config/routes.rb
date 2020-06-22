@@ -93,6 +93,13 @@ Rails.application.routes.draw do
               get '/auth/facebook/callback', to: 'networks#facebook_callback'
             end
           end
+
+          ## Participants Routes
+          resources :users, controller: "participants", only: [:index, :show] do
+            collection do
+              get '/fetch_participants', to: 'participants#fetch_participants'
+            end
+          end
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
