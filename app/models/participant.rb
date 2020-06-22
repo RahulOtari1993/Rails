@@ -84,7 +84,7 @@ class Participant < ApplicationRecord
   enum connect_type: {facebook: 0, google: 1, email: 3}
 
   ## Mount Uploader for File Upload
-  mount_uploader :avatar, ImageUploader
+  mount_uploader :avatar, AvatarUploader
 
   ## Nested Attributes
   accepts_nested_attributes_for :participant_profiles, allow_destroy: true, :reject_if => :all_blank
@@ -162,6 +162,13 @@ class Participant < ApplicationRecord
   # From Devise module Validatable
   def email_required?
     true
+  end
+
+  ## For Adding Status Column to Datatable JSO Response
+  def as_json(*)
+    super.tap do |hash|
+      hash['name'] = full_name
+    end
   end
 
   def full_name

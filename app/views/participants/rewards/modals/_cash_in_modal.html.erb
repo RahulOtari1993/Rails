@@ -47,7 +47,7 @@
         <div class="row">
           <div class="col-md-12">
             <% if current_participant.unused_points >= reward.threshold %>
-              <button class="watch_btn reward-claim-btn">Claim Reward</button>
+              <button class="watch_btn reward-claim-btn" data-reward-id="<%= reward.id %>">Claim Reward</button>
             <% else %>
               <p>Earn <%= (reward.threshold - current_participant.unused_points) %> more GoBucks to redeem this reward</p>
             <% end %>
@@ -66,12 +66,15 @@
 
   // claim Reward start
   $('#cash_in_modal').on('click', '.reward-claim-btn', function (e) {
-    var rewardId = <%= reward.id %>;
+    var rewardId = $(this).data('reward-id');
+    var _this = $(this);
+
     $.ajax({
       url: `/participants/rewards/${rewardId}/claim`,
       type: 'POST',
       dataType: 'JSON',
       success: function (data) {
+        _this.hide();
         if (data.success) {
           $('.reward-claim-container').show();     // Display Reward Completion Message
         } else {
