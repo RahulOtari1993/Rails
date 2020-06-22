@@ -55,8 +55,8 @@
           </label>
 
           <div class="copy-link">
-              <input v-if="challenge" v-model="challenge.referal_link" id="copyThisField" readonly></input>
-              <span><button id="copy-button" @click="copyLink"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button></span>
+              <input value="<%= @referral_link %>" class="copy-to-clipboard-input form-control" readonly>
+              <span><button id="copy-button" class="copy-btn btn btn-success"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button></span>
           </div>
           </div>
         </div>

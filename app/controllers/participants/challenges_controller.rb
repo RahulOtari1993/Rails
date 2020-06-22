@@ -5,6 +5,16 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
+
+    if @challenge.challenge_type == 'referral'
+      if current_user.referral_codes.for_challenge(@challenge).empty?
+        @referral_code = ReferralCode.create(challenge_id: @challenge.id, user_id: current_user.id)
+      else
+        @referral_code = current_user.referral_codes.for_challenge(@challenge).first
+      end
+      @referral_link = "#{request.protocol}#{request.host}&refid=#{@referral_code.code}"
+    end
+
   end
 
   ## Submit Challenges
