@@ -38,11 +38,15 @@ class RewardsService
         if reward.selection == 'milestone'
           ## Check for Reward Availability
           if reward.claims < reward.limit
+            Rails.logger.info "============== IN reward.claims < reward.limit =============="
             ## Check Whether Participant Claimed Reward Previously or Not
             reward_participant = reward.reward_participants.where(participant_id: @participant.id).first_or_initialize
             if reward_participant.new_record?
+              Rails.logger.info "============== IN reward_participant.new_record? =============="
               is_eligible = reward.eligible? @participant
+              binding.pry
               if is_eligible
+                Rails.logger.info "============== IN reward_participant.new_record? =============="
                 reward_participant.save
 
                 # Grab a Coupon for Participant & Assign it
