@@ -26,7 +26,7 @@ $(document).on('turbolinks:load', function () {
       {
         title: 'Image', data: null, searchable: false,
         render: function (data, type, row) {
-          return '<img src="' + data.last_name + '" style="margin-left:25px;" class="table_image_thumb_size" />'
+          return '<img src="' + data['avatar']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
         },
         createdCell: function (td, cellData, rowData, row, col) {
           $(td).css('position', 'relative');
@@ -38,7 +38,7 @@ $(document).on('turbolinks:load', function () {
         searchable: true,
         render: function (data, type, row) {
           return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' +
-              data.first_name + '</span>'
+              data.name + '</span>'
         }
       },
       {
