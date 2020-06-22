@@ -21,29 +21,27 @@ class RewardsService
             reward_participant = reward.reward_participants.where(participant_id: @participant.id).first_or_initialize
             if reward_participant.new_record?
               is_eligible = reward.eligible? @participant
-              Rails.logger.info "============== is_eligible #{is_eligible.inspect} =============="
-
               if is_eligible
-                ## Claimed Rewards - NOT
-                ## Assign Coupon
-                ## Shot an Email
-
                 reward_participant.save
 
                 # Grab a Coupon for Participant & Assign it
                 coupon = reward.coupons.where(reward_participant_id: nil).first
                 if coupon.present?
-
                   action_type = 'claim_reward'
-
-
                   if coupon.update(reward_participant_id: reward_participant.id)
                     begin
                       participant_action = ParticipantAction.new(participant_id: @participant.id, points: reward.points,
                                                                  action_type: action_type, title: 'Won a Milestone Reward',
                                                                  details: reward.name, actionable_id: reward.id,
-                                                                 actionable_type: reward.class.name)
+                                                                 actionable_type: reward.class.name, coupon: coupon.code)
                       participant_action.save!
+
+                      ## Assign Bonus Points to Participant if Available
+                      if reward.points.present?
+                        @participant.points = @participant.points.to_i + reward.points.to_i
+                        @participant.unused_points = @participant.unused_points.to_i + reward.points.to_i
+                        @participant.save(:validate => false)
+                      end
 
                       RewardMailer.milestone_reward_completion(reward, @participant, coupon).deliver
                     rescue Exception => e

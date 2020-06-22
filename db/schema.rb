@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_133722) do
+ActiveRecord::Schema.define(version: 2020_06_22_074316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.string "ip_address", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "coupon"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
@@ -414,6 +415,14 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reward_id"], name: "index_reward_rules_on_reward_id"
+  end
+
+  create_table "reward_users", force: :cascade do |t|
+    t.integer "reward_id"
+    t.integer "user_id"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rewards", force: :cascade do |t|
