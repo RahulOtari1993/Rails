@@ -35,11 +35,10 @@ class Campaign < ApplicationRecord
   has_many :challenges, dependent: :destroy
   has_many :rewards, dependent: :destroy
   has_many :campaign_users, dependent: :destroy
-  has_many :users, through: :campaign_users
+  has_many :participants, dependent: :destroy
   has_many :submissions, dependent: :destroy
   has_one  :domain_list, dependent: :destroy
   has_one  :campaign_template_detail, dependent: :destroy
-  has_and_belongs_to_many :participants, dependent: :destroy
   has_one :campaign_config, dependent: :destroy
   has_many :profile_attributes, dependent: :destroy
   has_many :networks, dependent: :destroy
