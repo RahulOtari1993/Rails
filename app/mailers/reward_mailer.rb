@@ -18,4 +18,12 @@ class RewardMailer < ActionMailer::Base
     mail to: @participant.email, subject: subject
   end
 
+  def instant_reward(reward, participant, coupon)
+    @reward = reward
+    @participant = participant
+    @coupon = coupon
+    subject = "You have won Instant Reward Coupon"
+    mail to: @participant.email, subject: subject
+  end
+
 end
