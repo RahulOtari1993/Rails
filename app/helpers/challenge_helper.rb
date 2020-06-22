@@ -404,8 +404,8 @@ module ChallengeHelper
 
   ## Fetch Unused Rewards of a Campaign
   def challenge_reward_list
-    used_rewards = @campaign.challenges.all.pluck(:reward_id)
-    @campaign.rewards.active.where.not(id: used_rewards).map { |v| [v.name.titleize, v.id] }.compact
+    used_reward_ids = @campaign.challenges.all.pluck(:reward_id).compact
+    @campaign.rewards.active.where("selection = ? AND (NOT (ID IN (?)))", "instant", used_reward_ids).map { |v| [v.name.titleize, v.id] }.compact
   end
 
   ## User Segment List for Challenges
