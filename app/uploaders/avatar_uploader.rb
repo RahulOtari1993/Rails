@@ -1,9 +1,9 @@
-class ImageUploader < CarrierWave::Uploader::Base
+class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::ImageOptimizer
 
   ## Set Default Image of Challenge
   def default_url(*args)
-    ActionController::Base.helpers.asset_path('logo-files/picture_not_available.png')
+    ActionController::Base.helpers.asset_path('logo-files/default-user-icon.jpg')
   end
 
   #thumb version
