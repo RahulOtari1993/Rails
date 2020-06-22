@@ -11,8 +11,8 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
-        participants = participants.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
       end
+      participants = participants.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
     if params["filters"].present?
