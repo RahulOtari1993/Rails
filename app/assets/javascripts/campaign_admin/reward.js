@@ -430,9 +430,6 @@ $(document).ready(function () {
   //front-end validations
   $('.reward-form').validate({
     errorElement: 'span',
-    // onfocusout: function (element) {
-    //   return false;
-    // },
     ignore: function (index, el) {
       var $el = $(el);
 
@@ -448,7 +445,8 @@ $(document).ready(function () {
         required: true
       },
       'reward[description]': {
-        required: true
+        required: true,
+        maxlength: 300
       },
       'reward[image]': {
         required: true,
@@ -458,12 +456,19 @@ $(document).ready(function () {
         digits: true
       },
       'reward[limit]': {
+        required: true,
         digits: true
       },
       'reward[start]': {
         required: true
       },
       'reward[finish]': {
+        required: true
+      },
+      'reward[msrp_value]': {
+        number: true
+      },
+      'reward[selection]': {
         required: true
       }
     },
@@ -472,14 +477,18 @@ $(document).ready(function () {
         required: 'Please enter reward name'
       },
       'reward[description]': {
-        required: 'Please enter reward description'
+        required: 'Please enter reward description',
+        maxlength: 'Maximum 300 characters allowed'
       },
       'reward[image]': {
         required: 'Please select reward photo',
         extension: 'Please select reward photo with valid extension'
       },
       'reward[points]': {
-        required: 'Please enter points',
+        digits: 'Please enter only digits'
+      },
+      'reward[limit]': {
+        required: 'Please enter reward available',
         digits: 'Please enter only digits'
       },
       'reward[start]': {
@@ -488,6 +497,12 @@ $(document).ready(function () {
       'reward[finish]': {
         required: 'Please enter end time'
       },
+      'reward[msrp_value]': {
+        number: 'Please enter numeric value only'
+      },
+      'reward[selection]': {
+        required: 'Please select reward selection type'
+      }
     },
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
