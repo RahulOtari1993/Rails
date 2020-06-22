@@ -26,8 +26,10 @@
 }
 
 .modal_box h5 {
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 900;
   margin-bottom: 17px;
+  color: #202020;
 }
 
 .modal_box .fa {
@@ -48,11 +50,12 @@
 }
 
 .box1_btn {
-  font-weight: 100;
+  font-weight: 900;
+  font-size: 15px;
   border-radius: 22px;
   padding: 7px 23px;
   margin-bottom: 17px;
-  background-color: #818a91;
+  background-color: #ff0000;
   color: #fff;
 }
 

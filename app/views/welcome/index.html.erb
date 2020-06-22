@@ -68,7 +68,7 @@
                     <% elsif challenge.challenge_type == "link" %>
                       <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Visit a URL</button> </div>
                     <% end %>
-                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span></div>
+                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span></div>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -111,7 +111,7 @@
                     <% end %>
                   </div>
                   <div class="width_50" style="float: right;">
-                    <span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+                    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
                   </div>
                 </div>
                 <div class="clear"></div>
@@ -129,7 +129,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-lg-9">
-        <h4 class="text-white">The sooner the join, the better your chances!</h4>
+        <h4 class="text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
         <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
       </div>
       <div class="col-md-4 col-lg-3">

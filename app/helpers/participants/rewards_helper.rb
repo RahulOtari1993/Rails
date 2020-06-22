@@ -10,6 +10,10 @@ module Participants::RewardsHelper
   end
 
   def coupon_claimed(reward)
-    reward.reward_participants.pluck(:participant_id).include?(current_participant.id)
+    if current_participant.present?
+      reward.reward_participants.pluck(:participant_id).include?(current_participant.id)
+    else
+      false
+    end
   end
 end
