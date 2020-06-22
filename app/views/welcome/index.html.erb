@@ -50,7 +50,7 @@
                 <div class="image_inner_text">
                   <div class="width_100">
                     <div class="width_50" style="float: left;"><span class="left"><%= "+#{challenge.points.to_i}" %></span> </div>
-                    <div class="width_50" style="float: right;"><%= image_tag("end-user/play-button.svg", style: "width: 40px;float: right;") %></div>
+                    <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
                   </div>
                   <div class="clear"></div>
                   <h2 class="image_box_title"><%= challenge.name %></h2>
@@ -68,7 +68,7 @@
                     <% elsif challenge.challenge_type == "link" %>
                       <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Visit a URL</button> </div>
                     <% end %>
-                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= TimeDifference.between(Time.now, challenge.finish ).humanize %></span></div>
+                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span></div>
                   </div>
                   <div class="clear"></div>
                 </div>
@@ -96,7 +96,8 @@
             <div class="card image_box">
               <div class="image_inner_text">
                 <div class="width_100">
-                  <div class="width_50" style="float: left;"><span class="left"><%= reward.selection.titleize %> <br> REWARD</span> </div>
+                  <% title = (reward.selection == "redeem") ? "Cash-In" : reward.selection.titleize %>
+                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span> </div>
                   <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
                 </div>
                 <div class="clear"></div>
@@ -104,8 +105,14 @@
                 <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
                 <h5><%= reward.description %></h5>
                 <div class="width_100">
-                  <div class="width_50" style="float: left;"><button class="watch_btn reward-claim-modal-btn" data-reward-id="<%= reward.id %>">Learn More</button> </div>
-                  <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= distance_of_time_in_words(Time.now, reward.finish) %></span></div>
+                  <div class="width_50" style="float: left;">
+                    <% if coupons_available(reward) && !coupon_claimed(reward) %>
+                      <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                    <% end %>
+                  </div>
+                  <div class="width_50" style="float: right;">
+                    <span style="float: right;padding-top: 12px;color:#444;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+                  </div>
                 </div>
                 <div class="clear"></div>
               </div>
