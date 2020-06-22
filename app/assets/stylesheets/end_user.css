@@ -4,7 +4,7 @@
 }
 body{
   font-family: 'proxima-nova', sans-serif;
-  color: #444;
+  color: #202020;
 }
 .header{
   background-color: #ccc;
@@ -57,6 +57,7 @@ body{
   font-size: 20px;
   line-height: 40px;
   float: left;
+  font-weight: 900;
 }
 .section2 .width_50 .left{
   color: #FF0000;
@@ -67,7 +68,7 @@ body{
   font-weight: 900;
 }
 .image_box_title{
-  color: #444;
+  color: #202020;
   line-height: 35px;
   font-weight: 700;
   margin: 25px 0px 30px;
@@ -81,6 +82,7 @@ body{
   border-radius: 18px;
   transition-duration: .5s;
   transition-property: transform;
+  font-weight: 800;
 }
 .watch_btn:hover{
   transition: all .5s;
@@ -91,7 +93,7 @@ body{
 }
 .section2 h5{
   font-weight: 300;
-  color: #444;
+  color: #202020;
   margin-bottom: 18px;
   font-size: 18px;
 }
@@ -120,11 +122,12 @@ body{
   letter-spacing: 1.4px;
   border-radius: 100px 100px 100px 100px;
   box-shadow: 0px 0px 27px 0px rgba(255, 0, 0, 0.34);
-  background-color: #818a91;
+  background-color: #ff0000;
   color: #f2f2f2;
   outline: none;
   border: none;
   padding: 15px 40px;
+  font-weight: 900;
   /*float: right;*/
 }
 .footer_bottom{
@@ -195,7 +198,7 @@ body{
   margin-bottom: 20px;
 }
 .banner_btn{
-  background-color: #818a91;
+  background-color: #ff0000;
   color: #fff;
   outline: none;
   border: none;
@@ -206,13 +209,13 @@ body{
 }
 
 .header_join_now_btn{
-  background-color: #818a91;
+  background-color: #ff0000;
   color: #fff;
   outline: none;
   border: none;
   border-radius: 20px;
   font-size: 15px;
-  font-weight: 100;
+  font-weight: 900;
   padding: 10px 30px;
 }
 
@@ -231,6 +234,7 @@ body{
 
 .header_login_btn{
   background-color: transparent;
+  color: #000;
 }
 /*.header_login_btn:before {
   content: "\e045";
