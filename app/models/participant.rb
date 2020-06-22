@@ -69,12 +69,9 @@ class Participant < ApplicationRecord
   ## Associations
   belongs_to :organization
   belongs_to :campaign
-  has_many :challenge_participants, dependent: :destroy
-  has_many :challenges, through: :challenge_participants
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
-
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
@@ -85,6 +82,9 @@ class Participant < ApplicationRecord
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
+
+  ## Mount Uploader for File Upload
+  mount_uploader :avatar, ImageUploader
 
   ## Nested Attributes
   accepts_nested_attributes_for :participant_profiles, allow_destroy: true, :reject_if => :all_blank
@@ -182,6 +182,7 @@ class Participant < ApplicationRecord
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'facebook'
+      participant.remote_avatar_url = auth.info.image
     else
       name = auth.info.name.split(" ")
 
@@ -197,7 +198,8 @@ class Participant < ApplicationRecord
           facebook_token: auth.credentials.token,
           facebook_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now,
-          connect_type: 'facebook'
+          connect_type: 'facebook',
+          remote_avatar_url: auth.info.image
       }
 
       participant = Participant.new(params)
@@ -229,6 +231,7 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'google'
+      participant.remote_avatar_url = auth.info.image
     else
       params = {
           organization_id: org.id,
@@ -243,7 +246,8 @@ class Participant < ApplicationRecord
           google_refresh_token: auth.credentials.refresh_token,
           google_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now,
-          connect_type: 'google'
+          connect_type: 'google',
+          remote_avatar_url: auth.info.image
       }
 
       participant = Participant.new(params)
