@@ -42,7 +42,7 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
   end
 
   def sort_column
-    columns = [%w[first_name last_name], ['email'], ['unused_points'], ['created_at']]
+    columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
     columns[params[:order]['0'][:column].to_i - 1].join(', ')
   end
 end
