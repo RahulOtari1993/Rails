@@ -172,4 +172,19 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().remove();
     applyParticipantFilters(generateParticipantFilterParams());
   });
+
+  let sliderWithInput = document.getElementById('slider-with-input');
+  noUiSlider.create(sliderWithInput, {
+    start: [100, 1000],
+    connect: true,
+    range: {
+      'min': 0,
+      'max': 20000
+    }
+  });
+
+  sliderWithInput.noUiSlider.on('update', function (values, handle) {
+    $('.filter-min-points').text(parseInt(values[0]));
+    $('.filter-max-points').text(parseInt(values[1]));
+  });
 });
