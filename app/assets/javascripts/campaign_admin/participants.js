@@ -238,9 +238,17 @@ $(document).on('turbolinks:load', function () {
   ageFilterSlider.noUiSlider.on('update', function (values) {
     $('.filter-min-age').text(parseInt(values[0]));
     $('.filter-max-age').text(parseInt(values[1]));
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
 
-      console.log('Min', $('.filter-min-age').text());
-      console.log('Max', $('.filter-max-age').text());
+  //Reset Participant filter checkboxes and update datatable
+  $('.reset_user_filters_btn').on('click', function (e) {
+    $('input:checkbox').each(function () {
+      this.checked = false;
+    });
+    $('.users-filter-selection').html('');
+    ageFilterSlider.noUiSlider.reset();
+
     applyParticipantFilters(generateParticipantFilterParams());
   });
 
