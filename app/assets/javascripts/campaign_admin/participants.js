@@ -173,18 +173,19 @@ $(document).on('turbolinks:load', function () {
     applyParticipantFilters(generateParticipantFilterParams());
   });
 
-  let sliderWithInput = document.getElementById('slider-with-input');
-  noUiSlider.create(sliderWithInput, {
-    start: [100, 1000],
-    connect: true,
-    range: {
-      'min': 0,
-      'max': 20000
-    }
-  });
-
-  sliderWithInput.noUiSlider.on('update', function (values, handle) {
-    $('.filter-min-points').text(parseInt(values[0]));
-    $('.filter-max-points').text(parseInt(values[1]));
-  });
+  // Users Points Slider Setup
+  // let sliderWithInput = document.getElementById('slider-with-input');
+  // noUiSlider.create(sliderWithInput, {
+  //   start: [0, 20000],
+  //   connect: true,
+  //   range: {
+  //     'min': 0,
+  //     'max': 20000
+  //   }
+  // });
+  //
+  // sliderWithInput.noUiSlider.on('update', function (values, handle) {
+  //   $('.filter-min-points').text(parseInt(values[0]));
+  //   $('.filter-max-points').text(parseInt(values[1]));
+  // });
 });
