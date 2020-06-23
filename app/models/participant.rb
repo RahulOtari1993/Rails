@@ -328,6 +328,7 @@ class Participant < ApplicationRecord
     query = 'id IS NOT NULL'
     tags_query = ''
     gender = []
+    challenges = []
 
     filters.each do |key, value|
       if key == 'gender' && value.present?
@@ -342,10 +343,13 @@ class Participant < ApplicationRecord
         end
 
         query = query + tags_query
+      elsif key == 'challenges' && value.present?
+        challenges = Submission.where(challenge_id: value).pluck(:participant_id)
+        query = query + ' AND id IN (:participant_ids)'
       end
     end
 
-    participants = self.where(query, gender: gender.flatten)
+    participants = self.where(query, gender: gender.flatten, participant_ids: challenges.flatten)
 
     return participants
   end
