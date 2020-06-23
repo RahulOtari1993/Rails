@@ -344,6 +344,7 @@ class Participant < ApplicationRecord
         query = query + tags_query
       end
     end
+
     participants = self.where(query, gender: gender.flatten)
 
     return participants
