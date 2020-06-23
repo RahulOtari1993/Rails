@@ -9,11 +9,13 @@
             </div>
             <div class="modal-body">
               <h4 class="modal-title">Add Coupons</h4>
-              <%= form_with(url: admin_campaign_reward_create_coupon_path(@reward.campaign, @reward, @coupon), model: @coupon, local: true) do |f|%>
+              <%= form_with(url: admin_campaign_reward_create_coupon_path(@reward.campaign, @reward, @coupon), model: @coupon, local: true, id: "reward_coupon_form") do |f|%>
                 <%= f.label :coupon_codes %>
                 <span class="column-info">Enter the new coupon codes you want associated with this reward.
                 </span>
-                <%= f.text_area :code, class: "form-control", id: 'label-textarea', rows: '3'%>
+                <%= f.text_area :code, class: "form-control reward-coupon", id: 'label-textarea', rows: '3' %>
+                <span class="error" id="reward-coupon-error" style="display:none;"></span>
+
               <% end %>
               <div class="content-wrapper">
                 <div class="content-body">
@@ -28,7 +30,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                            <% if @coupons.present?%>
+                            <% if @coupons.present? %>
                               <% @coupons.each do |coupon|%>
                                 <tr>
                                   <td scope="row"><%= coupon.code %></td>
@@ -46,14 +48,40 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary coupon_save" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-primary coupon_save">Save</button>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-  $('.coupon_save').on('click', function(e){
-    $('form').submit();
+  // Coupon create form validation UI -- start
+  $('.coupon_save').on('click', function(e) {
+    var errors = 0;
+    var couponsLength = 0;
+    var rewardCoupons;
+    var totalCoupons;
+    var coupons = $('.reward-coupon').val().trim();
+
+    // check for reward quantity and total coupons quantity
+    if (coupons !== '' && coupons !== undefined){
+       couponsLength = coupons.split(',').length;
+       rewardCoupons = <%= @reward.limit %>
+       totalCoupons = couponsLength + <%= @coupons.present? ? @coupons.count : 0 %> ;
+       if (parseInt(rewardCoupons) >= parseInt(totalCoupons)) {
+         $('form').submit();
+         $('#coupon_user').modal('hide');
+       } else {
+         message = "The coupons you have entered cannot be available for this reward exceeding the limit."
+         $('#reward-coupon-error').text(message).show()
+       }
+    } else {
+      errors += 1 ;
+      message = "Please enter the coupon codes."
+      $('#reward-coupon-error').text(message).show()
+    }
   })
+  // Coupon create form validation UI -- end
+
+
   $(".coupon-list-view").DataTable({});
 </script>>

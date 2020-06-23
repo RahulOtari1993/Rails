@@ -14,15 +14,13 @@ class RewardsService
 
       if reward_participant.new_record?
         reward_participant.save
+
         ## Grab a Coupon for Participant & Assign it
         @coupon = @reward.coupons.where(reward_participant_id: nil).first
-        if @coupon.present?
-          @coupon.update(reward_participant_id: reward_participant.id)
-          ## Create participate action entry, update participant bonus points, send email coupon code
-          generate_participant_action
-        else
-          {success: false, message: 'Reward claim failed, Please try again.'}
-        end
+        @coupon.update(reward_participant_id: reward_participant.id) if @coupon.present?
+
+        ## Create participate action entry, update participant bonus points, send email coupon code
+        generate_participant_action
       else
         {success: false, message: 'You have already claimed this reward earlier.'}
       end
@@ -50,28 +48,25 @@ class RewardsService
 
                 # Grab a Coupon for Participant & Assign it
                 coupon = reward.coupons.where(reward_participant_id: nil).first
-                if coupon.present?
-                  action_type = 'claim_reward'
-                  if coupon.update(reward_participant_id: reward_participant.id)
-                    begin
-                      participant_action = ParticipantAction.new(participant_id: @participant.id, points: reward.points,
-                                                                 action_type: action_type, title: 'Won a Milestone Reward',
-                                                                 details: reward.name, actionable_id: reward.id,
-                                                                 actionable_type: reward.class.name, coupon: coupon.code)
-                      participant_action.save!
+                coupon.update(reward_participant_id: reward_participant.id) if coupon.present?
 
-                      ## Assign Bonus Points to Participant if Available
-                      if reward.points.present?
-                        @participant.points = @participant.points.to_i + reward.points.to_i
-                        @participant.unused_points = @participant.unused_points.to_i + reward.points.to_i
-                        @participant.save(:validate => false)
-                      end
+                begin
+                  participant_action = ParticipantAction.new(participant_id: @participant.id, points: reward.points,
+                                                             action_type: 'claim_reward', title: 'Won a Milestone Reward',
+                                                             details: reward.name, actionable_id: reward.id,
+                                                             actionable_type: reward.class.name, coupon: coupon.try(:code))
+                  participant_action.save!
 
-                      RewardMailer.milestone_reward_completion(reward, @participant, coupon).deliver
-                    rescue Exception => e
-                      Rails.logger.info "ERROR: Milestone Reward Completion Participant Action Entry Failed --> #{e.message}"
-                    end
+                  ## Assign Bonus Points to Participant if Available
+                  if reward.points.present?
+                    @participant.points = @participant.points.to_i + reward.points.to_i
+                    @participant.unused_points = @participant.unused_points.to_i + reward.points.to_i
+                    @participant.save(:validate => false)
                   end
+
+                  RewardMailer.milestone_reward_completion(reward, @participant, coupon).deliver
+                rescue Exception => e
+                  Rails.logger.info "ERROR: Milestone Reward Completion Participant Action Entry Failed --> #{e.message}"
                 end
               end
             end
@@ -97,7 +92,7 @@ class RewardsService
       ## insert the participant action for any reward
       participant_action = ParticipantAction.new(participant_id: @participant.id, points: @reward.points,
                              action_type: 'claim_reward', title: title, details: @reward.name,
-                             actionable_id: @reward.id, actionable_type: @reward.class.name,coupon: @coupon.code,
+                             actionable_id: @reward.id, actionable_type: @reward.class.name,coupon: @coupon.try(:code),
                              user_agent: @request.user_agent, ip_address: @request.ip)
       participant_action.save!
 
