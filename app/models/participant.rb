@@ -321,9 +321,33 @@ class Participant < ApplicationRecord
         end
       end
     end
-
   end
 
+  ## Challenge Filter
+  def self.side_bar_filter(filters)
+    query = 'id IS NOT NULL'
+    tags_query = ''
+    gender = []
+
+    filters.each do |key, value|
+      if key == 'gender' && value.present?
+        value.each do |c_type|
+          gender << c_type
+        end
+        query = query + ' AND gender IN (:gender)'
+      elsif key == 'tags' && value.present?
+        value.each do |tag|
+          tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = participants.id AND taggings.taggable_type = 'Participant'" +
+              " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
+        end
+
+        query = query + tags_query
+      end
+    end
+    participants = self.where(query, gender: gender.flatten)
+
+    return participants
+  end
   private
 
   ## Generate Uniq Participant ID

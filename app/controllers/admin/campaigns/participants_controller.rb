@@ -21,7 +21,7 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
-      participants = participants.challenge_side_bar_filter(filters)
+      participants = participants.side_bar_filter(filters)
     end
 
     participants = participants.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?

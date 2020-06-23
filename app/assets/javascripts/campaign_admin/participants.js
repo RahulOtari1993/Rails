@@ -88,7 +88,7 @@ $(document).on('turbolinks:load', function () {
     bInfo: false,
     pageLength: 10,
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {
@@ -102,5 +102,41 @@ $(document).on('turbolinks:load', function () {
     initComplete: function (settings, json) {
       $('.dt-buttons .btn').removeClass('btn-secondary');
     }
+  });
+
+  // Generates Participant Filter Query String
+  function generateParticipantFilterParams() {
+    var filters = {
+      gender: [],
+      tags: []
+    }
+
+    $("input[name='filters[gender][]']:checked").each(function () {
+      filters['gender'].push($(this).data('val'));
+    });
+
+    $('.challenge-tags-filter-chip').each(function () {
+      filters['tags'].push($(this).data('tag-val'));
+    });
+
+    return filters;
+  }
+
+  // Apply Participant Filters
+  function applyParticipantFilters(filters) {
+    if (filters != '') {
+      $('#participant-list-table').DataTable().ajax.url(
+          "/admin/campaigns/" + $('#participant-list-table').attr('campaign_id') + "/users/fetch_participants"
+          + "?filters=" + JSON.stringify(filters)
+      )
+          .load() //checked
+    } else {
+      $('#participant-list-table').DataTable().ajax.reload();
+    }
+  }
+
+  // Participant sidebar status filters
+  $('.participant_sidebar_filter').change(function () {
+    applyParticipantFilters(generateParticipantFilterParams());
   });
 });
