@@ -1,4 +1,7 @@
 $(document).on('turbolinks:load', function () {
+  // Fadeout Alert Message
+  $('.alert').fadeOut(3000);
+
   // Close Popup Modal
   $('.modal-close-btn').click(function () {
     $(this).parent().parent().modal('hide');
