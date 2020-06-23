@@ -108,15 +108,20 @@ $(document).on('turbolinks:load', function () {
   function generateParticipantFilterParams() {
     var filters = {
       gender: [],
-      tags: []
+      tags: [],
+      challenges: []
     }
 
     $("input[name='filters[gender][]']:checked").each(function () {
       filters['gender'].push($(this).data('val'));
     });
 
-    $('.participant-tags-filter-chip').each(function () {
+    $('.participants-filter-tag-selection .participant-tags-filter-chip').each(function () {
       filters['tags'].push($(this).data('tag-val'));
+    });
+
+    $('.participants-filter-challenges-selection .participant-tags-filter-chip').each(function () {
+      filters['challenges'].push($(this).data('tag-val'));
     });
 
     return filters;
@@ -156,9 +161,11 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#participant-filter-tag-template').html();
-    let tagHtml = replaceParticipantTagFields(tagTemplate, $('.participants-tags-filter :selected').text(), $('.participants-tags-filter :selected').val());
+    let tagHtml = replaceParticipantTagFields(tagTemplate, $('.participants-tags-filter :selected').text(),
+        $('.participants-tags-filter :selected').val());
     $('.participants-filter-tag-selection').append(tagHtml);
 
     // Reset Tags Selector
@@ -168,8 +175,26 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Remove Tag From Participant Filters
-  $('body').on('click', '.participants-filter-tag-selection .chip-closeable', function (e) {
+  $('body').on('click', '.users-filter-selection .chip-closeable', function (e) {
     $(this).parent().parent().remove();
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
+
+  // Challenges Selection in Participant Filter With Auto Suggestion
+  $('.participants-challenges-filter').select2({
+    placeholder: "Select Challenge",
+    tags: true,
+    dropdownAutoWidth: true,
+    width: '100%'
+  }).on("select2:select", function (e) {
+    let tagTemplate = $('#participant-filter-tag-template').html();
+    let tagHtml = replaceParticipantTagFields(tagTemplate, $('.participants-challenges-filter :selected').text(),
+        $('.participants-challenges-filter :selected').val());
+    $('.participants-filter-challenges-selection').append(tagHtml);
+
+    // Reset Challenges Selector
+    $('.participants-challenges-filter').val(null).trigger('change');
+
     applyParticipantFilters(generateParticipantFilterParams());
   });
 

@@ -60,7 +60,16 @@
     <%= select_tag :tags,
                    options_for_select(all_tags_humanize),
                    class: 'form-control-sm participants-tags-filter', multiple: 'multiple' %>
-    <div class="tag_box participants-filter-tag-selection" style="padding-top: 5px;">
+    <div class="tag_box participants-filter-tag-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+
+  <div class="mt-1">
+    <h5>Challenges</h5>
+    <%= select_tag :challenges,
+                   options_for_select(all_challenges_filter),
+                   class: 'form-control-sm participants-challenges-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-challenges-selection users-filter-selection" style="padding-top: 5px;">
     </div>
   </div>
 </div>
