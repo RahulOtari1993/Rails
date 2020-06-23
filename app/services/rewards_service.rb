@@ -44,7 +44,6 @@ class RewardsService
             if reward_participant.new_record?
               Rails.logger.info "============== IN reward_participant.new_record? =============="
               is_eligible = reward.eligible? @participant
-              binding.pry
               if is_eligible
                 Rails.logger.info "============== IN reward_participant.new_record? =============="
                 reward_participant.save
