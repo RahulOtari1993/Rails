@@ -1008,6 +1008,9 @@ $(document).on('turbolinks:load', function () {
     // oLanguage: {
     //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
     // },
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Challenge",

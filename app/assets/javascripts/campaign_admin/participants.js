@@ -24,7 +24,7 @@ $(document).on('turbolinks:load', function () {
     },
     columns: [
       {
-        title: 'Image', data: null, searchable: false,
+        title: 'Image', data: null, searchable: false, sortable: false,
         render: function (data, type, row) {
           return '<img src="' + data['avatar']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
         },
@@ -87,18 +87,20 @@ $(document).on('turbolinks:load', function () {
     order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-download'></i> Export CSV",
         action: function () {
           window.location.href = "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/new"
         },
-        className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
+        className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light'
       }
     ],
     initComplete: function (settings, json) {
-      $(".dt-buttons .btn").removeClass("btn-secondary");
-      // $('.dataTables_filter').addClass('search-icon-placement');
+      $('.dt-buttons .btn').removeClass('btn-secondary');
     }
   });
 });

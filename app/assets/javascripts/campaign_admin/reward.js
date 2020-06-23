@@ -386,25 +386,19 @@ $(document).on('turbolinks:load', function () {
         }
       },
     ],
-    columnDefs: [
-      {
-        orderable: true,
-        targets: 0
-      }
-    ],
     dom:
         '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
+    aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
     order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
-    select: {
-      style: "multi"
-    },
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
