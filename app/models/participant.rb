@@ -329,6 +329,7 @@ class Participant < ApplicationRecord
     tags_query = ''
     gender = []
     challenges = []
+    rewards = []
 
     filters.each do |key, value|
       if key == 'gender' && value.present?
@@ -341,15 +342,17 @@ class Participant < ApplicationRecord
           tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = participants.id AND taggings.taggable_type = 'Participant'" +
               " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
         end
-
         query = query + tags_query
       elsif key == 'challenges' && value.present?
         challenges = Submission.where(challenge_id: value).pluck(:participant_id)
-        query = query + ' AND id IN (:participant_ids)'
+        query = query + ' AND id IN (:challenge_participants)'
+      elsif key == 'rewards' && value.present?
+        rewards = RewardParticipant.where(reward_id: value).pluck(:participant_id)
+        query = query + ' AND id IN (:reward_participants)'
       end
     end
 
-    participants = self.where(query, gender: gender.flatten, participant_ids: challenges.flatten)
+    participants = self.where(query, gender: gender.flatten, challenge_participants: challenges.flatten, reward_participants: rewards)
 
     return participants
   end

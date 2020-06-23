@@ -109,7 +109,8 @@ $(document).on('turbolinks:load', function () {
     var filters = {
       gender: [],
       tags: [],
-      challenges: []
+      challenges: [],
+      rewards: []
     }
 
     $("input[name='filters[gender][]']:checked").each(function () {
@@ -122,6 +123,10 @@ $(document).on('turbolinks:load', function () {
 
     $('.participants-filter-challenges-selection .participant-tags-filter-chip').each(function () {
       filters['challenges'].push($(this).data('tag-val'));
+    });
+
+    $('.participants-filter-rewards-selection .participant-tags-filter-chip').each(function () {
+      filters['rewards'].push($(this).data('tag-val'));
     });
 
     return filters;
@@ -194,6 +199,24 @@ $(document).on('turbolinks:load', function () {
 
     // Reset Challenges Selector
     $('.participants-challenges-filter').val(null).trigger('change');
+
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
+
+  // Rewards Selection in Participant Filter With Auto Suggestion
+  $('.participants-rewards-filter').select2({
+    placeholder: "Select Reward",
+    tags: true,
+    dropdownAutoWidth: true,
+    width: '100%'
+  }).on("select2:select", function (e) {
+    let tagTemplate = $('#participant-filter-tag-template').html();
+    let tagHtml = replaceParticipantTagFields(tagTemplate, $('.participants-rewards-filter :selected').text(),
+        $('.participants-rewards-filter :selected').val());
+    $('.participants-filter-rewards-selection').append(tagHtml);
+
+    // Reset Rewards Selector
+    $('.participants-rewards-filter').val(null).trigger('change');
 
     applyParticipantFilters(generateParticipantFilterParams());
   });

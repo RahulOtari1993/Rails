@@ -72,4 +72,13 @@
     <div class="tag_box participants-filter-challenges-selection users-filter-selection" style="padding-top: 5px;">
     </div>
   </div>
+
+  <div class="mt-1">
+    <h5>Rewards</h5>
+    <%= select_tag :rewards,
+                   options_for_select(all_rewards_filter),
+                   class: 'form-control-sm participants-rewards-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-rewards-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
 </div>
