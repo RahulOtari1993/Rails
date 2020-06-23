@@ -115,7 +115,7 @@ $(document).on('turbolinks:load', function () {
       filters['gender'].push($(this).data('val'));
     });
 
-    $('.challenge-tags-filter-chip').each(function () {
+    $('.participant-tags-filter-chip').each(function () {
       filters['tags'].push($(this).data('tag-val'));
     });
 
@@ -135,8 +135,41 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+  // Replace Chip Value & Chip Class of Newly Added Tags of Participant Filter
+  function replaceParticipantTagFields(stringDetails, tagHtml, tagVal) {
+    const chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
+    const chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
+
+    stringDetails = stringDetails.replace(/---TAG-HTML---/g, tagHtml);
+    stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagVal);
+    stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
+    return stringDetails;
+  }
+
   // Participant sidebar status filters
   $('.participant_sidebar_filter').change(function () {
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
+
+  // Tags Selection in Participant Filter With Auto Suggestion
+  $('.participants-tags-filter').select2({
+    placeholder: "Select Tag",
+    tags: true,
+    dropdownAutoWidth: true,
+  }).on("select2:select", function (e) {
+    let tagTemplate = $('#participant-filter-tag-template').html();
+    let tagHtml = replaceParticipantTagFields(tagTemplate, $('.participants-tags-filter :selected').text(), $('.participants-tags-filter :selected').val());
+    $('.participants-filter-tag-selection').append(tagHtml);
+
+    // Reset Tags Selector
+    $('.participants-tags-filter').val(null).trigger('change');
+
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
+
+  // Remove Tag From Participant Filters
+  $('body').on('click', '.participants-filter-tag-selection .chip-closeable', function (e) {
+    $(this).parent().parent().remove();
     applyParticipantFilters(generateParticipantFilterParams());
   });
 });
