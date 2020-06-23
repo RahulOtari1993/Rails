@@ -110,7 +110,8 @@ $(document).on('turbolinks:load', function () {
       gender: [],
       tags: [],
       challenges: [],
-      rewards: []
+      rewards: [],
+      age: []
     }
 
     $("input[name='filters[gender][]']:checked").each(function () {
@@ -128,6 +129,8 @@ $(document).on('turbolinks:load', function () {
     $('.participants-filter-rewards-selection .participant-tags-filter-chip').each(function () {
       filters['rewards'].push($(this).data('tag-val'));
     });
+
+    filters['age'] = [parseInt($('.filter-min-age').text()), parseInt($('.filter-max-age').text())]
 
     return filters;
   }
@@ -218,6 +221,26 @@ $(document).on('turbolinks:load', function () {
     // Reset Rewards Selector
     $('.participants-rewards-filter').val(null).trigger('change');
 
+    applyParticipantFilters(generateParticipantFilterParams());
+  });
+
+  // Users Age Slider Setup
+  let ageFilterSlider = document.getElementById('user-age-filter');
+  noUiSlider.create(ageFilterSlider, {
+    start: [0, 100],
+    connect: true,
+    range: {
+      'min': 0,
+      'max': 100
+    }
+  });
+
+  ageFilterSlider.noUiSlider.on('update', function (values) {
+    $('.filter-min-age').text(parseInt(values[0]));
+    $('.filter-max-age').text(parseInt(values[1]));
+
+      console.log('Min', $('.filter-min-age').text());
+      console.log('Max', $('.filter-max-age').text());
     applyParticipantFilters(generateParticipantFilterParams());
   });
 

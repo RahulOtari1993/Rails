@@ -349,6 +349,8 @@ class Participant < ApplicationRecord
       elsif key == 'rewards' && value.present?
         rewards = RewardParticipant.where(reward_id: value).pluck(:participant_id)
         query = query + ' AND id IN (:reward_participants)'
+      elsif key == 'age' && value.present?
+        query = query + " AND (age >= #{value[0]} AND age <= #{value[1]})"
       end
     end
 
