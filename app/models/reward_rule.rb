@@ -56,17 +56,23 @@ class RewardRule < ApplicationRecord
 
   ## Check Login Conditions
   def logins_check participant, reward
+    if reward.date_range
+      logins = participant.participant_actions.where(action_type: [0, 1]).count
+    else
+      logins = participant.sign_in_count.to_i
+    end
+
     case self.rule_condition
       when 'equals' then
-        participant.sign_in_count.to_i == self.rule_value.to_i
+        logins == self.rule_value.to_i
       when 'greater_than' then
-        participant.sign_in_count.to_i > self.rule_value.to_i
+        logins > self.rule_value.to_i
       when 'less_than' then
-        participant.sign_in_count.to_i < self.rule_value.to_i
+        logins < self.rule_value.to_i
       when 'greater_than_or_equal' then
-        participant.sign_in_count.to_i >= self.rule_value.to_i
+        logins >= self.rule_value.to_i
       when 'less_than_or_Equal' then
-        participant.sign_in_count.to_i <= self.rule_value.to_i
+        logins <= self.rule_value.to_i
       else
         false
     end

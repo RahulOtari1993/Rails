@@ -191,6 +191,7 @@ class Participant < ApplicationRecord
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'facebook'
       participant.remote_avatar_url = auth.info.image
+      participant.is_active = true
     else
       name = auth.info.name.split(" ")
 
@@ -239,6 +240,7 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'google'
+      participant.is_active = true
       participant.remote_avatar_url = auth.info.image
     else
       params = {
@@ -288,16 +290,18 @@ class Participant < ApplicationRecord
       ## Fetch the Challenge (Facebook, Google, Email)
       challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
       if challenge.present?
-        ## Create Participant Action Log
-        action_item = ParticipantAction.new({participant_id: self.id, points: 0,
-                                             action_type: 'sign_up', title: 'Signed up',
-                                             user_agent: user_agent, ip_address: remote_ip})
-        action_item.save
-
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
+        action_type = self.connect_type == 'email' ? 'sign_up' : 'sign_in'
+        action_title = self.connect_type == 'email' ? 'Signed up' : 'Signed in'
 
-        unless is_submitted
+        if is_submitted
+          ## Create Participant Action Log
+          action_item = ParticipantAction.new({participant_id: self.id, points: 0,
+                                               action_type: action_type, title: action_title,
+                                               user_agent: user_agent, ip_address: remote_ip})
+          action_item.save
+        else
           ## Submit Challenge
           submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id,
                                    user_agent: user_agent, ip_address: remote_ip})
@@ -305,7 +309,7 @@ class Participant < ApplicationRecord
 
           ## Create Participant Action Log
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
-                                               action_type: 'sign_up', title: 'Signed up', actionable_id: challenge.id,
+                                               action_type: action_type, title: action_title, actionable_id: challenge.id,
                                                actionable_type: 'Challenge', details: challenge.caption,
                                                user_agent: user_agent, ip_address: remote_ip})
           sign_up_log.save
