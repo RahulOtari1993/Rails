@@ -1472,6 +1472,7 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text(), $('.challenge-tags-filter :selected').val());

@@ -778,6 +778,7 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#reward-filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.reward-tags-filter :selected').text(), $('.reward-tags-filter :selected').val());
