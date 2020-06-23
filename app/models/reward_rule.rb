@@ -33,7 +33,9 @@ class RewardRule < ApplicationRecord
   ## Check Completed Challenges Conditions
   def challenges_completed_check participant, reward
     if reward.date_range
-      challenges_completed = participant.submissions.where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC'))).count
+      challenges_completed = participant.submissions
+                                 .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                                 .count
     else
       challenges_completed = participant.completed_challenges.to_i
     end
@@ -57,7 +59,9 @@ class RewardRule < ApplicationRecord
   ## Check Login Conditions
   def logins_check participant, reward
     if reward.date_range
-      logins = participant.participant_actions.where(action_type: [0, 1]).count
+      logins = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .where(action_type: 'sign_in').count
     else
       logins = participant.sign_in_count.to_i
     end
@@ -80,17 +84,25 @@ class RewardRule < ApplicationRecord
 
   ## Check Unused Points Conditions
   def points_check participant, reward
+    if reward.date_range
+      points = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .sum(:points)
+    else
+      points = participant.unused_points.to_i
+    end
+
     case self.rule_condition
       when 'equals' then
-        participant.points.to_i == self.rule_value.to_i
+        points == self.rule_value.to_i
       when 'greater_than' then
-        participant.points.to_i > self.rule_value.to_i
+        points > self.rule_value.to_i
       when 'less_than' then
-        participant.points.to_i < self.rule_value.to_i
+        points < self.rule_value.to_i
       when 'greater_than_or_equal' then
-        participant.points.to_i >= self.rule_value.to_i
+        points >= self.rule_value.to_i
       when 'less_than_or_Equal' then
-        participant.points.to_i <= self.rule_value.to_i
+        points <= self.rule_value.to_i
       else
         false
     end
@@ -98,17 +110,25 @@ class RewardRule < ApplicationRecord
 
   ## Check Participants Recruit Conditions
   def recruits_check participant, reward
+    if reward.date_range
+      recruits = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .where(action_type: 'recruit').count
+    else
+      recruits = participant.recruits.to_i
+    end
+
     case self.rule_condition
       when 'equals' then
-        participant.recruits.to_i == self.rule_value.to_i
+        recruits == self.rule_value.to_i
       when 'greater_than' then
-        participant.recruits.to_i > self.rule_value.to_i
+        recruits > self.rule_value.to_i
       when 'less_than' then
-        participant.recruits.to_i < self.rule_value.to_i
+        recruits < self.rule_value.to_i
       when 'greater_than_or_equal' then
-        participant.recruits.to_i >= self.rule_value.to_i
+        recruits >= self.rule_value.to_i
       when 'less_than_or_Equal' then
-        participant.recruits.to_i <= self.rule_value.to_i
+        recruits <= self.rule_value.to_i
       else
         false
     end
