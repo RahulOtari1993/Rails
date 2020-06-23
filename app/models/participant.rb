@@ -93,6 +93,11 @@ class Participant < ApplicationRecord
   ## Tags
   acts_as_taggable_on :tags
 
+  ## Allow Only Active Users to Login
+  def active_for_authentication?
+    super && is_active?
+  end
+
   ## Get Current Participant
   def self.current
     Thread.current[:participant]
