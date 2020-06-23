@@ -119,6 +119,10 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   border-top-right-radius: 4px;
 }
 
+.data-list-view-header .table-responsive .top, .data-thumb-view-header .table-responsive .top {
+  padding: 0 !important;
+  margin-top: -14px;
+}
 .challenge_section .modal-body .nav-item .nav-link.active, .challenge_section .modal-body .nav-item .nav-link:hover {
   color: #fff !important;
 }
@@ -255,7 +259,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 
 .data_list_20 {
-  width: 20%;
+  width: 17%;
   /*max-width: 175px;   */
   float: left;
   margin-right: 2%;
@@ -264,7 +268,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 }
 
 .data_list_80 {
-  width: 78%;
+  width: 81%;
   float: left;
 }
 
@@ -299,6 +303,17 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   .data_list_80 {
     width: 73%;
     float: left;
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .data_list_20 {
+    width: 20%;
+    margin-right: 2%;
+  }
+
+  .data_list_80 {
+    width: 78%;
   }
 }
 
