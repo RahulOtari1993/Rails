@@ -34,32 +34,32 @@
                   <% case profile_attribute.field_type %>
                   <% when 'string' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-string #{answer_required('answer-string', question.is_required)}",
+                                       class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'string') %>
                   <% when 'text_area' then %>
                     <%= text_area_tag "questions[#{question.id}][answer]", "",
-                                      class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)}",
+                                      class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                       placeholder: fetch_placeholder_details(question, 'text_area') %>
                   <% when 'boolean' then %>
                     <% question.question_options.each do |option| %>
                       <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
                                            id: "questions_#{question.id}_answer_#{option.id}",
-                                           class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}" %>
+                                           class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}" %>
 
                       <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                     <% end %>
                   <% when 'date' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-date #{answer_required('answer-date', question.is_required)}",
+                                       class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'date') %>
                   <% when 'time' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-time #{answer_required('answer-time', question.is_required)}",
+                                       class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'time') %>
                   <% when 'date_time' then %>
                     <div class="wrap-date-time">
                       <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)}",
+                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                          placeholder: fetch_placeholder_details(question, 'date_time'), readonly: true %>
                       <div class="hidden-date-time-field">
                         <input type="text" class="date-answer-hidden-field"/>
@@ -70,18 +70,18 @@
 
                   <% when 'number' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-number #{answer_required('answer-number', question.is_required)}",
+                                       class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'number') %>
                   <% when 'decimal' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)}",
+                                       class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'decimal') %>
                   <% when 'radio_button' then %>
                     <div>
                       <% question.question_options.each do |option| %>
                         <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
                                              id: "questions_#{question.id}_answer_#{option.id}",
-                                             class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}",
+                                             class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                              data: {error: "radio-button-error-#{index}"} %>
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
@@ -93,7 +93,7 @@
                       <% question.question_options.each do |option| %>
                         <%= check_box_tag "questions[#{question.id}][answer][]", option.details, false,
                                           id: "questions_#{question.id}_answer_#{option.id}",
-                                          class: "answer-check-box #{answer_required('answer-check-box', question.is_required)}",
+                                          class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                           data: {error: "check-box-error-#{index}"} %>
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
@@ -110,11 +110,14 @@
                       %>
                       <%= select_tag "questions[#{question.id}][answer]",
                                      options_for_select(options),
-                                     class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)}",
+                                     class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                      prompt: fetch_placeholder_details(question, 'dropdown') %>
                     </div>
                   <% end %>
 
+                  <% if question.additional_details.present? %>
+                    <p class="additional-details"><%= question.additional_details %></p>
+                  <% end %>
                 </div>
               <% end %>
 

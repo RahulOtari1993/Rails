@@ -159,3 +159,13 @@ span.error {
 .extended-form-group {
   position: relative;
 }
+
+.additional-details {
+  color: #707070;
+  font-size: 12px;
+  margin-left: 5px !important;
+}
+
+.bottom-margin {
+  margin-bottom: 5px !important;
+}
