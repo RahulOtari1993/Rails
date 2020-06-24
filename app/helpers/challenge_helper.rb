@@ -290,6 +290,24 @@ module ChallengeHelper
       end
   end
 
+  ## Question Set Default Value of Question Placeholder
+  def placeholder_value(question = nil)
+    if question.present?
+      question.placeholder
+    else
+      ''
+    end
+  end
+
+  ## Question Set Default Value of Question Additional Details
+  def additional_details_value(question = nil)
+    if question.present?
+      question.additional_details
+    else
+      ''
+    end
+  end
+
   ## Question Set Default Value of Question Option
   def option_value(option = nil, counter = 1)
     if option.present?

@@ -203,7 +203,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :success_message, :failed_message, :correct_answer_count,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
-                                                      :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type, :profile_attribute_id,
+                                                      :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type,
+                                                                                :profile_attribute_id, :placeholder, :additional_details,
                                                                                 :question_options_attributes => [:id, :question_id, :details, :answer]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
@@ -365,6 +366,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             category: c_param[:category],
             answer_type: answer_type[0],
             profile_attribute_id: answer_type[1],
+            placeholder: c_param[:placeholder],
+            additional_details: c_param[:additional_details],
             question_options_attributes: option_params
         }
 

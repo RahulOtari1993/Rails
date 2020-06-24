@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_22_143648) do
+ActiveRecord::Schema.define(version: 2020_06_24_090138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -378,6 +378,8 @@ ActiveRecord::Schema.define(version: 2020_06_22_143648) do
     t.integer "profile_attribute_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "placeholder"
+    t.string "additional_details"
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 
