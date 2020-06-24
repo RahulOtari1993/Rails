@@ -24,7 +24,7 @@
               <% challenge.questions.each_with_index do |question, index| %>
                 <% profile_attribute = question.profile_attribute %>
 
-                <div class="form-group">
+                <div class="form-group extended-form-group">
                   <%= label :facebook_app_id, question.title %>
 
                   <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>

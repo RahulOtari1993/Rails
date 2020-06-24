@@ -155,3 +155,7 @@ span.error {
   font-weight: 100;
   padding-right: 10px;
 }
+
+.extended-form-group {
+  position: relative;
+}
