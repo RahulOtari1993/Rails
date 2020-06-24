@@ -25,7 +25,7 @@ class ProfileAttributeService
         {
             attribute_name: 'gender',
             display_name: 'Gender',
-            field_type: 'drop_down',
+            field_type: 'dropdown',
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id

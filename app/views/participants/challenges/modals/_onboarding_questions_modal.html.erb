@@ -100,6 +100,19 @@
                       <% end %>
                       <div class="custom-error-class check-box-error-<%= index %>"></div>
                     </div>
+                  <% when 'dropdown' then %>
+                    <div>
+                      <%
+                        options = []
+                        question.question_options.each do |option|
+                          options.push([option.details, option.details])
+                        end
+                      %>
+                      <%= select_tag "questions[#{question.id}][answer]",
+                                     options_for_select(options),
+                                     class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)}",
+                                     prompt: 'Select Answer' %>
+                    </div>
                   <% end %>
 
                 </div>

@@ -19,7 +19,7 @@ class ProfileAttribute < ApplicationRecord
 
   ## ENUM
   enum field_type: {string: 0, text_area: 1, boolean: 2, date: 3, time: 4, date_time: 5, number: 6, decimal: 7,
-                    radio_button: 8, check_box: 9, drop_down: 10}
+                    radio_button: 8, check_box: 9, dropdown: 10}
 
   ## Scopes
   scope :active, -> { where(is_active: true) }
