@@ -15,7 +15,7 @@
 
 .modal_box {
   border: 2px solid #ccc;
-  padding: 20px 40px;
+  padding: 40px;
   border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
@@ -125,4 +125,8 @@ span.error {
   font-family: "proxima-nova-condensed", Sans-serif;
   font-weight: 400;
   font-size: 11px;
+}
+
+.red-color-span {
+  color: #ff0000;
 }

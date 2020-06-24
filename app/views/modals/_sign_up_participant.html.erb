@@ -19,7 +19,7 @@
               facebook_button = display_facebook_button
               email_button = display_email_button
             %>
-            <% if facebook_button %>
+            <% if facebook_button.present? %>
               <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
                   class="btn box1_btn facebook_btn btn-block">
                 <span class="icon-btn-share fa fa-facebook"></span>
@@ -28,7 +28,7 @@
               <div class="clear"></div>
             <% end %>
 
-            <% if google_button %>
+            <% if google_button.present? %>
               <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
                   class="btn box1_btn google_btn btn-block">
                 <span class="icon-btn-share fa fa-google"></span>
@@ -37,12 +37,12 @@
               <div class="clear"></div>
             <% end %>
 
-            <% if email_button %>
+            <% if email_button.present? %>
               <button type="button" class="btn box1_btn email_btn btn-block" id="signup_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Continue With Email</button>
               <div class="clear"></div>
             <% end %>
 
-            <% if facebook_button || google_button || email_button %>
+            <% if facebook_button.present? || google_button.present? || email_button.present? %>
               <p class="box1_para terms-details">By continuing, I agree to the <span style="text-decoration: underline;">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">privacy policy</a></span>,
                 <span style="text-decoration: underline;">
@@ -57,8 +57,7 @@
         <div class="modal_box signup-step1 hide">
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box2">
-            <h5>Join the other members who are already winning great prizes and rewards.</h5>
-
+            <h5>Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>
             <%= form_for(Participant.new, as: :participant, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
               <div class="row">
                 <%= f.hidden_field :campaign_id, value: @campaign.id %>

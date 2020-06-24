@@ -1,17 +1,17 @@
 module EndUserHelper
   ## Display SignUp / SignIn with Google Button Based on Configured Challenge
   def display_google_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').first
   end
 
   ## Display SignUp / SignIn with Facebook Button Based on Configured Challenge
   def display_facebook_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'facebook').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'facebook').first
   end
 
   ## Display SignUp / SignIn with Email Button Based on Configured Challenge
   def display_email_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').first
   end
 
   ## Check whether Onboarding Challenge is Available & Active
