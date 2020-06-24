@@ -5,10 +5,6 @@ module Participants::RewardsHelper
     challenge.try(:id)
   end
 
-  def coupons_available(reward)
-    reward.coupons.present?
-  end
-
   def coupon_claimed(reward)
     if current_participant.present?
       reward.reward_participants.pluck(:participant_id).include?(current_participant.id)
