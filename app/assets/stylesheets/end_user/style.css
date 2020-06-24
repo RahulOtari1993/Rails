@@ -119,3 +119,10 @@ span.error {
   color: #EA5455 !important;
   font-size: 0.875rem !important;
 }
+
+.terms-details {
+  color: #707070;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+}

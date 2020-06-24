@@ -43,7 +43,7 @@
             <% end %>
 
             <% if facebook_button || google_button || email_button %>
-              <p class="box1_para">By continuing, I agree to the <span style="text-decoration: underline;">
+              <p class="box1_para terms-details">By continuing, I agree to the <span style="text-decoration: underline;">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">privacy policy</a></span>,
                 <span style="text-decoration: underline;">
                   <a href="javascript:void(0);" data-toggle="modal" data-target="#rulesModal">rules</a></span>
@@ -84,17 +84,15 @@
                   <%= link_to "Forgot password?", new_participant_password_path %>
                 </div>
               </div>
-
-
             <% end %>
           </div>
         </div>
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
     </div>
   </div>
 </div>
