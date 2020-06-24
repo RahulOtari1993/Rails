@@ -86,6 +86,9 @@ class RewardsService
     elsif @reward.selection == 'instant'
       title = 'Won an Instant Reward'
       mailer_method = 'instant_reward'
+    elsif @reward.selection == 'manual'
+      title = 'Won a Manual Reward'
+      mailer_method = 'manual_reward'
     end
 
     begin
