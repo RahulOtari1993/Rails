@@ -9,10 +9,6 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require vendors/extensions/sweetalert2.all.min
-//= require vendors/pickers/pickadate/picker
-//= require vendors/pickers/pickadate/picker.date
-//= require vendors/pickers/pickadate/picker.time
-//= require vendors/pickers/pickadate/legacy
 //= require moment
 //= require ../end_user/libraries/bootstrap-datetimepicker.min
 //= require ../main
