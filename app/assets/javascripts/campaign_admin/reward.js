@@ -386,8 +386,7 @@ $(document).on('turbolinks:load', function () {
         }
       },
     ],
-    dom:
-        '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
