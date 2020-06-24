@@ -5,6 +5,7 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
+    @reward = Reward.find(params[:reward_id]) unless params[:reward_id].blank?
   end
 
   ## Submit Challenges
@@ -94,15 +95,15 @@ class Participants::ChallengesController < ApplicationController
     def participant_action re_submission
       if @challenge.challenge_type == 'link'
         action_type = 'visit_url'
-        title = re_submission ? "Again Visited a url" : "Visited a url"
+        title = re_submission ? 'Again Visited a url' : "Visited a url"
       elsif @challenge.challenge_type == 'video'
         action_type = 'watch_video'
-        title = re_submission ? "Again Watched a Video" : "Watched a Video"
+        title = re_submission ? 'Again Watched a Video' : 'Watched a Video'
       elsif @challenge.challenge_type == 'article'
         action_type = 'read_article'
-        title = re_submission ? "Again read an article" : "Read an article"
+        title = re_submission ? 'Again read an article' : 'Read an article'
       elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile'
-        title = "Submitted Extended Profile Question"
+        title = 'Submitted Extended Profile Question'
       elsif @challenge.challenge_type == 'referral'
       elsif @challenge.challenge_type == 'collect'
       elsif @challenge.challenge_type == 'signup'
@@ -114,6 +115,12 @@ class Participants::ChallengesController < ApplicationController
                                                    actionable_id: @challenge.id, actionable_type: @challenge.class.name,
                                                    user_agent: request.user_agent, ip_address: request.ip)
         participant_action.save!
+
+        ## Claim the reward after successfull submission of challenge for reward type
+        if @challenge.reward_type == 'prize' && !re_submission
+          reward_service = RewardsService.new(current_participant.id, @challenge.reward_id, request)
+          @response = reward_service.process
+        end
 
         respond_to do |format|
           @response = {success: true, message: 'Challenge submitted successfully.'}

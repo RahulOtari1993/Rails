@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
     else
       if current_participant.present?
         @challenges = @campaign.challenges.current_active.where.not(challenge_type: 'signup') #.select {|x| x.available? }
-        @rewards = @campaign.rewards.current_active
+        @rewards = @campaign.rewards.includes(:coupons).where.not(coupons: {id: nil}).current_active.select {|x| x.available? }
       else
         @challenges = @campaign.challenges.featured.current_active.where.not(challenge_type: 'signup')
         @rewards = @campaign.rewards.featured.current_active

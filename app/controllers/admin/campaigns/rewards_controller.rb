@@ -161,92 +161,94 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
 
   private
 
-  def reward_params
-    return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
-                                                   :image, :image_content_type, :selection, :start, :finish, :feature, :points,
-                                                   :is_active, :redemption_details, :description_details, :terms_conditions, :filter_applied, :filter_type,
-                                                   :sweepstake_entry, reward_filters_attributes: [:id, :reward_id, :reward_condition,
-                                                                                                  :reward_value, :reward_event],
-                                                   reward_rules_attributes: [:id, :reward_id, :rule_type, :rule_condition, :rule_value])
-    return_params[:start] = Chronic.parse(params[:reward][:start]).beginning_of_day
-    return_params[:finish] = Chronic.parse(params[:reward][:finish]).end_of_day
+    def reward_params
+      return_params = params.require(:reward).permit(:name, :limit, :threshold, :description, :image_file_name, :image_file_size,
+                                                     :image, :image_content_type, :selection, :start, :finish, :feature, :points,
+                                                     :is_active, :redemption_details, :description_details, :terms_conditions,
+                                                     :filter_applied, :filter_type, :rule_type, :rule_applied, :msrp_value, :notes,
+                                                     :date_range, :sweepstake_entry,
+                                                     reward_filters_attributes: [:id, :reward_id, :reward_condition,
+                                                                                 :reward_value, :reward_event],
+                                                     reward_rules_attributes: [:id, :reward_id, :rule_type, :rule_condition, :rule_value])
+      return_params[:start] = Chronic.parse(params[:reward][:start]).beginning_of_day
+      return_params[:finish] = Chronic.parse(params[:reward][:finish]).end_of_day
 
-    return_params
-  end
+      return_params
+    end
 
-  ## Build Nested Attributes Params for User Segments
-  def build_params
-    @available_segments = []
-    @available_rules = []
+    ## Build Nested Attributes Params for User Segments
+    def build_params
+      @available_segments = []
+      @available_rules = []
 
-    if params[:reward].has_key?('reward_filters_attributes')
-      new_params = []
+      if params[:reward].has_key?('reward_filters_attributes')
+        new_params = []
 
-      cust_params = params[:reward][:reward_filters_attributes]
-      cust_params.each do |key, c_param|
-        filter_data = {
-            reward_event: c_param[:reward_event],
-            reward_condition: c_param[:reward_condition],
-            reward_value: c_param["reward_value_#{c_param[:reward_event]}"]
-        }
+        cust_params = params[:reward][:reward_filters_attributes]
+        cust_params.each do |key, c_param|
+          filter_data = {
+              reward_event: c_param[:reward_event],
+              reward_condition: c_param[:reward_condition],
+              reward_value: c_param["reward_value_#{c_param[:reward_event]}"]
+          }
 
-        if c_param.has_key?('id')
-          filter_data[:id] = c_param[:id]
-          @available_segments.push(c_param[:id].to_i)
+          if c_param.has_key?('id')
+            filter_data[:id] = c_param[:id]
+            @available_segments.push(c_param[:id].to_i)
+          end
+
+          new_params.push(filter_data)
         end
 
-        new_params.push(filter_data)
+        params[:reward][:reward_filters_attributes] = new_params
       end
+      if params[:reward].has_key?('reward_rules_attributes')
+        new_params = []
 
-      params[:reward][:reward_filters_attributes] = new_params
-    end
-    if params[:reward].has_key?('reward_rules_attributes')
-      new_params = []
+        cust_params = params[:reward][:reward_rules_attributes]
+        cust_params.each do |key, c_param|
+          filter_data = {
+              rule_type: c_param[:reward_rule],
+              rule_condition: c_param[:rule_condition],
+              rule_value: c_param["#{c_param[:reward_rule]}_rule_value"]
+          }
 
-      cust_params = params[:reward][:reward_rules_attributes]
-      cust_params.each do |key, c_param|
-        filter_data = {
-            rule_type: c_param[:reward_rule],
-            rule_condition: c_param[:rule_condition],
-            rule_value: c_param["#{c_param[:reward_rule]}_rule_value"]
-        }
+          if c_param.has_key?('id')
+            filter_data[:id] = c_param[:id]
+            @available_rules.push(c_param[:id].to_i)
+          end
 
-        if c_param.has_key?('id')
-          filter_data[:id] = c_param[:id]
-          @available_rules.push(c_param[:id].to_i)
+          new_params.push(filter_data)
         end
-
-        new_params.push(filter_data)
+        params[:reward][:reward_rules_attributes] = new_params
       end
-      params[:reward][:reward_rules_attributes] = new_params
     end
-  end
 
-  #coupon params
-  def coupon_params
-    params.require(:coupon).permit!
-  end
+    #coupon params
+    def coupon_params
+      params.require(:coupon).permit!
+    end
 
-  def search_columns
-    %w(name)
-  end
+    def search_columns
+      %w(name)
+    end
 
-  def sort_column
-    columns = %w(name start finish)
-    columns[params[:order]['0'][:column].to_i - 1]
-  end
+    def sort_column
+      columns = %w(name start finish)
+      columns[params[:order]['0'][:column].to_i - 1]
+    end
 
-  ## Assign/Remove Tags to a Challenge
-  def tags_association
-    tags = params[:reward][:tags].reject { |c| c.empty? } if params[:reward].has_key?('tags')
-    removed_tags = @reward.tag_list - tags
+    ## Assign/Remove Tags to a Challenge
+    def tags_association
+      tags = params[:reward][:tags].reject { |c| c.empty? } if params[:reward].has_key?('tags')
+      removed_tags = @reward.tag_list - tags
 
-    @reward.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
-    @reward.tag_list.add(tags.join(', '), parse: true) if tags.present?
-  end
+      @reward.tag_list.remove(removed_tags.join(', '), parse: true) if removed_tags.present?
+      @reward.tag_list.add(tags.join(', '), parse: true) if tags.present?
+    end
 
-  ## Set reward
-  def set_reward
-    @reward = @campaign.rewards.find_by(:id => params[:id]) rescue nil
-  end
+    ## Set reward
+    def set_reward
+      @reward = @campaign.rewards.find_by(:id => params[:id]) rescue nil
+    end
 end

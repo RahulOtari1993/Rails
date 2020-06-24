@@ -58,6 +58,7 @@
 #  connect_type           :integer
 #  age                    :integer          default(0)
 #  completed_challenges   :integer          default(0)
+#  avatar                 :string
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
@@ -67,30 +68,35 @@ class Participant < ApplicationRecord
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
   ## Associations
-  has_and_belongs_to_many :campaigns ##TODO: Remove this Relationship
   belongs_to :organization
-  has_many :challenge_participants, dependent: :destroy
-  has_many :challenges, through: :challenge_participants
+  belongs_to :campaign
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
-
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
 
   ## Callbacks
-  after_create :save_participant_details
   after_create :generate_participant_id
+  after_save :check_milestone_reward
 
   ## ENUM
   enum connect_type: {facebook: 0, google: 1, email: 3}
+
+  ## Mount Uploader for File Upload
+  mount_uploader :avatar, AvatarUploader
 
   ## Nested Attributes
   accepts_nested_attributes_for :participant_profiles, allow_destroy: true, :reject_if => :all_blank
 
   ## Tags
   acts_as_taggable_on :tags
+
+  ## Allow Only Active Users to Login
+  def active_for_authentication?
+    super && is_active?
+  end
 
   ## Get Current Participant
   def self.current
@@ -164,6 +170,13 @@ class Participant < ApplicationRecord
     true
   end
 
+  ## For Adding Status Column to Datatable JSO Response
+  def as_json(*)
+    super.tap do |hash|
+      hash['name'] = full_name
+    end
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
@@ -182,6 +195,8 @@ class Participant < ApplicationRecord
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'facebook'
+      participant.remote_avatar_url = auth.info.image
+      participant.is_active = true
     else
       name = auth.info.name.split(" ")
 
@@ -197,7 +212,8 @@ class Participant < ApplicationRecord
           facebook_token: auth.credentials.token,
           facebook_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now,
-          connect_type: 'facebook'
+          connect_type: 'facebook',
+          remote_avatar_url: auth.info.image
       }
 
       participant = Participant.new(params)
@@ -229,6 +245,8 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'google'
+      participant.is_active = true
+      participant.remote_avatar_url = auth.info.image
     else
       params = {
           organization_id: org.id,
@@ -243,7 +261,8 @@ class Participant < ApplicationRecord
           google_refresh_token: auth.credentials.refresh_token,
           google_expires_at: Time.at(auth.credentials.expires_at),
           confirmed_at: DateTime.now,
-          connect_type: 'google'
+          connect_type: 'google',
+          remote_avatar_url: auth.info.image
       }
 
       participant = Participant.new(params)
@@ -276,16 +295,18 @@ class Participant < ApplicationRecord
       ## Fetch the Challenge (Facebook, Google, Email)
       challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
       if challenge.present?
-        ## Create Participant Action Log
-        action_item = ParticipantAction.new({participant_id: self.id, points: 0,
-                                             action_type: 'sign_up', title: 'Signed up',
-                                             user_agent: user_agent, ip_address: remote_ip})
-        action_item.save
-
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
+        action_type = self.connect_type == 'email' ? 'sign_up' : 'sign_in'
+        action_title = self.connect_type == 'email' ? 'Signed up' : 'Signed in'
 
-        unless is_submitted
+        if is_submitted
+          ## Create Participant Action Log
+          action_item = ParticipantAction.new({participant_id: self.id, points: 0,
+                                               action_type: action_type, title: action_title,
+                                               user_agent: user_agent, ip_address: remote_ip})
+          action_item.save
+        else
           ## Submit Challenge
           submit = Submission.new({campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id,
                                    user_agent: user_agent, ip_address: remote_ip})
@@ -293,16 +314,50 @@ class Participant < ApplicationRecord
 
           ## Create Participant Action Log
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
-                                               action_type: 'sign_up', title: 'Signed up', actionable_id: challenge.id,
+                                               action_type: action_type, title: action_title, actionable_id: challenge.id,
                                                actionable_type: 'Challenge', details: challenge.caption,
                                                user_agent: user_agent, ip_address: remote_ip})
           sign_up_log.save
         end
       end
     end
-
   end
 
+  ## Challenge Filter
+  def self.side_bar_filter(filters)
+    query = 'id IS NOT NULL'
+    tags_query = ''
+    gender = []
+    challenges = []
+    rewards = []
+
+    filters.each do |key, value|
+      if key == 'gender' && value.present?
+        value.each do |c_type|
+          gender << c_type
+        end
+        query = query + ' AND gender IN (:gender)'
+      elsif key == 'tags' && value.present?
+        value.each do |tag|
+          tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = participants.id AND taggings.taggable_type = 'Participant'" +
+              " AND taggings.tag_id IN (SELECT tags.id FROM tags WHERE (LOWER(tags.name) ILIKE '#{tag}' ESCAPE '!')))"
+        end
+        query = query + tags_query
+      elsif key == 'challenges' && value.present?
+        challenges = Submission.where(challenge_id: value).pluck(:participant_id)
+        query = query + ' AND id IN (:challenge_participants)'
+      elsif key == 'rewards' && value.present?
+        rewards = RewardParticipant.where(reward_id: value).pluck(:participant_id)
+        query = query + ' AND id IN (:reward_participants)'
+      elsif key == 'age' && value.present?
+        query = query + " AND (age >= #{value[0]} AND age <= #{value[1]})"
+      end
+    end
+
+    participants = self.where(query, gender: gender.flatten, challenge_participants: challenges.flatten, reward_participants: rewards)
+
+    return participants
+  end
   private
 
   ## Generate Uniq Participant ID
@@ -310,9 +365,11 @@ class Participant < ApplicationRecord
     self.update_attribute('p_id', Participant.get_participant_id)
   end
 
-  ## Add Participant to Campaign
-  def save_participant_details
-    campaign = Campaign.find(self.campaign_id)
-    campaign.participants << self
+  ## Check If User is Eligible for Milestone Reward
+  def check_milestone_reward
+    if saved_change_to_unused_points? || saved_change_to_completed_challenges? || saved_change_to_sign_in_count? || saved_change_to_recruits?
+      reward_check = RewardsService.new(self.id)
+      reward_check.process
+    end
   end
 end

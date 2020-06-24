@@ -1008,6 +1008,9 @@ $(document).on('turbolinks:load', function () {
     // oLanguage: {
     //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
     // },
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Challenge",
@@ -1469,6 +1472,7 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text(), $('.challenge-tags-filter :selected').val());

@@ -2,12 +2,11 @@
 #
 # Table name: reward_participants
 #
-#  id         :bigint           not null, primary key
-#  reward_id  :bigint
-#  user_id    :bigint
-#  position   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :bigint           not null, primary key
+#  reward_id      :bigint
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  participant_id :integer
 #
 class RewardParticipant < ApplicationRecord
 

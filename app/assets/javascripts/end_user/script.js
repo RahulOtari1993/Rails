@@ -1,4 +1,7 @@
 $(document).on('turbolinks:load', function () {
+  // Fadeout Alert Message
+  $('.alert').fadeOut(3000);
+
   // Close Popup Modal
   $('.modal-close-btn').click(function () {
     $(this).parent().parent().modal('hide');
@@ -11,16 +14,6 @@ $(document).on('turbolinks:load', function () {
     $.ajax({
       type: 'GET',
       url: `/participants/challenges/${challengeId}/details`
-    });
-  });
-
-  // Open Reward Claim Modal Popup
-  $('body').on('click', '.reward-claim-modal-btn', function (e) {
-    var rewardId = $(this).data('reward-id');
-
-    $.ajax({
-      type: 'GET',
-      url: `/participants/rewards/${rewardId}/details`
     });
   });
 
@@ -183,4 +176,48 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Custom Validation of Onboarding Questions - END
+
+  // Open Reward Claim Modal Popup
+  $('body').on('click', '.reward-claim-modal-btn', function (e) {
+    var rewardId = $(this).data('reward-id');
+    var challengeId = $(this).data('challenge-id');
+
+    if (challengeId == '' || challengeId == undefined) {
+      // open rewards modal popup
+      $.ajax({
+        type: 'GET',
+        url: `/participants/rewards/${rewardId}/details`
+      });
+    } else {
+      // open challenge submission modal popup
+      $.ajax({
+        type: 'GET',
+        url: `/participants/challenges/${challengeId}/details`,
+        data: {reward_id: rewardId}
+      });
+    }
+
+  });
+
+// claim Reward submission - start
+$('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
+  var rewardId = $(this).data('reward-id');
+  var _this = $(this);
+
+  $.ajax({
+    url: `/participants/rewards/${rewardId}/claim`,
+    type: 'POST',
+    dataType: 'JSON',
+    success: function (data) {
+      if (data.success) {
+        $('.reward-claim-container').show();     // Display Reward Completion Message
+        _this.hide();
+      } else {
+        swalNotify('Reward Claimed', data.message);
+      }
+    }
+  });
+});
+// claim Reward submission - end
+
 });

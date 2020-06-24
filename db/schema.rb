@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_133722) do
+ActiveRecord::Schema.define(version: 2020_06_22_143648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,15 +140,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_challenge_filters_on_challenge_id"
-  end
-
-  create_table "challenge_participants", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "participant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_challenge_participants_on_challenge_id"
-    t.index ["participant_id"], name: "index_challenge_participants_on_participant_id"
   end
 
   create_table "challenges", force: :cascade do |t|
@@ -282,6 +273,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.string "ip_address", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "coupon"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
@@ -351,6 +343,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.integer "connect_type"
     t.integer "age", default: 0
     t.integer "completed_challenges", default: 0
+    t.string "avatar"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -448,7 +441,10 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
+    t.integer "rule_type", default: 0
+    t.boolean "rule_applied", default: false
     t.integer "claims", default: 0
+    t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
@@ -542,8 +538,6 @@ ActiveRecord::Schema.define(version: 2020_06_19_133722) do
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
   add_foreign_key "campaigns", "organizations"
-  add_foreign_key "challenge_participants", "challenges"
-  add_foreign_key "challenge_participants", "participants"
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"

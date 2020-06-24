@@ -1,0 +1,90 @@
+<div class="">
+  <div class="filter_title">
+    <h4>Filters <span><button class="btn-xs btn-outline-primary reset_user_filters_btn">Reset</button></span>
+    </h4>
+  </div>
+
+  <div class="mt-1">
+    <h5>Gender</h5>
+    <ul class="list-unstyled mb-0">
+      <li>
+        <div class="vs-checkbox-con vs-checkbox-primary">
+          <input type="checkbox" value="false" name="filters[gender][]"
+                 class="participant_sidebar_filter" id="male" data-val="male">
+          <span class="vs-checkbox vs-checkbox-sm">
+            <span class="vs-checkbox--check">
+              <i class="vs-icon feather icon-check"></i>
+            </span>
+          </span>
+          <span class="filter_label">Male</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="vs-checkbox-con vs-checkbox-primary">
+          <input type="checkbox" value="false" name="filters[gender][]"
+                 class="participant_sidebar_filter" id="female" data-val="female">
+          <span class="vs-checkbox vs-checkbox-sm">
+            <span class="vs-checkbox--check">
+              <i class="vs-icon feather icon-check"></i>
+            </span>
+          </span>
+          <span class="filter_label">Female</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="vs-checkbox-con vs-checkbox-primary">
+          <input type="checkbox" value="false" name="filters[gender][]"
+                 class="participant_sidebar_filter" id="other" data-val="other">
+          <span class="vs-checkbox vs-checkbox-sm">
+            <span class="vs-checkbox--check">
+              <i class="vs-icon feather icon-check"></i>
+            </span>
+          </span>
+          <span class="filter_label">Other</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mt-1">
+    <h5>Age</h5>
+    <p><span class="filter-min-age">0</span> - <span class="filter-max-age">100</span></p>
+    <div class="my-1" id="user-age-filter"></div>
+  </div>
+
+<!--  Users Points Slider Setup-->
+<!--  <div class="mt-1">-->
+<!--    <h5>Points</h5>-->
+<!--    <p><span class="filter-min-points">0</span> - <span class="filter-max-points">100</span></p>-->
+<!--    <div class="my-1" id="slider-with-input"></div>-->
+<!--  </div>-->
+
+  <div class="mt-1">
+    <h5>Tags</h5>
+    <%= select_tag :tags,
+                   options_for_select(all_tags_humanize),
+                   class: 'form-control-sm participants-tags-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-tag-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+
+  <div class="mt-1">
+    <h5>Challenges</h5>
+    <%= select_tag :challenges,
+                   options_for_select(all_challenges_filter),
+                   class: 'form-control-sm participants-challenges-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-challenges-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+
+  <div class="mt-1">
+    <h5>Rewards</h5>
+    <%= select_tag :rewards,
+                   options_for_select(all_rewards_filter),
+                   class: 'form-control-sm participants-rewards-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-rewards-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+</div>

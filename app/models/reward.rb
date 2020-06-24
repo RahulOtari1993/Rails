@@ -34,6 +34,10 @@
 #  image_height        :integer
 #  filter_type         :integer          default("all_filters")
 #  filter_applied      :boolean          default(FALSE)
+#  rule_type           :integer          default("all_rules")
+#  rule_applied        :boolean          default(FALSE)
+#  claims              :integer          default(0)
+#  date_range          :boolean          default(FALSE)
 #
 class Reward < ApplicationRecord
 
@@ -54,6 +58,7 @@ class Reward < ApplicationRecord
 
   ## ENUM
   enum filter_type: {all_filters: 0, any_filter: 1}
+  enum rule_type: {all_rules: 0, any_rule: 1}, _prefix: :rule
   serialize :image
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
@@ -66,7 +71,7 @@ class Reward < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   ## Constants
-  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone_reward]
+  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone]
   FULFILMENTS = %w[default badge points download]
 
   ## Scopes
@@ -103,7 +108,7 @@ class Reward < ApplicationRecord
     end
   end
 
-  ##challenge platform filter
+  ## Rewards Filters
   def self.reward_side_bar_filter(filters)
     query = 'id IS NOT NULL'
     status_query_string = ''
@@ -148,4 +153,45 @@ class Reward < ApplicationRecord
     return final_query
   end
 
+  ## Check if Reward is Available for Participant
+  def available?
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Filters
+    self.reward_filters.each do |filter|
+      result_array.push(filter.available? Participant.current)
+    end
+
+    ## Check If We need to Include ALL/ANY Filter
+    if self.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
+
+  ## Check if Participant is Eligible for Reward
+  def eligible? participant
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Rules
+    self.reward_rules.each do |rule|
+      result_array.push(rule.eligible? participant)
+    end
+
+    ## Check If We need to Include ALL/ANY Rules
+    if self.rule_type == 'all_rules'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
 end

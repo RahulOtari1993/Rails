@@ -3,4 +3,5 @@
   $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/cash_in_modal', reward: @reward %>");
   $('#cash_in_modal').modal('show');
 <% elsif @reward.selection == "instant" %>
+
 <% end %>

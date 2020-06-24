@@ -102,4 +102,19 @@
 
     filter_list
   end
+
+  ## Show Hide RewardUser Segment
+  def display_reward_user_segments
+    @reward.filter_applied ? 'block' : 'none'
+  end
+
+  ## Return Reward User Segment Filter Type Options
+  def reward_filter_type
+    Reward::filter_types.map{|k,v| [k == 'all_filters' ? 'All' : 'Any', k]}
+  end
+
+  ## Return Reward User Segment Filter Type Options
+  def reward_rule_type
+    Reward::rule_types.map{|k,v| [k == 'all_rules' ? 'All' : 'Any', k]}
+  end
  end
