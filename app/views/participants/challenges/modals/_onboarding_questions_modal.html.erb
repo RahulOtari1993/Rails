@@ -57,17 +57,9 @@
                                        class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'time') %>
                   <% when 'date_time' then %>
-                    <div class="wrap-date-time">
-                      <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                         placeholder: fetch_placeholder_details(question, 'date_time'), readonly: true %>
-                      <div class="hidden-date-time-field">
-                        <input type="text" class="date-answer-hidden-field"/>
-                        <input type="text" class="time-answer-hidden-field"/>
-                      </div>
-                      <div class="date-time-picker-output"></div>
-                    </div>
-
+                    <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                       class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'date_time') %>
                   <% when 'number' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
                                        class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",

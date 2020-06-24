@@ -81,19 +81,6 @@ span.error {
   font-size: 13px;
 }
 
-.wrap-date-time {
-  position: relative;
-}
-
-.hidden-date-time-field {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
 .custom-error-class {
   margin-top: -10px;
 }

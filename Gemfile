@@ -106,7 +106,11 @@ gem 'omniauth-facebook'
 ## Use Omniauth Google plugin
 gem 'omniauth-google-oauth2'
 
-# fetch video id from url
+## Fetch video id from url
 gem 'video_info'
 
+## Time Difference Calculation
 gem 'time_difference'
+
+## Moment JS Library for Date & Time Handling
+gem 'momentjs-rails', '>= 2.9.0'
