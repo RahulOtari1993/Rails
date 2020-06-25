@@ -147,7 +147,9 @@ $(document).on('turbolinks:load', function () {
 
   // Open Popup for Challenge Participants
   $('body').on('click', '.export-participant-btn', function () {
-    var challengeId = $(this).parent().parent().data('challenge-id');
+    var campaignId = $('#participant-list-table').attr('campaign_id');
+
+    console.log("campaignId", campaignId);
     $.ajax({
       type: 'GET',
       url: "/admin/campaigns/" + campaignId + "/users/participants"

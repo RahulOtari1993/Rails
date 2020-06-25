@@ -37,12 +37,12 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   ## Fetch Filtered Participants
   def participants
-    @participants = Participants.all
+    @participants = Participant.all
   end
 
   ## Export Participants of Particular Challenge as a CSV File
   def export_participants
-    participants = Participants.all
+    participants = Participant.all
     results = CSV.generate do |csv|
       ## Generate CSV File the Header
       csv << %w(first_name family_name email earned_date)
