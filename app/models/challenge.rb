@@ -128,7 +128,8 @@ class Challenge < ApplicationRecord
   ## For Adding Status Column to Datatable JSO Response
   def as_json(*)
     super.tap do |hash|
-      hash["status"] = status
+      hash['status'] = status
+      hash['reward_name'] = self.reward_type == 'prize' ? (self.reward.name rescue '') : ''
     end
   end
 

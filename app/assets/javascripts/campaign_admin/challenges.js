@@ -900,6 +900,19 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+  // Make First Letter of a string in Capitalize format
+  function rewardDisplay(details) {
+    if (details.reward_type == 'points') {
+      return details.points + 'pts';
+    } else {
+      var prizeName = details.reward_name
+      if (prizeName.length > 12) {
+        prizeName = $.trim(prizeName).substring(0, 12).trim(prizeName) + "...";
+      }
+      return 'Prize<br>' + prizeName;
+    }
+  }
+
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
     processing: true,
@@ -940,37 +953,48 @@ $(document).on('turbolinks:load', function () {
         title: 'Name', data: null,
         searchable: true,
         render: function (data, type, row) {
-          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + data.name + '</span>'
+          var cName = data.name
+          if (cName.length > 23) {
+            cName = $.trim(cName).substring(0, 23).trim(cName) + "...";
+          }
+          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + cName + '</span><br>' +
+              textCapitalize(data.category)
         }
       },
       {
         class: 'product-name',
-        title: 'Social Network',
+        title: 'Reward',
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.parameters)
+          return rewardDisplay(data)
         }
       },
       {
         class: 'product-name',
-        title: 'Type',
+        title: 'Completions',
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.challenge_type)
+          return data.completions
         }
       },
       {
-        title: 'Start Date', data: null, searchable: false,
+        title: 'Clicks', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.start)
+          return '- - -'
         }
       },
       {
-        title: 'End date', data: null, searchable: false,
+        title: 'Dates Active', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.finish)
+          return formatDate(data.start) + ' -<br>' + formatDate(data.finish)
+        }
+      },
+      {
+        title: 'Created', data: null, searchable: false,
+        render: function (data, type, row) {
+          return formatDate(data.created_at)
         }
       },
       {
