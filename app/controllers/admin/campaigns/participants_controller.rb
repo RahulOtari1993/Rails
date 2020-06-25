@@ -54,17 +54,13 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
       @participants = @participants.side_bar_filter(params['filters'])
     end
-  end
 
-  ## Export Filtered Participants as a CSV File
-  def export_participants
-    participants = Participant.all
     results = CSV.generate do |csv|
       ## Generate CSV File the Header
       csv << %w(first_name last_name email joined_date)
 
       ## Add Records in CSV File
-      participants.each do |participant|
+      @participants.each do |participant|
         csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
       end
     end
@@ -73,6 +69,25 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     return send_data results, type: 'text/csv; charset=utf-8; header=present',
                      disposition: 'attachment; filename=campaign_contacts.csv'
   end
+
+  # ## Export Filtered Participants as a CSV File
+  # def export_participants
+  #   participants = Participant.all
+  #   results = CSV.generate do |csv|
+  #     ## Generate CSV File the Header
+  #     csv << %w(first_name last_name email joined_date)
+  #
+  #     ## Add Records in CSV File
+  #     participants.each do |participant|
+  #       csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
+  #     end
+  #   end
+  #
+  #   ## Logic to Download the Generated CSV File
+  #   return send_data results, type: 'text/csv; charset=utf-8; header=present',
+  #                    disposition: 'attachment; filename=campaign_contacts.csv'
+  # end
+
   private
 
   def search_columns
