@@ -166,6 +166,10 @@ $(document).on('turbolinks:load', function () {
     const chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
     const chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
 
+    // Truncate Tag
+    if (tagHtml.length > 20)
+      tagHtml = jQuery.trim(tagHtml).substring(0, 20).trim(tagHtml) + "...";
+
     stringDetails = stringDetails.replace(/---TAG-HTML---/g, tagHtml);
     stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagVal);
     stringDetails = stringDetails.replace(/---TAG-UI---/g, chipClass);
