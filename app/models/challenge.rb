@@ -53,10 +53,9 @@ class Challenge < ApplicationRecord
   ## Associations
   belongs_to :campaign
   has_many :challenge_filters, dependent: :destroy
-  has_many :challenge_participants, dependent: :destroy
-  has_many :participants, through: :challenge_participants
+  has_many :submissions, dependent: :destroy
+  has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
-  has_one :submission, dependent: :destroy
   # attr_accessor :status
 
   ## Constants
