@@ -905,9 +905,9 @@ $(document).on('turbolinks:load', function () {
     if (details.reward_type == 'points') {
       return details.points + 'pts';
     } else {
-      var prizeName = details.reward_name
-      if (prizeName.length > 12) {
-        prizeName = $.trim(prizeName).substring(0, 12).trim(prizeName) + "...";
+      var prizeName = details.reward_name;
+      if (prizeName.length > 10) {
+        prizeName = $.trim(prizeName).substring(0, 10).trim(prizeName) + "...";
       }
       return 'Prize<br>' + prizeName;
     }

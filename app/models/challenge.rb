@@ -56,6 +56,7 @@ class Challenge < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
+  belongs_to :reward, optional: true
   # attr_accessor :status
 
   ## Constants
@@ -129,7 +130,7 @@ class Challenge < ApplicationRecord
   def as_json(*)
     super.tap do |hash|
       hash['status'] = status
-      hash['reward_name'] = self.reward_type == 'prize' ? (self.reward.name rescue '') : ''
+      hash['reward_name'] = self.reward_type == 'prize' ? self.reward.name : ''
     end
   end
 
