@@ -93,10 +93,7 @@ $(document).on('turbolinks:load', function () {
     buttons: [
       {
         text: "<i class='feather icon-download'></i> Export CSV",
-        action: function () {
-          window.location.href = "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/new"
-        },
-        className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light'
+        className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light export-participant-btn'
       }
     ],
     initComplete: function (settings, json) {
@@ -146,6 +143,25 @@ $(document).on('turbolinks:load', function () {
     } else {
       $('#participant-list-table').DataTable().ajax.reload();
     }
+  };
+
+  // Open Popup for Challenge Participants
+  $('body').on('click', '.export-participant-btn', function () {
+    var challengeId = $(this).parent().parent().data('challenge-id');
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/users/participants"
+    });
+  });
+
+  // Fetch Filtered Participants
+  function fetchFilteredParticipants() {
+    var filters = generateParticipantFilterParams();
+
+    $('#participant-list-table').DataTable().ajax.url(
+        "/admin/campaigns/" + $('#participant-list-table').attr('campaign_id') + "/users/fetch_participants"
+        + "?filters=" + JSON.stringify(filters)
+    ).load()
   }
 
   // Replace Chip Value & Chip Class of Newly Added Tags of Participant Filter

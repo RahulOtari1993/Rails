@@ -35,6 +35,28 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     }
   end
 
+  ## Fetch Filtered Participants
+  def participants
+    @participants = Participants.all
+  end
+
+  ## Export Participants of Particular Challenge as a CSV File
+  def export_participants
+    participants = Participants.all
+    results = CSV.generate do |csv|
+      ## Generate CSV File the Header
+      csv << %w(first_name family_name email earned_date)
+
+      ## Add Records in CSV File
+      participants.each do |participant|
+        csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
+      end
+    end
+
+    ## Logic to Download the Generated CSV File
+    return send_data results, type: 'text/csv; charset=utf-8; header=present',
+                     disposition: 'attachment; filename=challenge_contacts.csv'
+  end
   private
 
   def search_columns

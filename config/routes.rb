@@ -98,10 +98,8 @@ Rails.application.routes.draw do
           resources :users, controller: "participants", only: [:index, :show] do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
-            end
-            member do
-              get '/users', to: 'participants#users'
-              post '/participants', to: 'participants#export_participants'
+              get '/participants', to: 'participants#participants'
+              post '/export_participants', to: 'participants#export_participants'
             end
           end
         end
