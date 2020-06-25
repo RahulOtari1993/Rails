@@ -145,26 +145,22 @@ $(document).on('turbolinks:load', function () {
     }
   };
 
-  // Open Popup for Challenge Participants
+  // Open Popup for Filtered Participants
   $('body').on('click', '.export-participant-btn', function () {
     var campaignId = $('#participant-list-table').attr('campaign_id');
+    var filters = generateParticipantFilterParams();
+    filters['search_term']= $('#participant-list-table_wrapper .dataTables_filter input').val()
+
 
     console.log("campaignId", campaignId);
+    console.log("filters", filters);
+
     $.ajax({
       type: 'GET',
-      url: "/admin/campaigns/" + campaignId + "/users/participants"
+      data: {'filters': filters},
+      url: "/admin/campaigns/" + campaignId + "/users/participants" // + JSON.stringify(filters)
     });
   });
-
-  // Fetch Filtered Participants
-  function fetchFilteredParticipants() {
-    var filters = generateParticipantFilterParams();
-
-    $('#participant-list-table').DataTable().ajax.url(
-        "/admin/campaigns/" + $('#participant-list-table').attr('campaign_id') + "/users/fetch_participants"
-        + "?filters=" + JSON.stringify(filters)
-    ).load()
-  }
 
   // Replace Chip Value & Chip Class of Newly Added Tags of Participant Filter
   function replaceParticipantTagFields(stringDetails, tagHtml, tagVal) {

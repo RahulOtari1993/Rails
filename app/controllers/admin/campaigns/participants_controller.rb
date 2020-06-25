@@ -37,7 +37,23 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   ## Fetch Filtered Participants
   def participants
-    @participants = Participant.all
+    @participants = @campaign.participants
+    search_string = []
+
+    if params['filters'].present?
+      ## Check if Search Keyword is Present & Write it's Query
+      if params['filters']['search_term'].present?
+        terms = params['filters']['search_term'].split(' ')
+        search_columns.each do |column|
+          terms.each do |term|
+            search_string << "#{column} ILIKE '%#{term}%'"
+          end
+        end
+        @participants = @participants.where(search_string.join(' OR '))
+      end
+
+      @participants = @participants.side_bar_filter(params['filters'])
+    end
   end
 
   ## Export Filtered Participants as a CSV File
