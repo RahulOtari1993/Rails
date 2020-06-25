@@ -151,14 +151,14 @@ $(document).on('turbolinks:load', function () {
     var filters = generateParticipantFilterParams();
     filters['search_term']= $('#participant-list-table_wrapper .dataTables_filter input').val()
 
-    console.log("campaignId", campaignId);
-    console.log("filters", filters);
+    var url = "/admin/campaigns/" + campaignId + "/users/participants?filters=" + JSON.stringify(filters)
+    window.open(url, '_blank');
 
-    $.ajax({
-      type: 'POST',
-      data: {'filters': filters, authenticity_token: $('[name="csrf-token"]')[0].content},
-      url: "/admin/campaigns/" + campaignId + "/users/participants" // + JSON.stringify(filters)
-    });
+    // $.ajax({
+    //   type: 'POST',
+    //   data: {'filters': filters, authenticity_token: $('[name="csrf-token"]')[0].content},
+    //   url: "/admin/campaigns/" + campaignId + "/users/participants", // + JSON.stringify(filters)
+    // });
   });
 
   // Replace Chip Value & Chip Class of Newly Added Tags of Participant Filter

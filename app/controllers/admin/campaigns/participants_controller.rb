@@ -35,15 +35,16 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     }
   end
 
-  ## Fetch Filtered Participants
+  ## Fetch Filtered Participants & Create CSV
   def participants
     @participants = @campaign.participants
     search_string = []
+    filters = JSON.parse params[:filters]
 
-    if params['filters'].present?
+    if params['filters'].present? && filters.present?
       ## Check if Search Keyword is Present & Write it's Query
-      if params['filters']['search_term'].present?
-        terms = params['filters']['search_term'].split(' ')
+      if filters['search_term'].present?
+        terms = filters['search_term'].split(' ')
         search_columns.each do |column|
           terms.each do |term|
             search_string << "#{column} ILIKE '%#{term}%'"
@@ -52,7 +53,7 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
         @participants = @participants.where(search_string.join(' OR '))
       end
 
-      @participants = @participants.side_bar_filter(params['filters'])
+      @participants = @participants.side_bar_filter(filters)
     end
 
     results = CSV.generate do |csv|
@@ -69,24 +70,6 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     return send_data results, type: 'text/csv; charset=utf-8; header=present',
                      disposition: 'attachment; filename=campaign_contacts.csv'
   end
-
-  # ## Export Filtered Participants as a CSV File
-  # def export_participants
-  #   participants = Participant.all
-  #   results = CSV.generate do |csv|
-  #     ## Generate CSV File the Header
-  #     csv << %w(first_name last_name email joined_date)
-  #
-  #     ## Add Records in CSV File
-  #     participants.each do |participant|
-  #       csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
-  #     end
-  #   end
-  #
-  #   ## Logic to Download the Generated CSV File
-  #   return send_data results, type: 'text/csv; charset=utf-8; header=present',
-  #                    disposition: 'attachment; filename=campaign_contacts.csv'
-  # end
 
   private
 
