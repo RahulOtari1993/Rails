@@ -54,7 +54,8 @@ class RewardsService
                   participant_action = ParticipantAction.new(participant_id: @participant.id, points: reward.points,
                                                              action_type: 'claim_reward', title: 'Won a Milestone Reward',
                                                              details: reward.name, actionable_id: reward.id,
-                                                             actionable_type: reward.class.name, coupon: coupon.try(:code))
+                                                             actionable_type: reward.class.name, coupon: coupon.try(:code),
+                                                             campaign_id: @participant.campaign_id)
                   participant_action.save!
 
                   ## Assign Bonus Points to Participant if Available
@@ -99,7 +100,7 @@ class RewardsService
       participant_action = ParticipantAction.new(participant_id: @participant.id, points: @reward.points,
                              action_type: 'claim_reward', title: title, details: @reward.name,
                              actionable_id: @reward.id, actionable_type: @reward.class.name,coupon: @coupon.try(:code),
-                             user_agent: @request.try(:user_agent), ip_address: @request.try(:ip))
+                             user_agent: @request.try(:user_agent), ip_address: @request.try(:ip), campaign_id: @participant.campaign_id)
       participant_action.save!
 
       ## Assign Bonus Points to Participant if Available except instant reward type

@@ -274,6 +274,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_093314) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "coupon"
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_participant_actions_on_campaign_id"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
@@ -378,6 +380,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_093314) do
     t.integer "profile_attribute_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "placeholder"
+    t.string "additional_details"
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 

@@ -1,6 +1,6 @@
 <%
-   randNum = rand.to_s[2..10]
-   queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
+  randNum = rand.to_s[2..10]
+  queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
 %>
 <div class="container question_box <%= queIdentifire %>">
   <div class="row">
@@ -20,8 +20,29 @@
       </div>
     </div>
     <div class="col-md-5 col-12">
-      <div class="form-group">
+      <div class="form-label-group">
         <%= render 'admin/campaigns/question_builder/question_type', template: template, question: question, type: type, randNum: randNum %>
+      </div>
+    </div>
+
+    <div class="col-md-7 col-12">
+      <div class="form-label-group">
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][placeholder]",
+                           placeholder_value(question),
+                           class: 'form-control form-control-option',
+                           id: "question-placeholder-#{q_name_convention(template, question)}",
+                           placeholder: 'Placeholder details' %>
+        <label for="first-name-column">Placeholder</label>
+      </div>
+    </div>
+    <div class="col-md-7 col-12">
+      <div class="form-label-group">
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][additional_details]",
+                           additional_details_value(question),
+                           class: 'form-control form-control-option',
+                           id: "question-additional-details-#{q_name_convention(template, question)}",
+                           placeholder: 'Additional question details' %>
+        <label for="first-name-column">Additional details of question</label>
       </div>
     </div>
 
@@ -55,7 +76,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
         <% end %>
@@ -105,7 +126,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
         <% end %>
@@ -157,7 +178,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
         <% end %>
@@ -249,7 +270,7 @@
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
                                  id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil) } %>
+                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
         <% end %>

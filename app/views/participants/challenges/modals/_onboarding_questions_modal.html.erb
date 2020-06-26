@@ -8,15 +8,28 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
+      <%
+        if current_participant.connect_type == 'facebook'
+          connect_challenge = display_facebook_button
+        elsif current_participant.connect_type == 'google'
+          connect_challenge = display_google_button
+        else
+          connect_challenge = display_email_button
+        end
+
+        onboarding_challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+      %>
+
       <!-- Modal body -->
       <div class="modal-body">
         <div class="modal_box">
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box2">
-            <h5 class="text-center">Nice! You just earned <span class="red-color-span">{SignUpPoints} Points</span>. Now
+            <h5 class="text-center">Nice! You just earned <span class="red-color-span"><%= connect_challenge.points %> Points</span>. Now
               lets personalize your content.</h5>
 
-            <h5 class="text-center">Earn a bonus <span class="red-color-span">{ProfilePrefPoints} Points</span> now by
+            <h5 class="text-center">Earn a bonus
+              <span class="red-color-span"><%= (onboarding_challenge.present? && onboarding_challenge.points.present?) ? onboarding_challenge.points.to_i : 0 %> Points</span> now by
               completing your profile:</h5>
 
             <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'post',
@@ -24,7 +37,7 @@
               <% challenge.questions.each_with_index do |question, index| %>
                 <% profile_attribute = question.profile_attribute %>
 
-                <div class="form-group">
+                <div class="form-group extended-form-group">
                   <%= label :facebook_app_id, question.title %>
 
                   <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
@@ -34,54 +47,46 @@
                   <% case profile_attribute.field_type %>
                   <% when 'string' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-string #{answer_required('answer-string', question.is_required)}",
-                                       placeholder: "Answer here" %>
+                                       class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'string') %>
                   <% when 'text_area' then %>
                     <%= text_area_tag "questions[#{question.id}][answer]", "",
-                                      class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)}",
-                                      placeholder: "Add details here" %>
+                                      class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                      placeholder: fetch_placeholder_details(question, 'text_area') %>
                   <% when 'boolean' then %>
                     <% question.question_options.each do |option| %>
                       <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
                                            id: "questions_#{question.id}_answer_#{option.id}",
-                                           class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}" %>
+                                           class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}" %>
 
                       <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                     <% end %>
                   <% when 'date' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-date #{answer_required('answer-date', question.is_required)}",
-                                       placeholder: "Select date" %>
+                                       class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'date') %>
                   <% when 'time' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-time #{answer_required('answer-time', question.is_required)}",
-                                       placeholder: "Select time" %>
+                                       class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'time') %>
                   <% when 'date_time' then %>
-                    <div class="wrap-date-time">
-                      <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                         class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)}",
-                                         placeholder: "Select date time", readonly: true %>
-                      <div class="hidden-date-time-field">
-                        <input type="text" class="date-answer-hidden-field"/>
-                        <input type="text" class="time-answer-hidden-field"/>
-                      </div>
-                      <div class="date-time-picker-output"></div>
-                    </div>
-
+                    <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                       class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'date_time') %>
                   <% when 'number' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-number #{answer_required('answer-number', question.is_required)}",
-                                       placeholder: "Answer here" %>
+                                       class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'number') %>
                   <% when 'decimal' then %>
                     <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                       class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)}",
-                                       placeholder: "Answer here" %>
+                                       class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                       placeholder: fetch_placeholder_details(question, 'decimal') %>
                   <% when 'radio_button' then %>
                     <div>
                       <% question.question_options.each do |option| %>
                         <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
                                              id: "questions_#{question.id}_answer_#{option.id}",
-                                             class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)}",
+                                             class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                              data: {error: "radio-button-error-#{index}"} %>
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
@@ -93,15 +98,31 @@
                       <% question.question_options.each do |option| %>
                         <%= check_box_tag "questions[#{question.id}][answer][]", option.details, false,
                                           id: "questions_#{question.id}_answer_#{option.id}",
-                                          class: "answer-check-box #{answer_required('answer-check-box', question.is_required)}",
+                                          class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                           data: {error: "check-box-error-#{index}"} %>
 
                         <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                       <% end %>
                       <div class="custom-error-class check-box-error-<%= index %>"></div>
                     </div>
+                  <% when 'dropdown' then %>
+                    <div>
+                      <%
+                        options = []
+                        question.question_options.each do |option|
+                          options.push([option.details, option.details])
+                        end
+                      %>
+                      <%= select_tag "questions[#{question.id}][answer]",
+                                     options_for_select(options),
+                                     class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                     prompt: fetch_placeholder_details(question, 'dropdown') %>
+                    </div>
                   <% end %>
 
+                  <% if question.additional_details.present? %>
+                    <p class="additional-details"><%= question.additional_details %></p>
+                  <% end %>
                 </div>
               <% end %>
 

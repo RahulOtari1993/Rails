@@ -53,6 +53,7 @@ class Participants::ChallengesController < ApplicationController
   protected
     ## Manage & Build Extended Profile Question Params
     def onboarding_question_params
+      # binding.pry
       profile_params = {participant_profiles_attributes: []}
       params[:questions].each do |key, question|
         if question[:is_custom] == 'true'
@@ -81,8 +82,23 @@ class Participants::ChallengesController < ApplicationController
         end
       end
 
+      # ## Age Calculation
+      # calculate_age
+      # binding.pry
+      # raise "hi".inspect
       profile_params
     end
+
+    # ## Age Calculation
+    # def calculate_age
+    #   attributes = params['questions'].values.map{|x| x[:attribute_name]}
+    #
+    #   if !attributes.include?('age') && attributes.include?('birth_date')
+    #     profile_params['age'] = 25
+    #
+    #   end
+    #   binding.pry
+    # end
 
   private
 
@@ -114,7 +130,8 @@ class Participants::ChallengesController < ApplicationController
         participant_action = ParticipantAction.new(participant_id: @submission.participant_id, points: challenge_points,
                                                    action_type: action_type, title: title, details: @challenge.caption,
                                                    actionable_id: @challenge.id, actionable_type: @challenge.class.name,
-                                                   user_agent: request.user_agent, ip_address: request.ip)
+                                                   user_agent: request.user_agent, ip_address: request.ip,
+                                                   campaign_id: @challenge.campaign_id)
         participant_action.save!
 
         ## Claim the reward after successfull submission of challenge for reward type

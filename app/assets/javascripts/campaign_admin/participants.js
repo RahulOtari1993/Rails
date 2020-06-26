@@ -93,10 +93,7 @@ $(document).on('turbolinks:load', function () {
     buttons: [
       {
         text: "<i class='feather icon-download'></i> Export CSV",
-        action: function () {
-          window.location.href = "/admin/campaigns/" + $('#challenge-list-table').attr('campaign_id') + "/challenges/new"
-        },
-        className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light'
+        className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light export-participant-btn'
       }
     ],
     initComplete: function (settings, json) {
@@ -146,12 +143,32 @@ $(document).on('turbolinks:load', function () {
     } else {
       $('#participant-list-table').DataTable().ajax.reload();
     }
-  }
+  };
+
+  // Open Popup for Filtered Participants
+  $('body').on('click', '.export-participant-btn', function () {
+    var campaignId = $('#participant-list-table').attr('campaign_id');
+    var filters = generateParticipantFilterParams();
+    filters['search_term']= $('#participant-list-table_wrapper .dataTables_filter input').val()
+
+    var url = "/admin/campaigns/" + campaignId + "/users/participants?filters=" + JSON.stringify(filters)
+    window.open(url, '_blank');
+
+    // $.ajax({
+    //   type: 'POST',
+    //   data: {'filters': filters, authenticity_token: $('[name="csrf-token"]')[0].content},
+    //   url: "/admin/campaigns/" + campaignId + "/users/participants", // + JSON.stringify(filters)
+    // });
+  });
 
   // Replace Chip Value & Chip Class of Newly Added Tags of Participant Filter
   function replaceParticipantTagFields(stringDetails, tagHtml, tagVal) {
     const chipClasses = ['chip-success', 'chip-warning', 'chip-danger', 'chip-primary']
     const chipClass = chipClasses[Math.floor(Math.random() * chipClasses.length)];
+
+    // Truncate Tag
+    if (tagHtml.length > 20)
+      tagHtml = jQuery.trim(tagHtml).substring(0, 20).trim(tagHtml) + "...";
 
     stringDetails = stringDetails.replace(/---TAG-HTML---/g, tagHtml);
     stringDetails = stringDetails.replace(/---TAG-VAL---/g, tagVal);

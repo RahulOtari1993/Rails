@@ -17,6 +17,7 @@
   border: 2px solid #ccc;
   padding: 40px;
   border-radius: 12px;
+  border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -32,7 +33,7 @@
   color: #202020;
 }
 
-.modal_box .fa {
+.modal_box .connect-social-icon {
   float: left;
   line-height: 24px;
 }
@@ -79,19 +80,6 @@ span.error {
   color: red;
   float: left;
   font-size: 13px;
-}
-
-.wrap-date-time {
-  position: relative;
-}
-
-.hidden-date-time-field {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
 }
 
 .custom-error-class {
@@ -147,10 +135,25 @@ span.error {
   margin-bottom: .7rem;
   color: #707070;
   font-weight: 600;
+  margin-right: 10px;
 }
 
 .box3 .checkbox-inline {
   color: inherit;
   font-weight: 100;
   padding-right: 10px;
+}
+
+.extended-form-group {
+  position: relative;
+}
+
+.additional-details {
+  color: #707070;
+  font-size: 12px;
+  margin-left: 5px !important;
+}
+
+.bottom-margin {
+  margin-bottom: 5px !important;
 }
