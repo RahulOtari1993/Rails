@@ -23,6 +23,14 @@ class ProfileAttributeService
             campaign_id: @campaign_id
         },
         {
+            attribute_name: 'age',
+            display_name: 'Age',
+            field_type: 'number',
+            is_active: true,
+            is_custom: false,
+            campaign_id: Campaign.first.id
+        },
+        {
             attribute_name: 'gender',
             display_name: 'Gender',
             field_type: 'dropdown',

@@ -53,6 +53,7 @@ class Participants::ChallengesController < ApplicationController
   protected
     ## Manage & Build Extended Profile Question Params
     def onboarding_question_params
+      # binding.pry
       profile_params = {participant_profiles_attributes: []}
       params[:questions].each do |key, question|
         if question[:is_custom] == 'true'
@@ -81,8 +82,23 @@ class Participants::ChallengesController < ApplicationController
         end
       end
 
+      # ## Age Calculation
+      # calculate_age
+      # binding.pry
+      # raise "hi".inspect
       profile_params
     end
+
+    # ## Age Calculation
+    # def calculate_age
+    #   attributes = params['questions'].values.map{|x| x[:attribute_name]}
+    #
+    #   if !attributes.include?('age') && attributes.include?('birth_date')
+    #     profile_params['age'] = 25
+    #
+    #   end
+    #   binding.pry
+    # end
 
   private
 
