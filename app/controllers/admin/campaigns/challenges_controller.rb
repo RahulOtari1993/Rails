@@ -87,6 +87,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Fetch Challenge Details
   def show
+    @participants = @challenge.participants rescue []
   end
 
   ## Fetch Participants of Particular Challenge
