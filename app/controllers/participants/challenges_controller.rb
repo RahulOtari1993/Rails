@@ -5,7 +5,8 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
-
+    
+    # TODO refactor into handler class for maintainability with multiple challenges
     if @challenge.challenge_type == 'referral'
       if current_user.referral_codes.for_challenge(@challenge).empty?
         @referral_code = ReferralCode.create(challenge_id: @challenge.id, user_id: current_user.id)
