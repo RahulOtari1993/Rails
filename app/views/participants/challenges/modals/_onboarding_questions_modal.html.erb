@@ -74,11 +74,11 @@
                                        class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'date_time') %>
                   <% when 'number' then %>
-                    <%= text_field_tag "questions[#{question.id}][answer]", "",
+                    <%= number_field_tag "questions[#{question.id}][answer]", "",
                                        class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'number') %>
                   <% when 'decimal' then %>
-                    <%= text_field_tag "questions[#{question.id}][answer]", "",
+                    <%= number_field_tag "questions[#{question.id}][answer]", "",
                                        class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                        placeholder: fetch_placeholder_details(question, 'decimal') %>
                   <% when 'radio_button' then %>
