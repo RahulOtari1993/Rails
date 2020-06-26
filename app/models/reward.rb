@@ -55,6 +55,7 @@ class Reward < ApplicationRecord
   # has_one_attached :image_actual
   # has_one_attached :photo_image
   # has_one_attached :thumb_image
+  has_many :sweepstake_entries, dependent: :destroy
 
   ## ENUM
   enum filter_type: {all_filters: 0, any_filter: 1}
@@ -84,6 +85,7 @@ class Reward < ApplicationRecord
   # validates :fulfilment, presence: true, inclusion: FULFILMENTS
   validates :description, presence: true
   validates :image, presence: true
+  # validates :sweepstake_entry, presence: true, if: :check_reward_type?
 
   # Scopes
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
@@ -193,5 +195,13 @@ class Reward < ApplicationRecord
     end
 
     result
+  end
+
+  ## create sweepstake entries and choose a sweepstake reward winner
+  def choose_sweepstake_winner
+    if (self.sweepstake_entry.to_i > 0) && (self.limit.to_i > 0)
+      reward_service = SweepstakeRewardWinnerService.new(self.id)
+      reward_service.process
+    end
   end
 end

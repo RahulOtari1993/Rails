@@ -106,7 +106,8 @@ gem 'omniauth-facebook'
 ## Use Omniauth Google plugin
 gem 'omniauth-google-oauth2'
 
-# fetch video id from url
+## fetch video id from url
 gem 'video_info'
 
-gem 'time_difference'
+## choose a random number with probability
+gem 'pickup'

@@ -34,4 +34,12 @@ class RewardMailer < ActionMailer::Base
     mail to: @participant.email, subject: subject
   end
 
+  def sweepstake_reward(reward, participant, coupon)
+    @reward = reward
+    @participant = participant
+    @coupon = coupon
+    subject = "Congratulations you have just won a reward | #{@reward.name}"
+    mail to: @participant.email, subject: subject
+  end
+
 end

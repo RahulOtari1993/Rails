@@ -76,6 +76,7 @@ class Participant < ApplicationRecord
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
+  has_many :sweepstake_entries, dependent: :destroy
 
   ## Callbacks
   after_create :generate_participant_id
@@ -92,6 +93,9 @@ class Participant < ApplicationRecord
 
   ## Tags
   acts_as_taggable_on :tags
+
+  ## Scopes
+  scope :active, -> { where(arel_table[:is_active].eq(true)) }
 
   ## Allow Only Active Users to Login
   def active_for_authentication?

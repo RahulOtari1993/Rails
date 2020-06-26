@@ -5,4 +5,7 @@
 <% elsif @reward.selection == "manual" %>
   $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/manual_modal', reward: @reward %>");
   $('#manual_modal').modal('show');
+<% elsif @reward.selection == "sweepstake" %>
+  $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/sweepstake_modal', reward: @reward %>");
+  $('#sweepstake_modal').modal('show');
 <% end %>
