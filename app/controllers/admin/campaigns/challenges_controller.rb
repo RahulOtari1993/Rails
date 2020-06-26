@@ -87,7 +87,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Fetch Challenge Details
   def show
-    @participants = @challenge.participants rescue []
+    @participants = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
+        .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
   end
 
   ## Fetch Participants of Particular Challenge
