@@ -70,7 +70,8 @@
           <div class="row gradient_btn_box">
             <div class="col-md-4 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">26,934
+                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">
+                  <%= @challenge.completions %>
                   <p><span>48%</span> of user targetted</p>
                 </button>
                 <h6>Total Completions</h6>
@@ -78,13 +79,17 @@
             </div>
             <div class="col-md-4">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">1,041,997</button>
+                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">
+                  <%= @challenge.clicks.to_i %>
+                </button>
                 <h6>Clicks Generated</h6>
               </div>
             </div>
             <div class="col-md-4 pr-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light">5,386,800</button>
+                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light">
+                  <%= @challenge.earned_points %>
+                </button>
                 <h6>Points Earned By Users</h6>
               </div>
             </div>
