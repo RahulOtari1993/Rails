@@ -302,9 +302,9 @@ class Participant < ApplicationRecord
 
         if is_submitted
           ## Create Participant Action Log
-          action_item = ParticipantAction.new({participant_id: self.id, points: 0,
-                                               action_type: action_type, title: action_title,
-                                               user_agent: user_agent, ip_address: remote_ip})
+          action_item = ParticipantAction.new({participant_id: self.id, points: 0, action_type: action_type,
+                                               title: action_title, user_agent: user_agent, ip_address: remote_ip,
+                                               campaign_id: self.campaign_id})
           action_item.save
         else
           ## Submit Challenge
@@ -316,7 +316,7 @@ class Participant < ApplicationRecord
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                                action_type: action_type, title: action_title, actionable_id: challenge.id,
                                                actionable_type: 'Challenge', details: challenge.caption,
-                                               user_agent: user_agent, ip_address: remote_ip})
+                                               user_agent: user_agent, ip_address: remote_ip, campaign_id: self.campaign_id})
           sign_up_log.save
         end
       end

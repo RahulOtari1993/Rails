@@ -113,7 +113,8 @@ class Participants::ChallengesController < ApplicationController
         participant_action = ParticipantAction.new(participant_id: @submission.participant_id, points: @challenge.points,
                                                    action_type: action_type, title: title, details: @challenge.caption,
                                                    actionable_id: @challenge.id, actionable_type: @challenge.class.name,
-                                                   user_agent: request.user_agent, ip_address: request.ip)
+                                                   user_agent: request.user_agent, ip_address: request.ip,
+                                                   campaign_id: @challenge.campaign_id)
         participant_action.save!
 
         ## Claim the reward after successfull submission of challenge for reward type

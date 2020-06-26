@@ -235,6 +235,6 @@ class Challenge < ApplicationRecord
 
   ## Fetch Total Earned Points By Users using a Challenge
   def earned_points
-    ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id).sum(:points)
+    ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id, campaign_id: self.campaign_id).sum(:points)
   end
 end
