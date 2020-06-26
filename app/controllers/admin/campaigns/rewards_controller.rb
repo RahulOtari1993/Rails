@@ -1,5 +1,5 @@
 class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
-  before_action :set_reward, only: [:edit, :update]
+  before_action :set_reward, only: [:edit, :update, :participant_selection_form, :participant_selection]
   before_action :build_params, only: [:create, :update]
   require 'mini_magick'
 
@@ -134,6 +134,33 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       coupon.save
     end
     redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
+  end
+
+  ## participant selection form for manual reward
+  def participant_selection_form
+    participant_ids = @reward.reward_participants.pluck(:participant_id)
+    @participants = @campaign.participants.where.not(id: participant_ids)
+  end
+
+  ## Assign coupon codes and send email for manual reward selected participants
+  def participant_selection
+    participant_ids = params[:participant_ids].present? ? params[:participant_ids] : []
+
+    if @reward.present? && (@reward.limit.to_i > @reward.claims)
+      unless participant_ids.blank?
+        participant_ids.each do |participant_id|
+          participant = Participant.find(participant_id)
+          ## process the service to claim reward and participate action entries
+          reward_service = RewardsService.new(participant.id, @reward.id, request)
+          response = reward_service.process
+        end
+        message = 'Coupon successfully assigned to selected participants'
+      end
+    else
+      message = 'Coupons are not assigned to selected participants due to shortage.'
+    end
+
+    redirect_to admin_campaign_rewards_path, notice: message
   end
 
   def destroy

@@ -113,6 +113,7 @@ class Participants::ChallengesController < ApplicationController
 
   ## Create Participant Action Entry
   def participant_action re_submission
+    challenge_points = re_submission ? @challenge.points : 0
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
       title = re_submission ? 'Again Visited a url' : "Visited a url"
@@ -130,7 +131,7 @@ class Participants::ChallengesController < ApplicationController
     end
 
     begin
-      participant_action = ParticipantAction.new(participant_id: @submission.participant_id, points: @challenge.points,
+      participant_action = ParticipantAction.new(participant_id: @submission.participant_id, points: challenge_points,
                                                  action_type: action_type, title: title, details: @challenge.caption,
                                                  actionable_id: @challenge.id, actionable_type: @challenge.class.name,
                                                  user_agent: request.user_agent, ip_address: request.ip,

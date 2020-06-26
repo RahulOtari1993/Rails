@@ -66,6 +66,10 @@ Rails.application.routes.draw do
             post '/reward_export', to: 'rewards#reward_export', as: :reward_export
             get '/coupon_form', to: 'rewards#coupon_form', as: :coupon_form
             post '/create_coupon', to: 'rewards#create_coupon', as: :create_coupon
+            member do
+              get :participant_selection_form, as: :participant_selection_form
+              post :participant_selection, as: :participant_selection
+            end
           end
 
           ## Challenge Routes

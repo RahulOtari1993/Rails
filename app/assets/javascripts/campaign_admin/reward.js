@@ -42,6 +42,17 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
+  // Participant selection popup for manual reward
+  $('#reward-list-table').on('click', '.participant-selection-btn', function () {
+    var rewardId = $(this).attr('reward_id')
+    var campaignId = $(this).attr('campaign_id')
+    $.ajax({
+      type: 'GET',
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId + "/participant_selection_form"
+    });
+  });
+
   // Replace ID of Newly Added Fields of User Segment
   function replaceRuleFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
@@ -374,15 +385,30 @@ $(document).on('turbolinks:load', function () {
       {
         title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
         render: function (data, type, row) {
-          // Action items
-          return "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
-              "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
-              + "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
-              + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-              "<i class='feather icon-download'></i></button>" +
-              "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-              + "'>Coupons</button>"
+          // Action items start
+            action_html = ""
+
+            // edit reward
+            action_html += "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+                "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
+                "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
+
+            // Download csv
+            action_html += "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
+                + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
+                "<i class='feather icon-download'></i></button>"
+
+            // Coupon creation
+            action_html += "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
+                + "'>Coupons</button>"
+
+            // manual reward participant selection
+            if (data.selection == "manual") {
+              action_html += "<button class='btn btn-action btn-primary participant-selection-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
+              + "'>Selection</button>"
+            }
+          // Action items end
+          return action_html;
         }
       },
     ],

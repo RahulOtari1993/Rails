@@ -239,6 +239,7 @@ GEM
       omniauth (~> 1.9)
     orm_adapter (0.5.0)
     pg (1.2.3)
+    pickup (0.0.11)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     pry (0.12.2)
@@ -386,6 +387,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
+  pickup
   pry (~> 0.12.2)
   puma (~> 3.11)
   pundit

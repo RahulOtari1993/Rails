@@ -1,0 +1,55 @@
+<div class="modal fade text-left" id="sweepstake_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-12">
+            <h4 class="modal-title"><%= reward.name %></h4>
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <span style="float: left;"><i class="fa fa-clock-o" aria-hidden="true" style="color:red"></i> <%= distance_of_time_in_words(Time.now, reward.finish) %></span>
+          </div>
+          <div class="col-md-6">
+            <span style="float: left;"><i class="fa fa-clock-o" aria-hidden="true" style="color:red"></i> <%= "#{reward.reward_participants.count}/#{reward.limit} Rewards Claimed" %></span>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <h4><b class="text-center"><%= reward.description %></b></h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
+          </div>
+        </div>
+        <p><%= raw(reward.description_details).html_safe %></p>
+        <p><%= raw(reward.redemption_details).html_safe %></p>
+
+        <div class="row reward-claim-container" style="display: none;">
+          <div class="col-12">
+            <h4>Congratulation, You've claimed this reward successfully.</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div><br>
+      </div>
+
+    </div>
+  </div>
+</div>
