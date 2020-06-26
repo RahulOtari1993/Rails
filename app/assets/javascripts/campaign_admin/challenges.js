@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function () {
 
   var form = $(".challenge-wizard");
 
-  $('.challenge-wizard').steps({
+  var stepsWizard = $('.challenge-wizard').steps({
     headerTag: "h6",
     bodyTag: "fieldset",
     transitionEffect: "fade",
@@ -33,8 +33,20 @@ $(document).on('turbolinks:load', function () {
     labels: {
       finish: 'Submit'
     },
+    onInit: function (event, currentIndex) {
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        $('.challenge-wizard').steps("next");
+      }
+    },
     onStepChanging: function (event, currentIndex, newIndex) {
       // Allways allow previous action even if the current form is not valid!
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        // While Editing a Challenge Stop User to Jump on Step 1
+        if (currentIndex == 1 && newIndex == 0) {
+          return false;
+        }
+      }
+
       if (currentIndex > newIndex) {
         return true;
       }
