@@ -8,15 +8,28 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
+      <%
+        if current_participant.connect_type == 'facebook'
+          connect_challenge = display_facebook_button
+        elsif current_participant.connect_type == 'google'
+          connect_challenge = display_google_button
+        else
+          connect_challenge = display_email_button
+        end
+
+        onboarding_challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+      %>
+
       <!-- Modal body -->
       <div class="modal-body">
         <div class="modal_box">
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box2">
-            <h5 class="text-center">Nice! You just earned <span class="red-color-span">{SignUpPoints} Points</span>. Now
+            <h5 class="text-center">Nice! You just earned <span class="red-color-span"><%= connect_challenge.points %> Points</span>. Now
               lets personalize your content.</h5>
 
-            <h5 class="text-center">Earn a bonus <span class="red-color-span">{ProfilePrefPoints} Points</span> now by
+            <h5 class="text-center">Earn a bonus
+              <span class="red-color-span"><%= (onboarding_challenge.present? && onboarding_challenge.points.present?) ? onboarding_challenge.points.to_i : 0 %> Points</span> now by
               completing your profile:</h5>
 
             <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'post',
