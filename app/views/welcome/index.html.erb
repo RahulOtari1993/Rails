@@ -98,8 +98,12 @@
                 <h5><%= reward.description %></h5>
                 <div class="width_100">
                   <div class="width_50" style="float: left;">
-                    <% unless coupon_claimed(reward) %>
-                      <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                    <% if current_participant %>
+                      <% unless coupon_claimed(reward) %>
+                        <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                      <% end %>
+                    <% else %>
+                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Claim</button>
                     <% end %>
                   </div>
                   <div class="width_50" style="float: right;">

@@ -151,6 +151,7 @@ body {
   border: none;
   padding: 15px 40px;
   font-weight: 900;
+  cursor: pointer;
   /*float: right;*/
 }
 
