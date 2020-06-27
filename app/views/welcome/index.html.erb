@@ -9,8 +9,9 @@
     <div class="row">
       <div class="col-lg-6 left">
         <h1>THE Offical Loyalty Program of Buckeye Nation</h1>
-        <h5>Take your Buckeye Pride to the next level with Buckeye Nation Rewards. The only way to get insider access and perks for your pride. </h5>
-        <button class="banner_btn">Get Started!</button>
+        <h5>Take your Buckeye Pride to the next level with Buckeye Nation Rewards. The only way to get insider access
+          and perks for your pride. </h5>
+        <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
       </div>
       <div class="col-lg-6">
         <% unless @rewards.blank? %>
@@ -27,7 +28,8 @@
                   <%= image_tag(reward.image.url) %>
                   <h3><%= reward.name %></h3>
                   <div class="carousel-caption">
-                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
+                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
+                      in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
                   </div>
                 </div>
               <% end %>
@@ -45,40 +47,24 @@
     <div class="row">
       <div class="col-12">
         <h3>Earn GoBucks</h3>
-        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span> </p>
+        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span></p>
       </div>
       <% unless @challenges.blank? %>
         <% @challenges.each_with_index do |challenge, index| %>
           <div class="col-12 col-md-4">
             <!-- <div class="image_box_bg"> -->
-              <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
-              <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
-                <div class="image_inner_text">
-                  <div class="width_100">
-                    <div class="width_50" style="float: left;"><span class="left"><%= "+#{challenge.points.to_i}" %></span> </div>
-                    <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
-                  </div>
-                  <div class="clear"></div>
-                  <h2 class="image_box_title"><%= challenge.name %></h2>
-                  <div class="width_100">
-                    <% if challenge.challenge_type == "signup" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %></button></div>
-                    <% elsif challenge.challenge_type == "video" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Watch Now</button> </div>
-                    <% elsif challenge.challenge_type == "article" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Read Article</button> </div>
-                    <% elsif challenge.challenge_type == "referral" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= "Refer #{challenge.parameters.titleize}" %></button> </div>
-                    <% elsif challenge.challenge_type == "collect" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>"><%= "Take a #{challenge.parameters.titleize} Now" %></button> </div>
-                    <% elsif challenge.challenge_type == "link" %>
-                      <div class="width_50" style="float: left;"><button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">Visit a URL</button> </div>
-                    <% end %>
-                      <div class="width_50" style="float: right;"><span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span></div>
-                  </div>
-                  <div class="clear"></div>
+            <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
+            <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <div class="width_50" style="float: left;">
+                    <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
+                  <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
                 </div>
+                <div class="clear"></div>
+                <%= render 'list_challenges', challenge: challenge %>
               </div>
+            </div>
             <!-- </div> -->
           </div>
         <% end %>
@@ -94,7 +80,7 @@
     <div class="row">
       <div class="col-12">
         <h3>Current Prizes</h3>
-        <p>The more GoBucks you earn <span>the more you can win.</span> </p>
+        <p>The more GoBucks you earn <span>the more you can win.</span></p>
       </div>
       <% unless @rewards.blank? %>
         <% @rewards.each_with_index do |reward, index| %>
@@ -103,7 +89,7 @@
               <div class="image_inner_text">
                 <div class="width_100">
                   <% title = (reward.selection == "redeem") ? "Cash-In" : reward.selection.titleize %>
-                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span> </div>
+                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span></div>
                   <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
                 </div>
                 <div class="clear"></div>
@@ -139,7 +125,7 @@
         <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
       </div>
       <div class="col-md-4 col-lg-3">
-       <button class="footer_top_btn">JOIN NOW</button>
+        <button class="footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
       </div>
     </div>
   </div>
@@ -153,14 +139,14 @@
 <script type="text/javascript">
   $(document).ready(function () {
 
-  // old code
+    // old code
     // var height;
     // $('.image_box_bg .card').each(function() {
     //   height = $(this).innerHeight()
     //   imageDiv = $(this).parent().find('.box_img_style');
     //   imageDiv.css('height', height);
     // });
-  // old code
+    // old code
 
     // ---------------------------------------------------------------------------------
     // I've Shift this code to script.js consider that JS File and Do the Needed Changes
@@ -169,14 +155,14 @@
 
     // $('body').on('click', '.challenge-submission-btn', function (e) {
     //   var challengeId = $(this).data('challenge-id');
-     // if (<%#= current_participant.present? %>) {
-        // $.ajax({
-        //   type: 'GET',
-        //   url: `/participants/challenges/${challengeId}/details`
-        // });
-      // } else {
-      //   $('#sign_in_modal').modal();
-      // }
+    // if (<%#= current_participant.present? %>) {
+    // $.ajax({
+    //   type: 'GET',
+    //   url: `/participants/challenges/${challengeId}/details`
+    // });
+    // } else {
+    //   $('#sign_in_modal').modal();
+    // }
     // });
   });
 </script>
