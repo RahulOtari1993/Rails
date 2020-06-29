@@ -23,7 +23,8 @@ class Admin::Campaigns::TemplateController < Admin::Campaigns::BaseController
   def template_params
     params.require(:campaign_template_detail).permit(:favicon_file, :footer_background_color, :footer_font_color,
                                                      :footer_font_size, :header_background_image, :header_logo, :header_text,
-                                                     :header_description, :header_font_color, :header_font_size)
+                                                     :header_description, :header_font_color, :header_font_size,
+                                                     :header_description_font_size, :header_description_font_color)
   end
 
   ## Set Template
