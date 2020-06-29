@@ -1401,7 +1401,7 @@ $(document).on('turbolinks:load', function () {
       if (result.value) {
         $.ajax({
           url: `/admin/campaigns/${campaignId}/challenges/${challengeId}/remove_tag`,
-          type: 'POST',
+          type: 'DELETE',
           dataType: 'script',
           data: {
             tag: tag,

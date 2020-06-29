@@ -1,4 +1,6 @@
 class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseController
+  before_action :set_participant, only: [:show, :remove_tag, :add_tag, :add_note]
+
   def index
   end
 
@@ -35,6 +37,40 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     }
   end
 
+  # Fetch Participant Details
+  def show
+  end
+
+  # Remove a Tag From Participant
+  def remove_tag
+    begin
+      @participant.tag_list.remove(params[:tag], parse: true) if params.has_key?('tag') && params[:tag].present?
+      @participant.save!
+    rescue StandardError => e
+      @message = e.message
+    end
+  end
+
+  # Add a Tag to Participant
+  def add_tag
+    begin
+      @participant.tag_list.add(params[:tag].join(', '), parse: true) if params.has_key?('tag') && params[:tag].present?
+      @participant.save!
+    rescue StandardError => e
+      @message = e.message
+    end
+  end
+
+  # Add a Note to Participant
+  def add_note
+    begin
+      @note = Note.new(description: params[:description], campaign: @campaign, user: current_user, participant: @participant)
+      @note.save! 
+    rescue StandardError => e
+      @message = e.message
+    end
+  end
+
   private
 
   def search_columns
@@ -44,5 +80,9 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
   def sort_column
     columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
     columns[params[:order]['0'][:column].to_i - 1].join(', ')
+  end
+
+  def set_participant
+    @participant = @campaign.participants.find_by_id(params[:id])
   end
 end

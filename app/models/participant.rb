@@ -76,7 +76,8 @@ class Participant < ApplicationRecord
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
-
+  has_many :notes, dependent: :destroy
+  
   ## Callbacks
   after_create :generate_participant_id
   after_save :check_milestone_reward
@@ -358,6 +359,11 @@ class Participant < ApplicationRecord
 
     return participants
   end
+
+  def full_address
+    "#{address_1} #{address_2} #{city} #{state} #{postal}"
+  end
+  
   private
 
   ## Generate Uniq Participant ID

@@ -1,0 +1,11 @@
+$('.participant-tags-container').html('');
+$('.participant-tags-container').html("<%= j render 'admin/campaigns/participants/tags_list' %>");
+
+<% if @message.present? %>
+  Swal.fire({
+    title: 'Remove a Tag',
+    text: '<%= @message.to_s %>',
+    confirmButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+  });
+<% end %>

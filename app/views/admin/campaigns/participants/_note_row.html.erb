@@ -1,0 +1,4 @@
+<% participant_notes_by_desc(@participant).each do |note| %>
+  <h6 class="Notes_tab_title"><%= current_user.full_name %> - <span><%= note.created_at.strftime("%m/%d/%y") %></span> <span><%= note.created_at.strftime("%H:%M %p")%></span></h6>
+    <p><%= note.description %></p>
+<% end %>

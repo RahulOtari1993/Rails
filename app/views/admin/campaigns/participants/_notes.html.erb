@@ -1,0 +1,13 @@
+<div class="tab-pane" id="Notes" aria-labelledby="Details-tab" role="tabpanel">
+  <fieldset>
+    <div class="input-group">
+      <%= text_field_tag :participant_note_description_input, nil, required: true, class: 'form-control', placeholder: "Add a note here." %>
+      <div class="input-group-append" id="button-addon2">
+        <button class="btn btn-primary waves-effect waves-light submit-note-input" type="button">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+  <div class="participant-notes-container">
+    <%= render 'note_row' %>
+  </div>
+</div>

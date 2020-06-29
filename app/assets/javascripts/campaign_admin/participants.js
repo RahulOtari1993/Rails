@@ -37,7 +37,7 @@ $(document).on('turbolinks:load', function () {
         title: 'Name', data: null,
         searchable: true,
         render: function (data, type, row) {
-          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' +
+          return '<span class="participant-name" data-participant-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' +
               data.name + '</span>'
         }
       },
@@ -76,7 +76,7 @@ $(document).on('turbolinks:load', function () {
         render: function (data, type, row) {
           return formatDate(data.created_at)
         }
-      }
+      },
     ],
     dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
@@ -102,6 +102,16 @@ $(document).on('turbolinks:load', function () {
     initComplete: function (settings, json) {
       $('.dt-buttons .btn').removeClass('btn-secondary');
     }
+  });
+
+  // Open Popup for Participant Details
+  $('#participant-list-table').on('click', '.participant-name', function(){
+    var participantId = $(this).data('participant-id');
+    var campaignId = $(this).data('campaign-id');
+    $.ajax({
+      type: 'GET',
+      url: "/admin/campaigns/" + campaignId + "/users/" + participantId
+    });
   });
 
   // Generates Participant Filter Query String
@@ -267,4 +277,94 @@ $(document).on('turbolinks:load', function () {
   //   $('.filter-min-points').text(parseInt(values[0]));
   //   $('.filter-max-points').text(parseInt(values[1]));
   // });
+
+  // Remove TAG from a Participants
+  $('body').on('click', '.remove-participant-tag', function (e) {
+    var campaignId = $('.participant-name-container').data('campaign-id');
+    var participantId = $('.participant-name-container').data('participant-id');
+    var tag = $(this).data('val');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to remove this tag?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Remove it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      if (result.value) {
+        $.ajax({
+          url: `/admin/campaigns/${campaignId}/users/${participantId}/remove_tag`,
+          type: 'DELETE',
+          dataType: 'script',
+          data: {
+            tag: tag,
+            authenticity_token: $('[name="csrf-token"]')[0].content,
+          }
+        });
+      }
+    });
+  });
+
+  // Add Tag Addition UI from Participant Popup
+  $('body').on('click', '.submit-participant-tag', function (e) {
+    var campaignId = $('.participant-name-container').data('campaign-id');
+    var participantId = $('.participant-name-container').data('participant-id');
+    var tag = $('#participant_tags_input').val();
+
+    $.ajax({
+      url: `/admin/campaigns/${campaignId}/users/${participantId}/add_tag`,
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        tag: tag,
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+  });
+
+  // Tags Selection With Auto Suggestion
+  function initParticipantTagsSelect2() {
+    $('.participant-tags').select2({
+      placeholder: "Select Tags",
+      tags: true,
+      dropdownAutoWidth: true,
+      width: '50%'
+    });
+  }
+  
+  // Add Tag Addition UI from Participant Popup
+  $('body').on('click', '.add-tag-btn', function (e) {
+    $('.add_tag_btngroup').show();
+    initParticipantTagsSelect2();
+    $('.add-tag-btn').hide();
+  });
+
+  // Remove Tag Addition UI from Participant Popup
+  $('body').on('click', '.remove-tag-btn', function (e) {
+    $('.add_tag_btngroup').hide();
+    $('.participant-tags').val(null).trigger('change');
+    $('.add-tag-btn').show();
+  });
+
+  // Add Note from Participant Popup
+  $('body').on('click', '.submit-note-input', function (e) {
+    var campaignId = $('.participant-name-container').data('campaign-id');
+    var participantId = $('.participant-name-container').data('participant-id');
+    var description = $('#participant_note_description_input').val();
+
+    $.ajax({
+      url: `/admin/campaigns/${campaignId}/users/${participantId}/add_note`,
+      type: 'POST',
+      dataType: 'script',
+      data: {
+        description: description,
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+  });
+
 });

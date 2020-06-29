@@ -42,7 +42,8 @@ class Campaign < ApplicationRecord
   has_one :campaign_config, dependent: :destroy
   has_many :profile_attributes, dependent: :destroy
   has_many :networks, dependent: :destroy
-
+  has_many :notes, dependent: :destroy
+  
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Callbacks

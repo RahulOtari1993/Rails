@@ -78,7 +78,7 @@ Rails.application.routes.draw do
               post '/export_participants', to: 'challenges#export_participants'
               get '/duplicate', to: 'challenges#duplicate'
               get '/toggle', to: 'challenges#toggle'
-              post '/remove_tag', to: 'challenges#remove_tag'
+              delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
             end
           end
@@ -102,6 +102,9 @@ Rails.application.routes.draw do
             member do
               get '/users', to: 'participants#users'
               post '/participants', to: 'participants#export_participants'
+              delete '/remove_tag', to: 'participants#remove_tag'
+              post '/add_tag', to: 'participants#add_tag'
+              post '/add_note', to: 'participants#add_note'
             end
           end
         end
