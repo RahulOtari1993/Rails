@@ -165,5 +165,8 @@
 
     iFrame.find(".custom-header-details")
         .html($('#campaign_template_detail_header_description').val());
+
+    iFrame.find(".custom-header-details")
+        .append($("<style type='text/css'>  .custom-header-details {font-size: " + $('#campaign_template_detail_header_description_font_size').val() + "px !important; color: " + $('#campaign_template_detail_header_description_font_color').val() + " !important;} </style>"));
   })
 </script>
