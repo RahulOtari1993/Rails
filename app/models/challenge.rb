@@ -237,4 +237,14 @@ class Challenge < ApplicationRecord
   def earned_points
     ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id, campaign_id: self.campaign_id).sum(:points)
   end
+
+  ## Returns the Targeted Users
+  def targeted_participants
+    Campaign.first.participants
+  end
+
+  ## Returns the Targeted Users Counts
+  def targeted_participants_count
+    targeted_participants.count
+  end
 end
