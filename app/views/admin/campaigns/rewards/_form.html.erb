@@ -108,7 +108,6 @@
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
                                   <%= f.hidden_field :description_details, class: "form-control description-txt-area" %>
-                                  <%#= f.text_area :description_details, class: "form-control", id: 'label-textarea', rows: '3'%>
                                 </fieldset>
                               </div>
                             </div>
@@ -116,12 +115,14 @@
 
                           <div class="col-12">
                             <div class="form-group">
-                              <%= f.label :limit %>
+                              <%= f.label :limit, 'Rewards Available (Qty)' %>
                               <span class="column-info">The number of people who can get this reward.
 															</span>
                               <div class="position-relative" style="width: 25%;">
                                 <div class="input-group">
-                                  <%= f.number_field :limit, class: "touchspin form-control", value: f.object.limit.present? ? f.object.limit : '0' %>
+                                  <%= f.number_field :limit, class: "touchspin form-control",
+                                                     value: f.object.limit.present? ? f.object.limit : '',
+                                                     placeholder: '0' %>
                                 </div>
                               </div>
                             </div>
@@ -129,7 +130,22 @@
 
                           <div class="col-12">
                             <div class="form-group">
-                              <%= f.label :points %>
+                              <%= f.label :msrp_value, 'MSRP Value' %>
+                              <span class="column-info">Value of the prize of reward.
+															</span>
+                              <div class="position-relative" style="width: 25%;">
+                                <div class="input-group">
+                                  <%= f.number_field :msrp_value, class: "touchspin form-control",
+                                                     value: f.object.msrp_value.present? ? f.object.msrp_value : '',
+                                                     placeholder: '0' %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :points, 'Bonus Points' %>
                               <span class="column-info">This is an 	to give points by assigning a user to a reward.
 																	</span>
                               <div class="position-relative" style="width: 25%;">
@@ -209,15 +225,25 @@
                               <span class="">Apply rules to target this reward to specific users</span>
                             </div>
 
-                            <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
+                            <div class="filter-type-container rule-filters-container" style="display: <%= rule_display_user_segments %>">
                               User match
                               <%= f.select :rule_type,
-                                           options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
+                                           options_for_select(reward_rule_type, @reward.rule_type), {}, class: 'form-control reward-filter-type-dd' %>
                               of the following condition
 
+                              <div class="vs-checkbox-con vs-checkbox-primary">
+                                <%= f.check_box :date_range, {} %>
+                                <span class="vs-checkbox">
+                                  <span class="vs-checkbox--check">
+                                      <i class="vs-icon feather icon-check"></i>
+                                  </span>
+                                </span>
+                                <span class="">Date ranges same as visible for the reward</span>
+                              </div>
                               <hr style="margin-bottom: 0px !important;">
                             </div>
-                            <div class="form-group filters-container" style="display: <%= rule_display_user_segments %>">
+
+                            <div class="form-group rule-filters-container" style="display: <%= rule_display_user_segments %>">
                               <div class="table-responsive">
                                 <table class="segment_table table table-striped mb-0 tbl-user-segments">
                                   <tbody class="reward-rule-segments-container">
@@ -307,10 +333,10 @@
                               <span class="">Apply segments to target this rewards to specific users</span>
                             </div>
 
-                            <div class="filter-type-container filters-container" style="display: <%= rule_display_user_segments %>">
+                            <div class="filter-type-container filters-container" style="display: <%= display_reward_user_segments %>">
                               User match
                               <%= f.select :filter_type,
-                                           options_for_select(filter_type), {}, class: 'form-control reward-filter-type-dd' %>
+                                           options_for_select(reward_filter_type, @reward.filter_type), {}, class: 'form-control reward-filter-type-dd' %>
                               of the following condition
 
                               <hr style="margin-bottom: 0px !important;">
@@ -335,6 +361,7 @@
                                       <span>
                                         <i class="feather icon-plus"></i> Add Segment
                                       </span>
+
                                 </button>
                               </div>
                             </div>
@@ -347,6 +374,19 @@
                               <%= f.select :tags,
                                            options_for_select(all_tags_humanize, @reward.tag_list),
                                            {}, class: 'form-control reward-tags', multiple: 'multiple' %>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :notes %>
+                              <span class="column-info">Additional notes for this reward.
+																</span>
+                              <div class="position-relative">
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :notes, class: "form-control", id: 'label-textarea', rows: '3' %>
+                                </fieldset>
+                              </div>
                             </div>
                           </div>
 
@@ -374,6 +414,3 @@
 <script id="reward-rule-segments-template" type="text/x-custom-template">
   <%= render 'rule_fields', filter: nil %>
 </script>
-
-
-

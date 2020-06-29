@@ -24,22 +24,17 @@ class Participants::RegistrationsController < Devise::RegistrationsController
       participant.first_name = params[:participant][:first_name]
       participant.last_name = params[:participant][:last_name]
       participant.password = params[:participant][:password]
+      participant.connect_type = params[:participant][:connect_type]
+      participant.confirmed_at = nil
 
-      participant.skip_confirmation!
-      participant.save(:validate => false)
+      participant.send_confirmation_instructions
+      participant.save
 
-      ## Mark Challenge as Completed & It's Relevant Entries
-      participant.connect_challenge_completed(user_agent, remote_ip)
-
-      sign_in_and_redirect participant, :event => :authentication
+      flash[:notice] = 'You will receive an email with instructions for how to confirm your email address in a few minutes.'
+      redirect_to root_path
     else
       ## Regular Sign Up Using Devise
       super
-
-      unless resource.errors.present?
-        ## Mark Challenge as Completed & It's Relevant Entries
-        resource.connect_challenge_completed(user_agent, remote_ip)
-      end
     end
   end
 

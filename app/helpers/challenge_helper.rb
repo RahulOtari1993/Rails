@@ -290,6 +290,24 @@ module ChallengeHelper
       end
   end
 
+  ## Question Set Default Value of Question Placeholder
+  def placeholder_value(question = nil)
+    if question.present?
+      question.placeholder
+    else
+      ''
+    end
+  end
+
+  ## Question Set Default Value of Question Additional Details
+  def additional_details_value(question = nil)
+    if question.present?
+      question.additional_details
+    else
+      ''
+    end
+  end
+
   ## Question Set Default Value of Question Option
   def option_value(option = nil, counter = 1)
     if option.present?
@@ -402,10 +420,11 @@ module ChallengeHelper
     end
   end
 
-  ## Fetch Unused Rewards of a Campaign
+  ## Fetch Unused Instant Rewards of a Campaign
   def challenge_reward_list
-    used_rewards = @campaign.challenges.all.pluck(:reward_id)
-    @campaign.rewards.active.where.not(id: used_rewards).map { |v| [v.name.titleize, v.id] }.compact
+    used_reward_ids = @campaign.challenges.all.pluck(:reward_id).compact
+    used_reward_ids = used_reward_ids - [@challenge.reward_id] if @challenge.reward_id.present?
+    @campaign.rewards.active.where(selection: 'instant').where.not(id: used_reward_ids).map { |v| [v.name.titleize, v.id] }.compact
   end
 
   ## User Segment List for Challenges

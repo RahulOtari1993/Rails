@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_06_26_114848) do
+=======
+ActiveRecord::Schema.define(version: 2020_06_26_093314) do
+>>>>>>> development
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,15 +144,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["challenge_id"], name: "index_challenge_filters_on_challenge_id"
-  end
-
-  create_table "challenge_participants", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "participant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_challenge_participants_on_challenge_id"
-    t.index ["participant_id"], name: "index_challenge_participants_on_participant_id"
   end
 
   create_table "challenges", force: :cascade do |t|
@@ -282,6 +277,9 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.string "ip_address", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "coupon"
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_participant_actions_on_campaign_id"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
@@ -351,6 +349,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.integer "connect_type"
     t.integer "age", default: 0
     t.integer "completed_challenges", default: 0
+    t.string "avatar"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -385,6 +384,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.integer "profile_attribute_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "placeholder"
+    t.string "additional_details"
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 
@@ -412,12 +413,10 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
 
   create_table "reward_participants", force: :cascade do |t|
     t.bigint "reward_id"
-    t.bigint "user_id"
-    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "participant_id"
     t.index ["reward_id"], name: "index_reward_participants_on_reward_id"
-    t.index ["user_id"], name: "index_reward_participants_on_user_id"
   end
 
   create_table "reward_rules", force: :cascade do |t|
@@ -462,8 +461,10 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
+    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
+    t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
 
@@ -492,6 +493,16 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.index ["participant_id"], name: "index_submitted_answers_on_participant_id"
     t.index ["question_id"], name: "index_submitted_answers_on_question_id"
     t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
+  end
+
+  create_table "sweepstake_entries", force: :cascade do |t|
+    t.bigint "reward_id"
+    t.bigint "participant_id"
+    t.boolean "winner", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_sweepstake_entries_on_participant_id"
+    t.index ["reward_id"], name: "index_sweepstake_entries_on_reward_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -557,8 +568,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
   add_foreign_key "campaigns", "organizations"
-  add_foreign_key "challenge_participants", "challenges"
-  add_foreign_key "challenge_participants", "participants"
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
@@ -571,7 +580,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "challenges"
   add_foreign_key "reward_participants", "rewards"
-  add_foreign_key "reward_participants", "users"
   add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
@@ -579,5 +587,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
   add_foreign_key "submitted_answers", "participants"
   add_foreign_key "submitted_answers", "question_options"
   add_foreign_key "submitted_answers", "questions"
+  add_foreign_key "sweepstake_entries", "participants"
+  add_foreign_key "sweepstake_entries", "rewards"
   add_foreign_key "taggings", "tags"
 end

@@ -1,4 +1,4 @@
-<div class="modal" id="sign_in_modal">
+<div class="modal end-user-details-modal" id="sign_in_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -20,30 +20,32 @@
               email_button = display_email_button
             %>
 
-            <% if facebook_button %>
+            <% if facebook_button.present? %>
             <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
                class="btn box1_btn facebook_btn btn-block">
-              <span class="icon-btn-share fa fa-facebook"></span>
+              <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
               <span class="btn-share-text">Login With Facebook</span>
             </a>
             <div class="clear"></div>
             <% end %>
 
-            <% if google_button %>
+            <% if google_button.present? %>
             <a id="connect-bttn" href="<%= participant_google_oauth2_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
                class="btn box1_btn google_btn btn-block">
-              <span class="icon-btn-share fa fa-google"></span>
+              <span class="icon-btn-share fa fa-google connect-social-icon"></span>
               <span class="btn-share-text">Continue With Google</span>
             </a>
             <div class="clear"></div>
             <% end %>
 
-            <% if email_button %>
-              <button type="button" class="btn box1_btn email_btn btn-block" id="signin_with_email"><i class="fa fa-paper-plane" aria-hidden="true"></i> Login With Email</button>
+            <% if email_button.present? %>
+              <button type="button" class="btn box1_btn email_btn btn-block" id="signin_with_email">
+                <i class="fa fa-paper-plane connect-social-icon" aria-hidden="true"></i> Login With Email
+              </button>
             <% end %>
 
-            <% if facebook_button || google_button || email_button %>
-              <p class="box1_para">By continuing, I agree to the <span style="text-decoration: underline;">
+            <% if facebook_button.present? || google_button.present? || email_button.present? %>
+              <p class="box1_para terms-details">By continuing, I agree to the <span style="text-decoration: underline;">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">privacy policy</a></span>,
                 <span style="text-decoration: underline;">
                   <a href="javascript:void(0);" data-toggle="modal" data-target="#rulesModal">rules</a></span>
@@ -73,7 +75,7 @@
                 <div class="col-md-12">
                   <%= f.password_field :password, required: true, class: 'form-control', placeholder: 'Password' %>
                 </div>
-                <div class="col-12">
+                <div class="col-12" style="text-align: left;">
                   <%= f.check_box :remember_me %>
                   <%= f.label :remember_me %>
                 </div>
@@ -84,17 +86,15 @@
                   <%= link_to "Forgot password?", new_participant_password_path %>
                 </div>
               </div>
-
-
             <% end %>
           </div>
         </div>
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
+<!--      </div>-->
     </div>
   </div>
 </div>

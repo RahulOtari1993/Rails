@@ -53,10 +53,10 @@ class Challenge < ApplicationRecord
   ## Associations
   belongs_to :campaign
   has_many :challenge_filters, dependent: :destroy
-  has_many :challenge_participants, dependent: :destroy
-  has_many :participants, through: :challenge_participants
+  has_many :submissions, dependent: :destroy
+  has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
-  has_one :submission, dependent: :destroy
+  belongs_to :reward, optional: true
   # attr_accessor :status
 
   ## Constants
@@ -132,7 +132,8 @@ class Challenge < ApplicationRecord
   ## For Adding Status Column to Datatable JSO Response
   def as_json(*)
     super.tap do |hash|
-      hash["status"] = status
+      hash['status'] = status
+      hash['reward_name'] = self.reward_type == 'prize' ? self.reward.name : ''
     end
   end
 
@@ -233,5 +234,10 @@ class Challenge < ApplicationRecord
     end
 
     result
+  end
+
+  ## Fetch Total Earned Points By Users using a Challenge
+  def earned_points
+    ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id, campaign_id: self.campaign_id).sum(:points)
   end
 end

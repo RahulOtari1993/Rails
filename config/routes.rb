@@ -66,6 +66,10 @@ Rails.application.routes.draw do
             post '/reward_export', to: 'rewards#reward_export', as: :reward_export
             get '/coupon_form', to: 'rewards#coupon_form', as: :coupon_form
             post '/create_coupon', to: 'rewards#create_coupon', as: :create_coupon
+            member do
+              get :participant_selection_form, as: :participant_selection_form
+              post :participant_selection, as: :participant_selection
+            end
           end
 
           ## Challenge Routes
@@ -93,6 +97,14 @@ Rails.application.routes.draw do
               get '/auth/facebook/callback', to: 'networks#facebook_callback'
             end
           end
+
+          ## Participants Routes
+          resources :users, controller: "participants", only: [:index, :show] do
+            collection do
+              get '/fetch_participants', to: 'participants#fetch_participants'
+              get '/participants', to: 'participants#participants'
+            end
+          end
         end
         post '/delete_reward_filter/:id', to: 'rewards#delete_reward_filter', as: :delete_reward_filter
       end
@@ -100,10 +112,16 @@ Rails.application.routes.draw do
 
     # routes for end user participants challenge submission
     namespace :participants do
-      resources :challenges do
+      resources :challenges, only: [] do
         member do
           get :details
           post :submission
+        end
+      end
+      resources :rewards, only: [] do
+        member do
+          get :details
+          post :claim
         end
       end
     end

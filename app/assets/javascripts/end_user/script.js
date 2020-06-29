@@ -1,4 +1,7 @@
 $(document).on('turbolinks:load', function () {
+  // Fadeout Alert Message
+  $('.alert').fadeOut(3000);
+
   // Close Popup Modal
   $('.modal-close-btn').click(function () {
     $(this).parent().parent().modal('hide');
@@ -73,45 +76,34 @@ $(document).on('turbolinks:load', function () {
   }, 2000);
 
   if ($('#onboarding_questions_modal').length > 0 ) {
+    let datePickerIcons = {
+      time: 'fa fa-clock-o',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-check',
+      clear: 'fa fa-trash',
+      close: 'fa fa-times'
+    }
+
     // Date Picker for Onboarding Questions
-    $('.answer-date').pickadate({
-      format: 'mm/d/yyyy',
-      selectYears: true,
-      selectMonths: true
+    $('.answer-date').datetimepicker({
+      format: 'L',
+      icons:datePickerIcons
     });
 
     // Time Picker for Onboarding Questions
-    $('.answer-time').pickatime();
+    $('.answer-time').datetimepicker({
+      format: 'LT',
+      icons:datePickerIcons
+    });
 
     // Date Time Picker for Onboarding Questions
-    var datePicker = $('.date-answer-hidden-field').pickadate({
-      format: 'mm/d/yyyy',
-      selectYears: true,
-      selectMonths: true,
-      container: '.date-time-picker-output',
-      onSet: function (item) {
-        if ('select' in item) setTimeout(timePicker.open, 0)
-      }
-    }).pickadate('picker')
-
-    var timePicker = $('.time-answer-hidden-field').pickatime({
-      container: '.date-time-picker-output',
-      onRender: function () {
-        $('<button class="btn btn-primary">back to date</button>').on('click', function () {
-          timePicker.close()
-          datePicker.open()
-        }).prependTo(this.$root.find('.picker__box'))
-      },
-      onSet: function (item) {
-        if ('select' in item) setTimeout(function () {
-          $datetime.off('focus').val(datePicker.get() + ' ' + timePicker.get()).focus().on('focus', datePicker.open)
-        }, 0)
-      }
-    }).pickatime('picker')
-
-    var $datetime = $('.answer-date-time').on('focus', datePicker.open).on('click', function (event) {
-      event.stopPropagation();
-      datePicker.open()
+    $('.answer-date-time').datetimepicker({
+      format: 'MM/DD/YYYY hh:mm A',
+      icons:datePickerIcons
     });
   }
 
@@ -173,4 +165,48 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Custom Validation of Onboarding Questions - END
+
+  // Open Reward Claim Modal Popup
+  $('body').on('click', '.reward-claim-modal-btn', function (e) {
+    var rewardId = $(this).data('reward-id');
+    var challengeId = $(this).data('challenge-id');
+
+    if (challengeId == '' || challengeId == undefined) {
+      // open rewards modal popup
+      $.ajax({
+        type: 'GET',
+        url: `/participants/rewards/${rewardId}/details`
+      });
+    } else {
+      // open challenge submission modal popup
+      $.ajax({
+        type: 'GET',
+        url: `/participants/challenges/${challengeId}/details`,
+        data: {reward_id: rewardId}
+      });
+    }
+
+  });
+
+// claim Reward submission - start
+$('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
+  var rewardId = $(this).data('reward-id');
+  var _this = $(this);
+
+  $.ajax({
+    url: `/participants/rewards/${rewardId}/claim`,
+    type: 'POST',
+    dataType: 'JSON',
+    success: function (data) {
+      if (data.success) {
+        $('.reward-claim-container').show();     // Display Reward Completion Message
+        _this.hide();
+      } else {
+        swalNotify('Reward Claimed', data.message);
+      }
+    }
+  });
+});
+// claim Reward submission - end
+
 });

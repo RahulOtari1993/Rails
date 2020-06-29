@@ -1,17 +1,17 @@
 module EndUserHelper
   ## Display SignUp / SignIn with Google Button Based on Configured Challenge
   def display_google_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'google').first
   end
 
   ## Display SignUp / SignIn with Facebook Button Based on Configured Challenge
   def display_facebook_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'facebook').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'facebook').first
   end
 
   ## Display SignUp / SignIn with Email Button Based on Configured Challenge
   def display_email_button
-    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').present?
+    @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').first
   end
 
   ## Check whether Onboarding Challenge is Available & Active
@@ -22,11 +22,33 @@ module EndUserHelper
   ## Check whether Onboarding Challenge is Submitted Previously
   def check_onboarding_challege_submission challenge
     Submission.where(campaign_id: challenge.campaign_id, participant_id: current_participant.id,
-                                  challenge_id: challenge.id).present?
+                     challenge_id: challenge.id).present?
   end
 
   ## Add Required Class to Answer Fields
   def answer_required(str, is_required)
     is_required ? str + '-required' : ''
+  end
+
+  ## Fetch Placeholder Details
+  def fetch_placeholder_details(question, field_type)
+    if question.placeholder.present?
+      question.placeholder
+    else
+      case field_type
+        when 'text_area' then
+          'Add details here'
+        when 'date' then
+          'Select date'
+        when 'time' then
+          'Select time'
+        when 'date_time' then
+          'Select date and time'
+        when 'dropdown' then
+          'Select Answer'
+        else
+          'Answer here'
+      end
+    end
   end
 end

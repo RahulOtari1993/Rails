@@ -1,9 +1,9 @@
 
-#join_now_modal .modal-dialog, #sign_in_modal .modal-dialog {
+.end-user-details-modal .modal-dialog {
   max-width: 620px;
 }
 
-#join_now_modal .modal-header .close, #sign_in_modal .modal-header .close {
+.end-user-details-modal .modal-header .close {
   padding: 1rem;
   margin: -1rem -1rem -1rem auto;
   position: absolute;
@@ -15,7 +15,8 @@
 
 .modal_box {
   border: 2px solid #ccc;
-  padding: 20px 40px;
+  padding: 40px;
+  border-radius: 12px;
   border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
@@ -26,11 +27,13 @@
 }
 
 .modal_box h5 {
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 900;
   margin-bottom: 17px;
+  color: #202020;
 }
 
-.modal_box .fa {
+.modal_box .connect-social-icon {
   float: left;
   line-height: 24px;
 }
@@ -48,11 +51,12 @@
 }
 
 .box1_btn {
-  font-weight: 100;
+  font-weight: 900;
+  font-size: 15px;
   border-radius: 22px;
   padding: 7px 23px;
   margin-bottom: 17px;
-  background-color: #818a91;
+  background-color: #ff0000;
   color: #fff;
 }
 
@@ -68,7 +72,7 @@
 
 .email_btn {
   background-color: #fff !important;
-  border:2px solid #000 !important;
+  border: 2px solid #000 !important;
   color: #000 !important;
 }
 
@@ -78,19 +82,78 @@ span.error {
   font-size: 13px;
 }
 
-.wrap-date-time {
+.custom-error-class {
+  margin-top: -10px;
+}
+
+.box2 .form-control, .box3 .form-control {
+  font-size: 16px;
+  min-height: 47px;
+  padding: 6px 16px;
+  border: 1px solid #818a91;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 100;
+  color: #707070;
+}
+
+.box2 .form-control:focus, .box3 .form-control:focus {
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
+  outline: 0;
+  border-color: #3d3d3d;
+}
+
+.error {
+  color: #EA5455 !important;
+  font-size: 0.875rem !important;
+}
+
+.terms-details {
+  color: #707070;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.red-color-span {
+  color: #ff0000;
+}
+
+.box3 {
+  text-align: left;
+}
+
+.Zipcode_text {
+  font-size: 12px;
+  font-weight: 100;
+  margin-bottom: 0px;
+  margin-top: -8px;
+}
+
+.box3 label {
+  display: inline-block;
+  margin-bottom: .7rem;
+  color: #707070;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.box3 .checkbox-inline {
+  color: inherit;
+  font-weight: 100;
+  padding-right: 10px;
+}
+
+.extended-form-group {
   position: relative;
 }
 
-.hidden-date-time-field {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+.additional-details {
+  color: #707070;
+  font-size: 12px;
+  margin-left: 5px !important;
 }
 
-.custom-error-class {
-  margin-top: -10px;
+.bottom-margin {
+  margin-bottom: 5px !important;
 }

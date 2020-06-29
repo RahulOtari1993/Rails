@@ -39,17 +39,22 @@ class Submission < ApplicationRecord
 
     if participant.present? && challenge.present?
       ## Points Calculations
-      challenge_points = challenge.reward_type == 'points' ? challenge.points.to_i : 0
-      points = participant.points + challenge_points
-      unused_points = participant.unused_points + challenge_points
+      if challenge.reward_type == 'points'
+        challenge_points = challenge.points.to_i
+      elsif challenge.reward_type == 'prize'
+        reward = Reward.find(challenge.reward_id)
+        challenge_points = reward.points.to_i
+      end
+      points = participant.points.to_i + challenge_points
+      unused_points = participant.unused_points.to_i + challenge_points
 
       ## Submitted Challenges Counter Changes
-      completed_challenges = participant.completed_challenges + 1
+      completed_challenges = participant.completed_challenges.to_i + 1
 
       participant.points = points
       participant.unused_points = unused_points
       participant.completed_challenges = completed_challenges
-      participant.save(:validate => false)
+      participant.save(validate: false)
     end
   end
 

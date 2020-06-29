@@ -21,16 +21,22 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
+        },
+        {
+            attribute_name: 'age',
+            display_name: 'Age',
+            field_type: 'number',
+            is_active: true,
+            is_custom: false,
+            campaign_id: Campaign.first.id
         },
         {
             attribute_name: 'gender',
             display_name: 'Gender',
-            field_type: 'radio_button',
+            field_type: 'dropdown',
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'phone',
@@ -39,7 +45,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'city',
@@ -48,7 +53,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'state',
@@ -57,7 +61,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'postal',
@@ -66,7 +69,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'address_1',
@@ -75,7 +77,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'address_2',
@@ -84,7 +85,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'bio',
@@ -93,7 +93,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: false,
             campaign_id: @campaign_id
-
         },
         {
             attribute_name: 'affiliation',
@@ -102,7 +101,6 @@ class ProfileAttributeService
             is_active: true,
             is_custom: true,
             campaign_id: @campaign_id
-
         }
     ]
   end

@@ -12,113 +12,142 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 
 .challenge_section .modal .modal-header .modal-title {
-    text-transform: uppercase !important;
-    color: #FFFFFF;
-}
-.challenge_section .modal-title span{
-	color: #ccc;
+  text-transform: uppercase !important;
+  color: #FFFFFF;
 }
 
-.challenge_img{
-	width: 100%;
-	height: 220px;
-	background: #ccc;
-	border-radius: 8px;
+.challenge_section .modal-title span {
+  color: #ccc;
 }
+
+.challenge_img {
+  width: 100%;
+  height: 220px;
+  background: #ccc;
+  border-radius: 8px;
+}
+
 .challenge_section .fa-facebook, .challenge_section .fa-twitter {
-    width: 25px;
-    height: 25px;
-    background: #3b5998;
-    border-radius: 50%;
-    line-height: 25px;
-    text-align: center;
-    margin-left: 8px;
+  width: 25px;
+  height: 25px;
+  background: #3b5998;
+  border-radius: 50%;
+  line-height: 25px;
+  text-align: center;
+  margin-left: 8px;
 }
-.challenge_section .modal-content{
-    max-height: calc(100vh - 3.5rem) !important;
+
+.challenge_section .modal-content {
+  max-height: calc(100vh - 3.5rem) !important;
 }
-.challenge_section .modal-body h4{
-    margin-bottom: 12px;
+
+.challenge_section .modal-body h4 {
+  margin-bottom: 12px;
 }
-.challenge_section .modal-body h6{
-    margin-bottom: 3px;
+
+.challenge_section .modal-body h6 {
+  margin-bottom: 3px;
 }
+
 .challenge_section .fa-facebook {
-    background: #3b5998;
+  background: #3b5998;
 }
+
 .challenge_section .fa-twitter {
-    background: #00acee;
+  background: #00acee;
 }
-.challenge_section .chip .chip-body .chip-closeable{
-    margin-left: -2px;
+
+.challenge_section .chip .chip-body .chip-closeable {
+  margin-left: -2px;
 }
+
 .challenge_section .chip .chip-body .chip-closeable i {
-    margin-left: 1px;
-    margin-top: 0px !important;
+  margin-left: 1px;
+  margin-top: 0px !important;
 }
-.challenge_section .active_time{
-    margin: 15px 0px;
+
+.challenge_section .active_time {
+  margin: 15px 0px;
 }
-.challenge_section .tag_box{
-    margin: 15px 0px;
+
+.challenge_section .tag_box {
+  margin: 15px 0px;
 }
-.gradient_btn_box{
-    margin: 20px 0px 0px;
+
+.gradient_btn_box {
+  margin: 20px 0px 0px;
 }
+
 .gradient_btn_box .form-group {
-    margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
 }
-.gradient_btn_box .btn{
-    padding: 0.5rem 1rem;
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    min-height: 60px;
+
+.gradient_btn_box .btn {
+  padding: 0.5rem 1rem;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  min-height: 60px;
 }
-.gradient_btn_box p{
-    margin-bottom: 0px;
-    font-size: 1rem;
-    letter-spacing: normal;
-    font-weight: 400;
+
+.gradient_btn_box p {
+  margin-bottom: 0px;
+  font-size: 1rem;
+  letter-spacing: normal;
+  font-weight: 400;
 }
-.challenge_section .reward_btn{
-    font-weight: 700;
-    letter-spacing: 0.5px;
+
+.challenge_section .reward_btn {
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
-.gradient_btn_box h6{
-    margin-top: 6px;
+
+.gradient_btn_box h6 {
+  margin-top: 6px;
 }
-.challenge_section .modal_tab{
-    padding: 1rem;
-    width: 100%;
+
+.challenge_section .modal_tab {
+  padding: 1rem;
+  width: 100%;
 }
-.challenge_section .modal-body .nav.nav-tabs{
-    background-color: #7367F0;
-    margin-bottom: 0px;
-    overflow: hidden;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+
+.challenge_section .modal-body .nav.nav-tabs {
+  background-color: #7367F0;
+  margin-bottom: 0px;
+  overflow: hidden;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.data-list-view-header .table-responsive .top, .data-thumb-view-header .table-responsive .top {
+  padding: 0 !important;
+  margin-top: -14px;
 }
 .challenge_section .modal-body .nav-item .nav-link.active, .challenge_section .modal-body .nav-item .nav-link:hover {
-    color: #fff !important;
+  color: #fff !important;
 }
-.challenge_section .modal-body .nav-item .nav-link, .challenge_section .modal-body .nav-item .nav-link.active{
-    background-color: transparent !important;
+
+.challenge_section .modal-body .nav-item .nav-link, .challenge_section .modal-body .nav-item .nav-link.active {
+  background-color: transparent !important;
 }
-.challenge_section .modal-body .nav.nav-tabs .nav-item .nav-link.active:after{
-    top: 0% !important;
-    background: #6c39ae !important;
-    height: 3px !important;
+
+.challenge_section .modal-body .nav.nav-tabs .nav-item .nav-link.active:after {
+  top: 0% !important;
+  background: #6c39ae !important;
+  height: 3px !important;
 }
+
 .challenge_section .modal-body .tab-content .tab-pane {
-    background-color: #8b81f7 !important;
-    padding: 12px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+  background-color: #8b81f7 !important;
+  padding: 12px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
-.challenge_section .modal-body .tab-content .tab-pane p{
-    color: #fff !important;
+
+.challenge_section .modal-body .tab-content .tab-pane p {
+  color: #fff !important;
 }
+
 /*.tag1{
     background-color: #7054d6 !important;
 }
@@ -132,61 +161,74 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     background-color: #7054d6!important;
 }*/
 .challenge_section .add_tag {
-    background-color: #7367f0;
-    display: inline-grid;
-    padding: 5px;
-    border-radius: 50%;
+  background-color: #7367f0;
+  display: inline-grid;
+  padding: 5px;
+  border-radius: 50%;
 }
-.challenge_section .add_tag_btngroup{
-    margin-top: 5px;
+
+.challenge_section .add_tag_btngroup {
+  margin-top: 5px;
 }
-.challenge_section .add_tag_btngroup input{
-    line-height: 15px;
+
+.challenge_section .add_tag_btngroup input {
+  line-height: 15px;
 }
-.challenge_section .add_tag_btngroup .btn{
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
+
+.challenge_section .add_tag_btngroup .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  font-weight: 500;
 }
-.fa_active{
-    background: none;
-    color: #28c76e;
+
+.fa_active {
+  background: none;
+  color: #28c76e;
 }
-.fa_ended{
-    background: none;
-    color: #EA5455;
+
+.fa_ended {
+  background: none;
+  color: #EA5455;
 }
-.fa_draft{
-    background: none;
-    color: #ff9f44;
+
+.fa_draft {
+  background: none;
+  color: #ff9f44;
 }
-.fa_scheduled{
-    background: none;
-    color: #28c76e;
+
+.fa_scheduled {
+  background: none;
+  color: #28c76e;
 }
-.fa_circle_lg{
-    font-size: 14px;
+
+.fa_circle_lg {
+  font-size: 14px;
 }
-.fa_circle_sm{
-    font-size: 10px;
+
+.fa_circle_sm {
+  font-size: 10px;
 }
 
 .more_action_bg {
-    background-color: #4c499c !important;
+  background-color: #4c499c !important;
 }
+
 .more_action_bg .feather {
-    margin-right: 3px;
+  margin-right: 3px;
 }
-.more_action_bg .dropdown-item{
-    color: #eee !important;
+
+.more_action_bg .dropdown-item {
+  color: #eee !important;
 }
+
 .more_action_bg .dropdown-item:hover, .more_action_bg .dropdown-item:focus {
-    background: transparent !important;
-    color: #C2C6DC !important;
+  background: transparent !important;
+  color: #C2C6DC !important;
 }
+
 .product-action .dropdown-toggle::after {
-    content: "" !important;
-    width: 0px;
+  content: "" !important;
+  width: 0px;
 }
 
 /*
@@ -211,87 +253,104 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     color: #C2C6DC !important;
 }*/
 
-.data_list_100{
-    width: 100%;
-    position: relative;
-}
-.data_list_20{
-    width: 20%; 
-    max-width: 175px;   
-    float: left;
-    margin-right: 2%;
-    padding: 12px;
-    background-color: #212744;
-}
-.data_list_80{
-    width: 78%;
-    float: left;
-}
-.filter_title{
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-.filter_title span{
-    float: right;
-    font-size: 1rem;
-    color: #28C76F !important;
-    line-height: 23px !important;
+.data_list_100 {
+  width: 100%;
+  position: relative;
 }
 
-@media only screen and (min-width: 992px){
-.modal-width{
+.data_list_20 {
+  width: 17%;
+  /*max-width: 175px;   */
+  float: left;
+  margin-right: 2%;
+  padding: 12px;
+  background-color: #212744;
+}
+
+.data_list_80 {
+  width: 81%;
+  float: left;
+}
+
+.filter_title {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+
+.filter_title span {
+  float: right;
+  font-size: 1rem;
+  color: #28C76F !important;
+  line-height: 23px !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .modal-width {
     max-width: 700px;
-}
+  }
 }
 
-@media only screen and (max-width: 1024px){
-.data_list_20{
-    width: 25%;  
-    max-width: 175px;  
+@media only screen and (max-width: 1024px) {
+  .data_list_20 {
+    width: 25%;
+    /*max-width: 175px;  */
     float: left;
     margin-right: 2%;
     padding: 12px;
     background-color: #212744;
-}
-.data_list_80{
+  }
+
+  .data_list_80 {
     width: 73%;
     float: left;
+  }
 }
+
+@media only screen and (max-width: 1600px) {
+  .data_list_20 {
+    width: 20%;
+    margin-right: 2%;
+  }
+
+  .data_list_80 {
+    width: 78%;
+  }
 }
 
 
-.border_design .card{
-    background-color: #272d48 !important;
-    border: 3px solid #10163A;
-    position: relative;
-    margin-bottom: 3rem;
+.border_design .card {
+  background-color: #272d48 !important;
+  border: 3px solid #10163A;
+  position: relative;
+  margin-bottom: 3rem;
 }
-.border_design .card-header{
-    color: #C2C6DC;
-    background-color: #272d48 !important;
+
+.border_design .card-header {
+  color: #C2C6DC;
+  background-color: #272d48 !important;
 }
 
 .border_design input.form-control, .border_design .custom-file-label, .border_design textarea.form-control {
-    /*background-color: #0f163a !important;*/
-    background-color: #171e42 !important;
-    color: #C2C6DC;
+  /*background-color: #0f163a !important;*/
+  background-color: #171e42 !important;
+  color: #C2C6DC;
 }
 
 .border_design .card-title {
-    position: absolute;
-    top: -13px;
-    background: #272e47;
-    padding: 0px 10px;
+  position: absolute;
+  top: -13px;
+  background: #272e47;
+  padding: 0px 10px;
 }
 
 .border_design .select2-container .select2-selection {
-    background: #171e42 !important;
+  background: #171e42 !important;
 }
+
 .border_design .select2-container .select2-dropdown {
-    background-color: #171e42 !important;
-}
-.border_design .form_title{
-    margin-bottom: 8px;
+  background-color: #171e42 !important;
 }
 
-
+.border_design .form_title {
+  margin-bottom: 8px;
+}

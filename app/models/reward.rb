@@ -34,6 +34,10 @@
 #  image_height        :integer
 #  filter_type         :integer          default("all_filters")
 #  filter_applied      :boolean          default(FALSE)
+#  rule_type           :integer          default("all_rules")
+#  rule_applied        :boolean          default(FALSE)
+#  claims              :integer          default(0)
+#  date_range          :boolean          default(FALSE)
 #
 class Reward < ApplicationRecord
 
@@ -41,17 +45,21 @@ class Reward < ApplicationRecord
   belongs_to :campaign
   has_many :coupons
   has_many :reward_filters, inverse_of: :reward
+
   has_many :reward_participants, dependent: :destroy
-  has_many :users, through: :reward_participants
+  # has_many :users, through: :reward_participants
+  has_many :participants, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
   has_many :reward_rules, :dependent => :delete_all
   has_one_attached :image
   # has_one_attached :image_actual
   # has_one_attached :photo_image
   # has_one_attached :thumb_image
+  has_many :sweepstake_entries, dependent: :destroy
 
   ## ENUM
   enum filter_type: {all_filters: 0, any_filter: 1}
+  enum rule_type: {all_rules: 0, any_rule: 1}, _prefix: :rule
   serialize :image
 
   accepts_nested_attributes_for :reward_filters, allow_destroy: true, :reject_if => :all_blank
@@ -64,7 +72,7 @@ class Reward < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   ## Constants
-  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone_reward]
+  SELECTIONS = %w[manual redeem instant threshold selection sweepstake milestone]
   FULFILMENTS = %w[default badge points download]
 
   ## Scopes
@@ -77,6 +85,7 @@ class Reward < ApplicationRecord
   # validates :fulfilment, presence: true, inclusion: FULFILMENTS
   validates :description, presence: true
   validates :image, presence: true
+  # validates :sweepstake_entry, presence: true, if: :check_reward_type?
 
   # Scopes
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
@@ -165,5 +174,34 @@ class Reward < ApplicationRecord
     end
 
     result
+  end
+
+  ## Check if Participant is Eligible for Reward
+  def eligible? participant
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Rules
+    self.reward_rules.each do |rule|
+      result_array.push(rule.eligible? participant)
+    end
+
+    ## Check If We need to Include ALL/ANY Rules
+    if self.rule_type == 'all_rules'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
+
+  ## create sweepstake entries and choose a sweepstake reward winner
+  def choose_sweepstake_winner
+    if (self.sweepstake_entry.to_i > 0) && (self.limit.to_i > 0)
+      reward_service = SweepstakeRewardWinnerService.new(self.id)
+      reward_service.process
+    end
   end
 end

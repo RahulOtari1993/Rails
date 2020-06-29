@@ -16,32 +16,37 @@
       <% if @is_admin %>
         <li class="nav-item <%= is_active_menu(['dashboard']) %>">
           <a href="<%= admin_campaign_dashboard_path(campaign_id: @campaign.id) %>">
-            <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span>
+            <i class="feather icon-home"></i><span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item <%= is_active_menu(['participants']) %>">
+          <a href="<%= admin_campaign_users_path(@campaign) %>">
+            <i class="feather icon-users"></i><span class="menu-title">Users</span>
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['rewards']) %>">
           <a href="<%= admin_campaign_rewards_path(@campaign) %>">
-            <i class="feather icon-award"></i><span class="menu-title" data-i18n="Users">Rewards</span>
+            <i class="feather icon-award"></i><span class="menu-title">Rewards</span>
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['challenges']) %>">
           <a href="<%= admin_campaign_challenges_path(@campaign) %>">
-            <i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Users">Challenges</span>
+            <i class="feather icon-briefcase"></i><span class="menu-title">Challenges</span>
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['campaigns']) %>">
           <a href="<%= edit_admin_campaign_path(@campaign) %>">
-            <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Users">Settings</span>
+            <i class="feather icon-settings"></i><span class="menu-title">Settings</span>
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['campaign_configs']) %>">
           <a href="<%= edit_admin_campaign_config_path(@campaign, @config) %>">
-            <i class="feather icon-settings"></i><span class="menu-title" data-i18n="Configurations">Configurations</span>
+            <i class="feather icon-settings"></i><span class="menu-title">Configurations</span>
           </a>
         </li>
          <li class="nav-item <%= is_active_menu(['template']) %>">
           <a href="<%= edit_admin_campaign_template_path(@campaign, @template) %>">
-            <i class="feather icon-film"></i><span class="menu-title" data-i18n="Template">Template</span>
+            <i class="feather icon-film"></i><span class="menu-title">Template</span>
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['profile_attributes']) %>">

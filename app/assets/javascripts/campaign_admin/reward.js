@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   //reward selection dropdown onchange
   $('#reward_selection').on('change', function () {
     if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
@@ -39,6 +39,17 @@ $(document).ready(function () {
       type: 'GET',
       data: {authenticity_token: $('[name="csrf-token"]')[0].content},
       url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId + "/coupon_form"
+    });
+  });
+
+  // Participant selection popup for manual reward
+  $('#reward-list-table').on('click', '.participant-selection-btn', function () {
+    var rewardId = $(this).attr('reward_id')
+    var campaignId = $(this).attr('campaign_id')
+    $.ajax({
+      type: 'GET',
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId + "/participant_selection_form"
     });
   });
 
@@ -374,37 +385,45 @@ $(document).ready(function () {
       {
         title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
         render: function (data, type, row) {
-          // Action items
-          return "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
-              "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
-              + "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
-              + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-              "<i class='feather icon-download'></i></button>" +
-              "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-              + "'>Coupons</button>"
+          // Action items start
+            action_html = ""
+
+            // edit reward
+            action_html += "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+                "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
+                "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
+
+            // Download csv
+            action_html += "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
+                + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
+                "<i class='feather icon-download'></i></button>"
+
+            // Coupon creation
+            action_html += "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
+                + "'>Coupons</button>"
+
+            // manual reward participant selection
+            if (data.selection == "manual") {
+              action_html += "<button class='btn btn-action btn-primary participant-selection-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
+              + "'>Selection</button>"
+            }
+          // Action items end
+          return action_html;
         }
       },
     ],
-    columnDefs: [
-      {
-        orderable: true,
-        targets: 0
-      }
-    ],
-    dom:
-        '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
     },
-    aLengthMenu: [[10, 15, 20], [10, 15, 20]],
+    aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
     order: [[1, "asc"]],
     bInfo: false,
     pageLength: 10,
-    select: {
-      style: "multi"
-    },
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Reward",
@@ -430,9 +449,6 @@ $(document).ready(function () {
   //front-end validations
   $('.reward-form').validate({
     errorElement: 'span',
-    // onfocusout: function (element) {
-    //   return false;
-    // },
     ignore: function (index, el) {
       var $el = $(el);
 
@@ -448,7 +464,8 @@ $(document).ready(function () {
         required: true
       },
       'reward[description]': {
-        required: true
+        required: true,
+        maxlength: 300
       },
       'reward[image]': {
         required: true,
@@ -458,12 +475,19 @@ $(document).ready(function () {
         digits: true
       },
       'reward[limit]': {
+        required: true,
         digits: true
       },
       'reward[start]': {
         required: true
       },
       'reward[finish]': {
+        required: true
+      },
+      'reward[msrp_value]': {
+        number: true
+      },
+      'reward[selection]': {
         required: true
       }
     },
@@ -472,14 +496,18 @@ $(document).ready(function () {
         required: 'Please enter reward name'
       },
       'reward[description]': {
-        required: 'Please enter reward description'
+        required: 'Please enter reward description',
+        maxlength: 'Maximum 300 characters allowed'
       },
       'reward[image]': {
         required: 'Please select reward photo',
         extension: 'Please select reward photo with valid extension'
       },
       'reward[points]': {
-        required: 'Please enter points',
+        digits: 'Please enter only digits'
+      },
+      'reward[limit]': {
+        required: 'Please enter reward available',
         digits: 'Please enter only digits'
       },
       'reward[start]': {
@@ -488,6 +516,12 @@ $(document).ready(function () {
       'reward[finish]': {
         required: 'Please enter end time'
       },
+      'reward[msrp_value]': {
+        number: 'Please enter numeric value only'
+      },
+      'reward[selection]': {
+        required: 'Please select reward selection type'
+      }
     },
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
@@ -674,16 +708,29 @@ $(document).ready(function () {
   //   }
   // }, 2000);
 
-  // Add Tag Addition UI from Challenge Popup
+  // Reward User Segment Show/Hide Content
   $('body').on('click', '#reward_filter_applied', function (e) {
     if ($('#reward_filter_applied').is(":checked")) {
       $('.filters-container').show();
+      $('.reward-segments-container input').prop('disabled', false);
+      $('.reward-segments-container select').prop('disabled', false);
+    } else {
+      $('.reward-segments-container input').prop('disabled', true);
+      $('.reward-segments-container select').prop('disabled', true);
+      $('.filters-container').hide();
+    }
+  });
+
+  // Reward Rules Segment Show/Hide Content
+  $('body').on('click', '#reward_rule_applied', function (e) {
+    if ($('#reward_rule_applied').is(":checked")) {
+      $('.rule-filters-container').show();
       $('.reward-rule-segments-container input').prop('disabled', false);
       $('.reward-rule-segments-container select').prop('disabled', false);
     } else {
       $('.reward-rule-segments-container input').prop('disabled', true);
       $('.reward-rule-segments-container select').prop('disabled', true);
-      $('.filters-container').hide();
+      $('.rule-filters-container').hide();
     }
   });
 
@@ -756,6 +803,7 @@ $(document).ready(function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#reward-filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.reward-tags-filter :selected').text(), $('.reward-tags-filter :selected').val());

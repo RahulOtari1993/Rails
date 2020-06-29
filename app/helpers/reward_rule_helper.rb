@@ -55,8 +55,8 @@
     end
   end
 
-  ## Show Hide User Segment
+  ## Show Hide Reward Rule Segment
   def rule_display_user_segments
-    @reward.filter_applied ? 'block' : 'none'
+    @reward.rule_applied ? 'block' : 'none'
   end
 end

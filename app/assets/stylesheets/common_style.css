@@ -15,6 +15,10 @@ table.data-list-view.dataTable thead th:first-child {
   padding-left: 25px !important;
 }
 
+table.data-thumb-view.dataTable thead th:first-child {
+  padding-left: 38px !important;
+}
+
 .user-action-btn {
   min-width: 130px;
 }
@@ -38,6 +42,7 @@ table.data-list-view.dataTable thead th:first-child {
 .table_image_thumb_size {
   width: 100px;
   height: 100px;
+  border-radius: 10px;
 }
 
 .loader {

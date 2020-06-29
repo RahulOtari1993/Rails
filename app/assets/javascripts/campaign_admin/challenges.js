@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function () {
 
   var form = $(".challenge-wizard");
 
-  $('.challenge-wizard').steps({
+  var stepsWizard = $('.challenge-wizard').steps({
     headerTag: "h6",
     bodyTag: "fieldset",
     transitionEffect: "fade",
@@ -33,8 +33,20 @@ $(document).on('turbolinks:load', function () {
     labels: {
       finish: 'Submit'
     },
+    onInit: function (event, currentIndex) {
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        $('.challenge-wizard').steps("next");
+      }
+    },
     onStepChanging: function (event, currentIndex, newIndex) {
       // Allways allow previous action even if the current form is not valid!
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        // While Editing a Challenge Stop User to Jump on Step 1
+        if (currentIndex == 1 && newIndex == 0) {
+          return false;
+        }
+      }
+
       if (currentIndex > newIndex) {
         return true;
       }
@@ -900,6 +912,19 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+  // Make First Letter of a string in Capitalize format
+  function rewardDisplay(details) {
+    if (details.reward_type == 'points') {
+      return details.points + 'pts';
+    } else {
+      var prizeName = details.reward_name;
+      if (prizeName.length > 10) {
+        prizeName = $.trim(prizeName).substring(0, 10).trim(prizeName) + "...";
+      }
+      return 'Prize<br>' + prizeName;
+    }
+  }
+
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
     processing: true,
@@ -940,37 +965,48 @@ $(document).on('turbolinks:load', function () {
         title: 'Name', data: null,
         searchable: true,
         render: function (data, type, row) {
-          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + data.name + '</span>'
+          var cName = data.name
+          if (cName.length > 23) {
+            cName = $.trim(cName).substring(0, 23).trim(cName) + "...";
+          }
+          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + cName + '</span><br>' +
+              textCapitalize(data.category)
         }
       },
       {
         class: 'product-name',
-        title: 'Social Network',
+        title: 'Reward',
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.parameters)
+          return rewardDisplay(data)
         }
       },
       {
         class: 'product-name',
-        title: 'Type',
+        title: 'Completions',
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.challenge_type)
+          return data.completions
         }
       },
       {
-        title: 'Start Date', data: null, searchable: false,
+        title: 'Clicks', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.start)
+          return '- - -'
         }
       },
       {
-        title: 'End date', data: null, searchable: false,
+        title: 'Dates Active', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.finish)
+          return formatDate(data.start) + ' -<br>' + formatDate(data.finish)
+        }
+      },
+      {
+        title: 'Created', data: null, searchable: false,
+        render: function (data, type, row) {
+          return formatDate(data.created_at)
         }
       },
       {
@@ -1008,6 +1044,9 @@ $(document).on('turbolinks:load', function () {
     // oLanguage: {
     //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
     // },
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [0]}
+    ],
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add Challenge",
@@ -1469,6 +1508,7 @@ $(document).on('turbolinks:load', function () {
     placeholder: "Select Tag",
     tags: true,
     dropdownAutoWidth: true,
+    width: '100%'
   }).on("select2:select", function (e) {
     let tagTemplate = $('#filter-tag-template').html();
     tagHtml = replaceTagFields(tagTemplate, $('.challenge-tags-filter :selected').text(), $('.challenge-tags-filter :selected').val());
