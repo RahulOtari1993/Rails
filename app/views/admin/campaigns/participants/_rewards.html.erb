@@ -1,18 +1,28 @@
 <div class="tab-pane" id="Rewards" aria-labelledby="Users-tab" role="tabpanel">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Reward</th>
-        <th scope="col">Date earned</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @participant.reward_participants.each do |reward_participant| %>
-        <tr>
-          <td><%= reward_participant.reward.name %></td>
-          <td><span><%= reward_participant.reward.created_at.strftime("%m/%d/%Y") %></span> <span><%= reward_participant.reward.created_at.strftime("%H:%M %p") %></span></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <section id="data-list-view" class="data-list-view-header">
+    <div class="table-responsive">
+      <table class="table reward-list-view">
+        <thead>
+          <tr class="activity-reward-header">
+            <th scope="col">Reward</th>
+            <th scope="col">Date earned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @participant.reward_participants.each do |reward_participant| %>
+            <tr>
+              <td><%= reward_participant.reward.name %></td>
+              <td><span><%= reward_participant.reward.created_at.strftime("%m/%d/%Y") %></span> <span><%= reward_participant.reward.created_at.strftime("%H:%M %p") %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </div>
+<script type="text/javascript">
+  $(".reward-list-view").DataTable({
+    "searching": false,
+    "lengthChange": false
+  });
+</script>

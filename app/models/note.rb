@@ -18,5 +18,4 @@ class Note < ApplicationRecord
 
   # Validations
   validates :description, presence: { message: "cannot be blank." }
-  validates :description, uniqueness: { scope: :campaign_id }
 end

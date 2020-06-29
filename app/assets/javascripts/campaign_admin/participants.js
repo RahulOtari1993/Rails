@@ -355,16 +355,24 @@ $(document).on('turbolinks:load', function () {
     var campaignId = $('.participant-name-container').data('campaign-id');
     var participantId = $('.participant-name-container').data('participant-id');
     var description = $('#participant_note_description_input').val();
-
-    $.ajax({
-      url: `/admin/campaigns/${campaignId}/users/${participantId}/add_note`,
-      type: 'POST',
-      dataType: 'script',
-      data: {
-        description: description,
-        authenticity_token: $('[name="csrf-token"]')[0].content,
-      }
-    });
+    var errors = 0;
+    var description_text = description.trim();
+    if (description_text !== '' && description_text !== undefined) {
+      $('#note-error').hide();
+      $.ajax({
+        url: `/admin/campaigns/${campaignId}/users/${participantId}/add_note`,
+        type: 'POST',
+        dataType: 'script',
+        data: {
+          description: description,
+          authenticity_token: $('[name="csrf-token"]')[0].content,
+        }
+      });
+    } else {
+      errors += 1 ;
+      message = "Please enter the note."
+      $('#note-error').text(message).show();
+      $("#note-error").css("cssText", "color: red !important;");
+    }
   });
-
 });
