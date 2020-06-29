@@ -238,15 +238,8 @@ class Challenge < ApplicationRecord
     ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id, campaign_id: self.campaign_id).sum(:points)
   end
 
-  ## Returns the Targeted Users
+  ## Returns the Targeted Participants
   def targeted_participants
-    participants = self.campaign.participants
-
-    participants
-  end
-
-  ## Returns the Targeted Users Counts
-  def targeted_participants_count
-    targeted_participants.count
+    self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
   end
 end

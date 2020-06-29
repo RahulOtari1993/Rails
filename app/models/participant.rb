@@ -362,6 +362,28 @@ class Participant < ApplicationRecord
 
     return participants
   end
+
+  ## Check if Participant is Eligible for Challenge
+  def eligible?(challenge)
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Challenge User Segments
+    challenge.challenge_filters.each do |filter|
+      result_array.push(filter.available? self)
+    end
+
+    ## Check If We need to Include ALL/ANY User Segments
+    if challenge.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
+
   private
 
   ## Generate Uniq Participant ID
