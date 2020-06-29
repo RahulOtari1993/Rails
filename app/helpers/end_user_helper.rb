@@ -56,10 +56,18 @@ module EndUserHelper
     if @template.header_text.present?
       @template.header_text
     else
-      'The Offical Loyalty Program of Buckeye Nation'
+      'The Official Loyalty Program of Buckeye Nation'
     end
   end
 
+
+  def list_header_details
+    if @template.header_description.present?
+      @template.header_description
+    else
+      'Take your Buckeye Pride to the next level with Buckeye Nation Rewards. The only way to get insider access and perks for your pride.'
+    end
+  end
 
   def list_header_bg_logo
     if @template.header_logo.present? && @template.header_logo.url.present?
