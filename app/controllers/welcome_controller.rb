@@ -10,7 +10,7 @@ class WelcomeController < ApplicationController
       redirect_to admin_organizations_campaigns_path
     else
       if current_participant.present?
-        @challenges = @campaign.challenges.current_active.where.not(challenge_type: 'signup') #.select {|x| x.available? }
+        @challenges = @campaign.challenges.current_active.where.not(challenge_type: 'signup').select {|x| x.available? }
         @rewards = @campaign.rewards.current_active.select {|x| x.available? }
       else
         @challenges = @campaign.challenges.featured.current_active.where.not(challenge_type: 'signup')
