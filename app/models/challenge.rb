@@ -240,7 +240,9 @@ class Challenge < ApplicationRecord
 
   ## Returns the Targeted Users
   def targeted_participants
-    Campaign.first.participants
+    participants = self.campaign.participants
+
+    participants
   end
 
   ## Returns the Targeted Users Counts
