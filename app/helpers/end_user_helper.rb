@@ -70,12 +70,21 @@ module EndUserHelper
     end
   end
 
-  ## Fetch Header Hero Image Background Logo Based on Template Configuration
-  def list_header_bg_logo
+  ## Fetch Header Hero Image Background Based on Template Configuration
+  def list_header_bg_image
+    if @template.header_background_image.present? && @template.header_background_image.url.present?
+      @template.header_background_image.url
+    else
+      asset_path 'end-user/banner_bg.png'
+    end
+  end
+
+  ## Fetch Header Logo Image Based on Template Configuration
+  def list_header_logo
     if @template.header_logo.present? && @template.header_logo.url.present?
       @template.header_logo.url
     else
-      asset_path 'end-user/banner_bg.png'
+      asset_path 'end-user/BNR-Logo-Horizontal-Color-Black.svg'
     end
   end
 end

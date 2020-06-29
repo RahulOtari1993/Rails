@@ -5,7 +5,7 @@
 <% end %>
 <% @template = @campaign.campaign_template_detail %>
 
-<section class="hero_section" style="background-image: <%= list_header_bg_logo %>">
+<section class="hero_section" style="background-image: url('<%= list_header_bg_image %>')">
   <div class="container">
     <div class="row">
       <div class="col-lg-6 left">
@@ -175,7 +175,6 @@
 <style media="screen">
   .hero_section {
     padding: 100px 0px 100px;
-    background-image: url('<%= asset_path 'end-user/banner_bg.png' %>');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
