@@ -106,8 +106,8 @@
     var reader = new FileReader();
     reader.onloadend = function () {
       var iFrame = $('iframe').contents();
-      iFrame.find("#bg-cover-image")
-          .append($("<style type='text/css'>  .cover-container{background-image:url(" + reader.result + ") !important;}  </style>"));
+      iFrame.find(".hero_section")
+          .append($("<style type='text/css'> .hero_section{background-image:url(" + reader.result + ") !important;}  </style>"));
     }
     if (file) {
       reader.readAsDataURL(file);
@@ -120,7 +120,7 @@
     var reader = new FileReader();
     reader.onloadend = function () {
       var iFrame = $('iframe').contents();
-      iFrame.find(".header-logo").attr('src', reader.result);
+      iFrame.find(".logo_image").attr('src', reader.result);
       // .append($("<style type='text/css'>  .cover-container{background-image:url("+ reader.result +") !important;}  </style>"));
     }
     if (file) {

@@ -52,6 +52,7 @@ module EndUserHelper
     end
   end
 
+  ## Fetch Header Text Based on Template Configuration
   def list_header_text
     if @template.header_text.present?
       @template.header_text
@@ -60,7 +61,7 @@ module EndUserHelper
     end
   end
 
-
+  ## Fetch Header Text Based on Template Configuration
   def list_header_details
     if @template.header_description.present?
       @template.header_description
@@ -69,6 +70,7 @@ module EndUserHelper
     end
   end
 
+  ## Fetch Header Hero Image Background Logo Based on Template Configuration
   def list_header_bg_logo
     if @template.header_logo.present? && @template.header_logo.url.present?
       @template.header_logo.url
