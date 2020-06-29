@@ -51,4 +51,21 @@ module EndUserHelper
       end
     end
   end
+
+  def list_header_text
+    if @template.header_text.present?
+      @template.header_text
+    else
+      'The Offical Loyalty Program of Buckeye Nation'
+    end
+  end
+
+
+  def list_header_bg_logo
+    if @template.header_logo.present? && @template.header_logo.url.present?
+      @template.header_logo.url
+    else
+      asset_path 'end-user/banner_bg.png'
+    end
+  end
 end

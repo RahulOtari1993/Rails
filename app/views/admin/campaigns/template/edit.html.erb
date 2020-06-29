@@ -141,20 +141,20 @@
 
     console.log("footerFontColor", footerFontColor);
     console.log("footerBgColor", footerBgColor);
-    iFrame.find(".page-footer")
-        .append($("<style type='text/css'>  .page-footer {background-color: " + footerBgColor + " !important; color: " + footerFontColor + " !important;}  </style>"));
+    iFrame.find(".footer_bottom")
+        .append($("<style type='text/css'> .footer_bottom {background-color: " + footerBgColor + " !important; color: " + footerFontColor + " !important;}  </style>"));
 
     var footerFontSize = $('#campaign_template_detail_footer_font_size').val();
     console.log("footerFontSize", footerFontSize);
-    iFrame.find(".page-footer")
-        .append($("<style type='text/css'>  .page-footer p, .page-footer a {font-size: " + footerFontSize + "px !important; color: " + footerFontColor + " !important;} </style>"));
+    iFrame.find(".footer_bottom")
+        .append($("<style type='text/css'>  .footer_bottom p, .footer_bottom a {font-size: " + footerFontSize + "px !important; color: " + footerFontColor + " !important;} </style>"));
 
 
     var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
     selectedFont = selectedFont.split(':');
     console.log("Selected Fonts", selectedFont[0]);
 
-    iFrame.find(".page-footer")
+    iFrame.find(".footer_bottom")
         .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
 
     iFrame.find(".custom-header")
