@@ -18,18 +18,12 @@
         <h6><%= challenge.description %></h6>
         <div class="row">
           <div class="col-sm-12 col-md-12">
-            <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+            <a id="recruit-fb-bttn" href="javascript:void(0);"
                class="btn box1_btn facebook_btn btn-block">
               <span class="icon-btn-share fa fa-facebook"></span>
-              <span class="btn-share-text">Login With Facebook</span>
+              <span class="btn-share-text">Share on Facebook</span>
             </a>
-            <a id="recruit-fb-bttn" href="javascript:void(0);" class="btn-has-icon btn-join-facebook" @click="shareFB(referral_challenge, '')" v-if="referral_challenge.parameters=='facebook'">
-                <span class="share-button-wrap">
-                    <span class="icon-btn-share fa fa-facebook"></span>
-                    <span class="btn-share-text" v-if="contact&&referral_challenge.has_platform">share on facebook</span>
-                    <span class="btn-share-text" v-else>connect with facebook</span>
-                </span>
-            </a>
+
           <% if !Challenge.referral_social_challenges.empty? %>
           <p>Click to share your recruiting link on social:</p>
           <% Challenge.referral_social_challenges.each do |ref_social_challenge| %>
@@ -81,3 +75,24 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function() {
+  $.ajaxSetup({ cache: true });
+  $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '<%= @conf.facebook_app_id %>',
+      version: 'v7.0' // or v2.1, v2.2, v2.3, ...
+    });
+    $(document).on('click','#recruit-fb-bttn', function(e){
+      e.preventDefault();
+      FB.ui({
+        display: 'popup',
+        method: 'share',
+        href: '<%= @referral_link %>'
+      }, function(response){
+
+      })
+    })
+  });
+});
+</script>

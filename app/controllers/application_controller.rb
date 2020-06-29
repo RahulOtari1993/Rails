@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+
   before_action :set_organization
+  append_before_action :setup_default_recruit_challenge
 
   include Pundit
 
@@ -8,6 +10,8 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  helper_method :get_open_graph
 
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
@@ -31,7 +35,41 @@ class ApplicationController < ActionController::Base
     # raise ActionController::RoutingError.new("Unknown Organization: #{request.subdomain}")
   end
 
+  def get_open_graph challenge
+
+    @og = nil
+    if @campaign && challenge
+
+      if @campaign.present? && @campaign.white_branding
+        @conf = CampaignConfig.where(campaign_id: @campaign.id).first
+      else
+        @conf = GlobalConfiguration.first
+      end
+
+      @og = OpenGraphService.new
+      @og.site_name = @campaign.name
+      @og.title = challenge.name
+      @og.description = challenge.description
+      @og.image = challenge.image.url
+      @og.content_type = 'website'
+      @og.fb_app_id = @conf.facebook_app_id
+      @og.url = "#{request.protocol}#{request.host}"
+    end
+    @og
+  end
+
   private
+
+  def setup_default_recruit_challenge
+    Rails.logger.info "======== DEFAULT RECRUIT"
+    if @campaign
+      Rails.logger.info "======== IN campaign ---> #{@campaign.name}"
+      @recruit_challenge = Challenge.referral_default_challenge.first
+      if @recruit_challenge
+        @og = get_open_graph @recruit_challenge
+      end
+    end
+  end
 
   ## Redirection if User is Not Authorised
   def user_not_authorized(exception)

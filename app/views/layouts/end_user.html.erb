@@ -10,8 +10,20 @@
       <title>The Ohio State | My Rewards</title>
     <% end %>
 
+    <% if @og %>
+    <meta property="fb:app_id" content="<%= @og.fb_app_id %>" />
+    <meta property="og:site_name" content="<%= @og.site_name %>" />
+    <meta property="og:title" content="<%= @og.title %>" />
+    <meta property="og:type" content="<%= @og.content_type %>" />
+    <meta property="og:image" content="<%= @og.image %>" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="<%= @og.url %>">
+    <meta property="og:description" content="<%= @og.description %>" />
+    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>

@@ -1,6 +1,6 @@
 class ReferralCode < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :participant
   belongs_to :challenge
 
   scope :for_challenge, -> (challenge) { where(challenge_id: challenge.id) }

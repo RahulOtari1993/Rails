@@ -5,15 +5,19 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
-    
+    if @campaign.present? && @campaign.white_branding
+      @conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      @conf = GlobalConfiguration.first
+    end
     # TODO refactor into handler class for maintainability with multiple challenges
     if @challenge.challenge_type == 'referral'
-      if current_user.referral_codes.for_challenge(@challenge).empty?
-        @referral_code = ReferralCode.create(challenge_id: @challenge.id, user_id: current_user.id)
+      if current_participant.referral_codes.for_challenge(@challenge).empty?
+        @referral_code = ReferralCode.create(challenge_id: @challenge.id, participant_id: current_participant.id)
       else
-        @referral_code = current_user.referral_codes.for_challenge(@challenge).first
+        @referral_code = current_participant.referral_codes.for_challenge(@challenge).first
       end
-      @referral_link = "#{request.protocol}#{request.host}&refid=#{@referral_code.code}"
+      @referral_link = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}"
     end
 
   end

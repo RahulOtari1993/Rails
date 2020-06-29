@@ -74,7 +74,8 @@ class Participant < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
-
+  has_many :referral_codes
+  
   ## Callbacks
   after_create :save_participant_details
   after_create :generate_participant_id
