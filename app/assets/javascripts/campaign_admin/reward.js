@@ -385,69 +385,33 @@ $(document).on('turbolinks:load', function () {
       {
         class: 'product-action a',
         title: 'Actions', data: null, searchable: false, orderable: false,
-        // title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
         render: function (data, type, row) {
           let action_html = "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
               "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
               "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
 
           // Edit Button
-          action_html = +"<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'>" +
               "<i class='feather icon-edit-2'></i> Edit</a>"
 
           // Download CSV Button
-          action_html = +"<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
               "<i class='feather icon-download'></i> Download CSV</a>"
 
           // Download CSV Button
-          action_html = +"<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='"
-              + data.campaign_id + "><i class='feather icon-copy'></i> Coupons</a>"
+          action_html = action_html + "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='List Available Coupons'>" +
+              "<i class='feather icon-copy'></i> Coupons</a>"
 
           // Manual Reward Participant Selection Action
           if (data.selection == "manual") {
-            action_html = +"<a class='dropdown-item participant-selection-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='"
-                + data.campaign_id + "><i class='feather icon-copy'></i> Selection</a>"
+            action_html = action_html + "<a class='dropdown-item participant-selection-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" +data.campaign_id + "'" +
+                "data-toggle='tooltip' data-placement='top' data-original-title='Select Winners'>" +
+                "<i class='feather icon-award'></i> Selection</a>"
           }
 
-          // return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
-          //     "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
-          //     "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
-          //     "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-          //     "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'>" +
-          //     "<i class='feather icon-edit-2'></i> Edit</a>" +
-          //     "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id =" + data.id + "'campaign_id='" + data.campaign_id + "'" +
-          //     "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-          //     "<i class='feather icon-download'></i> Download CSV</a>" +
-          //     "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id +
-          //     "><i class='feather icon-copy'></i> Coupons</a>" +
-          //     "</div>" +
-          //     "</div>"
-
-
-          //   // Action items start
-          //   action_html = ""
-          //
-          //   // edit reward
-          //   action_html += "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-          //       "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
-          //       "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
-          //
-          //   // Download csv
-          //   action_html += "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
-          //       + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-          //       "<i class='feather icon-download'></i></button>"
-          //
-          //   // Coupon creation
-          //   action_html += "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'>Coupons</button>"
-          //
-          //   // manual reward participant selection
-          //   if (data.selection == "manual") {
-          //     action_html += "<button class='btn btn-action btn-primary participant-selection-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-          //     + "'>Selection</button>"
-          //   }
-          // // Action items end
           return action_html;
         }
       },
