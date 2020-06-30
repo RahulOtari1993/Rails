@@ -102,6 +102,7 @@ Rails.application.routes.draw do
           resources :users, controller: "participants", only: [:index, :show] do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
+              get '/participants', to: 'participants#participants'
             end
             member do
               get '/users', to: 'participants#users'
@@ -109,7 +110,6 @@ Rails.application.routes.draw do
               delete '/remove_tag', to: 'participants#remove_tag'
               post '/add_tag', to: 'participants#add_tag'
               post '/add_note', to: 'participants#add_note'
-              get '/participants', to: 'participants#participants'
             end
           end
         end
