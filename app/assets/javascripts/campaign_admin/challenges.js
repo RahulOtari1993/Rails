@@ -1057,7 +1057,7 @@ $(document).on('turbolinks:load', function () {
     //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
     // },
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {
@@ -1759,5 +1759,23 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().parent().find('input:checkbox').attr('checked', false);
     $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
+  });
+
+  // Manage Sorted Quiz Question Sequence
+  function manageQuestionSequence() {
+    let challengeType = $('#challenge_challenge_type').val();
+    let challengeParameters = $('#challenge_parameters').val();
+
+    $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
+      console.log("Index", index);
+      console.log("ID", $(this).attr('id'));
+    });
+  }
+
+  // Sort Quiz Questions
+  $('.questions-container').sortable({
+    update: function (event, ui) {
+      manageQuestionSequence();
+    }
   });
 });

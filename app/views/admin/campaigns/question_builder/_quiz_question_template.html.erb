@@ -2,7 +2,7 @@
   randNum = rand.to_s[2..10]
   queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
 %>
-<div class="container question_box <%= queIdentifire %>">
+<div class="container question_box <%= queIdentifire %>" id="<%= queIdentifire %>">
   <div class="row">
     <div class="col-md-7 col-12">
       <div class="form-label-group non-wysiwyg-field">
