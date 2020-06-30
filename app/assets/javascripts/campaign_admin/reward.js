@@ -392,18 +392,24 @@ $(document).on('turbolinks:load', function () {
               "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
 
           // Edit Button
-          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+          action_html = +"<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'>" +
               "<i class='feather icon-edit-2'></i> Edit</a>"
 
           // Download CSV Button
-          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+          action_html = +"<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
               "<i class='feather icon-download'></i> Download CSV</a>"
 
           // Download CSV Button
-          action_html = action_html + "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='"
+          action_html = +"<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='"
               + data.campaign_id + "><i class='feather icon-copy'></i> Coupons</a>"
+
+          // Manual Reward Participant Selection Action
+          if (data.selection == "manual") {
+            action_html = +"<a class='dropdown-item participant-selection-btn' href='javascript:void(0);' reward_id ='" + data.id + "'campaign_id='"
+                + data.campaign_id + "><i class='feather icon-copy'></i> Selection</a>"
+          }
 
           // return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
           //     "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
@@ -456,7 +462,7 @@ $(document).on('turbolinks:load', function () {
     bInfo: false,
     pageLength: 10,
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {
