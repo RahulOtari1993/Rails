@@ -397,7 +397,7 @@ $(document).on('turbolinks:load', function () {
               "<i class='feather icon-edit-2'></i> Edit</a>"
 
           // Download CSV Button
-          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' 'reward_id='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
+          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "'campaign_id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
               "<i class='feather icon-download'></i> Download CSV</a>"
 
