@@ -1764,7 +1764,7 @@ $(document).on('turbolinks:load', function () {
     $(this).prop('checked', true);
   });
 
-  // Manage Sorted Quiz Question Sequence
+  // Manage Sorted Question Sequence
   function manageQuestionSequence() {
     let challengeType = $('#challenge_challenge_type').val();
     let challengeParameters = $('#challenge_parameters').val();
@@ -1779,10 +1779,19 @@ $(document).on('turbolinks:load', function () {
     });
   }
 
-  // Sort Quiz Questions
+  // Sort Questions
   $('.questions-container').sortable({
     update: function (event, ui) {
       manageQuestionSequence();
+    }
+  });
+
+  // Sort Question Options
+  $('.options-container').sortable({
+    group: 'no-drop',
+    handle: 'i.drag_option',
+    update: function (event, ui) {
+      console.log("IN Update");
     }
   });
 });
