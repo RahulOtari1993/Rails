@@ -321,6 +321,7 @@ $(document).on('turbolinks:load', function () {
         });
       }
       addOptionValidations();
+      manageQuestionSequence();
     }
 
     // Load Google Map if Challenge Type is Location
@@ -335,7 +336,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
-  // Trigger Raduis Calculation
+  // Trigger Radius Calculation
   if (window.location.href.indexOf("edit") > -1) {
     setTimeout(function () {
       if ($('.step-two-container.active-segment').hasClass('location--div')) {
@@ -1410,7 +1411,7 @@ $(document).on('turbolinks:load', function () {
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#challenge-image-preview').attr('src', e.target.result);
-        $('#challenge_image').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+        $('#challenge_image').removeClass('ignore'); // Remove Ignore Class to Validate New Uploaded Image
       }
       reader.readAsDataURL(this.files[0]);
     }
@@ -1422,7 +1423,7 @@ $(document).on('turbolinks:load', function () {
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#challenge-icon-image-preview').attr('src', e.target.result);
-        $('#challenge_icon').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+        $('#challenge_icon').removeClass('ignore'); // Remove Ignore Class to Validate New Uploaded Image
       }
       reader.readAsDataURL(this.files[0]);
     }

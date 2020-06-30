@@ -446,13 +446,4 @@ module ChallengeHelper
 
     filter_list
   end
-
-  ## Set Question Sequence
-  def q_name_convention(template = false, question = nil, identifier = nil)
-    if template
-      question.present? ? question.id : '___NUM___'
-    else
-      identifier.present? ? identifier : '12Q21'
-    end
-  end
 end
