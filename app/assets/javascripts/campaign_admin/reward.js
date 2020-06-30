@@ -5,14 +5,20 @@ $(document).on('turbolinks:load', function () {
       $('.threshold').show();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
       $('.threshold').hide();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else if ($(this).val() == 'sweepstake') {
       $('.threshold').hide();
       $('.sweepstake').show();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else {
       $('.threshold').hide();
       $('.sweepstake').hide();
@@ -726,8 +732,8 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // Reward Rules Segment Show/Hide Content
-  $('body').on('click', '#reward_rule_applied', function (e) {
+  // Function to Handle Reward Rules Segment Show/Hide Content
+  function showHideRewardRules() {
     if ($('#reward_rule_applied').is(":checked")) {
       $('.rule-filters-container').show();
       $('.reward-rule-segments-container input').prop('disabled', false);
@@ -737,6 +743,11 @@ $(document).on('turbolinks:load', function () {
       $('.reward-rule-segments-container select').prop('disabled', true);
       $('.rule-filters-container').hide();
     }
+  }
+
+  // Reward Rules Segment Show/Hide Content
+  $('body').on('click', '#reward_rule_applied', function (e) {
+    showHideRewardRules();
   });
 
   // Generates Challenge Filter Query String
