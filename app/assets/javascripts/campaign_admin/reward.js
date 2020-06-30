@@ -400,7 +400,7 @@ $(document).on('turbolinks:load', function () {
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
               "<i class='feather icon-download'></i> Download CSV</a>"
 
-          // Download CSV Button
+          // Coupons Listing
           action_html = action_html + "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='List Available Coupons'>" +
               "<i class='feather icon-copy'></i> Coupons</a>"
@@ -412,6 +412,7 @@ $(document).on('turbolinks:load', function () {
                 "<i class='feather icon-award'></i> Selection</a>"
           }
 
+          action_html = action_html + "</div></div>"
           return action_html;
         }
       },

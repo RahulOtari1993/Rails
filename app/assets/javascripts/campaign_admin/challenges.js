@@ -1015,20 +1015,32 @@ $(document).on('turbolinks:load', function () {
         render: function (data, type, row) {
           actionText = data.is_approved ? ' Disable' : ' Approve'
 
-          return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
+          let action_html = "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
               "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
-              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
-              "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-trending-up'></i> Stats</a>" +
-              "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
+              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
+
+          // // Stats Button
+          // action_html = action_html + "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-trending-up'></i> Stats</a>"
+
+          // Edit Challenge Button
+          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'>" +
-              "<i class='feather icon-edit-2'></i> Edit</a>" +
-              "<a class='dropdown-item display-challenge-participants' href='javascript:void(0);'" +
+              "<i class='feather icon-edit-2'></i> Edit</a>"
+
+          // Download CSV Button
+          action_html = action_html + "<a class='dropdown-item display-challenge-participants' href='javascript:void(0);'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
-              "<i class='feather icon-download'></i> Download CSV</a>" +
-              "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>" +
-              "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>" +
-              "</div>" +
-              "</div>"
+              "<i class='feather icon-download'></i> Download CSV</a>"
+
+          // Duplicate a Challenge
+          action_html = action_html + "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>"
+
+          // Approve/Disable a Challenge
+          action_html = action_html + "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>"
+
+          action_html = action_html + "</div></div>"
+
+          return action_html;
         }
       },
     ],
