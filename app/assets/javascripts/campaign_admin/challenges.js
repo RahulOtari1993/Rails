@@ -534,7 +534,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[image]': {
         required: true,
-        extension: "jpg|jpeg|png|gif|svg"
+        extension: "jpg|jpeg|png|gif"
       },
       'challenge[link]': {
         required: true,
