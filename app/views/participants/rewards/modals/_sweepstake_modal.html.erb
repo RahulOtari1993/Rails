@@ -35,6 +35,8 @@
         <p><%= raw(reward.description_details).html_safe %></p>
         <p><%= raw(reward.redemption_details).html_safe %></p>
 
+        <p>You have earned <b><%= fetch_sweepstake_entries reward %> entries</b> into this sweepstakes!</p>
+
         <div class="row reward-claim-container" style="display: none;">
           <div class="col-12">
             <h4>Congratulation, You've claimed this reward successfully.</h4>
