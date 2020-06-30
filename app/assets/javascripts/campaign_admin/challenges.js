@@ -1632,6 +1632,7 @@ $(document).on('turbolinks:load', function () {
     questionTypeSelect2(phaseCounter);
     autoSelectText();
     addOptionValidations();
+    manageQuestionSequence();
   });
 
   // Manage Auto Selection of Text
@@ -1686,6 +1687,7 @@ $(document).on('turbolinks:load', function () {
     if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
       changeCorrectCountOption(challengeType, challengeParameters);
+      manageQuestionSequence();
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
     }
@@ -1769,6 +1771,10 @@ $(document).on('turbolinks:load', function () {
     $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
       console.log("Index", index);
       console.log("ID", $(this).attr('id'));
+      console.log("Seq ID", $(`#${$(this).attr('id')}`).find('.question-sequence-hidden'));
+      console.log("Seq FIND", $(this).find('.question-sequence-hidden'));
+
+      $(this).find('.question-sequence-hidden').val(index + 1);
     });
   }
 
