@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_095036) do
+ActiveRecord::Schema.define(version: 2020_06_29_121829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_095036) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "header_description"
+    t.float "header_description_font_size"
+    t.string "header_description_font_color"
     t.index ["campaign_id"], name: "index_campaign_template_details_on_campaign_id"
   end
 
@@ -286,6 +288,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_095036) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "coupon"
+    t.bigint "campaign_id"
+    t.index ["campaign_id"], name: "index_participant_actions_on_campaign_id"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
@@ -489,6 +493,16 @@ ActiveRecord::Schema.define(version: 2020_06_26_095036) do
     t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
   end
 
+  create_table "sweepstake_entries", force: :cascade do |t|
+    t.bigint "reward_id"
+    t.bigint "participant_id"
+    t.boolean "winner", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_id"], name: "index_sweepstake_entries_on_participant_id"
+    t.index ["reward_id"], name: "index_sweepstake_entries_on_reward_id"
+  end
+
   create_table "taggings", id: :serial, force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
@@ -574,5 +588,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_095036) do
   add_foreign_key "submitted_answers", "participants"
   add_foreign_key "submitted_answers", "question_options"
   add_foreign_key "submitted_answers", "questions"
+  add_foreign_key "sweepstake_entries", "participants"
+  add_foreign_key "sweepstake_entries", "rewards"
   add_foreign_key "taggings", "tags"
 end

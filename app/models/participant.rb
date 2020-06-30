@@ -77,6 +77,7 @@ class Participant < ApplicationRecord
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
+  has_many :sweepstake_entries, dependent: :destroy
   
   ## Callbacks
   after_create :generate_participant_id
@@ -93,6 +94,9 @@ class Participant < ApplicationRecord
 
   ## Tags
   acts_as_taggable_on :tags
+
+  ## Scopes
+  scope :active, -> { where(arel_table[:is_active].eq(true)) }
 
   ## Allow Only Active Users to Login
   def active_for_authentication?
@@ -303,9 +307,9 @@ class Participant < ApplicationRecord
 
         if is_submitted
           ## Create Participant Action Log
-          action_item = ParticipantAction.new({participant_id: self.id, points: 0,
-                                               action_type: action_type, title: action_title,
-                                               user_agent: user_agent, ip_address: remote_ip})
+          action_item = ParticipantAction.new({participant_id: self.id, points: 0, action_type: action_type,
+                                               title: action_title, user_agent: user_agent, ip_address: remote_ip,
+                                               campaign_id: self.campaign_id})
           action_item.save
         else
           ## Submit Challenge
@@ -317,7 +321,7 @@ class Participant < ApplicationRecord
           sign_up_log = ParticipantAction.new({participant_id: self.id, points: challenge.points.to_i,
                                                action_type: action_type, title: action_title, actionable_id: challenge.id,
                                                actionable_type: 'Challenge', details: challenge.caption,
-                                               user_agent: user_agent, ip_address: remote_ip})
+                                               user_agent: user_agent, ip_address: remote_ip, campaign_id: self.campaign_id})
           sign_up_log.save
         end
       end
@@ -364,6 +368,27 @@ class Participant < ApplicationRecord
     "#{address_1} #{address_2} #{city} #{state} #{postal}"
   end
   
+  ## Check if Participant is Eligible for Challenge
+  def eligible?(challenge)
+    ## Set Result, By Default it is TRUE
+    result = true
+    result_array = []
+
+    # Loop Through the Challenge User Segments
+    challenge.challenge_filters.each do |filter|
+      result_array.push(filter.available? self)
+    end
+
+    ## Check If We need to Include ALL/ANY User Segments
+    if challenge.filter_type == 'all_filters'
+      result = !result_array.include?(false)
+    else
+      result = result_array.include?(true)
+    end
+
+    result
+  end
+
   private
 
   ## Generate Uniq Participant ID

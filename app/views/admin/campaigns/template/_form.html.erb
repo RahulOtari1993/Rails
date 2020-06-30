@@ -26,8 +26,18 @@
           </div>
 
           <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_text, 'Header Title' %>
-            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Text" %>
+            <%= form.label :header_text, 'Header Title Text' %>
+            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Title Text" %>
+          </div>
+
+          <div class="col-sm-12 data-field-col data-field-ts-1">
+            <%= form.label :header_font_size, 'Header Title Font Size' %>
+            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Title Font Size" %>
+          </div>
+
+          <div class="col-sm-12 data-field-col data-field-ts-1">
+            <%= form.label :header_font_color, 'Header Title Font Color' %>
+            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Title Font Color" %>
           </div>
 
           <div class="col-sm-12 data-field-col data-field-ts-1">
@@ -36,21 +46,21 @@
           </div>
 
           <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_font_color, 'Header Font Color' %>
-            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Font Color" %>
+            <%= form.label :header_description_font_size, 'Header Description Font Size' %>
+            <%= form.text_field :header_description_font_size, class: "form-control", placeholder: "Header Description Font Size" %>
           </div>
 
           <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_font_size, 'Header Font Size' %>
-            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Font Size" %>
+            <%= form.label :header_description_font_color, 'Header Description Font Color' %>
+            <%= form.text_field :header_description_font_color, class: "form-control colour-picker-txt", placeholder: "Header Description Font Color" %>
           </div>
 
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :footer_font_size, 'Select Fonts' %>
-            <div class="position-relative">
-              <input id="font-selector" type="text"/>
-            </div>
-          </div>
+<!--          <div class="col-sm-12 data-field-col data-field-ts-1">-->
+            <%#= form.label :footer_font_size, 'Select Fonts' %>
+<!--            <div class="position-relative">-->
+<!--              <input id="font-selector" type="text"/>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </div>
     </div>

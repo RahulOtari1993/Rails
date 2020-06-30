@@ -42,6 +42,17 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
+  // Participant selection popup for manual reward
+  $('#reward-list-table').on('click', '.participant-selection-btn', function () {
+    var rewardId = $(this).attr('reward_id')
+    var campaignId = $(this).attr('campaign_id')
+    $.ajax({
+      type: 'GET',
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + campaignId + "/rewards/" + rewardId + "/participant_selection_form"
+    });
+  });
+
   // Replace ID of Newly Added Fields of User Segment
   function replaceRuleFieldIds(stringDetails, phaseCounter) {
     stringDetails = stringDetails.replace(/\___ID___/g, phaseCounter);
@@ -302,7 +313,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
-  //thumbview list
+  // List Rewards
   $("#reward-list-table").DataTable({
     processing: true,
     paging: true,
@@ -372,22 +383,41 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
+        class: 'product-action a',
+        title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
-          // Action items
-          return "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
-              "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
-              + "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
-              + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-              "<i class='feather icon-download'></i></button>" +
-              "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-              + "'>Coupons</button>"
+          let action_html = "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
+              "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
+              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
+
+          // Edit Button
+          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'>" +
+              "<i class='feather icon-edit-2'></i> Edit</a>"
+
+          // Download CSV Button
+          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
+              "<i class='feather icon-download'></i> Download CSV</a>"
+
+          // Coupons Listing
+          action_html = action_html + "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='List Available Coupons'>" +
+              "<i class='feather icon-copy'></i> Coupons</a>"
+
+          // Manual Reward Participant Selection Action
+          if (data.selection == "manual") {
+            action_html = action_html + "<a class='dropdown-item participant-selection-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" +data.campaign_id + "'" +
+                "data-toggle='tooltip' data-placement='top' data-original-title='Select Winners'>" +
+                "<i class='feather icon-award'></i> Selection</a>"
+          }
+
+          action_html = action_html + "</div></div>"
+          return action_html;
         }
       },
     ],
-    dom:
-        '<"top"<B><"action-filters"lf>><"clear">rt<"bottom"p>',
+    dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
@@ -397,7 +427,7 @@ $(document).on('turbolinks:load', function () {
     bInfo: false,
     pageLength: 10,
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {

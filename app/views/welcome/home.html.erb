@@ -1,210 +1,177 @@
-<div class="row">
-  <div class="col-lg-3 col-12">
-    <div class="card">
-      <div class="card-header">
-        <h4>About</h4>
-        <i class="feather icon-more-horizontal cursor-pointer"></i>
+<% @template = @campaign.campaign_template_detail %>
+
+<section class="hero_section" style="background-image: url('<%= list_header_bg_image %>')">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 left">
+        <h1 class="custom-header"><%= list_header_text %></h1>
+
+        <h5 class="custom-header-details"><%= list_header_text %></h5>
+        <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
       </div>
-      <div class="card-body">
-        <p>Tart I love sugar plum I love oat cake. Sweet roll caramels I love jujubes. Topping cake wafer.</p>
-        <div class="mt-1">
-          <h6 class="mb-0">Joined:</h6>
-          <p>November 15, 2015</p>
-        </div>
-        <div class="mt-1">
-          <h6 class="mb-0">Lives:</h6>
-          <p>New York, USA</p>
-        </div>
-        <div class="mt-1">
-          <h6 class="mb-0">Email:</h6>
-          <p>bucketful@fiendhead.org</p>
-        </div>
-        <div class="mt-1">
-          <h6 class="mb-0">Website:</h6>
-          <p>www.pixinvent.com</p>
-        </div>
-        <div class="mt-1">
-          <button type="button" class="btn btn-sm btn-icon btn-primary mr-25 p-25"><i class="feather icon-facebook"></i>
-          </button>
-          <button type="button" class="btn btn-sm btn-icon btn-primary mr-25 p-25"><i class="feather icon-twitter"></i>
-          </button>
-          <button type="button" class="btn btn-sm btn-icon btn-primary p-25"><i class="feather icon-instagram"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-6 col-12">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-1">
-            <img src="../../../app-assets/images/profile/user-uploads/user-01.jpg" alt="avtar img holder" height="45" width="45">
-          </div>
-          <div class="user-page-info">
-            <p class="mb-0">Leeanna Alvord</p>
-            <span class="font-small-2">12 Dec 2018 at 1:16 AM</span>
-          </div>
-          <div class="ml-auto user-like text-danger"><i class="fa fa-heart"></i></div>
-        </div>
-        <p>I love jujubes wafer pie ice cream tiramisu. Chocolate I love pastry pastry sesame snaps wafer. Pastry
-          topping biscuit lollipop topping I love lemon drops sweet roll bonbon. Brownie donut icing.</p>
-        <img class="img-fluid card-img-top rounded-sm mb-2" src="../../../app-assets/images/profile/post-media/2.jpg" alt="avtar img holder">
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="d-flex align-items-center">
-            <i class="feather icon-heart font-medium-2 mr-50"></i>
-            <span>145</span>
-          </div>
-          <div class="ml-2">
-            <ul class="list-unstyled users-list m-0  d-flex align-items-center">
-              <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Trina Lynes" class="avatar pull-up">
-                <img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-1.jpg" alt="Avatar" height="30" width="30">
-              </li>
-              <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Lilian Nenez" class="avatar pull-up">
-                <img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="Avatar" height="30" width="30">
-              </li>
-              <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Alberto Glotzbach" class="avatar pull-up">
-                <img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-3.jpg" alt="Avatar" height="30" width="30">
-              </li>
-              <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="George Nordic" class="avatar pull-up">
-                <img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="Avatar" height="30" width="30">
-              </li>
-              <li data-toggle="tooltip" data-popup="tooltip-custom" data-placement="bottom" data-original-title="Vinnie Mostowy" class="avatar pull-up">
-                <img class="media-object rounded-circle" src="../../../app-assets/images/portrait/small/avatar-s-4.jpg" alt="Avatar" height="30" width="30">
-              </li>
-              <li class="d-inline-block pl-50">
-                <span>+140 more</span>
-              </li>
+      <div class="col-lg-6">
+        <% unless @rewards.blank? %>
+          <h4 class="right_title">What you can win:</h4>
+          <div id="banner_carousel" class="carousel slide" data-ride="carousel">
+            <ul class="carousel-indicators">
+              <li data-target="#demo" data-slide-to="0" class="active"></li>
+              <li data-target="#demo" data-slide-to="1"></li>
+              <li data-target="#demo" data-slide-to="2"></li>
             </ul>
+            <div class="carousel-inner">
+              <% @rewards.each_with_index do |reward, index| %>
+                <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
+                  <%= image_tag(reward.image.url) %>
+                  <h3><%= reward.name %></h3>
+                  <div class="carousel-caption">
+                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
+                      in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <p class="ml-auto d-flex align-items-center">
-            <i class="feather icon-message-square font-medium-2 mr-50"></i>77
-          </p>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="Avatar" height="30" width="30">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Kitty Allanson</h6>
-            <span class="font-small-2">orthoplumbate morningtide naphthaline exarteritis</span>
-          </div>
-          <div class="ml-auto cursor-pointer">
-            <i class="feather icon-heart mr-50"></i>
-            <i class="feather icon-message-square"></i>
-          </div>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-2">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="Avatar" height="30" width="30">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Jeanie Bulgrin</h6>
-            <span class="font-small-2">blockiness pandemy metaxylene speckle coppy</span>
-          </div>
-          <div class="ml-auto cursor-pointer">
-            <i class="feather icon-heart mr-50"></i>
-            <i class="feather icon-message-square"></i>
-          </div>
-        </div>
-        <fieldset class="form-label-group mb-50">
-          <textarea class="form-control" id="label-textarea" rows="3" placeholder="Add Comment"></textarea>
-          <label for="label-textarea">Add Comment</label>
-        </fieldset>
-        <button type="button" class="btn btn-sm btn-primary">Post Comment</button>
+        <% end %>
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-12">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between">
-        <h4>Suggestions</h4>
-        <i class="feather icon-more-horizontal cursor-pointer"></i>
+</section>
+
+<!-- Challenges section start -->
+<section class="section1">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Earn GoBucks</h3>
+        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span></p>
       </div>
-      <div class="card-body">
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="avtar img holder" height="35" width="35">
+      <% unless @challenges.blank? %>
+        <% @challenges.each_with_index do |challenge, index| %>
+          <div class="col-12 col-md-4">
+            <!-- <div class="image_box_bg"> -->
+            <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
+            <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <div class="width_50" style="float: left;">
+                    <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
+                  <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
+                </div>
+                <div class="clear"></div>
+                <%= render 'list_challenges', challenge: challenge %>
+              </div>
+            </div>
+            <!-- </div> -->
           </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Carissa Dolle</h6>
-            <span class="font-small-2">6 Mutual Friends</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Challenges section end -->
+
+<!-- Rewards Section start -->
+<section class="section2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3>Current Prizes</h3>
+        <p>The more GoBucks you earn <span>the more you can win.</span></p>
+      </div>
+      <% unless @rewards.blank? %>
+        <% @rewards.each_with_index do |reward, index| %>
+          <div class="col-12 col-md-4">
+            <div class="card image_box">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <% title = (reward.selection == "redeem") ? "Cash-In" : reward.selection.titleize %>
+                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span></div>
+                  <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
+                </div>
+                <div class="clear"></div>
+                <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
+                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
+                <h5><%= reward.description %></h5>
+                <div class="width_100">
+                  <div class="width_50" style="float: left;">
+                    <% if current_participant %>
+                      <% unless coupon_claimed(reward) %>
+                        <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                      <% end %>
+                    <% else %>
+                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Claim</button>
+                    <% end %>
+                  </div>
+                  <div class="width_50" style="float: right;">
+                    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
           </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-6.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Liliana Pecor</h6>
-            <span class="font-small-2">3 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-7.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Isidra Strunk</h6>
-            <span class="font-small-2">2 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-8.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Gerald Licea</h6>
-            <span class="font-small-2">1 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-9.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Kelle Herrick</h6>
-            <span class="font-small-2">1 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-10.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Cesar Lee</h6>
-            <span class="font-small-2">1 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-1">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">John Doe</h6>
-            <span class="font-small-2">1 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <div class="d-flex justify-content-start align-items-center mb-2">
-          <div class="avatar mr-50">
-            <img src="../../../app-assets/images/portrait/small/avatar-s-12.jpg" alt="avtar img holder" height="35" width="35">
-          </div>
-          <div class="user-page-info">
-            <h6 class="mb-0">Tonia Seabold</h6>
-            <span class="font-small-2">1 Mutual Friends</span>
-          </div>
-          <button type="button" class="btn btn-primary btn-icon ml-auto"><i class="feather icon-user-plus"></i></button>
-        </div>
-        <button type="button" class="btn btn-primary w-100 mt-1"><i class="feather icon-plus mr-25"></i>Load More
-        </button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
+<!-- Rewards Section end -->
+<!-- Top footer start -->
+<section class="footer_top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-lg-9">
+        <h4 class="text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
+        <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <button class="footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
       </div>
     </div>
   </div>
-</div>
+</section>
+<div class="clear"></div>
+<!-- Top footer end -->
+
+<div class="challenge-submission-modal"></div>
+<div class="reward-claim-modal"></div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+
+    // old code
+    // var height;
+    // $('.image_box_bg .card').each(function() {
+    //   height = $(this).innerHeight()
+    //   imageDiv = $(this).parent().find('.box_img_style');
+    //   imageDiv.css('height', height);
+    // });
+    // old code
+
+    // ---------------------------------------------------------------------------------
+    // I've Shift this code to script.js consider that JS File and Do the Needed Changes
+    // Do shift all the JS & CSS code to their relevant CSS & JS Files
+    // ---------------------------------------------------------------------------------
+
+    // $('body').on('click', '.challenge-submission-btn', function (e) {
+    //   var challengeId = $(this).data('challenge-id');
+    // if (<%#= current_participant.present? %>) {
+    // $.ajax({
+    //   type: 'GET',
+    //   url: `/participants/challenges/${challengeId}/details`
+    // });
+    // } else {
+    //   $('#sign_in_modal').modal();
+    // }
+    // });
+  });
+</script>
+
+<style media="screen">
+  .hero_section {
+    padding: 100px 0px 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+</style>

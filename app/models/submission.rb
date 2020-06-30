@@ -45,11 +45,11 @@ class Submission < ApplicationRecord
         reward = Reward.find(challenge.reward_id)
         challenge_points = reward.points.to_i
       end
-      points = participant.points + challenge_points
-      unused_points = participant.unused_points + challenge_points
+      points = participant.points.to_i + challenge_points
+      unused_points = participant.unused_points.to_i + challenge_points
 
       ## Submitted Challenges Counter Changes
-      completed_challenges = participant.completed_challenges + 1
+      completed_challenges = participant.completed_challenges.to_i + 1
 
       participant.points = points
       participant.unused_points = unused_points

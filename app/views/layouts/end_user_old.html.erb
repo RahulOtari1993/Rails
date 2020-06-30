@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <% template = @campaign.campaign_template_detail %>
+
   <meta charset="UTF-8">
   <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
     <%= raw @campaign.seo %>
@@ -25,21 +26,21 @@
 </head>
 
 <style>
-  .page-footer {
+  .footer_bottom {
     background-color: <%= template.footer_background_color.present? ? template.footer_background_color : '#BB0000' %> !important;
     color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
   }
 
-  .page-footer a,
-  .page-footer a:visited {
+  .footer_bottom a,
+  .footer_bottom a:visited {
     color: #C9C9C9;
   }
 
-  .page-footer a:hover {
+  .footer_bottom a:hover {
     color: #969696;
   }
 
-  .page-footer p, .page-footer a {
+  .footer_bottom p, .footer_bottom a {
     font-size: <%= template.footer_font_size.present? ? "#{template.footer_font_size}px" : '1.1rem' %>;
     color: <%= template.footer_font_color.present? ? template.footer_font_color : '#fefefe' %>;
   }

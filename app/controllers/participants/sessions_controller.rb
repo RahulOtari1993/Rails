@@ -42,7 +42,8 @@ class Participants::SessionsController < Devise::SessionsController
   ## Create Login Entry for Participant
   def after_login
     log = ParticipantAction.new({participant_id: resource.id, points: 0, action_type: 'sign_in',
-                                 title: 'Signed in', user_agent: request.user_agent, ip_address: request.remote_ip})
+                                 title: 'Signed in', user_agent: request.user_agent, ip_address: request.remote_ip,
+                                 campaign_id: resource.campaign_id})
     log.save
   end
 end

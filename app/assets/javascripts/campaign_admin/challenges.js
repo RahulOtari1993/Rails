@@ -25,7 +25,7 @@ $(document).on('turbolinks:load', function () {
 
   var form = $(".challenge-wizard");
 
-  $('.challenge-wizard').steps({
+  var stepsWizard = $('.challenge-wizard').steps({
     headerTag: "h6",
     bodyTag: "fieldset",
     transitionEffect: "fade",
@@ -33,8 +33,20 @@ $(document).on('turbolinks:load', function () {
     labels: {
       finish: 'Submit'
     },
+    onInit: function (event, currentIndex) {
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        $('.challenge-wizard').steps("next");
+      }
+    },
     onStepChanging: function (event, currentIndex, newIndex) {
       // Allways allow previous action even if the current form is not valid!
+      if ($('.new_challenge_section').data('form-type') == 'edit') {
+        // While Editing a Challenge Stop User to Jump on Step 1
+        if (currentIndex == 1 && newIndex == 0) {
+          return false;
+        }
+      }
+
       if (currentIndex > newIndex) {
         return true;
       }
@@ -900,6 +912,19 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
+  // Make First Letter of a string in Capitalize format
+  function rewardDisplay(details) {
+    if (details.reward_type == 'points') {
+      return details.points + 'pts';
+    } else {
+      var prizeName = details.reward_name;
+      if (prizeName.length > 10) {
+        prizeName = $.trim(prizeName).substring(0, 10).trim(prizeName) + "...";
+      }
+      return 'Prize<br>' + prizeName;
+    }
+  }
+
   // Challenges Server Side Listing
   $('#challenge-list-table').DataTable({
     processing: true,
@@ -940,37 +965,48 @@ $(document).on('turbolinks:load', function () {
         title: 'Name', data: null,
         searchable: true,
         render: function (data, type, row) {
-          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + data.name + '</span>'
+          var cName = data.name
+          if (cName.length > 23) {
+            cName = $.trim(cName).substring(0, 23).trim(cName) + "...";
+          }
+          return '<span class="challenge-name" data-challenge-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' + cName + '</span><br>' +
+              textCapitalize(data.category)
         }
       },
       {
         class: 'product-name',
-        title: 'Social Network',
+        title: 'Reward',
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.parameters)
+          return rewardDisplay(data)
         }
       },
       {
         class: 'product-name',
-        title: 'Type',
+        title: 'Completions',
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.challenge_type)
+          return data.completions
         }
       },
       {
-        title: 'Start Date', data: null, searchable: false,
+        title: 'Clicks', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.start)
+          return '- - -'
         }
       },
       {
-        title: 'End date', data: null, searchable: false,
+        title: 'Dates Active', data: null, searchable: false,
         render: function (data, type, row) {
-          return formatDate(data.finish)
+          return formatDate(data.start) + ' -<br>' + formatDate(data.finish)
+        }
+      },
+      {
+        title: 'Created', data: null, searchable: false,
+        render: function (data, type, row) {
+          return formatDate(data.created_at)
         }
       },
       {
@@ -979,20 +1015,32 @@ $(document).on('turbolinks:load', function () {
         render: function (data, type, row) {
           actionText = data.is_approved ? ' Disable' : ' Approve'
 
-          return "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
+          let action_html = "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
               "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
-              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>" +
-              "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-trending-up'></i> Stats</a>" +
-              "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
+              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
+
+          // // Stats Button
+          // action_html = action_html + "<a class='dropdown-item' href='javascript:void(0);'><i class='feather icon-trending-up'></i> Stats</a>"
+
+          // Edit Challenge Button
+          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/challenges/" + data.id + "/edit'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Edit Challenge'>" +
-              "<i class='feather icon-edit-2'></i> Edit</a>" +
-              "<a class='dropdown-item display-challenge-participants' href='javascript:void(0);'" +
+              "<i class='feather icon-edit-2'></i> Edit</a>"
+
+          // Download CSV Button
+          action_html = action_html + "<a class='dropdown-item display-challenge-participants' href='javascript:void(0);'" +
               "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of challenge participants'>" +
-              "<i class='feather icon-download'></i> Download CSV</a>" +
-              "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>" +
-              "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>" +
-              "</div>" +
-              "</div>"
+              "<i class='feather icon-download'></i> Download CSV</a>"
+
+          // Duplicate a Challenge
+          action_html = action_html + "<a class='dropdown-item clone-challenge' href='javascript:void(0);'><i class='feather icon-copy'></i> Duplicate</a>"
+
+          // Approve/Disable a Challenge
+          action_html = action_html + "<a class='dropdown-item toggle-challenge-status' href='javascript:void(0);'><i class='feather icon-check-square'></i> " + actionText + "</a>"
+
+          action_html = action_html + "</div></div>"
+
+          return action_html;
         }
       },
     ],

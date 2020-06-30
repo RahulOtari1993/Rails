@@ -76,45 +76,34 @@ $(document).on('turbolinks:load', function () {
   }, 2000);
 
   if ($('#onboarding_questions_modal').length > 0 ) {
+    let datePickerIcons = {
+      time: 'fa fa-clock-o',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-check',
+      clear: 'fa fa-trash',
+      close: 'fa fa-times'
+    }
+
     // Date Picker for Onboarding Questions
-    $('.answer-date').pickadate({
-      format: 'mm/d/yyyy',
-      selectYears: true,
-      selectMonths: true
+    $('.answer-date').datetimepicker({
+      format: 'L',
+      icons:datePickerIcons
     });
 
     // Time Picker for Onboarding Questions
-    $('.answer-time').pickatime();
+    $('.answer-time').datetimepicker({
+      format: 'LT',
+      icons:datePickerIcons
+    });
 
     // Date Time Picker for Onboarding Questions
-    var datePicker = $('.date-answer-hidden-field').pickadate({
-      format: 'mm/d/yyyy',
-      selectYears: true,
-      selectMonths: true,
-      container: '.date-time-picker-output',
-      onSet: function (item) {
-        if ('select' in item) setTimeout(timePicker.open, 0)
-      }
-    }).pickadate('picker')
-
-    var timePicker = $('.time-answer-hidden-field').pickatime({
-      container: '.date-time-picker-output',
-      onRender: function () {
-        $('<button class="btn btn-primary">back to date</button>').on('click', function () {
-          timePicker.close()
-          datePicker.open()
-        }).prependTo(this.$root.find('.picker__box'))
-      },
-      onSet: function (item) {
-        if ('select' in item) setTimeout(function () {
-          $datetime.off('focus').val(datePicker.get() + ' ' + timePicker.get()).focus().on('focus', datePicker.open)
-        }, 0)
-      }
-    }).pickatime('picker')
-
-    var $datetime = $('.answer-date-time').on('focus', datePicker.open).on('click', function (event) {
-      event.stopPropagation();
-      datePicker.open()
+    $('.answer-date-time').datetimepicker({
+      format: 'MM/DD/YYYY hh:mm A',
+      icons:datePickerIcons
     });
   }
 

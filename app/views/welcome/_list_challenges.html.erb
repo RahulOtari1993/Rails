@@ -1,0 +1,84 @@
+<h2 class="image_box_title"><%= challenge.name %></h2>
+<div class="width_100">
+  <% if current_participant.present? %>
+    <% if challenge.challenge_type == "signup" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          <%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "video" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          Watch Now
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "article" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          Read Article
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "referral" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          <%= "Refer #{challenge.parameters.titleize}" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "collect" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          <%= "Take a #{challenge.parameters.titleize} Now" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "link" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          Visit a URL
+        </button>
+      </div>
+    <% end %>
+  <% else %>
+    <% if challenge.challenge_type == "signup" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          <%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "video" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          Watch Now
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "article" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          Read Article
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "referral" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          <%= "Refer #{challenge.parameters.titleize}" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "collect" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          <%= "Take a #{challenge.parameters.titleize} Now" %>
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "link" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          Visit a URL
+        </button>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="width_50" style="float: right;">
+    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+  </div>
+</div>
+<div class="clear"></div>
