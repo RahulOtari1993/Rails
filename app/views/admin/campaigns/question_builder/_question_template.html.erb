@@ -268,7 +268,7 @@
     <div class="col-12 col-md-7 options-container date-container <%= display_question_option(question, 'date') %>">
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "temp", '',
-                           class: 'form-control form-control-option', id: "temp_date",
+                           class: 'form-control form-control-option disabled-field', id: "temp_date",
                            placeholder: 'Month, day, year',
                            disabled: true %>
         <div class="input-group-prepend">
@@ -280,7 +280,7 @@
     <div class="col-12 col-md-7 options-container time-container <%= display_question_option(question, 'time') %>">
       <div class="input-group input-group-md que_mobile_mb form-group">
         <%= text_field_tag "temp", '',
-                           class: 'form-control form-control-option', id: "temp_time",
+                           class: 'form-control form-control-option disabled-field', id: "temp_time",
                            placeholder: 'Time',
                            disabled: true %>
         <div class="input-group-prepend">
@@ -289,10 +289,23 @@
       </div>
     </div>
 
+    <div class="col-12 col-md-7 options-container date_time-container <%= display_question_option(question, 'date_time') %>">
+      <div class="input-group input-group-md que_mobile_mb form-group">
+        <%= text_field_tag "temp", '',
+                           class: 'form-control form-control-option disabled-field', id: "temp_date_time",
+                           placeholder: 'Date & Time',
+                           disabled: true %>
+        <div class="input-group-prepend">
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+        </div>
+      </div>
+    </div>
+
     <div class="col-12 col-md-7 options-container number-container <%= display_question_option(question, 'number') %>">
       <div class="form-label-group">
         <%= text_field_tag "temp", '',
-                           class: 'form-control form-control-option', id: "temp_number",
+                           class: 'form-control form-control-option disabled-field', id: "temp_number",
                            placeholder: 'Number',
                            disabled: true %>
       </div>
@@ -301,7 +314,7 @@
     <div class="col-12 col-md-7 options-container decimal-container <%= display_question_option(question, 'decimal') %>">
       <div class="form-label-group">
         <%= text_field_tag "temp", '',
-                           class: 'form-control form-control-option', id: "temp_decimal",
+                           class: 'form-control form-control-option disabled-field', id: "temp_decimal",
                            placeholder: 'Decimal',
                            disabled: true %>
       </div>
