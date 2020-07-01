@@ -1634,6 +1634,7 @@ $(document).on('turbolinks:load', function () {
     autoSelectText();
     addOptionValidations();
     manageQuestionSequence();
+    enableSortingForOptions();
   });
 
   // Manage Auto Selection of Text
@@ -1786,13 +1787,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Enable Sorting on Question Options
+  function enableSortingForOptions() {
+    $('.options-container').sortable({
+      group: 'no-drop',
+      handle: 'i.drag_option',
+      items: ".que_edit",
+      update: function (event, ui) {
+        console.log("IN Update");
+      }
+    });
+  }
+
   // Sort Question Options
-  $('.options-container').sortable({
-    group: 'no-drop',
-    handle: 'i.drag_option',
-    items: ".que_edit",
-    update: function (event, ui) {
-      console.log("IN Update");
-    }
-  });
+  enableSortingForOptions();
 });
