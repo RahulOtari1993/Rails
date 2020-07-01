@@ -49,8 +49,7 @@
 
                   <%= select_tag "participant-status",
                                  options_for_select(Participant.statuses.map { |val| [val[0].humanize, val[0]] }, @participant.status),
-                                 {class: 'form-control participant-status-dd', required: true} %>
-<!--                  <span class="success modal_user_id_active"><%#= @participant.status == 1 ? 'Active' : 'Deactive' %></span>-->
+                                 { class: 'form-control participant-status-dd', required: true } %>
                 </p>
                 <div style="clear: both;"></div>
               </div>

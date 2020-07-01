@@ -1,11 +1,20 @@
 $(document).on('turbolinks:load', function () {
-
   // Format Date
   function formatDate(date) {
     let dateObj = new Date(date);
     return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
         ("0" + (dateObj.getDate())).slice(-2) +
         '/' + dateObj.getFullYear()
+  }
+
+  // Trigger SWAL Notificaton
+  function swalNotify(title, message) {
+    Swal.fire({
+      title: title,
+      text: message,
+      confirmButtonClass: 'btn btn-primary',
+      buttonsStyling: false,
+    });
   }
 
   // Participant Server Side Listing
@@ -391,5 +400,42 @@ $(document).on('turbolinks:load', function () {
       $('#note-error').text(message).show();
       $("#note-error").css("cssText", "color: red !important;");
     }
+  });
+
+  // Change Participant Status
+  $('body').on('click', '.participant-status-dd', function (e) {
+    var campaignId = $('.participant-name-container').data('campaign-id');
+    var participantId = $('.participant-name-container').data('participant-id');
+    var status = $(this).val();
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You want to change user status?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Change it!',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+    }).then(function (result) {
+      console.log("Result", result);
+
+      if (result.value) {
+        $.ajax({
+          url: `/admin/campaigns/${campaignId}/users/${participantId}/update_status`,
+          type: 'PUT',
+          dataType: 'JSON',
+          data: {
+            authenticity_token: $('[name="csrf-token"]')[0].content,
+            status: status
+          },
+          success: function (data) {
+            swalNotify(data.title,  data.message);
+          }
+        });
+      }
+    });
   });
 });
