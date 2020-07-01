@@ -40,10 +40,12 @@
                 </h6>
               <% end %>
 
-              <p class="participant_id_container">User ID: <span class="participant_id_container"><%= @participant.p_id %></span>
+              <p class="participant_id_container">User ID:
+                <span class="participant_id_container"><%= @participant.p_id %></span>
                 Status:
                 <span class="success modal_user_id_active"><%= @participant.status == 1 ? 'Active' : 'Deactive' %></span>
               </p>
+
               <table class="modal_profile_info">
                 <tr>
                   <% if @participant.gender.present? %>
@@ -56,7 +58,7 @@
                   <% if participant_birth_date(@participant).present? || participant_age(@participant).present? %>
                     <td>
                       <i class='fa fa-birthday-cake' aria-hidden='true'></i>
-                      <span><%= participant_birth_date(@participant)%></span>
+                      <span><%= participant_birth_date(@participant) %></span>
                       <%= participant_age(@participant) %> years old
                     </td>
                   <% end %>
@@ -88,6 +90,7 @@
                   <% end %>
                 </tr>
               </table>
+
               <div class="tag_box">
                 <div class="participant-tags-container">
                   <%= render 'tags_list' %>
@@ -99,9 +102,11 @@
                   <div class="add_tag remove-tag-btn">
                     <i class="feather icon-minus-circle add-tag-chip-btn"></i>
                   </div>
-                  <%= select_tag 'participant_tags_input', options_for_select(all_tags_humanize), class: 'form-control participant-tags participant-details-tags', multiple: 'multiple' %>
-                  <button class="btn btn-primary waves-effect waves-light submit-participant-tag" type="button" style="margin-left: 15px;">Add
-                    Tag
+                  <%= select_tag 'participant_tags_input', options_for_select(all_tags_humanize),
+                                 class: 'form-control participant-tags participant-details-tags', multiple: 'multiple' %>
+
+                  <button class="btn btn-primary waves-effect waves-light submit-participant-tag" type="button" style="margin-left: 15px;">
+                    Add Tag
                   </button>
                 </div>
               </div>
@@ -138,6 +143,7 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="modal_tab modal_tab_table">
               <ul class="nav nav-tabs" role="tablist">
@@ -165,9 +171,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
