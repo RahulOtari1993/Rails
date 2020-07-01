@@ -1794,18 +1794,26 @@ $(document).on('turbolinks:load', function () {
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
       let qBox = $(this);
+      let qType = qBox.find('.question-selector').val();
+      let selectedQtype = qType.split("--");
+
+      console.log("selectedQtype", selectedQtype)
       qBox.find('.options-container').each(function (index) {
         let container = $(this);
-        container.find('.que_edit').each(function (index) {
-          let option = $(this);
+        if (container.hasClass(`${selectedQtype[0]}-container`)) {
+          console.log("IINININ")
+          container.find('.que_edit').each(function (index) {
+            console.log("Update Sequence");
+            let option = $(this);
 
-          console.log("Index", index);
-          console.log("Option", option);
-          console.log("Seq ID", $(`#${option.attr('id')}`).find('.question-option-sequence-hidden'));
-          console.log("Seq FIND", option.find('.question-option-sequence-hidden'));
+            // console.log("Index", index);
+            // console.log("Option", option);
+            // console.log("Seq ID", $(`#${option.attr('id')}`).find('.question-option-sequence-hidden'));
+            // console.log("Seq FIND", option.find('.question-option-sequence-hidden'));
 
-          option.find('.question-option-sequence-hidden').val(index + 1);
-        });
+            option.find('.question-option-sequence-hidden').val(index + 1);
+          });
+        }
       });
     });
   }
