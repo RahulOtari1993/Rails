@@ -1770,10 +1770,10 @@ $(document).on('turbolinks:load', function () {
     let challengeParameters = $('#challenge_parameters').val();
 
     $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
-      console.log("Index", index);
-      console.log("ID", $(this).attr('id'));
-      console.log("Seq ID", $(`#${$(this).attr('id')}`).find('.question-sequence-hidden'));
-      console.log("Seq FIND", $(this).find('.question-sequence-hidden'));
+      // console.log("Index", index);
+      // console.log("ID", $(this).attr('id'));
+      // console.log("Seq ID", $(`#${$(this).attr('id')}`).find('.question-sequence-hidden'));
+      // console.log("Seq FIND", $(this).find('.question-sequence-hidden'));
 
       $(this).find('.question-sequence-hidden').val(index + 1);
     });
@@ -1790,6 +1790,7 @@ $(document).on('turbolinks:load', function () {
   $('.options-container').sortable({
     group: 'no-drop',
     handle: 'i.drag_option',
+    items: ".que_edit",
     update: function (event, ui) {
       console.log("IN Update");
     }

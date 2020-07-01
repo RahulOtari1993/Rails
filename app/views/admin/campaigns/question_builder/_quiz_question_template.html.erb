@@ -8,7 +8,7 @@
       <div class="form-label-group non-wysiwyg-field">
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][category]", 0 %>
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][sequence]",
-                             question.present? ? question.sequence : nil, class: 'question-sequence-hidden'  %>
+                             question.present? ? question.sequence : nil, class: 'question-sequence-hidden' %>
 
         <% if question.present? %>
           <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][id]", question.id %>
@@ -49,14 +49,15 @@
     </div>
 
     <div class="col-12 options-container radio_button-container <%= display_question_option(question, 'radio_button') %>">
-      <div class="que_option_header que_edit_132">
+      <div class="que_option_header">
         <div class="form-label-group opt_answer_width">Answers</div>
         <div class="form-label-group opt_canswer_width">Correct Answer</div>
       </div>
 
       <% if question.present? && question.answer_type == 'radio_button' %>
         <% question.question_options.each_with_index do |option, index| %>
-          <div class="que_edit que_edit_<%= option.id %>">
+          <div class="que_edit">
+            <span>&nbsp;</span>
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
             <i class="feather icon-trash-2 que_edit_cross"></i>
 
@@ -75,16 +76,17 @@
                                 id: "option-is-answer-#{q_name_convention(template, question, randNum)}",
                                 class: 'custom-control-input is-editable answer-field' %>
               <span class="vs-checkbox">
-              <span class="vs-checkbox--check">
-                  <i class="vs-icon feather icon-check"></i>
+                <span class="vs-checkbox--check">
+                    <i class="vs-icon feather icon-check"></i>
+                </span>
               </span>
-            </span>
             </div>
           </div>
         <% end %>
       <% else %>
         <% optIdentifire = rand.to_s[2..10] %>
-        <div class="que_edit que_edit_<%= option_identifire(template, nil, optIdentifire, 1) %>">
+        <div class="que_edit">
+          <span>&nbsp;</span>
           <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
           <i class="feather icon-trash-2 que_edit_cross"></i>
 
@@ -103,7 +105,7 @@
                               class: 'custom-control-input is-editable disabled-field answer-field' %>
             <span class="vs-checkbox">
               <span class="vs-checkbox--check">
-                  <i class="vs-icon feather icon-check"></i>
+                <i class="vs-icon feather icon-check"></i>
               </span>
             </span>
           </div>
@@ -135,7 +137,7 @@
         </div>
       <% end %>
 
-      <div class="que_edit que_edit_asdad">
+      <div class="que_edit">
         <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
         <div class="form-label-group que_ip_width">
           <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
