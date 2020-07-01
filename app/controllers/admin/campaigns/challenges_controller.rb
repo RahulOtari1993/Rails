@@ -207,7 +207,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                                                      :challenge_condition, :challenge_value],
                                                       :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type,
                                                                                 :profile_attribute_id, :placeholder, :additional_details, :sequence,
-                                                                                :question_options_attributes => [:id, :question_id, :details, :answer]])
+                                                                                :question_options_attributes => [:id, :question_id, :details, :answer, :sequence]])
 
     ## Manage End Date, If not present add 500 Years in Start Date and Create a new End Date
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
@@ -348,6 +348,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
           c_param[:question_options_attributes].each do |key, option|
             option_data = {
                 details: option[:details],
+                sequence: option[:sequence],
                 answer: option.has_key?('answer') ?
                             (c_param[:answer_type] == 'radio_button') ?
                                 (option[:answer] == 'on') ? true : nil : option[:answer] : nil

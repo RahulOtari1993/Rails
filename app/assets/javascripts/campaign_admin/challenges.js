@@ -322,10 +322,13 @@ $(document).on('turbolinks:load', function () {
       }
       addOptionValidations();
       manageQuestionSequence();
+      manageOptionSequence();
     }
 
     // Load Google Map if Challenge Type is Location
-    if (challengeType == 'location') initAutocomplete()
+    if (challengeType == 'location') {
+      initAutocomplete()
+    }
 
     if (challengeType == 'share' && challengeParameters == 'facebook') {
       $('.share-facebook-div .social-title-txt').addClass('always-validate');
@@ -1635,6 +1638,7 @@ $(document).on('turbolinks:load', function () {
     addOptionValidations();
     manageQuestionSequence();
     enableSortingForOptions();
+    manageOptionSequence();
   });
 
   // Manage Auto Selection of Text
@@ -1752,6 +1756,7 @@ $(document).on('turbolinks:load', function () {
 
     autoSelectText();
     addOptionValidations();
+    manageOptionSequence();
   });
 
   // Auto Select Text While Edit Profile Question
@@ -1769,12 +1774,7 @@ $(document).on('turbolinks:load', function () {
   function manageQuestionSequence() {
     let challengeType = $('#challenge_challenge_type').val();
     let challengeParameters = $('#challenge_parameters').val();
-
     $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
-      // console.log("Index", index);
-      // console.log("ID", $(this).attr('id'));
-      // console.log("Seq ID", $(`#${$(this).attr('id')}`).find('.question-sequence-hidden'));
-      // console.log("Seq FIND", $(this).find('.question-sequence-hidden'));
 
       $(this).find('.question-sequence-hidden').val(index + 1);
     });
@@ -1787,6 +1787,29 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Manage Sorted Options Sequence
+  function manageOptionSequence() {
+    let challengeType = $('#challenge_challenge_type').val();
+    let challengeParameters = $('#challenge_parameters').val();
+
+    $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
+      let qBox = $(this);
+      qBox.find('.options-container').each(function (index) {
+        let container = $(this);
+        container.find('.que_edit').each(function (index) {
+          let option = $(this);
+
+          console.log("Index", index);
+          console.log("Option", option);
+          console.log("Seq ID", $(`#${option.attr('id')}`).find('.question-option-sequence-hidden'));
+          console.log("Seq FIND", option.find('.question-option-sequence-hidden'));
+
+          option.find('.question-option-sequence-hidden').val(index + 1);
+        });
+      });
+    });
+  }
+
   // Enable Sorting on Question Options
   function enableSortingForOptions() {
     $('.options-container').sortable({
@@ -1795,6 +1818,7 @@ $(document).on('turbolinks:load', function () {
       items: ".que_edit",
       update: function (event, ui) {
         console.log("IN Update");
+        manageOptionSequence();
       }
     });
   }

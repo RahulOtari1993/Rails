@@ -55,7 +55,7 @@
       </div>
 
       <% if question.present? && question.answer_type == 'radio_button' %>
-        <% question.question_options.each_with_index do |option, index| %>
+        <% question.question_options.order(:sequence).each_with_index do |option, index| %>
           <div class="que_edit">
             <span>&nbsp;</span>
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
