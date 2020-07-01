@@ -101,7 +101,7 @@ class Participant < ApplicationRecord
 
   ## Allow Only Active Users to Login
   def active_for_authentication?
-    super && (status == 1 || status == 2)
+    super && (status == "active" || status == "opted_out")
   end
 
   ## Get Current Participant

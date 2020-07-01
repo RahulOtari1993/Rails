@@ -26,7 +26,7 @@ class Participants::ConfirmationsController < Devise::ConfirmationsController
   # The path used after confirmation.
   def after_confirmation_path_for(resource_name, resource)
     unless resource.errors.present?
-      resource.update_attribute(:is_active, true)
+      resource.update_attribute(:status, 1)
 
       ## Mark Challenge as Completed & It's Relevant Entries
       resource.connect_challenge_completed(request.user_agent, request.remote_ip)
