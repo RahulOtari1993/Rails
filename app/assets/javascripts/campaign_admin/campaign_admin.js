@@ -43,6 +43,7 @@
 //= require libraries/scripts/jquery.fontselect.min
 //= require vendors/extensions/wNumb
 //= require vendors/extensions/nouislider.min
+//= require libraries/core/libraries/jquery-ui.min
 
 //= require libraries/core/app
 //= require libraries/core/app-menu
