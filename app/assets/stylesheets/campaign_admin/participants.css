@@ -314,6 +314,10 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
     padding: 20px 0px;
     padding-top: 0;
   }
+
+  .user_name {
+    margin-top: 15px;
+  }
 }
 
 /* Edit icon mouse hover issue */
@@ -328,4 +332,30 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
   font-size: 12px;
   font-weight: 500;
   margin-right: 15px;
+}
+
+.participant-status-dd {
+  width: auto;
+  margin-left: 10px;
+  float: left;
+  padding: 0 15px;
+  line-height: 1;
+  font-size: 12px;
+  height: 22px;
+}
+
+.participant_id_container select.form-control:not([multiple='multiple']) {
+  background-position: calc(100% - 5px) 5px, calc(100% - 20px) 13px, 100% 0px;
+}
+
+.participant-status-left {
+  float: left;
+}
+
+.participant-status-container {
+  margin-top: -11px;
+}
+
+.modal_profile_info {
+  margin-top: 25px;
 }

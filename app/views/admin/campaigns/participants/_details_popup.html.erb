@@ -40,11 +40,20 @@
                 </h6>
               <% end %>
 
-              <p class="participant_id_container">User ID:
-                <span class="participant_id_container"><%= @participant.p_id %></span>
-                Status:
-                <span class="success modal_user_id_active"><%= @participant.status == 1 ? 'Active' : 'Deactive' %></span>
-              </p>
+              <div class="participant-status-container">
+                <p class="participant_id_container">
+                  <span class="participant-status-left">
+                    User ID: <span class="participant_id_container"><%= @participant.p_id %></span>
+                    Status:
+                  </span>
+
+                  <%= select_tag "participant-status",
+                                 options_for_select(Participant.statuses.map { |val| [val[0].humanize, val[0]] }, @participant.status),
+                                 {class: 'form-control participant-status-dd', required: true} %>
+<!--                  <span class="success modal_user_id_active"><%#= @participant.status == 1 ? 'Active' : 'Deactive' %></span>-->
+                </p>
+                <div style="clear: both;"></div>
+              </div>
 
               <table class="modal_profile_info">
                 <tr>
