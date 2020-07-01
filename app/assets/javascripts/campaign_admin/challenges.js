@@ -1683,6 +1683,7 @@ $(document).on('turbolinks:load', function () {
     autoSelectText();
     addOptionValidations();
     changeCorrectCountOption(challengeType, challengeParameters);
+    manageOptionSequence();
   });
 
   // Remove Question With Validation
