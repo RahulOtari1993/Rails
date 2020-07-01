@@ -12,8 +12,10 @@
         <% @participant.reward_participants.each do |reward_participant| %>
           <tr>
             <td><%= truncate(reward_participant.reward.name, length: 40) %></td>
-            <td><span><%= reward_participant.reward.created_at.strftime("%m/%d/%Y") %></span>
-              <span><%= reward_participant.reward.created_at.strftime("%H:%M %p") %></span></td>
+            <td>
+              <span><%= reward_participant.reward.created_at.strftime("%m/%d/%Y") %></span>
+              <span><%= reward_participant.reward.created_at.strftime("%H:%M %p") %></span>
+            </td>
           </tr>
         <% end %>
         </tbody>
@@ -21,6 +23,7 @@
     </div>
   </section>
 </div>
+
 <script type="text/javascript">
   $(".reward-list-view").DataTable({
     "searching": false,

@@ -1,22 +1,30 @@
-<section id="data-list-view" class="data-list-view-header">
+<section class="data-list-view-header">
   <div class="table-responsive">
     <table class="table note-list-view">
       <thead>
-        <tr class="note-header">
-          <th scope="col"></th>
-        </tr>
+      <tr class="note-header">
+        <th scope="col"></th>
+      </tr>
       </thead>
+
       <tbody>
-        <% participant_notes_by_desc(@participant).each do |note| %>
-          <tr>
-            <td><h6 class="Notes_tab_title"><%= current_user.full_name %> - <span><%= note.created_at.strftime("%m/%d/%y") %></span> <span><%= note.created_at.strftime("%H:%M %p")%></span></h6>
-    					<p><%= note.description %></p></td>
-          </tr>
-        <% end %>
+      <% participant_notes_by_desc(@participant).each do |note| %>
+        <tr>
+          <td>
+            <h6 class="Notes_tab_title">
+              <%= current_user.full_name %> -
+              <span><%= note.created_at.strftime("%m/%d/%y") %></span>
+              <span><%= note.created_at.strftime("%H:%M %p") %></span>
+            </h6>
+            <p><%= note.description %></p>
+          </td>
+        </tr>
+      <% end %>
       </tbody>
     </table>
   </div>
 </section>
+
 <script type="text/javascript">
   $(".note-list-view").DataTable({
     "searching": false,
