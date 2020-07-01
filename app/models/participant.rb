@@ -366,7 +366,11 @@ class Participant < ApplicationRecord
   end
 
   def full_address
-    "#{address_1} #{address_2} #{city} #{state} #{postal}"
+    if address_1.present? || address_2.present? || city.present? || state.present? || postal.present?
+      [address_1, address_2, city, state, postal].join(', ')
+    else
+      ''
+    end
   end
   
   ## Check if Participant is Eligible for Challenge

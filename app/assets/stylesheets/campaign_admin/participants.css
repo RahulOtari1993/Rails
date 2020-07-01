@@ -200,13 +200,13 @@
   width: 20px;
 }
 
-.Modal_userID {
+.modal_user_id {
   color: #fff !important;
   font-size: 12px;
   font-weight: 500;
 }
 
-.Modal_userID_active {
+.modal_user_id_active {
   font-size: 12px;
   font-weight: 500;
 }
@@ -316,9 +316,16 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
   }
 }
 
-/* data-thumb-view-tejas.html   edit icon mousehover issue */
+/* Edit icon mouse hover issue */
 .table.data-list-view.dataTable tbody tr, table.data-thumb-view.dataTable tbody tr {
   transition: none;
 }
 
-/* data-thumb-view-tejas.html   edit icon mousehover issue */
+/* Edit icon mouse hover issue */
+
+.participant_id_container {
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 15px;
+}
