@@ -39,7 +39,11 @@
                 </tr>
                 <tr>
                   <td><i class="fa fa-user-plus" aria-hidden="true"></i> <span><%= @participant.created_at.strftime("%m/%d/%y") %></span>(Join Date)</td>
-                  <td><i class="fa fa-clock-o" aria-hidden="true"></i> <span><%= @participant.last_sign_in_at.strftime("%m/%d/%y") %></span>(date last active)</td>
+                  <% if @participant.last_sign_in_at.present? %>
+                    <td><i class="fa fa-clock-o" aria-hidden="true"></i>
+                      <span><%= @participant.last_sign_in_at.strftime("%m/%d/%y") %></span>(date last active)
+                    </td>
+                  <% end %>
                 </tr>
               </table>    
               <div class="tag_box">
