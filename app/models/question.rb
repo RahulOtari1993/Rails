@@ -11,6 +11,9 @@
 #  profile_attribute_id :integer
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  placeholder          :string
+#  additional_details   :string
+#  sequence             :integer
 #
 class Question < ApplicationRecord
   ## Associations

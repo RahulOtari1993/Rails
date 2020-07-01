@@ -8,6 +8,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  answer      :string
+#  sequence    :integer
 #
 class QuestionOption < ApplicationRecord
   ## Associations
