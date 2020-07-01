@@ -1706,6 +1706,7 @@ $(document).on('turbolinks:load', function () {
 
     if (options > 2) {
       $(this).parent().remove();
+      manageOptionSequence();
     } else {
       swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
     }
