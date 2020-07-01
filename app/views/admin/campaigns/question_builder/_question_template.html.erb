@@ -7,7 +7,7 @@
     <div class="col-md-7 col-12">
       <div class="form-label-group">
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][category]", 0 %>
-        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][sequence]",
+        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][sequence]",
                              question.present? ? question.sequence : nil, class: 'question-sequence-hidden'  %>
 
         <% if question.present? %>
