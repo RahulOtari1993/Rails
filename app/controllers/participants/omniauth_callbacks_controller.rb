@@ -49,6 +49,28 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
   end
 
+  ## Handle Twitter OAuth2 Callbacks
+  def twitter
+    user_agent = request.user_agent
+    remote_ip = request.remote_ip
+    type = request.env['omniauth.params']['type']
+
+    Rails.logger.info "============== type --> #{type} =============="
+    if type == 'connect' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('pi')
+      @participant = Participant.twitter_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['pi'])
+
+      Rails.logger.info "============== @participant --> #{@participant} =============="
+      if @participant.new_record?
+        redirect_to root_url, notice: 'Connecting Twitter account failed.'
+      else
+        redirect_to root_url, notice: 'Twitter account connected successfully.'
+      end
+    else
+      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      redirect_to root_url
+    end
+  end
+
   ## Setup OAuth Details for Facebook
   def setup
     if @campaign.present? && @campaign.white_branding

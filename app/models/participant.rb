@@ -59,11 +59,14 @@
 #  completed_challenges   :integer          default(0)
 #  avatar                 :string
 #  status                 :integer          default("inactive")
+#  twitter_uid            :string
+#  twitter_token          :string
+#  twitter_secret         :string
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable, :trackable,
-         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
+         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter],
          :authentication_keys => [:email, :organization_id, :campaign_id],
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
@@ -293,11 +296,38 @@ class Participant < ApplicationRecord
       participant.facebook_uid = auth.uid
       participant.facebook_token = auth.credentials.token
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
-    end
 
-    if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
-      participant
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
+        participant
+      else
+        Participant.new
+      end
+    else
+      Participant.new
+    end
+  end
+
+  ## Twitter Account Connect
+  def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    Rails.logger.info "============== twitter_connect p_id --> #{p_id} =============="
+
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    Rails.logger.info "============== twitter_connect participant --> #{participant} =============="
+    if participant.present?
+      participant.twitter_uid = auth.uid
+      participant.twitter_token = auth.credentials.token
+      participant.twitter_secret = auth.credentials.token
+
+      if participant.save(:validate => false)
+        # participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
+        participant
+      else
+        Participant.new
+      end
     else
       Participant.new
     end
