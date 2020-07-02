@@ -179,9 +179,10 @@ $(document).ready(function () {
 
   columnChart.render();
 
-  // Bar Chart
+
+  // Bar Chart For Age Breakdown
   // ----------------------------------
-  var barChartOptions = {
+  var ageBarChartOptions = {
     chart: {
       height: 350,
       type: 'bar',
@@ -196,21 +197,130 @@ $(document).ready(function () {
       enabled: false
     },
     series: [{
-      data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+      data: [200, 400, 430, 448, 470, 540]
     }],
     xaxis: {
-      categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan', 'United States', 'China', 'Germany'],
+      categories: ['Above 100','81 - 100', '61 - 80', '41 - 60', '21 - 40', '0 - 20'],
       tickAmount: 5
     },
     yaxis: {
       opposite: yaxis_opposite
     }
   }
-  var barChart = new ApexCharts(
-    document.querySelector("#bar-chart"),
-    barChartOptions
+  var ageBarChart = new ApexCharts(
+    document.querySelector("#age-bar-chart"),
+    ageBarChartOptions
   );
-  barChart.render();
+  ageBarChart.render();
+
+
+  // Pie Chart For Gender Breakdown
+  // ----------------------------------
+  var genderPieChartOptions = {
+    chart: {
+      id: 'mychart',
+      type: 'pie',
+      height: 350
+    },
+    colors: themeColors,
+    labels: ['other', 'female', 'male'],
+    series: [45,12,34],
+    legend: {
+      itemMargin: {
+        horizontal: 2
+      },
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 350
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  }
+  var genderPieChart = new ApexCharts(
+    document.querySelector("#gender-pie-chart"), genderPieChartOptions
+  );
+  genderPieChart.render();
+  var campaignId = $('#gender-pie-chart').attr('campaign_id');
+  var url = "/admin/campaigns/" + campaignId + "/users/get_gender";
+  $.getJSON(url, function(response) {
+    genderPieChart.updateOptions({
+      series: response.genderElementCount
+    })
+  });
+
+
+  // Bar Chart For Completed Challenges / Platform
+  // ----------------------------------
+  var completedChallengeBarChartOptions = {
+    chart: {
+      height: 350,
+      type: 'bar',
+    },
+    colors: themeColors,
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    series: [{
+      data: [400, 430, 448]
+    }],
+    xaxis: {
+      categories: ['Twitter', 'Facebook', 'Google'],
+      tickAmount: 5
+    },
+    yaxis: {
+      opposite: yaxis_opposite
+    }
+  }
+  var completedChallengeBarChart = new ApexCharts(
+    document.querySelector("#completed-challenge-bar-chart"),
+    completedChallengeBarChartOptions
+  );
+  completedChallengeBarChart.render();
+
+
+  // Bar Chart For Connected Platforms
+  // ----------------------------------
+  var connectedPlatformBarChartOptions = {
+    chart: {
+      height: 350,
+      type: 'bar',
+    },
+    colors: themeColors,
+    plotOptions: {
+      bar: {
+        horizontal: true,
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    series: [{
+      data: [400, 430, 448]
+    }],
+    xaxis: {
+      categories: ['Twitter', 'Facebook', 'Google'],
+      tickAmount: 5
+    },
+    yaxis: {
+      opposite: yaxis_opposite
+    }
+  }
+  var connectedPlatformBarChart = new ApexCharts(
+    document.querySelector("#connected-platform-bar-chart"),
+    connectedPlatformBarChartOptions
+  );
+  connectedPlatformBarChart.render();
 
 
   // Mixed Chart
@@ -782,38 +892,6 @@ $(document).ready(function () {
   );
   scatterChart.render();
 
-  // Pie Chart
-  // -----------------------------
-  var pieChartOptions = {
-    chart: {
-      type: 'pie',
-      height: 350
-    },
-    colors: themeColors,
-    labels: ['Team A', 'Team B', 'Team C', 'Team D'],
-    series: [44, 55, 13, 43],
-    legend: {
-      itemMargin: {
-        horizontal: 2
-      },
-    },
-    responsive: [{
-      breakpoint: 480,
-      options: {
-        chart: {
-          width: 350
-        },
-        legend: {
-          position: 'bottom'
-        }
-      }
-    }]
-  }
-  var pieChart = new ApexCharts(
-    document.querySelector("#pie-chart"),
-    pieChartOptions
-  );
-  pieChart.render();
 
   // Donut Chart
   // -----------------------------

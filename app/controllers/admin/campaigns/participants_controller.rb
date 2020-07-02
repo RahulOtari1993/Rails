@@ -107,6 +107,18 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
                      disposition: 'attachment; filename=campaign_contacts.csv'
   end
 
+  # Getting Gender list
+  def get_gender
+    gender_element_count = []
+    participants = @campaign.participants 
+    gender_element_count << Participant.male_count(participants)
+    gender_element_count << Participant.female_count(participants)
+    gender_element_count << Participant.other_count(participants)
+    render json: {
+      genderElementCount: gender_element_count
+    }
+  end
+
   private
 
   def search_columns

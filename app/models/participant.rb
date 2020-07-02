@@ -97,7 +97,10 @@ class Participant < ApplicationRecord
 
   ## Scopes
   scope :active, -> { where(arel_table[:is_active].eq(true)) }
-
+  scope :male_count, ->(participants) { where(gender: 'male').count }
+  scope :female_count, ->(participants) { where(gender: 'female').count }
+  scope :other_count, ->(participants) { where(gender: 'other').count }
+  
   ## Allow Only Active Users to Login
   def active_for_authentication?
     super && is_active?

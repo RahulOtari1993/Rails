@@ -103,6 +103,7 @@ Rails.application.routes.draw do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
               get '/participants', to: 'participants#participants'
+              get '/get_gender', to: 'participants#get_gender'
             end
             member do
               get '/users', to: 'participants#users'
