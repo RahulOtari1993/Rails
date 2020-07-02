@@ -2,15 +2,20 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   def facebook
     user_agent = request.user_agent
     remote_ip = request.remote_ip
+    type = request.env['omniauth.params']['type']
 
-    if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
+    if (type == 'sign_up' || type == 'connect') && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
       @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
       if @participant.new_record?
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         redirect_to root_url
       else
-        sign_in_and_redirect @participant, :event => :authentication
+        if type == 'connect'
+          redirect_to root_url, notice: 'Facebook account connected successfully.'
+        else
+          sign_in_and_redirect @participant, :event => :authentication
+        end
       end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
