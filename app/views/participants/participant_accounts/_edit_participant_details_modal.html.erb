@@ -32,7 +32,25 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12">
+          <% facebook_button = display_facebook_button %>
+          <div class="col-6">
+            <% if facebook_button.present? %>
+              <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id) %>"
+                 class="btn box1_btn facebook_btn btn-block">
+                <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
+                <span class="btn-share-text">Connect +<%= facebook_button.points %></span>
+              </a>
+              <div class="clear"></div>
+            <% end %>
+          </div>
+
+          <div class="col-6">
+            <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id) %>"
+               class="btn box1_btn twitter_btn btn-block">
+              <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
+              <span class="btn-share-text">Connect +250</span>
+            </a>
+            <div class="clear"></div>
           </div>
         </div>
 
