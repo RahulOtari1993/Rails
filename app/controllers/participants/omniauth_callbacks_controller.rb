@@ -1,4 +1,6 @@
 class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  ## Handle Facebook OAuth2 Callbacks
   def facebook
     user_agent = request.user_agent
     remote_ip = request.remote_ip
@@ -27,6 +29,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
   end
 
+  ## Handle Google OAuth2 Callbacks
   def google_oauth2
     user_agent = request.user_agent
     remote_ip = request.remote_ip
@@ -46,6 +49,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
   end
 
+  ## Setup OAuth Details for Facebook
   def setup
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
@@ -58,6 +62,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
+  ## Setup OAuth Details for Google
   def google_oauth2_setup
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
@@ -67,6 +72,19 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     request.env['omniauth.strategy'].options[:client_id] = conf.google_client_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.google_client_secret
+    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
+  end
+
+  ## Setup OAuth Details for Twitter
+  def twitter_oauth2_setup
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
+
+    request.env['omniauth.strategy'].options[:client_id] = conf.twitter_app_id
+    request.env['omniauth.strategy'].options[:client_secret] = conf.twitter_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 

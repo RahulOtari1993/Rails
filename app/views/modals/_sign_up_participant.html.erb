@@ -59,51 +59,47 @@
         <div class="modal_box signup-step1 hide">
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box2">
-            <h5>Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>
-            <%= form_for(Participant.new, as: :participant, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
-              <div class="row">
-                <%= f.hidden_field :campaign_id, value: @campaign.id %>
-                <%= f.hidden_field :organization_id, value: @campaign.organization_id %>
-                <%= f.hidden_field :connect_type, value: 'email' %>
+            <% if email_button.present? %>
+              <h5>Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>
+              <%= form_for(Participant.new, as: :participant, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
+                <div class="row">
+                  <%= f.hidden_field :campaign_id, value: @campaign.id %>
+                  <%= f.hidden_field :organization_id, value: @campaign.organization_id %>
+                  <%= f.hidden_field :connect_type, value: 'email' %>
 
-                <div class="col-md-6 m-b-14">
-                  <%= f.text_field :first_name, class: "form-control", placeholder: "First Name*", autocomplete: "off" %>
-                </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :first_name, class: "form-control", placeholder: "First Name*", autocomplete: "off" %>
+                  </div>
 
-                <div class="col-md-6 m-b-14">
-                  <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name*", autocomplete: "off" %>
-                </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :last_name, class: "form-control", placeholder: "Last Name*", autocomplete: "off" %>
+                  </div>
 
-                <div class="col-md-12 m-b-14">
-                  <%= f.email_field :email, class: "form-control", placeholder: "Email Address*", autocomplete: "off" %>
-                </div>
-                <div class="col-md-12 m-b-14">
-                  <%= email_field_tag 'participant[email_confirmation]', nil, class: "form-control email-confirmation-txt", placeholder: "Confirm Email Address*", autocomplete: "off" %>
-                </div>
+                  <div class="col-md-12 m-b-14">
+                    <%= f.email_field :email, class: "form-control", placeholder: "Email Address*", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-12 m-b-14">
+                    <%= email_field_tag 'participant[email_confirmation]', nil, class: "form-control email-confirmation-txt", placeholder: "Confirm Email Address*", autocomplete: "off" %>
+                  </div>
 
-                <div class="col-md-6 m-b-14">
-                  <%= f.password_field :password, class: "form-control", placeholder: "Choose Password*", autocomplete: "off" %>
-                </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.password_field :password, class: "form-control", placeholder: "Choose Password*", autocomplete: "off" %>
+                  </div>
 
-                <div class="col-md-6 m-b-14">
-                  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Re Enter Password*", autocomplete: "off" %>
-                </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Re Enter Password*", autocomplete: "off" %>
+                  </div>
 
-                <div class="col-md-12 m-b-14">
-                  <%= f.submit "Next", class: 'btn box1_btn btn-block' %>
-                  <p class="font-12 terms-details">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+                  <div class="col-md-12 m-b-14">
+                    <%= f.submit "Next", class: 'btn box1_btn btn-block' %>
+                    <p class="font-12 terms-details">By continuing, I agree to the <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>, <span style="text-decoration: underline;"><a href="#">rules</a></span> and <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           </div>
         </div>
-
       </div>
-
-<!-- Modal footer -->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>-->
-<!--      </div>-->
     </div>
   </div>
 </div>
