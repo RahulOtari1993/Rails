@@ -16,22 +16,59 @@
 
       <!-- Modal body -->
       <div class="modal-body pt-none">
-        <div class="row challenge-points-bg">
+        <!-- Participant statistic points start -->
+        <div class="row challenge-points-bg grid-divider">
           <div class="col-md-6">
-            <span class='text-uppercase'>Lifetime Balance</span>
-            <span style="display:block;"><%= current_participant.points.to_i %></span>
+            <span class='text-uppercase size-10'>Lifetime Balance</span>
+            <span class="size-14" style="display:block;"><%= current_participant.points.to_i %> GoBucks</span>
           </div>
           <div class="col-md-6">
-            <span class='text-uppercase'>Current Balance</span>
-            <span style="display:block;"><%= current_participant.unused_points.to_i %></span>
+            <span class='text-uppercase size-10'>Current Balance</span>
+            <span class="size-14" style="display:block;"><%= current_participant.unused_points.to_i %> GoBucks</span>
           </div>
         </div>
         <br>
         <div class="row">
           <div class="col-md-12">
-            <h4 class="challenge-points"><%= current_participant.completed_challenges.to_i %> Challenges Completed</h4>
+            <h4 class="font-color-1"><%= current_participant.completed_challenges.to_i %> Challenges Completed</h4>
           </div>
         </div>
+        <!-- History Section start -->
+        <p>Nice Work! You also got.</p>
+        <div class="row history-grid-divider text-center">
+          <div class="col-md-2 offset-md-1">
+            <span>
+              <i class="fa fa-mouse-pointer font-color-1"> 0</i>
+            </span>
+            <div class="size-12">clicks</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-heart-o font-color-1"> 0</i>
+            </span>
+            <div class="size-12">likes</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-comment-o font-color-1"> 0</i>
+            </span>
+            <div class="size-12">comments</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-share font-color-1"> 0</i>
+            </span>
+            <div class="size-12">reshares</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-users font-color-1"> 0</i>
+            </span>
+            <div class="size-12">recruits</div>
+          </div>
+        </div><br><br>
+
+        <!-- Connect social accounts start-->
         <div class="row">
           <% facebook_button = display_facebook_button %>
           <div class="col-6">
@@ -55,7 +92,6 @@
             <div class="clear"></div>
           </div>
         </div>
-
       </div>
 
       <!-- Modal footer -->
@@ -84,4 +120,45 @@
   .pt-none {
     padding-top: 0px !important;
   }
+
+  .size-14 {
+    font-size: 14px;
+  }
+
+  .row.grid-divider [class*='col-']:not(:last-child):after {
+    background: red;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+  }
+
+  .row.history-grid-divider [class*='col-']:not(:last-child):after {
+    background: lightgrey;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+  }
+
+  .size-12 {
+    font-size: 12px;
+  }
+
+  .size-10 {
+    font-size: 10px;
+  }
+
+  .font-color-1 {
+    color: #bb0000;
+  }
+
 </style>
