@@ -25,7 +25,8 @@
             <span class='text-uppercase'>Current Balance</span>
             <span style="display:block;"><%= current_participant.unused_points.to_i %></span>
           </div>
-        </div><br>
+        </div>
+        <br>
         <div class="row">
           <div class="col-md-12">
             <h4 class="challenge-points"><%= current_participant.completed_challenges.to_i %> Challenges Completed</h4>
@@ -45,7 +46,8 @@
           </div>
 
           <div class="col-6">
-            <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id) %>"
+            <a id="connect-bttn"
+               href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
                class="btn box1_btn twitter_btn btn-block">
               <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
               <span class="btn-share-text">Connect +250</span>
@@ -61,7 +63,8 @@
         <div class="row">
           <div class="col-md-12">
           </div>
-        </div><br>
+        </div>
+        <br>
       </div>
 
     </div>
@@ -73,9 +76,11 @@
     background-color: #bb0000;
     color: white;
   }
+
   .challenge-points {
     color: #bb0000;
   }
+
   .pt-none {
     padding-top: 0px !important;
   }

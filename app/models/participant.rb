@@ -227,7 +227,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent, remote_ip)
+      participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
       participant
     else
       Participant.new
@@ -276,7 +276,27 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent, remote_ip)
+      participant.connect_challenge_completed(user_agent, remote_ip, 'google')
+      participant
+    else
+      Participant.new
+    end
+  end
+
+  ## Facebook Account Connect
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.facebook_uid = auth.uid
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+    end
+
+    if participant.save(:validate => false)
+      participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
       participant
     else
       Participant.new
@@ -294,17 +314,27 @@ class Participant < ApplicationRecord
   end
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
-  def connect_challenge_completed(user_agent = '', remote_ip = '')
+  def connect_challenge_completed(user_agent = '', remote_ip = '', connect_type = '', platform = '')
     ## Fetch the Campaign
     campaign = Campaign.where(id: self.campaign_id).first
     if campaign.present?
       ## Fetch the Challenge (Facebook, Google, Email)
-      challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
+      platform = (platform.present? && connect_type == 'connect') ? platform : self.connect_type
+      challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: platform).first
       if challenge.present?
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
-        action_type = self.connect_type == 'email' ? 'sign_up' : 'sign_in'
-        action_title = self.connect_type == 'email' ? 'Signed up' : 'Signed in'
+        action_type = if connect_type == 'connect'
+                        'connect'
+                      else
+                        connect_type == 'email' ? 'sign_up' : 'sign_in'
+                      end
+
+        action_title = if platform.present? && connect_type == 'connect'
+                         "Connected #{platform}"
+                       else
+                         connect_type == 'email' ? 'Signed up' : 'Signed in'
+                       end
 
         if is_submitted
           ## Create Participant Action Log
