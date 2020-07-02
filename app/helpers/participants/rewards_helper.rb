@@ -12,4 +12,12 @@ module Participants::RewardsHelper
       false
     end
   end
+
+  ## Calculate Current Logged in User's Sweepstake Entries
+  def fetch_sweepstake_entries(reward)
+    total_earned_points = current_participant.participant_actions.where(created_at: reward.start..reward.finish).pluck(:points).compact.sum
+    no_of_entries = (total_earned_points / reward.sweepstake_entry.to_i)
+
+    no_of_entries
+  end
 end

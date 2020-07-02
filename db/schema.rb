@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_121829) do
+ActiveRecord::Schema.define(version: 2020_07_01_125652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,7 +316,6 @@ ActiveRecord::Schema.define(version: 2020_06_29_121829) do
     t.inet "last_sign_in_ip"
     t.string "first_name"
     t.string "last_name"
-    t.boolean "is_active", default: false, null: false
     t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
     t.integer "organization_id"
@@ -360,6 +359,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_121829) do
     t.integer "age", default: 0
     t.integer "completed_challenges", default: 0
     t.string "avatar"
+    t.integer "status", default: 0
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -382,6 +382,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_121829) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "answer"
+    t.integer "sequence"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
@@ -396,6 +397,7 @@ ActiveRecord::Schema.define(version: 2020_06_29_121829) do
     t.datetime "updated_at", null: false
     t.string "placeholder"
     t.string "additional_details"
+    t.integer "sequence"
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 

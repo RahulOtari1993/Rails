@@ -103,7 +103,7 @@ Rails.application.routes.draw do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
               get '/participants', to: 'participants#participants'
-              get '/get_gender', to: 'participants#get_gender'
+              get '/get_data_for_chart_graph', to: 'participants#get_data_for_chart_graph'
             end
             member do
               get '/users', to: 'participants#users'
@@ -111,6 +111,7 @@ Rails.application.routes.draw do
               delete '/remove_tag', to: 'participants#remove_tag'
               post '/add_tag', to: 'participants#add_tag'
               post '/add_note', to: 'participants#add_note'
+              put '/update_status', to: 'participants#update_status'
             end
           end
         end

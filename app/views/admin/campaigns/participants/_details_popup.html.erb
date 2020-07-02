@@ -9,39 +9,96 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body profile_modal_body">
-        <h4 class="participant-name-container" data-participant-id="<%= @participant.id %>" data-campaign-id="<%= @participant.campaign_id %>" style="display: none;">
+        <h4 class="participant-name-container" data-participant-id="<%= @participant.id %>"
+            data-campaign-id="<%= @participant.campaign_id %>" style="display: none;">
         </h4>
+
         <div class="container p-0">
           <div class="row">
             <div class="col-md-4">
               <div class="challenge_img" style="background-image: url(<%= @participant.avatar.url %>);
-                background-position: center; background-repeat: no-repeat; background-size: cover; ">
+                  background-position: center; background-repeat: no-repeat; background-size: cover;">
               </div>
+
               <h6 class="text-center">find them on:</h6>
               <div class="modal_social_box">
-                  <i class="fa fa-facebook" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-instagram" aria-hidden="true"></i>
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
               </div>
             </div>
+
             <div class="col-md-8">
               <h4 class="user_name"><%= @participant.full_name %></h4>
               <h6><%= @participant.email %></h6>
-              <%= @participant.full_address.present? ? "<h6><i class='fa fa-map-marker' aria-hidden='true'></i>&nbsp; #{@participant.full_address}</h6>".html_safe : "" %>
-              <p class="Modal_userID">User ID: <span class="Modal_userID"><%= @participant.id %></span>  &nbsp;&nbsp; Status: <span class="success Modal_userID_active"><%= @participant.is_active ? 'Active' : 'Deactive' %></span> </p>
+
+              <% if @participant.full_address.present? %>
+                <h6><i class='fa fa-map-marker' aria-hidden='true'></i>
+                  <%= @participant.full_address.html_safe %>
+                </h6>
+              <% end %>
+
+              <div class="participant-status-container">
+                <p class="participant_id_container">
+                  <span class="participant-status-left">
+                    User ID: <span class="participant_id_container"><%= @participant.p_id %></span>
+                    Status:
+                  </span>
+
+                  <%= select_tag "participant-status",
+                                 options_for_select(Participant.statuses.map { |val| [val[0].humanize, val[0]] }, @participant.status),
+                                 { class: 'form-control participant-status-dd', required: true } %>
+                </p>
+                <div style="clear: both;"></div>
+              </div>
+
               <table class="modal_profile_info">
                 <tr>
-                  <%= @participant.gender.present? ? "<td><i class='fa fa-male' aria-hidden='true' style='width:auto;'></i><i class='fa fa-female' aria-hidden='true' style='width:11px;'></i> <span>#{@participant.gender}</span></td>".html_safe : "" %>
-                  <%= participant_birth_date(@participant).present? || participant_age(@participant).present? ? "<td><i class='fa fa-birthday-cake' aria-hidden='true'></i> <span> #{participant_birth_date(@participant)}</span> #{participant_age(@participant)} years old</td>".html_safe : "" %>
+                  <% if @participant.gender.present? %>
+                    <td>
+                      <i class='fa fa-male' aria-hidden='true' style='width:auto;'></i><i class='fa fa-female' aria-hidden='true' style='width:11px;'></i>
+                      <span><%= @participant.gender.humanize %></span>
+                    </td>
+                  <% end %>
+
+                  <% if participant_birth_date(@participant).present? || participant_age(@participant).present? %>
+                    <td>
+                      <i class='fa fa-birthday-cake' aria-hidden='true'></i>
+                      <span><%= participant_birth_date(@participant) %></span>
+                      <%= participant_age(@participant) %> years old
+                    </td>
+                  <% end %>
                 </tr>
+
                 <tr>
-                  <td><i class="fa fa-users" aria-hidden="true"></i><!-- <i class="feather icon-users"></i> --> <span><%= @participant.recruits %></span> recruits</td>
-                  <td><i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span><%= @participant.sign_in_count %></span> total logins</td>
+                  <td>
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span><%= @participant.recruits %></span> recruits
+                  </td>
+
+                  <td>
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    <span><%= @participant.sign_in_count %></span> total logins
+                  </td>
                 </tr>
+
                 <tr>
-                  <td><i class="fa fa-user-plus" aria-hidden="true"></i> <span><%= @participant.created_at.strftime("%m/%d/%y") %></span>(Join Date)</td>
-                  <td><i class="fa fa-clock-o" aria-hidden="true"></i> <span><%= @participant.last_sign_in_at.strftime("%m/%d/%y") %></span>(date last active)</td>
+                  <td>
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <span><%= @participant.created_at.strftime("%m/%d/%y") %></span> (Join Date)
+                  </td>
+
+                  <% if @participant.last_sign_in_at.present? %>
+                    <td>
+                      <i class="fa fa-clock-o" aria-hidden="true"></i>
+                      <span><%= @participant.last_sign_in_at.strftime("%m/%d/%y") %></span> (Date Last Active)
+                    </td>
+                  <% end %>
                 </tr>
-              </table>    
+              </table>
+
               <div class="tag_box">
                 <div class="participant-tags-container">
                   <%= render 'tags_list' %>
@@ -53,8 +110,11 @@
                   <div class="add_tag remove-tag-btn">
                     <i class="feather icon-minus-circle add-tag-chip-btn"></i>
                   </div>
-                  <%= select_tag 'participant_tags_input', options_for_select(all_tags_humanize), class: 'form-control participant-tags participant-details-tags', multiple: 'multiple' %>
-                  <button class="btn btn-primary waves-effect waves-light submit-participant-tag" type="button" style="margin-left: 15px;">Add Tag
+                  <%= select_tag 'participant_tags_input', options_for_select(all_tags_humanize),
+                                 class: 'form-control participant-tags participant-details-tags', multiple: 'multiple' %>
+
+                  <button class="btn btn-primary waves-effect waves-light submit-participant-tag" type="button" style="margin-left: 15px;">
+                    Add Tag
                   </button>
                 </div>
               </div>
@@ -63,15 +123,18 @@
           <div class="row gradient_btn_box">
             <div class="col-md-3 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light"><%= @participant.unused_points %>
-                <p><span><%= @participant.points %></span> lifetime</p>
+                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">
+                  <%= @participant.unused_points %>
+                  <p><span><%= @participant.points %></span> lifetime</p>
                 </button>
                 <h6>Current Points</h6>
               </div>
             </div>
             <div class="col-md-3 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light"><%= @participant.completed_challenges %></button>
+                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">
+                  <%= @participant.completed_challenges %>
+                </button>
                 <h6>Challenges Completed</h6>
               </div>
             </div>
@@ -88,17 +151,24 @@
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="modal_tab modal_tab_table">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Activity_Feed" aria-controls="Insights" role="tab" aria-selected="true">Activity Feed</a>
+                  <a class="nav-link active" id="activity-feed-tab" data-toggle="tab" href="#activity-feed-list" role="tab">
+                    Activity Feed
+                  </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Rewards" aria-controls="Users" role="tab" aria-selected="false">Rewards</a>
+                  <a class="nav-link" id="rewards-tab" data-toggle="tab" href="#rewards-list" role="tab">
+                    Rewards
+                  </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="about-tab" data-toggle="tab" href="#Notes" aria-controls="Details" role="tab" aria-selected="false">Notes</a>
+                  <a class="nav-link" id="notes-tab" data-toggle="tab" href="#notes-list" role="tab">
+                    Notes
+                  </a>
                 </li>
               </ul>
               <div class="tab-content">
@@ -109,9 +179,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

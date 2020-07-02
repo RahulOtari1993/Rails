@@ -42,8 +42,17 @@ module ParticipantsHelper
   def targeted_users_percentage
     total_participants = @challenge.completions
     targeted_participants = @challenge.targeted_participants
-    percentage = (targeted_participants.count * 100 ) / total_participants.to_i
+    if targeted_participants.count > 0 && total_participants.to_i > 0
+      percentage = (targeted_participants.count * 100 ) / total_participants.to_i
+    else
+      percentage = 0
+    end
 
     percentage
+  end
+
+  # Displaying Top Users
+  def top_users(participants)
+    participants.order(points: :desc).limit(5)
   end
 end

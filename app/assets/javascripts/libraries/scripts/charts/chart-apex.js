@@ -179,6 +179,30 @@ $(document).ready(function () {
 
   columnChart.render();
 
+  // Getting Data For Graphs & Charts And Updating Them 
+  var campaignId = $('#gender-pie-chart').attr('campaign_id');
+  var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_chart_graph";
+  $.getJSON(url, function(response) {
+    console.log(response.genderElementCount,response.ageElementCount)
+    ageBarChart.updateOptions({
+      series: [{
+        data: response.ageElementCount  // Updating Age Options
+      }]
+    });
+    genderPieChart.updateOptions({
+      series: response.genderElementCount // Updating Gender Options
+    });
+    completedChallengeBarChart.updateOptions({
+      series: [{
+        data: response.completedChallengesElementCount  // Updating Completed Challenges / Platform Options
+      }]
+    });
+    connectedPlatformBarChart.updateOptions({
+      series: [{
+        data: response.connectedPlatformElementCount  // Updating Completed Challenges / Platform Options
+      }]
+    });
+  });
 
   // Bar Chart For Age Breakdown
   // ----------------------------------
@@ -197,10 +221,10 @@ $(document).ready(function () {
       enabled: false
     },
     series: [{
-      data: [200, 400, 430, 448, 470, 540]
+      data: [20, 150, 50, 100, 20, 40]
     }],
     xaxis: {
-      categories: ['Above 100','81 - 100', '61 - 80', '41 - 60', '21 - 40', '0 - 20'],
+      categories: ['Above 100','81 - 100', '61 - 80', '41 - 60', '21 - 40', '1 - 20'],
       tickAmount: 5
     },
     yaxis: {
@@ -246,13 +270,6 @@ $(document).ready(function () {
     document.querySelector("#gender-pie-chart"), genderPieChartOptions
   );
   genderPieChart.render();
-  var campaignId = $('#gender-pie-chart').attr('campaign_id');
-  var url = "/admin/campaigns/" + campaignId + "/users/get_gender";
-  $.getJSON(url, function(response) {
-    genderPieChart.updateOptions({
-      series: response.genderElementCount
-    })
-  });
 
 
   // Bar Chart For Completed Challenges / Platform

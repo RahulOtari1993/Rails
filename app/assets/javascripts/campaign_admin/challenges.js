@@ -321,10 +321,14 @@ $(document).on('turbolinks:load', function () {
         });
       }
       addOptionValidations();
+      manageQuestionSequence();
+      manageOptionSequence();
     }
 
     // Load Google Map if Challenge Type is Location
-    if (challengeType == 'location') initAutocomplete()
+    if (challengeType == 'location') {
+      initAutocomplete()
+    }
 
     if (challengeType == 'share' && challengeParameters == 'facebook') {
       $('.share-facebook-div .social-title-txt').addClass('always-validate');
@@ -335,7 +339,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
-  // Trigger Raduis Calculation
+  // Trigger Radius Calculation
   if (window.location.href.indexOf("edit") > -1) {
     setTimeout(function () {
       if ($('.step-two-container.active-segment').hasClass('location--div')) {
@@ -533,7 +537,7 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[image]': {
         required: true,
-        extension: "jpg|jpeg|png|gif|svg"
+        extension: "jpg|jpeg|png|gif"
       },
       'challenge[link]': {
         required: true,
@@ -1057,7 +1061,7 @@ $(document).on('turbolinks:load', function () {
     //   sProcessing: "<div class='spinner-border' role='status'><span class='sr-only'></span></div>"
     // },
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {
@@ -1410,7 +1414,7 @@ $(document).on('turbolinks:load', function () {
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#challenge-image-preview').attr('src', e.target.result);
-        $('#challenge_image').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+        $('#challenge_image').removeClass('ignore'); // Remove Ignore Class to Validate New Uploaded Image
       }
       reader.readAsDataURL(this.files[0]);
     }
@@ -1422,7 +1426,7 @@ $(document).on('turbolinks:load', function () {
       var reader = new FileReader();
       reader.onload = function (e) {
         $('#challenge-icon-image-preview').attr('src', e.target.result);
-        $('#challenge_icon').removeClass('ignore'); // Remove Igonore Class to Validate New Uploaded Image
+        $('#challenge_icon').removeClass('ignore'); // Remove Ignore Class to Validate New Uploaded Image
       }
       reader.readAsDataURL(this.files[0]);
     }
@@ -1632,6 +1636,9 @@ $(document).on('turbolinks:load', function () {
     questionTypeSelect2(phaseCounter);
     autoSelectText();
     addOptionValidations();
+    manageQuestionSequence();
+    enableSortingForOptions();
+    manageOptionSequence();
   });
 
   // Manage Auto Selection of Text
@@ -1676,6 +1683,7 @@ $(document).on('turbolinks:load', function () {
     autoSelectText();
     addOptionValidations();
     changeCorrectCountOption(challengeType, challengeParameters);
+    manageOptionSequence();
   });
 
   // Remove Question With Validation
@@ -1686,6 +1694,7 @@ $(document).on('turbolinks:load', function () {
     if ($(`.${challengeType}-${challengeParameters}-div .question_del_icon`).length > 1) {
       $(this).parent().parent().parent().parent().remove();
       changeCorrectCountOption(challengeType, challengeParameters);
+      manageQuestionSequence();
     } else {
       swalNotify('Remove Question', 'You can not remove all questions, Atleast one question needed.');
     }
@@ -1697,6 +1706,7 @@ $(document).on('turbolinks:load', function () {
 
     if (options > 2) {
       $(this).parent().remove();
+      manageOptionSequence();
     } else {
       swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
     }
@@ -1727,16 +1737,19 @@ $(document).on('turbolinks:load', function () {
     optionHtml = optionHtml.replace(oldIdent, newIdent);
 
     // Set New Option Identifire to Option
-    // var optIdentifire = qOption.data('option-identifire');
     var oldName = `[question_options_attributes][${optIdentifire}][details]`
     var newName = `[question_options_attributes][${optionCounter}][details]`
     optionHtml = optionHtml.replace(oldName, newName);
 
     // Set New Option Identifire to Answer
-    // var optIdentifire = qOption.data('option-identifire');
     var oldAnsName = `[question_options_attributes][${optIdentifire}][answer]`
     var newAnsName = `[question_options_attributes][${optionCounter}][answer]`
     optionHtml = optionHtml.replace(oldAnsName, newAnsName);
+
+    // Set New Option Identifire to Sequence
+    var oldSeqName = `[question_options_attributes][${optIdentifire}][sequence]`
+    var newSeqName = `[question_options_attributes][${optionCounter}][sequence]`
+    optionHtml = optionHtml.replace(oldSeqName, newSeqName);
 
     // Remove Default Seelcted Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
@@ -1748,6 +1761,7 @@ $(document).on('turbolinks:load', function () {
 
     autoSelectText();
     addOptionValidations();
+    manageOptionSequence();
   });
 
   // Auto Select Text While Edit Profile Question
@@ -1760,4 +1774,58 @@ $(document).on('turbolinks:load', function () {
     $(this).parent().parent().parent().find('input:checkbox').removeAttr('checked');
     $(this).prop('checked', true);
   });
+
+  // Manage Sorted Question Sequence
+  function manageQuestionSequence() {
+    let challengeType = $('#challenge_challenge_type').val();
+    let challengeParameters = $('#challenge_parameters').val();
+    $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
+
+      $(this).find('.question-sequence-hidden').val(index + 1);
+    });
+  }
+
+  // Sort Questions
+  $('.questions-container').sortable({
+    update: function (event, ui) {
+      manageQuestionSequence();
+    }
+  });
+
+  // Manage Sorted Options Sequence
+  function manageOptionSequence() {
+    let challengeType = $('#challenge_challenge_type').val();
+    let challengeParameters = $('#challenge_parameters').val();
+
+    $(`.${challengeType}-${challengeParameters}-div .questions-container .question_box`).each(function (index) {
+      let qBox = $(this);
+      let qType = qBox.find('.question-selector').val();
+      let selectedQtype = qType.split('--');
+
+      qBox.find('.options-container').each(function (index) {
+        let container = $(this);
+        if (container.hasClass(`${selectedQtype[0]}-container`)) {
+          container.find('.que_edit').each(function (index) {
+            let option = $(this);
+            option.find('.question-option-sequence-hidden').val(index + 1);
+          });
+        }
+      });
+    });
+  }
+
+  // Enable Sorting on Question Options
+  function enableSortingForOptions() {
+    $('.options-container').sortable({
+      group: 'no-drop',
+      handle: 'i.drag_option',
+      items: '.que_edit',
+      update: function (event, ui) {
+        manageOptionSequence();
+      }
+    });
+  }
+
+  // Sort Question Options
+  enableSortingForOptions();
 });
