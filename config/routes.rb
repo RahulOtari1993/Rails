@@ -132,6 +132,11 @@ Rails.application.routes.draw do
           post :claim
         end
       end
+      resources :participant_accounts, only: [] do
+        collection do
+          get :details_form
+        end
+      end
     end
 
     ## Root Route

@@ -188,25 +188,34 @@ $(document).on('turbolinks:load', function () {
 
   });
 
-// claim Reward submission - start
-$('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
-  var rewardId = $(this).data('reward-id');
-  var _this = $(this);
+  // claim Reward submission - start
+  $('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
+    var rewardId = $(this).data('reward-id');
+    var _this = $(this);
 
-  $.ajax({
-    url: `/participants/rewards/${rewardId}/claim`,
-    type: 'POST',
-    dataType: 'JSON',
-    success: function (data) {
-      if (data.success) {
-        $('.reward-claim-container').show();     // Display Reward Completion Message
-        _this.hide();
-      } else {
-        swalNotify('Reward Claimed', data.message);
+    $.ajax({
+      url: `/participants/rewards/${rewardId}/claim`,
+      type: 'POST',
+      dataType: 'JSON',
+      success: function (data) {
+        if (data.success) {
+          $('.reward-claim-container').show();     // Display Reward Completion Message
+          _this.hide();
+        } else {
+          swalNotify('Reward Claimed', data.message);
+        }
       }
-    }
+    });
   });
-});
-// claim Reward submission - end
+  // claim Reward submission - end
+
+
+  // Edit Particpant details Popup
+  $('body').on('click', '.edit-participant-profile-btn', function (e) {
+    $.ajax({
+      type: 'GET',
+      url: '/participants/participant_accounts/details_form'
+    });
+  });
 
 });

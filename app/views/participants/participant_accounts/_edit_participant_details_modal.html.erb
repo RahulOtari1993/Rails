@@ -1,0 +1,64 @@
+<div class="modal fade text-left" id="participant_details_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-12">
+            <h4 class="modal-title">
+              <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+            </h4>
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body pt-none">
+        <div class="row challenge-points-bg">
+          <div class="col-md-6">
+            <span class='text-uppercase'>Lifetime Balance</span>
+            <span style="display:block;"><%= current_participant.points.to_i %></span>
+          </div>
+          <div class="col-md-6">
+            <span class='text-uppercase'>Current Balance</span>
+            <span style="display:block;"><%= current_participant.unused_points.to_i %></span>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="challenge-points"><%= current_participant.completed_challenges.to_i %> Challenges Completed</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div><br>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+  .challenge-points-bg {
+    background-color: #bb0000;
+    color: white;
+  }
+  .challenge-points {
+    color: #bb0000;
+  }
+  .pt-none {
+    padding-top: 0px !important;
+  }
+</style>
