@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_26_114848) do
+ActiveRecord::Schema.define(version: 2020_07_01_125652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "header_description"
+    t.float "header_description_font_size"
+    t.string "header_description_font_color"
     t.index ["campaign_id"], name: "index_campaign_template_details_on_campaign_id"
   end
 
@@ -230,6 +232,18 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.index ["campaign_id"], name: "index_networks_on_campaign_id"
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.text "description"
+    t.bigint "campaign_id"
+    t.bigint "user_id"
+    t.bigint "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_notes_on_campaign_id"
+    t.index ["participant_id"], name: "index_notes_on_participant_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "organization_admins", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
@@ -302,7 +316,6 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.inet "last_sign_in_ip"
     t.string "first_name"
     t.string "last_name"
-    t.boolean "is_active", default: false, null: false
     t.boolean "is_deleted", default: false, null: false
     t.integer "deleted_by"
     t.integer "organization_id"
@@ -346,6 +359,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.integer "age", default: 0
     t.integer "completed_challenges", default: 0
     t.string "avatar"
+    t.integer "status", default: 0
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -368,6 +382,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "answer"
+    t.integer "sequence"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 
@@ -382,6 +397,7 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
     t.datetime "updated_at", null: false
     t.string "placeholder"
     t.string "additional_details"
+    t.integer "sequence"
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 
@@ -569,6 +585,9 @@ ActiveRecord::Schema.define(version: 2020_06_26_114848) do
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "networks", "campaigns"
+  add_foreign_key "notes", "campaigns"
+  add_foreign_key "notes", "participants"
+  add_foreign_key "notes", "users"
   add_foreign_key "participant_actions", "participants"
   add_foreign_key "participant_profiles", "participants"
   add_foreign_key "participant_profiles", "profile_attributes"

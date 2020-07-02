@@ -51,4 +51,40 @@ module EndUserHelper
       end
     end
   end
+
+  ## Fetch Header Text Based on Template Configuration
+  def list_header_text
+    if @template.header_text.present?
+      @template.header_text
+    else
+      'The Official Loyalty Program of Buckeye Nation'
+    end
+  end
+
+  ## Fetch Header Text Based on Template Configuration
+  def list_header_details
+    if @template.header_description.present?
+      @template.header_description
+    else
+      'Take your Buckeye Pride to the next level with Buckeye Nation Rewards. The only way to get insider access and perks for your pride.'
+    end
+  end
+
+  ## Fetch Header Hero Image Background Based on Template Configuration
+  def list_header_bg_image
+    if @template.header_background_image.present? && @template.header_background_image.url.present?
+      @template.header_background_image.url
+    else
+      asset_path 'end-user/banner_bg.png'
+    end
+  end
+
+  ## Fetch Header Logo Image Based on Template Configuration
+  def list_header_logo
+    if @template.header_logo.present? && @template.header_logo.url.present?
+      @template.header_logo.url
+    else
+      asset_path 'end-user/BNR-Logo-Horizontal-Color-Black.svg'
+    end
+  end
 end

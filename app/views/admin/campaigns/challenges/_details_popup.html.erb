@@ -18,7 +18,7 @@
         <div class="container p-0">
           <div class="row">
             <div class="col-md-6">
-              <div class="challenge_img" style="background-image: url(<%= @challenge.image.url %>);
+              <div class="challenge_img" style="background-image: url(<%= @challenge.image.url('banner') %>);
                   background-position: center; background-repeat: no-repeat; background-size: cover; ">
                 <p class="challenge-description">
                   <%= truncate(@challenge.description, :length => 90) %>
@@ -72,7 +72,7 @@
               <div class="form-group text-center">
                 <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">
                   <%= @challenge.completions %>
-                  <p><span>48%</span> of user targetted</p>
+                  <p><span><%= targeted_users_percentage %>%</span> of user targeted</p>
                 </button>
                 <h6>Total Completions</h6>
               </div>

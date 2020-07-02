@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_organization
+  before_action :handle_referrals
+
   append_before_action :setup_default_recruit_challenge
 
   include Pundit
@@ -79,5 +81,20 @@ class ApplicationController < ActionController::Base
   ## Set Current Participant to Access in Models
   def set_current_participant
     Participant.current = current_participant
+  end
+
+  def handle_referrals
+    if params[:refid]
+      if session[:pending_refids].blank?
+        session[:pending_refids] = []
+      end
+      if !session[:pending_refids].include?(params[:refid])
+        session[:pending_refids].push(params[:refid])
+      end
+    end
+
+    if !current_user.blank? && current_user.active?
+
+    end
   end
 end

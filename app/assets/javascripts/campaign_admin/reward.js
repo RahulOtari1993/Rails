@@ -5,14 +5,20 @@ $(document).on('turbolinks:load', function () {
       $('.threshold').show();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
       $('.threshold').hide();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else if ($(this).val() == 'sweepstake') {
       $('.threshold').hide();
       $('.sweepstake').show();
       $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
+      showHideRewardRules();
     } else {
       $('.threshold').hide();
       $('.sweepstake').hide();
@@ -313,7 +319,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
-  //thumbview list
+  // List Rewards
   $("#reward-list-table").DataTable({
     processing: true,
     paging: true,
@@ -383,31 +389,36 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        title: 'Actions', data: null, searchable: false, orderable: false, width: '30%',
+        class: 'product-action a',
+        title: 'Actions', data: null, searchable: false, orderable: false,
         render: function (data, type, row) {
-          // Action items start
-            action_html = ""
+          let action_html = "<div class='input-group' data-challenge-id ='" + data.id + "' data-campaign-id='" + data.campaign_id + "'>" +
+              "<span class='dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'><i class='feather icon-more-horizontal'></i></span>" +
+              "<div class='dropdown-menu more_action_bg' x-placement='bottom-end' style='position: absolute;z-index: 9999;'>"
 
-            // edit reward
-            action_html += "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
-                "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'" +
-                "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
+          // Edit Button
+          action_html = action_html + "<a class='dropdown-item' href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Reward'>" +
+              "<i class='feather icon-edit-2'></i> Edit</a>"
 
-            // Download csv
-            action_html += "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light download-csv-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
-                + "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
-                "<i class='feather icon-download'></i></button>"
+          // Download CSV Button
+          action_html = action_html + "<a class='dropdown-item download-csv-btn' href='javascript:void(0);' reward_id='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Download CSV file of reward participants'>" +
+              "<i class='feather icon-download'></i> Download CSV</a>"
 
-            // Coupon creation
-            action_html += "<button class='btn btn-action btn-primary coupon-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-                + "'>Coupons</button>"
+          // Coupons Listing
+          action_html = action_html + "<a class='dropdown-item coupon-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" + data.campaign_id + "'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='List Available Coupons'>" +
+              "<i class='feather icon-copy'></i> Coupons</a>"
 
-            // manual reward participant selection
-            if (data.selection == "manual") {
-              action_html += "<button class='btn btn-action btn-primary participant-selection-btn' reward_id ='" + data.id + "'campaign_id='" + data.campaign_id
-              + "'>Selection</button>"
-            }
-          // Action items end
+          // Manual Reward Participant Selection Action
+          if (data.selection == "manual") {
+            action_html = action_html + "<a class='dropdown-item participant-selection-btn' href='javascript:void(0);' reward_id ='" + data.id + "' campaign_id='" +data.campaign_id + "'" +
+                "data-toggle='tooltip' data-placement='top' data-original-title='Select Winners'>" +
+                "<i class='feather icon-award'></i> Selection</a>"
+          }
+
+          action_html = action_html + "</div></div>"
           return action_html;
         }
       },
@@ -422,7 +433,7 @@ $(document).on('turbolinks:load', function () {
     bInfo: false,
     pageLength: 10,
     aoColumnDefs: [
-      { 'bSortable': false, 'aTargets': [0]}
+      {'bSortable': false, 'aTargets': [0]}
     ],
     buttons: [
       {
@@ -721,8 +732,8 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // Reward Rules Segment Show/Hide Content
-  $('body').on('click', '#reward_rule_applied', function (e) {
+  // Function to Handle Reward Rules Segment Show/Hide Content
+  function showHideRewardRules() {
     if ($('#reward_rule_applied').is(":checked")) {
       $('.rule-filters-container').show();
       $('.reward-rule-segments-container input').prop('disabled', false);
@@ -732,6 +743,11 @@ $(document).on('turbolinks:load', function () {
       $('.reward-rule-segments-container select').prop('disabled', true);
       $('.rule-filters-container').hide();
     }
+  }
+
+  // Reward Rules Segment Show/Hide Content
+  $('body').on('click', '#reward_rule_applied', function (e) {
+    showHideRewardRules();
   });
 
   // Generates Challenge Filter Query String

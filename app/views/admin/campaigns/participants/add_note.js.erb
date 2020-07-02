@@ -1,0 +1,12 @@
+$('.participant-notes-container').html('');
+$('#participant_note_description_input').val('');
+$('.participant-notes-container').html("<%= j render 'admin/campaigns/participants/notes_list' %>");
+
+<% if @message.present? %>
+  Swal.fire({
+    title: 'Add a Note',
+    text: '<%= @message.to_s %>',
+    confirmButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+  });
+<% end %>

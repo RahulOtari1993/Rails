@@ -1,0 +1,10 @@
+$('.show-participant-details-container').html("<%= j render 'admin/campaigns/participants/details_popup' %>");
+$('#participant-details-popup').modal('show');
+
+$('.participant-tags').select2({
+  placeholder: "Select Tags",
+  tags: true,
+  maximumSelectionLength: 1,
+  dropdownAutoWidth: true,
+  width: '50%'
+});

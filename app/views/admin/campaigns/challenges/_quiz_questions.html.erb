@@ -1,5 +1,5 @@
 <% if @challenge.questions.present? %>
-  <% @challenge.questions.order(:created_at).each do |question| %>
+  <% @challenge.questions.order(:sequence).each do |question| %>
     <%= render 'admin/campaigns/question_builder/quiz_question_template', template: true, question: question, type: type %>
   <% end %>
 <% else %>

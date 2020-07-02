@@ -841,6 +841,13 @@
   margin-right: 15px;
 }
 
+.que_edit .drag_option {
+  float: left;
+  font-size: 22px;
+  margin-top: 7px;
+  margin-right: 15px;
+}
+
 .question_box .date_icon {
   border-top-right-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
@@ -921,6 +928,11 @@
     margin-left: 10px;
   }
 
+  .que_edit .drag_option {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
   .que_mobile_mb {
     margin-bottom: 1.5rem
   }
@@ -956,7 +968,8 @@
   display: none;
 }
 
-.table.data-list-view.dataTable tbody tr, table.data-thumb-view.dataTable tbody tr{
+.table.data-list-view.dataTable tbody tr, table.data-thumb-view.dataTable tbody tr {
   transition: none;
 }
+
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

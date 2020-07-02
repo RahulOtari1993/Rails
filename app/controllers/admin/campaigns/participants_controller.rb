@@ -1,4 +1,6 @@
 class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseController
+  before_action :set_participant, only: [:show, :remove_tag, :add_tag, :add_note, :update_status]
+
   def index
   end
 
@@ -33,6 +35,40 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
         recordsTotal: @campaign.participants.count,
         recordsFiltered: participants.total_count,
     }
+  end
+
+  # Fetch Participant Details
+  def show
+  end
+
+  # Remove a Tag From Participant
+  def remove_tag
+    begin
+      @participant.tag_list.remove(params[:tag], parse: true) if params.has_key?('tag') && params[:tag].present?
+      @participant.save!
+    rescue StandardError => e
+      @message = e.message
+    end
+  end
+
+  # Add a Tag to Participant
+  def add_tag
+    begin
+      @participant.tag_list.add(params[:tag].join(', '), parse: true) if params.has_key?('tag') && params[:tag].present?
+      @participant.save!
+    rescue StandardError => e
+      @message = e.message
+    end
+  end
+
+  # Add a Note to Participant
+  def add_note
+    begin
+      @note = Note.new(description: params[:description], campaign: @campaign, user: current_user, participant: @participant)
+      @note.save!
+    rescue StandardError => e
+      @message = e.message
+    end
   end
 
   ## Fetch Filtered Participants & Create CSV
@@ -71,14 +107,37 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
                      disposition: 'attachment; filename=campaign_contacts.csv'
   end
 
+  ## Update Participant Status
+  def update_status
+    if @participant.update_attribute(:status, params[:status].present? ? params[:status] : @participant.status)
+      response = {
+          success: true,
+          title: "Update user status",
+          message: "User status updated successfully!"
+      }
+    else
+      response = {
+          success: false,
+          title: "Update user status",
+          message: "Updating user status failed!, Please try again."
+      }
+    end
+
+    render json: response
+  end
+
   private
 
-  def search_columns
-    %w(first_name last_name email)
-  end
+    def search_columns
+      %w(first_name last_name email)
+    end
 
-  def sort_column
-    columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
-    columns[params[:order]['0'][:column].to_i - 1].join(', ')
-  end
+    def sort_column
+      columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
+      columns[params[:order]['0'][:column].to_i - 1].join(', ')
+    end
+
+    def set_participant
+      @participant = @campaign.participants.find_by_id(params[:id])
+    end
 end
