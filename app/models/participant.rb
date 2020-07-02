@@ -15,7 +15,6 @@
 #  last_sign_in_ip        :inet
 #  first_name             :string
 #  last_name              :string
-#  is_active              :boolean          default(FALSE), not null
 #  is_deleted             :boolean          default(FALSE), not null
 #  deleted_by             :integer
 #  organization_id        :integer
@@ -59,6 +58,7 @@
 #  age                    :integer          default(0)
 #  completed_challenges   :integer          default(0)
 #  avatar                 :string
+#  status                 :integer          default("inactive")
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
@@ -84,7 +84,8 @@ class Participant < ApplicationRecord
   after_save :check_milestone_reward
 
   ## ENUM
-  enum connect_type: {facebook: 0, google: 1, email: 3}
+  enum connect_type: {facebook: 0, google: 1, email: 2}
+  enum status: {inactive: 0, active: 1, opted_out: 2, blocked: 3}
 
   ## Mount Uploader for File Upload
   mount_uploader :avatar, AvatarUploader
@@ -96,11 +97,11 @@ class Participant < ApplicationRecord
   acts_as_taggable_on :tags
 
   ## Scopes
-  scope :active, -> { where(arel_table[:is_active].eq(true)) }
+  scope :active, -> { where(arel_table[:status].eq(1)) }
 
   ## Allow Only Active Users to Login
   def active_for_authentication?
-    super && is_active?
+    super && (status == "active" || status == "opted_out")
   end
 
   ## Get Current Participant
@@ -201,7 +202,7 @@ class Participant < ApplicationRecord
       participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'facebook'
       participant.remote_avatar_url = auth.info.image
-      participant.is_active = true
+      participant.status = 1
     else
       name = auth.info.name.split(" ")
 
@@ -211,7 +212,7 @@ class Participant < ApplicationRecord
           facebook_uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
-          is_active: true,
+          status: 1,
           first_name: name[0],
           last_name: name[1],
           facebook_token: auth.credentials.token,
@@ -250,7 +251,7 @@ class Participant < ApplicationRecord
       participant.google_refresh_token = auth.credentials.refresh_token if refresh_token
       participant.google_expires_at = Time.at(auth.credentials.expires_at)
       participant.connect_type = 'google'
-      participant.is_active = true
+      participant.status = 1
       participant.remote_avatar_url = auth.info.image
     else
       params = {
@@ -259,7 +260,7 @@ class Participant < ApplicationRecord
           google_uid: auth.uid,
           email: auth.info.email,
           password: Devise.friendly_token[0, 20],
-          is_active: true,
+          status: 1,
           first_name: auth.info.first_name,
           last_name: auth.info.last_name,
           google_token: auth.credentials.token,
@@ -365,7 +366,11 @@ class Participant < ApplicationRecord
   end
 
   def full_address
-    "#{address_1} #{address_2} #{city} #{state} #{postal}"
+    if address_1.present? || address_2.present? || city.present? || state.present? || postal.present?
+      [address_1, address_2, city, state, postal].join(', ')
+    else
+      ''
+    end
   end
   
   ## Check if Participant is Eligible for Challenge

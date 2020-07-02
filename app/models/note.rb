@@ -2,13 +2,13 @@
 #
 # Table name: notes
 #
-#  id          		:bigint           not null, primary key
+#  id             :bigint           not null, primary key
 #  description    :text
-#  campaign_id 		:bigint
-#  user_id 				:bigint
+#  campaign_id    :bigint
+#  user_id        :bigint
 #  participant_id :bigint
-#  created_at  		:datetime         not null
-#  updated_at  		:datetime         not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 class Note < ApplicationRecord
 	# Associations
