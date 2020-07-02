@@ -51,7 +51,8 @@
 //= require libraries/scripts/modal/components-modal
 //= require libraries/scripts/pages/dashboard-analytics
 //= require libraries/scripts/charts/chart-apex
-
+//= require libraries/scripts/charts/geo-charts/loader
+//= require libraries/scripts/charts/geo-charts/geo-chart
 
 //= require jquery.minicolors
 //= require ../campaign_admin

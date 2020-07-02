@@ -183,7 +183,6 @@ $(document).ready(function () {
   var campaignId = $('#gender-pie-chart').attr('campaign_id');
   var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_chart_graph";
   $.getJSON(url, function(response) {
-    console.log(response.genderElementCount,response.ageElementCount)
     ageBarChart.updateOptions({
       series: [{
         data: response.ageElementCount  // Updating Age Options
