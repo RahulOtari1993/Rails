@@ -133,10 +133,11 @@ Rails.application.routes.draw do
           post :claim
         end
       end
-      resources :participant_accounts, only: [] do
+      resources :accounts, only: [], :controller => "participant_accounts" do
         collection do
           get :details_form
-          post :update_profile_details
+          put :update_profile_details
+          put :disconnect
         end
       end
     end

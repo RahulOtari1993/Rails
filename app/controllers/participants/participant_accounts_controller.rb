@@ -11,6 +11,10 @@ class Participants::ParticipantAccountsController < ApplicationController
     @participant.update(participant_params)
   end
 
+  def disconnect
+
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
