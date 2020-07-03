@@ -116,7 +116,7 @@
           </div>
           <!-- participant details edit form -->
           <div class="participant-profile-edit-info section-bg-color-1" style="display:none;">
-            <%= form_for(current_participant, as: :participant, url: update_profile_details_participants_participant_accounts_path, method: :post, :html => {class: 'form form-vertical participant-profile-form', remote: true}) do |f| %>
+            <%= form_for(current_participant, as: :participant, url: update_profile_details_participants_accounts_path, method: :put, :html => {class: 'form form-vertical participant-profile-form', remote: true}) do |f| %>
               <div class="row ml-1 pt-3">
                 <div class="col-md-4">
                   <h6>Profile Photo</h6>
