@@ -470,9 +470,9 @@ ActiveRecord::Schema.define(version: 2020_07_03_105833) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
-    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
+    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
