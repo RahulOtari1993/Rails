@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_130415) do
+ActiveRecord::Schema.define(version: 2020_07_03_084947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,6 +363,9 @@ ActiveRecord::Schema.define(version: 2020_07_02_130415) do
     t.string "twitter_uid"
     t.string "twitter_token"
     t.string "twitter_secret"
+    t.string "country"
+    t.string "home_phone"
+    t.string "work_phone"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -464,9 +467,9 @@ ActiveRecord::Schema.define(version: 2020_07_02_130415) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
+    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
-    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end

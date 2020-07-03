@@ -164,7 +164,20 @@
                     <%= f.text_field :postal, class: "form-control", placeholder: "ZIP", autocomplete: "off" %>
                   </div>
                   <div class="col-md-6 m-b-14">
-                    <%= f.text_field :phone, class: "form-control", placeholder: "PHONE", autocomplete: "off" %>
+                    <%= f.text_field :country, class: "form-control", placeholder: "COUNTRY", autocomplete: "off" %>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :home_phone, class: "form-control", placeholder: "HOME PHONE", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :work_phone, class: "form-control", placeholder: "WORK PHONE", autocomplete: "off" %>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :phone, class: "form-control", placeholder: "MOBILE PHONE", autocomplete: "off" %>
                   </div>
                 </div>
               </div>
