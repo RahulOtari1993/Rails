@@ -221,12 +221,15 @@
                 <div class="row ml-1">
                   <div class="col-md-4">
                     <p class="mb-0"><b class="text-uppercase size-12">Current Job</b></p>
+                    <%= f.text_field :job_position, class: "form-control", placeholder: "CURRENT JOB POSITION", autocomplete: "off" %>
                   </div>
                   <div class="col-md-4">
                     <p class="mb-0"><b class="text-uppercase size-12">Company Name</b></p>
+                    <%= f.text_field :job_company_name, class: "form-control", placeholder: "COMPANY NAME", autocomplete: "off" %>
                   </div>
                   <div class="col-md-4">
                     <p class="mb-0"><b class="text-uppercase size-12">Industry</b></p>
+                    <%= f.text_field :job_industry, class: "form-control", placeholder: "INDUSTRY", autocomplete: "off" %>
                   </div>
                 </div>
                 <div class="row ml-1 mt-3">

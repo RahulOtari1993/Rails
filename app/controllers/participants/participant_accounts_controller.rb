@@ -16,7 +16,8 @@ class Participants::ParticipantAccountsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def participant_params
     params.require(:participant).permit(:first_name, :last_name, :address_1,
-                                            :address_2, :city, :state, :postal, :country, :phone, :avatar, :home_phone, :work_phone)
+                                            :address_2, :city, :state, :postal, :country, :phone, :avatar,
+                                            :home_phone, :work_phone, :job_position, :job_company_name, :job_industry)
   end
 
 end
