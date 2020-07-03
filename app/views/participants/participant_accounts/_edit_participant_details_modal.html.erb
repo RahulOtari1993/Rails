@@ -15,7 +15,7 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body pt-none">
+      <div class="modal-body pt-0">
         <!-- Participant statistic points start -->
         <div class="row challenge-points-bg grid-divider">
           <div class="col-md-6">
@@ -66,7 +66,199 @@
             </span>
             <div class="size-12">recruits</div>
           </div>
-        </div><br><br>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="size-10 mb-0">*It may take up to 24 hours to assign GoBucks to your activity as we verify your posts and actions.</p>
+            <p class="size-10 mb-0">**There may be limits on the number of likes, comments, retweets, etc. that you can earn. See FAQs for more details.</p>
+          </div>
+        </div><br>
+
+        <!-- Participant profile section -->
+        <section class="participant-profile">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="mb-0">Profile Information <a href="javascript:void(0);" class="text-uppercase pull-right size-12 mt-2 font-color-1" id="participant_profile_edit_btn">Edit</a></h4>
+              <hr class="m-0">
+            </div>
+          </div>
+          <!-- Participant profile information details -->
+          <div class="participant-profile-info-details">
+            <div class="row mt-3">
+              <div class="col-md-3">
+                <%= image_tag(get_profile_avatar_url, class: "rounded-circle", width: "100", height: "100") %>
+              </div>
+              <div class="col-md-9">
+                <div class="d-flex flex-wrap justify-content-between">
+                  <div class="p-2">
+                    <p class="mb-0"><b class="text-uppercase size-12">Name</b></p>
+                    <p class="mb-0 size-12"><%= current_participant.first_name %></p>
+                  </div>
+                  <div class="p-2">
+                    <p class="mb-0"><b class="text-uppercase size-12">Phone</b></p>
+                    <p class="mb-0 size-12"><%= current_participant.phone %></p>
+                  </div>
+                  <div class="p-2">
+                    <p class="mb-0"><b class="text-uppercase size-12">Email Address</b></p>
+                    <p class="mb-0 size-12"><%= current_participant.email %></p>
+                  </div>
+                  <div class="p-2">
+                    <p class="mb-0"><b class="text-uppercase size-12">Mailing Address</b></p>
+                    <p class="mb-0 size-12">-</p>
+                  </div>
+                  <div class="p-2">
+                    <p class="mb-0"><b class="text-uppercase size-12">University Affliation</b></p>
+                    <p class="mb-0 size-12">-</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- participant details edit form -->
+          <div class="participant-profile-edit-info section-bg-color-1" style="display:none;">
+            <%= form_for(current_participant, as: :participant, url: update_profile_details_participants_participant_accounts_path, method: :post, :html => {class: 'form form-vertical participant-profile-form', remote: true}) do |f| %>
+              <div class="row ml-1 pt-3">
+                <div class="col-md-4">
+                  <h6>Profile Photo</h6>
+                  <%= image_tag(get_profile_avatar_url, class: "rounded-circle", width: "100", height: "100") %>
+                </div>
+                <div class="col-md-8">
+                  <%= f.file_field :avatar, class: "custom-file-input" %>
+                  <%= f.label :avatar, f.object.avatar.present? ? f.object.avatar.file.filename : 'Choose file', class: 'custom-file-label' %>
+                </div>
+              </div>
+              <hr>
+              <div class="contact-info">
+                <div class="row ml-1">
+                  <div class="col-md-12">
+                    <h6 class="mb-0">Contact Info</h6>
+                    <span class="size-12">*notes required fields</span>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :first_name, class: "form-control", placeholder: "FIRST NAME*", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :last_name, class: "form-control", placeholder: "LAST NAME*", autocomplete: "off" %>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :address_1, class: "form-control", placeholder: "STREET ADDRESS", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :address_2, class: "form-control", placeholder: "STREET ADDRESS", autocomplete: "off" %>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :city, class: "form-control", placeholder: "CITY", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :state, class: "form-control", placeholder: "STATE/PROVINCE", autocomplete: "off" %>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :postal, class: "form-control", placeholder: "ZIP", autocomplete: "off" %>
+                  </div>
+                  <div class="col-md-6 m-b-14">
+                    <%= f.text_field :phone, class: "form-control", placeholder: "PHONE", autocomplete: "off" %>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="email-info">
+                <div class="row ml-1">
+                  <div class="col-md-12">
+                    <h6>Email Address</h6>
+                    <p class="size-12">We will use your email address to send you important information regarding Buckeye Nation Rewards and your Buckeye nation Rewards member account. We may also send you information about special offers from third parties and from our sponsors. To change your email settings, go to Email Settings below.</p>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-6">
+                    <p class="mb-0"><b class="text-uppercase size-12">Email Address</b></p>
+                    <p class="mb-0 size-12"><%= current_participant.email %></p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="mb-0"><b class="text-uppercase size-12">Confirm Email Address</b></p>
+                    <p class="mb-0 size-12"><%= current_participant.email %></p>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="university-affliation-info">
+                <div class="row ml-1">
+                  <div class="col-md-12">
+                    <h6>University Affliation* (Choose all that apply)</h6>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                </div>
+              </div>
+              <hr>
+              <div class="job-info">
+                <div class="row ml-1">
+                  <div class="col-md-12">
+                    <h6 class="mb-0">Job Info</h6>
+                    <span class="size-12">*notes required fields</span>
+                  </div>
+                </div>
+                <div class="row ml-1">
+                  <div class="col-md-4">
+                    <p class="mb-0"><b class="text-uppercase size-12">Current Job</b></p>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="mb-0"><b class="text-uppercase size-12">Company Name</b></p>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="mb-0"><b class="text-uppercase size-12">Industry</b></p>
+                  </div>
+                </div>
+                <div class="row ml-1 mt-3">
+                  <div class="col-md-12">
+                    <span class="size-12">Tell us what you're interested in knowing more about:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <span class="size-12">Sports</span>
+                    <span class="size-12">Giving</span>
+                    <span class="size-12">Alumini News</span>
+                    <span class="size-12">Upcoming Events/Concerts</span>
+                    <span class="size-12">University News</span>
+                  </div>
+                </div>
+              </div>
+              <div class="row ml-1 mt-3">
+                <div class="col-md-3">
+                  <%= f.button "Cancel", type: :button, class: 'btn btn-block pull-right', id: "participant_profile_cancel_btn" %>
+                </div>
+                <div class="col-md-3">
+                  <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+                </div>
+              </div>
+            <% end %>
+          </div><br>
+        </section>
+
+        <!-- Email Settings details -->
+        <section class="email-settings">
+          <div class="email-settings-show-info">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="mb-0">Email Settings <a href="javascript:void(0);" class="text-uppercase pull-right size-12 mt-2 font-color-1" id="email_settings_edit_btn">Edit</a></h4>
+                <hr class="m-0">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <p class="size-12">You can opt in to recieve emails from Buckeye Nation Rewards for news about product and services. Stay informed about the latest challenges and rewards by keeping your email preferences up to date.</p>
+              </div>
+            </div>
+          </div>
+          <div class="email-settings-edit-info" style="display:none;">
+          </div><br>
+        </section>
 
         <!-- Connect social accounts start-->
         <div class="row">
@@ -107,22 +299,26 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#participant_profile_edit_btn').click(function() {
+       $('.participant-profile-info-details').hide();
+       $('.participant-profile-edit-info').show();
+    });
+
+    $('#participant_profile_cancel_btn').click(function() {
+       $('.participant-profile-info-details').show();
+       $('.participant-profile-edit-info').hide();
+    });
+
+  });
+</script>
+
 <style media="screen">
   .challenge-points-bg {
     background-color: #bb0000;
     color: white;
-  }
-
-  .challenge-points {
-    color: #bb0000;
-  }
-
-  .pt-none {
-    padding-top: 0px !important;
-  }
-
-  .size-14 {
-    font-size: 14px;
   }
 
   .row.grid-divider [class*='col-']:not(:last-child):after {
@@ -147,18 +343,6 @@
     bottom: 0;
     right: 0;
     height: auto;
-  }
-
-  .size-12 {
-    font-size: 12px;
-  }
-
-  .size-10 {
-    font-size: 10px;
-  }
-
-  .font-color-1 {
-    color: #bb0000;
   }
 
 </style>

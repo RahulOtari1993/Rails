@@ -162,3 +162,28 @@ span.error {
 .bottom-margin {
   margin-bottom: 5px !important;
 }
+
+/* Generic style and custom classes */
+.size-10 {
+  font-size: 10px !important;
+}
+
+.size-12 {
+  font-size: 12px !important;
+}
+
+.size-14 {
+  font-size: 14px !important;
+}
+
+.m-b-14 {
+  margin-bottom: 14px !important;
+}
+
+.font-color-1 {
+  color: #bb0000;
+}
+
+.section-bg-color-1 {
+  background-color: #FAFAFA;
+}
