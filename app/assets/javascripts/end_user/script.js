@@ -209,7 +209,7 @@ $(document).on('turbolinks:load', function () {
   // claim Reward submission - end
 
 
-  // Edit Particpant details Popup
+  // Edit Participant details Popup
   $('body').on('click', '.edit-participant-profile-btn', function (e) {
     $.ajax({
       type: 'GET',
