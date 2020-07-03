@@ -310,13 +310,10 @@ class Participant < ApplicationRecord
 
   ## Twitter Account Connect
   def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
-    Rails.logger.info "============== twitter_connect p_id --> #{p_id} =============="
-
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
 
-    Rails.logger.info "============== twitter_connect participant --> #{participant} =============="
     if participant.present?
       participant.twitter_uid = auth.uid
       participant.twitter_token = auth.credentials.token
@@ -351,7 +348,7 @@ class Participant < ApplicationRecord
       ## Fetch the Challenge (Facebook, Google, Email)
       platform = (platform.present? && connect_type == 'connect') ? platform : self.connect_type
       challenge = campaign.challenges.current_active.where(challenge_type: %w[signup connect], parameters: platform).first
-      Rails.logger.info "================== Challenge #{challenge.inspect} =================="
+
       if challenge.present?
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
