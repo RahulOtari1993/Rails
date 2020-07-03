@@ -3,7 +3,7 @@ class Participants::ParticipantAccountsController < ApplicationController
 
   ## Fetch Details of reward
   def details_form
-
+    @email_settings = @campaign.email_settings
   end
 
   def update_profile_details

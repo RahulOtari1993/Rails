@@ -81,7 +81,8 @@ class Participant < ApplicationRecord
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
   has_many :sweepstake_entries, dependent: :destroy
-  
+  belongs_to :email_setting
+
   ## Callbacks
   after_create :generate_participant_id
   after_save :check_milestone_reward
@@ -430,7 +431,7 @@ class Participant < ApplicationRecord
       ''
     end
   end
-  
+
   ## Check if Participant is Eligible for Challenge
   def eligible?(challenge)
     ## Set Result, By Default it is TRUE
