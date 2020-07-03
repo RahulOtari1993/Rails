@@ -323,7 +323,7 @@ class Participant < ApplicationRecord
       participant.twitter_secret = auth.credentials.token
 
       if participant.save(:validate => false)
-        # participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
         participant
       else
         Participant.new
@@ -350,7 +350,8 @@ class Participant < ApplicationRecord
     if campaign.present?
       ## Fetch the Challenge (Facebook, Google, Email)
       platform = (platform.present? && connect_type == 'connect') ? platform : self.connect_type
-      challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: platform).first
+      challenge = campaign.challenges.current_active.where(challenge_type: %w[signup connect], parameters: platform).first
+      Rails.logger.info "================== Challenge #{challenge.inspect} =================="
       if challenge.present?
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
