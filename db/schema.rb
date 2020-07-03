@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_084947) do
+ActiveRecord::Schema.define(version: 2020_07_03_105833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -366,6 +366,9 @@ ActiveRecord::Schema.define(version: 2020_07_03_084947) do
     t.string "country"
     t.string "home_phone"
     t.string "work_phone"
+    t.string "job_position"
+    t.string "job_company_name"
+    t.string "job_industry"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
