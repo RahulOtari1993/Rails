@@ -106,11 +106,9 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
 
     Rails.logger.info "================ twitter_oauth2_setup ================"
+
     request.env['omniauth.strategy'].options[:consumer_key]  = conf.twitter_app_id
     request.env['omniauth.strategy'].options[:consumer_secret] = conf.twitter_app_secret
-
-    # request.env['omniauth.strategy'].options[:client_id] = conf.twitter_app_id
-    # request.env['omniauth.strategy'].options[:client_secret] = conf.twitter_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 

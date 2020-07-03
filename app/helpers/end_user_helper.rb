@@ -15,14 +15,8 @@ module EndUserHelper
   end
 
   ## Display Connect Twitter Button
-  def display_twitter_connect
-    response = false
-    twitter_challenge = @campaign.challenges.current_active.where(challenge_type: 'connect', parameters: 'twitter').first
-    if twitter_challenge.present?
-      response = current_participant.eligible?(twitter_challenge)
-    end
-
-    response
+  def fetch_twitter_challenge
+    @campaign.challenges.current_active.where(challenge_type: 'connect', parameters: 'twitter').first
   end
   
   ## Check whether Onboarding Challenge is Available & Active
