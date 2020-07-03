@@ -136,6 +136,7 @@ Rails.application.routes.draw do
       resources :participant_accounts, only: [] do
         collection do
           get :details_form
+          post :update_profile_details
         end
       end
     end
