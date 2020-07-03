@@ -1,6 +1,7 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
-                                       :remove_tag, :add_tag]
+                                       :remove_tag, :add_tag,
+                                       :get_insight_for_line_chart]
   before_action :build_segment_params, only: [:create, :update]
   before_action :build_question_params, only: [:create, :update]
 
@@ -191,6 +192,14 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     rescue StandardError => e
       @message = e.message
     end
+  end
+
+  # Getting Insight User & Date For Line Chart
+  def get_insight_for_line_chart
+    # render json: {
+    #   calculateUsers: Challenge.calculate_users(participants),
+    #   calculateDates: Challenge.calculate_dates(participants)
+    # }
   end
 
   private

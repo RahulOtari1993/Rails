@@ -24,9 +24,9 @@ $(document).ready(function () {
     yaxis_opposite = true;
   }
 
-  // Line Chart
+  // Line-Chart For Shares Per day
   // ----------------------------------
-  var lineChartOptions = {
+  var lineChartOptionsForShares = {
     chart: {
       height: 350,
       type: 'line',
@@ -42,11 +42,11 @@ $(document).ready(function () {
       curve: 'straight'
     },
     series: [{
-      name: "Desktops",
+      name: "Shares",
       data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
     }],
     title: {
-      text: 'Product Trends by Month',
+      text: 'Shares',
       align: 'left'
     },
     grid: {
@@ -57,17 +57,19 @@ $(document).ready(function () {
     },
     xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      minValue: 0,
+      maxValue: 160
     },
     yaxis: {
-      tickAmount: 5,
+      tickAmount: 10,
       opposite: yaxis_opposite
     }
   }
-  var lineChart = new ApexCharts(
-    document.querySelector("#line-chart"),
-    lineChartOptions
+  var shareLineChart = new ApexCharts(
+    document.querySelector("#share-per-day-line-chart"),
+    lineChartOptionsForShares
   );
-  lineChart.render();
+  shareLineChart.render();
 
   // Line Area Chart
   // ----------------------------------
@@ -181,28 +183,29 @@ $(document).ready(function () {
 
   // Getting Data For Graphs & Charts And Updating Them 
   var campaignId = $('#gender-pie-chart').attr('campaign_id');
-  var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_chart_graph";
-  $.getJSON(url, function(response) {
-    ageBarChart.updateOptions({
-      series: [{
-        data: response.ageElementCount  // Updating Age Options
-      }]
+  if (campaignId != undefined) {
+    var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_chart_graph";
+    $.getJSON(url, function(response) {
+      ageBarChart.updateOptions({
+        series: [{
+          data: response.ageElementCount  // Updating Age Options
+        }]
+      });
+      genderPieChart.updateOptions({
+        series: response.genderElementCount // Updating Gender Options
+      });
+      completedChallengeBarChart.updateOptions({
+        series: [{
+          data: response.completedChallengesElementCount  // Updating Completed Challenges / Platform Options
+        }]
+      });
+      connectedPlatformBarChart.updateOptions({
+        series: [{
+          data: response.connectedPlatformElementCount  // Updating Completed Challenges / Platform Options
+        }]
+      });
     });
-    genderPieChart.updateOptions({
-      series: response.genderElementCount // Updating Gender Options
-    });
-    completedChallengeBarChart.updateOptions({
-      series: [{
-        data: response.completedChallengesElementCount  // Updating Completed Challenges / Platform Options
-      }]
-    });
-    connectedPlatformBarChart.updateOptions({
-      series: [{
-        data: response.connectedPlatformElementCount  // Updating Completed Challenges / Platform Options
-      }]
-    });
-  });
-
+  }
   // Bar Chart For Age Breakdown
   // ----------------------------------
   var ageBarChartOptions = {
@@ -336,6 +339,54 @@ $(document).ready(function () {
     connectedPlatformBarChartOptions
   );
   connectedPlatformBarChart.render();
+
+
+  // Line-Chart For Insight
+  // ----------------------------------
+  // var lineChartOptionsForInsight = {
+  //   chart: {
+  //     height: 350,
+  //     type: 'line',
+  //     zoom: {
+  //       enabled: false
+  //     }
+  //   },
+  //   colors: themeColors,
+  //   dataLabels: {
+  //     enabled: false
+  //   },
+  //   stroke: {
+  //     curve: 'straight'
+  //   },
+  //   series: [{
+  //     name: "Shares",
+  //     data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+  //   }],
+  //   title: {
+  //     text: 'Shares',
+  //     align: 'left'
+  //   },
+  //   grid: {
+  //     row: {
+  //       colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+  //       opacity: 0.5
+  //     },
+  //   },
+  //   xaxis: {
+  //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+  //     minValue: 0,
+  //     maxValue: 160
+  //   },
+  //   yaxis: {
+  //     tickAmount: 10,
+  //     opposite: yaxis_opposite
+  //   }
+  // }
+  // var insightLineChart = new ApexCharts(
+  //   document.querySelector("#insight-line-chart"),
+  //   lineChartOptionsForInsight
+  // );
+  // insightLineChart.render();
 
 
   // Mixed Chart
