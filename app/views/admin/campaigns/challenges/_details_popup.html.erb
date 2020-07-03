@@ -21,7 +21,7 @@
               <div class="challenge_img" style="background-image: url(<%= @challenge.image.url('banner') %>);
                   background-position: center; background-repeat: no-repeat; background-size: cover; ">
                 <p class="challenge-description">
-                  <%= truncate(@challenge.description, :length => 90) %>
+                  <%= truncate(@challenge.caption, :length => 90) %>
                 </p>
               </div>
             </div>
