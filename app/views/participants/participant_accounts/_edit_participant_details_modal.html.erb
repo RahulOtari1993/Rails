@@ -288,13 +288,15 @@
           </div>
 
           <div class="col-6">
-            <a id="connect-bttn"
-               href="<%= participant_twitter_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
-               class="btn box1_btn twitter_btn btn-block">
-              <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
-              <span class="btn-share-text">Connect +250</span>
-            </a>
-            <div class="clear"></div>
+            <% if display_twitter_connect %>
+              <a id="connect-bttn"
+                 href="<%= participant_twitter_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
+                 class="btn box1_btn twitter_btn btn-block">
+                <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
+                <span class="btn-share-text">Connect +250</span>
+              </a>
+              <div class="clear"></div>
+            <% end %>
           </div>
         </div>
       </div>

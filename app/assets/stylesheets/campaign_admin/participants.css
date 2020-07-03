@@ -359,3 +359,46 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
 .modal_profile_info {
   margin-top: 25px;
 }
+
+@media only screen and (max-width: 768px) {
+
+  .profile_modal_body .modal_profile_info td {
+    padding-right: 12px;
+    color: #f2f2f2;
+    width: 100%;
+    display: inline-table;
+  }
+
+  select.form-control:not([multiple='multiple']) {
+    background-image: url(/assets/pages/arrow-down-57695e4….png);
+    background-position: calc(100% - 12px) 5px, calc(100% - 20px) 13px, 100% 0;
+    background-size: 12px 12px, 10px 10px;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 1.5rem;
+  }
+
+  .participant_section .modal_tab {
+    padding: 1rem;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .participant_section .modal-body .nav.nav-tabs {
+    background-color: #7367F0;
+    margin-bottom: 0px;
+    overflow: hidden;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 600px;
+  }
+
+  .participant_section .modal-body .tab-content .tab-pane {
+    background-color: #8b81f7 !important;
+    padding: 12px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    min-width: 600px;
+  }
+}
