@@ -213,7 +213,7 @@ $(document).on('turbolinks:load', function () {
   $('body').on('click', '.edit-participant-profile-btn', function (e) {
     $.ajax({
       type: 'GET',
-      url: '/participants/participant_accounts/details_form'
+      url: '/participants/accounts/details_form'
     });
   });
 
