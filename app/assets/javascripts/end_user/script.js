@@ -185,7 +185,6 @@ $(document).on('turbolinks:load', function () {
         data: {reward_id: rewardId}
       });
     }
-
   });
 
   // claim Reward submission - start
@@ -217,5 +216,21 @@ $(document).on('turbolinks:load', function () {
       url: '/participants/participant_accounts/details_form'
     });
   });
+
+  // Disconnect Existing Connected Social Media Account
+  $('body').on('click', '.disconnect-btn', function (e) {
+    let type = $(this).data('connection-type');
+
+    $.ajax({
+      url: '/participants/accounts/disconnect',
+      type: 'PUT',
+      // dataType: 'script',
+      data: {
+        connection_type: type,
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+  });
+
 
 });

@@ -11,8 +11,25 @@ class Participants::ParticipantAccountsController < ApplicationController
     @participant.update(participant_params)
   end
 
+  ## Disconnect Existing Connected Social Media Account
   def disconnect
+    participant = current_participant
 
+    if params[:connection_type] == 'facebook'
+      participant.facebook_uid = nil
+      participant.facebook_token = nil
+      participant.facebook_expires_at = nil
+    elsif params[:connection_type] == 'twitter'
+      participant.twitter_uid = nil
+      participant.twitter_token = nil
+      participant.twitter_secret = nil
+    end
+
+    if participant.save(:validate => false)
+      redirect_to root_path, notice: "#{params[:connection_type].humanize} account disconnected successfully"
+    else
+      redirect_to root_path, alert: "#{params[:connection_type].humanize} account disconnect failed"
+    end
   end
 
   private

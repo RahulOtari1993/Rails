@@ -281,7 +281,8 @@
           <div class="col-6">
             <% if current_participant.facebook_uid.present? && current_participant.facebook_token.present? &&
                 current_participant.facebook_expires_at.present? %>
-              <a id="disconnect-facebook-btn" href="#" class="btn box1_btn facebook_btn btn-block">
+              <a id="disconnect-facebook-btn" href="javascript:void(0);"
+                 class="btn box1_btn facebook_btn btn-block disconnect-btn" data-connection-type="facebook">
                 <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
                 <span class="btn-share-text">Disconnect</span>
               </a>
@@ -291,7 +292,8 @@
                 display_facebook = facebook_challenge.present? ? current_participant.eligible?(facebook_challenge) : false
               %>
               <% if display_facebook.present? %>
-                <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
+                <a id="connect-facebook-btn"
+                   href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
                    class="btn box1_btn facebook_btn btn-block">
                   <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
                   <span class="btn-share-text">Connect +<%= facebook_challenge.try(:points) %></span>
@@ -304,7 +306,8 @@
           <div class="col-6">
             <% if current_participant.twitter_uid.present? && current_participant.twitter_token.present? &&
                 current_participant.twitter_secret.present? %>
-              <a id="disconnect-twitter-btn" href="#" class="btn box1_btn twitter_btn btn-block">
+              <a id="disconnect-twitter-btn" href="javascript:void(0);"
+                 class="btn box1_btn twitter_btn btn-block disconnect-btn" data-connection-type="twitter">
                 <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
                 <span class="btn-share-text">Disconnect</span>
               </a>
@@ -314,7 +317,7 @@
                 display_twitter = twitter_challenge.present? ? current_participant.eligible?(twitter_challenge) : false
               %>
               <% if display_twitter %>
-                <a id="connect-bttn"
+                <a id="connect-twitter-btn"
                    href="<%= participant_twitter_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
                    class="btn box1_btn twitter_btn btn-block">
                   <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
