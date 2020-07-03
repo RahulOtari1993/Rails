@@ -109,38 +109,12 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   # Getting Date For Apex Chart & Graph
   def get_data_for_chart_graph
-    gender_element_count = []
-    age_element_count = []
-    completed_challenges_element_count = []
-    connected_platform_element_count = [5] # Test value for twitter
     participants = @campaign.participants 
-
-    # For Age breakdown
-    age_element_count << Participant.by_age1(@campaign.participants)
-    age_element_count << Participant.by_age2(@campaign.participants)
-    age_element_count << Participant.by_age3(@campaign.participants)
-    age_element_count << Participant.by_age4(@campaign.participants)
-    age_element_count << Participant.by_age5(@campaign.participants)
-    age_element_count << Participant.by_age6(@campaign.participants)
-
-    # For Gender breakdown
-    gender_element_count << Participant.male_count(participants)
-    gender_element_count << Participant.female_count(participants)
-    gender_element_count << Participant.other_count(participants)
-
-    # For Completed Challenges / Platform
-    completed_challenges_element_count << @campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').count
-    completed_challenges_element_count << @campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').count
-    completed_challenges_element_count << @campaign.challenges.where(challenge_type: 'share', parameters: 'google').count
-
-    # For Connected Platforms
-    connected_platform_element_count << Participant.connected_platform_with_facebook(@campaign.challenges)
-    connected_platform_element_count << Participant.connected_platform_with_google(@campaign.challenges)
     render json: {
-      genderElementCount: gender_element_count,
-      ageElementCount: age_element_count,
-      completedChallengesElementCount: completed_challenges_element_count,
-      connectedPlatformElementCount: connected_platform_element_count
+      genderElementCount: Participant.by_gender(participants),
+      ageElementCount: Participant.by_age(participants),
+      completedChallengesElementCount: Participant.by_completed_challenges(@campaign),
+      connectedPlatformElementCount: Participant.by_connected_platform
     }
   end
 
