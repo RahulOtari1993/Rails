@@ -41,4 +41,26 @@ class ApplicationController < ActionController::Base
   def set_current_participant
     Participant.current = current_participant
   end
+
+  protected
+
+  ## Return Success Response
+  def render_success code, status, message, data = {}
+    render json: {
+        code: code,
+        status: status,
+        message: message,
+        data: data
+    }
+  end
+
+  ## Return Error Response
+  def return_error(code, status, message, data = {})
+    render json: {
+        code: code,
+        status: status,
+        message: message,
+        data: data
+    }
+  end
 end
