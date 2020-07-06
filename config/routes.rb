@@ -135,14 +135,14 @@ Rails.application.routes.draw do
     end
 
     ## Root Route
-    root to: "welcome#index"
+    root to: 'welcome#index'
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
 
     ## API Routes
-    namespace :api do
-      namespace :v1 do
+    namespace :api, defaults: {format: 'json'} do
+      namespace :v1, defaults: {format: 'json'} do
         mount_devise_token_auth_for 'Participant', at: 'participants', controllers: {
             registrations: 'api/v1/override/registrations',
             sessions: 'api/v1/override/sessions',

@@ -1,15 +1,12 @@
 class ApplicationController < ActionController::Base
-  include DeviseTokenAuth::Concerns::SetUserByToken
   before_action :set_organization
 
   include Pundit
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  skip_before_action :verify_authenticity_token, :if => Proc.new { |c| c.request.format == 'application/json' }
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
