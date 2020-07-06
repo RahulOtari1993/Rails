@@ -128,8 +128,8 @@
         <% participant_affiliations = get_participant_affiliations %>
         <% default_affiliations.each do |item| %>
           <span class="affiliation-item">
-            <%= check_box_tag "affiliation_types[]", item[:value], (participant_affiliations.include?(item[:value]) ? true : false), id: "participant_profile_#{item[:value]}" %>
-            <span id="<%= "participant_profile_#{item[:value]}" %>" class="size-14"><%= item[:name] %></span>
+            <%= check_box_tag "affiliation_types[]", item, (participant_affiliations.include?(item) ? true : false), id: "participant_profile_#{item}" %>
+            <span id="<%= "participant_profile_#{item}" %>" class="size-14"><%= item %></span>
           </span>
         <% end %>
       </div>
@@ -168,3 +168,19 @@
   </div>
   <% end %>
 </div><br>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#participant_profile_edit_btn').click(function() {
+       $('.participant-profile-info-details').hide();
+       $('.participant-profile-edit-info').show();
+    });
+
+    $('#participant_profile_cancel_btn').click(function() {
+       $('.participant-profile-info-details').show();
+       $('.participant-profile-edit-info').hide();
+    });
+
+  });
+</script>

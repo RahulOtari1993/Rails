@@ -11,7 +11,8 @@ class Participants::ParticipantAccountsController < ApplicationController
       profile_attribute = @campaign.profile_attributes.where(attribute_name: "affiliation").first
       unless (params[:affiliation_types].blank? || profile_attribute.blank?)
         ## delete existing partcipant profiles
-        current_participant.participant_profiles.destroy_all
+        current_participant.participant_profiles.where(profile_attribute_id: @campaign.profile_attributes.where(attribute_name: 'affiliation').first.id).destroy_all
+
         ## create new selected participant profiles
         params[:affiliation_types].each do |item|
           participant_profile = current_participant.participant_profiles.new(profile_attribute_id: profile_attribute.id, value: item)

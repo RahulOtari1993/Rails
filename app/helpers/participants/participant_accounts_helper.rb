@@ -6,13 +6,14 @@ module Participants::ParticipantAccountsHelper
   end
 
   def get_default_affiliations
-    affiliation_types = [
-                          {name: 'Alumini', value: 'alumini'},
-                          {name: 'Friend', value: 'friend'},
-                          {name: 'Student', value: 'student'},
-                          {name: 'Faculty/Staff', value: 'falculty_or_staff'},
-                          {name: 'Parent/Guardian', value: 'parent_or_guardian'},
-                        ]
+    affiliation_types = []
+    challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+
+    unless challenge.blank?
+      question = challenge.questions.where(profile_attribute_id: @campaign.profile_attributes.where(attribute_name: 'affiliation').first.id).first
+      affiliation_types = question.question_options.pluck(:details) unless question.blank?
+    end
+
     affiliation_types
   end
 
