@@ -59,6 +59,16 @@
 #  completed_challenges   :integer          default(0)
 #  avatar                 :string
 #  status                 :integer          default("inactive")
+#  twitter_uid            :string
+#  twitter_token          :string
+#  twitter_secret         :string
+#  country                :string
+#  home_phone             :string
+#  work_phone             :string
+#  job_position           :string
+#  job_company_name       :string
+#  job_industry           :string
+#  email_setting_id       :integer
 #
 class Participant < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
@@ -80,6 +90,7 @@ class Participant < ApplicationRecord
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
   has_many :sweepstake_entries, dependent: :destroy
+  has_many :participant_device_tokens, dependent: :destroy
 
   ## Callbacks
   after_create :generate_participant_id

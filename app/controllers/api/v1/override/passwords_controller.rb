@@ -1,5 +1,4 @@
-class Api::V1::Override::SessionsController < DeviseTokenAuth::PasswordsController
+class Api::V1::Override::PasswordsController < DeviseTokenAuth::PasswordsController
   def new
-
   end
 end
