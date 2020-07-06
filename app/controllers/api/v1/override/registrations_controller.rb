@@ -29,7 +29,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
       if @resource.save(:validate => false)
         update_auth_header
         sign_in(:participant, @resource, store: false)
-        # @resource.connect_challenge_completed('', '')
+        @resource.connect_challenge_completed('', '')
         render_success 200, true, 'Logged in successfully', @resource.as_json
       else
         return_error 500, false, 'Failed', {}
