@@ -7,7 +7,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
         (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
 
       unless @resource.present?
-        @resource = Participant.new(email: sign_up_attributes[:email])
+        @resource = resource_class.new(email: sign_up_attributes[:email])
       end
 
       if sign_up_attributes[:provider] == 'facebook'
@@ -34,14 +34,22 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
       else
         return_error 500, false, 'Failed', {}
       end
-
     else
-      binding.pry
-      if sign_up_attributes[:provider] == 'email'
-        ## Sign Up Participant With Email
-      else
+      if @resource.present? && sign_up_attributes[:provider] == 'email'
         ## Render Email Already Exists Error
         return_error 500, false, 'Email is already registered', {}
+      else
+        ## Sign Up Participant With Email
+        @resource = resource_class.new(sign_up_params)
+        @resource.campaign_id = @campaign.id
+        @resource.organization_id = @organization.id
+        @resource.connect_type = @resource.provider
+
+        if @resource.save(:validate => false)
+          render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', @resource.as_json
+        else
+          return_error 500, false, 'Failed', {}
+        end
       end
     end
 
