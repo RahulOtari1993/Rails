@@ -117,3 +117,6 @@ gem 'time_difference'
 
 ## Moment JS Library for Date & Time Handling
 gem 'momentjs-rails', '>= 2.9.0'
+
+## API Auth
+gem 'devise_token_auth', '1.1'
