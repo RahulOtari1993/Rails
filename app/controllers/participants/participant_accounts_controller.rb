@@ -7,8 +7,18 @@ class Participants::ParticipantAccountsController < ApplicationController
   end
 
   def update_profile_details
-    @participant = current_participant
-    @participant.update(participant_params)
+    if current_participant.update(participant_params)
+      profile_attribute = @campaign.profile_attributes.where(attribute_name: "affiliation").first
+      unless (params[:affiliation_types].blank? || profile_attribute.blank?)
+        ## delete existing partcipant profiles
+        current_participant.participant_profiles.destroy_all
+        ## create new selected participant profiles
+        params[:affiliation_types].each do |item|
+          participant_profile = current_participant.participant_profiles.new(profile_attribute_id: profile_attribute.id, value: item)
+          participant_profile.save
+        end
+      end
+    end
   end
 
   ## Disconnect Existing Connected Social Media Account
@@ -38,7 +48,7 @@ class Participants::ParticipantAccountsController < ApplicationController
   def participant_params
     params.require(:participant).permit(:first_name, :last_name, :address_1,
                                             :address_2, :city, :state, :postal, :country, :phone, :avatar,
-                                            :home_phone, :work_phone, :job_position, :job_company_name, :job_industry)
+                                            :home_phone, :work_phone, :job_position, :job_company_name, :job_industry, :email_setting_id)
   end
 
 end

@@ -217,6 +217,18 @@ $(document).on('turbolinks:load', function () {
     });
   });
 
+  $(document).on( "change", "#participant_avatar", function() {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#participant_profile_avatar').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+
   // Disconnect Existing Connected Social Media Account
   $('body').on('click', '.disconnect-btn', function (e) {
     let type = $(this).data('connection-type');

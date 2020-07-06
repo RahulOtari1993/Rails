@@ -10,4 +10,7 @@
 #  updated_at           :datetime         not null
 #
 class ParticipantProfile < ApplicationRecord
+  ## Associations
+  belongs_to :participant
+  belongs_to :profile_attribute
 end

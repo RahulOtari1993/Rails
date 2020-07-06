@@ -81,7 +81,8 @@ class Participant < ApplicationRecord
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
   has_many :sweepstake_entries, dependent: :destroy
-  belongs_to :email_setting
+  belongs_to :email_setting, optional: true
+  has_many :participant_profiles, dependent: :destroy
 
   ## Callbacks
   after_create :generate_participant_id

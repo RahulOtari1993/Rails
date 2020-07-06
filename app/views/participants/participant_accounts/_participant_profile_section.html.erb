@@ -1,0 +1,170 @@
+<div class="participant-profile-info-details">
+  <div class="row mt-3">
+    <div class="col-md-3">
+      <%= image_tag(get_profile_avatar_url, class: "rounded-circle", width: "100", height: "100") %>
+    </div>
+    <div class="col-md-9">
+      <div class="d-flex flex-wrap justify-content-between">
+        <div class="p-2">
+          <p class="mb-0"><b class="text-uppercase size-12">Name</b></p>
+          <p class="mb-0 size-12"><%= current_participant.first_name %></p>
+        </div>
+        <div class="p-2">
+          <p class="mb-0"><b class="text-uppercase size-12">Phone</b></p>
+          <p class="mb-0 size-12"><%= current_participant.phone %></p>
+        </div>
+        <div class="p-2">
+          <p class="mb-0"><b class="text-uppercase size-12">Email Address</b></p>
+          <p class="mb-0 size-12"><%= current_participant.email %></p>
+        </div>
+        <div class="p-2">
+          <p class="mb-0"><b class="text-uppercase size-12">Mailing Address</b></p>
+          <p class="mb-0 size-12">-</p>
+        </div>
+        <div class="p-2">
+          <p class="mb-0"><b class="text-uppercase size-12">University Affliation</b></p>
+          <p class="mb-0 size-12"><%= current_participant.participant_profiles.pluck(:value).join(", ").titleize %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- participant details edit form -->
+<div class="participant-profile-edit-info section-bg-color-1" style="display:none;">
+  <%= form_for(current_participant, as: :participant, url: update_profile_details_participants_accounts_path, method: :put, :html => {class: 'form form-vertical participant-profile-form', remote: true}) do |f| %>
+  <div class="row ml-1 pt-3">
+    <div class="col-md-4">
+      <h6>Profile Photo</h6>
+      <%= image_tag(get_profile_avatar_url, class: "rounded-circle", width: "100", height: "100", id: "participant_profile_avatar") %>
+    </div>
+    <div class="col-md-8">
+      <%= f.file_field :avatar, class: "custom-file-input" %>
+      <%= f.label :avatar, f.object.avatar.present? ? f.object.avatar.file.filename : 'Choose file', class: 'custom-file-label' %>
+    </div>
+  </div>
+  <hr>
+  <div class="contact-info">
+    <div class="row ml-1">
+      <div class="col-md-12">
+        <h6 class="mb-0">Contact Info</h6>
+        <span class="size-12">*notes required fields</span>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :first_name, class: "form-control", placeholder: "FIRST NAME*", autocomplete: "off" %>
+      </div>
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :last_name, class: "form-control", placeholder: "LAST NAME*", autocomplete: "off" %>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :address_1, class: "form-control", placeholder: "STREET ADDRESS", autocomplete: "off" %>
+      </div>
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :address_2, class: "form-control", placeholder: "STREET ADDRESS", autocomplete: "off" %>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :city, class: "form-control", placeholder: "CITY", autocomplete: "off" %>
+      </div>
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :state, class: "form-control", placeholder: "STATE/PROVINCE", autocomplete: "off" %>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :postal, class: "form-control", placeholder: "ZIP", autocomplete: "off" %>
+      </div>
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :country, class: "form-control", placeholder: "COUNTRY", autocomplete: "off" %>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :home_phone, class: "form-control", placeholder: "HOME PHONE", autocomplete: "off" %>
+      </div>
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :work_phone, class: "form-control", placeholder: "WORK PHONE", autocomplete: "off" %>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6 m-b-14">
+        <%= f.text_field :phone, class: "form-control", placeholder: "MOBILE PHONE", autocomplete: "off" %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="email-info">
+    <div class="row ml-1">
+      <div class="col-md-12">
+        <h6>Email Address</h6>
+        <p class="size-12">We will use your email address to send you important information regarding Buckeye Nation Rewards and your Buckeye nation Rewards member account. We may also send you information about special offers from third parties and from our sponsors. To change your email settings, go to Email Settings below.</p>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-6">
+        <p class="mb-0"><b class="text-uppercase size-12">Email Address</b></p>
+        <p class="mb-0 size-12"><%= current_participant.email %></p>
+      </div>
+      <div class="col-md-6">
+        <p class="mb-0"><b class="text-uppercase size-12">Confirm Email Address</b></p>
+        <p class="mb-0 size-12"><%= current_participant.email %></p>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="university-affiliation-info">
+    <div class="row ml-1">
+      <div class="col-md-12">
+        <h6>University Affiliation* (Choose all that apply)</h6>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-12">
+        <% default_affiliations = get_default_affiliations %>
+        <% participant_affiliations = get_participant_affiliations %>
+        <% default_affiliations.each do |item| %>
+          <span class="affiliation-item">
+            <%= check_box_tag "affiliation_types[]", item[:value], (participant_affiliations.include?(item[:value]) ? true : false), id: "participant_profile_#{item[:value]}" %>
+            <span id="<%= "participant_profile_#{item[:value]}" %>" class="size-14"><%= item[:name] %></span>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="job-info">
+    <div class="row ml-1">
+      <div class="col-md-12">
+        <h6 class="mb-0">Job Info</h6>
+        <span class="size-12">*notes required fields</span>
+      </div>
+    </div>
+    <div class="row ml-1">
+      <div class="col-md-4">
+        <p class="mb-0"><b class="text-uppercase size-12">Current Job</b></p>
+        <%= f.text_field :job_position, class: "form-control", placeholder: "CURRENT JOB POSITION", autocomplete: "off" %>
+      </div>
+      <div class="col-md-4">
+        <p class="mb-0"><b class="text-uppercase size-12">Company Name</b></p>
+        <%= f.text_field :job_company_name, class: "form-control", placeholder: "COMPANY NAME", autocomplete: "off" %>
+      </div>
+      <div class="col-md-4">
+        <p class="mb-0"><b class="text-uppercase size-12">Industry</b></p>
+        <%= f.text_field :job_industry, class: "form-control", placeholder: "INDUSTRY", autocomplete: "off" %>
+      </div>
+    </div>
+  </div>
+  <div class="row ml-1 mt-3">
+    <div class="col-md-3">
+      <%= f.button "Cancel", type: :button, class: 'btn btn-block pull-right', id: "participant_profile_cancel_btn" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+    </div>
+  </div>
+  <% end %>
+</div><br>
