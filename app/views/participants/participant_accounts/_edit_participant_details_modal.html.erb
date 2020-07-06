@@ -185,6 +185,43 @@
             <% end %>
           </div>
         </div>
+
+
+        <!-- Partipant actions -->
+        <section class="participant-actions">
+          <div class="participant-actions-header">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="mb-0">Account Activity</h4>
+                <!-- <hr class="m-0"> -->
+              </div>
+            </div>
+          </div>
+          <div class="activity-list-view">
+            <% unless @participant_actions.blank? %>
+              <div class="table-responsive">
+                <table class="table participant-actions-list-view">
+                  <thead>
+                    <tr>
+                      <th scope="col" width="50%">Action</th>
+                      <th scope="col" width="15%">Points</th>
+                      <th scope="col" width="35%">Date & time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% @participant_actions.each do |participant_action| %>
+                    <tr>
+                      <td><%= truncate(title_details(participant_action), length: 30) %></td>
+                      <td><%= participant_action.points == 0 ? "N/A" : participant_action.points %></td>
+                      <td><span><%= participant_action.created_at.strftime("%m/%d/%Y %H:%M %p") %></span></td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          </div><br>
+        </section>
       </div>
 
       <!-- Modal footer -->
@@ -203,15 +240,13 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    // $('#participant_profile_edit_btn').click(function() {
-    //    $('.participant-profile-info-details').hide();
-    //    $('.participant-profile-edit-info').show();
-    // });
-    //
-    // $('#participant_profile_cancel_btn').click(function() {
-    //    $('.participant-profile-info-details').show();
-    //    $('.participant-profile-edit-info').hide();
-    // });
+    // Client side dataTable
+    $('.participant-actions-list-view').DataTable({
+      'searching': false,
+      'lengthChange': false,
+      'autoWidth': false,
+      'pageLength': 10
+    });
 
     $('#email_settings_edit_btn').click(function() {
        $('.email-settings-edit-info').show();
