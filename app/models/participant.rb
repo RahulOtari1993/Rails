@@ -69,6 +69,9 @@
 #  job_company_name       :string
 #  job_industry           :string
 #  email_setting_id       :integer
+#  provider               :string           default("email")
+#  uid                    :string
+#  tokens                 :text
 #
 class Participant < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
