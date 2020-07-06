@@ -196,10 +196,19 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   # Getting Insight User & Date For Line Chart
   def get_insight_for_line_chart
-    # render json: {
-    #   calculateUsers: Challenge.calculate_users(participants),
-    #   calculateDates: Challenge.calculate_dates(participants)
-    # }
+    calculateUsers = []
+    if @challenge.submissions.present?
+      calculateUsers << @challenge.submissions.where('extract(month from created_at) = ?', @challenge.start.month).count
+    end
+    if calculateUsers.present?
+      calculateUsers = calculateUsers
+    else
+      calculateUsers = [5, 13] # Test values for users
+    end
+    render json: {
+      calculateUsers: calculateUsers, 
+      calculateMonths: @challenge.calculate_months
+    }
   end
 
   private

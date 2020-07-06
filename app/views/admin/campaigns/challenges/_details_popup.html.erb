@@ -216,5 +216,13 @@
   // Getting Insight Data For Line Graph And Updating Here 
   var url = "/admin/campaigns/" + "<%= @challenge.campaign_id %>" + "/challenges/" + "<%= @challenge.id %>" + "/get_insight_for_line_chart";
   $.getJSON(url, function(response) {
+    insightLineChart.updateOptions({
+      series: [{
+        data: response.calculateUsers
+      }],
+      xaxis: {
+        categories: response.calculateMonths // Updating Months Options
+      }
+    });
   });
 </script>

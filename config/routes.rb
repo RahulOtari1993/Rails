@@ -113,6 +113,9 @@ Rails.application.routes.draw do
               post '/add_tag', to: 'participants#add_tag'
               post '/add_note', to: 'participants#add_note'
               put '/update_status', to: 'participants#update_status'
+              get :activities_list, to: 'participants#activities_list'
+              get :rewards_list, to: 'participants#rewards_list'
+              get :notes_list, to: 'participants#notes_list'
             end
           end
         end
