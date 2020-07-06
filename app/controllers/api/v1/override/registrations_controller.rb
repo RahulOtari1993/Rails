@@ -3,48 +3,46 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
   def create
     sign_up_attributes = sign_up_params
     @resource = resource_class.where(organization_id: @organization.id, campaign_id: @campaign.id, email: params[:participant][:email]).first
-    binding.pry
-    if @resource.present?
-      if (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
-        if sign_up_attributes[:provider] == 'facebook'
-          unless validate_facebook_params sign_up_attributes
-            return return_error 500, false, 'Please pass required API params', {}
-          end
-          attributes = assign_facebook_params sign_up_attributes
-        elsif sign_up_attributes[:provider] == 'google'
-          unless validate_google_params sign_up_attributes
-            return return_error 500, false, 'Please pass required API params', {}
-          end
-          attributes = assign_google_params sign_up_attributes
+    if (@resource.present? && (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')) ||
+        (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
+
+      unless @resource.present?
+        @resource = Participant.new(email: sign_up_attributes[:email])
+      end
+
+      if sign_up_attributes[:provider] == 'facebook'
+        unless validate_facebook_params sign_up_attributes
+          return return_error 500, false, 'Please pass required API params', {}
         end
+        assign_facebook_params sign_up_attributes
+      elsif sign_up_attributes[:provider] == 'google'
+        unless validate_google_params sign_up_attributes
+          return return_error 500, false, 'Please pass required API params', {}
+        end
+        assign_google_params sign_up_attributes
+      end
 
-        @resource.assign_attributes(attributes)
-        @resource.uid = @resource.email
-        @client_id = SecureRandom.urlsafe_base64(nil, false)
-        @token = SecureRandom.urlsafe_base64(nil, false)
-        @resource.tokens[@client_id] = {
-            token: BCrypt::Password.create(@token),
-            expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
-        }
+      assign_default_details ## Assign Default Details to Participant Object
+      assign_new_tokens ## Set New Token to Participant Object
 
+      @resource.skip_confirmation!
+      if @resource.save(:validate => false)
         update_auth_header
+        sign_in(:participant, @resource, store: false)
+        # @resource.connect_challenge_completed('', '')
+        render_success 200, true, 'Logged in successfully', @resource.as_json
+      else
+        return_error 500, false, 'Failed', {}
+      end
 
-        if @resource.save(:validate => false)
-          sign_in(:participant, @resource, store: false)
-          # @resource.connect_challenge_completed('', '')
-          render_success 200, true, 'Logged in successfully', @resource.as_json
-        else
-          return_error 500, false, 'Failed', {}
-        end
+    else
+      binding.pry
+      if sign_up_attributes[:provider] == 'email'
+        ## Sign Up Participant With Email
       else
         ## Render Email Already Exists Error
         return_error 500, false, 'Email is already registered', {}
       end
-    else
-      binding.pry
-      @resource = resource_class.new(sign_up_params)
-      @resource.uid = @resource.email
-      @resource.password = Devise.friendly_token[0, 20] if @resource == 'facebook' || @resource == 'google'
     end
 
     # begin
@@ -109,7 +107,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
     def sign_up_params
       params.require(:participant).permit(:first_name, :last_name, :email, :uid, :provider,
                                           :facebook_uid, :facebook_token, :facebook_expires_at, :google_uid,
-                                          :google_token, :google_refresh_token, :google_expires_at)
+                                          :google_token, :google_refresh_token, :google_expires_at, :remote_avatar_url)
     end
 
     ## Allows Device Attributes
@@ -132,20 +130,39 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
     ## Assign Facebook Params
     def assign_facebook_params facebook_params
       attributes = {}
-      %w(facebook_uid facebook_token facebook_expires_at first_name last_name remote_avatar_url).each do |key|
+      %w(facebook_uid facebook_token facebook_expires_at first_name last_name provider remote_avatar_url).each do |key|
         attributes[key] = facebook_params[key] if facebook_params[key].present?
       end
 
-      attributes
+      @resource.assign_attributes(attributes)
     end
 
     ## Assign Google Params
     def assign_google_params google_params
       attributes = {}
-      %w(google_uid google_token google_expires_at google_refresh_token first_name last_name remote_avatar_url).each do |key|
+      %w(google_uid google_token google_expires_at google_refresh_token first_name last_name provider remote_avatar_url).each do |key|
         attributes[key] = google_params[key] if google_params[key].present?
       end
 
-      attributes
+      @resource.assign_attributes(attributes)
+    end
+
+    ## Assign Default Details
+    def assign_default_details
+      @resource.campaign_id = @campaign.id
+      @resource.organization_id = @organization.id
+      @resource.connect_type = @resource.provider
+      @resource.uid = @resource.email
+      @resource.status = 1
+    end
+
+    ## Assign New Tokens
+    def assign_new_tokens
+      @client_id = SecureRandom.urlsafe_base64(nil, false)
+      @token = SecureRandom.urlsafe_base64(nil, false)
+      @resource.tokens[@client_id] = {
+          token: BCrypt::Password.create(@token),
+          expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
+      }
     end
 end
