@@ -393,11 +393,14 @@ ActiveRecord::Schema.define(version: 2020_07_06_113220) do
     t.string "job_company_name"
     t.string "job_industry"
     t.integer "email_setting_id"
+<<<<<<< HEAD
     t.string "provider", default: "email"
     t.string "uid"
     t.text "tokens"
     t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
     t.index ["email", "organization_id", "campaign_id"], name: "index_participant_email_org_campaign", unique: true
+=======
+>>>>>>> api-development
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
     t.index ["uid", "provider", "organization_id", "campaign_id"], name: "index_participant_uid_provider_org_campaign", unique: true
@@ -500,9 +503,9 @@ ActiveRecord::Schema.define(version: 2020_07_06_113220) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
+    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
-    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end

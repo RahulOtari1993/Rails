@@ -1,0 +1,7 @@
+<% if params[:email_settings] %>
+  $('.email-settings-edit-info').hide();
+<% else %>
+  $('.participant-profile-info').html("<%= escape_javascript render 'participant_profile_section' %>");
+  $('.participant-profile-info-details').show();
+  $('.participant-profile-edit-info').hide();
+<% end %>

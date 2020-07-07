@@ -14,6 +14,11 @@ module EndUserHelper
     @campaign.challenges.current_active.where(challenge_type: 'signup', parameters: 'email').first
   end
 
+  ## Display Connect Twitter Button
+  def fetch_twitter_challenge
+    @campaign.challenges.current_active.where(challenge_type: 'connect', parameters: 'twitter').first
+  end
+  
   ## Check whether Onboarding Challenge is Available & Active
   def check_onboarding_challege
     @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile')

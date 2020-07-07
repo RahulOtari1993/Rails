@@ -43,7 +43,8 @@ class Campaign < ApplicationRecord
   has_many :profile_attributes, dependent: :destroy
   has_many :networks, dependent: :destroy
   has_many :notes, dependent: :destroy
-  
+  has_many :email_settings, dependent: :destroy
+
   enum domain_type: [:sub_domain, :include_in_domain]
 
   ## Callbacks
@@ -51,6 +52,7 @@ class Campaign < ApplicationRecord
   after_create :set_template_design
   after_create :create_configs
   after_create :create_profile_attributes
+  after_create :create_email_settings
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
@@ -101,5 +103,11 @@ class Campaign < ApplicationRecord
   def create_profile_attributes
     profile_attributes = ProfileAttributeService.new(self.id)
     profile_attributes.process_records
+  end
+
+  ## Create Email Settings Newly Created Campaign
+  def create_email_settings
+    email_settings = EmailSettingService.new(self.id)
+    email_settings.process
   end
 end

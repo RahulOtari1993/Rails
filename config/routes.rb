@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     devise_scope :participant do
       get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
       get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
+      get "participants/auth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
     end
 
     namespace :admin do
@@ -135,6 +136,14 @@ Rails.application.routes.draw do
         member do
           get :details
           post :claim
+        end
+      end
+      resources :accounts, only: [], :controller => "participant_accounts" do
+        collection do
+          get :details_form
+          put :update_profile_details
+          put :disconnect
+          get :fetch_activities
         end
       end
     end
