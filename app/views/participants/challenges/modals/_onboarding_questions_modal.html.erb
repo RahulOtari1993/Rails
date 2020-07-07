@@ -25,7 +25,7 @@
         <div class="modal_box">
           <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
           <div class="box2">
-            <h5 class="text-center">Nice! You just earned <span class="red-color-span"><%= connect_challenge.points %> Points</span>. Now
+            <h5 class="text-center">Nice! You just earned <span class="red-color-span"><%= connect_challenge.try(:points) %> Points</span>. Now
               lets personalize your content.</h5>
 
             <h5 class="text-center">Earn a bonus

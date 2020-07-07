@@ -26,24 +26,16 @@ class RewardsService
       end
 
     elsif @participant.present? && @campaign.present?
-      Rails.logger.info "============== IN PROCESS START =============="
-      Rails.logger.info "============== @participant_id #{@participant.inspect} =============="
-      Rails.logger.info "============== @campaign #{@campaign.inspect} =============="
-      Rails.logger.info "============== IN PROCESS END =============="
-
       rewards = @campaign.rewards.current_active
       rewards.each do |reward|
         if reward.selection == 'milestone'
           ## Check for Reward Availability
           if reward.claims < reward.limit
-            Rails.logger.info "============== IN reward.claims < reward.limit =============="
             ## Check Whether Participant Claimed Reward Previously or Not
             reward_participant = reward.reward_participants.where(participant_id: @participant.id).first_or_initialize
             if reward_participant.new_record?
-              Rails.logger.info "============== IN reward_participant.new_record? =============="
               is_eligible = reward.eligible? @participant
               if is_eligible
-                Rails.logger.info "============== IN reward_participant.new_record? =============="
                 reward_participant.save
 
                 # Grab a Coupon for Participant & Assign it
@@ -118,6 +110,5 @@ class RewardsService
       Rails.logger.info "ERROR: Reward id: #{@reward.id} #{@reward.selection} Completion Participant Action Entry Failed --> #{e.message}"
       response = {success: false, message: 'Reward claimed successfully, Participant Action Entry failed.'}
     end
-
   end
 end

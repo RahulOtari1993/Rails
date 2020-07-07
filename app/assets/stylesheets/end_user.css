@@ -298,6 +298,15 @@ body {
   margin-bottom: 15px;
 }
 
+.twitter_btn {
+  background-color: #00acee;
+  color: #f2f2f2;
+  font-weight: 100;
+  border-radius: 22px;
+  padding: 7px 23px;
+  margin-bottom: 15px;
+}
+
 /* .image_box_bg {
   position: relative;
   margin-bottom: 30px;

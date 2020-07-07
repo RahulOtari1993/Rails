@@ -185,28 +185,64 @@ $(document).on('turbolinks:load', function () {
         data: {reward_id: rewardId}
       });
     }
-
   });
 
-// claim Reward submission - start
-$('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
-  var rewardId = $(this).data('reward-id');
-  var _this = $(this);
+  // claim Reward submission - start
+  $('.cash_in_modal').on('click', 'reward-claim-btn', function (e) {
+    var rewardId = $(this).data('reward-id');
+    var _this = $(this);
 
-  $.ajax({
-    url: `/participants/rewards/${rewardId}/claim`,
-    type: 'POST',
-    dataType: 'JSON',
-    success: function (data) {
-      if (data.success) {
-        $('.reward-claim-container').show();     // Display Reward Completion Message
-        _this.hide();
-      } else {
-        swalNotify('Reward Claimed', data.message);
+    $.ajax({
+      url: `/participants/rewards/${rewardId}/claim`,
+      type: 'POST',
+      dataType: 'JSON',
+      success: function (data) {
+        if (data.success) {
+          $('.reward-claim-container').show();     // Display Reward Completion Message
+          _this.hide();
+        } else {
+          swalNotify('Reward Claimed', data.message);
+        }
       }
+    });
+  });
+  // claim Reward submission - end
+
+
+  // Edit Participant details Popup
+  $('body').on('click', '.edit-participant-profile-btn', function (e) {
+    $.ajax({
+      type: 'GET',
+      url: '/participants/accounts/details_form'
+    });
+  });
+
+  $(document).on( "change", "#participant_avatar", function() {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('#participant_profile_avatar').attr('src', e.target.result);
+      }
+
+      reader.readAsDataURL(this.files[0]);
     }
   });
-});
-// claim Reward submission - end
+
+  // Disconnect Existing Connected Social Media Account
+  $('body').on('click', '.disconnect-btn', function (e) {
+    let type = $(this).data('connection-type');
+
+    $.ajax({
+      url: '/participants/accounts/disconnect',
+      type: 'PUT',
+      // dataType: 'script',
+      data: {
+        connection_type: type,
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+      }
+    });
+  });
+
 
 });

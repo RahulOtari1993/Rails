@@ -532,9 +532,6 @@ $(document).on('turbolinks:load', function () {
       'challenge[name]': {
         required: true
       },
-      'challenge[description]': {
-        required: true
-      },
       'challenge[image]': {
         required: true,
         extension: "jpg|jpeg|png|gif"
@@ -614,9 +611,6 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[name]': {
         required: 'Please enter challenge name'
-      },
-      'challenge[description]': {
-        required: 'Please enter challenge description'
       },
       'challenge[image]': {
         required: 'Please select challenge photo',
@@ -1202,9 +1196,19 @@ $(document).on('turbolinks:load', function () {
     new Quill('.article-content-editor', toolbar);
   }
 
-  // Add Quill Editor's Content to Actual Element
+  // Add Quill Editor's Content of Challenge Articles to Actual Element
   $('.article-content-editor').focusout(function () {
     $('.article-content-txt-area').val($('.article-content-editor .ql-editor').html());
+  });
+
+  // Quill Editor Integration for Challenge Description
+  if ($('.challenge-description-editor').length) {
+    new Quill('.challenge-description-editor', toolbar);
+  }
+
+  // Add Quill Editor's Content of Challenge Description to Actual Element
+  $('.challenge-description-editor').focusout(function () {
+    $('.challenge-description-txt-area').val($('.challenge-description-editor .ql-editor').html());
   });
 
   var mapCircle = [];
