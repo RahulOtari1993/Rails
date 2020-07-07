@@ -24,10 +24,10 @@ $(window).on("load", function () {
   var $white = '#fff';
 
 
-  // Line Area Chart - 1
+  // User Line Area Chart - 1
   // ----------------------------------
 
-  var gainedlineChartoptions = {
+  var userChartoptions = {
     chart: {
       height: 100,
       type: 'area',
@@ -63,7 +63,7 @@ $(window).on("load", function () {
       }
     },
     series: [{
-      name: 'Subscribers',
+      name: 'Users',
       data: [28, 40, 36, 52, 38, 60, 55]
     }],
 
@@ -86,19 +86,19 @@ $(window).on("load", function () {
     },
   }
 
-  var gainedlineChart = new ApexCharts(
-    document.querySelector("#line-area-chart-1"),
-    gainedlineChartoptions
+  var userChart = new ApexCharts(
+    document.querySelector("#user-line-area-chart"),
+    userChartoptions
   );
 
-  gainedlineChart.render();
+  userChart.render();
 
 
 
-  // Line Area Chart - 2
+  // Challenge Line Area Chart - 2
   // ----------------------------------
 
-  var revenuelineChartoptions = {
+  var challengeChartoptions = {
     chart: {
       height: 100,
       type: 'area',
@@ -134,7 +134,7 @@ $(window).on("load", function () {
       }
     },
     series: [{
-      name: 'Revenue',
+      name: 'Challenges',
       data: [350, 275, 400, 300, 350, 300, 450]
     }],
 
@@ -157,18 +157,18 @@ $(window).on("load", function () {
     },
   }
 
-  var revenuelineChart = new ApexCharts(
-    document.querySelector("#line-area-chart-2"),
-    revenuelineChartoptions
+  var challengelineChart = new ApexCharts(
+    document.querySelector("#challenge-line-area-chart"),
+    challengeChartoptions
   );
 
-  revenuelineChart.render();
+  challengelineChart.render();
 
 
-  // Line Area Chart - 3
+  // Share Line Area Chart - 3
   // ----------------------------------
 
-  var saleslineChartoptions = {
+  var shareChartoptions = {
     chart: {
       height: 100,
       type: 'area',
@@ -204,7 +204,7 @@ $(window).on("load", function () {
       }
     },
     series: [{
-      name: 'Sales',
+      name: 'Shares',
       data: [10, 15, 7, 12, 3, 16]
     }],
 
@@ -227,17 +227,17 @@ $(window).on("load", function () {
     },
   }
 
-  var saleslineChart = new ApexCharts(
-    document.querySelector("#line-area-chart-3"),
-    saleslineChartoptions
+  var sharelineChart = new ApexCharts(
+    document.querySelector("#share-line-area-chart"),
+    shareChartoptions
   );
 
-  saleslineChart.render();
+  sharelineChart.render();
 
   // Line Area Chart - 4
   // ----------------------------------
 
-  var orderlineChartoptions = {
+  var clickChartoptions = {
     chart: {
       height: 100,
       type: 'area',
@@ -273,7 +273,7 @@ $(window).on("load", function () {
       }
     },
     series: [{
-      name: 'Orders',
+      name: 'Clicks',
       data: [10, 15, 8, 15, 7, 12, 8]
     }],
 
@@ -296,12 +296,12 @@ $(window).on("load", function () {
     },
   }
 
-  var orderlineChart = new ApexCharts(
-    document.querySelector("#line-area-chart-4"),
-    orderlineChartoptions
+  var clicklineChart = new ApexCharts(
+    document.querySelector("#click-line-area-chart"),
+    clickChartoptions
   );
 
-  orderlineChart.render();
+  clicklineChart.render();
 
   // revenue-chart Chart
   // -----------------------------

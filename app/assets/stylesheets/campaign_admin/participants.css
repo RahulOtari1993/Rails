@@ -359,3 +359,11 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
 .modal_profile_info {
   margin-top: 25px;
 }
+
+table.dataTable thead tr {
+  background-color: #8b81f7 !important;
+}
+
+table.note-list-view thead tr {
+  display: none;
+}

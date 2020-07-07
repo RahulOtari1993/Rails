@@ -1,5 +1,5 @@
 class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseController
-  before_action :set_participant, only: [:show, :remove_tag, :add_tag, :add_note, :update_status]
+  before_action :set_participant, only: [:show, :remove_tag, :add_tag, :add_note, :update_status, :activities_list, :rewards_list, :notes_list]
 
   def index
   end
@@ -107,6 +107,39 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
                      disposition: 'attachment; filename=campaign_contacts.csv'
   end
 
+  # Getting Date For Apex Chart & Graph
+  def get_data_for_chart_graph
+    participants = @campaign.participants 
+    render json: {
+      genderElementCount: Participant.by_gender(participants),
+      ageElementCount: Participant.by_age(participants),
+      completedChallengesElementCount: Participant.by_completed_challenges(@campaign),
+      connectedPlatformElementCount: Participant.by_connected_platform
+    }
+  end
+
+  # Getting Activities Feed List
+  def activities_list
+    render json: {
+      participant_actions: @participant.participant_actions.as_json
+    }
+  end
+
+  # Getting Rewards List
+  def rewards_list
+    render json: {
+      reward_participants: @participant.reward_participants.map {|r| r.reward}
+    }
+  end
+
+  # Getting Notes List
+  def notes_list
+    render json: {
+      notes: @participant.notes
+    }
+  end
+
+  private
   ## Update Participant Status
   def update_status
     if @participant.update_attribute(:status, params[:status].present? ? params[:status] : @participant.status)
