@@ -2,7 +2,7 @@ class CreateSocialShareVisits < ActiveRecord::Migration[5.2]
   def change
     create_table :social_share_visits do |t|
       t.integer    :referral_code_id
-      t.string     :referral_code
+      t.string     :referral_code_str
       t.integer    :participant_id
       t.integer    :actionable_id
       t.string     :actionable_type

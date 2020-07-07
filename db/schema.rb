@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_07_180457) do
+ActiveRecord::Schema.define(version: 2020_07_07_181313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -526,8 +526,8 @@ ActiveRecord::Schema.define(version: 2020_07_07_180457) do
     t.integer "referral_code_id"
     t.string "referral_code"
     t.integer "participant_id"
-    t.integer "actionable_id"
-    t.string "actionable_type"
+    t.integer "shareable_id"
+    t.string "shareable_type"
     t.text "referrer_url"
     t.text "useragent"
     t.string "ipaddress", limit: 255
