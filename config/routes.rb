@@ -159,9 +159,7 @@ Rails.application.routes.draw do
       namespace :v1, defaults: {format: 'json'} do
         mount_devise_token_auth_for 'Participant', at: 'participants', controllers: {
             registrations: 'api/v1/override/registrations',
-            sessions: 'api/v1/override/sessions',
-            passwords: 'api/v1/override/passwords',
-            confirmations: 'api/v1/override/confirmations'
+            sessions: 'api/v1/override/sessions'
         }
       end
     end
