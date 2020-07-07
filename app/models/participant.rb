@@ -351,6 +351,50 @@ class Participant < ApplicationRecord
     end
   end
 
+  ## Facebook Account Connect
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.facebook_uid = auth.uid
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
+        participant
+      else
+        Participant.new
+      end
+    else
+      Participant.new
+    end
+  end
+
+  ## Twitter Account Connect
+  def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.twitter_uid = auth.uid
+      participant.twitter_token = auth.credentials.token
+      participant.twitter_secret = auth.credentials.token
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
+        participant
+      else
+        Participant.new
+      end
+    else
+      Participant.new
+    end
+  end
+
   def self.get_participant_id
     new_id = SecureRandom.hex (6)
     p_id = self.where(p_id: new_id.upcase)
