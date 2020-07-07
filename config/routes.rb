@@ -163,7 +163,11 @@ Rails.application.routes.draw do
         }
 
         devise_scope :participant do
+          ## Rewards API Routes
           resources :rewards, only: [:index, :show]
+
+          ## Challenges API Routes
+          resources :challenges, only: [:index, :show]
         end
       end
     end
