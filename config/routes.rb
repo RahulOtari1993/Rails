@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     devise_scope :participant do
       get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
       get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
+      get "participants/auth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
     end
 
     namespace :admin do
@@ -84,6 +85,7 @@ Rails.application.routes.draw do
               get '/toggle', to: 'challenges#toggle'
               delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
+              get :get_insight_for_line_chart
             end
           end
 
@@ -103,6 +105,7 @@ Rails.application.routes.draw do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
               get '/participants', to: 'participants#participants'
+              get '/get_data_for_chart_graph', to: 'participants#get_data_for_chart_graph'
             end
             member do
               get '/users', to: 'participants#users'
@@ -111,6 +114,9 @@ Rails.application.routes.draw do
               post '/add_tag', to: 'participants#add_tag'
               post '/add_note', to: 'participants#add_note'
               put '/update_status', to: 'participants#update_status'
+              get :activities_list, to: 'participants#activities_list'
+              get :rewards_list, to: 'participants#rewards_list'
+              get :notes_list, to: 'participants#notes_list'
             end
           end
         end
@@ -130,6 +136,14 @@ Rails.application.routes.draw do
         member do
           get :details
           post :claim
+        end
+      end
+      resources :accounts, only: [], :controller => "participant_accounts" do
+        collection do
+          get :details_form
+          put :update_profile_details
+          put :disconnect
+          get :fetch_activities
         end
       end
     end

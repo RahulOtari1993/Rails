@@ -1,9 +1,12 @@
 class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
+  ## Handle Facebook OAuth2 Callbacks
   def facebook
     user_agent = request.user_agent
     remote_ip = request.remote_ip
+    type = request.env['omniauth.params']['type']
 
-    if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
+    if type == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
       @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
       if @participant.new_record?
@@ -12,12 +15,21 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       else
         sign_in_and_redirect @participant, :event => :authentication
       end
+    elsif type == 'connect' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('pi')
+      @participant = Participant.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['pi'])
+
+      if @participant.new_record?
+        redirect_to root_url, notice: 'Connecting Facebook account failed.'
+      else
+        redirect_to root_url, notice: 'Facebook account connected successfully.'
+      end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
       redirect_to root_url
     end
   end
 
+  ## Handle Google OAuth2 Callbacks
   def google_oauth2
     user_agent = request.user_agent
     remote_ip = request.remote_ip
@@ -37,6 +49,29 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
   end
 
+  ## Handle Twitter OAuth2 Callbacks
+  def twitter
+    user_agent = request.user_agent
+    remote_ip = request.remote_ip
+    type = request.env['omniauth.params']['type']
+
+    Rails.logger.info "============== type --> #{type} =============="
+    if type == 'connect' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('pi')
+      @participant = Participant.twitter_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['pi'])
+
+      Rails.logger.info "============== @participant --> #{@participant} =============="
+      if @participant.new_record?
+        redirect_to root_url, notice: 'Connecting Twitter account failed.'
+      else
+        redirect_to root_url, notice: 'Twitter account connected successfully.'
+      end
+    else
+      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      redirect_to root_url
+    end
+  end
+
+  ## Setup OAuth Details for Facebook
   def setup
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
@@ -62,6 +97,21 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     request.env['omniauth.strategy'].options[:client_id] = conf.google_client_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.google_client_secret
+    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
+  end
+
+  ## Setup OAuth Details for Twitter
+  def twitter_oauth2_setup
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
+
+    Rails.logger.info "================ twitter_oauth2_setup ================"
+
+    request.env['omniauth.strategy'].options[:consumer_key]  = conf.twitter_app_id
+    request.env['omniauth.strategy'].options[:consumer_secret] = conf.twitter_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 

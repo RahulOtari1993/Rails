@@ -44,12 +44,12 @@
                 <p class="participant_id_container">
                   <span class="participant-status-left">
                     User ID: <span class="participant_id_container"><%= @participant.p_id %></span>
-                    Status:
                   </span>
-
+                </p>
+                <p class="participant-status-right" style="float: left; display: inline-flex;"><span>Status:</span>
                   <%= select_tag "participant-status",
                                  options_for_select(Participant.statuses.map { |val| [val[0].humanize, val[0]] }, @participant.status),
-                                 { class: 'form-control participant-status-dd', required: true } %>
+                                 {class: 'form-control participant-status-dd', required: true} %>
                 </p>
                 <div style="clear: both;"></div>
               </div>

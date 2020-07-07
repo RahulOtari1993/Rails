@@ -84,6 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_referrals
+    #byebug
     share_service = ShareService.new
     if params[:refid]
       social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
@@ -97,7 +98,9 @@ class ApplicationController < ActionController::Base
 
     if !current_participant.blank? && current_participant.active?
       # We have a signed up and active user so lets process referrals for challenges
-      # share_service.run current_user, session[:pending_refids]
+      processed_referral_codes = share_service.run current_participant, session[:pending_refids], current_visit
+
+      session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
     end
   end
 end

@@ -59,11 +59,14 @@
 #  completed_challenges   :integer          default(0)
 #  avatar                 :string
 #  status                 :integer          default("inactive")
+#  twitter_uid            :string
+#  twitter_token          :string
+#  twitter_secret         :string
 #
 class Participant < ApplicationRecord
   ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable, :trackable,
-         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2],
+         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter],
          :authentication_keys => [:email, :organization_id, :campaign_id],
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
@@ -79,7 +82,9 @@ class Participant < ApplicationRecord
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
   has_many :sweepstake_entries, dependent: :destroy
-  
+  belongs_to :email_setting, optional: true
+  has_many :participant_profiles, dependent: :destroy
+
   ## Callbacks
   after_create :generate_participant_id
   after_save :check_milestone_reward
@@ -228,7 +233,7 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent, remote_ip)
+      participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
       participant
     else
       Participant.new
@@ -277,8 +282,52 @@ class Participant < ApplicationRecord
     end
 
     if participant.save(:validate => false)
-      participant.connect_challenge_completed(user_agent, remote_ip)
+      participant.connect_challenge_completed(user_agent, remote_ip, 'google')
       participant
+    else
+      Participant.new
+    end
+  end
+
+  ## Facebook Account Connect
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.facebook_uid = auth.uid
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
+        participant
+      else
+        Participant.new
+      end
+    else
+      Participant.new
+    end
+  end
+
+  ## Twitter Account Connect
+  def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.twitter_uid = auth.uid
+      participant.twitter_token = auth.credentials.token
+      participant.twitter_secret = auth.credentials.token
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
+        participant
+      else
+        Participant.new
+      end
     else
       Participant.new
     end
@@ -295,17 +344,28 @@ class Participant < ApplicationRecord
   end
 
   ## Check If Participant Completed SignUp Challenge & Assign Point
-  def connect_challenge_completed(user_agent = '', remote_ip = '')
+  def connect_challenge_completed(user_agent = '', remote_ip = '', connect_type = '', platform = '')
     ## Fetch the Campaign
     campaign = Campaign.where(id: self.campaign_id).first
     if campaign.present?
       ## Fetch the Challenge (Facebook, Google, Email)
-      challenge = campaign.challenges.current_active.where(challenge_type: 'signup', parameters: self.connect_type).first
+      platform = (platform.present? && connect_type == 'connect') ? platform : self.connect_type
+      challenge = campaign.challenges.current_active.where(challenge_type: %w[signup connect], parameters: platform).first
+
       if challenge.present?
         ## Check if the Challenge is Submitted Previously
         is_submitted = Submission.where(campaign_id: campaign.id, participant_id: self.id, challenge_id: challenge.id).present?
-        action_type = self.connect_type == 'email' ? 'sign_up' : 'sign_in'
-        action_title = self.connect_type == 'email' ? 'Signed up' : 'Signed in'
+        action_type = if connect_type == 'connect'
+                        'connect'
+                      else
+                        connect_type == 'email' ? 'sign_up' : 'sign_in'
+                      end
+
+        action_title = if platform.present? && connect_type == 'connect'
+                         "Connected #{platform}"
+                       else
+                         connect_type == 'email' ? 'Signed up' : 'Signed in'
+                       end
 
         if is_submitted
           ## Create Participant Action Log
@@ -373,7 +433,7 @@ class Participant < ApplicationRecord
       ''
     end
   end
-  
+
   ## Check if Participant is Eligible for Challenge
   def eligible?(challenge)
     ## Set Result, By Default it is TRUE
@@ -393,6 +453,43 @@ class Participant < ApplicationRecord
     end
 
     result
+  end
+
+  # Class Methods
+  class <<  self
+    # For Gender Breakdown
+    def by_gender(participants)
+      gender = []
+      gender << where(gender: 'male').count
+      gender << where(gender: 'female').count
+      gender << where(gender: 'other').count
+    end
+    
+    # For Age Breakdown
+    def by_age(participants)
+      age = []
+      age << where(age: 0..20).count
+      age << where(age: 21..40).count
+      age << where(age: 41..60).count
+      age << where(age: 61..80).count
+      age << where(age: 81..100).count
+      age << where("age > ?", 100).count
+    end
+
+    # For Completed Challenges / Platform With Facebook & Google
+    def by_completed_challenges(campaign)
+      completed_challenges = []
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').count
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').count
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'google').count
+    end
+
+    # For Connected Platforms With Facebook & Google
+    def by_connected_platform
+      connected_platform = [5] # Test value for twitter
+      connected_platform << where.not('participants.facebook_uid' => nil).count
+      connected_platform << where.not('participants.google_uid' => nil).count
+    end
   end
 
   private

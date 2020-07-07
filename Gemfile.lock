@@ -226,6 +226,7 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+    oauth (0.5.4)
     oauth2 (1.4.4)
       faraday (>= 0.8, < 2.0)
       jwt (>= 1.0, < 3.0)
@@ -244,9 +245,15 @@ GEM
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
       omniauth-oauth2 (>= 1.6)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.6.0)
       oauth2 (~> 1.1)
       omniauth (~> 1.9)
+    omniauth-twitter (1.4.0)
+      omniauth-oauth (~> 1.1)
+      rack
     orm_adapter (0.5.0)
     pg (1.2.3)
     pickup (0.0.11)
@@ -401,6 +408,7 @@ DEPENDENCIES
   momentjs-rails (>= 2.9.0)
   omniauth-facebook
   omniauth-google-oauth2
+  omniauth-twitter
   pg (>= 0.18, < 2.0)
   pickup
   pry (~> 0.12.2)

@@ -29,7 +29,7 @@ class Participants::ConfirmationsController < Devise::ConfirmationsController
       resource.update_attribute(:status, 1)
 
       ## Mark Challenge as Completed & It's Relevant Entries
-      resource.connect_challenge_completed(request.user_agent, request.remote_ip)
+      resource.connect_challenge_completed(request.user_agent, request.remote_ip, 'email')
     end
 
     if signed_in?(resource_name)

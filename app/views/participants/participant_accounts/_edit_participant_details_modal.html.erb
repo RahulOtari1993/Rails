@@ -1,0 +1,352 @@
+<div class="modal fade text-left" id="participant_details_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="row">
+          <div class="col-12">
+            <h4 class="modal-title">
+              <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+            </h4>
+          </div>
+        </div>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body pt-0">
+        <!-- Participant statistic points start -->
+        <div class="row challenge-points-bg grid-divider">
+          <div class="col-md-6">
+            <span class='text-uppercase size-10'>Lifetime Balance</span>
+            <span class="size-14" style="display:block;"><%= current_participant.points.to_i %> GoBucks</span>
+          </div>
+          <div class="col-md-6">
+            <span class='text-uppercase size-10'>Current Balance</span>
+            <span class="size-14" style="display:block;"><%= current_participant.unused_points.to_i %> GoBucks</span>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+            <h4 class="font-color-1"><%= current_participant.completed_challenges.to_i %> Challenges Completed</h4>
+          </div>
+        </div>
+        <!-- History Section start -->
+        <p>Nice Work! You also got.</p>
+        <div class="row history-grid-divider text-center">
+          <div class="col-md-2 offset-md-1">
+            <span>
+              <i class="fa fa-mouse-pointer font-color-1"> 0</i>
+            </span>
+            <div class="size-12">clicks</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-heart-o font-color-1"> 0</i>
+            </span>
+            <div class="size-12">likes</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-comment-o font-color-1"> 0</i>
+            </span>
+            <div class="size-12">comments</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-share font-color-1"> 0</i>
+            </span>
+            <div class="size-12">reshares</div>
+          </div>
+          <div class="col-md-2">
+            <span>
+              <i class="fa fa-users font-color-1"> 0</i>
+            </span>
+            <div class="size-12">recruits</div>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-md-12">
+            <p class="size-10 mb-0">*It may take up to 24 hours to assign GoBucks to your activity as we verify your posts and actions.</p>
+            <p class="size-10 mb-0">**There may be limits on the number of likes, comments, retweets, etc. that you can earn. See FAQs for more details.</p>
+          </div>
+        </div><br>
+
+        <!-- Participant profile section -->
+        <section class="participant-profile-section">
+          <div class="row">
+            <div class="col-md-12">
+              <h4 class="mb-0">Profile Information <a href="javascript:void(0);" class="text-uppercase pull-right size-12 mt-2 font-color-1" id="participant_profile_edit_btn">Edit</a></h4>
+              <hr class="m-0">
+            </div>
+          </div>
+          <!-- Participant profile information details -->
+          <div class="participant-profile-info">
+            <%= render 'participant_profile_section' %>
+          </div>
+        </section>
+
+        <!-- Email Settings details -->
+        <section class="email-settings">
+          <div class="email-settings-info-details">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="mb-0">Email Settings <a href="javascript:void(0);" class="text-uppercase pull-right size-12 mt-2 font-color-1" id="email_settings_edit_btn">Edit</a></h4>
+                <hr class="m-0">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-md-12">
+                <p class="size-12">You can opt in to recieve emails from Buckeye Nation Rewards for news about product and services. Stay informed about the latest challenges and rewards by keeping your email preferences up to date.</p>
+              </div>
+            </div>
+          </div>
+          <div class="email-settings-edit-info" style="display:none;">
+            <% unless @email_settings.blank? %>
+              <%= form_for(current_participant, as: :participant, url: update_profile_details_participants_accounts_path, method: :put, :html => {class: 'form form-vertical participant-profile-form', remote: true}) do |f| %>
+                <div class="contact-info">
+                  <div class="row ml-1">
+                    <div class="col-md-12">
+                      <% @email_settings.each do |email_setting| %>
+                        <div>
+                          <%#= radio_button_tag "participant[email_setting_id]", email_setting.id, false, id: "email_setting_#{email_setting.id}"  %>
+                          <%= f.radio_button :email_setting_id, email_setting.id %>
+                          <span class="font-12"><%= email_setting.description %></span>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <%= hidden_field_tag "email_settings", true %>
+                <div class="row ml-1 mt-3">
+                  <div class="col-md-3">
+                    <%= f.button "Cancel", type: :button, class: 'btn btn-block pull-right', id: "email_settings_cancel_btn" %>
+                  </div>
+                  <div class="col-md-3">
+                    <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div><br>
+        </section>
+
+        <!-- Connect Social Accounts Start-->
+        <div class="row">
+          <div class="col-6">
+            <% if current_participant.facebook_uid.present? && current_participant.facebook_token.present? &&
+                current_participant.facebook_expires_at.present? %>
+              <a id="disconnect-facebook-btn" href="javascript:void(0);"
+                 class="btn box1_btn facebook_btn btn-block disconnect-btn" data-connection-type="facebook">
+                <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
+                <span class="btn-share-text">Disconnect</span>
+              </a>
+            <% else %>
+              <%
+                facebook_challenge = display_facebook_button
+                display_facebook = facebook_challenge.present? ? current_participant.eligible?(facebook_challenge) : false
+              %>
+              <% if display_facebook.present? %>
+                <a id="connect-facebook-btn"
+                   href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
+                   class="btn box1_btn facebook_btn btn-block">
+                  <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
+                  <span class="btn-share-text">Connect +<%= facebook_challenge.try(:points) %></span>
+                </a>
+                <div class="clear"></div>
+              <% end %>
+            <% end %>
+          </div>
+
+          <div class="col-6">
+            <% if current_participant.twitter_uid.present? && current_participant.twitter_token.present? &&
+                current_participant.twitter_secret.present? %>
+              <a id="disconnect-twitter-btn" href="javascript:void(0);"
+                 class="btn box1_btn twitter_btn btn-block disconnect-btn" data-connection-type="twitter">
+                <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
+                <span class="btn-share-text">Disconnect</span>
+              </a>
+            <% else %>
+              <%
+                twitter_challenge = fetch_twitter_challenge
+                display_twitter = twitter_challenge.present? ? current_participant.eligible?(twitter_challenge) : false
+              %>
+              <% if display_twitter %>
+                <a id="connect-twitter-btn"
+                   href="<%= participant_twitter_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
+                   class="btn box1_btn twitter_btn btn-block">
+                  <span class="icon-btn-share fa fa-twitter connect-social-icon"></span>
+                  <span class="btn-share-text">Connect <%= twitter_challenge.try(:points) %></span>
+                </a>
+                <div class="clear"></div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+
+        <!-- Partipant actions -->
+        <section class="participant-actions">
+          <div class="participant-actions-header">
+            <div class="row">
+              <div class="col-md-12">
+                <h4 class="mb-0">Account Activity</h4>
+                <!-- <hr class="m-0"> -->
+              </div>
+            </div>
+          </div>
+          <div class="activity-list-view">
+            <% unless @participant_actions.blank? %>
+              <div class="table-responsive">
+                <table id="participant-actions-list-view" class="table">
+                </table>
+              </div>
+            <% end %>
+          </div><br>
+        </section>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12">
+          </div>
+        </div>
+        <br>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    // ------------ Server Side Rendering For Activity Feed ------------
+    $('#participant-actions-list-view').DataTable({
+      processing: true,
+      responsive: false,
+      ajax: {
+        'url': `/participants/accounts/fetch_activities`,
+        'dataSrc': 'participant_actions',
+        dataFilter: function (data) {
+          var json = jQuery.parseJSON(data);
+          console.log(JSON.stringify(json));
+          return JSON.stringify(json);
+        },
+      },
+      columns: [
+        {
+          title: 'Action',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return (data.title + ' ' + titleDetails(data))
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '50%');
+          }
+        },
+        {
+          title: 'Points',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return activityPoint(data)
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '15%');
+          }
+        },
+        {
+          title: 'Date & Time',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return formatDateTime(data.created_at)
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '35%');
+          }
+        }
+      ],
+      'order': [],
+      'columnDefs': [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
+      'searching': false,
+      'lengthChange': false,
+      'autoWidth': false,
+      'pageLength': 10,
+
+    });
+
+    $('#email_settings_edit_btn').click(function() {
+       $('.email-settings-edit-info').show();
+    });
+
+    $('#email_settings_cancel_btn').click(function() {
+       $('.email-settings-edit-info').hide();
+    });
+
+  });
+
+  // ----------------------- Common Functions ------------------------
+  // Format Date & Time
+  function formatDateTime(date) {
+    dateObj = new moment(date).format('MM/DD/YYYY LT');
+    return dateObj;
+  }
+
+  // Displaying Title and Details together
+  function titleDetails(data) {
+    details = ''
+    if ((data.details !== null) && (data.details !== undefined)) {
+      details = data.details.slice(0,30) + "..."
+    }
+    return details
+  }
+
+  // Displaying Point
+  function activityPoint(data) {
+    points = ''
+    if (data.points == null) {
+      points = 'N/A'
+    } else {
+      points = data.points
+    }
+    return points
+  }
+</script>
+
+<style media="screen">
+  .challenge-points-bg {
+    background-color: #bb0000;
+    color: white;
+  }
+
+  .row.grid-divider [class*='col-']:not(:last-child):after {
+    background: red;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+  }
+
+  .row.history-grid-divider [class*='col-']:not(:last-child):after {
+    background: lightgrey;
+    width: 1px;
+    content: "";
+    display:block;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    height: auto;
+  }
+
+</style>

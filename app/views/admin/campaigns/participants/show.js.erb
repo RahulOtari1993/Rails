@@ -8,3 +8,176 @@ $('.participant-tags').select2({
   dropdownAutoWidth: true,
   width: '50%'
 });
+
+// ------------ Server Side Rendering For Activity Feed ------------
+$('#activity-list-table').DataTable({
+  processing: true,
+  responsive: false,
+  ajax: {
+    'url': `/admin/campaigns/${$('#activity-list-table').attr('campaign_id')}/users/${$('#activity-list-table').attr('participant_id')}/activities_list`,
+    'dataSrc': 'participant_actions',
+    dataFilter: function (data) {
+      var json = jQuery.parseJSON(data);
+      return JSON.stringify(json);
+    },
+  },
+  columns: [
+    {
+      class: 'product-name',
+      title: 'Action',
+      data: null,
+      searchable: true,
+      render: function (data, type, row) {
+        return (data.title + titleDetails(data))
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '50%');
+      }
+    },
+    {
+      class: 'product-name',
+      title: 'Points',
+      data: null,
+      searchable: false,
+      render: function (data, type, row) {
+        return activityPoint(data)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '15%');
+      }
+    },
+    {
+      class: 'product-name',
+      title: 'Date & Time',
+      data: null,
+      searchable: false,
+      render: function (data, type, row) {
+        return formatDateTime(data.created_at)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '35%');
+      }
+    }
+  ],
+  'searching': false,
+  'lengthChange': false,
+  'autoWidth': false,
+  'pageLength': 5
+});
+
+// --------------- Server Side Rendering For Rewards ---------------
+$('#reward-list-table').DataTable({
+  processing: true,
+  responsive: false,
+  ajax: {
+    'url': `/admin/campaigns/${$('#reward-list-table').attr('campaign_id')}/users/${$('#reward-list-table').attr('participant_id')}/rewards_list`,
+    'dataSrc': 'reward_participants',
+    dataFilter: function (data) {
+      var json = jQuery.parseJSON(data);
+      return JSON.stringify(json);
+    },
+  },
+  columns: [
+    {
+      class: 'product-name',
+      title: 'Reward',
+      data: null,
+      searchable: true,
+      render: function (data, type, row) {
+        return (data.name)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '65%');
+      }
+    },
+    {
+      class: 'product-name',
+      title: 'Date Earned',
+      data: null,
+      searchable: false,
+      render: function (data, type, row) {
+        return formatDateTime(data.created_at)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '35%');
+      }
+    }
+  ],
+  'searching': false,
+  'lengthChange': false,
+  'autoWidth': false,
+  'pageLength': 5
+});
+
+// --------------- Server Side Rendering For Notes -----------------
+$('#note-list-table').DataTable({
+  processing: true,
+  responsive: false,
+  ajax: {
+    'url': `/admin/campaigns/${$('#note-list-table').attr('campaign_id')}/users/${$('#note-list-table').attr('participant_id')}/notes_list`,
+    'dataSrc': 'notes',
+    dataFilter: function (data) {
+      var json = jQuery.parseJSON(data);
+      return JSON.stringify(json);
+    },
+  },
+  columns: [
+    {
+      data: null,
+      searchable: true,
+      render: function (data, type, row) {
+        return '<h6 class="Notes_tab_title">'+ "<%= current_user.full_name %>" + ' - ' +
+               '<span>'+ formatDateTime(data.created_at) +'</span>'+
+               '<span>'+ formatDateTime(data.created_at) +'</span>'+
+               '</h6>' + '<p>'+ data.description +'</p>'
+      }
+    }
+  ],
+  'searching': false,
+  'lengthChange': false,
+  'ordering': false,
+  'autoWidth': false,
+  'pageLength': 5
+});
+
+// ----------------------- Common Functions ------------------------
+// Format Date & Time
+function formatDateTime(date) {
+  let dateObj = new Date(date);
+  hours = date.split("T")[1].split(".")[0].split(":")[0]
+  minutes = date.split("T")[1].split(".")[0].split(":")[1]
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
+      ("0" + (dateObj.getDate())).slice(-2) +
+      '/' + dateObj.getFullYear() + ' ' + strTime
+}
+
+// Displaying Title and Details together
+function titleDetails(data) {
+  details = ''
+  if (data.details == null || data.details == undefined) {
+    details = ''
+  } else {
+    details = data.details
+  }
+  if (details.length > 15) {
+    return (details.slice(0,30) + "...")
+  } else {
+    return details
+  }
+}
+
+// Displaying Point
+function activityPoint(data) {
+  points = ''
+  if (data.points == 0) {
+    points = 'N/A'
+  } else {
+    points = data.points
+  }
+  return points
+}

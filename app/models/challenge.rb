@@ -57,13 +57,14 @@ class Challenge < ApplicationRecord
   has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
   belongs_to :reward, optional: true
+  has_many :participant_actions, as: :actionable
   # attr_accessor :status
 
   ## Constants
   # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
   #                 comment connect hashtag referal location subscribe submission play practice hr link collect)
 
-  CHALLENGE_TYPE = %w(share signup login video article referral location link engage collect)
+  CHALLENGE_TYPE = %w(share signup login video article referral location link engage collect connect)
   RADIUS = [['0.1 Mile', 161], ['0.2 Mile', 321], ['0.3 Mile', 482], ['1 Mile', 1609], ['5 Mile', 8046], ["10 Mile", 16093]]
   END_DATE_YEARS = 500
 
@@ -246,6 +247,13 @@ class Challenge < ApplicationRecord
     self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
   end
 
+  # Calculate Months For Insight User
+  def calculate_months
+    months = Challenge.all.map {|c| [c.start.strftime('%b'),c.finish.strftime('%b')]}
+    months.flatten.uniq
+  end
+
+  # Get UTM params for this challenge
   def utm_parameters platform=nil
     #set the values
     utm_source = self.id.to_s(36) rescue "unknown"

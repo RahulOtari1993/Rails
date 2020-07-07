@@ -7,8 +7,8 @@ class SweepstakeRewardWinnerService
   ## create sweepstake entries and choose a sweepstake reward winner
   def process
     if @campaign.present? && @reward.present?
-      ## Only Active Participants can take part in SweepStake
-      @participants = @campaign.participants.where(status: 1).sort
+      ## Only Active & Opted Out Participants can take part in SweepStake
+      @participants = @campaign.participants.where(status: [1, 2]).sort
 
       unless @participants.blank?
         sweepstake_entry_weights = {}

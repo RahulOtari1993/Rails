@@ -253,6 +253,15 @@ ActiveRecord::Schema.define(version: 2020_07_07_184527) do
     t.index ["organization_id"], name: "index_domain_lists_on_organization_id"
   end
 
+  create_table "email_settings", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_email_settings_on_campaign_id"
+  end
+
   create_table "global_configurations", force: :cascade do |t|
     t.string "facebook_app_id"
     t.string "facebook_app_secret"
@@ -403,6 +412,16 @@ ActiveRecord::Schema.define(version: 2020_07_07_184527) do
     t.integer "completed_challenges", default: 0
     t.string "avatar"
     t.integer "status", default: 0
+    t.string "twitter_uid"
+    t.string "twitter_token"
+    t.string "twitter_secret"
+    t.string "country"
+    t.string "home_phone"
+    t.string "work_phone"
+    t.string "job_position"
+    t.string "job_company_name"
+    t.string "job_industry"
+    t.integer "email_setting_id"
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
   end
@@ -646,6 +665,7 @@ ActiveRecord::Schema.define(version: 2020_07_07_184527) do
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
+  add_foreign_key "email_settings", "campaigns"
   add_foreign_key "networks", "campaigns"
   add_foreign_key "notes", "campaigns"
   add_foreign_key "notes", "participants"

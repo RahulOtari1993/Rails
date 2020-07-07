@@ -4,19 +4,36 @@ class ShareService
 
   end
 
-  def run  participant, referral_ids
+  def run  participant, referral_ids, visit
     @participant = participant
     @referral_ids = referral_ids
+    processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
-      if challenge.referral? and !participant.blank?
+
+      if challenge.challenge_type == 'referral' and !participant.blank?
         # participant signed up so check if referral challenge has already been completed
-        
+        actions = challenge.participant_actions.where(referred_participant_id: participant.id)
+
+        if actions.empty?
+          # Reward the referral points
+          action = challenge.participant_actions.create({
+            participant_id: ref_code.participant_id,
+            points: challenge.points,
+            referred_participant_id: participant.id,
+            action_type: 'recruit',
+            title: 'Recruit Sign Up',
+            ip_address: visit.ip
+          })
+          processed_referral_ids << ref_code.code
+        end
+      else
+        # Reward points for other share referrals
       end
     end
-
+    processed_referral_ids
   end
 
   def record_visit refid, visit, participant

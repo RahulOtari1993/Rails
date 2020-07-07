@@ -1,34 +1,7 @@
 <div class="tab-pane" id="rewards-list" role="tabpanel">
   <section id="data-list-view" class="data-list-view-header">
     <div class="table-responsive">
-      <table class="table reward-list-view">
-        <thead>
-        <tr class="activity-reward-header">
-          <th scope="col" width="65%">Reward</th>
-          <th scope="col" width="35%">Date earned</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @participant.reward_participants.each do |reward_participant| %>
-          <tr>
-            <td><%= truncate(reward_participant.reward.name, length: 40) %></td>
-            <td>
-              <span><%= reward_participant.reward.created_at.strftime("%m/%d/%Y") %></span>
-              <span><%= reward_participant.reward.created_at.strftime("%H:%M %p") %></span>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <table id="reward-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>' participant_id='<%= @participant.id %>'></table>
     </div>
   </section>
 </div>
-
-<script type="text/javascript">
-  $('.reward-list-view').DataTable({
-    'searching': false,
-    'lengthChange': false,
-    'autoWidth': false,
-    'pageLength': 5
-  });
-</script>
