@@ -98,21 +98,33 @@
             <div class="modal_tab">
               <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#Insights" aria-controls="Insights" role="tab" aria-selected="true">Insights</a>
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#insights" aria-controls="insights" role="tab" aria-selected="true">Insights</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#Users" aria-controls="Users" role="tab" aria-selected="false">Users</a>
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#users" aria-controls="users" role="tab" aria-selected="false">Users</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="about-tab" data-toggle="tab" href="#Details" aria-controls="Details" role="tab" aria-selected="false">Details</a>
+                  <a class="nav-link" id="about-tab" data-toggle="tab" href="#details" aria-controls="details" role="tab" aria-selected="false">Details</a>
                 </li>
               </ul>
               <div class="tab-content">
-                <div class="tab-pane active" id="Insights" aria-labelledby="Insights-tab" role="tabpanel">
-                  <p>Challenge Completions By Users</p>
-                  <img src="<%= Challenge.first.image.url %>" class="challenge_img">
+                <div class="tab-pane active" id="insights" aria-labelledby="insights-tab" role="tabpanel">
+                  <div class="col-md-12 col-12">
+                    <!-- <p>Challenge Completions By Users</p> -->
+                    <div class="card">
+                      <div class="card-header">
+                        <h4 class="card-title">Challenge Completions By Users</h4>
+                      </div>
+                      <div class="card-content">
+                        <div class="card-body">
+                          <div id="insight-line-chart" class="height-400"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <img src="<%#= Challenge.first.image.url %>" class="challenge_img"> -->
                 </div>
-                <div class="tab-pane" id="Users" aria-labelledby="Users-tab" role="tabpanel">
+                <div class="tab-pane" id="users" aria-labelledby="users-tab" role="tabpanel">
                   <div class="table-responsive">
                     <table class="table challenge-overlay-participant-table">
                       <thead>
@@ -138,7 +150,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="tab-pane" id="Details" aria-labelledby="Details-tab" role="tabpanel">
+                <div class="tab-pane" id="details" aria-labelledby="details-tab" role="tabpanel">
                   <p>Carrot cake dragée chocolate. Lemon drops ice cream wafer gummies dragée. Chocolate bar liquorice
                     cheesecake cookie chupa chups marshmallow oat cake biscuit. Dessert toffee fruitcake ice cream
                     powder
@@ -155,3 +167,62 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var lineChartOptionsForInsight = {
+    chart: {
+      height: 300,
+      width: 660,
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    series: [{
+      name: "Users",
+      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+    }],
+    title: {
+      text: 'Users',
+      align: 'left'
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      minValue: 0,
+      maxValue: 160
+    },
+    yaxis: {
+      tickAmount: 10
+    }
+  }
+  var insightLineChart = new ApexCharts(
+    document.querySelector("#insight-line-chart"),
+    lineChartOptionsForInsight
+  );
+  insightLineChart.render();
+
+  // Getting Insight Data For Line Graph And Updating Here 
+  var url = "/admin/campaigns/" + "<%= @challenge.campaign_id %>" + "/challenges/" + "<%= @challenge.id %>" + "/get_insight_for_line_chart";
+  $.getJSON(url, function(response) {
+    insightLineChart.updateOptions({
+      series: [{
+        data: response.calculateUsers
+      }],
+      xaxis: {
+        categories: response.calculateMonths // Updating Months Options
+      }
+    });
+  });
+</script>

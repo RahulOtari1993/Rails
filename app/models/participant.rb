@@ -394,6 +394,43 @@ class Participant < ApplicationRecord
     result
   end
 
+  # Class Methods
+  class <<  self
+    # For Gender Breakdown
+    def by_gender(participants)
+      gender = []
+      gender << where(gender: 'male').count
+      gender << where(gender: 'female').count
+      gender << where(gender: 'other').count
+    end
+    
+    # For Age Breakdown
+    def by_age(participants)
+      age = []
+      age << where(age: 0..20).count
+      age << where(age: 21..40).count
+      age << where(age: 41..60).count
+      age << where(age: 61..80).count
+      age << where(age: 81..100).count
+      age << where("age > ?", 100).count
+    end
+
+    # For Completed Challenges / Platform With Facebook & Google
+    def by_completed_challenges(campaign)
+      completed_challenges = []
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').count
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').count
+      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'google').count
+    end
+
+    # For Connected Platforms With Facebook & Google
+    def by_connected_platform
+      connected_platform = [5] # Test value for twitter
+      connected_platform << where.not('participants.facebook_uid' => nil).count
+      connected_platform << where.not('participants.google_uid' => nil).count
+    end
+  end
+
   private
 
   ## Generate Uniq Participant ID
