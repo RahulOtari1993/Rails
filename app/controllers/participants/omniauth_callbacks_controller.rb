@@ -9,11 +9,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     if type == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
       @participant = Participant.facebook_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
-      if @participant.new_record?
+      if @participant[0].new_record?
         session["devise.facebook_data"] = request.env["omniauth.auth"]
-        redirect_to root_url
+        redirect_to root_url, notice: @participant[1]
       else
-        sign_in_and_redirect @participant, :event => :authentication
+        sign_in_and_redirect @participant[0], :event => :authentication
       end
     elsif type == 'connect' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('pi')
       @participant = Participant.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['pi'])
@@ -37,11 +37,11 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     if request.env['omniauth.params']['type'] == 'sign_up' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi')
       @participant = Participant.google_omniauth(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip)
 
-      if @participant.new_record?
+      if @participant[0].new_record?
         session["devise.google_data"] = request.env["omniauth.auth"]
-        redirect_to root_url
+        redirect_to root_url, notice: @participant[1]
       else
-        sign_in_and_redirect @participant, :event => :authentication
+        sign_in_and_redirect @participant[0], :event => :authentication
       end
     else
       session["devise.google_data"] = request.env["omniauth.auth"]

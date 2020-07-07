@@ -210,7 +210,10 @@ class Participant < ApplicationRecord
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
-    unless participant.present?
+
+    if participant.present?
+      [Participant.new, 'Sorry! You are not authorised to Login.'] unless participant.active_for_authentication?
+    else
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
 
@@ -248,7 +251,7 @@ class Participant < ApplicationRecord
       participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
       participant
     else
-      Participant.new
+      [Participant.new, 'Connect via Facebook failed.']
     end
   end
 
@@ -258,9 +261,12 @@ class Participant < ApplicationRecord
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
 
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
-    unless participant.present?
+    if participant.present?
+      [Participant.new, 'Sorry! You are not authorised to Login.'] unless participant.active_for_authentication?
+    else
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
+
     refresh_token = auth.credentials.refresh_token.present?
 
     if participant.present?
@@ -297,7 +303,7 @@ class Participant < ApplicationRecord
       participant.connect_challenge_completed(user_agent, remote_ip, 'google')
       participant
     else
-      Participant.new
+      [Participant.new, 'Connect via Google failed.']
     end
   end
 
