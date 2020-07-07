@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function() {
   // Invite Participant Form Validation
-
+  ahoy.trackAll();
   $('.participant-sign-up-form').validate({
     errorElement: 'span',
     rules: {

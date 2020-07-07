@@ -120,3 +120,9 @@ gem 'momentjs-rails', '>= 2.9.0'
 
 # Track visits and events with Ruby and JS
 gem 'ahoy_matey'
+
+#used for geo ip lookups
+gem 'geoip'
+
+#used for geo ip lookups
+gem 'geoip-rails'
