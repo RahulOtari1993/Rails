@@ -123,3 +123,6 @@ gem 'momentjs-rails', '>= 2.9.0'
 
 ## API Auth
 gem 'devise_token_auth', '1.1'
+
+## Used to Handle API Timeouts
+gem 'rack-timeout', require:'rack/timeout/base'

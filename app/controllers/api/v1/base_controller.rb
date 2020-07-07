@@ -3,6 +3,8 @@ class Api::V1::BaseController < ApplicationController
 
   ## Runtime Exception Handling
   rescue_from Exception, with: :exception_handling
+  rescue_from Rack::Timeout::RequestTimeoutError, Rack::Timeout::RequestExpiryError,
+              Rack::Timeout::RequestTimeoutException, :with => :handle_timeout
 
   before_action :authenticate_participant!
 
@@ -15,5 +17,11 @@ class Api::V1::BaseController < ApplicationController
   def exception_handling(e)
     Rails.logger.error "Exception Handling: #{e}"
     return_error 500, false, 'Oops. Something went wrong, please try again after some time.', {}
+  end
+
+  ## Handle Timeouts of API Calls
+  def handle_timeout(e)
+    Rails.logger.error "Handle timeout error: #{e}"
+    return_error 408, false, 'Oops. Service Unavailable, please try again after some time.', {}
   end
 end
