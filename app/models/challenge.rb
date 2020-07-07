@@ -242,4 +242,10 @@ class Challenge < ApplicationRecord
   def targeted_participants
     self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
   end
+
+  # Calculate Months For Insight User
+  def calculate_months
+    months = Challenge.all.map {|c| [c.start.strftime('%b'),c.finish.strftime('%b')]}
+    months.flatten.uniq
+  end
 end

@@ -402,3 +402,11 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
     min-width: 600px;
   }
 }
+
+table.dataTable thead tr {
+  background-color: #8b81f7 !important;
+}
+
+table.note-list-view thead tr {
+  display: none;
+}

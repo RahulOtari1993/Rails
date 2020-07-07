@@ -85,6 +85,7 @@ Rails.application.routes.draw do
               get '/toggle', to: 'challenges#toggle'
               delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
+              get :get_insight_for_line_chart
             end
           end
 
@@ -104,6 +105,7 @@ Rails.application.routes.draw do
             collection do
               get '/fetch_participants', to: 'participants#fetch_participants'
               get '/participants', to: 'participants#participants'
+              get '/get_data_for_chart_graph', to: 'participants#get_data_for_chart_graph'
             end
             member do
               get '/users', to: 'participants#users'
@@ -112,6 +114,9 @@ Rails.application.routes.draw do
               post '/add_tag', to: 'participants#add_tag'
               post '/add_note', to: 'participants#add_note'
               put '/update_status', to: 'participants#update_status'
+              get :activities_list, to: 'participants#activities_list'
+              get :rewards_list, to: 'participants#rewards_list'
+              get :notes_list, to: 'participants#notes_list'
             end
           end
         end

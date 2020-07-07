@@ -17,10 +17,10 @@ $(window).on("load", function(){
   var $success_light = '#55DD92';
   var $warning_light = '#ffc085';
 
-    // Subscribed Gained Chart
+    // User Chart
     // ----------------------------------
 
-    var gainedChartoptions = {
+    var userChartoptions = {
         chart: {
             height: 100,
             type: 'area',
@@ -56,7 +56,7 @@ $(window).on("load", function(){
             }
         },
         series: [{
-            name: 'Subscribers',
+            name: 'Users',
             data: [28, 40, 36, 52, 38, 60, 55]
         }],
 
@@ -79,19 +79,17 @@ $(window).on("load", function(){
         },
     }
 
-    var gainedChart = new ApexCharts(
-        document.querySelector("#line-area-chart-1"),
-        gainedChartoptions
+    var userChart = new ApexCharts(
+        document.querySelector("#user-line-area-chart"),
+        userChartoptions
     );
-
-    gainedChart.render();
-
+    userChart.render();
 
 
-    // Revenue Generated Chart
+    // Challenge Chart
     // ----------------------------------
 
-    var revenueChartoptions = {
+    var challengeChartoptions = {
         chart: {
             height: 100,
             type: 'area',
@@ -127,7 +125,7 @@ $(window).on("load", function(){
             }
         },
         series: [{
-            name: 'Revenue',
+            name: 'Challenges',
             data: [350, 275, 400, 300, 350, 300, 450]
         }],
 
@@ -150,18 +148,17 @@ $(window).on("load", function(){
         },
     }
 
-    var revenueChart = new ApexCharts(
-        document.querySelector("#line-area-chart-2"),
-        revenueChartoptions
+    var challengeChart = new ApexCharts(
+        document.querySelector("#challenge-line-area-chart"),
+        challengeChartoptions
     );
+    challengeChart.render();
 
-    revenueChart.render();
 
-
-    // Quaterly Sales Chart
+    // Share Chart
     // ----------------------------------
 
-    var salesChartoptions = {
+    var shareChartoptions = {
         chart: {
             height: 100,
             type: 'area',
@@ -197,7 +194,7 @@ $(window).on("load", function(){
             }
         },
         series: [{
-            name: 'Sales',
+            name: 'Shares',
             data: [10, 15, 7, 12, 3, 16]
         }],
 
@@ -220,17 +217,16 @@ $(window).on("load", function(){
         },
     }
 
-    var salesChart = new ApexCharts(
-        document.querySelector("#line-area-chart-3"),
-        salesChartoptions
+    var shareChart = new ApexCharts(
+        document.querySelector("#share-line-area-chart"),
+        shareChartoptions
     );
+    shareChart.render();
 
-    salesChart.render();
-
-    // Order Received Chart
+    // Click Chart
     // ----------------------------------
 
-    var orderChartoptions = {
+    var clickChartoptions = {
         chart: {
             height: 100,
             type: 'area',
@@ -266,7 +262,7 @@ $(window).on("load", function(){
             }
         },
         series: [{
-            name: 'Orders',
+            name: 'Clicks',
             data: [10, 15, 8, 15, 7, 12, 8]
         }],
 
@@ -289,12 +285,12 @@ $(window).on("load", function(){
         },
     }
 
-    var orderChart = new ApexCharts(
-        document.querySelector("#line-area-chart-4"),
-        orderChartoptions
+    var clickChart = new ApexCharts(
+        document.querySelector("#click-line-area-chart"),
+        clickChartoptions
     );
 
-    orderChart.render();
+    clickChart.render();
 
 
     // Site Traffic Chart

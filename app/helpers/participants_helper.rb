@@ -50,4 +50,9 @@ module ParticipantsHelper
 
     percentage
   end
+
+  # Displaying Top Users
+  def top_users(participants)
+    participants.order(points: :desc).limit(5)
+  end
 end

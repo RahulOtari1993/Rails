@@ -1,33 +1,10 @@
+<%= javascript_include_tag 'campaign_admin/participants', 'data-turbolinks-track' => 'reload' %>
+<%= stylesheet_link_tag 'campaign_admin/participants', 'data-turbolinks-track' => 'reload' %>
+
 <div class="tab-pane active" id="activity-feed-list" role="tabpanel">
   <section id="data-list-view" class="data-list-view-header">
     <div class="table-responsive">
-      <table class="table activity-list-view">
-        <thead>
-        <tr class="activity-reward-header">
-          <th scope="col" width="50%">Action</th>
-          <th scope="col" width="15%">Points</th>
-          <th scope="col" width="35%">Date & time</th>
-        </tr>
-        </thead>
-        <tbody>
-        <% @participant.participant_actions.each do |participant_action| %>
-          <tr>
-            <td><%= truncate(title_details(participant_action), length: 30) %></td>
-            <td><%= participant_action.points == 0 ? "N/A" : participant_action.points %></td>
-            <td><span><%= participant_action.created_at.strftime("%m/%d/%Y %H:%M %p") %></span></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <table id="activity-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>' participant_id='<%= @participant.id %>'></table>
     </div>
   </section>
 </div>
-
-<script type="text/javascript">
-  $('.activity-list-view').DataTable({
-    'searching': false,
-    'lengthChange': false,
-    'autoWidth': false,
-    'pageLength': 15
-  });
-</script>
