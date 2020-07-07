@@ -161,6 +161,10 @@ Rails.application.routes.draw do
             registrations: 'api/v1/override/registrations',
             sessions: 'api/v1/override/sessions'
         }
+
+        devise_scope :participant do
+          resources :rewards, only: [:index, :show]
+        end
       end
     end
   end

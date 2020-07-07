@@ -45,13 +45,13 @@ class ApplicationController < ActionController::Base
   protected
 
   ## Return Success Response
-  def render_success code, status, message, data = {}
+  def render_success(code, status, message, data = {})
     render json: {
         code: code,
         status: status,
         message: message,
         data: data
-    }
+    }, status: code
   end
 
   ## Return Error Response
@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
         status: status,
         message: message,
         data: data
-    }
+    }, status: code
   end
 
   ## Check for Latest App Version
