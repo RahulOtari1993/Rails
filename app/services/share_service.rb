@@ -4,9 +4,18 @@ class ShareService
 
   end
 
-  def run  user, referral_ids
-    @user = user
+  def run  participant, referral_ids
+    @participant = participant
     @referral_ids = referral_ids
+
+    referral_codes = ReferralCode.where(code: @referral_ids)
+    referral_codes.each do |ref_code|
+      challenge = ref_code.challenge
+      if challenge.referral? and !participant.blank?
+        # participant signed up so check if referral challenge has already been completed
+        
+      end
+    end
 
   end
 
