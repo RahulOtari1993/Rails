@@ -44,6 +44,15 @@ class Participants::ParticipantAccountsController < ApplicationController
     end
   end
 
+  def fetch_activities
+    participant_actions = current_participant.participant_actions.sort.reverse!
+    render json: {
+        participant_actions: participant_actions.as_json,
+        draw: params['draw'].to_i,
+        recordsTotal: participant_actions.count
+    }
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.

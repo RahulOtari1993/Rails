@@ -200,23 +200,7 @@
           <div class="activity-list-view">
             <% unless @participant_actions.blank? %>
               <div class="table-responsive">
-                <table class="table participant-actions-list-view">
-                  <thead>
-                    <tr>
-                      <th scope="col" width="50%">Action</th>
-                      <th scope="col" width="15%">Points</th>
-                      <th scope="col" width="35%">Date & time</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <% @participant_actions.each do |participant_action| %>
-                    <tr>
-                      <td><%= truncate(title_details(participant_action), length: 30) %></td>
-                      <td><%= participant_action.points == 0 ? "N/A" : participant_action.points %></td>
-                      <td><span><%= participant_action.created_at.strftime("%m/%d/%Y %H:%M %p") %></span></td>
-                    </tr>
-                  <% end %>
-                  </tbody>
+                <table id="participant-actions-list-view" class="table">
                 </table>
               </div>
             <% end %>
@@ -240,12 +224,61 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    // Client side dataTable
-    $('.participant-actions-list-view').DataTable({
+    // ------------ Server Side Rendering For Activity Feed ------------
+    $('#participant-actions-list-view').DataTable({
+      processing: true,
+      responsive: false,
+      ajax: {
+        'url': `/participants/accounts/fetch_activities`,
+        'dataSrc': 'participant_actions',
+        dataFilter: function (data) {
+          var json = jQuery.parseJSON(data);
+          console.log(JSON.stringify(json));
+          return JSON.stringify(json);
+        },
+      },
+      columns: [
+        {
+          title: 'Action',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return (data.title + ' ' + titleDetails(data))
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '50%');
+          }
+        },
+        {
+          title: 'Points',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return activityPoint(data)
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '15%');
+          }
+        },
+        {
+          title: 'Date & Time',
+          data: null,
+          searchable: false,
+          render: function (data, type, row) {
+            return formatDateTime(data.created_at)
+          },
+          createdCell: function (td, cellData, rowData, row, col) {
+            $(td).css('width', '35%');
+          }
+        }
+      ],
+      'order': [],
+      'columnDefs': [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
       'searching': false,
       'lengthChange': false,
       'autoWidth': false,
-      'pageLength': 10
+      'pageLength': 10,
+
     });
 
     $('#email_settings_edit_btn').click(function() {
@@ -257,6 +290,33 @@
     });
 
   });
+
+  // ----------------------- Common Functions ------------------------
+  // Format Date & Time
+  function formatDateTime(date) {
+    dateObj = new moment(date).format('MM/DD/YYYY LT');
+    return dateObj;
+  }
+
+  // Displaying Title and Details together
+  function titleDetails(data) {
+    details = ''
+    if ((data.details !== null) && (data.details !== undefined)) {
+      details = data.details.slice(0,30) + "..."
+    }
+    return details
+  }
+
+  // Displaying Point
+  function activityPoint(data) {
+    points = ''
+    if (data.points == null) {
+      points = 'N/A'
+    } else {
+      points = data.points
+    }
+    return points
+  }
 </script>
 
 <style media="screen">

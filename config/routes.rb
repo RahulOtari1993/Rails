@@ -138,6 +138,7 @@ Rails.application.routes.draw do
           get :details_form
           put :update_profile_details
           put :disconnect
+          get :fetch_activities
         end
       end
     end
