@@ -9,6 +9,7 @@ class Api::V1::RewardsController < Api::V1::BaseController
 
   ## Fetch Particular Reward Details
   def show
-    render_success 200, true, 'Success', current_participant.as_json
+    reward = @campaign.rewards.where(id: params[:id])
+    render_success 200, true, 'Reward details fetched successfully.', reward.as_json
   end
 end
