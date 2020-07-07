@@ -6,11 +6,12 @@ class CreateSocialShareVisits < ActiveRecord::Migration[5.2]
       t.integer    :participant_id
       t.integer    :actionable_id
       t.string     :actionable_type
+      t.text       :referrer_url
       t.text       :useragent,  limit: 65535
       t.string     :ipaddress,  limit: 255
       t.string     :utm_source
       t.string     :utm_medium
-      t.string     :utm_termg
+      t.string     :utm_term
       t.string     :utm_content
       t.string     :utm_name
       t.timestamps

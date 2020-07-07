@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_01_125652) do
+ActiveRecord::Schema.define(version: 2020_07_02_194642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -478,6 +478,24 @@ ActiveRecord::Schema.define(version: 2020_07_01_125652) do
     t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
+  end
+
+  create_table "social_share_visits", force: :cascade do |t|
+    t.integer "referral_code_id"
+    t.string "referral_code"
+    t.integer "participant_id"
+    t.integer "actionable_id"
+    t.string "actionable_type"
+    t.text "referrer_url"
+    t.text "useragent"
+    t.string "ipaddress", limit: 255
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "submissions", force: :cascade do |t|
