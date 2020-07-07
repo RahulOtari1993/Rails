@@ -1,5 +1,6 @@
 class Api::V1::Override::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  ## Create a New User With Email
+  before_action :validate_app_version
+
   def create
     begin
       sign_up_attributes = sign_up_params

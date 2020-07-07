@@ -1,4 +1,6 @@
 class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsController
+  before_action :validate_app_version
+
   def create
     begin
       param_hash = sign_in_params

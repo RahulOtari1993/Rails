@@ -63,4 +63,11 @@ class ApplicationController < ActionController::Base
         data: data
     }
   end
+
+  ## Check for Latest App Version
+  def validate_app_version
+    if Rails.application.credentials[Rails.env.to_sym][:app_version].to_f > request.headers["app-version"].to_f
+      return_error 500, false, 'Please check your app version.', {}
+    end
+  end
 end
