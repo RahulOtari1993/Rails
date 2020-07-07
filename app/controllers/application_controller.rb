@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
   def handle_referrals
     share_service = ShareService.new
     if params[:refid]
-      share_service.record_visit
+      # share_service.record_visit
       if session[:pending_refids].blank?
         session[:pending_refids] = []
       end
@@ -97,7 +97,7 @@ class ApplicationController < ActionController::Base
 
     if !current_user.blank? && current_user.active?
       # We have a signed up and active user so lets process referrals for challenges
-      share_service.run current_user, session[:pending_refids]
+      # share_service.run current_user, session[:pending_refids]
     end
   end
 end

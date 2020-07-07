@@ -15,6 +15,6 @@ class ShareService
       referrer_url: request.referrer,
       ipaddress: request.remote_ip
     }
-    if params[:utm_name]
+    
   end
 end
