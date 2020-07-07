@@ -1,112 +1,61 @@
 class Api::V1::Override::RegistrationsController < DeviseTokenAuth::RegistrationsController
   ## Create a New User With Email
   def create
-    sign_up_attributes = sign_up_params
-    @resource = resource_class.where(organization_id: @organization.id, campaign_id: @campaign.id, email: params[:participant][:email]).first
-    if (@resource.present? && (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')) ||
-        (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
+    begin
+      sign_up_attributes = sign_up_params
+      @resource = resource_class.where(organization_id: @organization.id, campaign_id: @campaign.id, email: params[:participant][:email]).first
+      if (@resource.present? && (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')) ||
+          (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
 
-      unless @resource.present?
-        @resource = resource_class.new(email: sign_up_attributes[:email])
-      end
+        ## Only Allow Active & Opted Out Participants to Connect via Social Accounts
+        render_inactive_auth_error and return unless (@resource.present? && @resource.active_for_authentication?)
 
-      if sign_up_attributes[:provider] == 'facebook'
-        unless validate_facebook_params sign_up_attributes
-          return return_error 500, false, 'Please pass required API params', {}
+        unless @resource.present?
+          @resource = resource_class.new(email: sign_up_attributes[:email])
         end
-        assign_facebook_params sign_up_attributes
-      elsif sign_up_attributes[:provider] == 'google'
-        unless validate_google_params sign_up_attributes
-          return return_error 500, false, 'Please pass required API params', {}
+
+        if sign_up_attributes[:provider] == 'facebook'
+          render_params_error and return unless validate_facebook_params sign_up_attributes
+          assign_facebook_params sign_up_attributes
+        elsif sign_up_attributes[:provider] == 'google'
+          render_params_error and return unless validate_google_params sign_up_attributes
+          assign_google_params sign_up_attributes
         end
-        assign_google_params sign_up_attributes
-      end
 
-      assign_default_details ## Assign Default Details to Participant Object
-      assign_new_tokens ## Set New Token to Participant Object
+        assign_default_details ## Assign Default Details to Participant Object
+        assign_new_tokens ## Set New Token to Participant Object
 
-      @resource.skip_confirmation!
-      if @resource.save(:validate => false)
-        update_auth_header
-        sign_in(:participant, @resource, store: false)
-        @resource.connect_challenge_completed('', '')
-        render_success 200, true, 'Logged in successfully', @resource.as_json
-      else
-        return_error 500, false, 'Failed', {}
-      end
-    else
-      if @resource.present? && sign_up_attributes[:provider] == 'email'
-        ## Render Email Already Exists Error
-        return_error 500, false, 'Email is already registered', {}
-      else
-        ## Sign Up Participant With Email
-        @resource = resource_class.new(sign_up_params)
-        @resource.campaign_id = @campaign.id
-        @resource.organization_id = @organization.id
-        @resource.connect_type = @resource.provider
-
-        if @resource.save(:validate => false)
-          render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', @resource.as_json
+        @resource.skip_confirmation!
+        if @resource.save!(:validate => false)
+          update_auth_header
+          sign_in(:participant, @resource, store: false)
+          @resource.connect_challenge_completed('', '')
+          render_success 200, true, 'Signed in successfully.', @resource.as_json
         else
-          return_error 500, false, 'Failed', {}
+          return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
+        end
+      else
+        if @resource.present? && sign_up_attributes[:provider] == 'email'
+          ## Render Email Already Exists Error
+          return_error 500, false, 'Email is already registered', {}
+        else
+          ## Sign Up Participant With Email
+          @resource = resource_class.new(sign_up_params)
+          @resource.campaign_id = @campaign.id
+          @resource.organization_id = @organization.id
+          @resource.connect_type = @resource.provider
+
+          if @resource.save!(:validate => false)
+            render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', @resource.as_json
+          else
+            return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
+          end
         end
       end
+    rescue Exception => e
+      Rails.logger.info "ERROR: Sign Up API --> Message: #{e.message}"
+      handle_runtime_error and return
     end
-
-    # begin
-    #   if @resource.save
-    #     @client_id = SecureRandom.urlsafe_base64(nil, false)
-    #     @token = SecureRandom.urlsafe_base64(nil, false)
-    #
-    #     @resource.tokens[@client_id] = {
-    #         token: BCrypt::Password.create(@token),
-    #         expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
-    #     }
-    #
-    #     if params[:participant][:image].present?
-    #       ## Image Upload from Image Object
-    #     elsif params[:participant][:image].present?
-    #       ## Image Upload from Remote URL
-    #     end
-    #
-    #
-    #     @resource.save!
-    #     update_auth_header
-    #
-    #     ## Store Device Details
-    #     if params[:token_data].present?
-    #
-    #       if Rails.env != 'development'
-    #         params[:token_data] = JSON.parse params[:token_data].gsub('=>', ':')
-    #       end
-    #
-    #       if params[:token_data][:token].present?
-    #         user_device = UserDeviceToken.where(token: params[:token_data][:token], user_id: @resource.id)
-    #
-    #         ## Manage User Device Token Details
-    #         if user_device.present?
-    #           user_device.first.update_attributes(device_params)
-    #
-    #           ## Used When Configuring Push Notifications
-    #           user_device.first.manage_aws_arn
-    #         else
-    #           user_device = UserDeviceToken.create!(device_params.merge!({user_id: @resource.id}))
-    #
-    #           ## Used When Configuring Push Notifications
-    #           user_device.manage_aws_arn
-    #         end
-    #       end
-    #     end
-    #
-    #     render_create_succes
-    #   else
-    #     clean_up_passwords @resource
-    #     render_create_error
-    #   end
-    # rescue ActiveRecord::RecordNotUnique
-    #   clean_up_passwords @resource
-    #   render_create_error
-    # end
   end
 
   private
@@ -172,5 +121,20 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
           token: BCrypt::Password.create(@token),
           expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
       }
+    end
+
+    ## Render Params Error
+    def render_params_error
+      return return_error 500, false, 'Please pass required API params.', {}
+    end
+
+    ## Render Inactive Participant Authentication Failed Error
+    def render_inactive_auth_error
+      return return_error 500, false, 'Sorry! You are not authorised to Login.', {}
+    end
+
+    ## Handle Any Runtime Errors
+    def handle_runtime_error
+      return return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
     end
 end

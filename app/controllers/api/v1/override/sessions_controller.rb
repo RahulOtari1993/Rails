@@ -31,7 +31,7 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
         render_auth_error
       end
     rescue Exception => e
-      Rails.logger.info "ERROR: Sign In --> Message: #{e.message}"
+      Rails.logger.info "ERROR: Sign In API --> Message: #{e.message}"
       handle_runtime_error and return
     end
   end
