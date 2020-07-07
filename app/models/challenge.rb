@@ -245,4 +245,5 @@ class Challenge < ApplicationRecord
   def targeted_participants
     self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
   end
+
 end
