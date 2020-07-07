@@ -24,9 +24,8 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
             token: BCrypt::Password.create(@token),
             expiry: (Time.now + DeviseTokenAuth.token_lifespan).to_i
         }
-
         @resource.save
-        sign_in(:user, @resource, store: false, bypass: true)
+        sign_in(:participant, @resource, store: false)
 
         render_success 200, true, 'Signed in successfully.', @resource.as_json
       else

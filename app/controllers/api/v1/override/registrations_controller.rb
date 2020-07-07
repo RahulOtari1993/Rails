@@ -63,7 +63,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
 
     ## Allows Participant Attributes
     def sign_up_params
-      params.require(:participant).permit(:first_name, :last_name, :email, :uid, :provider,
+      params.require(:participant).permit(:first_name, :last_name, :email, :uid, :provider, :password,
                                           :facebook_uid, :facebook_token, :facebook_expires_at, :google_uid,
                                           :google_token, :google_refresh_token, :google_expires_at, :remote_avatar_url)
     end
