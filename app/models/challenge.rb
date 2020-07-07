@@ -246,4 +246,15 @@ class Challenge < ApplicationRecord
     self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
   end
 
+  def utm_parameters platform=nil
+    #set the values
+    utm_source = self.id.to_s(36) rescue "unknown"
+    utm_medium = platform rescue "unknown"
+    utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
+    return {
+      utm_source:   utm_source,
+      utm_medium:   utm_medium,
+      utm_campaign: utm_campaign
+    }
+  end
 end
