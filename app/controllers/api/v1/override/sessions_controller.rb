@@ -8,7 +8,10 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
       @resource = resource_class.where(organization_id: @organization.id, campaign_id: @campaign.id, email: param_hash[:email]).first
 
       ## Check if Participant Exists or Not
-      render_auth_error unless @resource
+      render_auth_error and return unless @resource
+
+      ## Only Allow Active & Opted Out Participants to Login
+      render_inactive_auth_error and return unless @resource.active_for_authentication?
 
       if @resource.valid_password?(param_hash[:password])
         # Create client id
@@ -29,7 +32,7 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
       end
     rescue Exception => e
       Rails.logger.info "ERROR: Sign In --> Message: #{e.message}"
-      handle_runtime_error
+      handle_runtime_error and return
     end
   end
 
@@ -54,6 +57,11 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
     ## Render Authentication Failed Error
     def render_auth_error
       return return_error 500, false, 'Invalid email or password.', {}
+    end
+
+    ## Render Inactive Participant Authentication Failed Error
+    def render_inactive_auth_error
+      return return_error 500, false, 'Sorry! You are not authorised to Login.', {}
     end
 
     ## Handle Any Runtime Errors
