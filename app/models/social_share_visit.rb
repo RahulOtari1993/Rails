@@ -1,0 +1,2 @@
+class SocialShareVisit < ApplicationRecord
+end

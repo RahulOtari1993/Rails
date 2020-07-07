@@ -94,7 +94,9 @@ class ApplicationController < ActionController::Base
     end
 
     if !current_user.blank? && current_user.active?
-
+      # We have a signed up and active user so lets process referrals for challenges
+      share_service = ShareService.new current_user, session[:pending_refids]
+      share_service.run
     end
   end
 end
