@@ -11,18 +11,18 @@ Rails.application.routes.draw do
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
-      registrations: 'users/registrations',
-      sessions: 'users/sessions',
-      passwords: 'users/passwords',
-      confirmations: 'users/confirmations',
+        registrations: 'users/registrations',
+        sessions: 'users/sessions',
+        passwords: 'users/passwords',
+        confirmations: 'users/confirmations',
     }
 
     devise_for :participants, controllers: {
-      registrations: 'participants/registrations',
-      sessions: 'participants/sessions',
-      passwords: 'participants/passwords',
-      confirmations: 'participants/confirmations',
-      omniauth_callbacks: "participants/omniauth_callbacks"
+        registrations: 'participants/registrations',
+        sessions: 'participants/sessions',
+        passwords: 'participants/passwords',
+        confirmations: 'participants/confirmations',
+        omniauth_callbacks: "participants/omniauth_callbacks"
     }
 
     devise_scope :participant do
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
-          registrations: 'admin/organizations/invitations',
+            registrations: 'admin/organizations/invitations',
         }
 
         resources :users, only: [:index] do
@@ -149,9 +149,19 @@ Rails.application.routes.draw do
     end
 
     ## Root Route
-    root to: "welcome#index"
+    root to: 'welcome#index'
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
+
+    ## API Routes
+    namespace :api, defaults: {format: 'json'} do
+      namespace :v1, defaults: {format: 'json'} do
+        mount_devise_token_auth_for 'Participant', at: 'participants', controllers: {
+            registrations: 'api/v1/override/registrations',
+            sessions: 'api/v1/override/sessions'
+        }
+      end
+    end
   end
 end
