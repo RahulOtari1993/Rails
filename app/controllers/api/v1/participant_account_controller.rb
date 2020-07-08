@@ -21,6 +21,8 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
       return return_error 500, false, 'You are not eligible Facebook connect.', {}
     end
 
+    render_params_error and return unless validate_facebook_params facebook_params
+
     participant.assign_attributes(facebook_params)
     participant.save(:validate => false)
     participant.connect_challenge_completed('', '', 'connect', 'facebook')
