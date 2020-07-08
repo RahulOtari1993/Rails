@@ -23,7 +23,9 @@ $(document).on('turbolinks:load', function () {
       title: title,
       text: message,
       confirmButtonClass: 'btn btn-primary',
-      buttonsStyling: false,
+      buttonsStyling: false
+    }).then(function() {
+      $('.challenge-modal').modal('hide');
     });
   }
 
@@ -57,7 +59,7 @@ $(document).on('turbolinks:load', function () {
       success: function (data) {
         if (data.success) {
           // Display Challenge Completion Message
-          $('.challenge-completion-container').show();
+          swalNotify('Challenge Submission', data.message);
           _this.hide();
         } else {
           swalNotify('Challenge Submission', data.message);

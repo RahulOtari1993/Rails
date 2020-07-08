@@ -1,13 +1,13 @@
 $(document).on('turbolinks:load', function () {
   //reward selection dropdown onchange
   $('#reward_selection').on('change', function () {
-    if ($(this).val() == 'redeem' || $(this).val() == 'instant' || $(this).val() == 'selection') {
+    if ($(this).val() == 'redeem' || $(this).val() == 'instant') {
       $('.threshold').show();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
       $('#reward_rule_applied').prop('checked', false);
       showHideRewardRules();
-    } else if ($(this).val() == 'manual' || $(this).val() == 'threshold') {
+    } else if ($(this).val() == 'manual') {
       $('.threshold').hide();
       $('.sweepstake').hide();
       $('.milestone_reward').hide();
@@ -19,10 +19,15 @@ $(document).on('turbolinks:load', function () {
       $('.milestone_reward').hide();
       $('#reward_rule_applied').prop('checked', false);
       showHideRewardRules();
-    } else {
+    } else if ($(this).val() == 'milestone') {
       $('.threshold').hide();
       $('.sweepstake').hide();
       $('.milestone_reward').show();
+    } else {
+      $('.threshold').hide();
+      $('.sweepstake').hide();
+      $('.milestone_reward').hide();
+      $('#reward_rule_applied').prop('checked', false);
     }
   })
 
