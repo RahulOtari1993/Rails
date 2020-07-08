@@ -117,4 +117,9 @@
   def reward_rule_type
     Reward::rule_types.map{|k,v| [k == 'all_rules' ? 'All' : 'Any', k]}
   end
+
+  ## Return Reward Types selection Options
+  def reward_types
+    Reward::SELECTIONS.map { |val| [val.humanize, val] if !["threshold", "selection"].include?(val)}.compact
+  end
  end
