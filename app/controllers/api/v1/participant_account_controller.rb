@@ -6,8 +6,14 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
     render_success 200, true, 'Details fetched successfully.', current_participant.as_json
   end
 
-  ## Update Participant Details
+  ## Update Participant Profile Details
   def update
+    participant = current_participant
+
+    participant.assign_attributes(participant_params)
+    participant.save(:validate => false)
+
+    render_success 200, true, 'Profile updated successfully.', participant.as_json
   end
 
   ## Connect Facebook Account
@@ -73,6 +79,13 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
   end
 
   private
+
+    ## Strong Params for Participant
+    def participant_params
+      params.require(:participant).permit(:first_name, :last_name, :gender, :phone, :city, :age, :birth_date,
+                                          :avatar, :state, :country, :postal, :address_1, :address_2, :bio, :home_phone,
+                                          :work_phone, :job_position, :job_company_name, :job_industry)
+    end
 
     ## Strong Params for Facebook
     def facebook_params
