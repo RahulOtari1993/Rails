@@ -53,6 +53,22 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Disconnect Social Accounts (Facebook/Twitter)
   def disconnect
+    participant = current_participant
+
+    if params[:participant][:social_type] == 'facebook'
+      participant.facebook_uid = nil
+      participant.facebook_token = nil
+      participant.facebook_expires_at = nil
+    elsif params[:participant][:social_type] == 'twitter'
+      participant.twitter_uid = nil
+      participant.twitter_token = nil
+      participant.twitter_secret = nil
+    end
+
+    participant.save(:validate => false)
+    render_success 200, true,
+                   "#{params[:participant][:social_type].humanize} account disconnected successfully.",
+                   participant.as_json
   end
 
   private
