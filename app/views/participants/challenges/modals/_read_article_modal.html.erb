@@ -1,48 +1,48 @@
-<div class="modal fade text-left" id="read_article_modal">
+<div class="modal fade text-left challenge-modal" id="read_article_modal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-        <div class="row">
-          <div class="col-12">
-            <h4 class="modal-title"><%= challenge.caption %></h4>
-          </div>
-        </div>
+      <div class="modal-header border-bottom-0">
+        <% unless @challenge_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+        <% end %>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div>
+        <h6 class="float-right pr-3 size-12" id="percentage"></h6>
+      </div>
+      <div class="progress">
+        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-11">
-            <h4><b class="text-center"><%= challenge.title %></b></h4>
-            <span><%= challenge.description %></span>
-            <div class="row">
-              <div class="col-12">
-                <%= raw(challenge.content).html_safe %>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-1 p-0">
-            <div class="percent">
-              <div class="fill"></div>
-              <div class="counter"><h6 class="percentage"></h6></div>
+        <div class="challenge-content text-left font-weight-light">
+          <!-- challenge details -->
+          <% unless @challenge_activity.blank? %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
+            <% else %>
+              <h4 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
+            <% end %>
+          <% else %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
+            <% else %>
+              <h4 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
+            <% end %>
+          <% end %>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+          <div class="row">
+            <div class="col-md-12">
+              <%= raw(challenge.content).html_safe %>
             </div>
           </div>
         </div>
-
-        <div class="row challenge-completion-container" style="display: none;">
-          <div class="col-12">
-            <h4>Congratulation, You've completed this challenge successfully.</h4>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -67,13 +67,25 @@
       progress = 0
     }
 
-    $('.percentage').text(Math.round(progress) + "%");
-    $(".fill").height(progress + "%");
+    $('#percentage').text(Math.round(progress) + "%");
+    $( ".progress-bar" ).css("width", progress + "%");
 
     if (progress == 100 && counter == 0) {
       counter = counter + 1;
       submitChallenge();
     }
+  }
+
+  // Trigger SWAL Notificaton
+  function swalNotify(title, message) {
+    Swal.fire({
+      title: title,
+      text: message,
+      confirmButtonClass: 'btn btn-primary',
+      buttonsStyling: false
+    }).then(function() {
+      $('.challenge-modal').modal('hide');
+    });
   }
 
   // submit Challenge start
@@ -86,7 +98,7 @@
       data: { status: status },
       success: function (data) {
         if (data.success) {
-          $('.challenge-completion-container').show();     // Display Challenge Completion Message
+          swalNotify('Challenge Submission', data.message);
         } else {
           swalNotify('Challenge Submission', data.message);
         }
@@ -103,29 +115,7 @@
     overflow-y: auto;
   }
 
-  .percent {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    background: rgb(169,169,169);
-    height: 140px;
-    width: 1px;
-    margin-top: 40px;
+  .progress {
+    height: 4px;
   }
-
-  .fill {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: red;
-    transition: background 0.15s ease;
-  }
-
-  .percentage {
-    color: #333;
-    margin-left: 10px;
-    font-size: 12px;
-  }
-
 </style>

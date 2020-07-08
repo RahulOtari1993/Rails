@@ -181,14 +181,15 @@
 															</span>
                               <div class="position-relative">
                                 <div class="form-group">
-                                  <%= f.select(:selection, options_for_select(Reward::SELECTIONS.map { |val| [val.humanize, val] }, :selected => f.object.selection), {}, class: "select2 form-control", required: true)
+                                  <%= f.select(:selection, options_for_select(reward_types, :selected => f.object.selection), {}, class: "select2 form-control", required: true)
                                   %>
                                 </div>
                               </div>
                             </div>
                           </div>
 
-                          <div class="threshold col-12" style="display: none">
+                          <% display_section = (action_name == 'edit' && ['redeem', 'instant'].include?(@reward.selection)) ? 'block' : 'none' %>
+                          <div class="threshold col-12" style="display: <%= display_section %>">
                             <div class="form-group">
                               <%= f.label :threshold %>
                               <!-- <label for="first-name-icon">Name</label><br/> -->
@@ -200,7 +201,8 @@
                             </div>
                           </div>
 
-                          <div class="sweepstake col-12" style="display: none">
+                          <% display_section = (action_name == 'edit' && @reward.selection == 'sweepstake') ? 'block' : 'none' %>
+                          <div class="sweepstake col-12" style="display: <%= display_section %>">
                             <div class="form-group">
                               <%= f.label :sweepstake_entry %>
                               <!-- <label for="first-name-icon">Name</label><br/> -->
@@ -212,7 +214,8 @@
                             </div>
                           </div>
 
-                          <% display_section = (action_name == 'edit' && @reward.reward_rules.present?) ? 'block' : 'none' %>
+                          <%# display_section = (action_name == 'edit' && @reward.reward_rules.present?) ? 'block' : 'none' %>
+                          <% display_section = (action_name == 'edit' && @reward.selection == 'milestone') ? 'block' : 'none' %>
                           <div class="col-12 milestone_reward" style="display: <%= display_section %>; margin-bottom: 10px;">
                             <h3>REWARD RULES</h3>
                             <div class="vs-checkbox-con vs-checkbox-primary filter-apply-checkbox">

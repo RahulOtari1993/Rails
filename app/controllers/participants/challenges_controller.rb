@@ -12,13 +12,10 @@ class Participants::ChallengesController < ApplicationController
     end
     # TODO refactor into handler class for maintainability with multiple challenges
     if @challenge.challenge_type == 'referral'
-      if current_participant.referral_codes.for_challenge(@challenge).empty?
-        @referral_code = ReferralCode.create(challenge_id: @challenge.id, participant_id: current_participant.id)
-      else
-        @referral_code = current_participant.referral_codes.for_challenge(@challenge).first
-      end
-      @referral_link = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}"
+      @share_urls = ShareService.new.get_share_urls @campaign, current_participant, request
     end
+
+    @challenge_activity = @campaign.participant_actions.where(actionable_id: @challenge.id, actionable_type: "Challenge").first
     @reward = Reward.find(params[:reward_id]) unless params[:reward_id].blank?
   end
 
@@ -159,7 +156,7 @@ class Participants::ChallengesController < ApplicationController
       end
 
       respond_to do |format|
-        @response = {success: true, message: 'Challenge submitted successfully.'}
+        @response = {success: true, message: "Congratulations, You've completed this challenge successfully."}
         format.json { render json: @response }
         format.js { render layout: false }
       end
