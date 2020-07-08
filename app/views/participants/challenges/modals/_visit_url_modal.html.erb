@@ -5,9 +5,9 @@
       <!-- Modal Header -->
       <div class="modal-header border-bottom-0">
         <% unless @challenge_activity.blank? %>
-          <span class="time_class pull-left"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
         <% else %>
-          <span class="time_class pull-left"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
         <% end %>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
@@ -18,19 +18,19 @@
           <!-- challenge details -->
           <% unless @challenge_activity.blank? %>
             <% if challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
+              <h3 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} points!" %></span></h3>
             <% else %>
-              <h4 class="text-center mb-4">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
+              <h3 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h3>
             <% end %>
           <% else %>
             <% if challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
+              <h3 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} points" %></span> for completing this challenge.</h3>
             <% else %>
-              <h4 class="text-center mb-4">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
+              <h3 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h3>
             <% end %>
           <% end %>
-          <p class="mb-4"><%= challenge.caption %></p>
-          <p><%= raw(challenge.description).html_safe %></p>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
           <div class="row">
             <div class="col-md-12">
               <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge"
@@ -40,11 +40,11 @@
         </div>
 
         <!-- challenge completion  -->
-        <div class="row challenge-completion-container" style="display: none;">
+        <!-- <div class="row challenge-completion-container" style="display: none;">
           <div class="col-md-12">
             <h4>Congratulation, You've completed this challenge successfully.</h4>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Modal footer -->
