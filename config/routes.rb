@@ -168,6 +168,15 @@ Rails.application.routes.draw do
 
           ## Challenges API Routes
           resources :challenges, only: [:index, :show]
+
+          ## Participant Account Routes
+          resources :participant_account, only: [:show, :update] do
+            collection do
+              post :facebook
+              post :twitter
+              post :disconnect
+            end
+          end
         end
       end
     end
