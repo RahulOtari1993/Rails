@@ -29,4 +29,16 @@ class Question < ApplicationRecord
 
   ## Nested Attributes
   accepts_nested_attributes_for :question_options, allow_destroy: true, :reject_if => :all_blank
+
+  ## Modify JSON Response
+  def as_json(options = {})
+    response = super
+    if options.has_key?(:include_options) && options[:include_options] == true
+      ## Include Question Options in Response
+      response = super.merge({ :option => question_options.as_json })
+    end
+
+    response
+  end
+
 end

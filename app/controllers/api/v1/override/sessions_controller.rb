@@ -47,17 +47,17 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
 
     ## Render Params Error
     def render_params_error
-      return return_error 500, false, 'Please pass required API params.', {}
+      return return_error 400, false, 'Please pass required API params.', {}
     end
 
     ## Render Authentication Failed Error
     def render_auth_error
-      return return_error 500, false, 'Invalid email or password.', {}
+      return return_error 401, false, 'Invalid email or password.', {}
     end
 
     ## Render Inactive Participant Authentication Failed Error
     def render_inactive_auth_error
-      return return_error 500, false, 'Sorry! You are not authorised to Login.', {}
+      return return_error 401, false, 'Sorry! You are not authorised to Login.', {}
     end
 
     ## Assign New Tokens
