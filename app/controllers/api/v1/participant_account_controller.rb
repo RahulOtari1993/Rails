@@ -18,7 +18,7 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
     participant = current_participant
 
     unless participant.eligible?(facebook_challenge)
-      return return_error 500, false, 'You are not eligible Facebook connect.', {}
+      return return_error 500, false, 'You are not eligible for Facebook connect.', {}
     end
 
     render_params_error and return unless validate_facebook_params facebook_params
@@ -32,12 +32,19 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Connect Twitter Account
   def twitter
+    twitter_challenge = fetch_twitter_challenge
+    unless twitter_challenge.present?
+      return return_error 500, false, 'No active challenge available for Twitter connect.', {}
+    end
+    participant = current_participant
+
+    unless participant.eligible?(twitter_challenge)
+      return return_error 500, false, 'You are not eligible for Twitter connect.', {}
+    end
+
     render_params_error and return unless validate_twitter_params twitter_params
 
-    participant = current_participant
     participant.assign_attributes(twitter_params)
-    participant.email = ""
-
     participant.save(:validate => false)
     participant.connect_challenge_completed('', '', 'connect', 'twitter')
 
