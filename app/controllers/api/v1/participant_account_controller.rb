@@ -1,4 +1,6 @@
 class Api::V1::ParticipantAccountController < Api::V1::BaseController
+  include EndUserHelper
+
   ## Fetch Participant Details
   def show
   end
@@ -9,12 +11,17 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Connect Facebook Account
   def facebook
-    render_params_error and return unless validate_facebook_params facebook_params
-
+    facebook_challenge = display_facebook_button
+    unless facebook_challenge.present?
+      return return_error 500, false, 'No active challenge available for Facebook connect.', {}
+    end
     participant = current_participant
-    participant.assign_attributes(facebook_params)
-    participant.email = ""
 
+    unless participant.eligible?(facebook_challenge)
+      return return_error 500, false, 'You are not eligible Facebook connect.', {}
+    end
+
+    participant.assign_attributes(facebook_params)
     participant.save(:validate => false)
     participant.connect_challenge_completed('', '', 'connect', 'facebook')
 
