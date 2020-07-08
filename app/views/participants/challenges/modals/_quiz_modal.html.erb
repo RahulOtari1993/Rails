@@ -1,0 +1,95 @@
+<div class="modal fade text-left challenge-modal" id="challenge_quiz_modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom-0">
+        <% unless @challenge_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+        <% end %>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="challenge-content text-left font-weight-light">
+          <!-- challenge details -->
+          <% unless @challenge_activity.blank? %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
+            <% else %>
+              <h4 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
+            <% end %>
+          <% else %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
+            <% else %>
+              <h4 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
+            <% end %>
+          <% end %>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+
+          <% @questions = challenge.questions.order(sequence: :asc) %>
+
+          <% unless @questions.blank? %>
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, :html => {class: 'form form-vertical challenge-quiz-form', remote: true}) do |f| %>
+
+              <% @questions.each_with_index do |question, index| %>
+                <div class="modal_box text-left">
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <div class="form-group extended-form-group">
+                        <%= label :title, question.title %>
+
+                        <% case question.answer_type %>
+                        <% when 'string' then %>
+                          <%= text_field_tag "questions[#{question.id}][answer]", "",
+                                             class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                             placeholder: fetch_placeholder_details(question, 'string') %>
+                        <% when 'radio_button' then %>
+                          <% question.question_options.order(sequence: :asc).each do |option| %>
+                            <div>
+                              <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
+                                                   id: "questions_#{question.id}_answer_#{option.id}",
+                                                   class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                   data: {error: "radio-button-error-#{index}"} %>
+
+                              <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                            </div>
+                          <% end %>
+                        <% when 'wysiwyg' then %>
+                          <p><%= raw(question.question_options.order(sequence: :asc).first.details).html_safe %></p>
+                        <% end %>
+
+                        <% if question.additional_details.present? %>
+                          <p class="additional-details"><%= question.additional_details %></p>
+                        <% end %>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div><br>
+              <% end %>
+
+              <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+            <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<style media="screen">
+
+</style>

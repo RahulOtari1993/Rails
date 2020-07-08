@@ -130,6 +130,7 @@ Rails.application.routes.draw do
         member do
           get :details
           post :submission
+          post :quiz_submission
         end
       end
       resources :rewards, only: [] do

@@ -23,7 +23,7 @@ class Question < ApplicationRecord
   belongs_to :profile_attribute, optional: true
 
   ## ENUM
-  enum filter_type: {profile: 0, survey: 1, quiz: 1}
+  enum category: {profile: 0, quiz: 1, survey: 2 }
   enum answer_type: {string: 0, text_area: 1, boolean: 2, date: 3, time: 4, date_time: 5, number: 6, decimal: 7,
                      radio_button: 8, check_box: 9, wysiwyg: 10, dropdown: 11}
 
