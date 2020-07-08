@@ -23,6 +23,16 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Connect Twitter Account
   def twitter
+    render_params_error and return unless validate_twitter_params twitter_params
+
+    participant = current_participant
+    participant.assign_attributes(twitter_params)
+    participant.email = ""
+
+    participant.save(:validate => false)
+    participant.connect_challenge_completed('', '', 'connect', 'twitter')
+
+    render_success 200, true, 'Twitter account added successfully.', participant.as_json
   end
 
   ## Disconnect Social Accounts (Facebook/Twitter)
@@ -36,9 +46,20 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
       params.require(:participant).permit(:facebook_uid, :facebook_token, :facebook_expires_at)
     end
 
+    ## Strong Params for Twitter
+    def twitter_params
+      params.require(:participant).permit(:twitter_uid, :twitter_token, :twitter_secret)
+    end
+
     ## Validate Facebook API Params
     def validate_facebook_params facebook_details
       keys = facebook_details.keys
       %w(facebook_uid facebook_token facebook_expires_at).all? { |s| keys.include?(s) }
+    end
+
+    ## Validate Twitter API Params
+    def validate_twitter_params twitter_details
+      keys = twitter_details.keys
+      %w(twitter_uid twitter_token twitter_secret).all? { |s| keys.include?(s) }
     end
 end
