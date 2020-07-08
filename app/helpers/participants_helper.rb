@@ -27,20 +27,10 @@ module ParticipantsHelper
       participant.age
     end
   end
-
-  # Displaying Title and Details together
-  def title_details(participant_action)
-    "#{participant_action.title} #{participant_action.details}"
-  end
-
-  # Displaying Participant Notes List in Descending Order
-  def participant_notes_by_desc(participant)
-    return participant.notes.order('description desc')
-  end
     
   ## Display % of Targeted Users
   def targeted_users_percentage
-    total_participants = @challenge.campaign.participants.count
+    total_participants = @challenge.completions
     targeted_participants = @challenge.targeted_participants
     if targeted_participants.count > 0 && total_participants.to_i > 0
       percentage = (targeted_participants.count * 100 ) / total_participants.to_i

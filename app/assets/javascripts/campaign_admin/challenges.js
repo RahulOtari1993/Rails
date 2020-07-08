@@ -306,7 +306,7 @@ $(document).on('turbolinks:load', function () {
     $('.' + challengeType + '-' + challengeParameters + '-div hidden').prop("disabled", false);
 
     // Disable Question Builder Inputs
-    if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
+    if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz' || challengeParameters == 'survey')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
 
@@ -1622,7 +1622,7 @@ $(document).on('turbolinks:load', function () {
   }
 
   // Add New Question
-  $('.add-challenge-question').on('click', function (e) {
+  $('.add-challenge-question, .add-challenge-survey').on('click', function (e) {
     let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
