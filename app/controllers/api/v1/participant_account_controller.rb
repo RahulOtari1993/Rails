@@ -3,6 +3,7 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Fetch Participant Details
   def show
+    render_success 200, true, 'Details fetched successfully.', current_participant.as_json
   end
 
   ## Update Participant Details

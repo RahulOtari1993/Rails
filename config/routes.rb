@@ -170,8 +170,10 @@ Rails.application.routes.draw do
           resources :challenges, only: [:index, :show]
 
           ## Participant Account Routes
-          resources :participant_account, only: [:show, :update] do
+          resources :participant_account, only: [] do
             collection do
+              get :show
+              put :update
               post :facebook
               post :twitter
               post :disconnect
