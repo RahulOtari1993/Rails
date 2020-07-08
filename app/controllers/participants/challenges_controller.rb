@@ -5,6 +5,7 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
+    @challenge_activity = @campaign.participant_actions.where(actionable_id: @challenge.id, actionable_type: "Challenge").first
     @reward = Reward.find(params[:reward_id]) unless params[:reward_id].blank?
   end
 
@@ -145,7 +146,7 @@ class Participants::ChallengesController < ApplicationController
       end
 
       respond_to do |format|
-        @response = {success: true, message: 'Challenge submitted successfully.'}
+        @response = {success: true, message: "Congratulations, You've completed this challenge successfully."}
         format.json { render json: @response }
         format.js { render layout: false }
       end

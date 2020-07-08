@@ -20,6 +20,8 @@
 class ParticipantAction < ApplicationRecord
   ## Association
   belongs_to :participant
+  belongs_to :campaign
+
 
   enum action_type: {sign_up: 0, sign_in: 1, connect: 2, watch_video: 3, visit_url: 4, read_article: 5, quiz: 6, survey: 7, share: 8,
                      recruit: 9, onboarding_questions: 10, location_visit: 11, feed: 12, claim_reward: 13 }

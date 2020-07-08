@@ -120,6 +120,6 @@
 
   ## Return Reward Types selection Options
   def reward_types
-    Reward::SELECTIONS.map { |val| [val.humanize, val] if !["threshold", "selection"].include?(val)}.compact
+    Reward::SELECTIONS.map { |val| [(val == "redeem" ? "Cash-In" : val.humanize), val] if !["threshold", "selection"].include?(val)}.compact
   end
  end
