@@ -1622,7 +1622,7 @@ $(document).on('turbolinks:load', function () {
   }
 
   // Add New Question
-  $('.add-challenge-question, .add-challenge-survey').on('click', function (e) {
+  $('.add-challenge-question').on('click', function (e) {
     let questionTemplate = $(`#${$(this).data('type')}-question-template`).html();
     let phaseCounter = Math.floor(Math.random() * 90000) + 10000;
     let optionCounter = Math.floor(Math.random() * 90000) + 10000;
