@@ -4,6 +4,9 @@ class Api::V1::RewardsController < Api::V1::BaseController
   ## Fetch All Rewards of a Campaign
   def index
     rewards = @campaign.rewards.current_active.select { |x| x.available? }
+    rewards = Kaminari.paginate_array(rewards).page(page).per(per_page)
+    set_pagination_header(rewards)
+
     render_success 200, true, 'Rewards fetched successfully.', rewards.as_json(type: 'list')
   end
 

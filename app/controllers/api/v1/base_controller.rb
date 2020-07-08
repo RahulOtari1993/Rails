@@ -24,4 +24,19 @@ class Api::V1::BaseController < ApplicationController
     Rails.logger.error "Handle timeout error: #{e}"
     return_error 408, false, 'Oops. Service Unavailable, please try again after some time.', {}
   end
+
+  ## Set Page Number
+  def page
+    @page ||= params[:page] || 1
+  end
+
+  ## Set Per Page Records Length
+  def per_page
+    @per_page ||= params[:per_page] || 20
+  end
+
+  ## Set Total Records Count in Response Header
+  def set_pagination_header(resource)
+    headers['X-Total-Count'] = resource.total_count
+  end
 end
