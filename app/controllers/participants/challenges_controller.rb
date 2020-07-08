@@ -10,9 +10,10 @@ class Participants::ChallengesController < ApplicationController
     else
       @conf = GlobalConfiguration.first
     end
+
     # TODO refactor into handler class for maintainability with multiple challenges
     if @challenge.challenge_type == 'referral'
-      @share_urls = ShareService.new.get_share_urls @campaign, current_participant, request
+      @share_urls = ShareService.new.get_share_urls @challenge, current_participant, request
     end
 
     @challenge_activity = @campaign.participant_actions.where(actionable_id: @challenge.id, actionable_type: "Challenge").first

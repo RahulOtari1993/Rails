@@ -99,6 +99,19 @@ class Challenge < ApplicationRecord
             :caption, presence: true
   validate :reward_existence
 
+  # Get UTM params for this challenge
+  def utm_parameters platform=nil
+    #set the values
+    utm_source = self.id.to_s(36) rescue "unknown"
+    utm_medium = platform rescue "unknown"
+    utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
+    return {
+      utm_source:   utm_source,
+      utm_medium:   utm_medium,
+      utm_campaign: utm_campaign
+    }
+  end
+  
   ## Check Whether Proper Inputs provided for Reward Type
   def reward_existence
     if self.reward_type == 'points'
@@ -253,16 +266,4 @@ class Challenge < ApplicationRecord
     months.flatten.uniq
   end
 
-  # Get UTM params for this challenge
-  def utm_parameters platform=nil
-    #set the values
-    utm_source = self.id.to_s(36) rescue "unknown"
-    utm_medium = platform rescue "unknown"
-    utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
-    return {
-      utm_source:   utm_source,
-      utm_medium:   utm_medium,
-      utm_campaign: utm_campaign
-    }
-  end
 end

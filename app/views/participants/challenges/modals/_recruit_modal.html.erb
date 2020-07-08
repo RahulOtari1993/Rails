@@ -1,4 +1,4 @@
-<div class="modal fade text-left challenge_modal" id="recruit_modal">
+<div class="modal fade text-left challenge-modal" id="recruit_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -62,7 +62,7 @@
             </label>
 
             <div class="copy-link">
-                <input value="<%= @referral_link %>" class="copy-to-clipboard-input form-control" readonly>
+                <input value="<%= @share_urls[:generic] %>" class="copy-to-clipboard-input form-control" readonly>
                 <span><button id="copy-button" class="copy-btn btn btn-success"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button></span>
             </div>
             </div>
@@ -79,6 +79,7 @@
 </div>
 <script>
 $(document).ready(function() {
+  <% if @share_urls && !@share_urls[:facebook].blank? %>
   $.ajaxSetup({ cache: true });
   $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
     FB.init({
@@ -90,11 +91,12 @@ $(document).ready(function() {
       FB.ui({
         display: 'popup',
         method: 'share',
-        href: '<%= @referral_link %>'
+        href: '<%= @share_urls[:facebook] %>'
       }, function(response){
 
       })
     })
   });
+  <% end %>
 });
 </script>

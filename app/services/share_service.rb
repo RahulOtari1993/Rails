@@ -61,17 +61,17 @@ class ShareService
     social_visit
   end
 
-  def get_share_urls challenge, partipicant, request
+  def get_share_urls challenge, participant, request
     if participant.referral_codes.for_challenge(challenge).empty?
-      referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: current_participant.id)
+      referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: participant.id)
     else
-      @referral_code = current_participant.referral_codes.for_challenge(@challenge).first
+      @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
 
     # Currently only  creates a generic (non-platform specific) and facebook
-    @referral_link = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}&#{@challenge.utm_parameters('generic').to_query}"
-    @facebook_link = "#{@referral_link}&#{@challenge.utm_parameters('facebook').to_query}"
-    return { custom: @referral_link, facebook: @facebook_link}
+    @referral_link = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}&#{challenge.utm_parameters('generic').to_query}"
+    @facebook_link = "#{@referral_link}&#{challenge.utm_parameters('facebook').to_query}"
+    return { generic: @referral_link, facebook: @facebook_link}
   end
 
   def get_shortened_share_urls urls
