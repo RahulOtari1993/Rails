@@ -102,6 +102,9 @@ class Participant < ApplicationRecord
   ## Tags
   acts_as_taggable_on :tags
 
+  ## Shortened URL ownership
+  has_shortened_urls
+  
   ## Scopes
   scope :active, -> { where(arel_table[:status].eq(1)) }
 
@@ -464,7 +467,7 @@ class Participant < ApplicationRecord
       gender << where(gender: 'female').count
       gender << where(gender: 'other').count
     end
-    
+
     # For Age Breakdown
     def by_age(participants)
       age = []

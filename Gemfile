@@ -129,3 +129,6 @@ gem 'geoip'
 
 #used for geo ip lookups
 gem 'geoip-rails'
+
+# URL Shortner
+gem 'shortener'

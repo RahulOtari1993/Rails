@@ -62,7 +62,7 @@
             </label>
 
             <div class="copy-link">
-                <input value="<%= @share_urls[:generic] %>" class="copy-to-clipboard-input form-control" readonly>
+                <input value="<%= @generic_url %>" class="copy-to-clipboard-input form-control" readonly>
                 <span><button id="copy-button" class="copy-btn btn btn-success"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button></span>
             </div>
             </div>
@@ -79,7 +79,7 @@
 </div>
 <script>
 $(document).ready(function() {
-  <% if @share_urls && !@share_urls[:facebook].blank? %>
+  <% if @facebook_url %>
   $.ajaxSetup({ cache: true });
   $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
     FB.init({
@@ -91,7 +91,7 @@ $(document).ready(function() {
       FB.ui({
         display: 'popup',
         method: 'share',
-        href: '<%= @share_urls[:facebook] %>'
+        href: '<%= @facebook_url %>'
       }, function(response){
 
       })

@@ -337,6 +337,8 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    shortener (0.8.2)
+      voight_kampff (~> 1.1.2)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -364,6 +366,8 @@ GEM
       iso8601 (~> 0.9.1)
       net_http_timeout_errors (~> 0.3.0)
       oga (~> 3.0)
+    voight_kampff (1.1.4)
+      rack (>= 1.4, < 3.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (3.7.0)
@@ -417,6 +421,7 @@ DEPENDENCIES
   rails (~> 5.2.3)
   sass-rails (~> 5.0)
   selenium-webdriver
+  shortener
   spring
   spring-watcher-listen (~> 2.0.0)
   time_difference

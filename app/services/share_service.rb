@@ -67,14 +67,21 @@ class ShareService
     else
       @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
-
+    base_url = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}"
     # Currently only  creates a generic (non-platform specific) and facebook
-    @referral_link = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}&#{challenge.utm_parameters('generic').to_query}"
-    @facebook_link = "#{@referral_link}&#{challenge.utm_parameters('facebook').to_query}"
-    return { generic: @referral_link, facebook: @facebook_link}
+    referral_link = "#{base_url}&#{challenge.utm_parameters('generic').to_query}"
+    facebook_link = "#{base_url}&#{challenge.utm_parameters('facebook').to_query}"
+    return { generic: referral_link, facebook: facebook_link}
   end
 
-  def get_shortened_share_urls urls
+  def get_shortened_share_urls urls, campaign, participant, request
+    # Will need to be refactored to include the campaigns short url domain
+    shortened_urls = {}
+    urls.each do |platform,url|
+      short_url = Shortener::ShortenedUrl.generate(url,owner:participant)
 
+      shortened_urls[platform] = "#{request.protocol}#{request.host}/#{short_url.unique_key}"
+    end
+    shortened_urls
   end
 end
