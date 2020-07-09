@@ -61,9 +61,11 @@
                 Copy your recruting link below and send it via text, email, whatsapp, raven, slide in the DMs, whatever!
             </label>
 
-            <div class="copy-link">
+            <div class="copy-link input-group">
                 <input value="<%= @generic_url %>" class="copy-to-clipboard-input form-control" readonly>
-                <span><button id="copy-button" class="copy-btn btn btn-success"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button></span>
+                <div class="input-group-append">
+                  <button id="copy-button" class="copy-btn btn btn-success"><span class="copy-button-text">COPY</span> <span class="fa fa-link"></span></button>
+                </div>
             </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ class ShareService
 
   end
 
-  def run  participant, referral_ids, visit
+  def process  participant, referral_ids, visit
     @participant = participant
     @referral_ids = referral_ids
     processed_referral_ids = []
@@ -25,9 +25,13 @@ class ShareService
             referred_participant_id: participant.id,
             action_type: 'recruit',
             title: 'Recruit Sign Up',
-            ip_address: visit.ip
+            ip_address: visit.ip,
+            campaign_id: challenge.campaign_id
           })
-          processed_referral_ids << ref_code.code
+          if action.errors.empty?
+            challenge.update_attribute(:completions, challenge.completions+1)
+            processed_referral_ids << ref_code.code
+          end
         end
       else
         # Reward points for other share referrals

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
 
   before_action :set_organization
-  before_action :handle_referrals
+  before_action :handle_shares
 
   append_before_action :setup_default_recruit_challenge
 
@@ -83,8 +83,9 @@ class ApplicationController < ActionController::Base
     Participant.current = current_participant
   end
 
-  def handle_referrals
-    #byebug
+  # this method handles recruit and share URLs
+  def handle_shares
+
     share_service = ShareService.new
     if params[:refid]
       social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
@@ -98,8 +99,7 @@ class ApplicationController < ActionController::Base
 
     if !current_participant.blank? && current_participant.active?
       # We have a signed up and active user so lets process referrals for challenges
-      processed_referral_codes = share_service.run current_participant, session[:pending_refids], current_visit
-
+      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
     end
   end
