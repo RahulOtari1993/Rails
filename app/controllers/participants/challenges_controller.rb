@@ -5,7 +5,7 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
-    @challenge_activity = @campaign.participant_actions.where(actionable_id: @challenge.id, actionable_type: "Challenge").first
+    @challenge_activity = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_id: @challenge.id, actionable_type: "Challenge").first
     @reward = Reward.find(params[:reward_id]) unless params[:reward_id].blank?
     @questions = @challenge.questions.order(sequence: :asc).includes(:participant_answers)
   end
@@ -69,7 +69,7 @@ class Participants::ChallengesController < ApplicationController
         @response = send(:submission)
       else
         respond_to do |format|
-          @response = {success: false, message: "Sorry, You're not eligible to earn points, Please contact administrator."}
+          @response = {success: false, message: @challenge.failed_message}
           format.js { render layout: false }
         end
       end
@@ -151,7 +151,7 @@ class Participants::ChallengesController < ApplicationController
         temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id, result: result)
         temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
         participant_answer_params << temp_hash
-      elsif question.answer_type == "radio_button"
+      elsif question.answer_type == "radio_button" && participant_answer_hash[:question_option_id].present?
         ## build hashes having multiple answers for radio buttons & checkboxes
         participant_answer_hash[:question_option_id].each do |option_id|
           temp_hash = participant_answer_hash.as_json
@@ -209,7 +209,7 @@ class Participants::ChallengesController < ApplicationController
       end
 
       respond_to do |format|
-        @response = {success: true, message: "Congratulations, You've completed this challenge successfully."}
+        @response = {success: true, message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You've completed this challenge successfully.") }
         format.json { render json: @response }
         format.js { render layout: false }
       end

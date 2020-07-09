@@ -119,9 +119,9 @@
                                      prompt: fetch_placeholder_details(question, 'dropdown') %>
                     </div>
                   <% end %>
-
                   <% if question.additional_details.present? %>
-                    <p class="additional-details"><%= question.additional_details %></p>
+
+                    <div class="additional-details"><%= question.additional_details %></div>
                   <% end %>
                 </div>
               <% end %>

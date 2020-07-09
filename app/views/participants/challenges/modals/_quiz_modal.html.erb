@@ -32,9 +32,9 @@
           <p class="mb-4 size-12"><%= challenge.caption %></p>
           <p class="size-12"><%= raw(challenge.description).html_safe %></p>
 
-          <% @quiz_submitted = challenge.participant_answers.present? %>
+          <% @quiz_submitted = challenge.participant_answers.where(participant_id: current_participant.id).present? %>
           <% unless @questions.blank? %>
-            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, :html => {class: 'form form-vertical challenge-quiz-form', remote: true}) do |f| %>
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
               <% @questions.each_with_index do |question, index| %>
                 <% question_options = question.question_options.order(sequence: :asc) %>
                 <div class="row text-left">
@@ -60,10 +60,10 @@
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
-
                             <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                           </div>
                         <% end %>
+                        <div class="custom-error-class radio-button-error-<%= index %>"></div>
                       <% when 'wysiwyg' then %>
                         <p><%= raw(question_options.first.details).html_safe %></p>
                       <% end %>
