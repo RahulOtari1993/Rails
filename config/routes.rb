@@ -184,6 +184,7 @@ Rails.application.routes.draw do
               post :disconnect
               get :email_settings, to: 'participant_account#fetch_email_settings'
               post :email_settings, to: 'participant_account#update_email_settings'
+              get :feed
             end
           end
 

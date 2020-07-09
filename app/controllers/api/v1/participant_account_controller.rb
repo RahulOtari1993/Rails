@@ -82,7 +82,7 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
   def fetch_email_settings
     settings = EmailSetting.where(campaign_id: @campaign.id)
 
-    render_success 200, true,'Email settings fetched successfully.', settings.as_json
+    render_success 200, true, 'Email settings fetched successfully.', settings.as_json
   end
 
   ## Update Email Settings of Participant
@@ -91,40 +91,48 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
     if params[:participant][:email_setting_id].present? && settings.include?(params[:participant][:email_setting_id].to_i)
       current_participant.update_attribute(:email_setting_id, params[:participant][:email_setting_id].to_i)
-      render_success 200, true,'Email setting updated successfully.', current_participant.as_json
+      render_success 200, true, 'Email setting updated successfully.', current_participant.as_json
     else
       return_error 500, false, 'Please select valid email setting.', {}
     end
   end
 
+  ## Fetch Participant Account Feeds
+  def feed
+    render_success 200, true,
+                   'Participant account feeds fetched successfully.',
+                   current_participant.participant_actions.as_json
+  end
+
+
   private
 
-    ## Strong Params for Participant
-    def participant_params
-      params.require(:participant).permit(:first_name, :last_name, :gender, :phone, :city, :age, :birth_date,
-                                          :avatar, :state, :country, :postal, :address_1, :address_2, :bio, :home_phone,
-                                          :work_phone, :job_position, :job_company_name, :job_industry)
-    end
+  ## Strong Params for Participant
+  def participant_params
+    params.require(:participant).permit(:first_name, :last_name, :gender, :phone, :city, :age, :birth_date,
+                                        :avatar, :state, :country, :postal, :address_1, :address_2, :bio, :home_phone,
+                                        :work_phone, :job_position, :job_company_name, :job_industry)
+  end
 
-    ## Strong Params for Facebook
-    def facebook_params
-      params.require(:participant).permit(:facebook_uid, :facebook_token, :facebook_expires_at)
-    end
+  ## Strong Params for Facebook
+  def facebook_params
+    params.require(:participant).permit(:facebook_uid, :facebook_token, :facebook_expires_at)
+  end
 
-    ## Strong Params for Twitter
-    def twitter_params
-      params.require(:participant).permit(:twitter_uid, :twitter_token, :twitter_secret)
-    end
+  ## Strong Params for Twitter
+  def twitter_params
+    params.require(:participant).permit(:twitter_uid, :twitter_token, :twitter_secret)
+  end
 
-    ## Validate Facebook API Params
-    def validate_facebook_params facebook_details
-      keys = facebook_details.keys
-      %w(facebook_uid facebook_token facebook_expires_at).all? { |s| keys.include?(s) }
-    end
+  ## Validate Facebook API Params
+  def validate_facebook_params facebook_details
+    keys = facebook_details.keys
+    %w(facebook_uid facebook_token facebook_expires_at).all? { |s| keys.include?(s) }
+  end
 
-    ## Validate Twitter API Params
-    def validate_twitter_params twitter_details
-      keys = twitter_details.keys
-      %w(twitter_uid twitter_token twitter_secret).all? { |s| keys.include?(s) }
-    end
+  ## Validate Twitter API Params
+  def validate_twitter_params twitter_details
+    keys = twitter_details.keys
+    %w(twitter_uid twitter_token twitter_secret).all? { |s| keys.include?(s) }
+  end
 end
