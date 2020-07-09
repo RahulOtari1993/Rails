@@ -37,7 +37,7 @@ class Api::V1::ChallengesController < Api::V1::BaseController
           if response[:status]
             render_success 200, true, response[:message], {}
           else
-            render_success 500, true, response[:message], {}
+            render_success 200, true, response[:message], {}
           end
         else
           return_error 500, false, 'Challenge submission failed, Please try again.', {}
@@ -47,7 +47,7 @@ class Api::V1::ChallengesController < Api::V1::BaseController
         if response[:status]
           render_success 200, true, response[:message], {}
         else
-          render_success 500, true, response[:message], {}
+          render_success 200, true, response[:message], {}
         end
       end
     else
@@ -80,12 +80,13 @@ class Api::V1::ChallengesController < Api::V1::BaseController
       ## Claim the reward after successful submission of challenge for reward type
       if challenge.reward_type == 'prize' && !re_submission
         reward_service = RewardsService.new(current_participant.id, challenge.reward_id, request)
-        response = reward_service.process
+        reward_response = reward_service.process
+        response = {success: true, message: "Challenge submitted successfully and #{reward_response[:message]}"}
       else
         response = {success: true, message: 'Challenge submitted successfully.'}
       end
     else
-      response = {success: true, message: 'Challenge submitted successfully, User Audit Entry failed.'}
+      response = {success: false, message: 'Challenge submitted successfully, User Audit Entry failed.'}
     end
 
     response
