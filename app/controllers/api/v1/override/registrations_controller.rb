@@ -38,7 +38,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
       else
         if @resource.present? && sign_up_attributes[:provider] == 'email'
           ## Render Email Already Exists Error
-          return_error 500, false, 'Email is already registered', {}
+          return_error 500, false, 'Email is already registered.', {}
         else
           ## Sign Up Participant With Email
           @resource = resource_class.new(sign_up_params)

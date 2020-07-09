@@ -87,7 +87,14 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
 
   ## Update Email Settings of Participant
   def update_email_settings
+    settings = EmailSetting.where(campaign_id: @campaign.id).pluck(:id)
 
+    if params[:participant][:email_setting_id].present? && settings.include?(params[:participant][:email_setting_id].to_i)
+      current_participant.update_attribute(:email_setting_id, params[:participant][:email_setting_id].to_i)
+      render_success 200, true,'Email setting updated successfully.', current_participant.as_json
+    else
+      return_error 500, false, 'Please select valid email setting.', {}
+    end
   end
 
   private
