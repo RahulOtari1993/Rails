@@ -182,6 +182,9 @@ Rails.application.routes.draw do
               post :email_settings, to: 'participant_account#update_email_settings'
             end
           end
+
+          ## Campaign Config API Routes
+          resources :campaign_configs, only: [:index]
         end
       end
     end
