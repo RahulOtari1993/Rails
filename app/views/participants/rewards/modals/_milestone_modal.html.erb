@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="cash_in_modal">
+<div class="modal fade text-left" id="milestone_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -35,6 +35,20 @@
         <p><%= raw(reward.description_details).html_safe %></p>
         <p><%= raw(reward.redemption_details).html_safe %></p>
 
+        <% unless @reward_rules_info.blank? %>
+          <% @reward_rules_info.each do |reward_rule| %>
+            <% if reward_rule[:rule_type] == "challenges_completed" && reward_rule[:display] %>
+              <p>Complete <b><%= reward_rule[:count] %> more challenges and Earn more GoBucks</b> to unlock this reward.</p>
+            <% elsif reward_rule[:rule_type] == "number_of_logins" && reward_rule[:display] %>
+              <p>Login <b><%= reward_rule[:count] %> more and Earn more GoBucks</b> to unlock this reward.</p>
+            <% elsif reward_rule[:rule_type] == "points" && reward_rule[:display] %>
+              <p>Earn more <b><%= reward_rule[:count] %> more GoBucks</b> to unlock this reward.</p>
+            <% elsif reward_rule[:rule_type] == "recruits" && reward_rule[:display] %>
+              <p>Recruit <b><%= reward_rule[:count] %> more friends and Earn more GoBucks</b> to unlock this reward.</p>
+            <% end %>
+          <% end %>
+        <% end %>
+
         <div class="row reward-claim-container" style="display: none;">
           <div class="col-12">
             <h4>Congratulation, You've claimed this reward successfully.</h4>
@@ -46,11 +60,6 @@
       <div class="modal-footer">
         <div class="row">
           <div class="col-md-12">
-            <% if current_participant.unused_points >= reward.threshold %>
-              <button class="watch_btn reward-claim-btn" data-reward-id="<%= reward.id %>">Claim Reward</button>
-            <% else %>
-              <p>Earn <%= (reward.threshold - current_participant.unused_points) %> more GoBucks to redeem this reward</p>
-            <% end %>
           </div>
         </div><br>
       </div>
@@ -58,41 +67,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function () {
-  });
-
-  // claim Reward start
-  $('#cash_in_modal').on('click', '.reward-claim-btn', function (e) {
-    var rewardId = $(this).data('reward-id');
-    var _this = $(this);
-
-    $.ajax({
-      url: `/participants/rewards/${rewardId}/claim`,
-      type: 'POST',
-      dataType: 'JSON',
-      success: function (data) {
-        _this.hide();
-        if (data.success) {
-          $('.reward-claim-container').show();     // Display Reward Completion Message
-        } else {
-          Swal.fire({
-            title: 'Reward Claimed',
-            text: data.message,
-            confirmButtonClass: 'btn btn-primary',
-            buttonsStyling: false,
-          });
-        }
-      }
-    });
-  });
-  // submit Reward end
-
-
-</script>
-
-<style media="screen">
-
-</style>

@@ -8,4 +8,7 @@
 <% elsif @reward.selection == "sweepstake" %>
   $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/sweepstake_modal', reward: @reward %>");
   $('#sweepstake_modal').modal('show');
+<% elsif @reward.selection == "milestone" %>
+  $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/milestone_modal', reward: @reward %>");
+  $('#milestone_modal').modal('show');
 <% end %>
