@@ -133,4 +133,76 @@ class RewardRule < ApplicationRecord
         false
     end
   end
+
+  ## Check and Fetch the completed challenges count required for milestone reward
+  def required_challenges_count participant
+    reward = self.reward
+    if reward.date_range
+      challenges_completed = participant.submissions
+                                 .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                                 .count
+    else
+      challenges_completed = participant.completed_challenges.to_i
+    end
+
+    required_count = fetch_reward_rule_info(challenges_completed)
+  end
+
+  ## Check and Fetch the Login count required for milestone reward
+  def required_login_count participant
+    reward = self.reward
+    if reward.date_range
+      logins = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .where(action_type: 'sign_in').count
+    else
+      logins = participant.sign_in_count.to_i
+    end
+
+    required_count = fetch_reward_rule_info(logins)
+  end
+
+  ## Check and Fetch the Unused points required for milestone reward
+  def fetch_points_required participant
+    reward = self.reward
+    if reward.date_range
+      points = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .sum(:points)
+    else
+      points = participant.unused_points.to_i
+    end
+
+    required_count = fetch_reward_rule_info(points)
+  end
+
+  ## Check and Fetch the Recruits count required for milestone reward
+  def required_recruits_count participant
+    reward = self.reward
+    if reward.date_range
+      recruits = participant.participant_actions
+                   .where(created_at: (reward.start.in_time_zone('UTC'))..(reward.finish.in_time_zone('UTC')))
+                   .where(action_type: 'recruit').count
+    else
+      recruits = participant.recruits.to_i
+    end
+
+    required_count = fetch_reward_rule_info(recruits)
+  end
+
+  ## Calculate and Fetch RewardRule statistics for milestone reward
+  def fetch_reward_rule_info total_count
+    required_count = (self.rule_value.to_i - total_count)
+    case self.rule_condition
+      when 'equals' then
+        ((total_count == self.rule_value.to_i) ? {display: false, count: 0, rule_type: self.rule_type} : ((required_count < 0) ? {display: false, count: 0, rule_type: self.rule_type} : {display: true, count: required_count, rule_type: self.rule_type}))
+      when 'greater_than' then
+        ((total_count > self.rule_value.to_i) ? {display: false, count: 0, rule_type: self.rule_type} : {display: true, count: (required_count + 1), rule_type: self.rule_type})
+      when 'greater_than_or_equal' then
+        ((total_count >= self.rule_value.to_i) ? {display: false, count: 0, rule_type: self.rule_type} : {display: true, count: required_count, rule_type: self.rule_type})
+      else
+        ({display: false, count: 0, rule_type: self.rule_type})
+    end
+  end
+
 end
