@@ -168,7 +168,11 @@ Rails.application.routes.draw do
           resources :rewards, only: [:index, :show]
 
           ## Challenges API Routes
-          resources :challenges, only: [:index, :show]
+          resources :challenges, only: [:index, :show] do
+            collection do
+              get :connect_challenges
+            end
+          end
 
           ## Participant Account Routes
           resources :participant_account, only: [] do
