@@ -21,6 +21,7 @@ class Question < ApplicationRecord
   has_many :question_options, dependent: :destroy
   has_many :submitted_answers, dependent: :destroy
   belongs_to :profile_attribute, optional: true
+  has_many :participant_answers, dependent: :destroy
 
   ## ENUM
   enum category: {profile: 0, survey: 1, quiz: 2}

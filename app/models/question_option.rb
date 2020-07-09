@@ -13,4 +13,5 @@
 class QuestionOption < ApplicationRecord
   ## Associations
   belongs_to :question
+  has_one :participant_answer
 end

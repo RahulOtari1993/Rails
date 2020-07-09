@@ -32,51 +32,53 @@
           <p class="mb-4 size-12"><%= challenge.caption %></p>
           <p class="size-12"><%= raw(challenge.description).html_safe %></p>
 
-          <% @questions = challenge.questions.order(sequence: :asc) %>
-
+          <% @quiz_submitted = challenge.participant_answers.where(participant_id: current_participant.id).present? %>
           <% unless @questions.blank? %>
-            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, :html => {class: 'form form-vertical challenge-quiz-form', remote: true}) do |f| %>
-
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
               <% @questions.each_with_index do |question, index| %>
-                <div class="modal_box text-left">
-                  <div class="row">
-                    <div class="col-md-12">
+                <% question_options = question.question_options.order(sequence: :asc) %>
+                <div class="row text-left">
+                  <div class="col-md-12">
 
-                      <div class="form-group extended-form-group">
-                        <%= label :title, question.title %>
+                    <div class="form-group extended-form-group">
+                      <% unless question.answer_type == "wysiwyg" %>
+                        <%= label :title, "#{index+1}. #{question.title}" %>
+                        <%= hidden_field_tag "questions[#{question.id}][challenge_id]", challenge.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][question_id]", question.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][correct_option_id]", get_correct_option_id(question) %>
+                      <% end %>
 
-                        <% case question.answer_type %>
-                        <% when 'string' then %>
-                          <%= text_field_tag "questions[#{question.id}][answer]", "",
-                                             class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                             placeholder: fetch_placeholder_details(question, 'string') %>
-                        <% when 'radio_button' then %>
-                          <% question.question_options.order(sequence: :asc).each do |option| %>
-                            <div>
-                              <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
-                                                   id: "questions_#{question.id}_answer_#{option.id}",
-                                                   class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                                   data: {error: "radio-button-error-#{index}"} %>
-
-                              <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
-                            </div>
-                          <% end %>
-                        <% when 'wysiwyg' then %>
-                          <p><%= raw(question.question_options.order(sequence: :asc).first.details).html_safe %></p>
+                      <% case question.answer_type %>
+                      <% when 'string' then %>
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@quiz_submitted ? fetch_question_answered_value(question) : ''),
+                                           class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                           placeholder: fetch_placeholder_details(question, 'string'), disabled: @quiz_submitted %>
+                      <% when 'radio_button' then %>
+                        <% question_options.each do |option| %>
+                          <div>
+                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),
+                                                 id: "questions_#{question.id}_answer_#{option.id}",
+                                                 class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                 data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
+                            <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                          </div>
                         <% end %>
+                        <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                      <% when 'wysiwyg' then %>
+                        <p><%= raw(question_options.first.details).html_safe %></p>
+                      <% end %>
 
-                        <% if question.additional_details.present? %>
-                          <p class="additional-details"><%= question.additional_details %></p>
-                        <% end %>
-                      </div>
-
-
+                      <% if question.additional_details.present? %>
+                        <p class="additional-details"><%= question.additional_details %></p>
+                      <% end %>
                     </div>
+
                   </div>
                 </div><br>
               <% end %>
-
-              <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+              <% unless @quiz_submitted %>
+                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+              <% end %>
             <% end %>
           <% end %>
 
