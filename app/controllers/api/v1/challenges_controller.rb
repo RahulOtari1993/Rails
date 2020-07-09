@@ -23,4 +23,9 @@ class Api::V1::ChallengesController < Api::V1::BaseController
 
     render_success 200, true, 'Connect Challenge details fetched successfully.', challenges.as_json(type: 'list')
   end
+
+  ## Submit Challenge
+  def submit
+    render_success 200, true, 'Challenge submitted successfully.', {}
+  end
 end

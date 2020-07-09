@@ -171,6 +171,7 @@ Rails.application.routes.draw do
           resources :challenges, only: [:index, :show] do
             collection do
               get :connect_challenges
+              post :submit
             end
           end
 
