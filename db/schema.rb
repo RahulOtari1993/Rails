@@ -302,20 +302,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_150023) do
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
 
-  create_table "participant_device_tokens", force: :cascade do |t|
-    t.integer "participant_id"
-    t.string "os_type"
-    t.string "os_version"
-    t.string "device_id"
-    t.string "token"
-    t.string "token_type"
-    t.string "device_arn"
-    t.string "app_version"
-    t.string "state"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "participant_profiles", force: :cascade do |t|
     t.bigint "participant_id"
     t.bigint "profile_attribute_id"
@@ -393,14 +379,8 @@ ActiveRecord::Schema.define(version: 2020_07_08_150023) do
     t.string "job_company_name"
     t.string "job_industry"
     t.integer "email_setting_id"
-    t.string "provider", default: "email"
-    t.string "uid"
-    t.text "tokens"
-    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
-    t.index ["email", "organization_id", "campaign_id"], name: "index_participant_email_org_campaign", unique: true
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
-    t.index ["uid", "provider", "organization_id", "campaign_id"], name: "index_participant_uid_provider_org_campaign", unique: true
   end
 
   create_table "profile_attributes", force: :cascade do |t|
