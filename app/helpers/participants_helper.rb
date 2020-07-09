@@ -30,7 +30,7 @@ module ParticipantsHelper
     
   ## Display % of Targeted Users
   def targeted_users_percentage
-    total_participants = @challenge.completions
+    total_participants = @challenge.campaign.participants.count
     targeted_participants = @challenge.targeted_participants
     if targeted_participants.count > 0 && total_participants.to_i > 0
       percentage = (targeted_participants.count * 100 ) / total_participants.to_i
