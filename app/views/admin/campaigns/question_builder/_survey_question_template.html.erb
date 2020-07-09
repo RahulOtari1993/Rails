@@ -382,13 +382,13 @@
     <div class="col-12">
       <hr>
       <div class="question_delete_box">
-        <div class="custom-control custom-switch mr-2 mb-1" style="">
+        <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
           <p>Required</p>
-          <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][is_required]", true, question_required(question),
-                            id: "question-is-required-#{q_name_convention(template, question)}",
+          <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][is_required]", true, question_required(question),
+                            id: "question-is-required-#{q_name_convention(template, question, randNum)}",
                             class: 'custom-control-input' %>
 
-          <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question) %>"></label>
+          <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question, randNum) %>"></label>
         </div>
         <i class="feather icon-trash-2 question_del_icon"></i>
       </div>
