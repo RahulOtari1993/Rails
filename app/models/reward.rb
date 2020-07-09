@@ -204,6 +204,24 @@ class Reward < ApplicationRecord
     result
   end
 
+  ## Fetch data of participant required to eligible for milestone reward
+  def fetch_reward_rules_criteria(participant)
+    result = []
+    self.reward_rules.each do |rule|
+      case rule.rule_type
+        when 'challenges_completed' then
+          result << rule.required_challenges_count(participant)
+        when 'number_of_logins' then
+          result << rule.required_login_count(participant)
+        when 'points' then
+          result << rule.fetch_points_required(participant)
+        when 'recruits' then
+          result << rule.required_recruits_count(participant)
+      end
+    end
+    result
+  end
+
   ## create sweepstake entries and choose a sweepstake reward winner
   def choose_sweepstake_winner
     if (self.sweepstake_entry.to_i > 0) && (self.limit.to_i > 0)
