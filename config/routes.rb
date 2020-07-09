@@ -169,9 +169,11 @@ Rails.application.routes.draw do
 
           ## Challenges API Routes
           resources :challenges, only: [:index, :show] do
+            member do
+              post :submit
+            end
             collection do
               get :connect_challenges
-              post :submit
             end
           end
 
