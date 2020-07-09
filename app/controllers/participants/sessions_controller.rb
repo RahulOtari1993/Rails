@@ -3,7 +3,7 @@
 class Participants::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
   after_action :after_login, :only => :create
-  skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? }
+  skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? } # was getting token error on email login
   ## Configure End User Layout
   # layout 'end_user'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_150505) do
+ActiveRecord::Schema.define(version: 2020_07_08_211405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -343,6 +343,23 @@ ActiveRecord::Schema.define(version: 2020_07_08_150505) do
     t.integer "referred_participant_id"
     t.index ["campaign_id"], name: "index_participant_actions_on_campaign_id"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
+  end
+
+  create_table "participant_answers", force: :cascade do |t|
+    t.bigint "campaign_id"
+    t.bigint "challenge_id"
+    t.bigint "question_id"
+    t.text "answer"
+    t.bigint "question_option_id"
+    t.bigint "participant_id"
+    t.boolean "result", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_participant_answers_on_campaign_id"
+    t.index ["challenge_id"], name: "index_participant_answers_on_challenge_id"
+    t.index ["participant_id"], name: "index_participant_answers_on_participant_id"
+    t.index ["question_id"], name: "index_participant_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_participant_answers_on_question_option_id"
   end
 
   create_table "participant_profiles", force: :cascade do |t|
@@ -687,6 +704,11 @@ ActiveRecord::Schema.define(version: 2020_07_08_150505) do
   add_foreign_key "notes", "participants"
   add_foreign_key "notes", "users"
   add_foreign_key "participant_actions", "participants"
+  add_foreign_key "participant_answers", "campaigns"
+  add_foreign_key "participant_answers", "challenges"
+  add_foreign_key "participant_answers", "participants"
+  add_foreign_key "participant_answers", "question_options"
+  add_foreign_key "participant_answers", "questions"
   add_foreign_key "participant_profiles", "participants"
   add_foreign_key "participant_profiles", "profile_attributes"
   add_foreign_key "profile_attributes", "campaigns"

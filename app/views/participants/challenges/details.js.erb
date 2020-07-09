@@ -7,6 +7,30 @@
 <% elsif @challenge.challenge_type == "article" %>
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/read_article_modal', challenge: @challenge %>");
   $('#read_article_modal').modal('show');
+<% elsif @challenge.challenge_type == "collect" && @challenge.parameters == 'quiz' %>
+  $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/quiz_modal', challenge: @challenge %>");
+  $('#challenge_quiz_modal').modal('show');
+
+  // quiz challenge form validation
+  $('.challenge-quiz-modal-form').validate({
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).html(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
+
+  // validation for radio buttons
+  $('.answer-radio-button-required').each(function () {
+    $(this).rules('add', {
+      required: true
+    });
+  });
+
 <% elsif @challenge.challenge_type == "referral" %>
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/recruit_modal', challenge: @challenge %>");
   $('#recruit_modal').modal('show');

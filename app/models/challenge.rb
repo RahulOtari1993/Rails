@@ -58,6 +58,7 @@ class Challenge < ApplicationRecord
   has_many :questions, dependent: :destroy
   belongs_to :reward, optional: true
   has_many :participant_actions, as: :actionable
+  has_many :participant_answers, dependent: :destroy
   # attr_accessor :status
 
   ## Constants
@@ -111,7 +112,7 @@ class Challenge < ApplicationRecord
       utm_campaign: utm_campaign
     }
   end
-  
+
   ## Check Whether Proper Inputs provided for Reward Type
   def reward_existence
     if self.reward_type == 'points'

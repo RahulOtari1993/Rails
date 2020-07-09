@@ -306,7 +306,7 @@ $(document).on('turbolinks:load', function () {
     $('.' + challengeType + '-' + challengeParameters + '-div hidden').prop("disabled", false);
 
     // Disable Question Builder Inputs
-    if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz')) {
+    if (challengeType == 'collect' && (challengeParameters == 'profile' || challengeParameters == 'quiz' || challengeParameters == 'survey')) {
       $('.' + challengeType + '-' + challengeParameters + '-div .disabled-field').prop("disabled", true);
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
 
