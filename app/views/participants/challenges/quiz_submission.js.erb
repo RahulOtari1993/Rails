@@ -1,0 +1,9 @@
+var message = "<%= @response[:message] %>";
+$('#challenge_quiz_modal').modal('hide');
+
+Swal.fire({
+  title: 'Challenge Submission',
+  text: message,
+  confirmButtonClass: 'btn btn-primary',
+  buttonsStyling: false,
+});

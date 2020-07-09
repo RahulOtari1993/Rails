@@ -18,7 +18,7 @@ module EndUserHelper
   def fetch_twitter_challenge
     @campaign.challenges.current_active.where(challenge_type: 'connect', parameters: 'twitter').first
   end
-  
+
   ## Check whether Onboarding Challenge is Available & Active
   def check_onboarding_challege
     @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile')
@@ -91,5 +91,26 @@ module EndUserHelper
     else
       asset_path 'end-user/BNR-Logo-Horizontal-Color-Black.svg'
     end
+  end
+
+  ## Fetch correct option for the challenge question
+  def get_correct_option_id(question)
+    option_id = nil
+    if question.answer_type == "string"
+      option_id = question.question_options.first.id
+    elsif question.answer_type == "radio_button"
+      option_id = question.question_options.where(answer: "t").first.id
+    end
+    option_id
+  end
+
+  def fetch_question_answered_value(question, option_id = nil)
+    if question.answer_type == "string"
+      result = @challenge.participant_answers.where(question_id: question.id).first.answer
+    else
+      selected_option_id = @challenge.participant_answers.where(question_id: question.id).first.question_option_id
+      result = (option_id == selected_option_id)
+    end
+    result
   end
 end
