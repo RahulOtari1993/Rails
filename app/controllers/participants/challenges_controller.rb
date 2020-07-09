@@ -51,6 +51,10 @@ class Participants::ChallengesController < ApplicationController
     end
   end
 
+  ## Submit Quiz and Survey Challenge
+  def quiz_submission
+  end
+
   protected
 
   ## Manage & Build Extended Profile Question Params

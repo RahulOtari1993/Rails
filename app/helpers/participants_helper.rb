@@ -27,16 +27,6 @@ module ParticipantsHelper
       participant.age
     end
   end
-
-  # Displaying Title and Details together
-  def title_details(participant_action)
-    "#{participant_action.title} #{participant_action.details}"
-  end
-
-  # Displaying Participant Notes List in Descending Order
-  def participant_notes_by_desc(participant)
-    return participant.notes.order('description desc')
-  end
     
   ## Display % of Targeted Users
   def targeted_users_percentage
