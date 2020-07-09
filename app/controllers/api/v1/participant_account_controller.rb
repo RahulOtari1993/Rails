@@ -78,6 +78,18 @@ class Api::V1::ParticipantAccountController < Api::V1::BaseController
                    participant.as_json
   end
 
+  ## Fetch Email Settings of Participant
+  def fetch_email_settings
+    settings = EmailSetting.where(campaign_id: @campaign.id)
+
+    render_success 200, true,'Email settings fetched successfully.', settings.as_json
+  end
+
+  ## Update Email Settings of Participant
+  def update_email_settings
+
+  end
+
   private
 
     ## Strong Params for Participant
