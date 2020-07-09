@@ -57,6 +57,7 @@ class Challenge < ApplicationRecord
   has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
   belongs_to :reward, optional: true
+  has_many :participant_answers, dependent: :destroy
   # attr_accessor :status
 
   ## Constants
