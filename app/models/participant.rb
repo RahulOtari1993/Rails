@@ -553,6 +553,15 @@ class Participant < ApplicationRecord
       connected_platform << where.not('participants.facebook_uid' => nil).count
       connected_platform << where.not('participants.google_uid' => nil).count
     end
+
+    ## Age Calculation Based ob Buirth date
+    def calculate_age(birth_date)
+      age = 0
+      birth_year = Date.strptime(birth_date, '%m/%d/%Y').year rescue 0
+      age = Time.zone.now.year - birth_year.to_i if birth_year.to_i > 0
+
+      age
+    end
   end
 
   private

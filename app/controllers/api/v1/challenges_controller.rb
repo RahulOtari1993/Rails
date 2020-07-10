@@ -27,11 +27,17 @@ class Api::V1::ChallengesController < Api::V1::BaseController
   ## Submit Challenge
   def submit
     challenge = Challenge.where(id: params[:id]).first
+
     if challenge.present?
       submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: current_participant.id,
-                                     challenge_id: challenge.id).first_or_initialize
+                                    challenge_id: challenge.id).first_or_initialize
 
       if submission.new_record?
+        ## Save Onboarding/Extended Profile Question Answers
+        if challenge.challenge_type == 'collect' && challenge.parameters == 'profile' && params[:questions].present?
+          current_participant.update!(extended_profile_question_params)
+        end
+
         if submission.save
           response = participant_action(challenge, submission, false)
           if response[:status]
@@ -90,5 +96,48 @@ class Api::V1::ChallengesController < Api::V1::BaseController
     end
 
     response
+  end
+
+  ## Manage & Build Extended Profile Question Params
+  def extended_profile_question_params
+    birthdate = ''
+    age = 0
+
+    profile_params = {participant_profiles_attributes: []}
+    params[:questions].each do |key, question|
+      if question[:is_custom] == 'true'
+        if question[:answer].instance_of? Array
+          question[:answer].each do |opt|
+            profile_params[:participant_profiles_attributes].push({
+                                                                      profile_attribute_id: question[:profile_attribute_id],
+                                                                      value: opt
+                                                                  })
+          end
+        else
+          profile_params[:participant_profiles_attributes].push({
+                                                                    profile_attribute_id: question[:profile_attribute_id],
+                                                                    value: question[:answer]
+                                                                })
+        end
+      else
+        if question[:answer].instance_of? Array
+          question[:answer].each do |opt|
+            profile_params[question[:attribute_name]] = opt
+          end
+        else
+          profile_params[question[:attribute_name]] = question[:answer]
+          birthdate = question[:answer] if question[:attribute_name] == 'birth_date' && question[:answer].present?
+          age = question[:answer].to_i if question[:attribute_name] == 'age' && question[:answer].present?
+        end
+      end
+    end
+
+    ## Age Calculation
+    attributes = params['questions'].values.map { |x| x[:attribute_name] }
+    if (!attributes.include?('age') || age == '' || age == 0) && (attributes.include?('birth_date') && birthdate != '')
+      profile_params['age'] = Participant.calculate_age(birthdate)
+    end
+
+    profile_params
   end
 end

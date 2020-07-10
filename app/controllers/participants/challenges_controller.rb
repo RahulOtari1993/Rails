@@ -20,7 +20,7 @@ class Participants::ChallengesController < ApplicationController
         @submission.user_agent = request.user_agent
         @submission.ip_address = request.ip
 
-        ## Save Onboarding Profile Questions
+        ## Save Onboarding/Extended Profile Question Answers
         if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
           unless current_participant.update(onboarding_question_params)
             respond_to do |format|
@@ -120,19 +120,10 @@ class Participants::ChallengesController < ApplicationController
     ## Age Calculation
     attributes = params['questions'].values.map { |x| x[:attribute_name] }
     if (!attributes.include?('age') || age == '' || age == 0) && (attributes.include?('birth_date') && birthdate != '')
-      profile_params['age'] = calculate_age birthdate
+      profile_params['age'] = Participant.calculate_age(birthdate)
     end
 
     profile_params
-  end
-
-  ## Age Calculation
-  def calculate_age(birth_date)
-    age = 0
-    birth_year = Date.strptime(birth_date, '%m/%d/%Y').year rescue 0
-    age = Time.zone.now.year - birth_year.to_i if birth_year.to_i > 0
-
-    age
   end
 
   ## Manage & Build Extended Challenge Question Params
