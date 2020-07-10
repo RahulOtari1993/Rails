@@ -395,10 +395,12 @@ $(document).on('turbolinks:load', function () {
         }
       });
     } else {
-      errors += 1 ;
-      message = "Please enter the note."
-      $('#note-error').text(message).show();
-      $("#note-error").css("cssText", "color: red !important;");
+      Swal.fire({
+        title: 'Add a Note',
+        text: 'Please enter description',
+        confirmButtonClass: 'btn btn-primary',
+        buttonsStyling: false,
+      });
     }
   });
 

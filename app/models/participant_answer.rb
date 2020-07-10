@@ -22,7 +22,6 @@ class ParticipantAnswer < ApplicationRecord
   belongs_to :participant
 
   ## Validatations
-  validates_presence_of :result
 
   ## Scopes
   scope :correct, -> { where(result: true) }

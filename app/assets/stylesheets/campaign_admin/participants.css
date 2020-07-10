@@ -1,3 +1,7 @@
+#activity-list-table_info, #reward-list-table_info,
+#note-list-table_info {
+  color: white;
+}
 .participant-name {
   color: #7367f0 !important;
 }
