@@ -30,7 +30,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
         if @resource.save!(:validate => false)
           store_device_details ## Store Device Details of Participant
           update_auth_header
-          
+
           sign_in(:participant, @resource, store: false)
           @resource.connect_challenge_completed('', '')
           render_success 200, true, 'Signed in successfully.', @resource.as_json
@@ -140,19 +140,5 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
     ## Handle Any Runtime Errors
     def handle_runtime_error
       return return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
-    end
-
-    ## Store Device Details of Participant
-    def store_device_details
-      if params[:token_data].present? && params[:token_data][:token].present?
-        participant_device = ParticipantDeviceToken.where(token: params[:token_data][:token], participant_id: @resource.id).first
-
-        ## Manage User Device Token Details
-        if participant_device.present?
-          participant_device.update_attributes(device_params)
-        else
-          ParticipantDeviceToken.create!(device_params.merge!({participant_id: @resource.id}))
-        end
-      end
     end
 end

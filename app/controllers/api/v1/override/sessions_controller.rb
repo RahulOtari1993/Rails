@@ -17,8 +17,9 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
 
       if @resource.valid_password?(param_hash[:password])
         assign_new_tokens ## Set New Token to Participant Object
-
         @resource.save
+
+        store_device_details ## Store Device Details of Participant
         sign_in(:participant, @resource, store: false)
         log_action ## Create participant Login Audit Log
 
@@ -37,6 +38,11 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
     ## Allows Participant Attributes
     def sign_in_params
       params.require(:participant).permit(:email, :password)
+    end
+
+    ## Allows Device Attributes
+    def device_params
+      params.require(:token_data).permit(:os_type, :os_version, :device_id, :token, :token_type, :app_version)
     end
 
     ## Validate Sign In API Params
