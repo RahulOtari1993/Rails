@@ -28,7 +28,9 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
 
         @resource.skip_confirmation!
         if @resource.save!(:validate => false)
+          store_device_details ## Store Device Details of Participant
           update_auth_header
+          
           sign_in(:participant, @resource, store: false)
           @resource.connect_challenge_completed('', '')
           render_success 200, true, 'Signed in successfully.', @resource.as_json
@@ -47,6 +49,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
           @resource.connect_type = @resource.provider
 
           if @resource.save!(:validate => false)
+            store_device_details ## Store Device Details of Participant
             render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', @resource.as_json
           else
             return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
@@ -70,7 +73,7 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
 
     ## Allows Device Attributes
     def device_params
-      params.require(:token_data).permit(:device_id, :token, :os_type, :os_version, :app_version, :token_type)
+      params.require(:token_data).permit(:os_type, :os_version, :device_id, :token, :token_type, :app_version)
     end
 
     ## Validate Facebook API Params
@@ -137,5 +140,19 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
     ## Handle Any Runtime Errors
     def handle_runtime_error
       return return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
+    end
+
+    ## Store Device Details of Participant
+    def store_device_details
+      if params[:token_data].present? && params[:token_data][:token].present?
+        participant_device = ParticipantDeviceToken.where(token: params[:token_data][:token], participant_id: @resource.id).first
+
+        ## Manage User Device Token Details
+        if participant_device.present?
+          participant_device.update_attributes(device_params)
+        else
+          ParticipantDeviceToken.create!(device_params.merge!({participant_id: @resource.id}))
+        end
+      end
     end
 end
