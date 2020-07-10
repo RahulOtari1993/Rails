@@ -168,7 +168,31 @@ Rails.application.routes.draw do
           resources :rewards, only: [:index, :show]
 
           ## Challenges API Routes
-          resources :challenges, only: [:index, :show]
+          resources :challenges, only: [:index, :show] do
+            member do
+              post :submit
+            end
+            collection do
+              get :connect_challenges
+            end
+          end
+
+          ## Participant Account Routes
+          resources :participant_account, only: [] do
+            collection do
+              get :show
+              put :update
+              post :facebook
+              post :twitter
+              post :disconnect
+              get :email_settings, to: 'participant_account#fetch_email_settings'
+              post :email_settings, to: 'participant_account#update_email_settings'
+              get :feed
+            end
+          end
+
+          ## Campaign Config API Routes
+          resources :campaign_configs, only: [:index]
         end
       end
     end

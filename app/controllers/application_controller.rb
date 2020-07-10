@@ -70,4 +70,18 @@ class ApplicationController < ActionController::Base
       return_error 500, false, 'Please check your app version.', {}
     end
   end
+
+  ## Store Device Details of Participant
+  def store_device_details
+    if params[:token_data].present? && params[:token_data][:token].present?
+      participant_device = ParticipantDeviceToken.where(token: params[:token_data][:token], participant_id: @resource.id).first
+
+      ## Manage User Device Token Details
+      if participant_device.present?
+        participant_device.update_attributes(device_params)
+      else
+        ParticipantDeviceToken.create!(device_params.merge!({participant_id: @resource.id}))
+      end
+    end
+  end
 end

@@ -25,6 +25,11 @@ class Api::V1::BaseController < ApplicationController
     return_error 408, false, 'Oops. Service Unavailable, please try again after some time.', {}
   end
 
+  ## Render Params Error
+  def render_params_error
+    return return_error 400, false, 'Please pass required API params.', {}
+  end
+
   ## Set Page Number
   def page
     @page ||= params[:page] || 1
