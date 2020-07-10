@@ -344,7 +344,7 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
   height: 22px;
 }
 
-.participant_id_container select.form-control:not([multiple='multiple']) {
+.participant-status-right select.form-control:not([multiple='multiple']) {
   background-position: calc(100% - 5px) 5px, calc(100% - 20px) 13px, 100% 0px;
 }
 
@@ -369,8 +369,7 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
     display: inline-table;
   }
 
-  select.form-control:not([multiple='multiple']) {
-    background-image: url(/assets/pages/arrow-down-57695e4….png);
+  .participant-status-right select.form-control:not([multiple='multiple']) {
     background-position: calc(100% - 12px) 5px, calc(100% - 20px) 13px, 100% 0;
     background-size: 12px 12px, 10px 10px;
     background-repeat: no-repeat;
