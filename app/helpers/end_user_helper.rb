@@ -108,7 +108,7 @@ module EndUserHelper
     if question.answer_type == "string"
       result = @challenge.participant_answers.where(participant_id: current_participant.id, question_id: question.id).first.answer rescue nil #Todo
     else
-      selected_option_id = @challenge.participant_answers.where(participant_id: current_participant.id, question_id: question.id).first.question_option_id
+      selected_option_id = @challenge.participant_answers.where(participant_id: current_participant.id, question_id: question.id).first.try(:question_option_id)
       result = (option_id == selected_option_id)
     end
     result

@@ -200,6 +200,8 @@ span.error {
 }
 .challenge-content, .reward-content {
   color: #444;
+  padding: 20px 40px;
+  border-radius: 12px;
 }
 .challenge-content h4, .reward-content h4 {
   font-family: "proxima-nova", Sans-serif;
