@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_211405) do
+ActiveRecord::Schema.define(version: 2020_07_13_095944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -537,20 +537,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
     t.index ["participant_id"], name: "index_submissions_on_participant_id"
   end
 
-  create_table "submitted_answers", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "question_id"
-    t.bigint "participant_id"
-    t.bigint "question_option_id"
-    t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_submitted_answers_on_challenge_id"
-    t.index ["participant_id"], name: "index_submitted_answers_on_participant_id"
-    t.index ["question_id"], name: "index_submitted_answers_on_question_id"
-    t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
-  end
-
   create_table "sweepstake_entries", force: :cascade do |t|
     t.bigint "reward_id"
     t.bigint "participant_id"
@@ -648,10 +634,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
   add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
-  add_foreign_key "submitted_answers", "challenges"
-  add_foreign_key "submitted_answers", "participants"
-  add_foreign_key "submitted_answers", "question_options"
-  add_foreign_key "submitted_answers", "questions"
   add_foreign_key "sweepstake_entries", "participants"
   add_foreign_key "sweepstake_entries", "rewards"
   add_foreign_key "taggings", "tags"

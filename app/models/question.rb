@@ -19,7 +19,6 @@ class Question < ApplicationRecord
   ## Associations
   belongs_to :challenge
   has_many :question_options, dependent: :destroy
-  has_many :submitted_answers, dependent: :destroy
   belongs_to :profile_attribute, optional: true
   has_many :participant_answers, dependent: :destroy
 
