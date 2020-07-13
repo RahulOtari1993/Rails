@@ -15,7 +15,8 @@ module Participants::RewardsHelper
 
   def get_coupon_code(reward)
     reward_participant = reward.reward_participants.first
-    coupon_code = reward.coupons.where(reward_participant_id: reward_participant.id).first.try(:code)
+    coupon = reward.coupons.where(reward_participant_id: reward_participant.id).first
+    coupon_code = coupon.present? ? coupon.code : "      "
     coupon_code
   end
 
