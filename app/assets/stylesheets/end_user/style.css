@@ -215,6 +215,24 @@ span.error {
 .challenge-content ul {
   margin-left: 15px;
 }
+.challenge-content label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #707070;
+  font-size: 13px;
+  font-weight: 900;
+}
+.challenge-content .radio-label {
+  font-family: "proxima-nova-condensed", Sans-serif;
+  color: inherit;
+  font-weight: 400;
+  padding-right: 10px;
+  margin-bottom: 0px;
+}
+.challenge-content .form-group{
+  margin-bottom: 26px !important;
+}
+
 .time_class {
   color: #B7B4B4;
   font-family: "proxima-nova", Sans-serif;
