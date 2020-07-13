@@ -65,7 +65,7 @@
                         <% end %>
                         <div class="custom-error-class radio-button-error-<%= index %>"></div>
                       <% when 'wysiwyg' then %>
-                        <p><%= raw(question_options.first.details).html_safe %></p>
+                        <p><%= raw(question_options.first.details).html_safe rescue nil %></p> <!-- Todo -->
                       <% end %>
 
                       <% if question.additional_details.present? %>

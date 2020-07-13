@@ -131,6 +131,7 @@ Rails.application.routes.draw do
           get :details
           post :submission
           post :quiz_submission
+          post :survey_modal_submission
         end
       end
       resources :rewards, only: [] do
