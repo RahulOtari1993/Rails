@@ -85,7 +85,7 @@ gem 'annotate'
 ## Front-end Validation
 gem 'jquery-validation-rails'
 
-## authorization
+## Authorization
 gem 'pundit'
 
 ## Used for Colour Picker
@@ -120,3 +120,12 @@ gem 'time_difference'
 
 ## Moment JS Library for Date & Time Handling
 gem 'momentjs-rails', '>= 2.9.0'
+
+## API Auth
+gem 'devise_token_auth', '1.1'
+
+## Used to Handle API Timeouts
+gem 'rack-timeout', require:'rack/timeout/base'
+
+## Used for Pagination
+gem 'kaminari'

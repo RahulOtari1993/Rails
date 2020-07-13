@@ -30,7 +30,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     challenges = challenges.page(datatable_page).per(datatable_per_page)
 
     render json: {
-        challenges: challenges.as_json,
+        challenges: challenges.as_json(type: 'list'),
         draw: params['draw'].to_i,
         recordsTotal: @campaign.challenges.count,
         recordsFiltered: challenges.total_count,
