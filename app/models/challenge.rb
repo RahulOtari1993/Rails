@@ -79,6 +79,9 @@ class Challenge < ApplicationRecord
   mount_uploader :social_image, ImageUploader
   mount_uploader :icon, IconUploader
 
+  ## Callbacks
+  after_create :generate_challenge_identifier
+
   ## Nested Attributes
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
   accepts_nested_attributes_for :questions, allow_destroy: true, :reject_if => :all_blank
@@ -95,6 +98,8 @@ class Challenge < ApplicationRecord
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
             :caption, presence: true
   validate :reward_existence
+
+  validates_uniqueness_of :identifier, message: "already exists"
 
   ## Check Whether Proper Inputs provided for Reward Type
   def reward_existence
@@ -259,5 +264,21 @@ class Challenge < ApplicationRecord
   def calculate_months
     months = Challenge.all.map { |c| [c.start.strftime('%b'), c.finish.strftime('%b')] }
     months.flatten.uniq
+  end
+
+  ## Generate Unique Challenge Identifier
+  def self.get_identifier
+    new_id = SecureRandom.hex (6)
+    p_id = self.where(identifier: new_id.downcase)
+    if p_id.present?
+      self.get_identifier
+    else
+      new_id.downcase
+    end
+  end
+
+  ## Save Unique Challenge Identifier
+  def generate_challenge_identifier
+    self.update_attribute('identifier', Challenge.get_identifier)
   end
 end
