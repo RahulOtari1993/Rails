@@ -32,7 +32,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
     rewards = rewards.page(datatable_page).per(datatable_per_page)
 
     render json: {
-        rewards: rewards.as_json,
+        rewards: rewards.as_json(type: 'list'),
         draw: params['draw'].to_i,
         recordsTotal: rewards.count,
         recordsFiltered: rewards.total_count
@@ -251,7 +251,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       end
     end
 
-    #coupon params
+    ## Coupon Params
     def coupon_params
       params.require(:coupon).permit!
     end

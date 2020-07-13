@@ -2,16 +2,17 @@
 #
 # Table name: participant_answers
 #
-#  id                    :bigint           not null, primary key
-#  campaign_id           :bigint
-#  challenge_id          :bigint
-#  question_id           :bigint
-#  answer                :text
-#  question_option_id    :bigint
-#  participant_id        :bigint
-#  result                :boolean
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
+#  id                 :bigint           not null, primary key
+#  campaign_id        :bigint
+#  challenge_id       :bigint
+#  question_id        :bigint
+#  answer             :text
+#  question_option_id :bigint
+#  participant_id     :bigint
+#  result             :boolean          default(FALSE)
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
 
 class ParticipantAnswer < ApplicationRecord
   ## Associations
