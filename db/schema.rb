@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_13_114324) do
+ActiveRecord::Schema.define(version: 2020_07_13_150933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,16 +273,6 @@ ActiveRecord::Schema.define(version: 2020_07_13_114324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_organizations_on_admin_user_id"
-  end
-
-  create_table "participant_account_connects", force: :cascade do |t|
-    t.bigint "participant_id"
-    t.string "email"
-    t.string "token"
-    t.string "platform"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["participant_id"], name: "index_participant_account_connects_on_participant_id"
   end
 
   create_table "participant_actions", force: :cascade do |t|
