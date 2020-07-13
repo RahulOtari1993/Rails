@@ -120,26 +120,58 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   # Getting Activities Feed List
   def activities_list
+    participant_actions = @participant.participant_actions
+    participant_actions = participant_actions.order("#{sort_column_for_activity} #{datatable_sort_direction}") unless sort_column_for_activity.nil?
+    participant_actions = participant_actions.page(datatable_page).per(datatable_per_page)
     render json: {
-      participant_actions: @participant.participant_actions.as_json
+      participant_actions: participant_actions.as_json,
+      draw: params['draw'].to_i,
+      recordsTotal: participant_actions.count,
+      recordsFiltered: participant_actions.total_count
     }
   end
 
   # Getting Rewards List
   def rewards_list
+    reward_participants = @participant.reward_participants.joins(:reward)
+    reward_participants = reward_participants.order("#{sort_column_for_reward} #{datatable_sort_direction}")
+    reward_participants = reward_participants.page(datatable_page).per(datatable_per_page)
     render json: {
-      reward_participants: @participant.reward_participants.map {|r| r.reward}
+      reward_participants: reward_participants.map {|r| r.reward.as_json},
+      draw: params['draw'].to_i,
+      recordsTotal: reward_participants.count,
+      recordsFiltered: reward_participants.total_count
     }
   end
 
   # Getting Notes List
   def notes_list
+    notes = @participant.notes.page(datatable_page).per(datatable_per_page).order('id desc')
     render json: {
-      notes: @participant.notes
+      notes: notes.as_json,
+      draw: params['draw'].to_i,
+      recordsTotal: notes.count,
+      recordsFiltered: notes.total_count
     }
   end
 
   private
+
+  # Sort Activity Columns
+  def sort_column_for_activity
+    columns = %w(title points created_at)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
+
+  # Sort Reward Columns
+  def sort_column_for_reward
+    if params[:order]['0'][:column].to_i == 0
+      'rewards.name'
+    else
+      'reward_participants.created_at'
+    end
+  end
+
   ## Update Participant Status
   def update_status
     if @participant.update_attribute(:status, params[:status].present? ? params[:status] : @participant.status)
@@ -159,18 +191,16 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     render json: response
   end
 
-  private
+  def search_columns
+    %w(first_name last_name email)
+  end
 
-    def search_columns
-      %w(first_name last_name email)
-    end
+  def sort_column
+    columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
+    columns[params[:order]['0'][:column].to_i - 1].join(', ')
+  end
 
-    def sort_column
-      columns = [%w[first_name last_name], ['email'], ['unused_points'], ['birth_date'], ['gender'], ['created_at']]
-      columns[params[:order]['0'][:column].to_i - 1].join(', ')
-    end
-
-    def set_participant
-      @participant = @campaign.participants.find_by_id(params[:id])
-    end
+  def set_participant
+    @participant = @campaign.participants.find_by_id(params[:id])
+  end
 end

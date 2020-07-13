@@ -13,6 +13,7 @@ $('.participant-tags').select2({
 $('#activity-list-table').DataTable({
   processing: true,
   responsive: false,
+  serverSide: true,
   ajax: {
     'url': `/admin/campaigns/${$('#activity-list-table').attr('campaign_id')}/users/${$('#activity-list-table').attr('participant_id')}/activities_list`,
     'dataSrc': 'participant_actions',
@@ -23,7 +24,6 @@ $('#activity-list-table').DataTable({
   },
   columns: [
     {
-      class: 'product-name',
       title: 'Action',
       data: null,
       searchable: true,
@@ -35,7 +35,6 @@ $('#activity-list-table').DataTable({
       }
     },
     {
-      class: 'product-name',
       title: 'Points',
       data: null,
       searchable: false,
@@ -47,7 +46,6 @@ $('#activity-list-table').DataTable({
       }
     },
     {
-      class: 'product-name',
       title: 'Date & Time',
       data: null,
       searchable: false,
@@ -62,13 +60,17 @@ $('#activity-list-table').DataTable({
   'searching': false,
   'lengthChange': false,
   'autoWidth': false,
-  'pageLength': 5
+  'pageLength': 15,
+  "language": {                
+    "infoFiltered": ""
+  }
 });
 
 // --------------- Server Side Rendering For Rewards ---------------
 $('#reward-list-table').DataTable({
   processing: true,
   responsive: false,
+  serverSide: true,
   ajax: {
     'url': `/admin/campaigns/${$('#reward-list-table').attr('campaign_id')}/users/${$('#reward-list-table').attr('participant_id')}/rewards_list`,
     'dataSrc': 'reward_participants',
@@ -79,7 +81,6 @@ $('#reward-list-table').DataTable({
   },
   columns: [
     {
-      class: 'product-name',
       title: 'Reward',
       data: null,
       searchable: true,
@@ -91,7 +92,6 @@ $('#reward-list-table').DataTable({
       }
     },
     {
-      class: 'product-name',
       title: 'Date Earned',
       data: null,
       searchable: false,
@@ -106,13 +106,17 @@ $('#reward-list-table').DataTable({
   'searching': false,
   'lengthChange': false,
   'autoWidth': false,
-  'pageLength': 5
+  'pageLength': 15,
+  "language": {                
+    "infoFiltered": ""
+  }
 });
 
 // --------------- Server Side Rendering For Notes -----------------
 $('#note-list-table').DataTable({
   processing: true,
   responsive: false,
+  serverSide: true,
   ajax: {
     'url': `/admin/campaigns/${$('#note-list-table').attr('campaign_id')}/users/${$('#note-list-table').attr('participant_id')}/notes_list`,
     'dataSrc': 'notes',
@@ -125,9 +129,8 @@ $('#note-list-table').DataTable({
     {
       data: null,
       searchable: true,
-      render: function (data, type, row) {
+      render: function (data) {
         return '<h6 class="Notes_tab_title">'+ "<%= current_user.full_name %>" + ' - ' +
-               '<span>'+ formatDateTime(data.created_at) +'</span>'+
                '<span>'+ formatDateTime(data.created_at) +'</span>'+
                '</h6>' + '<p>'+ data.description +'</p>'
       }
@@ -137,7 +140,10 @@ $('#note-list-table').DataTable({
   'lengthChange': false,
   'ordering': false,
   'autoWidth': false,
-  'pageLength': 5
+  'pageLength': 15,
+  "language": {                
+    "infoFiltered": ""
+  }
 });
 
 // ----------------------- Common Functions ------------------------
@@ -149,7 +155,7 @@ function formatDateTime(date) {
   var ampm = hours >= 12 ? 'PM' : 'AM';
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
-  minutes = minutes < 10 ? '0'+minutes : minutes;
+  minutes = minutes < 10 ? minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
       ("0" + (dateObj.getDate())).slice(-2) +
