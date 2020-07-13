@@ -1,69 +1,37 @@
-<div class="modal fade text-left" id="milestone_modal">
+<div class="modal fade text-left reward-modal" id="milestone_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
-        <div class="row">
-          <div class="col-12">
-            <h4 class="modal-title"><%= reward.name %></h4>
-          </div>
-        </div>
+      <div class="modal-header border-bottom-0">
+        <% unless @reward_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= @reward_activity.created_at.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+        <% end %>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <span style="float: left;"><i class="fa fa-clock-o" aria-hidden="true" style="color:red"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
-          </div>
-          <div class="col-md-6">
-            <span style="float: left;"><i class="fa fa-clock-o" aria-hidden="true" style="color:red"></i> <%= "#{reward.reward_participants.count}/#{reward.limit} Rewards Claimed" %></span>
-          </div>
-        </div><br>
-        <div class="row">
-          <div class="col-md-12">
-            <h4><b class="text-center"><%= reward.description %></b></h4>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
-          </div>
-        </div>
-        <p><%= raw(reward.description_details).html_safe %></p>
-        <p><%= raw(reward.redemption_details).html_safe %></p>
-
-        <% unless @reward_rules_info.blank? %>
-          <% @reward_rules_info.each do |reward_rule| %>
-            <% if reward_rule[:rule_type] == "challenges_completed" && reward_rule[:display] %>
-              <p>Complete <b><%= reward_rule[:count] %> more challenges and Earn more GoBucks</b> to unlock this reward.</p>
-            <% elsif reward_rule[:rule_type] == "number_of_logins" && reward_rule[:display] %>
-              <p>Login <b><%= reward_rule[:count] %> more and Earn more GoBucks</b> to unlock this reward.</p>
-            <% elsif reward_rule[:rule_type] == "points" && reward_rule[:display] %>
-              <p>Earn more <b><%= reward_rule[:count] %> more GoBucks</b> to unlock this reward.</p>
-            <% elsif reward_rule[:rule_type] == "recruits" && reward_rule[:display] %>
-              <p>Recruit <b><%= reward_rule[:count] %> more friends and Earn more GoBucks</b> to unlock this reward.</p>
-            <% end %>
+        <div class="reward-content text-left font-weight-light">
+          <!-- Reward details -->
+          <% unless @reward_activity.blank? %>
+            <h4 class="text-center mb-3">You Earned Coupon and <span><%= "#{reward.points.to_i} Points!" %></span></h4>
+          <% else %>
+            <h4 class="text-center mb-3">Earn Coupon and <span><%= "#{reward.points.to_i} Points" %></span> for claiming this reward.</h4>
           <% end %>
-        <% end %>
-
-        <div class="row reward-claim-container" style="display: none;">
-          <div class="col-12">
-            <h4>Congratulation, You've claimed this reward successfully.</h4>
+          <p class="mb-4 size-12"><%= reward.description %></p>
+          <div class="row">
+            <div class="col-md-12">
+              <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
+            </div>
           </div>
+          <p class="mb-4 size-12"><%= raw(reward.description_details).html_safe %></p>
         </div>
+        <!-- Modal footer -->
+        <p class="mb-4 size-12"><%= raw(reward.redemption_details).html_safe %></p>
       </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <div class="row">
-          <div class="col-md-12">
-          </div>
-        </div><br>
-      </div>
-
     </div>
   </div>
 </div>
