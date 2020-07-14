@@ -1,0 +1,56 @@
+<div class="modal fade text-left challenge-modal" id="visit_url_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom-0">
+        <% unless @challenge_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+        <% end %>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="challenge-content text-left font-weight-light">
+          <!-- challenge details -->
+          <% unless @challenge_activity.blank? %>
+            <% if challenge.reward_type == "points" %>
+              <h3 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} points!" %></span></h3>
+            <% else %>
+              <h3 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h3>
+            <% end %>
+          <% else %>
+            <% if challenge.reward_type == "points" %>
+              <h3 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} points" %></span> for completing this challenge.</h3>
+            <% else %>
+              <h3 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h3>
+            <% end %>
+          <% end %>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+          <div class="row">
+            <div class="col-md-12">
+              <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge"
+              data-challenge-id="<%= challenge.id %>">Visit URL</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- challenge completion  -->
+        <!-- <div class="row challenge-completion-container" style="display: none;">
+          <div class="col-md-12">
+            <h4>Congratulation, You've completed this challenge successfully.</h4>
+          </div>
+        </div> -->
+      </div>
+
+      <!-- Modal footer -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>

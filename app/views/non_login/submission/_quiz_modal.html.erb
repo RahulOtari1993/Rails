@@ -1,0 +1,97 @@
+<div class="modal fade text-left challenge-modal" id="challenge_quiz_modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom-0">
+        <% unless @challenge_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+        <% end %>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="challenge-content text-left font-weight-light">
+          <!-- challenge details -->
+          <% unless @challenge_activity.blank? %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
+            <% else %>
+              <h4 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
+            <% end %>
+          <% else %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
+            <% else %>
+              <h4 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
+            <% end %>
+          <% end %>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+
+          <% @quiz_submitted = challenge.participant_answers.where(participant_id: current_participant.id).present? %>
+          <% unless @questions.blank? %>
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
+              <% @questions.each_with_index do |question, index| %>
+                <% question_options = question.question_options.order(sequence: :asc) %>
+                <div class="row text-left">
+                  <div class="col-md-12">
+
+                    <div class="form-group extended-form-group">
+                      <% unless question.answer_type == "wysiwyg" %>
+                        <%= label :title, "#{index+1}. #{question.title}" %>
+                        <%= hidden_field_tag "questions[#{question.id}][challenge_id]", challenge.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][question_id]", question.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][correct_option_id]", get_correct_option_id(question) %>
+                      <% end %>
+
+                      <% case question.answer_type %>
+                      <% when 'string' then %>
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@quiz_submitted ? fetch_question_answered_value(question) : ''),
+                                           class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                           placeholder: fetch_placeholder_details(question, 'string'), disabled: @quiz_submitted %>
+                      <% when 'radio_button' then %>
+                        <% question_options.each do |option| %>
+                          <div>
+                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),
+                                                 id: "questions_#{question.id}_answer_#{option.id}",
+                                                 class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                 data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
+                            <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                          </div>
+                        <% end %>
+                        <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                      <% when 'wysiwyg' then %>
+                        <p><%= raw(question_options.first.details).html_safe rescue nil %></p> <!-- Todo -->
+                      <% end %>
+
+                      <% if question.additional_details.present? %>
+                        <p class="additional-details"><%= question.additional_details %></p>
+                      <% end %>
+                    </div>
+
+                  </div>
+                </div><br>
+              <% end %>
+              <% unless @quiz_submitted %>
+                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+
+<style media="screen">
+
+</style>

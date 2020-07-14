@@ -1,0 +1,161 @@
+<div class="modal fade text-left challenge-modal" id="watch_video_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom-0">
+        <% unless @challenge_activity.blank? %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
+        <% else %>
+          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+        <% end %>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="challenge-content font-weight-light">
+          <!-- challenge details -->
+          <% unless @challenge_activity.blank? %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
+            <% else %>
+              <h4 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
+            <% end %>
+          <% else %>
+            <% if challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
+            <% else %>
+              <h4 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
+            <% end %>
+          <% end %>
+          <p class="mb-4 size-12"><%= challenge.caption %></p>
+          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Load the challenge start -->
+                <!-- <iframe id="player" src="https://www.youtube.com/embed/DjB1OvEYMhY?enablejsapi=1"></iframe> -->
+                <div id="player"></div>
+                <div class="progress">
+                  <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="pull-right" id="display"></p>
+              <!-- Load the challenge end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+      // create a element for watch a video start
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+      // create a element for watch a video end
+    })
+
+    // Initialise the iframe  start
+    var player, timer, timeSpent = [], completeWatchPercent, completeWatchStatus;
+    var challengeId = <%= challenge.id %> ;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '260',
+        width: '700',
+        videoId: "<%= get_challenge_video_id(challenge) %>",
+        events: {
+          'onStateChange': onPlayerStateChange
+        }
+      });
+
+      // stop the video playback on close
+      $('#watch_video_modal').on("hidden.bs.modal", function () {
+        player.pauseVideo()
+      })
+    }
+    // Initialise the iframe end
+
+
+    // Iframe Events listeners and record watch video progress start
+    function onPlayerStateChange(event) {
+      if (event.data === 1) { // Started playing
+        if (!timeSpent.length) {
+         for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+        }
+        timer = setInterval(record, 100);
+      } else {
+        clearInterval(timer);
+      }
+    }
+
+    // record watch video progress start
+    function record() {
+      timeSpent[parseInt(player.getCurrentTime())] = true;
+      if (completeWatchStatus == '' || completeWatchStatus == undefined) {
+        completeWatchPercent = showPercentage();
+        if (completeWatchPercent === 100) {
+          completeWatchStatus = true
+          submitChallenge(challengeId)
+          clearInterval(timer)
+        }
+      }
+    }
+
+    // Calculate and Show the percentage
+    function showPercentage() {
+      var percent = 0;
+      for (var i = 0, l = timeSpent.length; i < l; i++) {
+        if (timeSpent[i]) percent++;
+      }
+      percent = Math.round(percent / timeSpent.length * 100);
+
+      $('#display').text(percent + "%");
+      $( ".progress-bar" ).css("width", percent + "%");
+      return percent;
+    }
+    // Iframe Events listeners and record watch video progress end
+
+    // Trigger SWAL Notificaton
+    function swalNotify(title, message) {
+      Swal.fire({
+        title: title,
+        text: message,
+        confirmButtonClass: 'btn btn-primary',
+        buttonsStyling: false
+      }).then(function() {
+        $('.challenge-modal').modal('hide');
+      });
+    }
+
+    // submit Challenge start
+    function submitChallenge(challenge_id) {
+      $.ajax({
+        url: `/participants/challenges/${challengeId}/submission`,
+        type: 'POST',
+        dataType: 'JSON',
+        data: { status: status },
+        success: function (data) {
+          if (data.success) {
+            // Display Challenge Completion Message
+            swalNotify('Challenge Submission', data.message);
+          } else {
+            swalNotify('Challenge Submission', data.message);
+          }
+        }
+      });
+    }
+    // submit Challenge end
+
+</script>
+
+<style media="screen">
+  .progress {
+    height: 4px;
+  }
+</style>
