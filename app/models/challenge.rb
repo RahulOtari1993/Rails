@@ -142,7 +142,18 @@ class Challenge < ApplicationRecord
     if options.has_key?(:type) && options[:type] == 'one'
       ## Include Questions & It's Options in JSON Response
       question_list = questions.as_json(include_options: false)
-      response = response.merge({:questions => question_list})
+
+      if challenge_type == 'collect' && (parameters == 'survey' || parameters == 'quiz')
+        ## Encrypt in URI Format & Pass in URL
+        crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials[Rails.env.to_sym][:encryption_key])
+        encrypted_data = crypt.encrypt_and_sign("#{Participant.current.p_id}#{identifier}")
+        encrypted_data = URI.encode_www_form_component(encrypted_data)
+        challenge_url = "/participants/challenge/submit/#{encrypted_data}"
+      else
+        challenge_url = ''
+      end
+
+      response = response.merge({:questions => question_list, challenge_url: challenge_url})
     elsif options.has_key?(:type) && options[:type] == 'list'
       ## Remove Additional Details from JSON Response
       response.reject! {|k, v| %w"description content tag_list".include? k }
