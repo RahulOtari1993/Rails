@@ -103,11 +103,18 @@ class Reward < ApplicationRecord
     end
   end
 
-  ##for adding status column to datatable json response
-  def as_json(*)
-    super.tap do |hash|
-      hash["status"] = status
+  ## Modify JSON Response
+  def as_json(options = {})
+    response = super.merge({:status => status})
+
+    if options.has_key?(:type) && options[:type] == 'one'
+      ## TODO: DO the needed Changes if required
+    elsif options.has_key?(:type) && options[:type] == 'list'
+      ## Remove Additional Details from JSON Response
+      response.reject! { |k, v| %w"redemption_details description_details terms_conditions description".include? k }
     end
+
+    response
   end
 
   ## Rewards Filters
@@ -194,6 +201,24 @@ class Reward < ApplicationRecord
       result = result_array.include?(true)
     end
 
+    result
+  end
+
+  ## Fetch data of participant required to eligible for milestone reward
+  def fetch_reward_rules_criteria(participant)
+    result = []
+    self.reward_rules.each do |rule|
+      case rule.rule_type
+        when 'challenges_completed' then
+          result << rule.required_challenges_count(participant)
+        when 'number_of_logins' then
+          result << rule.required_login_count(participant)
+        when 'points' then
+          result << rule.fetch_points_required(participant)
+        when 'recruits' then
+          result << rule.required_recruits_count(participant)
+      end
+    end
     result
   end
 

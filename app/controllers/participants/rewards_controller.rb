@@ -5,7 +5,8 @@ class Participants::RewardsController < ApplicationController
 
   ## Fetch Details of reward
   def details
-
+    @reward_activity = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_id: @reward.id, actionable_type: "Reward").first
+    @reward_rules_info = @reward.fetch_reward_rules_criteria(current_participant) if @reward.selection == 'milestone'
   end
 
   ## Claim Reward

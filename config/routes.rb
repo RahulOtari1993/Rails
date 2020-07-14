@@ -13,18 +13,18 @@ Rails.application.routes.draw do
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
-      registrations: 'users/registrations',
-      sessions: 'users/sessions',
-      passwords: 'users/passwords',
-      confirmations: 'users/confirmations',
+        registrations: 'users/registrations',
+        sessions: 'users/sessions',
+        passwords: 'users/passwords',
+        confirmations: 'users/confirmations',
     }
 
     devise_for :participants, controllers: {
-      registrations: 'participants/registrations',
-      sessions: 'participants/sessions',
-      passwords: 'participants/passwords',
-      confirmations: 'participants/confirmations',
-      omniauth_callbacks: "participants/omniauth_callbacks"
+        registrations: 'participants/registrations',
+        sessions: 'participants/sessions',
+        passwords: 'participants/passwords',
+        confirmations: 'participants/confirmations',
+        omniauth_callbacks: "participants/omniauth_callbacks"
     }
 
     devise_scope :participant do
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
-          registrations: 'admin/organizations/invitations',
+            registrations: 'admin/organizations/invitations',
         }
 
         resources :users, only: [:index] do
@@ -133,6 +133,7 @@ Rails.application.routes.draw do
           get :details
           post :submission
           post :quiz_submission
+          post :survey_modal_submission
         end
       end
       resources :rewards, only: [] do
@@ -152,9 +153,55 @@ Rails.application.routes.draw do
     end
 
     ## Root Route
-    root to: "welcome#index"
+    root to: 'welcome#index'
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
+
+    ## API Routes
+    namespace :api, defaults: {format: 'json'} do
+      namespace :v1, defaults: {format: 'json'} do
+        mount_devise_token_auth_for 'Participant', at: 'participants', controllers: {
+            registrations: 'api/v1/override/registrations',
+            sessions: 'api/v1/override/sessions'
+        }
+
+        devise_scope :participant do
+          ## Rewards API Routes
+          resources :rewards, only: [:index, :show] do
+            member do
+              post :claim
+            end
+          end
+
+          ## Challenges API Routes
+          resources :challenges, only: [:index, :show] do
+            member do
+              post :submit
+            end
+            collection do
+              get :connect_challenges
+            end
+          end
+
+          ## Participant Account Routes
+          resources :participant_account, only: [] do
+            collection do
+              get :show
+              put :update
+              post :facebook
+              post :twitter
+              post :disconnect
+              get :email_settings, to: 'participant_account#fetch_email_settings'
+              post :email_settings, to: 'participant_account#update_email_settings'
+              get :feed
+            end
+          end
+
+          ## Campaign Config API Routes
+          resources :campaign_configs, only: [:index]
+        end
+      end
+    end
   end
 end

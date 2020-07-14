@@ -144,12 +144,23 @@ class Challenge < ApplicationRecord
     end
   end
 
-  ## For Adding Status Column to Datatable JSO Response
-  def as_json(*)
-    super.tap do |hash|
-      hash['status'] = status
-      hash['reward_name'] = self.reward_type == 'prize' ? self.reward.name : ''
+  ## Modify JSON Response
+  def as_json(options = {})
+    response = super.merge({
+                               :status => status,
+                               :reward_name => self.reward_type == 'prize' ? self.reward.name : ''
+                           })
+
+    if options.has_key?(:type) && options[:type] == 'one'
+      ## Include Questions & It's Options in JSON Response
+      question_list = questions.as_json(include_options: false)
+      response = response.merge({:questions => question_list})
+    elsif options.has_key?(:type) && options[:type] == 'list'
+      ## Remove Additional Details from JSON Response
+      response.reject! {|k, v| %w"description content tag_list".include? k }
     end
+
+    response
   end
 
   ## Challenge Filter
@@ -258,12 +269,12 @@ class Challenge < ApplicationRecord
 
   ## Returns the Targeted Participants
   def targeted_participants
-    self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select {|x| x.eligible? self }
+    self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select { |x| x.eligible? self }
   end
 
   # Calculate Months For Insight User
   def calculate_months
-    months = Challenge.all.map {|c| [c.start.strftime('%b'),c.finish.strftime('%b')]}
+    months = Challenge.all.map { |c| [c.start.strftime('%b'), c.finish.strftime('%b')] }
     months.flatten.uniq
   end
 

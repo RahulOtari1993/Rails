@@ -6,12 +6,11 @@ class ApplicationController < ActionController::Base
   append_before_action :setup_default_recruit_challenge
 
   include Pundit
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
   helper_method :get_open_graph
 
@@ -101,6 +100,49 @@ class ApplicationController < ActionController::Base
       # We have a signed up and active user so lets process referrals for challenges
       processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
+    end
+  end
+
+  protected
+
+  ## Return Success Response
+  def render_success(code, status, message, data = {})
+    render json: {
+        code: code,
+        status: status,
+        message: message,
+        data: data
+    }, status: code
+  end
+
+  ## Return Error Response
+  def return_error(code, status, message, data = {})
+    render json: {
+        code: code,
+        status: status,
+        message: message,
+        data: data
+    }, status: code
+  end
+
+  ## Check for Latest App Version
+  def validate_app_version
+    if Rails.application.credentials[Rails.env.to_sym][:app_version].to_f > request.headers["app-version"].to_f
+      return_error 500, false, 'Please check your app version.', {}
+    end
+  end
+
+  ## Store Device Details of Participant
+  def store_device_details
+    if params[:token_data].present? && params[:token_data][:token].present?
+      participant_device = ParticipantDeviceToken.where(token: params[:token_data][:token], participant_id: @resource.id).first
+
+      ## Manage User Device Token Details
+      if participant_device.present?
+        participant_device.update_attributes(device_params)
+      else
+        ParticipantDeviceToken.create!(device_params.merge!({participant_id: @resource.id}))
+      end
     end
   end
 end

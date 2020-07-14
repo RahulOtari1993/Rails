@@ -62,8 +62,20 @@
 #  twitter_uid            :string
 #  twitter_token          :string
 #  twitter_secret         :string
+#  country                :string
+#  home_phone             :string
+#  work_phone             :string
+#  job_position           :string
+#  job_company_name       :string
+#  job_industry           :string
+#  email_setting_id       :integer
+#  provider               :string           default("email")
+#  uid                    :string
+#  tokens                 :text
 #
 class Participant < ApplicationRecord
+  include DeviseTokenAuth::Concerns::User
+
   ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable, :trackable,
          :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter],
@@ -82,6 +94,7 @@ class Participant < ApplicationRecord
   has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
   has_many :sweepstake_entries, dependent: :destroy
+  has_many :participant_device_tokens, dependent: :destroy
   belongs_to :email_setting, optional: true
   has_many :participant_profiles, dependent: :destroy
   has_many :participant_answers, dependent: :destroy
@@ -202,7 +215,10 @@ class Participant < ApplicationRecord
     org = Organization.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
-    unless participant.present?
+
+    if participant.present?
+      [Participant.new, 'Sorry! You are not authorised to Login.'] unless participant.active_for_authentication?
+    else
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
 
@@ -240,7 +256,7 @@ class Participant < ApplicationRecord
       participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
       participant
     else
-      Participant.new
+      [Participant.new, 'Connect via Facebook failed.']
     end
   end
 
@@ -250,9 +266,12 @@ class Participant < ApplicationRecord
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
 
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
-    unless participant.present?
+    if participant.present?
+      [Participant.new, 'Sorry! You are not authorised to Login.'] unless participant.active_for_authentication?
+    else
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
+
     refresh_token = auth.credentials.refresh_token.present?
 
     if participant.present?
@@ -288,6 +307,50 @@ class Participant < ApplicationRecord
     if participant.save(:validate => false)
       participant.connect_challenge_completed(user_agent, remote_ip, 'google')
       participant
+    else
+      [Participant.new, 'Connect via Google failed.']
+    end
+  end
+
+  ## Facebook Account Connect
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.facebook_uid = auth.uid
+      participant.facebook_token = auth.credentials.token
+      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
+        participant
+      else
+        Participant.new
+      end
+    else
+      Participant.new
+    end
+  end
+
+  ## Twitter Account Connect
+  def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
+
+    if participant.present?
+      participant.twitter_uid = auth.uid
+      participant.twitter_token = auth.credentials.token
+      participant.twitter_secret = auth.credentials.token
+
+      if participant.save(:validate => false)
+        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
+        participant
+      else
+        Participant.new
+      end
     else
       Participant.new
     end
@@ -493,6 +556,15 @@ class Participant < ApplicationRecord
       connected_platform = [5] # Test value for twitter
       connected_platform << where.not('participants.facebook_uid' => nil).count
       connected_platform << where.not('participants.google_uid' => nil).count
+    end
+
+    ## Age Calculation Based ob Buirth date
+    def calculate_age(birth_date)
+      age = 0
+      birth_year = Date.strptime(birth_date, '%m/%d/%Y').year rescue 0
+      age = Time.zone.now.year - birth_year.to_i if birth_year.to_i > 0
+
+      age
     end
   end
 

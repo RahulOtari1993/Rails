@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_211405) do
+ActiveRecord::Schema.define(version: 2020_07_13_095944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -362,6 +362,20 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
     t.index ["question_option_id"], name: "index_participant_answers_on_question_option_id"
   end
 
+  create_table "participant_device_tokens", force: :cascade do |t|
+    t.integer "participant_id"
+    t.string "os_type"
+    t.string "os_version"
+    t.string "device_id"
+    t.string "token"
+    t.string "token_type"
+    t.string "device_arn"
+    t.string "app_version"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "participant_profiles", force: :cascade do |t|
     t.bigint "participant_id"
     t.bigint "profile_attribute_id"
@@ -439,8 +453,14 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
     t.string "job_company_name"
     t.string "job_industry"
     t.integer "email_setting_id"
+    t.string "provider", default: "email"
+    t.string "uid"
+    t.text "tokens"
+    t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
+    t.index ["email", "organization_id", "campaign_id"], name: "index_participant_email_org_campaign", unique: true
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
+    t.index ["uid", "provider", "organization_id", "campaign_id"], name: "index_participant_uid_provider_org_campaign", unique: true
   end
 
   create_table "profile_attributes", force: :cascade do |t|
@@ -607,20 +627,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
     t.index ["participant_id"], name: "index_submissions_on_participant_id"
   end
 
-  create_table "submitted_answers", force: :cascade do |t|
-    t.bigint "challenge_id"
-    t.bigint "question_id"
-    t.bigint "participant_id"
-    t.bigint "question_option_id"
-    t.string "answer"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_submitted_answers_on_challenge_id"
-    t.index ["participant_id"], name: "index_submitted_answers_on_participant_id"
-    t.index ["question_id"], name: "index_submitted_answers_on_question_id"
-    t.index ["question_option_id"], name: "index_submitted_answers_on_question_option_id"
-  end
-
   create_table "sweepstake_entries", force: :cascade do |t|
     t.bigint "reward_id"
     t.bigint "participant_id"
@@ -718,10 +724,6 @@ ActiveRecord::Schema.define(version: 2020_07_08_211405) do
   add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
   add_foreign_key "submissions", "campaigns"
-  add_foreign_key "submitted_answers", "challenges"
-  add_foreign_key "submitted_answers", "participants"
-  add_foreign_key "submitted_answers", "question_options"
-  add_foreign_key "submitted_answers", "questions"
   add_foreign_key "sweepstake_entries", "participants"
   add_foreign_key "sweepstake_entries", "rewards"
   add_foreign_key "taggings", "tags"
