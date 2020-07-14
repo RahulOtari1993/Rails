@@ -1,4 +1,5 @@
 class Participants::SubmissionsController < ApplicationController
+  layout 'non_login_submission'
 
   ## Used for Non Logged In Users to Submit Challenges
   def load_details
@@ -13,8 +14,8 @@ class Participants::SubmissionsController < ApplicationController
       participant_id = identifier[0, 12]
       challenge_id  = identifier[12, 24]
 
-      participant = Participant.where(p_id: participant_id.to_s).first
-      challenge = Challenge.where(identifier: challenge_id.to_s).first
+      @participant = Participant.where(p_id: participant_id.to_s).first
+      @challenge = Challenge.where(identifier: challenge_id.to_s).first
     end
   end
 end

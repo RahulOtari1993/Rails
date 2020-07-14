@@ -1,0 +1,226 @@
+
+.end-user-details-modal .modal-dialog {
+  max-width: 620px;
+}
+
+.end-user-details-modal .modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
+  position: absolute;
+  z-index: 555;
+  top: 22px;
+  right: 26px;
+  border: none;
+}
+
+.modal_box {
+  border: 2px solid #ccc;
+  padding: 40px;
+  border-radius: 12px;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal_box a {
+  color: #1bb0ce;
+}
+
+.modal_box h5 {
+  font-size: 16px;
+  font-weight: 900;
+  margin-bottom: 17px;
+  color: #202020;
+}
+
+.modal_box .connect-social-icon {
+  float: left;
+  line-height: 24px;
+}
+
+.modal_box .form-control {
+  margin-bottom: 13px;
+}
+
+.modal-header .close {
+  outline: none;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.box1_btn {
+  font-weight: 900;
+  font-size: 15px;
+  border-radius: 22px;
+  padding: 7px 23px;
+  margin-bottom: 17px;
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.facebook_btn {
+  background-color: #4060B2 !important;
+  color: #f2f2f2 !important;
+}
+
+.google_btn {
+  background-color: #000 !important;
+  color: #f2f2f2 !important;
+}
+
+.twitter_btn {
+  background-color: #00acee !important;
+  color: #f2f2f2 !important;
+}
+
+.email_btn {
+  background-color: #fff !important;
+  border: 2px solid #000 !important;
+  color: #000 !important;
+}
+
+span.error {
+  color: red;
+  float: left;
+  font-size: 13px;
+}
+
+.custom-error-class {
+  margin-top: -10px;
+}
+
+.box2 .form-control, .box3 .form-control {
+  font-size: 16px;
+  min-height: 47px;
+  padding: 6px 16px;
+  border: 1px solid #818a91;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 100;
+  color: #707070;
+}
+
+.box2 .form-control:focus, .box3 .form-control:focus {
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1);
+  outline: 0;
+  border-color: #3d3d3d;
+}
+
+.error {
+  color: #EA5455 !important;
+  font-size: 0.875rem !important;
+}
+
+.terms-details {
+  color: #707070;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.red-color-span {
+  color: #ff0000;
+}
+
+.box3 {
+  text-align: left;
+}
+
+.Zipcode_text {
+  font-size: 12px;
+  font-weight: 100;
+  margin-bottom: 0px;
+  margin-top: -8px;
+}
+
+.box3 label {
+  display: inline-block;
+  margin-bottom: .7rem;
+  color: #707070;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.box3 .checkbox-inline {
+  color: inherit;
+  font-weight: 100;
+  padding-right: 10px;
+}
+
+.extended-form-group {
+  position: relative;
+}
+
+.additional-details {
+  color: #707070;
+  font-size: 12px;
+  margin-left: 5px !important;
+}
+
+.bottom-margin {
+  margin-bottom: 5px !important;
+}
+
+/* Generic style and custom classes */
+.size-10 {
+  font-size: 10px !important;
+}
+
+.size-12 {
+  font-size: 12px !important;
+}
+
+.size-14 {
+  font-size: 14px !important;
+}
+
+.m-b-14 {
+  margin-bottom: 14px !important;
+}
+
+.font-color-1 {
+  color: #bb0000;
+}
+
+.section-bg-color-1 {
+  background-color: #FAFAFA;
+}
+
+/* New Challenge Popup Design Start */
+.challenge-modal.modal {
+  background-color: #000;
+}
+.challenge-modal .modal-dialog {
+  max-width: 736px;
+}
+.challenge-modal .modal-content {
+  border-radius: 14px;
+}
+.challenge-content {
+  color: #444;
+}
+.challenge-content h4 {
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  color: #202020;
+  font-size: 1.3rem;
+}
+.challenge-content p {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+.challenge-content ul {
+  margin-left: 15px;
+}
+.time_class {
+  color: #B7B4B4;
+  font-family: "proxima-nova", Sans-serif;
+}
+.time_class .fa-clock-o, .time_class .fa-check-circle {
+  font-size: 20px;
+  color: #202020;
+}
+/* New Challenge Popup Design End */
