@@ -59,30 +59,26 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
 
 
   def reward_export
-    #grab the reward
     @reward = Reward.find(params[:reward_id])
-    #generate the csv of the results
+
+    ## Generate the csv of the results
     results = CSV.generate do |csv|
       #generate the header
-      csv << [
-          "first_name",
-          "family_name",
-          "email",
-          "earned_date"
-      ]
+      csv << %w[first_name last_name email earned_date]
 
-      #set the results
-      @reward.reward_participants.each do |user_reward|
+      ## Set the Results
+      @reward.reward_participants.each do |participant_reward|
+        participant = participant_reward.participant
         csv << [
-            user_reward.user.first_name,
-            user_reward.user.full_name,
-            user_reward.user.email,
-            user_reward.created_at
+            participant.first_name,
+            participant.last_name,
+            participant.email,
+            participant_reward.created_at
         ]
       end
     end
 
-    #send down the results to the user
+    ## Send CSV File (Download)
     return send_data results, type: "text/csv; charset=utf-8; header=present", disposition: "attachment; filename=contacts.csv", filename: "contacts.csv"
   end
 
@@ -203,7 +199,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       return_params
     end
 
-    ## Build Nested Attributes Params for User Segments
+  ## Build Nested Attributes Params for User Segments
     def build_params
       @available_segments = []
       @available_rules = []
@@ -251,7 +247,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       end
     end
 
-    ## Coupon Params
+  ## Coupon Params
     def coupon_params
       params.require(:coupon).permit!
     end
@@ -265,7 +261,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       columns[params[:order]['0'][:column].to_i - 1]
     end
 
-    ## Assign/Remove Tags to a Challenge
+  ## Assign/Remove Tags to a Challenge
     def tags_association
       tags = params[:reward][:tags].reject { |c| c.empty? } if params[:reward].has_key?('tags')
       removed_tags = @reward.tag_list - tags
@@ -274,7 +270,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       @reward.tag_list.add(tags.join(', '), parse: true) if tags.present?
     end
 
-    ## Set reward
+  ## Set reward
     def set_reward
       @reward = @campaign.rewards.find_by(:id => params[:id]) rescue nil
     end

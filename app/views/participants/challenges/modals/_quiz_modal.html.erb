@@ -39,7 +39,6 @@
                 <% question_options = question.question_options.order(sequence: :asc) %>
                 <div class="row text-left">
                   <div class="col-md-12">
-
                     <div class="form-group extended-form-group">
                       <% unless question.answer_type == "wysiwyg" %>
                         <%= label :title, "#{index+1}. #{question.title}" %>
@@ -60,24 +59,26 @@
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
-                            <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                            <label class="radio-label" for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                           </div>
                         <% end %>
                         <div class="custom-error-class radio-button-error-<%= index %>"></div>
                       <% when 'wysiwyg' then %>
+                        <% if question_options.first.details.present? %>
                         <p><%= raw(question_options.first.details).html_safe rescue nil %></p> <!-- Todo -->
+                        <% end %>
                       <% end %>
 
                       <% if question.additional_details.present? %>
                         <p class="additional-details"><%= question.additional_details %></p>
                       <% end %>
                     </div>
-
                   </div>
-                </div><br>
+                </div>
               <% end %>
+
               <% unless @quiz_submitted %>
-                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %><br>
               <% end %>
             <% end %>
           <% end %>
@@ -89,9 +90,10 @@
 </div>
 
 <script type="text/javascript">
-
 </script>
 
 <style media="screen">
-
+  .challenge-content {
+    border: 2px solid #ccc;
+  }
 </style>

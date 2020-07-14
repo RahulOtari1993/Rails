@@ -13,6 +13,13 @@ module Participants::RewardsHelper
     end
   end
 
+  def get_coupon_code(reward)
+    reward_participant = reward.reward_participants.first
+    coupon = reward.coupons.where(reward_participant_id: reward_participant.id).first
+    coupon_code = coupon.present? ? coupon.code : "      "
+    coupon_code
+  end
+
   ## Calculate Current Logged in User's Sweepstake Entries
   def fetch_sweepstake_entries(reward)
     total_earned_points = current_participant.participant_actions.where(created_at: reward.start..reward.finish).pluck(:points).compact.sum

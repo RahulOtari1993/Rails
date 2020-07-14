@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
+<%#= javascript_include_tag 'campaign_admin/reward', 'data-turbolinks-track' => 'reload' %>
 <%= stylesheet_link_tag 'campaign_admin/rewards', 'data-turbolinks-track' => 'reload' %>
 
 <style type="text/css">
@@ -30,7 +30,7 @@
           <div class="col-md-12 col-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="text-center card-title">Create Reward</h4>
+                <h4 class="text-center card-title"><%= @reward.new_record? ? 'Create' : 'Edit' %> Reward</h4>
               </div>
               <div class="card-content container col-md-9 col-9 border_reward" style="margin-top:20px">
                 <% if @reward.new_record? %>
