@@ -12,10 +12,12 @@ class Participants::SubmissionsController < ApplicationController
 
       identifier = crypt.decrypt_and_verify(params[:identifier])
       participant_id = identifier[0, 12]
-      challenge_id  = identifier[12, 24]
+      challenge_id = identifier[12, 24]
 
       @participant = Participant.where(p_id: participant_id.to_s).first
       @challenge = Challenge.where(identifier: challenge_id.to_s).first
+      @challenge_activity = @campaign.participant_actions
+                                .where(participant_id: @participant.id, actionable_id: @challenge.id, actionable_type: "Challenge").first
     end
   end
 end
