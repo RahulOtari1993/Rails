@@ -65,10 +65,20 @@
     var challengeId = <%= challenge.id %> ;
 
     function onYouTubeIframeAPIReady() {
+      var width = $('.challenge-submission-modal').width();
+      var height = 260;
+
+      if (width > 620) {
+        width = 620 + 125
+      }
+      if (width < 620) {
+        height = 180
+      }
+
       player = new YT.Player('player', {
-        height: '260',
-        width: '620',
-        videoId: "<%= get_challenge_video_id(challenge) %>",
+        height: height,
+        width: parseInt(width) - 125,
+        videoId: "<%= get_challenge_video_id(@challenge) %>",
         events: {
           'onStateChange': onPlayerStateChange
         }
@@ -80,7 +90,6 @@
       })
     }
     // Initialise the iframe end
-
 
     // Iframe Events listeners and record watch video progress start
     function onPlayerStateChange(event) {
