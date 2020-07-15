@@ -34,7 +34,7 @@ class Participants::SubmissionsController < ApplicationController
     @participant = Participant.where(p_id: participant_id.to_s).first
     @challenge = Challenge.where(identifier: challenge_id.to_s).first
 
-    if @challenge.present?
+    if @challenge.present? && @participant.present?
       if @challenge.challenge_type == 'collect' && (@challenge.parameters == 'quiz')
         quiz_submission
 

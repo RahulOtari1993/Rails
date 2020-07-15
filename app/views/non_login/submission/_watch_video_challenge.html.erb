@@ -100,7 +100,7 @@
       completeWatchPercent = showPercentage();
       if (completeWatchPercent === 100) {
         completeWatchStatus = true
-        submitChallenge(challengeId)
+        submitChallenge()
         clearInterval(timer)
       }
     }
@@ -134,12 +134,13 @@
   }
 
   // submit Challenge start
-  function submitChallenge(challenge_id) {
+  function submitChallenge() {
+    var identifier = '<%= @identifier %>';
     $.ajax({
-      url: `/participants/challenges/${challengeId}/submission`,
+      url: `/participants/submissions/challenge`,
       type: 'POST',
       dataType: 'JSON',
-      data: {status: status},
+      data: {status: status, identifier: identifier},
       success: function (data) {
         if (data.success) {
           // Display Challenge Completion Message
