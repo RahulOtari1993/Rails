@@ -7,11 +7,11 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-var userText = $("#copy-to-clipboard-input");
-var btnCopy = $("#btn-copy");
+var userText = $(".copy-to-clipboard-input");
+var btnCopy = $(".copy-btn");
 
 // copy text on click
 btnCopy.on("click", function () {
-  userText.select();
+  $(this).siblings(userText).select();
   document.execCommand("copy");
 })

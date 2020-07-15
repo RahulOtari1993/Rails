@@ -56,6 +56,48 @@ ActiveRecord::Schema.define(version: 2020_07_13_095944) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "ahoy_events", force: :cascade do |t|
+    t.bigint "visit_id"
+    t.bigint "user_id"
+    t.string "name"
+    t.jsonb "properties"
+    t.datetime "time"
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
+    t.index ["properties"], name: "index_ahoy_events_on_properties", opclass: :jsonb_path_ops, using: :gin
+    t.index ["user_id"], name: "index_ahoy_events_on_user_id"
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string "visit_token"
+    t.string "visitor_token"
+    t.bigint "user_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.text "landing_page"
+    t.string "browser"
+    t.string "os"
+    t.string "device_type"
+    t.string "country"
+    t.string "region"
+    t.string "city"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_campaign"
+    t.string "app_version"
+    t.string "os_version"
+    t.string "platform"
+    t.datetime "started_at"
+    t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
   create_table "campaign_configs", force: :cascade do |t|
     t.bigint "campaign_id"
     t.string "facebook_app_id"
@@ -298,6 +340,7 @@ ActiveRecord::Schema.define(version: 2020_07_13_095944) do
     t.datetime "updated_at", null: false
     t.string "coupon"
     t.bigint "campaign_id"
+    t.integer "referred_participant_id"
     t.index ["campaign_id"], name: "index_participant_actions_on_campaign_id"
     t.index ["participant_id"], name: "index_participant_actions_on_participant_id"
   end
@@ -457,6 +500,18 @@ ActiveRecord::Schema.define(version: 2020_07_13_095944) do
     t.index ["challenge_id"], name: "index_questions_on_challenge_id"
   end
 
+  create_table "referral_codes", force: :cascade do |t|
+    t.integer "participant_id"
+    t.integer "challenge_id"
+    t.string "code"
+    t.string "short_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_referral_codes_on_challenge_id"
+    t.index ["code"], name: "index_referral_codes_on_code", unique: true
+    t.index ["participant_id"], name: "index_referral_codes_on_participant_id"
+  end
+
   create_table "reward_filters", force: :cascade do |t|
     t.bigint "reward_id"
     t.string "reward_condition"
@@ -522,6 +577,41 @@ ActiveRecord::Schema.define(version: 2020_07_13_095944) do
     t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
+  end
+
+  create_table "shortened_urls", id: :serial, force: :cascade do |t|
+    t.integer "owner_id"
+    t.string "owner_type", limit: 20
+    t.text "url", null: false
+    t.string "unique_key", limit: 10, null: false
+    t.string "category"
+    t.integer "use_count", default: 0, null: false
+    t.datetime "expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["category"], name: "index_shortened_urls_on_category"
+    t.index ["owner_id", "owner_type"], name: "index_shortened_urls_on_owner_id_and_owner_type"
+    t.index ["unique_key"], name: "index_shortened_urls_on_unique_key", unique: true
+    t.index ["url"], name: "index_shortened_urls_on_url"
+  end
+
+  create_table "social_share_visits", force: :cascade do |t|
+    t.integer "referral_code_id"
+    t.string "referral_code_str"
+    t.integer "participant_id"
+    t.integer "shareable_id"
+    t.string "shareable_type"
+    t.text "referrer_url"
+    t.text "useragent"
+    t.string "ipaddress", limit: 255
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_term"
+    t.string "utm_content"
+    t.string "utm_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "ahoy_visit_id"
   end
 
   create_table "submissions", force: :cascade do |t|

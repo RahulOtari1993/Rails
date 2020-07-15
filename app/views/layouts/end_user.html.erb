@@ -11,8 +11,20 @@
       <title>The Ohio State University</title>
     <% end %>
 
+    <% if @og %>
+    <meta property="fb:app_id" content="<%= @og.fb_app_id %>" />
+    <meta property="og:site_name" content="<%= @og.site_name %>" />
+    <meta property="og:title" content="<%= @og.title %>" />
+    <meta property="og:type" content="<%= @og.content_type %>" />
+    <meta property="og:image" content="<%= @og.image %>" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content="<%= @og.url %>">
+    <meta property="og:description" content="<%= @og.description %>" />
+    <% end %>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.typekit.net/wez6qgv.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
