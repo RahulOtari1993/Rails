@@ -3,86 +3,79 @@
     <div class="row">
       <div class="col-12 offset-lg-2 col-lg-8">
         <div class="box3">
-          <h4 class="text-center">Nice! You just earned <span style=" color: #ff0000; ">{SignUpPoints} Points</span>.
-            Now lets personalize your content. </h4>
-          <h4 class="text-center">Earn a bonus <span style=" color: #ff0000; ">{ProfilePrefPoints} Points</span>. now
-            by completing your profile: </h4>
-          <form>
-            <div class="form-group">
-              <label for="Phone Number">Phone Number</label>
-              <input type="text" class="form-control" id="Phone Number" placeholder="Phone Number*" required="required">
-            </div>
+          <% unless @challenge_activity.blank? %>
+            <% if @challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">You Earned <span><%= "#{@challenge.points.to_i} points!" %></span></h4>
+            <% else %>
+              <h4 class="text-center mb-3">You Earned
+                <span style="text-decoration: underline;"><%= "#{@challenge.reward.name}!" %></span></h4>
+            <% end %>
+          <% else %>
+            <% if @challenge.reward_type == "points" %>
+              <h4 class="text-center mb-3">Earn <span><%= "#{@challenge.points.to_i} points" %></span> for completing
+                this challenge.</h4>
+            <% else %>
+              <h4 class="text-center mb-3">Earn
+                <span style="text-decoration: underline;"><%= @challenge.reward.name %></span> for completing this
+                challenge.</h4>
+            <% end %>
+          <% end %>
 
-            <div class="form-group">
-              <label for="name">How are you tied to Ohio State University? (affiliation)</label>
-              <div>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="inlineCheckbox1" value="option1"> Option1
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="inlineCheckbox2" value="option2"> Option2
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="inlineCheckbox2" value="option3"> Option3
-                </label>
-                <label class="checkbox-inline">
-                  <input type="checkbox" id="inlineCheckbox2" value="option4"> Option4
-                </label>
-              </div>
-            </div>
+          <p class="mb-4 size-12"><%= @challenge.caption %></p>
+          <p class="size-12"><%= raw(@challenge.description).html_safe %></p>
 
-            <div class="form-group">
-              <label for="name">Radio button sample</label>
-              <div>
-                <label class="radio-inline">
-                  <input type="radio" id="inlineCheckbox1" value="option"> Option1
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" id="inlineCheckbox2" value="option"> Option2
-                </label>
-                <label class="radio-inline">
-                  <input type="radio" id="inlineCheckbox2" value="option"> Option3
-                </label>
+          <% @quiz_submitted = @challenge.participant_answers.where(participant_id: @participant.id).present? %>
+          <% unless @questions.blank? %>
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: @participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
+              <% @questions.each_with_index do |question, index| %>
+                <% question_options = question.question_options.order(sequence: :asc) %>
+                <div class="row text-left">
+                  <div class="col-md-12">
+                    <div class="form-group extended-form-group">
+                      <% unless question.answer_type == "wysiwyg" %>
+                        <%= label :title, "#{index+1}. #{question.title}" %>
+                        <%= hidden_field_tag "questions[#{question.id}][challenge_id]", @challenge.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][question_id]", question.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][correct_option_id]", get_correct_option_id(question) %>
+                      <% end %>
 
-              </div>
-            </div>
+                      <% case question.answer_type %>
+                      <% when 'string' then %>
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@quiz_submitted ? fetch_question_answered_value(question) : ''),
+                                           class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                           placeholder: fetch_placeholder_details(question, 'string'), disabled: @quiz_submitted %>
+                      <% when 'radio_button' then %>
+                        <% question_options.each do |option| %>
+                          <div>
+                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),
+                                                 id: "questions_#{question.id}_answer_#{option.id}",
+                                                 class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                 data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
+                            <label class="radio-label" for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                          </div>
+                        <% end %>
+                        <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                      <% when 'wysiwyg' then %>
+                        <% if question_options.first.details.present? %>
+                          <p><%= raw(question_options.first.details).html_safe rescue nil %></p> <!-- Todo -->
+                        <% end %>
+                      <% end %>
 
-            <div class="form-group">
-              <label for="Your Zip">What is your Zipcode?</label>
-              <input type="text" class="form-control" id="Your Zip" placeholder="Your Zip">
-              <!-- <p class="Zipcode_text">We send you localized content and rewards.</p> -->
-            </div>
+                      <% if question.additional_details.present? %>
+                        <p class="additional-details"><%= question.additional_details %></p>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
 
-            <div class="form-group">
-              <label for="Gender">Gender</label>
-              <select id="Gender" class="form-control">
-                <option selected="">Male</option>
-                <option>Female</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label for="Birthday">Birthday</label>
-              <input type="date" class="form-control" id="Birthday" placeholder="Select Your Birthday">
-            </div>
-
-            <div class="form-group">
-              <label for="Custom Question">Custom Question</label>
-              <input type="text" class="form-control" id="Custom Question" placeholder="Custom Answer">
-            </div>
-
-            <button type="button" class="btn box1_btn btn-block"> Complete Signup</button>
-            <p class="box1_para text-center">By continuing, I agree to the
-              <span style="text-decoration: underline;"><a href="#">privacy policy</a></span>,
-              <span style="text-decoration: underline;"><a href="#">rules</a></span> and
-              <span style="text-decoration: underline;"><a href="#">terms</a></span>&nbsp;of this program.&nbsp;</p>
-          </form>
-
+              <% unless @quiz_submitted %>
+                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %><br>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-

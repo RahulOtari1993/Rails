@@ -18,6 +18,7 @@ class Participants::SubmissionsController < ApplicationController
       @challenge = Challenge.where(identifier: challenge_id.to_s).first
       @challenge_activity = @campaign.participant_actions
                                 .where(participant_id: @participant.id, actionable_id: @challenge.id, actionable_type: "Challenge").first
+      @questions = @challenge.questions.order(sequence: :asc)
     end
   end
 end
