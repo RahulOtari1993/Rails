@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   require 'constraints/subdomain_not_required'
   require 'constraints/subdomain_required'
 
-  get '/:id' => "shortener/shortened_urls#show"
-  
   ## Routes for Admin Users
   constraints(Constraints::SubdomainNotRequired) do
     devise_for :admin_users, ActiveAdmin::Devise.config
