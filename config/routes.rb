@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         sessions: 'users/sessions',
         passwords: 'users/passwords',
         confirmations: 'users/confirmations',
+        omniauth_callbacks: "admin/campaigns/omniauth_callbacks"
     }
 
     devise_for :participants, controllers: {
@@ -29,6 +30,10 @@ Rails.application.routes.draw do
       get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
       get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
       get "participants/auth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
+    end
+
+    devise_scope :user do
+      get "users/auth/facebook/setup" => "admin/campaigns/omniauth_callbacks#setup"
     end
 
     namespace :admin do
@@ -96,7 +101,7 @@ Rails.application.routes.draw do
           resources :networks do
             collection do
               get :connect_facebook
-              get '/auth/facebook/callback', to: 'networks#facebook_callback'
+              get '/facebook/callback', to: 'networks#facebook_callback'
             end
           end
 

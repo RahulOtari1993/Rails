@@ -34,7 +34,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable, :omniauthable, :validatable and :database_authenticatable_for_admin
 
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable,
+         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook],
          :authentication_keys => [:email, :organization_id, :role]
 
   ## ENUM
@@ -138,4 +138,30 @@ class User < ApplicationRecord
       CampaignUser.joins(:campaign).where(campaigns: {organization_id: organization.id, is_active: true},
                                           campaign_users: {user_id: self.id}).where.not(campaign_users: {role: 0})
   end
+
+
+  ## Facebook Account Connect for Campaign user
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', u_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    # user = User.where(organization_id: org.id, campaign_id: camp.id, id: u_id).first
+
+    Rails.logger.info "*********** Save Token *************"
+    Rails.logger.info "*********** Response: #{auth} *************"
+    Rails.logger.info "*********** Parameters: #{params} *************"
+
+    if org.present? && camp.present?
+      ## Save the token response and user info details
+      network = campaing.networks.new(platform: auth.provider, auth_token: auth.credentials.token, username: auth.info.name)
+      Rails.logger.info "******* Network:  #{network} ************"
+      if false
+        network
+      else
+        Network.new
+      end
+    else
+      Network.new
+    end
+  end
+
 end
