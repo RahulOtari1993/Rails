@@ -6,15 +6,9 @@
 
 //= require libraries/core/libraries/bootstrap.min
 //= require libraries/jquery.bxslider.min.js
+//= require moment
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require vendors/extensions/sweetalert2.all.min
-
-//= require vendors/tables/datatable/datatables.min
-//= require vendors/tables/datatable/datatables.bootstrap4.min
-
-//= require moment
 //= require ../end_user/libraries/bootstrap-datetimepicker.min
-//= require ../main
-// require ../end_user/script
-// require ../participant
+//= require ../end_user/script

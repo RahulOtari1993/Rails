@@ -110,11 +110,11 @@ $(document).on('turbolinks:load', function () {
   }
 
   // Custom Validation of Onboarding Questions - START
-  $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required');
+  $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required.');
 
-  $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals');
+  $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals.');
 
-  $.validator.addMethod('numberRequired', $.validator.methods.digits, 'This field accepts only numbers');
+  $.validator.addMethod('numberRequired', $.validator.methods.digits, 'This field accepts only numbers.');
 
   $.validator.addClassRules({
     'answer-string-required': {
@@ -154,18 +154,35 @@ $(document).on('turbolinks:load', function () {
     }
   })
 
-  $('.answer-radio-button-required').each(function () {
-    $(this).rules('add', {
-      required: true
-    });
+  $('.challenge-quiz-modal-form').validate({
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).html(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
   });
 
-  $('.answer-check-box-required').each(function () {
-    $(this).rules('add', {
-      required: true
+  if ($('.answer-radio-button-required').length > 0) {
+    console.log("In Radio")
+    $('.answer-radio-button-required').each(function () {
+      $(this).rules('add', {
+        required: true
+      });
     });
-  });
+  }
 
+  if ($('.answer-check-box-required').length > 0) {
+    console.log("In Checkbox")
+    $('.answer-check-box-required').each(function () {
+      $(this).rules('add', {
+        required: true
+      });
+    });
+  }
   // Custom Validation of Onboarding Questions - END
 
   // Open Reward Claim Modal Popup

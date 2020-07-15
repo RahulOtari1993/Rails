@@ -744,3 +744,8 @@ create_lib.css, line no-218
 .box3 .radio-label {
   font-weight: normal !important;
 }
+
+.error {
+  color: #EA5455 !important;
+  font-size: 0.875rem !important;
+}
