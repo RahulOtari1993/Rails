@@ -43,13 +43,13 @@
 
                       <% case question.answer_type %>
                       <% when 'string' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", (@quiz_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@quiz_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                            class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                            placeholder: fetch_placeholder_details(question, 'string'), disabled: @quiz_submitted %>
                       <% when 'radio_button' then %>
                         <% question_options.each do |option| %>
                           <div>
-                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),
+                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
@@ -72,7 +72,7 @@
               <% end %>
 
               <% unless @quiz_submitted %>
-                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %><br>
+                <%= f.submit "Submit", class: 'btn box1_btn btn-block pull-right' %><br>
               <% end %>
             <% end %>
           <% end %>

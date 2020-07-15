@@ -104,11 +104,12 @@ module EndUserHelper
     option_id
   end
 
-  def fetch_question_answered_value(question, option_id = nil)
+  def fetch_question_answered_value(question, option_id = nil, participant = nil)
+    participant = participant.present? ? participant : current_participant
     if question.answer_type == "string"
-      result = @challenge.participant_answers.where(participant_id: current_participant.id, question_id: question.id).first.answer rescue nil #Todo
+      result = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.answer rescue nil #Todo
     else
-      selected_option_id = @challenge.participant_answers.where(participant_id: current_participant.id, question_id: question.id).first.try(:question_option_id)
+      selected_option_id = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.try(:question_option_id)
       result = (option_id == selected_option_id)
     end
     result

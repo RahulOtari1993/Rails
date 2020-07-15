@@ -24,7 +24,7 @@ class Participants::SubmissionsController < ApplicationController
   end
 
   ## Submit Challenges Without Login
-  def submit
+  def challenge
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials[Rails.env.to_sym][:encryption_key])
     identifier = crypt.decrypt_and_verify(params[:identifier])
     participant_id = identifier[0, 12]
@@ -48,7 +48,6 @@ class Participants::SubmissionsController < ApplicationController
       if status
         @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: @participant.id,
                                        challenge_id: @challenge.id).first_or_initialize
-
         if @submission.new_record?
           @submission.user_agent = request.user_agent
           @submission.ip_address = request.ip
@@ -108,7 +107,7 @@ class Participants::SubmissionsController < ApplicationController
         ## build hashes having single answer
         temp_hash = participant_answer_hash.as_json
         result = (participant_answer_hash[:answer].strip.downcase == option.answer.downcase)
-        temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id, result: result)
+        temp_hash.merge!(campaign_id: @campaign.id, participant_id: @participant.id, result: result)
         temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
         participant_answer_params << temp_hash
       elsif question.answer_type == "radio_button" && participant_answer_hash[:question_option_id].present?
@@ -117,7 +116,7 @@ class Participants::SubmissionsController < ApplicationController
           temp_hash = participant_answer_hash.as_json
           temp_hash[:question_option_id] = option_id
           result = (temp_hash[:question_option_id].to_i == option.id)
-          temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id, result: result)
+          temp_hash.merge!(campaign_id: @campaign.id, participant_id: @participant.id, result: result)
           temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
           participant_answer_params << temp_hash
         end
