@@ -84,13 +84,14 @@ class ApplicationController < ActionController::Base
 
   # this method handles recruit and share URLs
   def handle_shares
+    if session[:pending_refids].blank?
+      session[:pending_refids] = []
+    end
 
     share_service = ShareService.new
     if params[:refid]
       social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
-      if session[:pending_refids].blank?
-        session[:pending_refids] = []
-      end
+      
       if !session[:pending_refids].include?(params[:refid])
         session[:pending_refids].push(params[:refid])
       end
