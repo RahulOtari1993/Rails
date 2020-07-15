@@ -55,6 +55,12 @@ class Campaign < ApplicationRecord
   after_create :create_configs
   after_create :create_profile_attributes
   after_create :create_email_settings
+  before_save  :downcase_fields
+
+  ## Downcase Domain Name before Saving into Database
+  def downcase_fields
+    self.domain.downcase!
+  end
 
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true

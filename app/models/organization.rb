@@ -57,4 +57,12 @@ class Organization < ApplicationRecord
   ## Scope
   default_scope { where(is_deleted: false) }
   scope :active, -> { where(is_active: true) }
+
+  ## Callbacks
+  before_save  :downcase_fields
+
+  ## Downcase Domain Name before Saving into Database
+  def downcase_fields
+    self.sub_domain.downcase!
+  end
 end

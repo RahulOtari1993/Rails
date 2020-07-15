@@ -88,6 +88,7 @@ class Participant < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
+  has_many :referral_codes
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
@@ -115,6 +116,9 @@ class Participant < ApplicationRecord
   ## Tags
   acts_as_taggable_on :tags
 
+  ## Shortened URL ownership
+  has_shortened_urls
+  
   ## Scopes
   scope :active, -> { where(arel_table[:status].eq(1)) }
 

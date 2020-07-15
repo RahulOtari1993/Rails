@@ -14,6 +14,7 @@
 //= require vendors/tables/datatable/datatables.bootstrap4.min
 
 //= require moment
+//= require ahoy
 //= require ../end_user/libraries/bootstrap-datetimepicker.min
 //= require ../main
 //= require ../end_user/script

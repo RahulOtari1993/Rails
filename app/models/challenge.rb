@@ -57,6 +57,7 @@ class Challenge < ApplicationRecord
   has_many :participants, through: :submissions
   has_many :questions, dependent: :destroy
   belongs_to :reward, optional: true
+  has_many :participant_actions, as: :actionable
   has_many :participant_answers, dependent: :destroy
   # attr_accessor :status
 
@@ -94,12 +95,27 @@ class Challenge < ApplicationRecord
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
   scope :current_active, -> { where("is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
 
+  scope :referral_default_challenge, -> { where(challenge_type: 'referral').where(parameters: :custom).where(is_approved: true) }
+  scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
+
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
             :caption, presence: true
   validate :reward_existence
-
   validates_uniqueness_of :identifier, message: "already exists"
+
+  # Get UTM params for this challenge
+  def utm_parameters platform=nil
+    #set the values
+    utm_source = self.id.to_s(36) rescue "unknown"
+    utm_medium = platform rescue "unknown"
+    utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
+    return {
+      utm_source:   utm_source,
+      utm_medium:   utm_medium,
+      utm_campaign: utm_campaign
+    }
+  end
 
   ## Check Whether Proper Inputs provided for Reward Type
   def reward_existence

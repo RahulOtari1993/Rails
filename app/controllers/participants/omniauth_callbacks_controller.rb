@@ -92,7 +92,10 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
-  ## Setup OAuth Details for Google
+  def callback_url
+    "#{request.protocol}#{request.host}/participants/auth/facebook/callback"
+  end
+
   def google_oauth2_setup
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
