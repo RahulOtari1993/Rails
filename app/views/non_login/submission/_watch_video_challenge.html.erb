@@ -115,11 +115,9 @@
     percent = Math.round(percent / timeSpent.length * 100);
 
     $('#display').text(percent + "%");
-    $(".progress-bar").css("width", percent + "%");
+    $('.progress-bar').css("width", percent + "%");
     return percent;
   }
-
-  // Iframe Events listeners and record watch video progress end
 
   // Trigger SWAL Notificaton
   function swalNotify(title, message) {
@@ -136,11 +134,12 @@
   // submit Challenge start
   function submitChallenge() {
     var identifier = '<%= @identifier %>';
+
     $.ajax({
       url: `/participants/submissions/challenge`,
       type: 'POST',
       dataType: 'JSON',
-      data: {status: status, identifier: identifier},
+      data: {identifier: identifier},
       success: function (data) {
         if (data.success) {
           // Display Challenge Completion Message
@@ -151,9 +150,6 @@
       }
     });
   }
-
-  // submit Challenge end
-
 </script>
 
 <style media="screen">
