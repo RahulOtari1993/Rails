@@ -1,7 +1,9 @@
 <% if @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz' %>
   <%= render 'non_login/submission/quiz_challenge' %>
-<% elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz' %>
+<% elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'survey' %>
   <%= render 'non_login/submission/survey_modal' %>
+<% elsif @challenge.challenge_type == 'video' && @challenge.parameters == 'youtube' %>
+  <%= render 'non_login/submission/watch_video_challenge' %>
 <% else %>
   <h1><%= @challenge.challenge_type %> <%= @challenge.parameters %></h1>
 <% end %>
