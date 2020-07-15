@@ -29,7 +29,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       Rails.logger.info "********* Parameters: #{request.env['omniauth.params']}**********"
       Rails.logger.info "********* Response: #{request.env["omniauth.auth"]}**********"
 
-      campaign_id = request.env['omniauth.params'].has_key?('ci')
+      campaign_id = request.env['omniauth.params']['ci']
       @network = User.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['ui'])
       if @network.new_record?
         redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Connecting Facebook account failed.'
