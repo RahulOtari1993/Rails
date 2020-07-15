@@ -3,26 +3,7 @@
     <div class="row">
       <div class="col-12 offset-lg-2 col-lg-8">
         <div class="box3">
-          <% unless @challenge_activity.blank? %>
-            <% if @challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">You Earned <span><%= "#{@challenge.points.to_i} points!" %></span></h4>
-            <% else %>
-              <h4 class="text-center mb-3">You Earned
-                <span style="text-decoration: underline;"><%= "#{@challenge.reward.name}!" %></span></h4>
-            <% end %>
-          <% else %>
-            <% if @challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">Earn <span><%= "#{@challenge.points.to_i} points" %></span> for completing
-                this challenge.</h4>
-            <% else %>
-              <h4 class="text-center mb-3">Earn
-                <span style="text-decoration: underline;"><%= @challenge.reward.name %></span> for completing this
-                challenge.</h4>
-            <% end %>
-          <% end %>
-
-          <p class="mb-4 size-12"><%= @challenge.caption %></p>
-          <p class="size-12"><%= raw(@challenge.description).html_safe %></p>
+          <%= render 'non_login/challenge_header_details' %>
 
           <div class="row">
             <div class="col-md-12">
@@ -117,18 +98,6 @@
     $('#display').text(percent + "%");
     $('.progress-bar').css("width", percent + "%");
     return percent;
-  }
-
-  // Trigger SWAL Notificaton
-  function swalNotify(title, message) {
-    Swal.fire({
-      title: title,
-      text: message,
-      confirmButtonClass: 'btn btn-primary',
-      buttonsStyling: false
-    }).then(function () {
-      $('.challenge-modal').modal('hide');
-    });
   }
 
   // submit Challenge start

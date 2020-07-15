@@ -1,4 +1,3 @@
-
 //= require jquery
 //= require rails-ujs
 //= require activestorage
@@ -12,3 +11,4 @@
 //= require vendors/extensions/sweetalert2.all.min
 //= require ../end_user/libraries/bootstrap-datetimepicker.min
 //= require ../end_user/script
+//= require ../non_login_submission/script

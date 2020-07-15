@@ -16,21 +16,8 @@
       <div class="modal-body">
         <div class="challenge-content text-left font-weight-light">
           <!-- challenge details -->
-          <% unless @challenge_activity.blank? %>
-            <% if challenge.reward_type == "points" %>
-              <h3 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} points!" %></span></h3>
-            <% else %>
-              <h3 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h3>
-            <% end %>
-          <% else %>
-            <% if challenge.reward_type == "points" %>
-              <h3 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} points" %></span> for completing this challenge.</h3>
-            <% else %>
-              <h3 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h3>
-            <% end %>
-          <% end %>
-          <p class="mb-4 size-12"><%= challenge.caption %></p>
-          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+          <%= render 'participants/challenges/modals/challenge_header_details', challenge: challenge %>
+
           <div class="row">
             <div class="col-md-12">
               <a href="<%= challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge"
@@ -38,19 +25,7 @@
             </div>
           </div>
         </div>
-
-        <!-- challenge completion  -->
-        <!-- <div class="row challenge-completion-container" style="display: none;">
-          <div class="col-md-12">
-            <h4>Congratulation, You've completed this challenge successfully.</h4>
-          </div>
-        </div> -->
       </div>
-
-      <!-- Modal footer -->
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div> -->
     </div>
   </div>
 </div>

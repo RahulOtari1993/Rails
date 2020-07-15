@@ -16,21 +16,7 @@
       <div class="modal-body">
         <div class="challenge-content text-left font-weight-light">
           <!-- challenge details -->
-          <% unless @challenge_activity.blank? %>
-            <% if challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">You Earned <span><%= "#{challenge.points.to_i} Points!" %></span></h4>
-            <% else %>
-              <h4 class="text-center mb-3">You Earned <span style="text-decoration: underline;"><%= "#{challenge.reward.name}!" %></span></h4>
-            <% end %>
-          <% else %>
-            <% if challenge.reward_type == "points" %>
-              <h4 class="text-center mb-3">Earn <span><%= "#{challenge.points.to_i} Points" %></span> for completing this challenge.</h4>
-            <% else %>
-              <h4 class="text-center mb-3">Earn <span style="text-decoration: underline;"><%= challenge.reward.name %></span> for completing this challenge.</h4>
-            <% end %>
-          <% end %>
-          <p class="mb-4 size-12"><%= challenge.caption %></p>
-          <p class="size-12"><%= raw(challenge.description).html_safe %></p>
+          <%= render 'participants/challenges/modals/challenge_header_details', challenge: challenge %>
 
           <% @survey_submitted = challenge.participant_answers.present? %>
           <% unless @questions.blank? %>

@@ -35,7 +35,7 @@ class Participants::ChallengesController < ApplicationController
   end
 
   ## Submit Challenges
-  def challenge
+  def submission
     if @challenge.present?
       @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
                                      challenge_id: @challenge.id).first_or_initialize
