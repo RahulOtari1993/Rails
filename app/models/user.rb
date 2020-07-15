@@ -152,7 +152,7 @@ class User < ApplicationRecord
 
     if org.present? && camp.present? && user.present?
       ## Save the token response and user info details
-      network = campaign.networks.new(platform: auth.provider, auth_token: auth.credentials.token, username: auth.info.name)
+      network = camp.networks.new(platform: auth.provider, auth_token: auth.credentials.token, username: auth.info.name)
       Rails.logger.info "******* Network:  #{network} ************"
       if false
         network
