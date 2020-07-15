@@ -129,3 +129,15 @@ gem 'rack-timeout', require:'rack/timeout/base'
 
 ## Used for Pagination
 gem 'kaminari'
+
+# Track visits and events with Ruby and JS
+gem 'ahoy_matey'
+
+#used for geo ip lookups
+gem 'geoip'
+
+#used for geo ip lookups
+gem 'geoip-rails'
+
+# URL Shortner
+gem 'shortener'

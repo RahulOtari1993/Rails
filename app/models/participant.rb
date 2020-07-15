@@ -88,6 +88,7 @@ class Participant < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_profiles, dependent: :destroy
+  has_many :referral_codes
   has_many :reward_participants, dependent: :destroy
   has_many :rewards, through: :reward_participants
   has_many :coupons, through: :reward_participants
@@ -115,6 +116,9 @@ class Participant < ApplicationRecord
   ## Tags
   acts_as_taggable_on :tags
 
+  ## Shortened URL ownership
+  has_shortened_urls
+  
   ## Scopes
   scope :active, -> { where(arel_table[:status].eq(1)) }
 
@@ -250,7 +254,7 @@ class Participant < ApplicationRecord
 
     if participant.save(:validate => false)
       participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
-      participant
+      [participant, 'Facebook account connected successfully.']
     else
       [Participant.new, 'Connect via Facebook failed.']
     end
@@ -302,7 +306,7 @@ class Participant < ApplicationRecord
 
     if participant.save(:validate => false)
       participant.connect_challenge_completed(user_agent, remote_ip, 'google')
-      participant
+      [participant, 'Google account connected successfully.']
     else
       [Participant.new, 'Connect via Google failed.']
     end

@@ -5,6 +5,30 @@ class Participants::ChallengesController < ApplicationController
 
   ## Fetch Details of Challenge
   def details
+    if @campaign.present? && @campaign.white_branding
+      @conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      @conf = GlobalConfiguration.first
+    end
+
+    # TODO refactor into handler class for maintainability with multiple challenges
+    if @challenge.challenge_type == 'referral'
+      @share_urls = ShareService.new.get_share_urls @challenge, current_participant, request
+      @generic_url = @share_urls[:generic]
+      @facebook_url = @share_urls[:facebook]
+
+      @shortened_urls = ShareService.new.get_shortened_share_urls @share_urls, @campaign, current_participant, request
+
+      if !@shortened_urls.empty?
+        if @shortened_urls[:generic]
+          @generic_url = @shortened_urls[:generic]
+        end
+        if @shortened_urls[:facebook]
+          @facebook_url = @shortened_urls[:facebook]
+        end
+      end
+    end
+
     @challenge_activity = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_id: @challenge.id, actionable_type: "Challenge").first
     @reward = Reward.find(params[:reward_id]) unless params[:reward_id].blank?
     @questions = @challenge.questions.order(sequence: :asc).includes(:participant_answers)

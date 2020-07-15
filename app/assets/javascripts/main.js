@@ -69,5 +69,12 @@ $(document).on('turbolinks:load', function() {
       }
     }
   });
-  
+
+  var userText = $(".copy-to-clipboard-input");
+  // copy text on click
+  $(document).on("click", '.copy-btn', function () {
+    console.log('clicked copy');
+    $(this).closest('.copy-link').find('.copy-to-clipboard-input').select();
+    document.execCommand("copy");
+  })
 });
