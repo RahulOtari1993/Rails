@@ -26,7 +26,9 @@
 
           <% @quiz_submitted = @challenge.participant_answers.where(participant_id: @participant.id).present? %>
           <% unless @questions.blank? %>
-            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: @participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
+            <%= form_with(url: non_login_participants_submissions_path, method: :post, model: @participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
+              <%= hidden_field_tag "identifier", @identifier %>
+
               <% @questions.each_with_index do |question, index| %>
                 <% question_options = question.question_options.order(sequence: :asc) %>
                 <div class="row text-left">

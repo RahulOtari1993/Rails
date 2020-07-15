@@ -15,6 +15,7 @@ class Participants::SubmissionsController < ApplicationController
       challenge_id = identifier[12, 24]
 
       @participant = Participant.where(p_id: participant_id.to_s).first
+      @identifier = params[:identifier]
       @challenge = Challenge.where(identifier: challenge_id.to_s).first
       @challenge_activity = @campaign.participant_actions
                                 .where(participant_id: @participant.id, actionable_id: @challenge.id, actionable_type: "Challenge").first
@@ -24,36 +25,51 @@ class Participants::SubmissionsController < ApplicationController
 
   ## Submit Challenges Without Login
   def submit
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials[Rails.env.to_sym][:encryption_key])
+    identifier = crypt.decrypt_and_verify(params[:identifier])
+    participant_id = identifier[0, 12]
+    challenge_id = identifier[12, 24]
+    status = true
+
+    @participant = Participant.where(p_id: participant_id.to_s).first
+    @challenge = Challenge.where(identifier: challenge_id.to_s).first
+
     if @challenge.present?
-      @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
-                                     challenge_id: @challenge.id).first_or_initialize
+      if @challenge.challenge_type == 'collect' && (@challenge.parameters == 'quiz')
+        quiz_submission
 
-      if @submission.new_record?
-        @submission.user_agent = request.user_agent
-        @submission.ip_address = request.ip
+        ## Check Eligible for Challenge submission
+        correct_answer_count = @challenge.participant_answers.correct.count
+        unless correct_answer_count >= @challenge.correct_answer_count
+          status = false
+        end
+      end
 
-        ## Save Onboarding/Extended Profile Question Answers
-        if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
-          unless current_participant.update(onboarding_question_params)
+      if status
+        @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: @participant.id,
+                                       challenge_id: @challenge.id).first_or_initialize
+
+        if @submission.new_record?
+          @submission.user_agent = request.user_agent
+          @submission.ip_address = request.ip
+
+          if @submission.save
+            participant_action false
+          else
             respond_to do |format|
-              @response = {success: false, message: 'Something went wrong, Please try again.'}
+              @response = {success: false, message: 'Challenge submission failed, Please try again.'}
               format.json { render json: @response }
               format.js { render layout: false }
             end
           end
-        end
-
-        if @submission.save
-          participant_action false
         else
-          respond_to do |format|
-            @response = {success: false, message: 'Challenge submission failed, Please try again.'}
-            format.json { render json: @response }
-            format.js { render layout: false }
-          end
+          participant_action true
         end
       else
-        participant_action true
+        respond_to do |format|
+          @response = {success: false, message: @challenge.failed_message}
+          format.js { render layout: false }
+        end
       end
     else
       respond_to do |format|
@@ -64,40 +80,23 @@ class Participants::SubmissionsController < ApplicationController
     end
   end
 
-
   protected
 
-  ## Submit Quiz and Survey Challenge
+  ## Save Challenge Quiz Answers
   def quiz_submission
-    if @challenge.present?
-      ## save challenge quiz answers submitted
-      quiz_answer_records = challenge_quiz_params
-      quiz_answer_records.each do |record|
+    quiz_answer_records = build_quiz_params
+    quiz_answer_records.each do |record|
+      begin
         participant_answer = ParticipantAnswer.new(record)
         participant_answer.save
-      end
-
-      ## Check Eligible for Challenge submission
-      correct_answer_count = @challenge.participant_answers.correct.count
-      if correct_answer_count >= @challenge.correct_answer_count
-        ## Challenge Submission code
-        @response = send(:submission)
-      else
-        respond_to do |format|
-          @response = {success: false, message: @challenge.failed_message}
-          format.js { render layout: false }
-        end
-      end
-    else
-      respond_to do |format|
-        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
-        format.js { render layout: false }
+      rescue Exception => e
+        Rails.logger.info "Non Login Quiz Submission Failed --> #{e.message}"
       end
     end
   end
 
   ## Manage & Build Extended Challenge Question Params
-  def challenge_quiz_params
+  def build_quiz_params
     participant_answer_params = []
     params[:questions].each do |key, participant_answer_hash|
       result = false
@@ -165,7 +164,7 @@ class Participants::SubmissionsController < ApplicationController
 
       ## Claim the reward after successfull submission of challenge for reward type
       if @challenge.reward_type == 'prize' && !re_submission
-        reward_service = RewardsService.new(current_participant.id, @challenge.reward_id, request)
+        reward_service = RewardsService.new(@participant.id, @challenge.reward_id, request)
         @response = reward_service.process
       end
 

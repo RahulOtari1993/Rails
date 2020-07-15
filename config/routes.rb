@@ -155,7 +155,7 @@ Rails.application.routes.draw do
       get '/:type/submit/:identifier/', to: 'submissions#load_details', as: :load_details
       resources :submissions, only: [] do
         collection do
-          post :submit
+          post :challenge, as: :non_login
         end
       end
     end
