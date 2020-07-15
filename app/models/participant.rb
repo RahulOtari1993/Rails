@@ -254,7 +254,7 @@ class Participant < ApplicationRecord
 
     if participant.save(:validate => false)
       participant.connect_challenge_completed(user_agent, remote_ip, 'facebook')
-      participant
+      [participant, 'Facebook account connected successfully.']
     else
       [Participant.new, 'Connect via Facebook failed.']
     end
@@ -306,7 +306,7 @@ class Participant < ApplicationRecord
 
     if participant.save(:validate => false)
       participant.connect_challenge_completed(user_agent, remote_ip, 'google')
-      participant
+      [participant, 'Google account connected successfully.']
     else
       [Participant.new, 'Connect via Google failed.']
     end
