@@ -32,7 +32,7 @@
                         <div class="text-center facebook_bg_color text-white height-100 d-flex align-items-center justify-content-center shadow">
                           <div class="size-50"><i class="fa fa-facebook-square"></i></div>
                         </div><br>
-                        <a href="<%= user_facebook_omniauth_authorize_path() %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a>
+                        <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a>
                         <!-- <div class="fb-login-button" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> -->
                         <!-- <fb:login-button  scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
                       </div>
