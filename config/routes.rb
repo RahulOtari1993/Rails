@@ -153,6 +153,11 @@ Rails.application.routes.draw do
 
       ## Non Login User Submit Challenges Routes
       get '/:type/submit/:identifier/', to: 'submissions#load_details', as: :load_details
+      resources :submissions, only: [] do
+        collection do
+          post :submit
+        end
+      end
     end
 
     ## Root Route
