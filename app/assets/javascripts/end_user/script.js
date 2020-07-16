@@ -172,8 +172,6 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
-
-
 });
 
 // Function to Add Custom Validation of Questions
@@ -207,6 +205,9 @@ function customQuestionValidation() {
     'answer-decimal-required': {
       stringRequired: true,
       decimalRequired: true
+    },
+    'answer-dropdown-required': {
+      stringRequired: true
     }
   })
 
