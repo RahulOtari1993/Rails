@@ -267,14 +267,15 @@ class Participants::ChallengesController < ApplicationController
                                                  campaign_id: @challenge.campaign_id)
       participant_action.save!
 
-      ## Claim the reward after successfull submission of challenge for reward type
+      ## Claim the reward after successful submission of challenge for reward type
       if @challenge.reward_type == 'prize' && !re_submission
         reward_service = RewardsService.new(current_participant.id, @challenge.reward_id, request)
         @response = reward_service.process
       end
 
       respond_to do |format|
-        @response = {success: true, message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You've completed this challenge successfully.")}
+        @response = {success: true,
+                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully.")}
         format.json { render json: @response }
         format.js { render layout: false }
       end

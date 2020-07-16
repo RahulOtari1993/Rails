@@ -214,7 +214,8 @@ class Participants::SubmissionsController < ApplicationController
       end
 
       respond_to do |format|
-        @response = {success: true, message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You've completed this challenge successfully.")}
+        @response = {success: true,
+                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully.")}
         format.json { render json: @response }
         format.js { render layout: false }
       end
