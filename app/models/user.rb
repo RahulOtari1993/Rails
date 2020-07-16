@@ -147,7 +147,7 @@ class User < ApplicationRecord
     user = User.where(organization_id: org.try(:id), id: u_id).first
 
     Rails.logger.info "*********** Save Token *************"
-    Rails.logger.info "*********** Response: #{auth} *************"
+    Rails.logger.info "*********** Response: #{auth.as_json} *************"
     Rails.logger.info "*********** Parameters: #{params} *************"
 
     if org.present? && camp.present? && user.present?
