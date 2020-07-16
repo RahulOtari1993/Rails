@@ -258,4 +258,8 @@ span.error {
   font-weight: normal !important;
   margin-bottom: 5px;
 }
+
+.visit-btn-container {
+  text-align: center;
+}
 /* New Challenge Popup Design End */

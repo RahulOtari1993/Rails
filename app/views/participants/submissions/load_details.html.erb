@@ -6,6 +6,8 @@
   <%= render 'non_login/submission/watch_video_challenge' %>
 <% elsif @challenge.challenge_type == 'article' %>
   <%= render 'non_login/submission/read_article_challenge' %>
+<% elsif @challenge.challenge_type == 'link' %>
+  <%= render 'non_login/submission/visit_url_challenge' %>
 <% else %>
   <h1><%= @challenge.challenge_type %> <%= @challenge.parameters %></h1>
 <% end %>

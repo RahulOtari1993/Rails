@@ -760,3 +760,7 @@ create_lib.css, line no-218
   font-weight: normal !important;
   margin-bottom: 5px;
 }
+
+.visit-btn-container {
+  text-align: center;
+}
