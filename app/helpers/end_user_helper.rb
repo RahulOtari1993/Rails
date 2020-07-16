@@ -106,7 +106,9 @@ module EndUserHelper
 
   def fetch_question_answered_value(question, option_id = nil, participant = nil)
     participant = participant.present? ? participant : current_participant
-    if question.answer_type == "string"
+    if question.answer_type == "string" || question.answer_type == "text_area" ||
+        question.answer_type == "date" || question.answer_type == "time" || question.answer_type == "date_time" ||
+        question.answer_type == "number" || question.answer_type == "decimal"
       result = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.answer rescue nil #Todo
     else
       selected_option_id = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.try(:question_option_id)
