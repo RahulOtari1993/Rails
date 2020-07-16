@@ -33,7 +33,7 @@
                           <div class="size-50"><i class="fa fa-facebook-square"></i></div>
                         </div><br>
 
-                        <% unless @facebook_connect.blank? %>
+                        <% unless @facebook_network.blank? %>
                           <a href="<%= disconnect_admin_campaign_network_path(@campaign, @facebook_network) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Disconnect</i></a>
                         <% else %>
                           <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a>
