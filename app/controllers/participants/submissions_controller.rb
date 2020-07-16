@@ -35,7 +35,7 @@ class Participants::SubmissionsController < ApplicationController
     @challenge = Challenge.where(identifier: challenge_id.to_s).first
 
     if @challenge.present? && @participant.present?
-      if @challenge.challenge_type == 'collect' && (@challenge.parameters == 'quiz')
+      if @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz'
         quiz_submission
 
         ## Check Eligible for Challenge submission
@@ -43,6 +43,8 @@ class Participants::SubmissionsController < ApplicationController
         unless correct_answer_count >= @challenge.correct_answer_count
           status = false
         end
+      elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'survey'
+        survey_submission
       end
 
       if status
@@ -81,7 +83,7 @@ class Participants::SubmissionsController < ApplicationController
 
   protected
 
-  ## Save Challenge Quiz Answers
+  ## Save Quiz Challenge Answers
   def quiz_submission
     quiz_answer_records = build_quiz_params
     quiz_answer_records.each do |record|
@@ -122,6 +124,50 @@ class Participants::SubmissionsController < ApplicationController
         end
       end
     end
+    participant_answer_params
+  end
+
+  ## Save Survey Challenge Answers
+  def survey_submission
+    answer_records = build_survey_params
+    answer_records.each do |record|
+      begin
+        participant_answer = ParticipantAnswer.new(record)
+        participant_answer.save
+      rescue Exception => e
+        Rails.logger.info "Non Login Survey Submission Failed --> #{e.message}"
+      end
+    end
+  end
+
+  ## Manage & Build Survey Answer Params
+  def build_survey_params
+    participant_answer_params = []
+    params[:questions].each do |key, answer_hash|
+      question = Question.find(answer_hash[:question_id].to_i)
+      temp_hash = answer_hash.as_json
+
+      if question.present? && (question.answer_type == "string" || question.answer_type == "text_area" ||
+          question.answer_type == "date" || question.answer_type == "time" || question.answer_type == "date_time" ||
+          question.answer_type == "number" || question.answer_type == "decimal")
+
+        temp_hash.merge!(campaign_id: @campaign.id, participant_id: @participant.id)
+        temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
+        participant_answer_params << temp_hash
+      elsif question.present? && answer_hash[:answer].present? &&
+          (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
+              question.answer_type == "dropdown" || question.answer_type == "boolean")
+
+        answer_hash[:answer].each do |option_id|
+          dup_hash = temp_hash.clone
+          dup_hash[:question_option_id] = option_id
+          dup_hash.merge!(campaign_id: @campaign.id, participant_id: @participant.id, answer: nil)
+          dup_hash = ActiveSupport::HashWithIndifferentAccess.new(dup_hash)
+          participant_answer_params << dup_hash
+        end
+      end
+    end
+
     participant_answer_params
   end
 
