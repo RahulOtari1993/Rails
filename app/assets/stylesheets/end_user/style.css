@@ -242,4 +242,8 @@ span.error {
   font-size: 20px;
   color: #202020;
 }
+
+.challenge-question-form .option-label {
+  font-weight: normal !important;
+}
 /* New Challenge Popup Design End */
