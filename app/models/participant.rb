@@ -74,7 +74,7 @@
 #  tokens                 :text
 #
 class Participant < ApplicationRecord
-  include DeviseTokenAuth::Concerns::User
+  # include DeviseTokenAuth::Concerns::User
 
   ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable, :trackable,
@@ -117,8 +117,8 @@ class Participant < ApplicationRecord
   acts_as_taggable_on :tags
 
   ## Shortened URL ownership
-  has_shortened_urls
-  
+  # has_shortened_urls
+
   ## Scopes
   scope :active, -> { where(arel_table[:status].eq(1)) }
 
