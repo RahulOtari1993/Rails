@@ -192,31 +192,38 @@ span.error {
 .challenge-modal.modal, .reward-modal.modal {
   background-color: #000;
 }
+
 .challenge-modal .modal-dialog, .reward-modal .modal-dialog {
   max-width: 736px;
 }
+
 .challenge-modal .modal-content, .reward-modal .modal-content {
   border-radius: 14px;
 }
+
 .challenge-content, .reward-content {
   color: #444;
   padding: 20px 40px;
   border-radius: 12px;
 }
+
 .challenge-content h4, .reward-content h4 {
   font-family: "proxima-nova", Sans-serif;
   font-weight: 900;
   color: #202020;
   font-size: 1.3rem;
 }
+
 .challenge-content p, .reward-content p {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
+
 .challenge-content ul, .reward-content ul {
   margin-left: 15px;
 }
+
 .challenge-content label, .reward-content label {
   display: inline-block;
   margin-bottom: 1rem;
@@ -224,6 +231,7 @@ span.error {
   font-size: 13px;
   font-weight: 900;
 }
+
 .challenge-content .radio-label, .reward-content .radio-label {
   font-family: "proxima-nova-condensed", Sans-serif;
   color: inherit;
@@ -231,13 +239,16 @@ span.error {
   padding-right: 10px;
   margin-bottom: 0px;
 }
+
 .challenge-content .form-group, .reward-content .form-group {
   margin-bottom: 26px !important;
 }
+
 .time_class {
   color: #B7B4B4;
   font-family: "proxima-nova", Sans-serif;
 }
+
 .time_class .fa-clock-o, .time_class .fa-check-circle {
   font-size: 20px;
   color: #202020;
@@ -246,4 +257,5 @@ span.error {
 .challenge-question-form .option-label {
   font-weight: normal !important;
 }
+
 /* New Challenge Popup Design End */
