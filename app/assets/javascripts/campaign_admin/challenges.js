@@ -298,7 +298,7 @@ $(document).on('turbolinks:load', function () {
     $('.step-two-container input').prop("disabled", true);
     $('.step-two-container select').prop("disabled", true);
     $('.step-two-container hidden').prop("disabled", true);
-    console.log('Type: ',challengeType,' Params: ',challengeParameters);
+
     $('.' + challengeType + '-' + challengeParameters + '-div').show();
     $('.' + challengeType + '-' + challengeParameters + '-div').addClass('active-segment');
     $('.' + challengeType + '-' + challengeParameters + '-div input').prop("disabled", false);
