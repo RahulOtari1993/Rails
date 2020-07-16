@@ -165,7 +165,7 @@ class User < ApplicationRecord
 
       ## Save the token response and user info details
       network = camp.networks.new(network_params)
-      Rails.logger.info "******* Network:  #{network} ************"
+      Rails.logger.info "******* Network:  #{network.as_json} ************"
       if false
         network
       else
