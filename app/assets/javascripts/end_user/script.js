@@ -78,35 +78,7 @@ $(document).on('turbolinks:load', function () {
   }, 2000);
 
   if ($('#onboarding_questions_modal').length > 0 ) {
-    let datePickerIcons = {
-      time: 'fa fa-clock-o',
-      date: 'fa fa-calendar',
-      up: 'fa fa-chevron-up',
-      down: 'fa fa-chevron-down',
-      previous: 'fa fa-chevron-left',
-      next: 'fa fa-chevron-right',
-      today: 'fa fa-check',
-      clear: 'fa fa-trash',
-      close: 'fa fa-times'
-    }
-
-    // Date Picker for Onboarding Questions
-    $('.answer-date').datetimepicker({
-      format: 'L',
-      icons:datePickerIcons
-    });
-
-    // Time Picker for Onboarding Questions
-    $('.answer-time').datetimepicker({
-      format: 'LT',
-      icons:datePickerIcons
-    });
-
-    // Date Time Picker for Onboarding Questions
-    $('.answer-date-time').datetimepicker({
-      format: 'MM/DD/YYYY hh:mm A',
-      icons:datePickerIcons
-    });
+    initializeDateTimePicker();
   }
 
   $('.onboarding-questions-form').validate({
@@ -122,7 +94,6 @@ $(document).on('turbolinks:load', function () {
   })
 
   customQuestionValidation();
-
 
   // Open Reward Claim Modal Popup
   $('body').on('click', '.reward-claim-modal-btn', function (e) {
@@ -254,4 +225,36 @@ function customQuestionValidation() {
       });
     });
   }
+}
+
+function initializeDateTimePicker() {
+  let datePickerIcons = {
+    time: 'fa fa-clock-o',
+    date: 'fa fa-calendar',
+    up: 'fa fa-chevron-up',
+    down: 'fa fa-chevron-down',
+    previous: 'fa fa-chevron-left',
+    next: 'fa fa-chevron-right',
+    today: 'fa fa-check',
+    clear: 'fa fa-trash',
+    close: 'fa fa-times'
+  }
+
+  // Date Picker for Onboarding Questions
+  $('.answer-date').datetimepicker({
+    format: 'L',
+    icons:datePickerIcons
+  });
+
+  // Time Picker for Onboarding Questions
+  $('.answer-time').datetimepicker({
+    format: 'LT',
+    icons:datePickerIcons
+  });
+
+  // Date Time Picker for Onboarding Questions
+  $('.answer-date-time').datetimepicker({
+    format: 'MM/DD/YYYY hh:mm A',
+    icons:datePickerIcons
+  });
 }

@@ -64,7 +64,7 @@
                           <%= select_tag "questions[#{question.id}][answer][]",
                                          options_for_select(options, (@survey_submitted ? fetch_dropdown_answer(question) : false)),
                                          class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                         prompt: fetch_placeholder_details(question, 'dropdown') %>
+                                         prompt: fetch_placeholder_details(question, 'dropdown'), disabled: @survey_submitted %>
                         </div>
                       <% when 'radio_button' then %>
                         <% question.question_options.order(:sequence).each do |option| %>
@@ -77,25 +77,25 @@
                           </div>
                         <% end %>
                       <% when 'date' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", "",
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                            class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                           placeholder: fetch_placeholder_details(question, 'date') %>
+                                           placeholder: fetch_placeholder_details(question, 'date'), disabled: @survey_submitted %>
                       <% when 'time' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", "",
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                            class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                           placeholder: fetch_placeholder_details(question, 'time') %>
+                                           placeholder: fetch_placeholder_details(question, 'time'), disabled: @survey_submitted %>
                       <% when 'date_time' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", "",
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                            class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                           placeholder: fetch_placeholder_details(question, 'date_time') %>
+                                           placeholder: fetch_placeholder_details(question, 'date_time'), disabled: @survey_submitted %>
                       <% when 'number' then %>
-                        <%= number_field_tag "questions[#{question.id}][answer]", "",
+                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                              class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                             placeholder: fetch_placeholder_details(question, 'number') %>
+                                             placeholder: fetch_placeholder_details(question, 'number'), disabled: @survey_submitted %>
                       <% when 'decimal' then %>
-                        <%= number_field_tag "questions[#{question.id}][answer]", "",
+                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                              class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                             placeholder: fetch_placeholder_details(question, 'decimal') %>
+                                             placeholder: fetch_placeholder_details(question, 'decimal'), disabled: @survey_submitted %>
                       <% when 'boolean' then %>
                         <% question.question_options.order(:sequence).each do |option| %>
                           <div>
@@ -128,27 +128,5 @@
 </div>
 
 <script type="text/javascript">
-  let datePickerIcons = {
-    time: 'fa fa-clock-o',
-    date: 'fa fa-calendar',
-    up: 'fa fa-chevron-up',
-    down: 'fa fa-chevron-down',
-    previous: 'fa fa-chevron-left',
-    next: 'fa fa-chevron-right',
-    today: 'fa fa-check',
-    clear: 'fa fa-trash',
-    close: 'fa fa-times'
-  }
-
-  // Date Picker for Survey PopUp Modal
-  $('.answer-date').datetimepicker({
-    format: 'L',
-    icons: datePickerIcons
-  });
-
-  // Time Picker for Survey PopUp Modal
-  $('.answer-time').datetimepicker({
-    format: 'LT',
-    icons: datePickerIcons
-  });
+  initializeDateTimePicker();
 </script>
