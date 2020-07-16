@@ -237,7 +237,7 @@ span.error {
   color: inherit;
   font-weight: 400;
   padding-right: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
 
 .challenge-content .form-group, .reward-content .form-group {
@@ -256,5 +256,6 @@ span.error {
 
 .challenge-question-form .option-label {
   font-weight: normal !important;
+  margin-bottom: 5px;
 }
 /* New Challenge Popup Design End */

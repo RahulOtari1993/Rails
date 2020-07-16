@@ -743,6 +743,7 @@ create_lib.css, line no-218
 
 .box3 .radio-label {
   font-weight: normal !important;
+  margin-bottom: 5px;
 }
 
 .error {
