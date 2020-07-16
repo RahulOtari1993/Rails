@@ -2,6 +2,7 @@
 
 class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
   before_action :authenticate_user!, except: [:connect_facebook]
+  before_action :set_network, only: [:disconnect]
 
   def index
     @config = @campaign.campaign_config
