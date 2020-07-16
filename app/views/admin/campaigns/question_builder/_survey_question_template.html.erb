@@ -139,7 +139,7 @@
       </div>
     </div>
 
-    <!-- Start Checkboxs Option -->
+    <!-- Start Check boxes Option -->
     <div class="col-12 options-container check_box-container <%= display_question_option(question, 'check_box') %>">
       <% if question.present? && question.answer_type == 'check_box' %>
         <% question.question_options.order(:sequence).each_with_index do |option, index| %>
@@ -296,6 +296,20 @@
                            placeholder: 'Time',
                            disabled: true %>
         <div class="input-group-prepend">
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Date & Time Option -->
+    <div class="col-12 col-md-7 options-container date_time-container <%= display_question_option(question, 'date_time') %>">
+      <div class="input-group input-group-md que_mobile_mb form-group">
+        <%= text_field_tag "temp", '',
+                           class: 'form-control form-control-option disabled-field', id: "temp_date_time",
+                           placeholder: 'Date & Time',
+                           disabled: true %>
+        <div class="input-group-prepend">
+          <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-calendar-o" aria-hidden="true"></i></span>
           <span class="input-group-text date_icon" id="sizing-addon1"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
         </div>
       </div>
