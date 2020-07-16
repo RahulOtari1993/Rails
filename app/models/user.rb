@@ -151,24 +151,37 @@ class User < ApplicationRecord
     Rails.logger.info "*********** Parameters: #{params} *************"
 
     if org.present? && camp.present? && user.present?
-      network_params = {
-        organization_id: org.id,
-        campaign_id: camp.id,
-        platform: auth.provider,
-        auth_token: auth.credentials.token,
-        uid: auth.uid,
-        email: auth.info.email,
-        username: auth.info.name,
-        expires_at: Time.at(auth.credentials.expires_at),
-        remote_avatar_url: auth.info.image
-        }
-
       ## Save the token response and user info details
-      network = camp.networks.new(network_params)
-      if network.save
+      network = camp.networks.where(organization_id: org.id, campaign_id: camp.id, platform: auth.provider, uid: auth.uid, email: auth.info.email).first
+      unless network.blank?
+        ## Update existing network
+        network.auth_token = auth.credentials.token
+        network.username = auth.info.name
+        network.expires_at = Time.at(auth.credentials.expires_at)
+        network.remote_avatar_url = auth.info.image
+        network.save
+
         network
       else
-        Network.new
+        ## New Network Connection
+        network_params = {
+          organization_id: org.id,
+          campaign_id: camp.id,
+          platform: auth.provider,
+          auth_token: auth.credentials.token,
+          uid: auth.uid,
+          email: auth.info.email,
+          username: auth.info.name,
+          expires_at: Time.at(auth.credentials.expires_at),
+          remote_avatar_url: auth.info.image
+        }
+
+        network = camp.networks.new(network_params)
+        if network.save
+          network
+        else
+          Network.new
+        end
       end
     else
       Network.new
