@@ -29,5 +29,7 @@ class Network < ApplicationRecord
   ## Mount Uploader for File Upload
   mount_uploader :avatar, AvatarUploader
 
+  ## scopes
+  scope :current_active, -> { where("auth_token IS NOT NULL AND expires_at > ?", Time.now) }
 
 end

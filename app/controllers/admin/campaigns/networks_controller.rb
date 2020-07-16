@@ -6,7 +6,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
   def index
     @config = @campaign.campaign_config
-    @facebook_network =  @campaign.networks.where(platform: 0).where.not(auth_token: nil).first
+    @facebook_network =  @campaign.networks.where(platform: 0).current_active.first
   end
 
   def disconnect
