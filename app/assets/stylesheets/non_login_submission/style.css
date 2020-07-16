@@ -750,3 +750,13 @@ create_lib.css, line no-218
   color: #EA5455 !important;
   font-size: 0.875rem !important;
 }
+.additional-details {
+  color: #707070;
+  font-size: 12px;
+  margin-left: 5px !important;
+}
+
+.challenge-question-form .option-label {
+  font-weight: normal !important;
+  margin-bottom: 5px;
+}
