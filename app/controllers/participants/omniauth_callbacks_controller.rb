@@ -25,7 +25,6 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       end
     elsif type == 'social_feed' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('ui')
       Rails.logger.info "********************** Facebook Callback Initiated **********************"
-
       campaign_id = request.env['omniauth.params']['ci']
       @network = User.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['ui'])
       if @network.new_record?
