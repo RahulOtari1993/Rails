@@ -748,6 +748,4 @@ create_lib.css, line no-218
 .error {
   color: #EA5455 !important;
   font-size: 0.875rem !important;
-  display: block !important;
-  float: none !important;
 }

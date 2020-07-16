@@ -12,7 +12,7 @@
   $('#challenge_quiz_modal').modal('show');
 
   $('.challenge-quiz-modal-form').validate({
-    errorElement: 'span',
+    errorElement: 'div',
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
       if (placement) {
@@ -29,7 +29,7 @@
   $('#challenge_survey_modal').modal('show');
 
   $('.challenge-survey-form').validate({
-    errorElement: 'span',
+    errorElement: 'div',
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
       if (placement) {

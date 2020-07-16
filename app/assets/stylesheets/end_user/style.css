@@ -257,10 +257,4 @@ span.error {
 .challenge-question-form .option-label {
   font-weight: normal !important;
 }
-
-.error {
-  display: block !important;
-  float: none !important;
-}
-
 /* New Challenge Popup Design End */
