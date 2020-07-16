@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     ActiveAdmin.routes(self)
   end
 
+  get '/s/:id' => "shortener/shortened_urls#show"
+
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
