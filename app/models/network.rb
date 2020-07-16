@@ -18,6 +18,7 @@
 class Network < ApplicationRecord
   ## Associations
   belongs_to :campaign
+  belongs_to :organization
 
   ## ENUM
   enum platform: [ :facebook, :instagram ]

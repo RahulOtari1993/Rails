@@ -94,9 +94,11 @@ Rails.application.routes.draw do
 
           ## Network Routes
           resources :networks do
+            member do
+              get :disconnect
+            end
             collection do
               get :connect_facebook
-              get '/facebook/callback', to: 'networks#facebook_callback'
             end
           end
 

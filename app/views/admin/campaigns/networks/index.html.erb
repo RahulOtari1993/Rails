@@ -32,9 +32,14 @@
                         <div class="text-center facebook_bg_color text-white height-100 d-flex align-items-center justify-content-center shadow">
                           <div class="size-50"><i class="fa fa-facebook-square"></i></div>
                         </div><br>
-                        <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a>
-                        <!-- <div class="fb-login-button" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> -->
-                        <!-- <fb:login-button  scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
+
+                        <% unless @facebook_connect.blank? %>
+                          <a href="<%= disconnect_admin_campaign_network_path(@campaign, @facebook_network) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Disconnect</i></a>
+                        <% else %>
+                          <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>" class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white"><i class="feather icon-plus">Facebook</i></a>
+                          <!-- <div class="fb-login-button" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div> -->
+                          <!-- <fb:login-button  scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button> -->
+                        <% end %>
                       </div>
                       <div class="col-md-2">
                         <div class="text-center instagram_bg_color text-white height-100 d-flex align-items-center justify-content-center shadow">
@@ -61,7 +66,7 @@
 </div>
 
 <!-- <div id="fb-root"></div> -->
-<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=<%=@config.facebook_app_id%>&autoLogAppEvents=1"></script> -->
+<!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=<%#=@config.facebook_app_id%>&autoLogAppEvents=1"></script> -->
 <!-- <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script> -->
 <!-- <script>
     // // Load the SDK asynchronously

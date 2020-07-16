@@ -27,6 +27,7 @@ class Organization < ApplicationRecord
   has_many :campaigns, dependent: :destroy
   has_many :domain_lists, dependent: :destroy
   has_many :participants
+  has_many :networks, dependent: :destroy
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true

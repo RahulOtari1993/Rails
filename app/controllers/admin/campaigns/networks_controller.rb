@@ -5,6 +5,16 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
   def index
     @config = @campaign.campaign_config
+    @facebook_network =  @campaign.networks.where(platform: 0).where.not(auth_token: nil).first
+  end
+
+  def disconnect
+    if @network.update(auth_token: nil, expires_at: nil)
+      flash[:notice] = "You've been disconnected to #{@network.platform.titleize} Successfully."
+    else
+      flash[:notice] = "Something went wrong, Please try again later."
+    end
+    redirect_to admin_campaign_networks_path(@campaign)
   end
 
   # call back url
@@ -28,9 +38,9 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     redirect_to admin_campaign_networks_path(@campaign)
   end
 
-  def facebook_callback
-  end
-
   private
 
+  def set_network
+    @network = @campaign.networks.find(params[:id])
+  end
 end
