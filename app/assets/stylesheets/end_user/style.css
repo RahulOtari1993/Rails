@@ -258,4 +258,9 @@ span.error {
   font-weight: normal !important;
 }
 
+.error {
+  display: block !important;
+  float: none !important;
+}
+
 /* New Challenge Popup Design End */
