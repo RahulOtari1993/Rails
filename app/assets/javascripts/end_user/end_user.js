@@ -1,4 +1,3 @@
-
 //= require jquery
 //= require rails-ujs
 //= require activestorage
@@ -9,7 +8,6 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require vendors/extensions/sweetalert2.all.min
-
 //= require vendors/tables/datatable/datatables.min
 //= require vendors/tables/datatable/datatables.bootstrap4.min
 

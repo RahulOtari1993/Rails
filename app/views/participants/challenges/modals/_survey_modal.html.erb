@@ -100,10 +100,12 @@
                           <div>
                             <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
                                                  id: "questions_#{question.id}_answer_#{option.id}",
-                                                 class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}" %>
+                                                 class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                data: {error: "boolean-field-error-#{index}"}%>
                             <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>" class="option-label"><%= option.details %></label>
                           </div>
                         <% end %>
+                        <div class="custom-error-class boolean-field-error-<%= index %>"></div>
                       <% end %>
                       <% if question.additional_details.present? %>
                         <div class="additional-details"><%= question.additional_details %></div>

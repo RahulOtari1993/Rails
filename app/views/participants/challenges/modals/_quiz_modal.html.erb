@@ -19,7 +19,8 @@
 
           <% @quiz_submitted = challenge.participant_answers.where(participant_id: current_participant.id).present? %>
           <% unless @questions.blank? %>
-            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant, class: 'challenge-quiz-modal-form', remote: true) do |f| %>
+            <%= form_with(url: quiz_submission_participants_challenge_path(@challenge), method: :post, model: current_participant,
+                          class: 'challenge-quiz-modal-form', remote: true) do |f| %>
               <% @questions.each_with_index do |question, index| %>
                 <% question_options = question.question_options.order(sequence: :asc) %>
                 <div class="row text-left">
