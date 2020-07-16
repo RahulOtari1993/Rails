@@ -104,6 +104,7 @@ module EndUserHelper
     option_id
   end
 
+  ## While Editing Quiz & Survey Return Filled Answer
   def fetch_question_answered_value(question, option_id = nil, participant = nil)
     participant = participant.present? ? participant : current_participant
     if question.answer_type == "string" || question.answer_type == "text_area" ||
@@ -111,9 +112,15 @@ module EndUserHelper
         question.answer_type == "number" || question.answer_type == "decimal"
       result = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.answer rescue nil #Todo
     else
-      selected_option_id = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.try(:question_option_id)
+      selected_option_id = @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id, question_option_id: option_id).first.try(:question_option_id)
       result = (option_id == selected_option_id)
     end
     result
+  end
+
+  ## While Editing Quiz & Survey Return Dropdown Selected Answer
+  def fetch_dropdown_answer(question, participant = nil)
+    participant = participant.present? ? participant : current_participant
+    @challenge.participant_answers.where(participant_id: participant.id, question_id: question.id).first.try(:question_option_id)
   end
 end
