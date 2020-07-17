@@ -1,50 +1,39 @@
-<div class="modal fade text-left challenge-modal" id="challenge_survey_modal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
+<section class="section_que">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 offset-lg-2 col-lg-8">
+        <div class="box3">
+          <%= render 'non_login/challenge_header_details' %>
 
-      <!-- Modal Header -->
-      <div class="modal-header border-bottom-0">
-        <% unless @challenge_activity.blank? %>
-          <span class="time_class pull-left font-weight-light"><i class="fa fa-check-circle" aria-hidden="true"></i> Completed on <%= challenge.finish.strftime('%d/%m/%Y') %></span>
-        <% else %>
-          <span class="time_class pull-left font-weight-light"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
-        <% end %>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body">
-        <div class="challenge-content text-left font-weight-light">
-          <%= render 'participants/challenges/modals/challenge_header_details', challenge: challenge %>
-
-          <% @survey_submitted = challenge.participant_answers.where(participant_id: current_participant.id).present? %>
+          <% @survey_submitted = @challenge.participant_answers.where(participant_id: @participant.id).present? %>
           <% unless @questions.blank? %>
-            <%= form_with(url: survey_submission_participants_challenge_path(@challenge), method: :post,
-                          model: current_participant,
-                          :html => {class: 'form form-vertical challenge-survey-form challenge-question-form', remote: true}) do |f| %>
+            <%= form_with(url: non_login_participants_submissions_path, method: :post, model: @participant,
+                          class: 'challenge-survey-submission-form challenge-question-form', remote: true) do |f| %>
+              <%= hidden_field_tag "identifier", @identifier %>
+
               <% @questions.each_with_index do |question, index| %>
                 <div class="row text-left">
                   <div class="col-md-12">
                     <div class="form-group extended-form-group">
                       <% unless question.answer_type == "wysiwyg" %>
                         <%= label :title, "#{index + 1}. #{question.title}" %>
-                        <%= hidden_field_tag "questions[#{question.id}][challenge_id]", challenge.id %>
+                        <%= hidden_field_tag "questions[#{question.id}][challenge_id]", @challenge.id %>
                         <%= hidden_field_tag "questions[#{question.id}][question_id]", question.id %>
                       <% end %>
                       <% case question.answer_type %>
                       <% when 'string' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                            class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                            placeholder: fetch_placeholder_details(question, 'string'), disabled: @survey_submitted %>
                       <% when 'text_area' then %>
-                        <%= text_area_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_area_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                           class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                           placeholder: fetch_placeholder_details(question, 'text_area'), disabled: @survey_submitted %>
                       <% when 'check_box' then %>
                         <div>
                           <% question.question_options.order(:sequence).each do |option| %>
                             <div>
-                              <%= check_box_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                              <%= check_box_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
                                                 id: "questions_#{question.id}_answer_#{option.id}",
                                                 class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                 data: {error: "check-box-error-#{index}"}, disabled: @survey_submitted  %>
@@ -62,14 +51,14 @@
                             end
                           %>
                           <%= select_tag "questions[#{question.id}][answer][]",
-                                         options_for_select(options, (@survey_submitted ? fetch_dropdown_answer(question) : false)),
+                                         options_for_select(options, (@survey_submitted ? fetch_dropdown_answer(question, @participant) : false)),
                                          class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                          prompt: fetch_placeholder_details(question, 'dropdown'), disabled: @survey_submitted %>
                         </div>
                       <% when 'radio_button' then %>
                         <% question.question_options.order(:sequence).each do |option| %>
                           <div>
-                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @survey_submitted %>
@@ -77,29 +66,29 @@
                           </div>
                         <% end %>
                       <% when 'date' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                            class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                            placeholder: fetch_placeholder_details(question, 'date'), disabled: @survey_submitted %>
                       <% when 'time' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                            class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                            placeholder: fetch_placeholder_details(question, 'time'), disabled: @survey_submitted %>
                       <% when 'date_time' then %>
-                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                            class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                            placeholder: fetch_placeholder_details(question, 'date_time'), disabled: @survey_submitted %>
                       <% when 'number' then %>
-                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                              class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                              placeholder: fetch_placeholder_details(question, 'number'), disabled: @survey_submitted %>
                       <% when 'decimal' then %>
-                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
+                        <%= number_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question, nil, @participant) : ''),
                                              class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                              placeholder: fetch_placeholder_details(question, 'decimal'), disabled: @survey_submitted %>
                       <% when 'boolean' then %>
                         <% question.question_options.order(:sequence).each do |option| %>
                           <div>
-                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "boolean-field-error-#{index}"}, disabled: @survey_submitted %>
@@ -116,17 +105,27 @@
                 </div>
               <% end %>
               <% unless @survey_submitted %>
-                <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
+                <%= f.submit "Submit", class: 'btn box1_btn btn-block pull-right submit-btn' %>
               <% end %>
             <% end %>
           <% end %>
-
         </div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<script type="text/javascript">
+<script>
+  $('.challenge-survey-submission-form').validate({
+    errorElement: 'div',
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).html(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  });
   initializeDateTimePicker();
 </script>

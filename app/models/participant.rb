@@ -175,6 +175,8 @@ class Participant < ApplicationRecord
                       allow_blank: true,
                       if: :email_changed?
 
+  validates_uniqueness_of :p_id, message: "already exists"
+
   ## Password Validations
   # validates_presence_of :password
   validates :password, presence: true, if: Proc.new { |participant| participant.password.present? }, confirmation: true, on: :update
