@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   require 'constraints/subdomain_not_required'
   require 'constraints/subdomain_required'
 
+  ## Root Route
+  root to: 'welcome#index'
+
   ## Routes for Admin Users
   constraints(Constraints::SubdomainNotRequired) do
     devise_for :admin_users, ActiveAdmin::Devise.config
@@ -158,8 +161,6 @@ Rails.application.routes.draw do
       end
     end
 
-    ## Root Route
-    root to: 'welcome#index'
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'

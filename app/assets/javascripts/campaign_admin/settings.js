@@ -32,7 +32,7 @@ $(document).on('turbolinks:load', function () {
       },
       'campaign[domain]': {
         required: true,
-        domainRegex: true
+        // domainRegex: true
       },
       'campaign[domain_type]': {
         required: true

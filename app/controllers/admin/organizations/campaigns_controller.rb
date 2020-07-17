@@ -16,8 +16,8 @@ class Admin::Organizations::CampaignsController < Admin::Organizations::BaseCont
 
     respond_to do |format|
       if @campaign.save
-        if @campaign.domain_type == 'sub_domain'
-          sub_domain = "#{@organization.sub_domain}.#{@campaign.domain}"
+        if @campaign.domain_type == 'own_domain'
+          sub_domain = "#{@campaign.domain}"
         else
           sub_domain = "#{@organization.sub_domain}#{@campaign.domain}"
         end

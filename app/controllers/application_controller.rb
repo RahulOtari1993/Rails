@@ -14,9 +14,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :get_open_graph
 
+  def not_found
+    render plain: "Not found.", status: 404
+  end
+
   def set_organization
     # @organization ||= Organization.where(sub_domain: request.subdomain).first
-    @domain = DomainList.where(domain: request.subdomain).first
+    @domain = DomainList.where(domain: request.domain).first
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first
       @campaign = Campaign.where(id: @domain.campaign_id).first

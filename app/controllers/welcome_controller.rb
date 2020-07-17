@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
   layout 'end_user'
 
   def index
+    binding.pry
     if @campaign.nil?
       redirect_to admin_organizations_campaigns_path
     else

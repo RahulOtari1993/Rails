@@ -47,7 +47,7 @@ class Campaign < ApplicationRecord
   has_many :participant_actions, dependent: :destroy
   has_many :participant_answers, dependent: :destroy
 
-  enum domain_type: [:sub_domain, :include_in_domain]
+  enum domain_type: [:own_domain, :include_in_domain]
 
   ## Callbacks
   after_create :assign_admins
@@ -66,15 +66,15 @@ class Campaign < ApplicationRecord
   validates :name, :domain, :organization_id, :domain_type, presence: true
   validates_exclusion_of :domain, in: Organization::EXCLUDED_SUBDOMAINS,
                          message: "is not allowed. Please choose another domain"
-  validates_format_of :domain, with: Organization::DOMAIN_PATTERN,
-                      message: "is not allowed. Please choose another subdomain."
+  # validates_format_of :domain, with: Organization::DOMAIN_PATTERN,
+  #                     message: "is not allowed. Please choose another subdomain."
   validate :domain_uniqueness
 
   ## Check Domain Uniqueness
   def domain_uniqueness
     org = self.organization
-    if domain_type == 'sub_domain'
-      sub_domain = "#{org.sub_domain}.#{domain}"
+    if domain_type == 'own_domain'
+      sub_domain = "#{domain}"
     else
       sub_domain = "#{org.sub_domain}#{domain}"
     end

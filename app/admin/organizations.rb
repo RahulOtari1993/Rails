@@ -45,7 +45,7 @@ ActiveAdmin.register Organization do
             ## Only Update Sub Domains if Org's Domain is Updated
             resource.campaigns.each do |campaign|
               if campaign.domain_type == 'sub_domain'
-                sub_domain = "#{resource.sub_domain}.#{campaign.domain}"
+                sub_domain = "#{campaign.domain}"
               else
                 sub_domain = "#{resource.sub_domain}#{campaign.domain}"
               end
