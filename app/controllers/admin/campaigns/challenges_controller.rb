@@ -90,6 +90,20 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   def show
     @participants = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
         .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
+
+    calculateUsers = []
+    if @challenge.submissions.present?
+      calculateUsers << @challenge.submissions.where('extract(month from created_at) = ?', @challenge.start.month).count
+    end
+    if calculateUsers.present?
+      calculateUsers = calculateUsers
+    else
+      calculateUsers = [5, 13] # Test values for users
+    end
+    render json: {
+        calculateUsers: calculateUsers,
+        calculateMonths: @challenge.calculate_months
+    }
   end
 
   ## Fetch Participants of Particular Challenge
