@@ -19,8 +19,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_organization
-    # @organization ||= Organization.where(sub_domain: request.subdomain).first
-    @domain = DomainList.where(domain: request.domain).first
+    domain = request.domain
+    sub_domain = request.subdomain
+
+    ## Check whether to Check with Domain or Sub Domain
+    if sub_domain.empty? && domain.present?
+      @domain = DomainList.where(domain: domain).first
+    elsif sub_domain.present? && domain.present?
+      @domain = DomainList.where(domain: sub_domain).first
+    end
+
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first
       @campaign = Campaign.where(id: @domain.campaign_id).first
