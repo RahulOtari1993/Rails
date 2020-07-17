@@ -89,21 +89,16 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   ## Fetch Challenge Details
   def show
     @participants = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
-        .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
-
-    calculateUsers = []
-    if @challenge.submissions.present?
-      calculateUsers << @challenge.submissions.where('extract(month from created_at) = ?', @challenge.start.month).count
+                        .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
+    @chart_json = []
+    @start_date = @challenge.start.strftime('%d %b %Y')
+    if @participants.present?
+      details = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
+                          .select("COUNT(submissions.id) as submission, submissions.created_at as creation").group('submissions.created_at')
+      details.each_with_index do |val, index|
+        @chart_json.push([(val.creation.to_i)*1000, index])
+      end
     end
-    if calculateUsers.present?
-      calculateUsers = calculateUsers
-    else
-      calculateUsers = [5, 13] # Test values for users
-    end
-    render json: {
-        calculateUsers: calculateUsers,
-        calculateMonths: @challenge.calculate_months
-    }
   end
 
   ## Fetch Participants of Particular Challenge
@@ -220,8 +215,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       calculateUsers = [5, 13] # Test values for users
     end
     render json: {
-      calculateUsers: calculateUsers, 
-      calculateMonths: @challenge.calculate_months
+        calculateUsers: calculateUsers,
+        calculateMonths: @challenge.calculate_months
     }
   end
 
