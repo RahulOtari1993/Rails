@@ -93,6 +93,9 @@ $(document).ready(function () {
     chart: {
       height: 350,
       type: 'bar',
+      toolbar: {
+        show: false
+      }
     },
     colors: themeColors,
     plotOptions: {
@@ -104,14 +107,27 @@ $(document).ready(function () {
       enabled: false
     },
     series: [{
+      name: 'No of Users',
       data: [20, 150, 50, 100, 20, 40]
     }],
     xaxis: {
       categories: ['Above 100','81 - 100', '61 - 80', '41 - 60', '21 - 40', '0 - 20'],
-      tickAmount: 5
+      tickAmount: 5,
+      labels: {
+        formatter: function(val) {
+          return val.toFixed(0);
+        }
+      }
     },
     yaxis: {
       opposite: yaxis_opposite
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+          return parseInt(value)
+        }
+      }
     }
   }
   var ageBarChart = new ApexCharts(

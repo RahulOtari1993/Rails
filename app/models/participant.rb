@@ -537,12 +537,12 @@ class Participant < ApplicationRecord
     # For Age Breakdown
     def by_age(participants)
       age = []
-      age << where(age: 0..20).count
-      age << where(age: 21..40).count
-      age << where(age: 41..60).count
-      age << where(age: 61..80).count
-      age << where(age: 81..100).count
-      age << where("age > ?", 100).count
+      age << participants.where("age > ?", 100).count
+      age << participants.where(age: 81..100).count
+      age << participants.where(age: 61..80).count
+      age << participants.where(age: 41..60).count
+      age << participants.where(age: 21..40).count
+      age << participants.where(age: 0..20).count
     end
 
     # For Completed Challenges / Platform With Facebook & Google
