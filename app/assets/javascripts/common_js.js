@@ -14,11 +14,19 @@ $(document).on('turbolinks:load', function() {
     return /^[\w\-]+$/.test(value);
   }, 'Domain is not allowed. Please choose another subdomain.');
 
+  // Domain Name Validation
+  $.validator.addMethod('urlWithOutProtocolRegex', function (value) {
+    return /^(?:(http|https)?:\/\/)?(?:[\w-]+\.)+([a-z]|[A-Z]|[0-9]){2,6}$/.test(value);
+  }, 'Domain is not allowed. Please choose another subdomain.');
+
   $.validator.addClassRules({
     'sub-domain-field': {
       subDomainRegex: true
+    },
+    'own-domain-field': {
+      urlWithOutProtocolRegex: true
     }
-  })
+  });
 
   // Change Domain Field
   $('.campaign-common-form').on('change', '.domain_type_id', function () {

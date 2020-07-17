@@ -59,6 +59,7 @@ class Campaign < ApplicationRecord
 
   ## Downcase Domain Name before Saving into Database
   def downcase_fields
+    self.domain = self.domain.sub(/^https?\:\/\/(www.)?/,'')
     self.domain.downcase!
   end
 
