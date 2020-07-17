@@ -176,6 +176,9 @@ $(document).ready(function () {
     chart: {
       height: 350,
       type: 'bar',
+      toolbar: {
+        show: false
+      }
     },
     colors: themeColors,
     plotOptions: {
@@ -187,10 +190,11 @@ $(document).ready(function () {
       enabled: false
     },
     series: [{
-      data: [400, 430, 448]
+      name: 'Completed Challenges',
+      data: [400, 430]
     }],
     xaxis: {
-      categories: ['Twitter', 'Facebook', 'Google'],
+      categories: ['Twitter', 'Facebook'],
       tickAmount: 5
     },
     yaxis: {

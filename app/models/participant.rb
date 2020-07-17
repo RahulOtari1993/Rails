@@ -547,10 +547,15 @@ class Participant < ApplicationRecord
 
     # For Completed Challenges / Platform With Facebook & Google
     def by_completed_challenges(campaign)
+      facebook_challenge = campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').first
+      twitter_challenge = campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').first
+      submissions = campaign.submissions
+
       completed_challenges = []
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').count
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').count
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'google').count
+      fb_count = facebook_challenge.present? ? submissions.where(challenge_id: facebook_challenge.id).count : 0
+      twitter_count = twitter_challenge.present? ? submissions.where(challenge_id: twitter_challenge.id).count : 0
+      completed_challenges << twitter_count
+      completed_challenges << fb_count
     end
 
     # For Connected Platforms With Facebook & Google
