@@ -37,7 +37,7 @@ $(document).on('turbolinks:load', function () {
       },
       'campaign[domain]': {
         required: true,
-        subDomainRegex: true
+        // subDomainRegex: true
       },
       'campaign[domain_type]': {
         required: true

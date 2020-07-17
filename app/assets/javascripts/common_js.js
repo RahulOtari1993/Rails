@@ -14,6 +14,12 @@ $(document).on('turbolinks:load', function() {
     return /^[\w\-]+$/.test(value);
   }, 'Domain is not allowed. Please choose another subdomain.');
 
+  $.validator.addClassRules({
+    'sub-domain-field': {
+      subDomainRegex: true
+    }
+  })
+
   // Change Domain Field
   $('.campaign-common-form').on('change', '.domain_type_id', function () {
     if ($(this).val() == 'include_in_domain') {
