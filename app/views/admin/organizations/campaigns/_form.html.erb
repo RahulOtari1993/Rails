@@ -39,7 +39,8 @@
               <div class="input-group-prepend">
                 <span class="input-group-text">www.<%= @organization.sub_domain %></span>
               </div>
-              <%= form.text_field :domain, class: "form-control sub-domain-field", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
+              <%= form.text_field :domain, class: "form-control sub-domain-field", placeholder: "Campaign Domain",
+                                  data: {error: 'domain-errors'}, disabled: true %>
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
               </div>
