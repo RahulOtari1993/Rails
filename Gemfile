@@ -141,3 +141,6 @@ gem 'geoip-rails'
 
 # URL Shortner
 gem 'shortener'
+
+## Used to Fetch facebook feeds
+gem 'koala'

@@ -9,6 +9,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     @facebook_network =  @campaign.networks.where(platform: 0).current_active.first
   end
 
+  ## Disconnect the facebook for campaign
   def disconnect
     if @network.update(auth_token: nil, expires_at: nil)
       flash[:notice] = "You've been disconnected to #{@network.platform.titleize} Successfully."
