@@ -78,69 +78,8 @@ $(document).on('turbolinks:load', function () {
   }, 2000);
 
   if ($('#onboarding_questions_modal').length > 0 ) {
-    let datePickerIcons = {
-      time: 'fa fa-clock-o',
-      date: 'fa fa-calendar',
-      up: 'fa fa-chevron-up',
-      down: 'fa fa-chevron-down',
-      previous: 'fa fa-chevron-left',
-      next: 'fa fa-chevron-right',
-      today: 'fa fa-check',
-      clear: 'fa fa-trash',
-      close: 'fa fa-times'
-    }
-
-    // Date Picker for Onboarding Questions
-    $('.answer-date').datetimepicker({
-      format: 'L',
-      icons:datePickerIcons
-    });
-
-    // Time Picker for Onboarding Questions
-    $('.answer-time').datetimepicker({
-      format: 'LT',
-      icons:datePickerIcons
-    });
-
-    // Date Time Picker for Onboarding Questions
-    $('.answer-date-time').datetimepicker({
-      format: 'MM/DD/YYYY hh:mm A',
-      icons:datePickerIcons
-    });
+    initializeDateTimePicker();
   }
-
-  // Custom Validation of Onboarding Questions - START
-  $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required');
-
-  $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals');
-
-  $.validator.addMethod('numberRequired', $.validator.methods.digits, 'This field accepts only numbers');
-
-  $.validator.addClassRules({
-    'answer-string-required': {
-      stringRequired: true
-    },
-    'answer-text-area-required': {
-      stringRequired: true
-    },
-    'answer-date-required': {
-      stringRequired: true
-    },
-    'answer-time-required': {
-      stringRequired: true
-    },
-    'answer-date-time-required': {
-      stringRequired: true
-    },
-    'answer-number-required': {
-      stringRequired: true,
-      numberRequired: true
-    },
-    'answer-decimal-required': {
-      stringRequired: true,
-      decimalRequired: true
-    }
-  })
 
   $('.onboarding-questions-form').validate({
     errorElement: 'span',
@@ -154,19 +93,7 @@ $(document).on('turbolinks:load', function () {
     }
   })
 
-  $('.answer-radio-button-required').each(function () {
-    $(this).rules('add', {
-      required: true
-    });
-  });
-
-  $('.answer-check-box-required').each(function () {
-    $(this).rules('add', {
-      required: true
-    });
-  });
-
-  // Custom Validation of Onboarding Questions - END
+  customQuestionValidation();
 
   // Open Reward Claim Modal Popup
   $('body').on('click', '.reward-claim-modal-btn', function (e) {
@@ -245,6 +172,90 @@ $(document).on('turbolinks:load', function () {
       }
     });
   });
-
-
 });
+
+// Function to Add Custom Validation of Questions
+function customQuestionValidation() {
+  $.validator.addMethod('stringRequired', $.validator.methods.required, 'This field is required.');
+
+  $.validator.addMethod('decimalRequired', $.validator.methods.number, 'This field accepts only numbers & decimals.');
+
+  $.validator.addMethod('numberRequired', $.validator.methods.digits, 'This field accepts only numbers.');
+
+  $.validator.addClassRules({
+    'answer-string-required': {
+      stringRequired: true
+    },
+    'answer-text-area-required': {
+      stringRequired: true
+    },
+    'answer-date-required': {
+      stringRequired: true
+    },
+    'answer-time-required': {
+      stringRequired: true
+    },
+    'answer-date-time-required': {
+      stringRequired: true
+    },
+    'answer-number-required': {
+      stringRequired: true,
+      numberRequired: true
+    },
+    'answer-decimal-required': {
+      stringRequired: true,
+      decimalRequired: true
+    },
+    'answer-dropdown-required': {
+      stringRequired: true
+    }
+  })
+
+  if ($('.answer-radio-button-required').length > 0) {
+    $('.answer-radio-button-required').each(function () {
+      $(this).rules('add', {
+        required: true
+      });
+    });
+  }
+
+  if ($('.answer-check-box-required').length > 0) {
+    $('.answer-check-box-required').each(function () {
+      $(this).rules('add', {
+        required: true
+      });
+    });
+  }
+}
+
+function initializeDateTimePicker() {
+  let datePickerIcons = {
+    time: 'fa fa-clock-o',
+    date: 'fa fa-calendar',
+    up: 'fa fa-chevron-up',
+    down: 'fa fa-chevron-down',
+    previous: 'fa fa-chevron-left',
+    next: 'fa fa-chevron-right',
+    today: 'fa fa-check',
+    clear: 'fa fa-trash',
+    close: 'fa fa-times'
+  }
+
+  // Date Picker for Onboarding Questions
+  $('.answer-date').datetimepicker({
+    format: 'L',
+    icons:datePickerIcons
+  });
+
+  // Time Picker for Onboarding Questions
+  $('.answer-time').datetimepicker({
+    format: 'LT',
+    icons:datePickerIcons
+  });
+
+  // Date Time Picker for Onboarding Questions
+  $('.answer-date-time').datetimepicker({
+    format: 'MM/DD/YYYY hh:mm A',
+    icons:datePickerIcons
+  });
+}

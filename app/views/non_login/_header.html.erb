@@ -1,0 +1,29 @@
+<header>
+  <!-- Fixed navbar -->
+  <nav class="navbar navbar-expand-md fixed-top custom_nav">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img class="logo_image" src="<%= list_header_logo %>">
+      </a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse" id="navbarCollapse" style="">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <div class="mobile_header_btn_box">
+          <a href="#" class="btn header_login_btn mr-3" data-toggle="modal" data-target="#sign_in_modal"><i class="fa fa-chevron-right" aria-hidden="true"></i>
+            Log In</a>
+          <a href="#" class="btn header_join_now_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Sign Up Modal-->
+<%= render 'modals/sign_up_participant' %>
+
+<!-- Sign In Modal-->
+<%= render 'modals/sign_in_participant' %>
+

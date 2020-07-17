@@ -34,7 +34,7 @@
 
             <%= form_with(url: submission_participants_challenge_path(challenge.id), method: 'post',
                           class: 'onboarding-questions-form box3', model: current_participant, local: false) do |f| %>
-              <% challenge.questions.each_with_index do |question, index| %>
+              <% challenge.questions.order(:sequence).each_with_index do |question, index| %>
                 <% profile_attribute = question.profile_attribute %>
 
                 <div class="form-group extended-form-group">
@@ -54,7 +54,7 @@
                                       class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                       placeholder: fetch_placeholder_details(question, 'text_area') %>
                   <% when 'boolean' then %>
-                    <% question.question_options.each do |option| %>
+                    <% question.question_options.order(:sequence).each do |option| %>
                       <%= radio_button_tag "questions[#{question.id}][answer]", true, false,
                                            id: "questions_#{question.id}_answer_#{option.id}",
                                            class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}" %>
@@ -83,7 +83,7 @@
                                        placeholder: fetch_placeholder_details(question, 'decimal') %>
                   <% when 'radio_button' then %>
                     <div>
-                      <% question.question_options.each do |option| %>
+                      <% question.question_options.order(:sequence).each do |option| %>
                         <%= radio_button_tag "questions[#{question.id}][answer]", option.details, false,
                                              id: "questions_#{question.id}_answer_#{option.id}",
                                              class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
@@ -95,7 +95,7 @@
                     </div>
                   <% when 'check_box' then %>
                     <div>
-                      <% question.question_options.each do |option| %>
+                      <% question.question_options.order(:sequence).each do |option| %>
                         <%= check_box_tag "questions[#{question.id}][answer][]", option.details, false,
                                           id: "questions_#{question.id}_answer_#{option.id}",
                                           class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
@@ -109,7 +109,7 @@
                     <div>
                       <%
                         options = []
-                        question.question_options.each do |option|
+                        question.question_options.order(:sequence).each do |option|
                           options.push([option.details, option.details])
                         end
                       %>

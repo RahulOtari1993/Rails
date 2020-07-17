@@ -131,7 +131,7 @@ Rails.application.routes.draw do
           get :details
           post :submission
           post :quiz_submission
-          post :survey_modal_submission
+          post :survey_submission
         end
       end
       resources :rewards, only: [] do
@@ -146,6 +146,14 @@ Rails.application.routes.draw do
           put :update_profile_details
           put :disconnect
           get :fetch_activities
+        end
+      end
+
+      ## Non Login User Submit Challenges Routes
+      get '/:type/submit/:identifier/', to: 'submissions#load_details', as: :load_details
+      resources :submissions, only: [] do
+        collection do
+          post :challenge, as: :non_login
         end
       end
     end

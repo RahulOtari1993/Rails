@@ -1,0 +1,128 @@
+<section class="section_que">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 offset-lg-2 col-lg-8">
+        <div class="box3">
+          <%= render 'non_login/challenge_header_details' %>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div id="player"></div>
+              <div class="progress">
+                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+              <p class="pull-right" id="display"></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+    // create a element for watch a video start
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+    // create a element for watch a video end
+  })
+
+  // Initialise the iframe  start
+  var player, timer, timeSpent = [], completeWatchPercent, completeWatchStatus;
+  var challengeId = <%= @challenge.id %>;
+
+  function onYouTubeIframeAPIReady() {
+    var width = $(window).width();
+    var height = 320;
+
+    if (width > 620) {
+      width = 620
+    }
+    if (width < 620) {
+      height = 180
+    }
+
+    player = new YT.Player('player', {
+      height: height,
+      width: $('.progress').width(),
+      videoId: "<%= get_challenge_video_id(@challenge) %>",
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    });
+
+    // stop the video playback on close
+    $('#watch_video_modal').on("hidden.bs.modal", function () {
+      player.pauseVideo()
+    })
+  }
+
+  // Iframe Events listeners and record watch video progress start
+  function onPlayerStateChange(event) {
+    if (event.data === 1) { // Started playing
+      if (!timeSpent.length) {
+        for (var i = 0, l = parseInt(player.getDuration()); i < l; i++) timeSpent.push(false);
+      }
+      timer = setInterval(record, 100);
+    } else {
+      clearInterval(timer);
+    }
+  }
+
+  // record watch video progress start
+  function record() {
+    timeSpent[parseInt(player.getCurrentTime())] = true;
+    if (completeWatchStatus == '' || completeWatchStatus == undefined) {
+      completeWatchPercent = showPercentage();
+      if (completeWatchPercent === 100) {
+        completeWatchStatus = true
+        submitChallenge()
+        clearInterval(timer)
+      }
+    }
+  }
+
+  // Calculate and Show the percentage
+  function showPercentage() {
+    var percent = 0;
+    for (var i = 0, l = timeSpent.length; i < l; i++) {
+      if (timeSpent[i]) percent++;
+    }
+    percent = Math.round(percent / timeSpent.length * 100);
+
+    $('#display').text(percent + "%");
+    $('.progress-bar').css("width", percent + "%");
+    return percent;
+  }
+
+  // submit Challenge start
+  function submitChallenge() {
+    var identifier = '<%= @identifier %>';
+
+    $.ajax({
+      url: `/participants/submissions/challenge`,
+      type: 'POST',
+      dataType: 'JSON',
+      data: {identifier: identifier},
+      success: function (data) {
+        if (data.success) {
+          // Display Challenge Completion Message
+          swalNotify('Challenge Submission', data.message);
+        } else {
+          swalNotify('Challenge Submission', data.message);
+        }
+      }
+    });
+  }
+</script>
+
+<style media="screen">
+  .progress {
+    height: 4px;
+  }
+</style>
