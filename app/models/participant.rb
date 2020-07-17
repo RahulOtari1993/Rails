@@ -529,9 +529,9 @@ class Participant < ApplicationRecord
     # For Gender Breakdown
     def by_gender(participants)
       gender = []
-      gender << where(gender: 'male').count
-      gender << where(gender: 'female').count
-      gender << where(gender: 'other').count
+      gender << participants.where(gender: 'male').count
+      gender << participants.where(gender: 'female').count
+      gender << participants.where.not(gender: ['male', 'female']).or(Participant.where(gender: nil)).count
     end
 
     # For Age Breakdown
