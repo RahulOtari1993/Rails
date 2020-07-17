@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function() {
+$(document).on('turbolinks:load', function () {
   // Invite Organization Admin Form Validation
   $('#new_admin_organizations_user').validate({
     errorElement: 'span',
@@ -54,7 +54,7 @@ $(document).on('turbolinks:load', function() {
         required: 'Please select domain type'
       }
     },
-    errorPlacement: function(error, element) {
+    errorPlacement: function (error, element) {
       var placement = $(element).data('error');
       if (placement) {
         $('.' + placement).append(error)
@@ -75,7 +75,7 @@ $(document).on('turbolinks:load', function() {
       }
     ],
     dom:
-      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+        '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
@@ -90,13 +90,13 @@ $(document).on('turbolinks:load', function() {
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Add New Campaign",
-        action: function() {
+        action: function () {
           window.location.href = '/admin/organizations/campaigns/new'
         },
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light" // btn-outline-primary
       }
     ],
-    initComplete: function(settings, json) {
+    initComplete: function (settings, json) {
       $(".dt-buttons .btn").removeClass("btn-secondary")
     }
   });
@@ -111,7 +111,7 @@ $(document).on('turbolinks:load', function() {
       }
     ],
     dom:
-      '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
+        '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
       sSearch: ""
@@ -126,32 +126,47 @@ $(document).on('turbolinks:load', function() {
     buttons: [
       {
         text: "<i class='feather icon-plus'></i> Invite a User",
-        action: function() {
+        action: function () {
           window.location.href = '/admin/organizations/users/sign_up'
         },
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light" // btn-outline-primary
       }
     ],
-    initComplete: function(settings, json) {
+    initComplete: function (settings, json) {
       $(".dt-buttons .btn").removeClass("btn-secondary")
     }
   });
 
   // De-Activate Campaign
-  $('.campaign-list-view').on('click', '.de-active-campaign-btn', function(){
+  $('.campaign-list-view').on('click', '.de-active-campaign-btn', function () {
     $.ajax({
       type: 'PATCH',
-      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
       url: $(this).data('url')
     });
   });
 
   // Activate/De-Activate a User
-  $('.user-list-view').on('click', '.user-action-btn', function(){
+  $('.user-list-view').on('click', '.user-action-btn', function () {
     $.ajax({
       type: 'PATCH',
-      data: { authenticity_token: $('[name="csrf-token"]')[0].content},
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
       url: $(this).data('url')
     });
+  });
+
+  // Change Domain Field
+  $('.add-campaign-form').on('change', '.domain_type_id', function () {
+    if ($(this).val() == 'include_in_domain') {
+      $('.include-in-domain-selection').show();
+      $('.include-in-domain-selection input').prop("disabled", false);
+      $('.own-domain-selection').hide();
+      $('.own-domain-selection input').prop("disabled", true);
+    } else {
+      $('.own-domain-selection').show();
+      $('.own-domain-selection input').prop("disabled", false);
+      $('.include-in-domain-selection').hide();
+      $('.include-in-domain-selection input').prop("disabled", true);
+    }
   });
 });
