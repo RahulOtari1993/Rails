@@ -10,7 +10,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   // Domain Name Validation
-  $.validator.addMethod('domainRegex', function (value) {
+  $.validator.addMethod('subDomainRegex', function (value) {
     return /^[\w\-]+$/.test(value);
   }, 'Domain is not allowed. Please choose another subdomain.');
 
