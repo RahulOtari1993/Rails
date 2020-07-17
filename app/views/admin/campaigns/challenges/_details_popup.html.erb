@@ -178,15 +178,16 @@
 
   var options = {
     series: [{
-      name: "Challenge Submission",
+      name: "Challenge Completion",
       data: chartData
     }],
     chart: {
+      id: 'challenge-completion-line-chart',
       type: 'line',
       height: 270,
-      zoom: {
-        autoScaleYaxis: true
-      }
+      toolbar: {
+        show: false
+      },
     },
     title: {
       text: 'Challenge Completion',
@@ -208,7 +209,15 @@
       type: 'datetime',
       min: new Date(startDate).getTime()
     },
-    
+    yaxis: [
+      {
+        labels: {
+          formatter: function(val) {
+            return val.toFixed(0);
+          }
+        }
+      }
+    ],
     tooltip: {
       x: {
         format: 'dd MMM yyyy'
