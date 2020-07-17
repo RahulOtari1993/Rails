@@ -80,6 +80,9 @@ class Challenge < ApplicationRecord
   mount_uploader :social_image, ImageUploader
   mount_uploader :icon, IconUploader
 
+  ## Callbacks
+  after_create :generate_challenge_identifier
+
   ## Nested Attributes
   accepts_nested_attributes_for :challenge_filters, allow_destroy: true, :reject_if => :all_blank
   accepts_nested_attributes_for :questions, allow_destroy: true, :reject_if => :all_blank
@@ -99,6 +102,7 @@ class Challenge < ApplicationRecord
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
             :caption, presence: true
   validate :reward_existence
+  validates_uniqueness_of :identifier, message: "already exists"
 
   # Get UTM params for this challenge
   def utm_parameters platform=nil
@@ -154,7 +158,14 @@ class Challenge < ApplicationRecord
     if options.has_key?(:type) && options[:type] == 'one'
       ## Include Questions & It's Options in JSON Response
       question_list = questions.as_json(include_options: false)
-      response = response.merge({:questions => question_list})
+
+      ## Encrypt in URI Format & Pass in URL
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials[Rails.env.to_sym][:encryption_key])
+      encrypted_data = crypt.encrypt_and_sign("#{Participant.current.p_id}#{identifier}")
+      encrypted_data = URI.encode_www_form_component(encrypted_data)
+      challenge_url = "/participants/challenge/submit/#{encrypted_data}"
+
+      response = response.merge({:questions => question_list, challenge_url: challenge_url})
     elsif options.has_key?(:type) && options[:type] == 'list'
       ## Remove Additional Details from JSON Response
       response.reject! {|k, v| %w"description content tag_list".include? k }
@@ -278,4 +289,19 @@ class Challenge < ApplicationRecord
     months.flatten.uniq
   end
 
+  ## Generate Unique Challenge Identifier
+  def self.get_identifier
+    new_id = SecureRandom.hex (6)
+    p_id = self.where(identifier: new_id.downcase)
+    if p_id.present?
+      self.get_identifier
+    else
+      new_id.downcase
+    end
+  end
+
+  ## Save Unique Challenge Identifier
+  def generate_challenge_identifier
+    self.update_attribute('identifier', Challenge.get_identifier)
+  end
 end

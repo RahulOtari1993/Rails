@@ -1,5 +1,5 @@
 class Api::V1::ChallengesController < Api::V1::BaseController
-  before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
+  before_action :set_current_participant, only: [:index, :show], if: -> { @campaign.present? }
 
   ## Fetch All Challenges of a Campaign
   def index

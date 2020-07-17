@@ -1,0 +1,8 @@
+$('.submit-btn').hide();
+
+Swal.fire({
+  title: 'Submit Challenge',
+  text: '<%= @response[:message].to_s %>',
+  confirmButtonClass: 'btn btn-primary',
+  buttonsStyling: false,
+});
