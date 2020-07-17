@@ -154,19 +154,4 @@ $(document).on('turbolinks:load', function () {
       url: $(this).data('url')
     });
   });
-
-  // Change Domain Field
-  $('.add-campaign-form').on('change', '.domain_type_id', function () {
-    if ($(this).val() == 'include_in_domain') {
-      $('.include-in-domain-selection').show();
-      $('.include-in-domain-selection input').prop("disabled", false);
-      $('.own-domain-selection').hide();
-      $('.own-domain-selection input').prop("disabled", true);
-    } else {
-      $('.own-domain-selection').show();
-      $('.own-domain-selection input').prop("disabled", false);
-      $('.include-in-domain-selection').hide();
-      $('.include-in-domain-selection input').prop("disabled", true);
-    }
-  });
 });
