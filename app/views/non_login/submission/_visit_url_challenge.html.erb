@@ -1,0 +1,43 @@
+<section class="section_que visit_url_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 offset-lg-2 col-lg-8">
+        <div class="box3">
+          <%= render 'non_login/challenge_header_details' %>
+
+          <div class="row">
+            <div class="col-md-12 visit-btn-container">
+              <a href="<%= @challenge.link %>" target="_blank" class="btn btn-primary submit-link-challenge">
+                Visit URL
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Submit Visit a URL Challenge
+  $('.visit_url_section').on('click', '.submit-link-challenge', function (e) {
+    var identifier = '<%= @identifier %>';
+
+    $.ajax({
+      type: 'POST',
+      url: '/participants/submissions/challenge',
+      data: {
+        authenticity_token: $('[name="csrf-token"]')[0].content,
+        identifier: identifier
+      },
+      success: function (data) {
+        if (data.success) {
+          // Display Challenge Completion Message
+          swalNotify('Challenge Submission', data.message);
+        } else {
+          swalNotify('Challenge Submission', data.message);
+        }
+      }
+    });
+  });
+</script>

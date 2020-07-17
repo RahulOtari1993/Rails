@@ -229,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_044420) do
     t.string "failed_message"
     t.integer "correct_answer_count"
     t.integer "completions", default: 0
+    t.string "identifier"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
@@ -319,16 +320,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_044420) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_user_id"], name: "index_organizations_on_admin_user_id"
-  end
-
-  create_table "participant_account_connects", force: :cascade do |t|
-    t.bigint "participant_id"
-    t.string "email"
-    t.string "token"
-    t.string "platform"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["participant_id"], name: "index_participant_account_connects_on_participant_id"
   end
 
   create_table "participant_actions", force: :cascade do |t|

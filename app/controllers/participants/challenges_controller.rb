@@ -76,7 +76,7 @@ class Participants::ChallengesController < ApplicationController
     end
   end
 
-  ## Submit Quiz and Survey Challenge
+  ## Submit Quiz Challenge
   def quiz_submission
     if @challenge.present?
       ## save challenge quiz answers submitted
@@ -106,8 +106,22 @@ class Participants::ChallengesController < ApplicationController
   end
 
   # Submit Survey Challenge
-  def survey_modal_submission
-    
+  def survey_submission
+    if @challenge.present?
+      ## Build Survey Answer Fields
+      quiz_answer_records = build_survey_params
+      quiz_answer_records.each do |record|
+        participant_answer = ParticipantAnswer.new(record)
+        participant_answer.save
+      end
+
+      @response = send(:submission)
+    else
+      respond_to do |format|
+        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        format.js { render layout: false }
+      end
+    end
   end
 
   protected
@@ -155,7 +169,7 @@ class Participants::ChallengesController < ApplicationController
     profile_params
   end
 
-  ## Manage & Build Extended Challenge Question Params
+  ## Manage & Build Quiz Answer Params
   def challenge_quiz_params
     participant_answer_params = []
     params[:questions].each do |key, participant_answer_hash|
@@ -183,6 +197,37 @@ class Participants::ChallengesController < ApplicationController
         end
       end
     end
+    participant_answer_params
+  end
+
+  ## Manage & Build Survey Answer Params
+  def build_survey_params
+    participant_answer_params = []
+    params[:questions].each do |key, answer_hash|
+      question = Question.find(answer_hash[:question_id].to_i)
+      temp_hash = answer_hash.as_json
+
+      if question.present? && (question.answer_type == "string" || question.answer_type == "text_area" ||
+          question.answer_type == "date" || question.answer_type == "time" || question.answer_type == "date_time" ||
+          question.answer_type == "number" || question.answer_type == "decimal")
+
+        temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id)
+        temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
+        participant_answer_params << temp_hash
+      elsif question.present? && answer_hash[:answer].present? &&
+          (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
+              question.answer_type == "dropdown" || question.answer_type == "boolean")
+
+        answer_hash[:answer].each do |option_id|
+          dup_hash = temp_hash.clone
+          dup_hash[:question_option_id] = option_id
+          dup_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id, answer: nil)
+          dup_hash = ActiveSupport::HashWithIndifferentAccess.new(dup_hash)
+          participant_answer_params << dup_hash
+        end
+      end
+    end
+
     participant_answer_params
   end
 
@@ -222,14 +267,15 @@ class Participants::ChallengesController < ApplicationController
                                                  campaign_id: @challenge.campaign_id)
       participant_action.save!
 
-      ## Claim the reward after successfull submission of challenge for reward type
+      ## Claim the reward after successful submission of challenge for reward type
       if @challenge.reward_type == 'prize' && !re_submission
         reward_service = RewardsService.new(current_participant.id, @challenge.reward_id, request)
         @response = reward_service.process
       end
 
       respond_to do |format|
-        @response = {success: true, message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You've completed this challenge successfully.") }
+        @response = {success: true,
+                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully.")}
         format.json { render json: @response }
         format.js { render layout: false }
       end
