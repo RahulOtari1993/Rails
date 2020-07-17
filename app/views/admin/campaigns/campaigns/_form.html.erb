@@ -27,7 +27,7 @@
           <span class="column-info">Choose the Domain type to handle how you want the campaign domain to be.</span>
           <div class="position-relative">
             <%= form.select :domain_type,
-                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact), #Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact   [['Include in Domain', 'include_in_domain']]
+                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact, @campaign.domain_type), #[['Include in Domain', 'include_in_domain']]
                             {}, class: 'form-control domain_type_id' %>
           </div>
         </div>
