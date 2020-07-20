@@ -144,3 +144,6 @@ gem 'shortener'
 
 ## Used to Fetch facebook feeds
 gem 'koala'
+
+## Schedule cron jobs
+gem 'whenever'
