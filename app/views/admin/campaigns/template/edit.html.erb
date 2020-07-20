@@ -150,12 +150,12 @@
         .append($("<style type='text/css'>  .footer_bottom p, .footer_bottom a {font-size: " + footerFontSize + "px !important; color: " + footerFontColor + " !important;} </style>"));
 
 
-    var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
-    selectedFont = selectedFont.split(':');
-    console.log("Selected Fonts", selectedFont[0]);
-
-    iFrame.find(".footer_bottom")
-        .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
+    // var selectedFont = $('#font-selector').val().replace(/\+/g, ' ');
+    // selectedFont = selectedFont.split(':');
+    // console.log("Selected Fonts", selectedFont[0]);
+    //
+    // iFrame.find(".footer_bottom")
+    //     .append($("<style type='text/css'>  body {font-family: " + selectedFont[0] + " !important;}  </style>"));
 
     iFrame.find(".custom-header")
         .html($('#campaign_template_detail_header_text').val());

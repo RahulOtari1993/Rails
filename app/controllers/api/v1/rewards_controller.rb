@@ -33,6 +33,12 @@ class Api::V1::RewardsController < Api::V1::BaseController
     end
   end
 
+  ## Fetch Claimed Rewards of a Participant
+  def my_rewards
+    render_success 200, true, 'Claimed rewards fetched successfully.',
+                   current_participant.rewards.as_json(type: 'list')
+  end
+
   private
 
   ## Set Reward
