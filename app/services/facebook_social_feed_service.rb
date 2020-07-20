@@ -8,7 +8,7 @@ class FacebookSocialFeedService
   ## Fetch facebook feeds for specific network
   def process
     if @organization.present? && @campaign.present? && @network.present?
-      # 
+      #
       # conf = GlobalConfiguration.first
       # auth_token = @network.auth_token
       # client = Koala::Facebook::API.new(auth_token, conf.facebook_app_secret)
