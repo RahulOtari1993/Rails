@@ -180,6 +180,9 @@ Rails.application.routes.draw do
             member do
               post :claim
             end
+            collection do
+              get :my, to: 'rewards#my_rewards'
+            end
           end
 
           ## Challenges API Routes
