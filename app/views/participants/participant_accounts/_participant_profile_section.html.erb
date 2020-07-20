@@ -23,7 +23,7 @@
         </div>
         <div class="p-2">
           <p class="mb-0"><b class="text-uppercase size-12">University Affliation</b></p>
-          <p class="mb-0 size-12"><%= current_participant.participant_profiles.pluck(:value).join(", ").titleize %></p>
+          <p class="mb-0 size-12"><%= current_participant.participant_profiles.pluck(:value).compact.join(", ").titleize %></p>
         </div>
       </div>
     </div>
@@ -129,7 +129,7 @@
         <% default_affiliations.each do |item| %>
           <span class="affiliation-item">
             <%= check_box_tag "affiliation_types[]", item, (participant_affiliations.include?(item) ? true : false), id: "participant_profile_#{item}" %>
-            <span id="<%= "participant_profile_#{item}" %>" class="size-14"><%= item %></span>
+            <label for="<%= "participant_profile_#{item}" %>" class="size-14"><%= item %></label>
           </span>
         <% end %>
       </div>
@@ -160,7 +160,7 @@
   </div>
   <div class="row ml-1 mt-3">
     <div class="col-md-3">
-      <%= f.button "Cancel", type: :button, class: 'btn btn-block pull-right', id: "participant_profile_cancel_btn" %>
+      <%= f.button "Cancel", type: :button, class: 'btn btn-block cancel-btn pull-right', id: "participant_profile_cancel_btn" %>
     </div>
     <div class="col-md-3">
       <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>

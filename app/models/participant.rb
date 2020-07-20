@@ -118,7 +118,7 @@ class Participant < ApplicationRecord
 
   ## Shortened URL ownership
   has_shortened_urls
-  
+
   ## Scopes
   scope :active, -> { where(arel_table[:status].eq(1)) }
 

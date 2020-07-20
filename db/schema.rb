@@ -282,6 +282,11 @@ ActiveRecord::Schema.define(version: 2020_07_20_114154) do
     t.string "username"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "organization_id"
+    t.string "uid"
+    t.string "email"
+    t.datetime "expires_at"
+    t.string "avatar"
     t.index ["campaign_id"], name: "index_networks_on_campaign_id"
   end
 
@@ -561,9 +566,9 @@ ActiveRecord::Schema.define(version: 2020_07_20_114154) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
+    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
-    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end

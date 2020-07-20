@@ -135,4 +135,35 @@ class User < ApplicationRecord
       CampaignUser.joins(:campaign).where(campaigns: {organization_id: organization.id, is_active: true},
                                           campaign_users: {user_id: self.id}).where.not(campaign_users: {role: 0})
   end
+
+
+  ## Facebook Account Connect for Campaign user
+  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', u_id = nil)
+    org = Organization.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    user = User.where(organization_id: org.try(:id), id: u_id).first
+
+    Rails.logger.info "*********** Save Token *************"
+    Rails.logger.info "*********** Response: #{auth.as_json} *************"
+    Rails.logger.info "*********** Parameters: #{params} *************"
+
+    if org.present? && camp.present? && user.present?
+      ## Save the token response and user info details
+      network = camp.networks.where(organization_id: org.id, campaign_id: camp.id, platform: auth.provider, uid: auth.uid, email: auth.info.email).first_or_initialize
+
+      ## Update existing network or create a new Network
+      network.auth_token = auth.credentials.token
+      network.username = auth.info.name
+      network.expires_at = Time.at(auth.credentials.expires_at)
+      network.remote_avatar_url = auth.info.image
+      if network.save
+        network
+      else
+        Network.new
+      end
+    else
+      Network.new
+    end
+  end
+
 end

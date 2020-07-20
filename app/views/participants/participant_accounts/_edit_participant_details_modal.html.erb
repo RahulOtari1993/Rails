@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="participant_details_modal">
+<div class="modal fade text-left participant-details-modal" id="participant_details_modal">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -112,8 +112,8 @@
                       <% @email_settings.each do |email_setting| %>
                         <div>
                           <%#= radio_button_tag "participant[email_setting_id]", email_setting.id, false, id: "email_setting_#{email_setting.id}"  %>
-                          <%= f.radio_button :email_setting_id, email_setting.id %>
-                          <span class="font-12"><%= email_setting.description %></span>
+                          <%= f.radio_button :email_setting_id, email_setting.id, id: "email_setting_#{email_setting.id}" %>
+                          <label class="font-12" for="<%= "email_setting_#{email_setting.id}" %>"><%= email_setting.description %></label>
                         </div>
                       <% end %>
                     </div>
@@ -122,7 +122,7 @@
                 <%= hidden_field_tag "email_settings", true %>
                 <div class="row ml-1 mt-3">
                   <div class="col-md-3">
-                    <%= f.button "Cancel", type: :button, class: 'btn btn-block pull-right', id: "email_settings_cancel_btn" %>
+                    <%= f.button "Cancel", type: :button, class: 'btn btn-block cancel-btn pull-right', id: "email_settings_cancel_btn" %>
                   </div>
                   <div class="col-md-3">
                     <%= f.submit "Save", class: 'btn box1_btn btn-block pull-right' %>
@@ -227,13 +227,13 @@
     // ------------ Server Side Rendering For Activity Feed ------------
     $('#participant-actions-list-view').DataTable({
       processing: true,
+      serverSide: true,
       responsive: false,
       ajax: {
         'url': `/participants/accounts/fetch_activities`,
         'dataSrc': 'participant_actions',
         dataFilter: function (data) {
           var json = jQuery.parseJSON(data);
-          console.log(JSON.stringify(json));
           return JSON.stringify(json);
         },
       },
@@ -243,7 +243,11 @@
           data: null,
           searchable: false,
           render: function (data, type, row) {
-            return (data.title + ' ' + titleDetails(data))
+            if (data.title == '' || data.title == undefined) {
+              return (titleDetails(data))
+            } else {
+              return (data.title + ' ' + titleDetails(data))
+            }
           },
           createdCell: function (td, cellData, rowData, row, col) {
             $(td).css('width', '50%');
@@ -272,13 +276,13 @@
           }
         }
       ],
-      'order': [],
+      'order': [[2, "desc"]],
       'columnDefs': [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
       'searching': false,
       'lengthChange': false,
       'autoWidth': false,
-      'pageLength': 10,
-
+      'bInfo': false,
+      'pageLength': 10
     });
 
     $('#email_settings_edit_btn').click(function() {
@@ -347,6 +351,10 @@
     bottom: 0;
     right: 0;
     height: auto;
+  }
+
+  .custom-file-label {
+    margin-right: 1rem;
   }
 
 </style>

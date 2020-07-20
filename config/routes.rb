@@ -19,7 +19,7 @@ Rails.application.routes.draw do
         registrations: 'users/registrations',
         sessions: 'users/sessions',
         passwords: 'users/passwords',
-        confirmations: 'users/confirmations',
+        confirmations: 'users/confirmations'
     }
 
     devise_for :participants, controllers: {
@@ -98,9 +98,11 @@ Rails.application.routes.draw do
 
           ## Network Routes
           resources :networks do
+            member do
+              get :disconnect
+            end
             collection do
               get :connect_facebook
-              get '/auth/facebook/callback', to: 'networks#facebook_callback'
             end
           end
 

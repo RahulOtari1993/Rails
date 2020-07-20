@@ -221,4 +221,5 @@ class Reward < ApplicationRecord
       reward_service.process
     end
   end
+
 end

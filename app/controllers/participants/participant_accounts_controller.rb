@@ -45,7 +45,10 @@ class Participants::ParticipantAccountsController < ApplicationController
   end
 
   def fetch_activities
-    participant_actions = current_participant.participant_actions.sort.reverse!
+    participant_actions = current_participant.participant_actions
+    participant_actions = participant_actions.order(sort_column_for_activity.to_sym => datatable_sort_direction.to_sym) unless sort_column_for_activity.nil?
+    participant_actions = participant_actions.page(datatable_page).per(datatable_per_page)
+
     render json: {
         participant_actions: participant_actions.as_json,
         draw: params['draw'].to_i,
@@ -60,6 +63,27 @@ class Participants::ParticipantAccountsController < ApplicationController
     params.require(:participant).permit(:first_name, :last_name, :address_1,
                                             :address_2, :city, :state, :postal, :country, :phone, :avatar,
                                             :home_phone, :work_phone, :job_position, :job_company_name, :job_industry, :email_setting_id)
+  end
+
+  # Sort Activity Columns
+  def sort_column_for_activity
+    columns = %w(title points created_at)
+    columns[params[:order]['0'][:column].to_i]
+  end
+
+  ## Returns Datatable Page Number
+  def datatable_page
+    params[:start].to_i / datatable_per_page + 1
+  end
+
+  ## Returns Datatable Per Page Length Count
+  def datatable_per_page
+    params[:length].to_i > 0 ? params[:length].to_i : 10
+  end
+
+  ## Returns Datatable Sorting Direction
+  def datatable_sort_direction
+    params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
   end
 
 end

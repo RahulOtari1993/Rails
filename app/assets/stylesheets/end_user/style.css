@@ -60,6 +60,23 @@
   color: #fff;
 }
 
+.box1_btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
+.cancel-btn {
+  font-size: 15px;
+  border-radius: 22px;
+  padding: 7px 23px;
+  margin-bottom: 17px;
+}
+
+.cancel-btn:focus {
+  outline: 0;
+  box-shadow: none;
+}
+
 .facebook_btn {
   background-color: #4060B2 !important;
   color: #f2f2f2 !important;
@@ -193,7 +210,7 @@ span.error {
   background-color: #000;
 }
 
-.challenge-modal .modal-dialog, .reward-modal .modal-dialog {
+.challenge-modal .modal-dialog, .reward-modal .modal-dialog,  .participant-details-modal .modal-dialog {
   max-width: 736px;
 }
 

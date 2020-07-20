@@ -23,13 +23,14 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       else
         redirect_to root_url, notice: 'Facebook account connected successfully.'
       end
-    elsif type == 'connect' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('pi')
-      @participant = Participant.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['pi'])
-
-      if @participant.new_record?
-        redirect_to root_url, notice: 'Connecting Facebook account failed.'
+    elsif type == 'social_feed' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('ui')
+      Rails.logger.info "********************** Facebook Callback Initiated **********************"
+      campaign_id = request.env['omniauth.params']['ci']
+      @network = User.facebook_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['ui'])
+      if @network.new_record?
+        redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Connecting Facebook account failed.'
       else
-        redirect_to root_url, notice: 'Facebook account connected successfully.'
+        redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Facebook account connected successfully.'
       end
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
