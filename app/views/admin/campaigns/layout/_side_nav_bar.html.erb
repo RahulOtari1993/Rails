@@ -41,7 +41,7 @@
         </li>
         <li class="nav-item <%= is_active_menu(['campaign_configs']) %>">
           <a href="<%= edit_admin_campaign_config_path(@campaign, @config) %>">
-            <i class="feather icon-settings"></i><span class="menu-title">Configurations</span>
+            <i class="fa fa-plug"></i><span class="menu-title">Configurations</span>
           </a>
         </li>
          <li class="nav-item <%= is_active_menu(['template']) %>">
@@ -51,12 +51,14 @@
         </li>
         <li class="nav-item <%= is_active_menu(['profile_attributes']) %>">
           <a href="<%= admin_campaign_profile_attributes_path(@campaign) %>">
-            <i class="feather icon-map"></i><span class="menu-title" data-i18n="Profile Attributes">Profile Attributes</span>
+            <i class="fa fa-sort-numeric-asc"></i><span class="menu-title" data-i18n="Profile Attributes">Profile Attributes</span>
+<!--            fa fa-bullseye-->
+
           </a>
         </li>
         <li class="nav-item <%= is_active_menu(['networks']) %>">
           <a href="<%= admin_campaign_networks_path(@campaign) %>">
-            <i class="feather icon-map"></i><span class="menu-title" data-i18n="Network">Network</span>
+            <i class="fa fa-magnet"></i><span class="menu-title" data-i18n="Network">Network</span>
           </a>
         </li>
      <% end %>

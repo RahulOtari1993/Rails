@@ -1,4 +1,4 @@
-<%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-campaign-form', model: campaign, local: true) do |form| %>
+<%= form_with(url: '/admin/organizations/campaigns', method: 'post', class: 'add-campaign-form campaign-common-form', model: campaign, local: true) do |form| %>
   <div class="form-body">
     <div class="row">
       <div class="col-12">
@@ -21,7 +21,7 @@
           <%= form.label :domain_type, 'Domain type' %>
           <div class="position-relative">
             <%= form.select :domain_type,
-                            options_for_select([['Include in Domain', 'include_in_domain']]), # Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact
+                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact), # Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact [['Include in Domain', 'include_in_domain']]
                             {prompt: 'Select Domain Type'}, class: 'form-control domain_type_id' %>
           </div>
         </div>
@@ -30,12 +30,17 @@
       <div class="col-12">
         <div class="form-group">
           <%= form.label :domain %>
-          <div class="position-relative">
+          <div class="position-relative own-domain-selection">
+            <%= form.text_field :domain, class: "form-control own-domain-field", placeholder: "Campaign Domain" %>
+          </div>
+
+          <div class="position-relative include-in-domain-selection" style="display: none;">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">www.<%= @organization.sub_domain %></span>
               </div>
-              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
+              <%= form.text_field :domain, class: "form-control sub-domain-field", placeholder: "Campaign Domain",
+                                  data: {error: 'domain-errors'}, disabled: true %>
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
               </div>
