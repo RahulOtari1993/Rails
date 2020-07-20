@@ -191,10 +191,10 @@ $(document).ready(function () {
     },
     series: [{
       name: 'Completed Challenges',
-      data: [400, 430]
+      data: [10, 9, 7, 15]
     }],
     xaxis: {
-      categories: ['Twitter', 'Facebook'],
+      categories: ['Twitter', 'Facebook', 'Google', 'Email'],
       tickAmount: 5
     },
     yaxis: {
