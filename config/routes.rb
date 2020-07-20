@@ -175,6 +175,13 @@ Rails.application.routes.draw do
         }
 
         devise_scope :participant do
+          ## Campaign API Routes
+          resources :campaign, only: [] do
+            collection do
+              get :content
+            end
+          end
+
           ## Rewards API Routes
           resources :rewards, only: [:index, :show] do
             member do
