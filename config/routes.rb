@@ -192,6 +192,7 @@ Rails.application.routes.draw do
             end
             collection do
               get :connect_challenges
+              get :completed
             end
           end
 

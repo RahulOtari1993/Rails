@@ -61,6 +61,14 @@ class Api::V1::ChallengesController < Api::V1::BaseController
     end
   end
 
+  ## Fetch Completed Challenges of a Participant
+  def completed
+    challenge_ids = @campaign.submissions.where(participant_id: current_participant.id).page(page).per(per_page).pluck(:challenge_id)
+    challenges = @campaign.challenges.where(id: challenge_ids)
+
+    render_success 200, true, 'Completed challenges fetched successfully.', challenges.as_json(type: 'list')
+  end
+
   private
 
   ## Create Participant Action Entry
