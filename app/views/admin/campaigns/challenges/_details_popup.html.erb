@@ -103,9 +103,6 @@
                 <li class="nav-item">
                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#users" aria-controls="users" role="tab" aria-selected="false">Users</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" id="about-tab" data-toggle="tab" href="#details" aria-controls="details" role="tab" aria-selected="false">Details</a>
-                </li>
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="insights" aria-labelledby="insights-tab" role="tabpanel">
@@ -150,12 +147,6 @@
                     </table>
                   </div>
                 </div>
-                <div class="tab-pane" id="details" aria-labelledby="details-tab" role="tabpanel">
-                  <p>Carrot cake dragée chocolate. Lemon drops ice cream wafer gummies dragée. Chocolate bar liquorice
-                    cheesecake cookie chupa chups marshmallow oat cake biscuit. Dessert toffee fruitcake ice cream
-                    powder
-                    tootsie roll cake.</p>
-                </div>
               </div>
             </div>
           </div>
@@ -169,60 +160,62 @@
 </div>
 
 <script type="text/javascript">
-  var lineChartOptionsForInsight = {
+  var startDate = '<%= @start_date %>'
+  var chartData = []
+
+  <% @chart_json.each do |val| %>
+    chartData.push([parseInt('<%= val[0] %>'), parseInt('<%= val[1] %>')]);
+  <% end %>
+
+  var options = {
+    series: [{
+      name: "Challenge Completion",
+      data: chartData
+    }],
     chart: {
-      height: 300,
-      width: 660,
+      id: 'challenge-completion-line-chart',
       type: 'line',
-      zoom: {
-        enabled: false
-      }
+      height: 270,
+      toolbar: {
+        show: false
+      },
     },
-    dataLabels: {
-      enabled: false
+    title: {
+      text: 'Challenge Completion',
+      align: 'left'
     },
     stroke: {
       curve: 'straight'
     },
-    series: [{
-      name: "Users",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-    }],
-    title: {
-      text: 'Users',
-      align: 'left'
+    dataLabels: {
+      enabled: false
     },
     grid: {
       row: {
-        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+        colors: ['#f3f3f3', 'transparent'],
         opacity: 0.5
       },
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      minValue: 0,
-      maxValue: 160
+      type: 'datetime',
+      min: new Date(startDate).getTime()
     },
-    yaxis: {
-      tickAmount: 10
-    }
-  }
-  var insightLineChart = new ApexCharts(
-    document.querySelector("#insight-line-chart"),
-    lineChartOptionsForInsight
-  );
-  insightLineChart.render();
-
-  // Getting Insight Data For Line Graph And Updating Here 
-  var url = "/admin/campaigns/" + "<%= @challenge.campaign_id %>" + "/challenges/" + "<%= @challenge.id %>" + "/get_insight_for_line_chart";
-  $.getJSON(url, function(response) {
-    insightLineChart.updateOptions({
-      series: [{
-        data: response.calculateUsers
-      }],
-      xaxis: {
-        categories: response.calculateMonths // Updating Months Options
+    yaxis: [
+      {
+        labels: {
+          formatter: function(val) {
+            return val.toFixed(0);
+          }
+        }
       }
-    });
-  });
+    ],
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    }
+  };
+
+  var insightLineChart = new ApexCharts(document.querySelector("#insight-line-chart"), options);
+  insightLineChart.render();
 </script>

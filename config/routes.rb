@@ -90,7 +90,6 @@ Rails.application.routes.draw do
               get '/toggle', to: 'challenges#toggle'
               delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
-              get :get_insight_for_line_chart
             end
           end
 

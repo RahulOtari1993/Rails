@@ -1,7 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
-                                       :remove_tag, :add_tag,
-                                       :get_insight_for_line_chart]
+                                       :remove_tag, :add_tag]
   before_action :build_segment_params, only: [:create, :update]
   before_action :build_question_params, only: [:create, :update]
 
@@ -89,7 +88,17 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   ## Fetch Challenge Details
   def show
     @participants = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
-        .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
+                        .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
+    @chart_json = []
+    @start_date = @challenge.start.strftime('%d %b %Y')
+    if @participants.present?
+      details = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
+                    .select("COUNT(submissions.id) as submission, DATE(submissions.created_at) as creation").group('DATE(submissions.created_at)')
+
+      details.each do |val|
+        @chart_json.push([(val.creation.to_datetime.to_i) * 1000, val.submission])
+      end
+    end
   end
 
   ## Fetch Participants of Particular Challenge
@@ -192,23 +201,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     rescue StandardError => e
       @message = e.message
     end
-  end
-
-  # Getting Insight User & Date For Line Chart
-  def get_insight_for_line_chart
-    calculateUsers = []
-    if @challenge.submissions.present?
-      calculateUsers << @challenge.submissions.where('extract(month from created_at) = ?', @challenge.start.month).count
-    end
-    if calculateUsers.present?
-      calculateUsers = calculateUsers
-    else
-      calculateUsers = [5, 13] # Test values for users
-    end
-    render json: {
-      calculateUsers: calculateUsers,
-      calculateMonths: @challenge.calculate_months
-    }
   end
 
   private
