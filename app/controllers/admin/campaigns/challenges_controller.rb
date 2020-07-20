@@ -1,7 +1,6 @@
 class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   before_action :set_challenge, only: [:edit, :update, :show, :participants, :export_participants, :duplicate, :toggle,
-                                       :remove_tag, :add_tag,
-                                       :get_insight_for_line_chart]
+                                       :remove_tag, :add_tag]
   before_action :build_segment_params, only: [:create, :update]
   before_action :build_question_params, only: [:create, :update]
 
@@ -94,10 +93,10 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     @start_date = @challenge.start.strftime('%d %b %Y')
     if @participants.present?
       details = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
-                          .select("COUNT(submissions.id) as submission, DATE(submissions.created_at) as creation").group('DATE(submissions.created_at)')
+                    .select("COUNT(submissions.id) as submission, DATE(submissions.created_at) as creation").group('DATE(submissions.created_at)')
 
-      details.each_with_index do |val, index|
-        @chart_json.push([(val.creation.to_datetime.to_i)*1000, val.submission])
+      details.each do |val|
+        @chart_json.push([(val.creation.to_datetime.to_i) * 1000, val.submission])
       end
     end
   end
@@ -204,29 +203,12 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     end
   end
 
-  # Getting Insight User & Date For Line Chart
-  def get_insight_for_line_chart
-    calculateUsers = []
-    if @challenge.submissions.present?
-      calculateUsers << @challenge.submissions.where('extract(month from created_at) = ?', @challenge.start.month).count
-    end
-    if calculateUsers.present?
-      calculateUsers = calculateUsers
-    else
-      calculateUsers = [5, 13] # Test values for users
-    end
-    render json: {
-        calculateUsers: calculateUsers,
-        calculateMonths: @challenge.calculate_months
-    }
-  end
-
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def challenge_params
     return_params = params.require(:challenge).permit(:campaign_id, :name, :link, :description, :reward_type, :timezone,
-                                                      :points, :reward_id, :challenge_type, :image, :social_title, :social_description,
+                                                      :points, :reward_id, :challenge_type, :image, :social_title, :social_description, :use_short_url,
                                                       :start, :finish, :creator_id, :feature, :parameters, :category, :icon,
                                                       :title, :content, :duration, :longitude, :latitude, :address, :caption,
                                                       :location_distance, :social_image, :filter_applied, :filter_type,

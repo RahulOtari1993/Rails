@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     ActiveAdmin.routes(self)
   end
 
+  get '/s/:id' => "shortener/shortened_urls#show"
+
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
@@ -88,7 +90,6 @@ Rails.application.routes.draw do
               get '/toggle', to: 'challenges#toggle'
               delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
-              get :get_insight_for_line_chart
             end
           end
 

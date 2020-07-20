@@ -103,7 +103,7 @@ class ApplicationController < ActionController::Base
     share_service = ShareService.new
     if params[:refid]
       social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
-      
+
       if !session[:pending_refids].include?(params[:refid])
         session[:pending_refids].push(params[:refid])
       end
