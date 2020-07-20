@@ -199,6 +199,13 @@ $(document).ready(function () {
     },
     yaxis: {
       opposite: yaxis_opposite
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+          return parseInt(value)
+        }
+      }
     }
   }
   var completedChallengeBarChart = new ApexCharts(
@@ -225,7 +232,8 @@ $(document).ready(function () {
       enabled: false
     },
     series: [{
-      data: [400, 430, 448]
+      name: 'Connected Platforms',
+      data: [10, 12, 9]
     }],
     xaxis: {
       categories: ['Twitter', 'Facebook', 'Google'],
@@ -233,6 +241,13 @@ $(document).ready(function () {
     },
     yaxis: {
       opposite: yaxis_opposite
+    },
+    tooltip: {
+      y: {
+        formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+          return parseInt(value)
+        }
+      }
     }
   }
   var connectedPlatformBarChart = new ApexCharts(

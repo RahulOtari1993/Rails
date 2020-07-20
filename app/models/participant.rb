@@ -565,13 +565,17 @@ class Participant < ApplicationRecord
     end
 
     # For Connected Platforms With Facebook & Google
-    def by_connected_platform
-      connected_platform = [5] # Test value for twitter
-      connected_platform << where.not('participants.facebook_uid' => nil).count
-      connected_platform << where.not('participants.google_uid' => nil).count
+    def by_connected_platform(participants)
+      connected_platform = []
+
+      connected_platform << participants.where.not('participants.twitter_uid' => nil).count
+      connected_platform << participants.where.not('participants.facebook_uid' => nil).count
+      connected_platform << participants.where.not('participants.google_uid' => nil).count
+
+      connected_platform
     end
 
-    ## Age Calculation Based ob Buirth date
+    ## Age Calculation Based on Birth date
     def calculate_age(birth_date)
       age = 0
       birth_year = Date.strptime(birth_date, '%m/%d/%Y').year rescue 0

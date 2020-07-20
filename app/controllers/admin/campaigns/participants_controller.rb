@@ -115,10 +115,8 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
         genderElementCount: Participant.by_gender(participants),
         ageElementCount: Participant.by_age(participants),
         completedChallengesElementCount: Participant.by_completed_challenges(@campaign),
-        connectedPlatformElementCount: Participant.by_connected_platform
+        connectedPlatformElementCount: Participant.by_connected_platform(participants)
     }
-
-    # binding.pry
 
     render json: data
   end
