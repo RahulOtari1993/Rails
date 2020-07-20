@@ -145,7 +145,7 @@ $(document).ready(function () {
       height: 350
     },
     colors: themeColors,
-    labels: ['other', 'female', 'male'],
+    labels: ['Other', 'Female', 'Male'],
     series: [45,12,34],
     legend: {
       itemMargin: {
@@ -221,6 +221,9 @@ $(document).ready(function () {
     chart: {
       height: 350,
       type: 'bar',
+      toolbar: {
+        show: false
+      }
     },
     colors: themeColors,
     plotOptions: {
