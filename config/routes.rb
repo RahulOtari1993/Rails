@@ -2,11 +2,16 @@ Rails.application.routes.draw do
   require 'constraints/subdomain_not_required'
   require 'constraints/subdomain_required'
 
+  ## Root Route
+  root to: 'welcome#index'
+
   ## Routes for Admin Users
   constraints(Constraints::SubdomainNotRequired) do
     devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)
   end
+
+  get '/s/:id' => "shortener/shortened_urls#show"
 
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
@@ -85,7 +90,6 @@ Rails.application.routes.draw do
               get '/toggle', to: 'challenges#toggle'
               delete '/remove_tag', to: 'challenges#remove_tag'
               post '/add_tag', to: 'challenges#add_tag'
-              get :get_insight_for_line_chart
             end
           end
 
@@ -160,8 +164,6 @@ Rails.application.routes.draw do
       end
     end
 
-    ## Root Route
-    root to: 'welcome#index'
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'

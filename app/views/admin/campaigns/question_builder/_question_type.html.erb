@@ -64,9 +64,9 @@
         <option value="date" data-icon="fa fa-calendar" <%= question.answer_type == 'date' ? 'selected' : '' %>>Date</option>
         <option value="time" data-icon="fa fa-clock-o" <%= question.answer_type == 'time' ? 'selected' : '' %>>Time</option>
         <option value="date_time" data-icon="fa fa-clock-o" <%= question.answer_type == 'date_time' ? 'selected' : '' %>>Date & Time</option>
-        <option value="number" data-icon="fa fa-clock-o" <%= question.answer_type == 'number' ? 'selected' : '' %>>Number</option>
-        <option value="decimal" data-icon="fa fa-clock-o" <%= question.answer_type == 'decimal' ? 'selected' : '' %>>Decimal</option>
-        <option value="boolean" data-icon="fa fa-clock-o" <%= question.answer_type == 'boolean' ? 'selected' : '' %>>Yes/No (Boolean)</option>
+        <option value="number" data-icon="fa fa-sort-numeric-asc" <%= question.answer_type == 'number' ? 'selected' : '' %>>Number</option>
+        <option value="decimal" data-icon="fa fa-sort-numeric-desc" <%= question.answer_type == 'decimal' ? 'selected' : '' %>>Decimal</option>
+        <option value="boolean" data-icon="fa fa-toggle-on" <%= question.answer_type == 'boolean' ? 'selected' : '' %>>Yes/No (Boolean)</option>
       </optgroup>
     </select>
   <% else %>
@@ -82,9 +82,9 @@
         <option value="date" data-icon="fa fa-calendar">Date</option>
         <option value="time" data-icon="fa fa-clock-o">Time</option>
         <option value="date_time" data-icon="fa fa-clock-o">Date & Time</option>
-        <option value="number" data-icon="fa fa-clock-o">Number</option>
-        <option value="decimal" data-icon="fa fa-clock-o">Decimal</option>
-        <option value="boolean" data-icon="fa fa-clock-o">Yes/No (Boolean)</option>
+        <option value="number" data-icon="fa fa-sort-numeric-asc">Number</option>
+        <option value="decimal" data-icon="fa fa-sort-numeric-desc">Decimal</option>
+        <option value="boolean" data-icon="fa fa-toggle-on">Yes/No (Boolean)</option>
       </optgroup>
     </select>
   <% end %>

@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: referral_codes
+#
+#  id             :bigint           not null, primary key
+#  participant_id :integer
+#  challenge_id   :integer
+#  code           :string
+#  short_url      :string
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
 class ReferralCode < ApplicationRecord
 
   belongs_to :participant

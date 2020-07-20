@@ -14,9 +14,21 @@ class ApplicationController < ActionController::Base
 
   helper_method :get_open_graph
 
+  def not_found
+    render plain: "Not found.", status: 404
+  end
+
   def set_organization
-    # @organization ||= Organization.where(sub_domain: request.subdomain).first
-    @domain = DomainList.where(domain: request.subdomain).first
+    domain = request.domain
+    sub_domain = request.subdomain
+
+    ## Check whether to Check with Domain or Sub Domain
+    if sub_domain.empty? && domain.present?
+      @domain = DomainList.where(domain: domain).first
+    elsif sub_domain.present? && domain.present?
+      @domain = DomainList.where(domain: sub_domain).first
+    end
+
     if @domain.present?
       @organization = Organization.where(id: @domain.organization_id).first
       @campaign = Campaign.where(id: @domain.campaign_id).first
@@ -91,7 +103,7 @@ class ApplicationController < ActionController::Base
     share_service = ShareService.new
     if params[:refid]
       social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
-      
+
       if !session[:pending_refids].include?(params[:refid])
         session[:pending_refids].push(params[:refid])
       end

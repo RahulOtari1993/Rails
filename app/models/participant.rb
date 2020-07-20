@@ -529,38 +529,53 @@ class Participant < ApplicationRecord
     # For Gender Breakdown
     def by_gender(participants)
       gender = []
-      gender << where(gender: 'male').count
-      gender << where(gender: 'female').count
-      gender << where(gender: 'other').count
+      gender << participants.where(gender: 'male').count
+      gender << participants.where(gender: 'female').count
+      gender << participants.where.not(gender: ['male', 'female']).or(Participant.where(gender: nil)).count
     end
 
     # For Age Breakdown
     def by_age(participants)
       age = []
-      age << where(age: 0..20).count
-      age << where(age: 21..40).count
-      age << where(age: 41..60).count
-      age << where(age: 61..80).count
-      age << where(age: 81..100).count
-      age << where("age > ?", 100).count
+      age << participants.where("age > ?", 100).count
+      age << participants.where(age: 81..100).count
+      age << participants.where(age: 61..80).count
+      age << participants.where(age: 41..60).count
+      age << participants.where(age: 21..40).count
+      age << participants.where(age: 0..20).count
     end
 
     # For Completed Challenges / Platform With Facebook & Google
     def by_completed_challenges(campaign)
+      challenge_type = %w[share signup connect]
+
+      facebook_challenge = campaign.challenges.where(challenge_type: challenge_type, parameters: 'facebook').pluck(:id)
+      twitter_challenge = campaign.challenges.where(challenge_type: challenge_type, parameters: 'twitter').pluck(:id)
+      google_challenge = campaign.challenges.where(challenge_type: challenge_type, parameters: 'google').pluck(:id)
+      email_challenge = campaign.challenges.where(challenge_type: challenge_type, parameters: 'email').pluck(:id)
+      submissions = campaign.submissions
+
       completed_challenges = []
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'twitter').count
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'facebook').count
-      completed_challenges << campaign.challenges.where(challenge_type: 'share', parameters: 'google').count
+      completed_challenges << (twitter_challenge.present? ? submissions.where(challenge_id: twitter_challenge).count : 0)
+      completed_challenges << (facebook_challenge.present? ? submissions.where(challenge_id: facebook_challenge).count : 0)
+      completed_challenges << (google_challenge.present? ? submissions.where(challenge_id: google_challenge).count : 0)
+      completed_challenges << (email_challenge.present? ? submissions.where(challenge_id: email_challenge).count : 0)
+
+      completed_challenges
     end
 
     # For Connected Platforms With Facebook & Google
-    def by_connected_platform
-      connected_platform = [5] # Test value for twitter
-      connected_platform << where.not('participants.facebook_uid' => nil).count
-      connected_platform << where.not('participants.google_uid' => nil).count
+    def by_connected_platform(participants)
+      connected_platform = []
+
+      connected_platform << participants.where.not('participants.twitter_uid' => nil).count
+      connected_platform << participants.where.not('participants.facebook_uid' => nil).count
+      connected_platform << participants.where.not('participants.google_uid' => nil).count
+
+      connected_platform
     end
 
-    ## Age Calculation Based ob Buirth date
+    ## Age Calculation Based on Birth date
     def calculate_age(birth_date)
       age = 0
       birth_year = Date.strptime(birth_date, '%m/%d/%Y').year rescue 0

@@ -1,4 +1,4 @@
-<%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'edit-campaign-form', model: campaign, local: true) do |form| %>
+<%= form_with(url: admin_campaign_path(campaign), method: 'put', class: 'edit-campaign-form campaign-common-form', model: campaign, local: true) do |form| %>
   <div class="form-body">
     <div class="row">
       <div class="col-12">
@@ -27,7 +27,7 @@
           <span class="column-info">Choose the Domain type to handle how you want the campaign domain to be.</span>
           <div class="position-relative">
             <%= form.select :domain_type,
-                            options_for_select([['Include in Domain', 'include_in_domain']]), #Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact
+                            options_for_select(Campaign::domain_types.map { |v| [v[0].titleize, v[0]] }.compact, @campaign.domain_type), #[['Include in Domain', 'include_in_domain']]
                             {}, class: 'form-control domain_type_id' %>
           </div>
         </div>
@@ -37,12 +37,18 @@
         <div class="form-group">
           <%= form.label :domain %>
           <span class="column-info">You are able to create a custom subdomain under perk social to make it easier to link and connect your clients to this landing page.</span>
-          <div class="position-relative">
+          <div class="position-relative own-domain-selection" style="display: <%= @campaign.domain_type == 'include_in_domain' ? 'none': '' %>">
+            <%= form.text_field :domain, class: "form-control own-domain-field", placeholder: "Campaign Domain",
+              disabled: @campaign.domain_type == 'include_in_domain' ? true: false %>
+          </div>
+
+          <div class="position-relative include-in-domain-selection" style="display: <%= @campaign.domain_type == 'own_domain' ? 'none': '' %>">
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="input-group-text">www.<%= @organization.sub_domain %></span>
               </div>
-              <%= form.text_field :domain, class: "form-control", placeholder: "Campaign Domain", data: {error: 'domain-errors'} %>
+              <%= form.text_field :domain, class: "form-control sub-domain-field", placeholder: "Campaign Domain",
+                                  data: {error: 'domain-errors'}, disabled: @campaign.domain_type == 'own_domain' ? true: false %>
               <div class="input-group-append">
                 <span class="input-group-text" id="basic-addon2">.perksocial.com</span>
               </div>

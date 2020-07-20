@@ -109,38 +109,41 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   # Getting Date For Apex Chart & Graph
   def get_data_for_chart_graph
-    participants = @campaign.participants 
-    render json: {
-      genderElementCount: Participant.by_gender(participants),
-      ageElementCount: Participant.by_age(participants),
-      completedChallengesElementCount: Participant.by_completed_challenges(@campaign),
-      connectedPlatformElementCount: Participant.by_connected_platform
+    participants = @campaign.participants
+
+    data = {
+        genderElementCount: Participant.by_gender(participants),
+        ageElementCount: Participant.by_age(participants),
+        completedChallengesElementCount: Participant.by_completed_challenges(@campaign),
+        connectedPlatformElementCount: Participant.by_connected_platform(participants)
     }
+
+    render json: data
   end
 
   # Getting Activities Feed List
   def activities_list
-    participant_actions = @participant.participant_actions
-    participant_actions = participant_actions.order("#{sort_column_for_activity} #{datatable_sort_direction}") unless sort_column_for_activity.nil?
-    participant_actions = participant_actions.page(datatable_page).per(datatable_per_page)
+    actions = @participant.participant_actions
+    actions = actions.order("#{sort_column_for_activity} #{datatable_sort_direction}") unless sort_column_for_activity.nil?
+    actions = actions.page(datatable_page).per(datatable_per_page)
     render json: {
-      participant_actions: participant_actions.as_json,
+      participant_actions: actions.as_json,
       draw: params['draw'].to_i,
-      recordsTotal: participant_actions.count,
-      recordsFiltered: participant_actions.total_count
+      recordsTotal: actions.count,
+      recordsFiltered: actions.total_count
     }
   end
 
   # Getting Rewards List
   def rewards_list
-    reward_participants = @participant.reward_participants.joins(:reward)
-    reward_participants = reward_participants.order("#{sort_column_for_reward} #{datatable_sort_direction}")
-    reward_participants = reward_participants.page(datatable_page).per(datatable_per_page)
+    participants = @participant.reward_participants.joins(:reward)
+    participants = participants.order("#{sort_column_for_reward} #{datatable_sort_direction}")
+    participants = participants.page(datatable_page).per(datatable_per_page)
     render json: {
-      reward_participants: reward_participants.map {|r| r.reward.as_json},
+      reward_participants: participants.map {|r| r.reward.as_json},
       draw: params['draw'].to_i,
-      recordsTotal: reward_participants.count,
-      recordsFiltered: reward_participants.total_count
+      recordsTotal: participants.count,
+      recordsFiltered: participants.total_count
     }
   end
 

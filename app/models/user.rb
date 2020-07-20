@@ -38,16 +38,13 @@ class User < ApplicationRecord
          :authentication_keys => [:email, :organization_id, :role]
 
   ## ENUM
-  enum role: [:admin, :participant]
+  enum role: [:admin] # :participant
 
   ## Associations
   belongs_to :organization, optional: true
   has_one :organization_admin, dependent: :destroy
   has_many :campaign_users, dependent: :destroy
   has_many :campaigns, through: :campaign_users
-  # has_many :rewards, through: :reward_participants
-  # has_many :reward_participants, dependent: :destroy
-  # has_many :coupons, through: :reward_participants
   has_many :notes, dependent: :destroy
 
   ## Password Validation Condition

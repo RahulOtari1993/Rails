@@ -67,7 +67,7 @@ class ShareService
 
   def get_share_urls challenge, participant, request
     if participant.referral_codes.for_challenge(challenge).empty?
-      referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: participant.id)
+      @referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: participant.id)
     else
       @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
@@ -84,7 +84,7 @@ class ShareService
     urls.each do |platform,url|
       short_url = Shortener::ShortenedUrl.generate(url,owner:participant)
 
-      shortened_urls[platform] = "#{request.protocol}#{request.host}/#{short_url.unique_key}"
+      shortened_urls[platform] = "#{request.protocol}#{request.host}/s/#{short_url.unique_key}"
     end
     shortened_urls
   end

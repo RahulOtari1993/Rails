@@ -8,9 +8,6 @@
 #  limit               :integer
 #  threshold           :integer
 #  description         :text
-#  image_file_name     :string
-#  image_file_size     :decimal(, )
-#  image_content_type  :string
 #  selection           :string
 #  start               :datetime
 #  finish              :datetime
@@ -47,14 +44,9 @@ class Reward < ApplicationRecord
   has_many :reward_filters, inverse_of: :reward
 
   has_many :reward_participants, dependent: :destroy
-  # has_many :users, through: :reward_participants
   has_many :participants, through: :reward_participants
   has_many :coupons, :dependent => :delete_all
   has_many :reward_rules, :dependent => :delete_all
-  has_one_attached :image
-  # has_one_attached :image_actual
-  # has_one_attached :photo_image
-  # has_one_attached :thumb_image
   has_many :sweepstake_entries, dependent: :destroy
 
   ## ENUM

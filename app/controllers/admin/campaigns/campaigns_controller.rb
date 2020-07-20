@@ -11,8 +11,8 @@ class Admin::Campaigns::CampaignsController < ApplicationController
   def update
     respond_to do |format|
       if @campaign.update(campaign_params)
-        if @campaign.domain_type == 'sub_domain'
-          sub_domain = "#{@organization.sub_domain}.#{@campaign.domain}"
+        if @campaign.domain_type == 'own_domain'
+          sub_domain = "#{@campaign.domain}"
         else
           sub_domain = "#{@organization.sub_domain}#{@campaign.domain}"
         end

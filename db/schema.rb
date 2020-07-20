@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_044420) do
+ActiveRecord::Schema.define(version: 2020_07_20_114154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_044420) do
     t.integer "correct_answer_count"
     t.integer "completions", default: 0
     t.string "identifier"
+    t.boolean "use_short_url", default: false, null: false
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
@@ -542,9 +543,6 @@ ActiveRecord::Schema.define(version: 2020_07_16_044420) do
     t.integer "limit"
     t.integer "threshold"
     t.text "description"
-    t.string "image_file_name"
-    t.decimal "image_file_size"
-    t.string "image_content_type"
     t.string "selection"
     t.datetime "start"
     t.datetime "finish"

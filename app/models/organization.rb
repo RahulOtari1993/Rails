@@ -41,8 +41,8 @@ class Organization < ApplicationRecord
   ## Check Domain Uniqueness while Changing Organization Sub Domain
   def domain_uniqueness
     self.campaigns.each do |campaign|
-      if campaign.domain_type == 'sub_domain'
-        sub_domain = "#{self.sub_domain}.#{campaign.domain}"
+      if campaign.domain_type == 'own_domain'
+        sub_domain = "#{campaign.domain}"
       else
         sub_domain = "#{self.sub_domain}#{campaign.domain}"
       end
