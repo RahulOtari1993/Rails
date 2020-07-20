@@ -45,6 +45,8 @@
 #  failed_message       :string
 #  correct_answer_count :integer
 #  completions          :integer          default(0)
+#  identifier           :string
+#  use_short_url        :boolean          default(FALSE), not null
 #
 
 class Challenge < ApplicationRecord
@@ -59,7 +61,6 @@ class Challenge < ApplicationRecord
   belongs_to :reward, optional: true
   has_many :participant_actions, as: :actionable
   has_many :participant_answers, dependent: :destroy
-  # attr_accessor :status
 
   ## Constants
   # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
