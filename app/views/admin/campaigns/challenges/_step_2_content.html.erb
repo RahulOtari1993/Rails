@@ -451,19 +451,26 @@
 </section>
 
 <!-- RECRUIT - GENERAL -->
-<section class="step-two-container Social_blocks step_point_box recruit-general-div" style="display: none;">
+<section class="step-two-container Social_blocks step_point_box referral-custom-div question_form_blocks" style="display: none;">
   <div class="container p-0">
     <div class="row">
-      <div class="offset-sm-1 col-sm-4 offset-lg-2 col-lg-4">
-        <%= form.label :description, 'This sets if the challenge is to be featured in various parts of the experience.' %>
-        <div class="vs-checkbox-con vs-checkbox-primary">
-          <%= form.check_box :feature, class: '' %>
-          <span class="vs-checkbox">
-            <span class="vs-checkbox--check">
-                <i class="vs-icon feather icon-check"></i>
-            </span>
-          </span>
-          <span class="">Feature</span>
+      <div class="col-sm-12 offset-lg-2 col-lg-12">
+        <div class="social-heading-details">
+          <h3>2. Recruit Challenge Options:</h3>
+        </div>
+        <div class="row">
+          <div class="col-sm-8 col-lg-10 questions-container">
+            <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
+            <div class="vs-checkbox-con vs-checkbox-primary">
+              <%= form.check_box :use_short_url, class: '' %>
+              <span class="vs-checkbox">
+                <span class="vs-checkbox--check">
+                    <i class="vs-icon feather icon-check"></i>
+                </span>
+              </span>
+              <span class="">Use Short URL</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
