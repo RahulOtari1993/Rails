@@ -197,6 +197,10 @@ span.error {
   margin-bottom: 14px !important;
 }
 
+.m-b-20 {
+  margin-bottom: 20px !important;
+}
+
 .font-color-1 {
   color: #bb0000;
 }
@@ -210,38 +214,38 @@ span.error {
   background-color: #000;
 }
 
-.challenge-modal .modal-dialog, .reward-modal .modal-dialog,  .participant-details-modal .modal-dialog {
+.challenge-modal .modal-dialog, .participant-details-modal .modal-dialog {
   max-width: 736px;
 }
 
-.challenge-modal .modal-content, .reward-modal .modal-content {
+.challenge-modal .modal-content {
   border-radius: 14px;
 }
 
-.challenge-content, .reward-content {
+.challenge-content {
   color: #444;
   padding: 20px 40px;
   border-radius: 12px;
 }
 
-.challenge-content h4, .reward-content h4 {
+.challenge-content h4 {
   font-family: "proxima-nova", Sans-serif;
   font-weight: 900;
   color: #202020;
   font-size: 1.3rem;
 }
 
-.challenge-content p, .reward-content p {
+.challenge-content p {
   font-family: 'Montserrat', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
-.challenge-content ul, .reward-content ul {
+.challenge-content ul {
   margin-left: 15px;
 }
 
-.challenge-content label, .reward-content label {
+.challenge-content label {
   display: inline-block;
   margin-bottom: 1rem;
   color: #707070;
@@ -249,7 +253,7 @@ span.error {
   font-weight: 900;
 }
 
-.challenge-content .radio-label, .reward-content .radio-label {
+.challenge-content .radio-label {
   font-family: "proxima-nova-condensed", Sans-serif;
   color: inherit;
   font-weight: 400;
@@ -257,7 +261,7 @@ span.error {
   margin-bottom: 5px;
 }
 
-.challenge-content .form-group, .reward-content .form-group {
+.challenge-content .form-group {
   margin-bottom: 26px !important;
 }
 
@@ -280,3 +284,276 @@ span.error {
   text-align: center;
 }
 /* New Challenge Popup Design End */
+
+
+/* Old Reward Popup Design Start */
+/* .reward-modal.modal {
+  background-color: #000;
+}
+
+.reward-modal .modal-dialog {
+  max-width: 736px;
+}
+
+.reward-modal .modal-content {
+  border-radius: 14px;
+}
+
+.reward-content {
+  color: #444;
+  padding: 20px 40px;
+  border-radius: 12px;
+}
+
+.reward-content h4 {
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  color: #202020;
+  font-size: 1.3rem;
+}
+
+.reward-content p {
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.reward-content ul {
+  margin-left: 15px;
+}
+
+.reward-content label {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #707070;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.reward-content .radio-label {
+  font-family: "proxima-nova-condensed", Sans-serif;
+  color: inherit;
+  font-weight: 400;
+  padding-right: 10px;
+  margin-bottom: 5px;
+}
+
+.reward-content .form-group {
+  margin-bottom: 26px !important;
+} */
+
+/* Old Reward Popup Design End */
+
+
+
+/* New Reward Popup Design start */
+.new_popup_box h3 {
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  font-size: 1.6875em;
+  color: #202020;
+}
+
+.new_popup_box h4 {
+  font-family: "proxima-nova", Sans-serif;
+  color: #444;
+  font-size: 1.6875em;
+  line-height: 1.8;
+}
+
+.new_popup_box p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.reward-modal .modal-dialog {
+  max-width: 850px;
+  margin: 20px auto;
+}
+
+.reward-modal .modal-content {
+  border-radius: 25px;
+}
+
+.reward-modal .reward-content {
+  padding: 1rem;
+}
+
+.reward-modal .modal-header .close {
+  padding: 1rem;
+  margin: -1rem -1rem -1rem auto;
+  position: absolute;
+  z-index: 555;
+  top: 30px;
+  right: 34px;
+  border: none;
+}
+
+.reward-modal .cashin_class {
+  position: absolute;
+  z-index: 555;
+  top: 22px;
+  left: 34px;
+  color: #FF0000;
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  font-size: 1.37rem;
+}
+
+.reward-modal .reward_title {
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  color: #202020;
+  font-size: 2.375em;
+}
+
+.reward-modal .reward_img {
+  margin-top: 5px;
+  width: 100%;
+}
+
+.reward-modal .reward_paragraph {
+  font-family: "proxima-nova", Sans-serif;
+  font-size: 1.2em;
+  line-height: 1.1em;
+}
+
+.reward_detail {
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 25px;
+  border-radius: 35px;
+  background-color: #f9f9f9;
+  margin-top: 15px;
+}
+
+.reward-modal .reward_detail_divider {
+  margin-top: 10px;
+  margin-bottom: 28px;
+  border: 0;
+  border-top: 1px solid #000;
+}
+
+.reward-modal h2 {
+  font-family: "Raleway", arial, sans-serif;
+  color: #444;
+  font-size: 2.375em;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.reward-modal p {
+  font-family: 'Montserrat';
+  color: #444;
+  text-align: left;
+}
+
+.reward_detail_content img {
+  max-width: 100%;
+}
+
+.reward_detail_content ul{
+  margin-left: 17px;
+}
+
+.reward-modal .panel{
+  border-bottom: 1px solid #d4d4d4;
+  padding-left: 13px;
+}
+
+.reward-modal .panel-title>a, .panel-title>a:active{
+  display:block;
+  padding:0px;
+  color: #54595F;
+  letter-spacing:.3px;
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 900;
+  text-decoration:none;
+  font-size: 16px;
+}
+
+.reward-modal .panel-heading{
+  padding-bottom: 5px;
+}
+
+.reward-modal .panel-heading  a:before {
+   font-family: 'Font Awesome\ 5 free';
+   content: "\f0da";
+   float: left;
+   transition: all 0.5s;
+}
+
+.reward-modal .panel-heading.active a:before {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
+
+.reward-modal .collapse_content{
+  color: #707070;
+  font-family: "proxima-nova-condensed", Sans-serif;
+  font-weight: 400;
+  margin: 15px 0px 30px;
+}
+
+.reward-modal .expire_date{
+  float: right;
+  padding-top: 7px;
+  font-family: 'Montserrat';
+  color: #444;
+}
+
+.reward-modal .earn_more_btnbox{
+  margin-top: 10px;
+}
+
+.clr_green{
+  color: #61CE70 !important;
+}
+
+.reward-modal .congrats_emoji{
+  display: inline !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: 1em !important;
+  width: 1em !important;
+  margin: 0 .07em !important;
+  vertical-align: -0.1em !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+.reward-modal .congrats_text {
+  font-family: "proxima-nova", Sans-serif;
+  font-weight: 300;
+  color: #202020;
+  font-size: 2.375em;
+  text-align: center;
+}
+
+.reward-modal .offer_text {
+  color: #444;
+  font-family: 'Montserrat';
+  margin: 30px 0px 40px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .reward-modal .modal-dialog {
+      max-width: 100%;
+      margin: 15px 30px;
+  }
+  .reward-modal .reward_img {
+      width: 100%;
+  }
+}
+
+.username {
+  font-family: "proxima-nova", Sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: capitalize;
+  letter-spacing: 0.8px;
+  color: #000000;
+}
+/* New Reward Popup Design End */

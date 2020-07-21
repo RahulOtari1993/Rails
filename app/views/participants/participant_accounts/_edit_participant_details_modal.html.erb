@@ -234,6 +234,8 @@
         'dataSrc': 'participant_actions',
         dataFilter: function (data) {
           var json = jQuery.parseJSON(data);
+          json.recordsTotal = json.total;
+          json.recordsFiltered = json.total;
           return JSON.stringify(json);
         },
       },
@@ -276,13 +278,13 @@
           }
         }
       ],
-      'order': [[2, "desc"]],
-      'columnDefs': [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
-      'searching': false,
-      'lengthChange': false,
-      'autoWidth': false,
-      'bInfo': false,
-      'pageLength': 10
+      order: [[2, "desc"]],
+      columnDefs: [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
+      searching: false,
+      lengthChange: false,
+      autoWidth: false,
+      bInfo: false,
+      pageLength: 10
     });
 
     $('#email_settings_edit_btn').click(function() {
