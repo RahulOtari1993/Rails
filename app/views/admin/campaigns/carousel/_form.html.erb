@@ -10,7 +10,7 @@
               <div class="card-header">
                 <h4 class="text-center card-title"><%= @carousel.new_record? ? 'Create' : 'Edit' %> Carousel</h4>
               </div>
-              <div class="card-content container col-md-9 col-9 border_reward" style="margin-top:20px">
+              <div class="card-content container col-md-9 col-9 carousel_form_border" style="margin-top:20px">
                 <% if @carousel.new_record? %>
                   <% url = admin_campaign_carousel_index_path(@carousel.campaign, @carousel) %>
                   <% form_method = 'post' %>
