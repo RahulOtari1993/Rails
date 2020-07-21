@@ -1,0 +1,176 @@
+
+  .text-white {
+    color: #fff !important;
+  }
+
+  @-webkit-keyframes fadeInUpSD {0% {opacity: 0;-webkit-transform: translateY(100px);transform: translateY(100px);}100% {opacity: 1;-webkit-transform: none;transform: none;}}@keyframes fadeInUpSD {0% {opacity: 0;-webkit-transform: translateY(100px);transform: translateY(100px);}100% {opacity: 1;-webkit-transform: none;transform: none;}}.fadeInUpSD {-webkit-animation-name: fadeInUpSD;animation-name: fadeInUpSD;}
+
+  /* Specific  */
+
+  .hero-slide {
+    height: 100vh;
+    display: flex !important;
+    align-items: flex-end;
+    position: relative;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+   }
+
+  .hero-slide .container {
+      z-index: 1;
+      position: relative;
+  }
+
+  .hero-slider .slide-content {
+    width: 100%;
+    padding: 10px 20px 30px 0;
+    font-family: "Proxima-Nova", sans-serif !important;
+    opacity: 0;
+   }
+
+  .slick-active .slide-content {
+    animation-name: fadeInUpSD;
+    animation-duration: 1s;
+    opacity: 1;
+  }
+  .slide-content .h1 {
+    font-weight: bold;
+    font-size: 26px;
+  }
+
+  .slider-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .slider-overlay {
+    background: rgba(0,0,0,0.5);
+  }
+
+
+  .slider_1 {
+    background-image: url('https://raw.githubusercontent.com/solodev/hero-text-transitions/master/sd-slide-1-bg.JPG');
+    background-position: center center !important;
+  }
+  .slider_2 {
+    background-image: url('https://raw.githubusercontent.com/solodev/hero-text-transitions/master/sd-slide-2-bg.JPG') !important;
+    background-position: center center !important;
+  }
+  .slider_3 {
+    background-image: url('https://raw.githubusercontent.com/solodev/hero-text-transitions/master/sd-slide-3-bg.JPG') !important;
+    background-position: center center !important;
+
+  }
+  .slider_4 {
+    background-image: url('https://raw.githubusercontent.com/solodev/hero-text-transitions/master/sd-slide-4-bg.JPG') !important;
+    background-position: center center !important;
+  }
+
+  @media screen and (min-width: 768px) {
+
+    .slider-overlay {
+      /*display: none;   */
+    }
+
+    .hero-slide {
+      align-items: center;
+      min-height: auto;
+      max-height: auto;
+     }
+
+
+     .slide-content .h1 {
+      font-size: 35px;
+    }
+  }
+
+  @media screen and (min-width: 1200px) {
+    .slide-content {
+      max-width: 90%;
+      padding: 10px 20px 10px 0;
+    }
+   }
+
+
+/*  Tej code  */
+
+.hero-slide.slick-active{
+   -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+  transform: scale(1.04);
+  -webkit-transition: all 5s ease-in-out;
+  -moz-transition: all 5s ease-in-out;
+  -o-transition: all 5s ease-in-out;
+  -ms-transition: all 5s ease-in-out;
+  transition: all 5s ease-in-out;
+}
+.hero-slide.slick-active .slide-content{
+  -webkit-transform: none;
+  -moz-transform: none;
+  -o-transform: none;
+  -ms-transform: none;
+  transform: none;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -ms-transition: none;
+  transition: none;
+}
+.slide-content{
+    max-width: 90%;
+    margin: 0 auto;
+    background: none;
+    text-align: center;
+}
+.fa-chevron-right.slick-arrow{
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  color: #fff;
+  font-size: 20px;
+}
+.fa-chevron-left.slick-arrow{
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  color: #fff;
+  font-size: 20px;
+  z-index: 9999;
+}
+
+
+.hero-slider h2{
+    font-family: "proxima-nova", Sans-serif;
+    font-size: 3em;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+.hero-slider p{
+    font-family: "proxima-nova", Sans-serif;
+    font-size: 1.5em;
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+.slider_btn{
+  font-family: "proxima-nova", Sans-serif;
+    font-weight: 900;
+    background-color: #FF0000;
+    color: #f2f2f2;
+    font-weight: 800;
+    outline: none;
+    border: none;
+    padding: 10px 25px;
+    font-size: 15px;
+    border-radius: 18px;
+    transition-duration: .5s;
+    transition-property: transform;
+}
+.slider_btn:hover, .slider_btn:focus{
+  outline: none;
+  color: inherit;
+  text-decoration: none;
+}
