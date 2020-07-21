@@ -58,4 +58,5 @@
 //= require campaign_admin/dashboard
 //= require campaign_admin/challenges
 //= require campaign_admin/reward
+//= require campaign_admin/carousel
 //= require ../common_js

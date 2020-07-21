@@ -61,7 +61,11 @@ Rails.application.routes.draw do
           ## Template Routes
           resources :template, only: [:edit, :update] do
             collection do
-              resources :carousel
+              resources :carousel do
+                collection do
+                  get '/fetch_carousels', to: 'carousel#fetch_carousels'
+                end
+              end
             end
           end
 

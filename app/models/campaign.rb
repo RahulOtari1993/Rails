@@ -46,6 +46,7 @@ class Campaign < ApplicationRecord
   has_many :email_settings, dependent: :destroy
   has_many :participant_actions, dependent: :destroy
   has_many :participant_answers, dependent: :destroy
+  has_many :carousels, dependent: :destroy
 
   enum domain_type: [:own_domain, :include_in_domain]
 
