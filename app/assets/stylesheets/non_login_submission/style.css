@@ -764,3 +764,7 @@ create_lib.css, line no-218
 .visit-btn-container {
   text-align: center;
 }
+
+.ql-editor img {
+  width: 100% !important;
+}

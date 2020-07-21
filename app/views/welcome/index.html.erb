@@ -60,7 +60,7 @@
                 <div class="width_100">
                   <div class="width_50" style="float: left;">
                     <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
-                  <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
+                  <div class="width_50" style="float: right;"><%= image_tag(challenge.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
                 </div>
                 <div class="clear"></div>
                 <%= render 'list_challenges', challenge: challenge %>

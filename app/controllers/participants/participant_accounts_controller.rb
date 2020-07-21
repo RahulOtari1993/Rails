@@ -45,14 +45,16 @@ class Participants::ParticipantAccountsController < ApplicationController
   end
 
   def fetch_activities
-    participant_actions = current_participant.participant_actions
+    actions = current_participant.participant_actions
+    participant_actions = actions
     participant_actions = participant_actions.order(sort_column_for_activity.to_sym => datatable_sort_direction.to_sym) unless sort_column_for_activity.nil?
     participant_actions = participant_actions.page(datatable_page).per(datatable_per_page)
 
     render json: {
         participant_actions: participant_actions.as_json,
         draw: params['draw'].to_i,
-        recordsTotal: participant_actions.count
+        recordsTotal: actions.count,
+        recordsFiltered: actions.count
     }
   end
 
@@ -61,8 +63,8 @@ class Participants::ParticipantAccountsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def participant_params
     params.require(:participant).permit(:first_name, :last_name, :address_1,
-                                            :address_2, :city, :state, :postal, :country, :phone, :avatar,
-                                            :home_phone, :work_phone, :job_position, :job_company_name, :job_industry, :email_setting_id)
+                                        :address_2, :city, :state, :postal, :country, :phone, :avatar,
+                                        :home_phone, :work_phone, :job_position, :job_company_name, :job_industry, :email_setting_id)
   end
 
   # Sort Activity Columns
