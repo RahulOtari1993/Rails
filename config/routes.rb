@@ -57,8 +57,13 @@ Rails.application.routes.draw do
       scope :module => 'campaigns' do
         resources :campaigns, only: [:show, :edit, :update] do
           get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+
           ## Template Routes
-          resources :template, only: [:edit, :update]
+          resources :template, only: [:edit, :update] do
+            collection do
+              resources :carousel
+            end
+          end
 
           ## Campaign Config Routes
           resources :configs, only: [:edit, :update], :controller => "campaign_configs"
