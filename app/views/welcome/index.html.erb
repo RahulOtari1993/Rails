@@ -1,54 +1,19 @@
-<% flash.each do |key, value| %>
-  <div class="<%= flash_class(key) %>">
-    <%= value %>
-  </div>
-<% end %>
 <% @template = @campaign.campaign_template_detail %>
 
-<section class="hero_section" style="background-image: url('<%= list_header_bg_image %>')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 left">
-        <h1 class="custom-header"><%= list_header_text %></h1>
-
-        <h5 class="custom-header-details"><%= list_header_text %></h5>
-        <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
-      </div>
-      <div class="col-lg-6">
-        <% unless @rewards.blank? %>
-          <h4 class="right_title">What you can win:</h4>
-          <div id="banner_carousel" class="carousel slide" data-ride="carousel">
-            <ul class="carousel-indicators">
-              <li data-target="#demo" data-slide-to="0" class="active"></li>
-              <li data-target="#demo" data-slide-to="1"></li>
-              <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-            <div class="carousel-inner">
-              <% @rewards.each_with_index do |reward, index| %>
-                <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
-                  <%= image_tag(reward.image.url) %>
-                  <h3><%= reward.name %></h3>
-                  <div class="carousel-caption">
-                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
-                      in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Challenges section start -->
-<section class="section1">
+<section class="section1 new_section">
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h3>Earn GoBucks</h3>
-        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span></p>
+        <div class="width_100">
+          <div class="width_37">
+            <%= image_tag("end-user/reward.svg", class: "title_icon") %>
+          </div>
+          <div class="width_63">
+            <h3>Earn Points</h3>
+            <p>The <span class="bold_red">more you earn</span> the more you can win!</p>
+          </div>
+        </div>
       </div>
       <% unless @challenges.blank? %>
         <% @challenges.each_with_index do |challenge, index| %>
@@ -76,12 +41,19 @@
 <!-- Challenges section end -->
 
 <!-- Rewards Section start -->
-<section class="section2">
+<section class="section2 new_section mb-0">
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h3>Current Prizes</h3>
-        <p>The more GoBucks you earn <span>the more you can win.</span></p>
+        <div class="width_100">
+          <div class="width_37">
+            <%= image_tag("end-user/reward.svg", class: "title_icon") %>
+          </div>
+          <div class="width_63">
+            <h3>Current Rewards</h3>
+            <p>It's <span class="bold_red">rewarding</span> to stay connected</p>
+          </div>
+        </div>
       </div>
       <% unless @rewards.blank? %>
         <% @rewards.each_with_index do |reward, index| %>
@@ -121,22 +93,77 @@
   </div>
 </section>
 <!-- Rewards Section end -->
-<!-- Top footer start -->
-<section class="footer_top">
+
+<!-- My Rewards Section start -->
+<section class="section2 new_section my-rewards" style="background-color: #F5F5F5;">
   <div class="container">
     <div class="row">
-      <div class="col-md-8 col-lg-9">
-        <h4 class="text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
-        <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
+      <div class="col-12">
+        <div class="width_100" style="margin-top:30px;">
+          <div class="width_37">
+            <%= image_tag("end-user/reward.svg", class: "title_icon") %>
+          </div>
+          <div class="width_63">
+            <h3>My Rewards</h3>
+            <p>All of the <span class="bold_red"> rewards you have earned</span></p>
+          </div>
+        </div>
       </div>
-      <div class="col-md-4 col-lg-3">
-        <button class="footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
-      </div>
+      <% unless @claimed_rewards.blank? %>
+        <% @claimed_rewards.each_with_index do |reward, index| %>
+          <div class="col-12 col-md-4">
+            <div class="card image_box">
+              <div class="image_inner_text">
+                <div class="width_100">
+                  <% title = (reward.selection == "redeem") ? "Cash-In" : reward.selection.titleize %>
+                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span></div>
+                  <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
+                </div>
+                <div class="clear"></div>
+                <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
+                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
+                <h5><%= reward.description %></h5>
+                <div class="width_100">
+                  <div class="width_50" style="float: left;">
+                    <% if current_participant %>
+                      <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Learn More</button>
+                    <% else %>
+                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Learn More</button>
+                    <% end %>
+                  </div>
+                  <div class="width_50" style="float: right;">
+                    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </section>
+<!-- My Rewards Section end -->
+
+<% if current_participant.blank? %>
+  <!-- Top footer start -->
+  <section class="footer_top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-lg-9">
+          <h4 class="text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
+          <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <button class="footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Top footer end -->
+<% end %>
 <div class="clear"></div>
-<!-- Top footer end -->
 
 <div class="challenge-submission-modal"></div>
 <div class="reward-claim-modal"></div>
