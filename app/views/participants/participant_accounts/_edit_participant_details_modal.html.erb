@@ -234,8 +234,6 @@
         'dataSrc': 'participant_actions',
         dataFilter: function (data) {
           var json = jQuery.parseJSON(data);
-          json.recordsTotal = json.total;
-          json.recordsFiltered = json.total;
           return JSON.stringify(json);
         },
       },

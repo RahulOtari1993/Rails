@@ -49,10 +49,12 @@ class Participants::ParticipantAccountsController < ApplicationController
     participant_actions = participant_actions.order(sort_column_for_activity.to_sym => datatable_sort_direction.to_sym) unless sort_column_for_activity.nil?
     participant_actions = participant_actions.page(datatable_page).per(datatable_per_page)
 
+    
     render json: {
         participant_actions: participant_actions.as_json,
         draw: params['draw'].to_i,
-        recordsTotal: participant_actions.count
+        recordsTotal: current_participant.participant_actions.count,
+        recordsFiltered: participant_actions.count
     }
   end
 
