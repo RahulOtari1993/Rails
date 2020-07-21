@@ -557,3 +557,7 @@ span.error {
   color: #000000;
 }
 /* New Reward Popup Design End */
+
+.ql-editor img {
+  width: 100% !important;
+}

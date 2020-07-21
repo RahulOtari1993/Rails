@@ -2,5 +2,9 @@
  *= require ../end_user/libraries/bootstrap.min
  *= require ../end_user/libraries/bootstrap-datetimepicker.min
  *= require vendors/extensions/sweetalert2.min
+ *= require vendors/editors/quill/katex.min
+ *= require vendors/editors/quill/monokai-sublime.min
+ *= require vendors/editors/quill/quill.snow
+ *= require vendors/editors/quill/quill.bubble
  *= require non_login_submission/style
 */
