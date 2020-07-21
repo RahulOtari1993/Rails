@@ -12,9 +12,13 @@ class WelcomeController < ApplicationController
       if current_participant.present?
         @challenges = @campaign.challenges.current_active.where.not(challenge_type: ['signup', 'connect']).select {|x| x.available? }
         @rewards = @campaign.rewards.current_active.select {|x| x.available? }
+        claimed_reward_ids = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_type: "Reward").pluck(:actionable_id).uniq
+        @claimed_rewards = @campaign.rewards.where(id: claimed_reward_ids)
+        render layout: 'end_user_dashboard'
       else
         @challenges = @campaign.challenges.featured.current_active.where.not(challenge_type: ['signup', 'connect'])
         @rewards = @campaign.rewards.featured.current_active
+        render layout: 'end_user'
       end
     end
   end
