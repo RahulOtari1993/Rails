@@ -27,6 +27,7 @@ class Admin::Campaigns::CarouselController < Admin::Campaigns::BaseController
   end
 
   def new
+    @carousel = @campaign.carousels.new
   end
 
   def create

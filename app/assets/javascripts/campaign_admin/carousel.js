@@ -8,7 +8,7 @@ $(document).on('turbolinks:load', function () {
     }
   }
 
-  // List Rewards
+  // List Carousels
   $('#carousel-list-table').DataTable({
     processing: true,
     paging: true,
@@ -64,7 +64,7 @@ $(document).on('turbolinks:load', function () {
       {
         text: "<i class='feather icon-plus'></i> Add Carousel",
         action: function () {
-          window.location.href = "/admin/campaigns/" + $('#reward-list-table').attr('campaign_id') + "//template/carousel/new"
+          window.location.href = "/admin/campaigns/" + $('#carousel-list-table').attr('campaign_id') + "/template/carousel/new"
         },
         className: "btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light"
       }
@@ -74,89 +74,33 @@ $(document).on('turbolinks:load', function () {
     }
   })
 
-  //front-end validations
-  $('.reward-form').validate({
+  // Front-end Form Validations
+  $('.carousel-form').validate({
     errorElement: 'span',
-    ignore: function (index, el) {
-      var $el = $(el);
-
-      if ($el.hasClass('always-validate')) {
-        return false;
-      }
-
-      // Default behavior
-      return $el.is(':hidden') || $el.hasClass('ignore');
-    },
     rules: {
-      'reward[name]': {
+      'carousel[title]': {
         required: true
       },
-      'reward[description]': {
+      'carousel[description]': {
         required: true,
-        maxlength: 300
+        maxlength: 200
       },
-      'reward[image]': {
+      'carousel[image]': {
         required: true,
         extension: "jpg|jpeg|png|gif"
-      },
-      'reward[points]': {
-        digits: true
-      },
-      'reward[limit]': {
-        required: true,
-        digits: true
-      },
-      'reward[start]': {
-        required: true
-      },
-      'reward[finish]': {
-        required: true
-      },
-      'reward[msrp_value]': {
-        number: true
-      },
-      'reward[selection]': {
-        required: true
       }
     },
     messages: {
-      'reward[name]': {
-        required: 'Please enter reward name'
+      'carousel[title]': {
+        required: 'Please enter carousel title'
       },
-      'reward[description]': {
-        required: 'Please enter reward description',
-        maxlength: 'Maximum 300 characters allowed'
+      'carousel[description]': {
+        required: 'Please enter carousel description',
+        maxlength: 'Maximum 200 characters allowed'
       },
-      'reward[image]': {
-        required: 'Please select reward photo',
-        extension: 'Please select reward photo with valid extension'
-      },
-      'reward[points]': {
-        digits: 'Please enter only digits'
-      },
-      'reward[limit]': {
-        required: 'Please enter reward available',
-        digits: 'Please enter only digits'
-      },
-      'reward[start]': {
-        required: 'Please enter start date'
-      },
-      'reward[finish]': {
-        required: 'Please enter end time'
-      },
-      'reward[msrp_value]': {
-        number: 'Please enter numeric value only'
-      },
-      'reward[selection]': {
-        required: 'Please select reward selection type'
-      }
-    },
-    errorPlacement: function (error, element) {
-      var placement = $(element).data('error');
-      if (placement) {
-        $('.' + placement).append(error)
-      } else {
-        error.insertAfter(element);
+      'carousel[image]': {
+        required: 'Please select carousel photo',
+        extension: 'Please select carousel photo with valid extension'
       }
     }
   });

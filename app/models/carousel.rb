@@ -13,5 +13,12 @@
 #  updated_at  :datetime         not null
 #
 class Carousel < ApplicationRecord
+  ## Associations
   belongs_to :campaign
+
+  ## Validations
+  validates :title, :description, :image, presence: true
+
+  ## Mount Uploader for File Upload
+  mount_uploader :image, ImageUploader
 end
