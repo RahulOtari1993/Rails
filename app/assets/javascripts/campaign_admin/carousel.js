@@ -148,4 +148,16 @@ $(document).on('turbolinks:load', function () {
       url: "/admin/campaigns/" + $('#carousel-list-table').attr('campaign_id') + "/template/carousel/" + carousel
     });
   });
+
+  // Load Challenge Icon Image on Selection
+  $('#carousel_image').change(function () {
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#carousel-image-preview').attr('src', e.target.result);
+        $('#carousel_image').removeClass('ignore'); // Remove Ignore Class to Validate New Uploaded Image
+      }
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
 })

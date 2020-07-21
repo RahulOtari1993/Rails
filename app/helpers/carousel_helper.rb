@@ -3,9 +3,9 @@
   ## Image Load While Editing Carousel Details
   def carousel_image_load
     if @carousel.new_record?
-      "<img id='reward-image-preview' class = 'reward-image-preview' />"
+      "<img id='carousel-image-preview' class = 'carousel-image-preview' />"
     else
-      "<img id='reward-image-preview' class = 'reward-image-preview' src='#{@carousel.image.url(:banner)}'/>"
+      "<img id='carousel-image-preview' class = 'carousel-image-preview' src='#{@carousel.image.url(:banner)}'/>"
     end
   end
  end
