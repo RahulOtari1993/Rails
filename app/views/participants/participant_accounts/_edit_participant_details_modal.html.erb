@@ -225,102 +225,12 @@
   $(document).ready(function() {
 
     // ------------ Server Side Rendering For Activity Feed ------------
-    $('#participant-actions-list-view').DataTable({
-      processing: true,
-      serverSide: true,
-      responsive: false,
-      ajax: {
-        'url': `/participants/accounts/fetch_activities`,
-        'dataSrc': 'participant_actions',
-        dataFilter: function (data) {
-          var json = jQuery.parseJSON(data);
-          return JSON.stringify(json);
-        },
-      },
-      columns: [
-        {
-          title: 'Action',
-          data: null,
-          searchable: false,
-          render: function (data, type, row) {
-            if (data.title == '' || data.title == undefined) {
-              return (titleDetails(data))
-            } else {
-              return (data.title + ' ' + titleDetails(data))
-            }
-          },
-          createdCell: function (td, cellData, rowData, row, col) {
-            $(td).css('width', '50%');
-          }
-        },
-        {
-          title: 'Points',
-          data: null,
-          searchable: false,
-          render: function (data, type, row) {
-            return activityPoint(data)
-          },
-          createdCell: function (td, cellData, rowData, row, col) {
-            $(td).css('width', '15%');
-          }
-        },
-        {
-          title: 'Date & Time',
-          data: null,
-          searchable: false,
-          render: function (data, type, row) {
-            return formatDateTime(data.created_at)
-          },
-          createdCell: function (td, cellData, rowData, row, col) {
-            $(td).css('width', '35%');
-          }
-        }
-      ],
-      order: [[2, "desc"]],
-      columnDefs: [{orderable: false, targets: [ 0,2 ]}, { orderable: true, targets: [1]}],
-      searching: false,
-      lengthChange: false,
-      autoWidth: false,
-      bInfo: false,
-      pageLength: 10
-    });
 
-    $('#email_settings_edit_btn').click(function() {
-       $('.email-settings-edit-info').show();
-    });
-
-    $('#email_settings_cancel_btn').click(function() {
-       $('.email-settings-edit-info').hide();
-    });
 
   });
 
   // ----------------------- Common Functions ------------------------
-  // Format Date & Time
-  function formatDateTime(date) {
-    dateObj = new moment(date).format('MM/DD/YYYY LT');
-    return dateObj;
-  }
 
-  // Displaying Title and Details together
-  function titleDetails(data) {
-    details = ''
-    if ((data.details !== null) && (data.details !== undefined)) {
-      details = data.details.slice(0,30) + "..."
-    }
-    return details
-  }
-
-  // Displaying Point
-  function activityPoint(data) {
-    points = ''
-    if (data.points == null) {
-      points = 'N/A'
-    } else {
-      points = data.points
-    }
-    return points
-  }
 </script>
 
 <style media="screen">

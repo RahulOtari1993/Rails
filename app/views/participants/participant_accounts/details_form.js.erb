@@ -1,2 +1,92 @@
 $('.participant-details-modal-div').html("<%= escape_javascript render 'edit_participant_details_modal' %>");
 $('#participant_details_modal').modal('show');
+
+// Format Date & Time
+function formatDateTime(date) {
+  dateObj = new moment(date).format('MM/DD/YYYY LT');
+  return dateObj;
+}
+
+// Displaying Title and Details together
+function titleDetails(data) {
+  details = ''
+  if ((data.details !== null) && (data.details !== undefined)) {
+    details = data.details.slice(0,30) + "..."
+  }
+  return details
+}
+
+// Displaying Point
+function activityPoint(data) {
+  if (data.points == null) {
+    points = 'N/A'
+  } else if (data.points == 0) {
+    points = ' - '
+  } else {
+    points = data.points
+  }
+  return points
+}
+
+$('#participant-actions-list-view').DataTable({
+  processing: true,
+  paging: true,
+  serverSide: true,
+  responsive: false,
+  ajax: {
+    'url': `/participants/accounts/fetch_activities`,
+    'dataSrc': 'participant_actions',
+    dataFilter: function (data) {
+      var json = jQuery.parseJSON(data);
+      return JSON.stringify(json);
+    }
+  },
+  columns: [
+    {
+      title: 'Action', data: null,
+      render: function (data, type, row) {
+        if (data.title == '' || data.title == undefined) {
+          return (titleDetails(data))
+        } else {
+          return (data.title + ' ' + titleDetails(data))
+        }
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '50%');
+      }
+    },
+    {
+      title: 'Points', data: null,
+      render: function (data, type, row) {
+        return activityPoint(data)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '15%');
+      }
+    },
+    {
+      title: 'Date & Time', data: null,
+      render: function (data, type, row) {
+        return formatDateTime(data.created_at)
+      },
+      createdCell: function (td, cellData, rowData, row, col) {
+        $(td).css('width', '35%');
+      }
+    }
+  ],
+  'searching': false,
+  'lengthChange': false,
+  'autoWidth': false,
+  'pageLength': 10,
+  "language": {
+    "infoFiltered": ""
+  }
+});
+
+$('#email_settings_edit_btn').click(function() {
+  $('.email-settings-edit-info').show();
+});
+
+$('#email_settings_cancel_btn').click(function() {
+  $('.email-settings-edit-info').hide();
+});
