@@ -36,7 +36,12 @@ $(document).on('turbolinks:load', function () {
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.name)
+          var cTitle = data.description
+          if (cTitle.length > 30) {
+            cTitle = $.trim(cTitle).substring(0, 30).trim(cTitle) + "...";
+          }
+
+          return textCapitalize(cTitle)
         }
       },
       {
@@ -44,7 +49,24 @@ $(document).on('turbolinks:load', function () {
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.selection)
+          var cDescription = data.description
+          if (cDescription.length > 90) {
+            cDescription = $.trim(cDescription).substring(0, 90).trim(cDescription) + "...";
+          }
+
+          return textCapitalize(cDescription)
+        }
+      },
+      {
+        title: 'Actions', data: null, searchable: false, orderable: false, width: '20%',
+        render: function (data, type, row) {
+          // Action items
+          return "<a href = '/admin/campaigns/" + data.campaign_id + "/template/carousel/" + data.id + "/edit'" +
+              "data-toggle='tooltip' data-placement='top' data-original-title='Edit Carousel'" +
+              "class='btn btn-icon btn-success mr-1 waves-effect waves-light'><i class='feather icon-edit'></i></a>"
+              + "<button class='btn btn-icon btn-warning mr-1 waves-effect waves-light delete-carousel-btn' carousel_id ='" + data.id + "'campaign_id='" + data.campaign_id + "'"
+              + "data-toggle='tooltip' data-placement='top' data-original-title='Delete Carousel'>" +
+              "<i class='feather icon-trash'></i></button>"
         }
       }
     ],
@@ -77,6 +99,11 @@ $(document).on('turbolinks:load', function () {
   // Front-end Form Validations
   $('.carousel-form').validate({
     errorElement: 'span',
+    ignore: function (index, el) {
+      // Default behavior
+      var $el = $(el);
+      return $el.is(':hidden') || $el.hasClass('ignore');
+    },
     rules: {
       'carousel[title]': {
         required: true
@@ -88,6 +115,9 @@ $(document).on('turbolinks:load', function () {
       'carousel[image]': {
         required: true,
         extension: "jpg|jpeg|png|gif"
+      },
+      'carousel[link]': {
+        url: true
       }
     },
     messages: {
@@ -101,7 +131,21 @@ $(document).on('turbolinks:load', function () {
       'carousel[image]': {
         required: 'Please select carousel photo',
         extension: 'Please select carousel photo with valid extension'
+      },
+      'carousel[link]': {
+        url: 'Please enter valid link'
       }
     }
+  });
+
+  // Delete a Carousel
+  $('.carousel-list-container').on('click', '.delete-carousel-btn', function () {
+    var carousel = $(this).attr('carousel_id');
+
+    $.ajax({
+      type: 'DELETE',
+      data: {authenticity_token: $('[name="csrf-token"]')[0].content},
+      url: "/admin/campaigns/" + $('#carousel-list-table').attr('campaign_id') + "/template/carousel/" + carousel
+    });
   });
 })
