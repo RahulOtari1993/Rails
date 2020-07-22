@@ -477,10 +477,10 @@ span.error {
 }
 
 .reward-modal .panel-heading  a:before {
-   font-family: 'Font Awesome\ 5 free';
-   content: "\f0da";
-   float: left;
-   transition: all 0.5s;
+  font-family: 'FontAwesome';
+  content: "\f0da";
+  float: left;
+  transition: all 0.5s;
 }
 
 .reward-modal .panel-heading.active a:before {
@@ -557,6 +557,10 @@ span.error {
   color: #000000;
 }
 /* New Reward Popup Design End */
+
+.participant-details-modal .modal-content {
+  border-radius: 25px;
+}
 
 .ql-editor img {
   width: 100% !important;
