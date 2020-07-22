@@ -9,6 +9,7 @@
 #  updated_at  :datetime         not null
 #  answer      :string
 #  sequence    :integer
+#  image       :string
 #
 class QuestionOption < ApplicationRecord
   ## Associations
