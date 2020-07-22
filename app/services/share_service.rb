@@ -71,10 +71,14 @@ class ShareService
     else
       @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
-    base_url = "#{request.protocol}#{request.host}?refid=#{@referral_code.code}"
+    base_url = "#{request.protocol}#{request.host}"
+    if(challenge.challenge_type == 'share')
+      base_url = "#{base_url}/share/#{challenge.id}"
+    end
+    referral_url = "#{base_url}?refid=#{@referral_code.code}"
     # Currently only  creates a generic (non-platform specific) and facebook
-    referral_link = "#{base_url}&#{challenge.utm_parameters('generic').to_query}"
-    facebook_link = "#{base_url}&#{challenge.utm_parameters('facebook').to_query}"
+    referral_link = "#{referral_url}&#{challenge.utm_parameters('generic').to_query}"
+    facebook_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
     return { generic: referral_link, facebook: facebook_link}
   end
 

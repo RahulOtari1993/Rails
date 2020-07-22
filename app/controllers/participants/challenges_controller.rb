@@ -13,7 +13,7 @@ class Participants::ChallengesController < ApplicationController
     end
 
     # TODO refactor into handler class for maintainability with multiple challenges
-    if @challenge.challenge_type == 'referral'
+    if ['referral','share'].include?(@challenge.challenge_type)
       @share_urls = ShareService.new.get_share_urls @challenge, current_participant, request
       @generic_url = @share_urls[:generic]
       @facebook_url = @share_urls[:facebook]

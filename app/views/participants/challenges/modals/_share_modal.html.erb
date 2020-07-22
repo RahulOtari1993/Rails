@@ -17,10 +17,21 @@
         <div class="challenge-content text-left font-weight-light">
           <!-- challenge details -->
           <%= render 'participants/challenges/modals/challenge_header_details', challenge: challenge %>
-
+          <div class="row justify-content-md-center">
+            <div class="col-sm-10 mt-3 mb-3">
+              <div class="card card-default">
+                <img src="<%= challenge.social_image.url %>" class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title"><%= challenge.social_title %></h5>
+                  <%= challenge.social_description.html_safe %>
+                  <p><%= link_to "Visit Now",challenge.link, class: "btn btn-success" %></p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-md-12 visit-btn-container">
-              <a id="share-fb-bttn" href="javascript:void(0);"
+              <a id="share-fb-btn" href="javascript:void(0);"
                  class="btn box1_btn facebook_btn btn-block">
                 <span class="icon-btn-share fa fa-facebook"></span>
                 <span class="btn-share-text">Share on Facebook</span>
@@ -32,3 +43,27 @@
     </div>
   </div>
 </div>
+<script>
+$(document).ready(function() {
+  <% if @facebook_url %>
+  $.ajaxSetup({ cache: true });
+  $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
+    FB.init({
+      appId: '<%= @conf.facebook_app_id %>',
+      version: 'v7.0' // or v2.1, v2.2, v2.3, ...
+    });
+    $(document).on('click','#share-fb-btn', function(e){
+      console.log('Share on facebook clicked')
+      e.preventDefault();
+      FB.ui({
+        display: 'popup',
+        method: 'share',
+        href: '<%= @facebook_url %>'
+      }, function(response){
+
+      })
+    })
+  });
+  <% end %>
+});
+</script>

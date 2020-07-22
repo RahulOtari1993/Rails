@@ -109,7 +109,11 @@ class Challenge < ApplicationRecord
   def utm_parameters platform=nil
     #set the values
     utm_source = self.id.to_s(36) rescue "unknown"
-    utm_medium = platform rescue "unknown"
+    if platform
+      utm_medium = platform rescue "unknown"
+    else
+      utm_medium = self.parameters
+    end
     utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
     return {
       utm_source:   utm_source,
