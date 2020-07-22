@@ -1,12 +1,3 @@
-// require jquery
-// require rails-ujs
-// require activestorage
-// require turbolinks
-// require jquery.validate
-// require jquery.validate.additional-methods
-// require ../organization_admin
-// require ../common_js
-
 // New Theme Integration
 // --------------------------------------------------------------
 
@@ -44,18 +35,16 @@
 //= require vendors/extensions/wNumb
 //= require vendors/extensions/nouislider.min
 //= require libraries/core/libraries/jquery-ui.min
-
 //= require libraries/core/app
 //= require libraries/core/app-menu
 //= require libraries/scripts/components
 //= require libraries/scripts/modal/components-modal
-// require libraries/scripts/pages/dashboard-analytics
 //= require libraries/scripts/charts/geo-charts/loader
-//= require libraries/scripts/charts/geo-charts/geo-chart
 
 //= require jquery.minicolors
 //= require ../campaign_admin
 //= require campaign_admin/dashboard
 //= require campaign_admin/challenges
 //= require campaign_admin/reward
+//= require campaign_admin/carousel
 //= require ../common_js

@@ -1,23 +1,45 @@
 .reward-tags-top {
   margin-top: 15px;
 }
+
 .icon_side_margin {
   margin: 0 5px;
   font-size: 12px
 }
+
 .data_table_status_icon {
   position: absolute;
   top: 47%;
   font-size: 18px;
 }
+
 .tbl-user-segments {
   background-color: #0f163a !important;
 }
+
 #image-image-preview {
   width: 100%;
 }
+
 .reward-filter-type-dd {
   display: initial !important;
   width: 10%;
 }
 
+.filter_hidden {
+  display: none;
+}
+
+.image_field_label {
+  margin-left: 13px;
+  width: 96%;
+}
+
+.border_reward {
+  border: 1px solid #7367F0 !important;
+  border-radius: 0.5rem !important;
+}
+
+.top_margin {
+  margin-top: 15px;
+}

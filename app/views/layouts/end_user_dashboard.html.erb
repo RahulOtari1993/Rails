@@ -1,139 +1,118 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <% @template = @campaign.campaign_template_detail %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <% @template = @campaign.campaign_template_detail %>
 
-    <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
-      <%= raw @campaign.seo %>
-    <% else %>
-      <title>The Ohio State University</title>
-    <% end %>
+  <% if !@campaign.nil? && !@campaign.seo.nil? && !@campaign.seo.empty? %>
+    <%= raw @campaign.seo %>
+  <% else %>
+    <title>The Ohio State University</title>
+  <% end %>
 
-    <% if @og %>
-      <meta property="fb:app_id" content="<%= @og.fb_app_id %>" />
-      <meta property="og:site_name" content="<%= @og.site_name %>" />
-      <meta property="og:title" content="<%= @og.title %>" />
-      <meta property="og:type" content="<%= @og.content_type %>" />
-      <meta property="og:image" content="<%= @og.image %>" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:url" content="<%= @og.url %>">
-      <meta property="og:description" content="<%= @og.description %>" />
-    <% end %>
+  <% if @og %>
+    <meta property="fb:app_id" content="<%= @og.fb_app_id %>"/>
+    <meta property="og:site_name" content="<%= @og.site_name %>"/>
+    <meta property="og:title" content="<%= @og.title %>"/>
+    <meta property="og:type" content="<%= @og.content_type %>"/>
+    <meta property="og:image" content="<%= @og.image %>"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:url" content="<%= @og.url %>">
+    <meta property="og:description" content="<%= @og.description %>"/>
+  <% end %>
 
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"> -->
-    <link rel="stylesheet" href="https://use.typekit.net/wez6qgv.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Proxima+Nova"> -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://use.typekit.net/wez6qgv.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css">
+  <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Proxima+Nova"> -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick-theme.css"/>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
-    <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
+  <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
+  <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
-  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</head>
 
-  <body>
+<body>
+<!-- Header Menu -->
+<%= render 'end_users/layout/header' %>
 
-    <!-- Header Menu -->
-    <%= render 'end_users/layout/header' %>
+<!-- Body Part -->
+<section class="body-content">
+  <!-- Flash messages -->
+  <% flash.each do |key, value| %>
+    <div class="<%= flash_class(key) %>">
+      <%= value %>
+    </div>
+  <% end %>
 
-    <!-- Body Part -->
-    <section class="body-content">
-      <!-- Flash messages -->
-      <% flash.each do |key, value| %>
-        <div class="<%= flash_class(key) %>">
-          <%= value %>
-        </div>
-      <% end %>
-
-      <!-- Hero section Start -->
-      <section class="hero-slider">
-        <div class="hero-slide slider_1">
-          <div class="slider-overlay slider-1-overlay"></div>
+  <!-- Hero section Start -->
+  <% sliders = @campaign.carousels %>
+  <% if sliders.present? %>
+    <section class="hero-slider">
+      <% sliders.each_with_index do |slider, index| %>
+        <div class="hero-slide slider_<%= index %>"
+             style="background-image: url('<%= slider.image.url('banner') %>'); background-position: center center !important;">
+          <div class="slider-overlay"></div>
           <div class="container">
             <div class="slide-content text-white text-white">
-              <h2 class="">Giving Tuesday is Coming</h2>
-              <p class="">Your gift to The Ohio State University is an investment in our students, our faculty and our potential. By supporting Ohio’s land-grant institution, alumni, friends, parents and partners can help us secure educational opportunities for future generations of students and meet the enormous challenges we face as a society.</p>
-              <a class="slider_btn" href="#">Learn More</a>
+              <h2><%= slider.title %></h2>
+              <p><%= slider.description %></p>
+              <% if slider.button_text.present? && slider.link.present? %>
+                <a class="slider_btn" href="<%= slider.link %>" target="_blank"><%= slider.button_text %></a>
+              <% end %>
             </div>
           </div>
         </div>
-        <div class="hero-slide slider_2">
-          <div class="slider-overlay slider-2-overlay"></div>
-          <div class="container">
-            <div class="slide-content text-white">
-              <h2 class="">Non-conference Schedule Finalized–2020-21</h2>
-              <p class="">The 2020-21 Ohio State men’s basketball season will tip Nov. 11 at Value City Arena against Oakland University. </p>
-              <a class="slider_btn" href="https://www.solodev.com/product/host.stml">View Schedule</a>
-            </div>
-          </div>
-        </div>
-        <div class="hero-slide slider_3">
-          <div class="slider-overlay slider-3-overlay"></div>
-          <div class="container">
-            <div class="slide-content text-white">
-              <h2 class="">Together As Buckeyes</h2>
-              <p class="">Our community is mobilizing and taking action in a challenging time.</p>
-              <a class="slider_btn" href="https://www.solodev.com/product/engage.stml">Learn More</a>
-            </div>
-          </div>
-        </div>
-        <div class="hero-slide slider_4">
-          <div class="slider-overlay slider-4-overlay"></div>
-          <div class="container">
-            <div class="slide-content text-white">
-              <h2 class="">2020 drum majors named after virtual tryouts</h2>
-              <p class="">Tryouts were the first in the history of TBDBITL to be held remotely</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <%= yield %>
+      <% end %>
     </section>
+  <% end %>
 
-    <!-- Footer Part -->
-    <%= render 'end_users/layout/footer' %>
-  </body>
+  <%= yield %>
+</section>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      var height;
-      $('.image_box_bg .position_abs').each(function() {
-        height = $(this).innerHeight()
-        imageDiv = $(this).parent().find('.box_img_style');
-        imageDiv.css('height', height);
-      });
+<!-- Footer Part -->
+<%= render 'end_users/layout/footer' %>
+</body>
 
-      $('.hero-slider').slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        prevArrow: '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
-        nextArrow: '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
-        infinite: true,
-        autoplay: true,
-        dots: false,
-        autoplaySpeed: 3000,
-        fade: false
-      });
+<script type="text/javascript">
+  $(document).ready(function () {
+    var height;
+    $('.image_box_bg .position_abs').each(function () {
+      height = $(this).innerHeight()
+      imageDiv = $(this).parent().find('.box_img_style');
+      imageDiv.css('height', height);
     });
-  </script>
 
-  <style media="screen">
-    .body-content{
-      margin-top: 66px;
-    }
+    $('.hero-slider').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      prevArrow: '<i class="fa fa-chevron-left" aria-hidden="true"></i>',
+      nextArrow: '<i class="fa fa-chevron-right" aria-hidden="true"></i>',
+      infinite: true,
+      autoplay: true,
+      dots: false,
+      autoplaySpeed: 3000,
+      fade: false
+    });
+  });
+</script>
 
-    .image_box_title {
-      margin: 40px 0px 25px;
-    }
-  </style>
+<style media="screen">
+  .body-content {
+    margin-top: 66px;
+  }
+
+  .image_box_title {
+    margin: 40px 0px 25px;
+  }
+</style>
 </html>

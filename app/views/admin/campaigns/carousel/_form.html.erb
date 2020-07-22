@@ -1,0 +1,102 @@
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-body">
+      <section id="basic-vertical-layouts">
+        <div class="row match-height">
+          <div class="col-md-12 col-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="text-center card-title"><%= @carousel.new_record? ? 'Create' : 'Edit' %> Carousel</h4>
+              </div>
+              <div class="card-content container col-md-9 col-9 carousel_form_border" style="margin-top:20px">
+                <% if @carousel.new_record? %>
+                  <% url = admin_campaign_carousel_index_path(@carousel.campaign, @carousel) %>
+                  <% form_method = 'post' %>
+                <% else %>
+                  <% url = admin_campaign_carousel_path(@carousel.campaign, @carousel) %>
+                  <% form_method = 'put' %>
+                <% end %>
+                <%= form_with(url: url, method: form_method, class: 'carousel-form', model: @carousel, local: true, html: {multipart: true}) do |f| %>
+                  <% if @carousel.errors.any? %>
+                    <%= render '/shared/render_errors', resource: @carousel %>
+                  <% end %>
+
+                  <div class="card-body">
+                    <form class="form form-vertical">
+                      <div class="form-body">
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :title %>
+                              <div class="position-relative">
+                                <%= f.text_field :title, class: "form-control" %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :description %>
+                              <div class="position-relative">
+                                <fieldset class="form-label-group">
+                                  <%= f.text_area :description, class: "form-control", rows: '3' %>
+                                </fieldset>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :button_text %>
+                              <div class="position-relative">
+                                <div class="input-group">
+                                  <%= f.text_field :button_text, class: "form-control" %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12">
+                            <div class="form-group">
+                              <%= f.label :link %>
+                              <div class="position-relative">
+                                <div class="input-group">
+                                  <%= f.text_field :link, class: "form-control" %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <div class="form-group">
+                              <%= f.label :image, 'Carousel Image' %>
+                              <div class="custom-file">
+                                <%= f.file_field :image, class: "custom-file-input #{@carousel.new_record? ? '' : 'ignore'}" %>
+                                <%= f.label :image, f.object.image.present? ? f.object.image.file.filename : 'Choose file', class: 'custom-file-label' %>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-6">
+                            <%= raw carousel_image_load %>
+                          </div>
+
+                          <br/>
+                          <div class="col-12" style="margin-top: 15px">
+                            <%= f.submit 'Submit', :class => "reward_form btn btn-primary mr-1 mb-1" %>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
