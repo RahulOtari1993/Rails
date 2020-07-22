@@ -70,7 +70,7 @@
                       </h5>
                     </label>
                     <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control social-title-txt', placeholder: "Welcome to the LIB Experiences Club",
+                    <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control social-title-txt', placeholder: "Title to display on social post",
                                        data: {error: 'social-title-error'} %>
                     <div class="clear"></div>
 
@@ -80,8 +80,7 @@
                       </p>
                     </label>
                     <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_description, social_blog_description('facebook', 'input'), class: 'form-control social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
-                                          love about LIB.", data: {error: 'social-description-error'} %>
+                    <%= text_field_tag :social_description, social_blog_description('facebook', 'input'), class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
                     <div class="clear"></div>
 
                     <p>

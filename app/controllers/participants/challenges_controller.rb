@@ -1,4 +1,5 @@
 class Participants::ChallengesController < ApplicationController
+
   before_action :authenticate_participant!
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
   before_action :set_challenge

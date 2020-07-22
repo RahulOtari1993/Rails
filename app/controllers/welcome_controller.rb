@@ -2,6 +2,7 @@ class WelcomeController < ApplicationController
   before_action :authenticate_participant!, only: [ :welcome ]
   before_action :authenticate_user!, only: :index, if: -> { @campaign.nil? }
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
+  append_before_action :setup_default_recruit_challenge
 
   layout 'end_user'
 

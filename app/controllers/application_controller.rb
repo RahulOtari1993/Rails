@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :set_organization
   before_action :handle_shares
 
-  append_before_action :setup_default_recruit_challenge
-
   include Pundit
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -58,12 +56,12 @@ class ApplicationController < ActionController::Base
 
       @og = OpenGraphService.new
       @og.site_name = @campaign.name
-      @og.title = challenge.name
-      @og.description = challenge.description
-      @og.image = challenge.image.url
+      @og.title = !challenge.social_title.blank? ? challenge.social_title : challenge.name
+      @og.description = !challenge.social_description.blank? ? challenge.social_description : challenge.description
+      @og.image = !challenge.social_image.blank? ? challenge.social_image.url : challenge.image.url
       @og.content_type = 'website'
       @og.fb_app_id = @conf.facebook_app_id
-      @og.url = "#{request.protocol}#{request.host}"
+      @og.url = "#{request.protocol}#{request.host}#{request.path}"
     end
     @og
   end
@@ -72,7 +70,7 @@ class ApplicationController < ActionController::Base
 
   def setup_default_recruit_challenge
     Rails.logger.info "======== DEFAULT RECRUIT"
-    if @campaign
+    if @campaign && !params[:controller] == 'share'
       Rails.logger.info "======== IN campaign ---> #{@campaign.name}"
       @recruit_challenge = Challenge.referral_default_challenge.first
       if @recruit_challenge
