@@ -1797,6 +1797,14 @@ $(document).on('turbolinks:load', function () {
     $(this).prop('checked', true);
   });
 
+  // Check Uncheck Image Question Answer
+  $('body').on('change', '.image-answer-field', function (e) {
+    $(this).parent().parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).parent().parent().parent().parent().find('input:checkbox').attr('checked', false);
+    $(this).parent().parent().parent().parent().find('input:checkbox').removeAttr('checked');
+    $(this).prop('checked', true);
+  });
+
   // Manage Sorted Question Sequence
   function manageQuestionSequence() {
     let challengeType = $('#challenge_challenge_type').val();

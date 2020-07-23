@@ -235,7 +235,7 @@
                 <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]",
                                   nil, option_is_answer(nil), disabled: true,
                                   id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 20)}",
-                                  class: 'custom-control-input is-editable disabled-field image-uploader-option' %>
+                                  class: 'custom-control-input is-editable disabled-field image-uploader-option image-answer-field' %>
                 <span class="vs-checkbox">
                   <span class="vs-checkbox--check">
                     <i class="vs-icon feather icon-check"></i>
@@ -283,7 +283,7 @@
                 <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]",
                                   nil, option_is_answer(nil), disabled: true,
                                   id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 2)}",
-                                  class: 'custom-control-input is-editable disabled-field image-uploader-option' %>
+                                  class: 'custom-control-input is-editable disabled-field image-uploader-option image-answer-field' %>
                 <span class="vs-checkbox">
                   <span class="vs-checkbox--check">
                     <i class="vs-icon feather icon-check"></i>
