@@ -852,7 +852,6 @@ $(document).on('turbolinks:load', function () {
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function () {
-    console.log("$(this).val()", $(this).val())
     $('#challenge_social_title').val($(this).val());
   });
 
@@ -1748,6 +1747,7 @@ $(document).on('turbolinks:load', function () {
 
     // Set New Name to Option
     var optIdentifire = qOption.data('option-identifire');
+
     var oldIdent = `data-option-identifire="${optIdentifire}"`
     var newIdent = `data-option-identifire="${optionCounter}"`
     optionHtml = optionHtml.replace(oldIdent, newIdent);
@@ -1772,6 +1772,15 @@ $(document).on('turbolinks:load', function () {
     var newImgName = `[question_options_attributes][${optionCounter}][image]`
     optionHtml = optionHtml.replace(oldImgName, newImgName);
 
+    // Set New Option Identifire to Image
+    var oldImageForName = `for="file-upload${optIdentifire}"`
+    var newImageForName = `for="file-upload${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageForName, newImageForName);
+
+    var oldImageIdName = `id="file-upload${optIdentifire}"`
+    var newImageIdName = `id="file-upload${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
+
     // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
@@ -1779,7 +1788,8 @@ $(document).on('turbolinks:load', function () {
     // var lastThirty = optName.substr(optName.length - 30);
 
     // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
-    $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    new_element.find('.social_img_show').attr('src', '');
 
     autoSelectText();
     addOptionValidations();
@@ -1860,7 +1870,7 @@ $(document).on('turbolinks:load', function () {
   enableSortingForOptions();
 
   // Show Image Preview after Image Selection
-  $('.image-uploader-control').change(function () {
+  $('body').on('change', '.image-uploader-control', function () {
     var _this = $(this);
 
     if (this.files && this.files[0]) {

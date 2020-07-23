@@ -164,6 +164,7 @@
     </div>
 
     <div class="col-12 options-container image_radio_button-container <%= display_question_option(question, 'image_radio_button') %>">
+
       <% if question.present? && question.answer_type == 'image_radio_button' %>
         <% question.question_options.order(:sequence).each_with_index do |option, index| %>
           <div class="que_edit">
@@ -198,6 +199,7 @@
         <% end %>
       <% else %>
         <div class="row image-option-container">
+          <div class="que_option_header"></div>
           <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
             <div class="card border-info text-center bg-transparent p-1 social_image_box">
               <% optIdentifire = rand.to_s[2..10] %>

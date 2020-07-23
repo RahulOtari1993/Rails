@@ -552,7 +552,6 @@ $(document).on('turbolinks:load', function () {
   // Add Validations on Already Exists User Segments
   setTimeout(function () {
     var ids = $('.reward-existing-filter-ids').data('ids');
-    console.log("IDS", ids)
     if (ids) {
       ids.forEach(function (segmentId) {
         addRewardValidations(segmentId)
