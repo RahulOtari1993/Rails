@@ -1,0 +1,127 @@
+<div class="participant-onboarding-questions-details">
+  <div class="row ml-1 mr-1">
+    <div class="col-md-12">
+      <h6>Complete your profile</h6>
+    </div>
+  </div>
+  <% participant_profiles = current_participant.participant_profiles %>
+  <% challenge.questions.order(:sequence).each_with_index do |question, index| %>
+    <% profile_attribute = question.profile_attribute %>
+    <% profile_answers = participant_profiles.where(profile_attribute_id: profile_attribute.id) %>
+
+    <div class="row ml-1 mr-1">
+      <div class="col-md-12">
+        <div class="form-group extended-form-group">
+          <%= label :facebook_app_id, "#{index+1}. #{question.title}" %>
+
+          <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
+          <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>
+          <%= hidden_field_tag "questions[#{question.id}][attribute_name]", profile_attribute.attribute_name %>
+
+          <% case profile_attribute.field_type %>
+          <% when 'string' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= text_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-string #{answer_required('answer-string', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'string') %>
+          <% when 'text_area' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= text_area_tag "questions[#{question.id}][answer]", selected_option,
+                              class: "form-control answer-text-area #{answer_required('answer-text-area', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                              placeholder: fetch_placeholder_details(question, 'text_area') %>
+          <% when 'boolean' then %>
+            <% answer = profile_answers.first %>
+            <% question.question_options.order(:sequence).each do |option| %>
+              <%= radio_button_tag "questions[#{question.id}][answer]", true, (profile_attribute.is_custom ? (answer.present? ? (answer.value == option.details) : false) : current_participant.as_json[profile_attribute.attribute_name]),
+                                   id: "questions_#{question.id}_answer_#{option.id}",
+                                   class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}" %>
+
+              <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+            <% end %>
+          <% when 'date' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= text_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'date') %>
+          <% when 'time' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= text_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-time #{answer_required('answer-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'time') %>
+          <% when 'date_time' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= text_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-date-time #{answer_required('answer-date-time', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'date_time') %>
+          <% when 'number' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= number_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-number #{answer_required('answer-number', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'number') %>
+          <% when 'decimal' then %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name] %>
+            <%= number_field_tag "questions[#{question.id}][answer]", selected_option,
+                               class: "form-control answer-decimal #{answer_required('answer-decimal', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                               placeholder: fetch_placeholder_details(question, 'decimal') %>
+          <% when 'radio_button' then %>
+            <% answer = profile_answers.first %>
+            <div>
+              <% question.question_options.order(:sequence).each do |option| %>
+                <% if profile_attribute.is_custom %>
+                  <% selected_option = answer.present? ? (answer.value == option.details) : false %>
+                <% else %>
+                  <% selected_option = current_participant.as_json[profile_attribute.attribute_name] == option.details %>
+                <% end %>
+                <%= radio_button_tag "questions[#{question.id}][answer]", option.details, selected_option,
+                                     id: "questions_#{question.id}_answer_#{option.id}",
+                                     class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                     data: {error: "radio-button-error-#{index}"} %>
+
+                <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+              <% end %>
+              <div class="custom-error-class radio-button-error-<%= index %>"></div>
+            </div>
+          <% when 'check_box' then %>
+            <div>
+              <% question.question_options.order(:sequence).each do |option| %>
+                <% if profile_attribute.is_custom %>
+                  <% answers = profile_answers.pluck(:value) %>
+                <% else %>
+                  <% answers = current_participant.as_json[profile_attribute.attribute_name] %>
+                <% end %>
+                <% selected_option = answers.present? ? answers.include?(option.details) : false %>
+                <%= check_box_tag "questions[#{question.id}][answer][]", option.details, selected_option,
+                                  id: "questions_#{question.id}_answer_#{option.id}",
+                                  class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                  data: {error: "check-box-error-#{index}"} %>
+
+                <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+              <% end %>
+              <div class="custom-error-class check-box-error-<%= index %>"></div>
+            </div>
+          <% when 'dropdown' then %>
+            <% answer = profile_answers.first %>
+            <div>
+              <%
+                options = []
+                question.question_options.order(:sequence).each do |option|
+                  options.push([option.details, option.details])
+                end
+              %>
+              <% selected_option = (profile_attribute.is_custom ? (answer.present? ? answer.value : "") : current_participant.as_json[profile_attribute.attribute_name]) %>
+              <%= select_tag "questions[#{question.id}][answer]",
+                             options_for_select(options, selected_option),
+                             class: "form-control answer-dropdown #{answer_required('answer-dropdown', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                             prompt: fetch_placeholder_details(question, 'dropdown') %>
+            </div>
+          <% end %>
+          <% if question.additional_details.present? %>
+
+            <div class="additional-details"><%= question.additional_details %></div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  <% end %>
+</div>

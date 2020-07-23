@@ -38,7 +38,7 @@
                 <% profile_attribute = question.profile_attribute %>
 
                 <div class="form-group extended-form-group">
-                  <%= label :facebook_app_id, question.title %>
+                  <%= label :facebook_app_id, "#{index+1}. #{question.title}" %>
 
                   <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
                   <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>

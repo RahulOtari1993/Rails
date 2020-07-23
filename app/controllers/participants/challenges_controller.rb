@@ -37,44 +37,46 @@ class Participants::ChallengesController < ApplicationController
 
   ## Submit Challenges
   def submission
-    # if @challenge.present?
-    #   @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
-    #                                  challenge_id: @challenge.id).first_or_initialize
-    #
-    #   if @submission.new_record?
-    #     @submission.user_agent = request.user_agent
-    #     @submission.ip_address = request.ip
-    #
-    #     ## Save Onboarding/Extended Profile Question Answers
-    #     if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
-    #       unless current_participant.update(onboarding_question_params)
-    #         respond_to do |format|
-    #           @response = {success: false, message: 'Something went wrong, Please try again.'}
-    #           format.json { render json: @response }
-    #           format.js { render layout: false }
-    #         end
-    #       end
-    #     end
-    #
-    #     if @submission.save
-    #       participant_action false
-    #     else
-    #       respond_to do |format|
-    #         @response = {success: false, message: 'Challenge submission failed, Please try again.'}
-    #         format.json { render json: @response }
-    #         format.js { render layout: false }
-    #       end
-    #     end
-    #   else
-    #     participant_action true
-    #   end
-    # else
-    #   respond_to do |format|
-    #     @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
-    #     format.json { render json: @response }
-    #     format.js { render layout: false }
-    #   end
-    # end
+    if @challenge.present?
+      @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
+                                     challenge_id: @challenge.id).first_or_initialize
+
+      if @submission.new_record?
+        @submission.user_agent = request.user_agent
+        @submission.ip_address = request.ip
+
+        ## Save Onboarding/Extended Profile Question Answers
+        if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
+
+          participant_profile_params = params[:participant].present? ? participant_params.merge!(onboarding_question_params) : onboarding_question_params
+          unless current_participant.update(participant_profile_params)
+            respond_to do |format|
+              @response = {success: false, message: 'Something went wrong, Please try again.'}
+              format.json { render json: @response }
+              format.js { render layout: false }
+            end
+          end
+        end
+
+        if @submission.save
+          participant_action false
+        else
+          respond_to do |format|
+            @response = {success: false, message: 'Challenge submission failed, Please try again.'}
+            format.json { render json: @response }
+            format.js { render layout: false }
+          end
+        end
+      else
+        participant_action true
+      end
+    else
+      respond_to do |format|
+        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        format.json { render json: @response }
+        format.js { render layout: false }
+      end
+    end
   end
 
   ## Submit Quiz Challenge
@@ -230,6 +232,11 @@ class Participants::ChallengesController < ApplicationController
     end
 
     participant_answer_params
+  end
+
+  ## Manage & Build Participant Params
+  def participant_params
+    params.require(:participant).permit(:first_name, :last_name, :avatar)
   end
 
   private

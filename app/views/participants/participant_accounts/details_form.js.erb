@@ -90,3 +90,19 @@ $('#email_settings_edit_btn').click(function() {
 $('#email_settings_cancel_btn').click(function() {
   $('.email-settings-edit-info').hide();
 });
+
+
+initializeDateTimePicker();
+$('.participant-profile-form').validate({
+  errorElement: 'span',
+  errorPlacement: function (error, element) {
+    var placement = $(element).data('error');
+    if (placement) {
+      $('.' + placement).html(error)
+    } else {
+      error.insertAfter(element);
+    }
+  }
+})
+
+customQuestionValidation();
