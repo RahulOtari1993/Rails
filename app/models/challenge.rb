@@ -98,6 +98,7 @@ class Challenge < ApplicationRecord
 
   scope :referral_default_challenge, -> { where(challenge_type: 'referral').where(parameters: :custom).where(is_approved: true) }
   scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
+  scope :referral_challenges, -> { where(challenge_type: 'referral').where(is_approved: true) }
 
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,

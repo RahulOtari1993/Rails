@@ -107,11 +107,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if !current_participant.blank? && current_participant.active?
-      # We have a signed up and active user so lets process referrals for challenges
-      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
-      session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
-    end
+    processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
+    session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
+
   end
 
   protected

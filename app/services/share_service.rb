@@ -10,10 +10,11 @@ class ShareService
     @processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
+
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
 
-      if challenge.challenge_type == 'referral' and !participant.blank?
+      if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
       elsif challenge.challenge_type == 'share'
@@ -22,8 +23,10 @@ class ShareService
       else
         # Reward points for other share referrals
       end
+
+      #byebug
     end
-    processed_referral_ids
+    @processed_referral_ids
   end
 
   def record_visit refid, visit, participant
