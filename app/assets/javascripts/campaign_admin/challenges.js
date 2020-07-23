@@ -1755,13 +1755,14 @@ $(document).on('turbolinks:load', function () {
     var newSeqName = `[question_options_attributes][${optionCounter}][sequence]`
     optionHtml = optionHtml.replace(oldSeqName, newSeqName);
 
-    // Remove Default Seelcted Answer Checkbox
+    // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
     // optionHtml.replace(optIdentifire, optionCounter);
     // var lastThirty = optName.substr(optName.length - 30);
 
-    $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
 
     autoSelectText();
     addOptionValidations();
