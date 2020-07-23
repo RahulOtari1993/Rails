@@ -1716,6 +1716,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Remove Question Image Option With Validation
+  $('body').on('click', '.image_cross_js', function (e) {
+    var options = $(this).parents().eq(5).find('.que_edit').length
+
+    if (options > 2) {
+      $(this).parents().eq(4).remove();
+      manageOptionSequence();
+    } else {
+      swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
+    }
+  });
+
   // Add New Option to a Question
   $('body').on('click', '.add-challenge-option', function (e) {
     var firstOption = $(this).parent().parent().parent().find('.que_edit').first()
