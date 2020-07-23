@@ -198,10 +198,9 @@
         <% end %>
       <% else %>
         <div class="row image-option-container">
-          <% optIdentifire = rand.to_s[2..10] %>
-
           <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
             <div class="card border-info text-center bg-transparent p-1 social_image_box">
+              <% optIdentifire = rand.to_s[2..10] %>
               <div class="card-content">
                 <img src="#" class="social_img_show">
                 <div class="image-upload">
@@ -233,7 +232,7 @@
             </div>
             <div class="text-center">
               <div class="vs-checkbox-con vs-checkbox-primary image-uploader-option-answer-container">
-                <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]",
+                <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]",
                                   nil, option_is_answer(nil), disabled: true,
                                   id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 20)}",
                                   class: 'custom-control-input is-editable disabled-field image-uploader-option' %>
@@ -249,6 +248,7 @@
 
           <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
             <div class="card border-info text-center bg-transparent p-1 social_image_box">
+              <% optIdentifire = rand.to_s[2..10] %>
               <div class="card-content">
                 <img src="#" class="social_img_show">
                 <div class="image-upload">
@@ -304,15 +304,6 @@
           </div>
         </div>
       <% end %>
-
-<!--      <div class="que_edit">-->
-<!--        <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>-->
-<!--        <div class="form-label-group que_ip_width">-->
-<!--          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">-->
-<!--            <span><i class="feather icon-plus"></i> Add Option</span>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
     </div>
   </div>
 

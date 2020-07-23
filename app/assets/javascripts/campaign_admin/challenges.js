@@ -1755,6 +1755,11 @@ $(document).on('turbolinks:load', function () {
     var newSeqName = `[question_options_attributes][${optionCounter}][sequence]`
     optionHtml = optionHtml.replace(oldSeqName, newSeqName);
 
+    // Set New Option Identifire to Image Option
+    var oldImgName = `[question_options_attributes][${optIdentifire}][image]`
+    var newImgName = `[question_options_attributes][${optionCounter}][image]`
+    optionHtml = optionHtml.replace(oldImgName, newImgName);
+
     // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
