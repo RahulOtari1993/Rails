@@ -979,10 +979,12 @@
   height: 0px;
 
 }
+
 .social_image_box .image-upload input[type=file] {
   display: none !important;
 }
-.social_image_box .social_img_show{
+
+.social_image_box .social_img_show {
   min-width: 100%;
   min-height: 130px;
   width: 100%;
@@ -990,56 +992,68 @@
   visibility: hidden;
   /* background-color: #ccc;*/
 }
-.social_image_box .social_image{
+
+.social_image_box .social_image {
   position: absolute;
   top: 30%;
   left: 36%;
   height: 50px;
   width: 50px;
 }
-.social_image_box .img_circle_icon{
+
+.social_image_box .img_circle_icon {
   position: absolute;
   top: 12px;
   left: 12px;
   font-size: 20px;
 }
-.social_image_box .form-control{
+
+.social_image_box .form-control {
   background-color: transparent !important;
   border-radius: 0px !important;
   position: relative;
   top: -30px;
   text-align: center;
 }
-.social_image_box .form-control:focus{
+
+.social_image_box .form-control:focus {
   border-color: transparent !important;
   outline: 0;
   box-shadow: none !important;
   border: 0px !important;
 }
-.image_cross_box{
+
+.image_cross_box {
   display: none;
   position: absolute;
-  top: 44%;
+  top: 40%;
   left: 70%;
   z-index: 9999;
 }
 
-.image_cross_box .fa{
+.image_cross_box .fa {
   font-size: 15px;
   margin-right: 5px;
 }
-.social_image_box:hover .image_cross_box{
-  display: block;
 
+.social_image_box:hover .image_cross_box {
+  display: block;
 }
+
+.que_edit .image-drag {
+  margin-top: 3px !important;
+}
+
 .border-dashed {
   border: 1px dashed #00CFE8 !important;
 }
-.social_image_box .icon-plus-circle{
+
+.social_image_box .icon-plus-circle {
   font-size: 50px;
   font-weight: 100;
 }
-.social_image_box{
+
+.social_image_box {
   margin-bottom: 1.2rem;
 }
 
@@ -1047,5 +1061,6 @@
   margin-bottom: 15px;
   left: 27%;
 }
+
 /* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
