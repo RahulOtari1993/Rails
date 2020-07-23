@@ -1043,5 +1043,9 @@
   margin-bottom: 1.2rem;
 }
 
+.image-uploader-option-answer-container {
+  margin-bottom: 15px;
+  left: 27%;
+}
 /* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
