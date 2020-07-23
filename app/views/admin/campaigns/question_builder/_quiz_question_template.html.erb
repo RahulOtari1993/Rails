@@ -197,138 +197,54 @@
           </div>
         <% end %>
       <% else %>
-        <% optIdentifire = rand.to_s[2..10] %>
-        <div class="col-12 que_edit">
-          <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12">
-              <div class="card border-info text-center bg-transparent p-1 social_image_box">
-                <div class="card-content">
-                  <img  src="#" class="social_img_show">
-                  <div class="image-upload">
-                    <label for="fb_Input">
-                      <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
-                      <input type="text" id="first-name-column" class="form-control" placeholder="Type an option" name="fname-column">
-                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
-                      <!-- <i class="fa fa-square-o" aria-hidden="true"></i> -->
-                      <span class="image_cross_box">
-                          <i class="fa fa-bars" aria-hidden="true"></i>
-                          <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
-                      </span>
-                    </label>
-                    <input id="fb_Input" type="file">
-                  </div>
+        <div class="row image-option-container">
+          <% optIdentifire = rand.to_s[2..10] %>
 
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="vs-checkbox-con vs-checkbox-primary" style="display: inline-flex;">
-                  <input type="checkbox" checked="" value="false">
-                  <span class="vs-checkbox">
-                    <span class="vs-checkbox--check">
-                      <i class="vs-icon feather icon-check"></i>
-                    </span>
-                  </span>
-                  <span class="">Answer</span>
-                </div>
-              </div>
-            </div>
+          <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
+            <div class="card border-info text-center bg-transparent p-1 social_image_box">
+              <div class="card-content">
+                <img src="#" class="social_img_show">
+                <div class="image-upload">
+                  <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>">
+                    <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
-            <div class="col-lg-3 col-md-3 col-sm-12">
-              <div class="card border-info text-center bg-transparent p-1 social_image_box">
-                <div class="card-content">
-                  <img  src="#" class="social_img_show">
-                  <div class="image-upload">
-                    <label for="fb_Input">
-                      <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
-                      <input type="text" id="first-name-column" class="form-control" placeholder="Type an option" name="fname-column">
-                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
-                      <!-- <i class="fa fa-square-o" aria-hidden="true"></i> -->
-                      <div class="image_cross_box">
+                    <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+                                         nil, class: 'question-option-sequence-hidden is-editable' %>
+
+                    <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+                                       option_value(nil, 1),
+                                       class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                                       id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
+                                       disabled: true,
+                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
+
+                    <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
+                    <span class="image_cross_box">
                         <i class="fa fa-bars" aria-hidden="true"></i>
                         <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
-                      </div>
-                    </label>
-                    <input id="fb_Input" type="file">
-                  </div>
-
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="vs-checkbox-con vs-checkbox-primary" style="display: inline-flex;">
-                  <input type="checkbox" value="false">
-                  <span class="vs-checkbox">
-                    <span class="vs-checkbox--check">
-                      <i class="vs-icon feather icon-check"></i>
                     </span>
-                  </span>
-                  <span class="">Answer</span>
+                  </label>
+
+                  <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option_identifire(template, nil, optIdentifire, 1) %>][image]"
+                         class="image-uploader-control form-control-option disabled-field is-editable" type="file"
+                         id='file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>'>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12">
-              <div class="card border-info text-center bg-transparent p-1 social_image_box">
-                <div class="card-content">
-                  <img  src="#" class="social_img_show">
-                  <div class="image-upload">
-                    <label for="fb_Input">
-                      <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
-                      <input type="text" id="first-name-column" class="form-control" placeholder="Type an option" name="fname-column">
-                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
-                      <!-- <i class="fa fa-square-o" aria-hidden="true"></i> -->
-                      <div class="image_cross_box">
-                        <i class="fa fa-bars" aria-hidden="true"></i>
-                        <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
-                      </div>
-                    </label>
-                    <input id="fb_Input" type="file">
-                  </div>
-
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="vs-checkbox-con vs-checkbox-primary" style="display: inline-flex;">
-                  <input type="checkbox" value="false">
-                  <span class="vs-checkbox">
-                    <span class="vs-checkbox--check">
-                      <i class="vs-icon feather icon-check"></i>
-                    </span>
+            <div class="text-center">
+              <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
+                <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]",
+                                  nil, option_is_answer(nil), disabled: true,
+                                  id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 20)}",
+                                  class: 'custom-control-input is-editable disabled-field answer-field' %>
+                <span class="vs-checkbox">
+                  <span class="vs-checkbox--check">
+                    <i class="vs-icon feather icon-check"></i>
                   </span>
-                  <span class="">Answer</span>
-                </div>
+                </span>
+                <span class="">Answer</span>
               </div>
             </div>
-
-            <div class="col-lg-3 col-md-3 col-sm-12">
-              <div class="card border-dashed text-center bg-transparent p-1 social_image_box">
-                <div class="card-content">
-                  <img  src="#" class="social_img_show">
-                  <div class="image-upload">
-                    <label for="fb_Input">
-                      <div class="fonticon-wrap social_image">
-                        <i class="feather icon-plus-circle"></i>
-                      </div>
-                      <input type="text" id="first-name-column" class="form-control" placeholder="Add option" name="fname-column">
-                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
-                      <!-- <i class="fa fa-square-o" aria-hidden="true"></i> -->
-                    </label>
-                    <input id="fb_Input" type="file">
-                  </div>
-                </div>
-              </div>
-              <div class="text-center">
-                <div class="vs-checkbox-con vs-checkbox-primary" style="display: inline-flex;">
-                  <input type="checkbox" value="false">
-                  <span class="vs-checkbox">
-                    <span class="vs-checkbox--check">
-                      <i class="vs-icon feather icon-check"></i>
-                    </span>
-                  </span>
-                  <span class="">Answer</span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       <% end %>
