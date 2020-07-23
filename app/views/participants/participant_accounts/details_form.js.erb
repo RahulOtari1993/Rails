@@ -93,16 +93,5 @@ $('#email_settings_cancel_btn').click(function() {
 
 
 initializeDateTimePicker();
-$('.participant-profile-form').validate({
-  errorElement: 'span',
-  errorPlacement: function (error, element) {
-    var placement = $(element).data('error');
-    if (placement) {
-      $('.' + placement).html(error)
-    } else {
-      error.insertAfter(element);
-    }
-  }
-})
 
 customQuestionValidation();

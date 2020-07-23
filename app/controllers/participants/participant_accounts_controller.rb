@@ -97,7 +97,10 @@ class Participants::ParticipantAccountsController < ApplicationController
           end
         else
           profile_params[question[:attribute_name]] = question[:answer]
-          birthdate = question[:answer] if question[:attribute_name] == 'birth_date' && question[:answer].present?
+          if question[:attribute_name] == 'birth_date' && question[:answer].present?
+            birthdate = question[:answer]
+            question[:answer] = convert_date_format(question[:answer])
+          end
           age = question[:answer].to_i if question[:attribute_name] == 'age' && question[:answer].present?
         end
       end
@@ -132,6 +135,11 @@ class Participants::ParticipantAccountsController < ApplicationController
   ## Returns Datatable Sorting Direction
   def datatable_sort_direction
     params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  end
+
+  def convert_date_format(date_details)
+    existing_date = date_details.split('/')
+    "#{existing_date[1]}/#{existing_date[0]}/#{existing_date[2]}"
   end
 
 end
