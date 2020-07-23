@@ -1863,7 +1863,7 @@ $(document).on('turbolinks:load', function () {
         var social_img = _this.parent().parent().parent().find('.social_image');
         elem.attr('src', e.target.result);
         elem.css('visibility', 'visible');
-        social_img.css('z-index', -1);
+        // social_img.css('z-index', -1);
       }
 
       reader.readAsDataURL(this.files[0]);
