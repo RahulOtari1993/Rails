@@ -987,6 +987,7 @@
   min-height: 130px;
   width: 100%;
   position: relative;
+  visibility: hidden;
   /* background-color: #ccc;*/
 }
 .social_image_box .social_image{
@@ -1000,6 +1001,7 @@
   position: absolute;
   top: 12px;
   left: 12px;
+  font-size: 20px;
 }
 .social_image_box .form-control{
   background-color: transparent !important;
