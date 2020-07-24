@@ -1791,6 +1791,14 @@ $(document).on('turbolinks:load', function () {
     var newImageIdName = `id="file-upload${optionCounter}"`
     optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
 
+    var oldImageOptionErrorClassName = `class="image-option-error image-option-error-${optIdentifire}"`
+    var newImageOptionErrorClassName = `class="image-option-error image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionErrorClassName, newImageOptionErrorClassName);
+
+    var oldImageOptionDataErrorClassName = `error="image-option-error-${optIdentifire}"`
+    var newImageOptionDataErrorClassName = `error="image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionDataErrorClassName, newImageOptionDataErrorClassName);
+
     // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
@@ -1800,6 +1808,8 @@ $(document).on('turbolinks:load', function () {
     // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
     var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
     new_element.find('.social_img_show').attr('src', '');
+    console.log("new_element", new_element);
+    new_element.find('.image-option-error').html();
 
     autoSelectText();
     addOptionValidations();
