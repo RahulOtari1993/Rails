@@ -7,6 +7,6 @@ class Api::V1::CampaignConfigsController < Api::V1::BaseController
       conf = GlobalConfiguration.first
     end
 
-    render_success 200, true, 'Campaign configs fetched successfully.', conf.as_json
+    render_success 200, true, 'Program configs fetched successfully.', conf.as_json
   end
 end
