@@ -17,7 +17,7 @@
       </div>
       <% if !@general_recruit_challenge.blank? %>
         <%= render "challenge", { challenge: @general_recruit_challenge } %>
-      <% elsif !@recruit_challenges.empty? %>
+      <% elsif @recruit_challenges && !@recruit_challenges.empty? %>
         <%= render "challenge", { challenge: @recruit_challenges.first } %>
       <% end %>
       <% unless @challenges.blank? %>
