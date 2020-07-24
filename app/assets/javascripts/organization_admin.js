@@ -45,10 +45,10 @@ $(document).on('turbolinks:load', function () {
     },
     messages: {
       'campaign[name]': {
-        required: 'Please enter campaign name'
+        required: 'Please enter program name'
       },
       'campaign[domain]': {
-        required: 'Please enter campaign domain'
+        required: 'Please enter program domain'
       },
       'campaign[domain_type]': {
         required: 'Please select domain type'
@@ -89,7 +89,7 @@ $(document).on('turbolinks:load', function () {
     pageLength: 5,
     buttons: [
       {
-        text: "<i class='feather icon-plus'></i> Add New Campaign",
+        text: "<i class='feather icon-plus'></i> Add A New Program",
         action: function () {
           window.location.href = '/admin/organizations/campaigns/new'
         },

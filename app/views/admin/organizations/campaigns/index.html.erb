@@ -6,7 +6,7 @@
       <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
           <div class="col-12">
-            <h2 class="content-header-title float-left mb-0">List Campaigns</h2>
+            <h2 class="content-header-title float-left mb-0">Your Programs</h2>
           </div>
         </div>
       </div>
@@ -18,18 +18,18 @@
             <thead>
             <tr>
               <th>CREATED AT</th>
-              <th>CAMPAIGN NAME</th>
+              <th>PROGRAM NAME</th>
               <th>DOMAIN</th>
               <th>MEMBERS</th>
-              <th>CHALLENGES/COMPLETED</th>
-              <th>PRIZES/AWARDED</th>
+              <th>CHALLENGES COMPLETED</th>
+              <th>REWARDS AWARDED</th>
               <% if @is_admin %>
                 <th>DEACTIVATE</th>
               <% end %>
             </tr>
             </thead>
             <tbody>
-            <% @campaigns.each do |campaign| %>
+            <% @campaigns.includes(:participants, :challenges, :rewards).each do |campaign| %>
               <tr>
                 <td class="product-category">
                   <%= campaign.created_at.strftime("%B %d, %Y") %>
@@ -48,15 +48,15 @@
                 </td>
 
                 <td class="product-category">
-                  15
+                  <%= campaign.participants.count %>
                 </td>
 
                 <td class="product-category">
-                  15
+                  <%= campaign.challenges.map(&:completions).compact.sum %>
                 </td>
 
                 <td class="product-price">
-                  $69.99
+                  <%= campaign.rewards.map(&:claims).compact.sum %>
                 </td>
 
                 <% if @is_admin %>
