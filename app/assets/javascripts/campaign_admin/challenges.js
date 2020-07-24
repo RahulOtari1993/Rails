@@ -1808,8 +1808,7 @@ $(document).on('turbolinks:load', function () {
     // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
     var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
     new_element.find('.social_img_show').attr('src', '');
-    console.log("new_element", new_element);
-    new_element.find('.image-option-error').html();
+    new_element.find(`.image-option-error-${optionCounter}`).html('');
 
     autoSelectText();
     addOptionValidations();
