@@ -217,7 +217,7 @@
                                        class: 'form-control form-control-option disabled-field is-editable option-req-field',
                                        id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                        disabled: true,
-                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
+                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 1)}"} %>
 
                     <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   </label>
@@ -227,15 +227,17 @@
                   </span>
 
                   <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option_identifire(template, nil, optIdentifire, 1) %>][image]"
-                         class="image-uploader-control form-control-option disabled-field is-editable" type="file"
+                         class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                         data-error='image-option-error-<%= option_identifire(template, nil, optIdentifire, 1) %>'
                          id='file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>'>
                 </div>
               </div>
             </div>
+            <div class="image-option-error-<%= option_identifire(template, nil, optIdentifire, 1) %>"></div>
             <div class="text-center">
               <div class="vs-checkbox-con vs-checkbox-primary image-uploader-option-answer-container">
                 <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][answer]",
-                                  nil, option_is_answer(nil), disabled: true,
+                                  nil, option_is_answer(nil, true), disabled: true,
                                   id: "option-is-answer-#{q_name_convention(template, question, randNum)}-#{option_identifire(template, nil, optIdentifire, 20)}",
                                   class: 'custom-control-input is-editable disabled-field image-uploader-option image-answer-field' %>
                 <span class="vs-checkbox">
@@ -265,7 +267,7 @@
                                        class: 'form-control form-control-option disabled-field is-editable option-req-field',
                                        id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                        disabled: true,
-                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
+                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 2)}"} %>
 
                     <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   </label>
@@ -275,11 +277,13 @@
                   </span>
 
                   <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option_identifire(template, nil, optIdentifire, 2) %>][image]"
-                         class="image-uploader-control form-control-option disabled-field is-editable" type="file"
+                         class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                         data-error='image-option-error-<%= option_identifire(template, nil, optIdentifire, 2) %>'
                          id='file-upload<%= option_identifire(template, nil, optIdentifire, 2) %>'>
                 </div>
               </div>
             </div>
+            <div class="image-option-error-<%= option_identifire(template, nil, optIdentifire, 2) %>"></div>
             <div class="text-center">
               <div class="vs-checkbox-con vs-checkbox-primary image-uploader-option-answer-container">
                 <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][answer]",
@@ -312,6 +316,7 @@
   <div class="row m-0">
     <div class="col-12" style="padding: 0px;">
       <hr>
+<!--      <div class="image-option-error" style="float: left"></div>-->
       <div class="question_delete_box">
         <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
           <p>Required</p>

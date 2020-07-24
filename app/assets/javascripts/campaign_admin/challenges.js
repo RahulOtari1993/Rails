@@ -93,7 +93,7 @@ $(document).on('turbolinks:load', function () {
     return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
   }
 
-  // Trigger SWAL Notificaton
+  // Trigger SWAL Notification
   function swalNotify(title, message) {
     Swal.fire({
       title: title,
@@ -128,6 +128,16 @@ $(document).on('turbolinks:load', function () {
         required: true,
         messages: {
           required: "Please enter option value"
+        }
+      })
+    });
+
+    // Validation for Image Option
+    $('.image-uploader-control').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Please select image for option"
         }
       })
     });
