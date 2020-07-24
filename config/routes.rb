@@ -173,6 +173,7 @@ Rails.application.routes.draw do
       end
     end
 
+    get '/share/:id', to: 'share#show', as: :social_share
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'

@@ -16,44 +16,25 @@
       <div class="modal-body">
         <div class="challenge-content">
           <h4><b class="text-center"><%= challenge.title %></b></h4>
-          <h6><%= challenge.description %></h6>
+          <h6><%= challenge.description.html_safe %></h6>
           <div class="row">
             <div class="col-sm-12 col-md-12">
-              <a id="recruit-fb-bttn" href="javascript:void(0);"
-                 class="btn box1_btn facebook_btn btn-block">
-                <span class="icon-btn-share fa fa-facebook"></span>
-                <span class="btn-share-text">Share on Facebook</span>
-              </a>
-
-            <% if !Challenge.referral_social_challenges.empty? %>
+            <% if !@campaign.challenges.referral_social_challenges.empty? %>
             <p>Click to share your recruiting link on social:</p>
-            <% Challenge.referral_social_challenges.each do |ref_social_challenge| %>
-            <div class="recruit-share-buttons">
-                <section v-for="referral_challenge in challenges" v-if="referral_challenge.mechanism=='referal'||referral_challenge.mechanism=='referral'">
-                    <a id="recruit-fb-bttn" href="javascript:void(0);" class="btn-has-icon btn-join-facebook" @click="shareFB(referral_challenge, '')" v-if="referral_challenge.parameters=='facebook'">
-                        <span class="share-button-wrap">
-                            <span class="icon-btn-share fa fa-facebook"></span>
-                            <span class="btn-share-text" v-if="contact&&referral_challenge.has_platform">share on facebook</span>
-                            <span class="btn-share-text" v-else>connect with facebook</span>
-                        </span>
-                    </a>
-
-                    <a id="recruit-twttr-bttn" href="javascript:void(0);" class="btn-has-icon btn-join-twitter" @click="shareFB(referral_challenge, '')" v-if="referral_challenge.parameters=='twitter'">
-                        <span class="share-button-wrap">
-                            <span class="icon-btn-share fa fa-twitter"></span>
-                            <span class="btn-share-text" v-if="contact&&referral_challenge.has_platform">share on twitter</span>
-                            <span class="btn-share-text" v-else>connect with twitter</span>
-                        </span>
-                    </a>
-                </section>
-            </div>
+            <% @campaign.challenges.referral_social_challenges.each do |ref_social_challenge| %>
+            <p><a id="recruit-<%= ref_social_challenge.parameters %>-btn" href="javascript:void(0);"
+               class="btn box1_btn <%= ref_social_challenge.parameters %>_btn btn-block">
+              <span class="icon-btn-share fa fa-<%= ref_social_challenge.parameters %>"></span>
+              <span class="btn-share-text">Share on Facebook</span>
+            </a></p>
             <% end %>
             <% end %>
             </div>
           </div>
+          <% if !@campaign.challenges.referral_default_challenge.empty? %>
           <div class="row">
             <div class="col-sm-12 col-md-12">
-            <% if !Challenge.referral_social_challenges.empty? %>
+            <% if !@campaign.challenges.referral_social_challenges.empty? %>
             <h4 class="sidelines"><span> OR </span></h4>
             <% end %>
             <p class="emphasis-text">Earn <%= challenge.points %> Points for every friend that signs up with your recruiting link.</p>
@@ -69,6 +50,7 @@
             </div>
             </div>
           </div>
+          <% end %>
         </div>
       </div>
 
@@ -88,7 +70,7 @@ $(document).ready(function() {
       appId: '<%= @conf.facebook_app_id %>',
       version: 'v7.0' // or v2.1, v2.2, v2.3, ...
     });
-    $(document).on('click','#recruit-fb-bttn', function(e){
+    $(document).on('click','#recruit-facebook-btn', function(e){
       e.preventDefault();
       FB.ui({
         display: 'popup',
