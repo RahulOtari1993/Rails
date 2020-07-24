@@ -101,6 +101,46 @@ class ProfileAttributeService
             is_active: true,
             is_custom: true,
             campaign_id: @campaign_id
+        },
+        {
+            attribute_name: 'home_phone',
+            display_name: 'Home Phone',
+            field_type: 'string',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+        },
+        {
+            attribute_name: 'work_phone',
+            display_name: 'Work Phone',
+            field_type: 'string',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+        },
+        {
+            attribute_name: 'job_position',
+            display_name: 'Current Job',
+            field_type: 'string',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+        },
+        {
+            attribute_name: 'job_company_name',
+            display_name: 'Company Name',
+            field_type: 'string',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
+        },
+        {
+            attribute_name: 'job_industry',
+            display_name: 'Industry',
+            field_type: 'string',
+            is_active: true,
+            is_custom: false,
+            campaign_id: @campaign_id
         }
     ]
   end

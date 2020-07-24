@@ -176,6 +176,18 @@ ActiveRecord::Schema.define(version: 2020_07_22_214616) do
     t.index ["participant_id"], name: "index_campaigns_participants_on_participant_id"
   end
 
+  create_table "carousels", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "button_text"
+    t.string "link"
+    t.string "image"
+    t.bigint "campaign_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_carousels_on_campaign_id"
+  end
+
   create_table "challenge_filters", force: :cascade do |t|
     t.bigint "challenge_id"
     t.string "challenge_event"
@@ -695,6 +707,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_214616) do
   add_foreign_key "campaign_users", "campaigns"
   add_foreign_key "campaign_users", "users"
   add_foreign_key "campaigns", "organizations"
+  add_foreign_key "carousels", "campaigns"
   add_foreign_key "challenges", "campaigns"
   add_foreign_key "coupons", "rewards"
   add_foreign_key "domain_lists", "campaigns"

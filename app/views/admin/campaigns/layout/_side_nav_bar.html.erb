@@ -44,10 +44,22 @@
             <i class="fa fa-plug"></i><span class="menu-title">Configurations</span>
           </a>
         </li>
-         <li class="nav-item <%= is_active_menu(['template']) %>">
-          <a href="<%= edit_admin_campaign_template_path(@campaign, @template) %>">
-            <i class="feather icon-film"></i><span class="menu-title">Template</span>
+        <li class="nav-item has-sub <%= is_active_template_menu %>">
+          <a href="javascript:void(0);">
+            <i class="feather icon-film"></i><span class="menu-title" data-i18n="Template">Template</span>
           </a>
+          <ul class="menu-content">
+            <li class="<%= is_active_menu(['template']) %>">
+              <a href="<%= edit_admin_campaign_template_path(@campaign, @template) %>">
+                <i class="feather icon-circle"></i><span class="menu-item">Logged Out View</span>
+              </a>
+            </li>
+            <li class="<%= is_active_menu(['carousel']) %>">
+              <a href="<%= admin_campaign_carousel_index_path(@campaign) %>">
+                <i class="feather icon-circle"></i><span class="menu-item">Logged In View</span>
+              </a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item <%= is_active_menu(['profile_attributes']) %>">
           <a href="<%= admin_campaign_profile_attributes_path(@campaign) %>">

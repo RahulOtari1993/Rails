@@ -82,7 +82,7 @@ $(document).on('turbolinks:load', function () {
   }
 
   $('.onboarding-questions-form').validate({
-    errorElement: 'span',
+    errorElement: 'div',
     errorPlacement: function (error, element) {
       var placement = $(element).data('error');
       if (placement) {
@@ -94,6 +94,18 @@ $(document).on('turbolinks:load', function () {
   })
 
   customQuestionValidation();
+
+  $('.participant-profile-form').validate({
+    errorElement: 'div',
+    errorPlacement: function (error, element) {
+      var placement = $(element).data('error');
+      if (placement) {
+        $('.' + placement).html(error)
+      } else {
+        error.insertAfter(element);
+      }
+    }
+  })
 
   // Open Reward Claim Modal Popup
   $('body').on('click', '.reward-claim-modal-btn', function (e) {
