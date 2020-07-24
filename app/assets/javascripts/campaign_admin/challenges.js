@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function () {
       var challengeType = $('#challenge_challenge_type').val();
       var challengeParameters = $('#challenge_parameters').val();
 
-      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 0 ) {
         $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
           if ($(this).hasClass('display-editor')) {
             $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
@@ -321,7 +321,7 @@ $(document).on('turbolinks:load', function () {
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
 
       // Quill Editor Initialization While Edit
-      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 0) {
         $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
           if ($(this).hasClass('display-editor')) {
             $(this).show();
