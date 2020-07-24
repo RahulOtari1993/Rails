@@ -977,7 +977,6 @@
 
 .social_image_box .image-upload {
   height: 0px;
-
 }
 
 .social_image_box .image-upload input[type=file] {
@@ -1044,8 +1043,9 @@
   margin-top: 3px !important;
 }
 
-.que_edit .image-drag, .que_edit .drag_option {
+.que_edit .image-drag, .que_edit .drag_option, .move-question-container .drag_option {
   cursor: move;
+  font-size: 22px;
 }
 
 .que_edit .que_edit_cross, .que_edit .image_cross_js {

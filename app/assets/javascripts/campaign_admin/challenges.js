@@ -1851,6 +1851,7 @@ $(document).on('turbolinks:load', function () {
 
   // Sort Questions
   $('.questions-container').sortable({
+    handle: 'i.drag_option',
     update: function (event, ui) {
       manageQuestionSequence();
     }
