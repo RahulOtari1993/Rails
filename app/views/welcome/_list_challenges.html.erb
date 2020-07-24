@@ -22,9 +22,15 @@
     <% elsif challenge.challenge_type == "referral" %>
       <div class="width_50" style="float: left;">
         <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
-          <%= "Refer #{challenge.parameters.titleize}" %>
+          Recruit Friends
         </button>
       </div>
+    <% elsif challenge.challenge_type == "share" %>
+        <div class="width_50" style="float: left;">
+          <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+            Share
+          </button>
+        </div>
     <% elsif challenge.challenge_type == "collect" %>
       <div class="width_50" style="float: left;">
         <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">

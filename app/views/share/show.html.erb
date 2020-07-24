@@ -1,0 +1,15 @@
+<% @template = @campaign.campaign_template_detail %>
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 mt-3 mb-3">
+      <div class="card card-default">
+        <img src="<%= @challenge.social_image.url %>" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title"><%= @challenge.social_title %></h5>
+          <%= @challenge.social_description.html_safe %>
+          <p><%= link_to "Visit Now",@challenge.link, class: "btn btn-success" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

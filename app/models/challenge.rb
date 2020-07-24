@@ -98,6 +98,7 @@ class Challenge < ApplicationRecord
 
   scope :referral_default_challenge, -> { where(challenge_type: 'referral').where(parameters: :custom).where(is_approved: true) }
   scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
+  scope :referral_challenges, -> { where(challenge_type: 'referral').where(is_approved: true) }
 
   ## Validations
   validates :challenge_type, :category, :name, :description, :image, :start, :timezone, :creator_id, :icon,
@@ -109,7 +110,11 @@ class Challenge < ApplicationRecord
   def utm_parameters platform=nil
     #set the values
     utm_source = self.id.to_s(36) rescue "unknown"
-    utm_medium = platform rescue "unknown"
+    if platform
+      utm_medium = platform rescue "unknown"
+    else
+      utm_medium = self.parameters
+    end
     utm_campaign = self.campaign.id.to_s(36) rescue "unknown"
     return {
       utm_source:   utm_source,

@@ -39,6 +39,7 @@
  *= require vendors/editors/quill/monokai-sublime.min
  *= require vendors/editors/quill/quill.snow
  *= require vendors/editors/quill/quill.bubble
+ 
  *= require ../end_user
  *= require ../end_user/style
  *= require ../end_user/hero-text-transitions.css
