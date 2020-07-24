@@ -28,7 +28,7 @@
 
 .participant_section .challenge_img {
   width: 100%;
-  height: 220px;
+  height: 180px;
   background: #ccc;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -141,7 +141,7 @@
 }
 
 .participant_section .modal-body .tab-content .tab-pane {
-  background-color: #8b81f7 !important;
+  /* background-color: #8b81f7 !important; */
   padding: 12px;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -397,13 +397,13 @@ body.dark-layout .data-thumb-view-header .dataTable tbody tr.selected td {
     min-width: 600px;
   }
 
-  .participant_section .modal-body .tab-content .tab-pane {
+  /* .participant_section .modal-body .tab-content .tab-pane {
     background-color: #8b81f7 !important;
     padding: 12px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     min-width: 600px;
-  }
+  } */
 }
 
 table.dataTable thead tr {
