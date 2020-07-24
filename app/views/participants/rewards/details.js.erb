@@ -12,3 +12,12 @@
   $('.reward-claim-modal').html("<%= escape_javascript render '/participants/rewards/modals/milestone_modal', reward: @reward %>");
   $('#milestone_modal').modal('show');
 <% end %>
+
+
+$('.panel-collapse').on('show.bs.collapse', function () {
+  $(this).siblings('.panel-heading').addClass('active');
+});
+
+$('.panel-collapse').on('hide.bs.collapse', function () {
+  $(this).siblings('.panel-heading').removeClass('active');
+});

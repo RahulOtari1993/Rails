@@ -8,18 +8,20 @@ class Participants::ParticipantAccountsController < ApplicationController
   end
 
   def update_profile_details
+    participant_profile_params = participant_params.merge!(onboarding_question_params)
     if current_participant.update(participant_params)
-      profile_attribute = @campaign.profile_attributes.where(attribute_name: "affiliation").first
-      unless (params[:affiliation_types].blank? || profile_attribute.blank?)
-        ## delete existing partcipant profiles
-        current_participant.participant_profiles.where(profile_attribute_id: @campaign.profile_attributes.where(attribute_name: 'affiliation').first.id).destroy_all
-
-        ## create new selected participant profiles
-        params[:affiliation_types].each do |item|
-          participant_profile = current_participant.participant_profiles.new(profile_attribute_id: profile_attribute.id, value: item)
-          participant_profile.save
-        end
-      end
+      ## Commenting this code , As removed from UI
+      # profile_attribute = @campaign.profile_attributes.where(attribute_name: "affiliation").first
+      # unless (params[:affiliation_types].blank? || profile_attribute.blank?)
+      #   ## delete existing partcipant profiles
+      #   current_participant.participant_profiles.where(profile_attribute_id: @campaign.profile_attributes.where(attribute_name: 'affiliation').first.id).destroy_all
+      #
+      #   ## create new selected participant profiles
+      #   params[:affiliation_types].each do |item|
+      #     participant_profile = current_participant.participant_profiles.new(profile_attribute_id: profile_attribute.id, value: item)
+      #     participant_profile.save
+      #   end
+      # end
     end
   end
 
@@ -67,6 +69,53 @@ class Participants::ParticipantAccountsController < ApplicationController
                                         :home_phone, :work_phone, :job_position, :job_company_name, :job_industry, :email_setting_id)
   end
 
+  ## Manage & Build Extended Profile Question Params
+  def onboarding_question_params
+    birthdate = ''
+    age = 0
+
+    profile_params = {participant_profiles_attributes: []}
+    params[:questions].each do |key, question|
+      if question[:is_custom] == 'true'
+        if question[:answer].instance_of? Array
+          question[:answer].each do |opt|
+            profile_params[:participant_profiles_attributes].push({
+                                                                      profile_attribute_id: question[:profile_attribute_id],
+                                                                      value: opt
+                                                                  })
+          end
+        else
+          profile_params[:participant_profiles_attributes].push({
+                                                                    profile_attribute_id: question[:profile_attribute_id],
+                                                                    value: question[:answer]
+                                                                })
+        end
+      else
+        if question[:answer].instance_of? Array
+          question[:answer].each do |opt|
+            profile_params[question[:attribute_name]] = opt
+          end
+        else
+          profile_params[question[:attribute_name]] = question[:answer]
+          if question[:attribute_name] == 'birth_date' && question[:answer].present?
+            birthdate = question[:answer]
+            question[:answer] = convert_date_format(question[:answer])
+          end
+          age = question[:answer].to_i if question[:attribute_name] == 'age' && question[:answer].present?
+        end
+      end
+    end
+
+    ## Age Calculation
+    attributes = params['questions'].values.map { |x| x[:attribute_name] }
+    if (!attributes.include?('age') || age == '' || age == 0) && (attributes.include?('birth_date') && birthdate != '')
+      profile_params['age'] = Participant.calculate_age(birthdate)
+    end
+
+    profile_params
+  end
+
+
   # Sort Activity Columns
   def sort_column_for_activity
     columns = %w(title points created_at)
@@ -86,6 +135,11 @@ class Participants::ParticipantAccountsController < ApplicationController
   ## Returns Datatable Sorting Direction
   def datatable_sort_direction
     params[:order]['0'][:dir] == 'desc' ? 'desc' : 'asc'
+  end
+
+  def convert_date_format(date_details)
+    existing_date = date_details.split('/')
+    "#{existing_date[1]}/#{existing_date[0]}/#{existing_date[2]}"
   end
 
 end

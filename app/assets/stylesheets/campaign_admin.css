@@ -39,9 +39,10 @@
   padding-bottom: 2rem;
 }
 
-.data-field-ts-1{
+.data-field-ts-1 {
   padding-top: 15px;
 }
+
 .reward-image-preview {
   width: 100%;
 }
@@ -49,4 +50,36 @@
 .remove-btn-align {
   font-size: 22px;
   padding-top: 15px !important;
+}
+
+.carousel_form_border {
+  border: 1px solid #7367F0 !important;
+  border-radius: 0.5rem !important;
+  margin-bottom: 25px;
+}
+
+.carousel-image-preview {
+  width: 100%;
+}
+
+li.has-sub:after {
+  content: '\f105';
+  font-family: 'FontAwesome';
+  font-size: 1.1rem;
+  display: inline-block;
+  position: absolute;
+  right: 25px;
+  top: 10px;
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+  transition: -webkit-transform 0.2s ease-in-out;
+  color: #C2C6DC;
+}
+
+li.has-sub.open:after {
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color: #C2C6DC;
 }

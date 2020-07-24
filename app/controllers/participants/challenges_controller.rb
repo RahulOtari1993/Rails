@@ -47,7 +47,9 @@ class Participants::ChallengesController < ApplicationController
 
         ## Save Onboarding/Extended Profile Question Answers
         if @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile' && params[:questions].present?
-          unless current_participant.update(onboarding_question_params)
+
+          participant_profile_params = params[:participant].present? ? participant_params.merge!(onboarding_question_params) : onboarding_question_params
+          unless current_participant.update(participant_profile_params)
             respond_to do |format|
               @response = {success: false, message: 'Something went wrong, Please try again.'}
               format.json { render json: @response }
@@ -155,7 +157,10 @@ class Participants::ChallengesController < ApplicationController
           end
         else
           profile_params[question[:attribute_name]] = question[:answer]
-          birthdate = question[:answer] if question[:attribute_name] == 'birth_date' && question[:answer].present?
+          if question[:attribute_name] == 'birth_date' && question[:answer].present?
+            birthdate = question[:answer]
+            question[:answer] = convert_date_format(question[:answer])
+          end
           age = question[:answer].to_i if question[:attribute_name] == 'age' && question[:answer].present?
         end
       end
@@ -230,6 +235,16 @@ class Participants::ChallengesController < ApplicationController
     end
 
     participant_answer_params
+  end
+
+  ## Manage & Build Participant Params
+  def participant_params
+    params.require(:participant).permit(:first_name, :last_name, :avatar)
+  end
+
+  def convert_date_format(date_details)
+    existing_date = date_details.split('/')
+    "#{existing_date[1]}/#{existing_date[0]}/#{existing_date[2]}"
   end
 
   private
