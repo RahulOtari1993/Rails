@@ -185,7 +185,7 @@
                                          option_value(option, 1),
                                          class: 'form-control form-control-option is-editable option-req-field',
                                          id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                         data: {'option-identifire' => option_identifire(template, option, nil)} %>
+                                         data: {'option-identifire' => option_identifire(template, option, nil), error: "image-option-error-#{option.id}"} %>
 
                       <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                     </label>
@@ -195,7 +195,7 @@
                     </span>
 
                     <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option.id %>][image]"
-                           class="image-uploader-control form-control-option is-editable always-validate" type="file"
+                           class="image-uploader-control form-control-option" type="file"
                            data-error='image-option-error-<%= option.id %>'
                            id='file-upload<%= option.id %>'>
                   </div>

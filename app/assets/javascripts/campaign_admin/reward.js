@@ -592,9 +592,14 @@ $(document).on('turbolinks:load', function () {
   };
 
   // Quill Editor for reward description details
-  new Quill('.reward-description-editor', toolbar);
+  if ($('.reward-description-editor').length) {
+    new Quill('.reward-description-editor', toolbar);
+  }
+
   // Quill Editor for reward redemption details
-  new Quill('.reward-redemption-editor', toolbar);
+  if ($('.reward-redemption-editor').length) {
+    new Quill('.reward-redemption-editor', toolbar);
+  }
 
   // Add Form Details of Quill Editor to Campaign Form Fields
   $('.reward-form').on('submit', function () {

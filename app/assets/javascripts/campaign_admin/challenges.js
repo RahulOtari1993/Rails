@@ -34,12 +34,12 @@ $(document).on('turbolinks:load', function () {
       finish: 'Submit'
     },
     onInit: function (event, currentIndex) {
-      if ($('.new_challenge_section').data('form-type') == 'edit') {
-        $('.challenge-wizard').steps("next");
-      }
+      // if ($('.new_challenge_section').data('form-type') == 'edit') {
+      //   $('.challenge-wizard').steps("next");
+      // }
     },
     onStepChanging: function (event, currentIndex, newIndex) {
-      // Allways allow previous action even if the current form is not valid!
+      // Always allow previous action even if the current form is not valid!
       if ($('.new_challenge_section').data('form-type') == 'edit') {
         // While Editing a Challenge Stop User to Jump on Step 1
         if (currentIndex == 1 && newIndex == 0) {
@@ -704,7 +704,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // Wizard Step 1 Chalenge Type Selection Changes
+  // Wizard Step 1 Challenge Type Selection Changes
   $('.challenge-type-list').on('click', function (e) {
     $('.add-challenge-form').trigger("reset");
     $('.challenge-type-list.active').removeClass('active');
@@ -1799,6 +1799,10 @@ $(document).on('turbolinks:load', function () {
     var newImageOptionDataErrorClassName = `error="image-option-error-${optionCounter}"`
     optionHtml = optionHtml.replace(oldImageOptionDataErrorClassName, newImageOptionDataErrorClassName);
 
+    var oldImageOptionDataErrorClassName = `error="image-option-error-${optIdentifire}"`
+    var newImageOptionDataErrorClassName = `error="image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionDataErrorClassName, newImageOptionDataErrorClassName);
+
     // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
@@ -1809,6 +1813,7 @@ $(document).on('turbolinks:load', function () {
     var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
     new_element.find('.social_img_show').attr('src', '');
     new_element.find(`.image-option-error-${optionCounter}`).html('');
+    new_element.find('.image-uploader-control').addClass('always-validate');
 
     autoSelectText();
     addOptionValidations();
