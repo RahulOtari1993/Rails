@@ -164,39 +164,70 @@
     </div>
 
     <div class="col-12 options-container image_radio_button-container <%= display_question_option(question, 'image_radio_button') %>">
-
       <% if question.present? && question.answer_type == 'image_radio_button' %>
-        <% question.question_options.order(:sequence).each_with_index do |option, index| %>
-          <div class="que_edit">
-            <span>&nbsp;</span>
-            <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
-            <i class="feather icon-trash-2 que_edit_cross"></i>
+        <div class="row image-option-container">
+          <div class="que_option_header"></div>
 
-            <div class="form-label-group que_ip_width">
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
-                                   option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
+          <% question.question_options.order(:sequence).each_with_index do |option, index| %>
+            <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
+              <div class="card border-info text-center bg-transparent p-1 social_image_box">
+                <div class="card-content">
+                  <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="visibility: visible">
+                  <div class="image-upload">
+                    <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>">
+                      <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
-              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
-                                 option_value(option, 1),
-                                 class: 'form-control form-control-option is-editable option-req-field',
-                                 id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
-                                 data: {'option-identifire' => option_identifire(template, option, nil)} %>
-            </div>
+                      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+                      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
+                                           option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <div class="vs-checkbox-con vs-checkbox-primary answer_fields">
-              <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][answer]", nil,
-                                option_is_answer(option),
-                                id: "option-is-answer-#{q_name_convention(template, question, randNum)}",
-                                class: 'custom-control-input is-editable answer-field' %>
-              <span class="vs-checkbox">
-                <span class="vs-checkbox--check">
-                  <i class="vs-icon feather icon-check"></i>
+                      <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
+                                         option_value(option, 1),
+                                         class: 'form-control form-control-option is-editable option-req-field',
+                                         id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                         data: {'option-identifire' => option_identifire(template, option, nil)} %>
+
+                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
+                    </label>
+                    <span class="image_cross_box">
+                      <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
+                      <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
+                    </span>
+
+                    <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option.id %>][image]"
+                           class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                           data-error='image-option-error-<%= option.id %>'
+                           id='file-upload<%= option.id %>'>
+                  </div>
+                </div>
+              </div>
+              <div class="image-option-error image-option-error-<%= option.id %>"></div>
+              <div class="text-center">
+                <div class="vs-checkbox-con vs-checkbox-primary image-uploader-option-answer-container">
+                  <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][answer]", nil,
+                                    option_is_answer(option),
+                                    id: "option-is-answer-#{q_name_convention(template, question, randNum)}",
+                                    class: 'custom-control-input is-editable answer-field image-uploader-option image-answer-field' %>
+                  <span class="vs-checkbox">
+                  <span class="vs-checkbox--check">
+                    <i class="vs-icon feather icon-check"></i>
+                  </span>
                 </span>
-              </span>
+                  <span class="">Answer</span>
+                </div>
+              </div>
             </div>
+          <% end %>
+        </div>
+
+        <div class="col-sm-12 que_edit">
+          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
+          <div class="form-label-group que_ip_width">
+            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+              <span><i class="feather icon-plus"></i> Add Option</span>
+            </button>
           </div>
-        <% end %>
+        </div>
       <% else %>
         <div class="row image-option-container">
           <div class="que_option_header"></div>
@@ -316,7 +347,7 @@
   <div class="row m-0">
     <div class="col-12" style="padding: 0px;">
       <hr>
-<!--      <div class="image-option-error" style="float: left"></div>-->
+      <!--      <div class="image-option-error" style="float: left"></div>-->
       <div class="question_delete_box">
         <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
           <p>Required</p>
