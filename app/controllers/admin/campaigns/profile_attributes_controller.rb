@@ -11,6 +11,8 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
 
   def create
     @p_attribute = ProfileAttribute.new(profile_attribute_params)
+    @p_attribute.is_custom = true
+
     respond_to do |format|
       if @p_attribute.save
         format.html { redirect_to admin_campaign_profile_attributes_path(@campaign), notice: 'Profile Attribute was successfully created.' }
@@ -42,7 +44,7 @@ class Admin::Campaigns::ProfileAttributesController < Admin::Campaigns::BaseCont
   # Never trust parameters from the scary internet, only allow the white list through.
   def profile_attribute_params
     params.require(:profile_attribute).permit(:attribute_name, :display_name, :field_type,
-                                            :is_active, :is_custom, :campaign_id)
+                                            :is_active, :campaign_id)
   end
 
   def set_profile_attribute
