@@ -356,10 +356,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
         if c_param.has_key?('question_options_attributes')
           c_param[:question_options_attributes].each do |key, option|
-            image = option.has_key?('image') ? option[:image] : nil
             option_data = {
                 details: option[:details],
-                image: image,
                 sequence: option[:sequence],
                 answer: option.has_key?('answer') ?
                             (c_param[:answer_type] == 'radio_button') ?
@@ -368,6 +366,9 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             if option.has_key?('id')
               option_data[:id] = option[:id]
               @options.push(option[:id].to_i)
+            end
+            if option.has_key?('image')
+              option_data[:image] = option[:image]
             end
 
             option_params.push(option_data)

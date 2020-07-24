@@ -174,7 +174,7 @@
                 <div class="card-content">
                   <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="visibility: visible">
                   <div class="image-upload">
-                    <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>">
+                    <label for="file-upload<%= option.id %>">
                       <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
                       <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
@@ -195,7 +195,7 @@
                     </span>
 
                     <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option.id %>][image]"
-                           class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                           class="image-uploader-control form-control-option is-editable always-validate" type="file"
                            data-error='image-option-error-<%= option.id %>'
                            id='file-upload<%= option.id %>'>
                   </div>
@@ -218,14 +218,13 @@
               </div>
             </div>
           <% end %>
-        </div>
-
-        <div class="col-sm-12 que_edit">
-          <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
-          <div class="form-label-group que_ip_width">
-            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
-              <span><i class="feather icon-plus"></i> Add Option</span>
-            </button>
+          <div class="col-sm-12 que_edit">
+            <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
+            <div class="form-label-group que_ip_width">
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+                <span><i class="feather icon-plus"></i> Add Option</span>
+              </button>
+            </div>
           </div>
         </div>
       <% else %>
