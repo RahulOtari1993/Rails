@@ -15,4 +15,7 @@ class QuestionOption < ApplicationRecord
   ## Associations
   belongs_to :question
   has_one :participant_answer
+
+  ## Mount Uploader for File Upload
+  mount_uploader :image, ImageOptionUploader
 end
