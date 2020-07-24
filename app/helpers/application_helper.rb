@@ -33,6 +33,15 @@ module ApplicationHelper
     ''
   end
 
+  ## Check for Active Menu for Templates
+  def is_active_template_menu
+    if controller_name == 'template' || controller_name == 'carousel'
+      return 'sidebar-group-active open hover'
+    else
+      return ''
+    end
+  end
+
   ## Active Menu Controller Name Checks
   def controller?(name)
     name.include?(controller_name)

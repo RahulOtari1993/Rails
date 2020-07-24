@@ -4,4 +4,5 @@
   $('.participant-profile-info').html("<%= escape_javascript render 'participant_profile_section' %>");
   $('.participant-profile-info-details').show();
   $('.participant-profile-edit-info').hide();
+  $(".participant-profile-form").validate().resetForm();
 <% end %>

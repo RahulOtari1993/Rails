@@ -55,10 +55,7 @@ $(document).ready(function () {
       opposite: yaxis_opposite
     }
   }
-  var shareLineChart = new ApexCharts(
-    document.querySelector("#share-per-day-line-chart"),
-    lineChartOptionsForShares
-  );
+  var shareLineChart = new ApexCharts(document.querySelector("#share-per-day-line-chart"), lineChartOptionsForShares);
   shareLineChart.render();
 
   // Getting Data For Graphs & Charts And Updating Them 
@@ -130,10 +127,7 @@ $(document).ready(function () {
       }
     }
   }
-  var ageBarChart = new ApexCharts(
-    document.querySelector("#age-bar-chart"),
-    ageBarChartOptions
-  );
+  var ageBarChart = new ApexCharts(document.querySelector("#age-bar-chart"), ageBarChartOptions);
   ageBarChart.render();
 
 
@@ -164,9 +158,7 @@ $(document).ready(function () {
       }
     }]
   }
-  var genderPieChart = new ApexCharts(
-    document.querySelector("#gender-pie-chart"), genderPieChartOptions
-  );
+  var genderPieChart = new ApexCharts(document.querySelector("#gender-pie-chart"), genderPieChartOptions);
   genderPieChart.render();
 
 
@@ -208,10 +200,7 @@ $(document).ready(function () {
       }
     }
   }
-  var completedChallengeBarChart = new ApexCharts(
-    document.querySelector("#completed-challenge-bar-chart"),
-    completedChallengeBarChartOptions
-  );
+  var completedChallengeBarChart = new ApexCharts(document.querySelector("#completed-challenge-bar-chart"), completedChallengeBarChartOptions);
   completedChallengeBarChart.render();
 
 
@@ -253,108 +242,40 @@ $(document).ready(function () {
       }
     }
   }
-  var connectedPlatformBarChart = new ApexCharts(
-    document.querySelector("#connected-platform-bar-chart"),
-    connectedPlatformBarChartOptions
-  );
+  var connectedPlatformBarChart = new ApexCharts(document.querySelector("#connected-platform-bar-chart"), connectedPlatformBarChartOptions);
   connectedPlatformBarChart.render();
 
-  // Heat Map Chart
-  // -----------------------------
-  function generateData(count, yrange) {
-    var i = 0,
-      series = [];
-    while (i < count) {
-      var x = 'w' + (i + 1).toString(),
-        y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+  // Google Geo-Chart For Users By Location
+  google.charts.load('current', {
+    'packages':['geochart'],
+    // Note: you will need to get a mapsApiKey for your project.
+    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+    'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+  });
+  google.charts.setOnLoadCallback(drawChartForUsers);
 
-      series.push({
-        x: x,
-        y: y
-      });
-      i++;
-    }
-    return series;
+  function drawChartForUsers() {
+    var data = google.visualization.arrayToDataTable([
+      ['Country', 'Users'],
+      ['Germany', 200],
+      ['USA', 300],
+      ['Brazil', 400],
+      ['Canada', 500],
+      ['France', 600],
+      ['Italy', 125],
+      ['China', 323],
+      ['Russia', 725],
+      ['Japan', 425],
+      ['Hong Kong', 99],
+      ['Australia', 289],
+      ['New Zealand', 255]
+    ]);
+
+    var options = {
+      backgroundColor: '#262C49'
+    };
+
+    var chartForUsers = new google.visualization.GeoChart(document.getElementById('user-by-location-geo-chart'));
+    chartForUsers.draw(data, options);
   }
-  var heatChartOptions = {
-    chart: {
-      height: 350,
-      type: 'heatmap',
-    },
-    dataLabels: {
-      enabled: false
-    },
-    colors: [$primary],
-    series: [{
-      name: 'Metric1',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric2',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric3',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric4',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric5',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric6',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric7',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric8',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    },
-    {
-      name: 'Metric9',
-      data: generateData(18, {
-        min: 0,
-        max: 90
-      })
-    }
-    ],
-    yaxis: {
-      opposite: yaxis_opposite
-    }
-  }
-  var heatChart = new ApexCharts(
-    document.querySelector("#heat-map-chart"),
-    heatChartOptions);
-  heatChart.render();
 });

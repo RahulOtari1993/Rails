@@ -1,9 +1,16 @@
-var message = "<%= @response[:message] %>";
-$('#onboarding_questions_modal').modal('hide');
+<% if params[:participant].present? %>
+  $('.participant-profile-info').html("<%= escape_javascript render 'participants/participant_accounts/participant_profile_section' %>");
+  $(".participant-profile-form").validate().resetForm();
+  $('.participant-profile-info-details').show();
+  $('.participant-profile-edit-info').hide();
+<% else %>
+  var message = "<%= @response[:message] %>";
+  $('#onboarding_questions_modal').modal('hide');
 
-Swal.fire({
-  title: 'Challenge Submission',
-  text: message,
-  confirmButtonClass: 'btn btn-primary',
-  buttonsStyling: false,
-});
+  Swal.fire({
+    title: 'Challenge Submission',
+    text: message,
+    confirmButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+  });
+<% end %>
