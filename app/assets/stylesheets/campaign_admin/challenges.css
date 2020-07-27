@@ -1070,5 +1070,9 @@
   left: 27%;
 }
 
+.image-upload-container {
+  cursor: pointer;
+}
+
 /* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */
