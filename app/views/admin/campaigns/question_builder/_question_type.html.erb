@@ -55,7 +55,7 @@
 <% elsif type == 'survey' %>
   <% if question.present? %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-            data-custom-id="<%= question_build_id(template, 'class', '') %>"
+            data-custom-id="-<%= randNum %>"
             name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
       <optgroup>
         <option value="string" data-icon="fa fa-align-left" <%= question.answer_type == 'string' ? 'selected' : '' %>>Short answer</option>
