@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function () {
       {
         title: 'Image', data: null, searchable: false, sortable: false,
         render: function (data, type, row) {
-          return '<img src="' + data['avatar']['url'] + '" style="margin-left:25px;" class="table_image_thumb_size" />'
+          return '<img src="' + data['avatar']['url'] + '" style="margin-left:25px;" class="user_table_image_thumb_size" />'
         },
         createdCell: function (td, cellData, rowData, row, col) {
           $(td).css('position', 'relative');
@@ -101,7 +101,7 @@ $(document).on('turbolinks:load', function () {
     ],
     buttons: [
       {
-        text: "<i class='feather icon-download'></i> Export CSV",
+        text: "<i class='feather icon-download'></i> Export Users",
         className: 'btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light export-participant-btn'
       }
     ],
@@ -361,7 +361,7 @@ $(document).on('turbolinks:load', function () {
       width: '50%'
     });
   }
-  
+
   // Add Tag Addition UI from Participant Popup
   $('body').on('click', '.add-tag-btn', function (e) {
     $('.add_tag_btngroup').show();

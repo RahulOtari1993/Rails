@@ -358,15 +358,16 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        title: 'Name',
+        title: 'Reward',
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return textCapitalize(data.name)
+          var cName = data.name
+          return "<a href = '/admin/campaigns/" + data.campaign_id + "/rewards/" + data.id + "/edit'>" + textCapitalize(data.name) + "</a>"
         }
       },
       {
-        title: 'Fulfillment',
+        title: 'Type',
         data: null,
         searchable: false,
         render: function (data, type, row) {
@@ -431,7 +432,8 @@ $(document).on('turbolinks:load', function () {
     dom: '<"top"<"actions action-btns"B><"action-filters"lf>><"clear">rt<"bottom"<"actions">p>',
     oLanguage: {
       sLengthMenu: "_MENU_",
-      sSearch: ""
+      sSearch: "",
+      EmptyTable: "No results available"
     },
     aLengthMenu: [[5, 10, 15, 20], [5, 10, 15, 20]],
     order: [[1, "asc"]],

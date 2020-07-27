@@ -45,6 +45,12 @@ table.data-thumb-view.dataTable thead th:first-child {
   border-radius: 10px;
 }
 
+.user_table_image_thumb_size {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+}
+
 .loader {
   position: fixed;
   left: 50%;

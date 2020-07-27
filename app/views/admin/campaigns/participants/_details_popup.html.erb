@@ -1,7 +1,7 @@
 <div class="modal fade text-left" id="participant-details-popup" tabindex="-1" role="dialog" aria-labelledby="participant-details-popup" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-width" role="document">
     <div class="modal-content">
-      <div class="modal-header bg-primary white">
+      <div class="modal-header white">
         <h6 class="modal-title">
           <span style="visibility: hidden;"><%= @participant.full_name %></span>
         </h6>
@@ -31,7 +31,7 @@
             </div>
 
             <div class="col-md-8">
-              <h4 class="user_name"><%= @participant.full_name %></h4>
+              <h2 class="user_name"><%= @participant.full_name %></h2>
               <h6><%= @participant.email %></h6>
 
               <% if @participant.full_address.present? %>
@@ -103,8 +103,11 @@
                 <div class="participant-tags-container">
                   <%= render 'tags_list' %>
                 </div>
-                <div class="add_tag add-tag-btn">
-                  <i class="feather icon-plus-circle add-tag-chip-btn"></i>
+                <div class="add-tag-btn">
+                  <div class="add_tag">
+                    <i class="feather icon-plus-circle add-tag-chip-btn"></i>
+                  </div>
+                  <span>Add User Tag</span>
                 </div>
                 <div class="input-group add_tag_btngroup" style="display: none;">
                   <div class="add_tag remove-tag-btn">

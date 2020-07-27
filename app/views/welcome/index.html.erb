@@ -15,24 +15,14 @@
           </div>
         </div>
       </div>
+      <% if !@general_recruit_challenge.blank? %>
+        <%= render "challenge", { challenge: @general_recruit_challenge } %>
+      <% elsif @recruit_challenges && !@recruit_challenges.empty? %>
+        <%= render "challenge", { challenge: @recruit_challenges.first } %>
+      <% end %>
       <% unless @challenges.blank? %>
         <% @challenges.each_with_index do |challenge, index| %>
-          <div class="col-12 col-md-4">
-            <!-- <div class="image_box_bg"> -->
-            <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
-            <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
-              <div class="image_inner_text">
-                <div class="width_100">
-                  <div class="width_50" style="float: left;">
-                    <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
-                  <div class="width_50" style="float: right;"><%= image_tag(challenge.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
-                </div>
-                <div class="clear"></div>
-                <%= render 'list_challenges', challenge: challenge %>
-              </div>
-            </div>
-            <!-- </div> -->
-          </div>
+          <%= render "challenge", { challenge: challenge, index: index } %>
         <% end %>
       <% end %>
     </div>

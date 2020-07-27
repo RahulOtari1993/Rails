@@ -4,6 +4,37 @@
     </h4>
   </div>
 
+<!--  Users Points Slider Setup-->
+<!--  <div class="mt-1">-->
+<!--    <h5>Points</h5>-->
+<!--    <p><span class="filter-min-points">0</span> - <span class="filter-max-points">100</span></p>-->
+<!--    <div class="my-1" id="slider-with-input"></div>-->
+<!--  </div>-->
+
+  <div class="mt-1">
+    <h5>Challenges</h5>
+    <%= select_tag :challenges,
+                   options_for_select(all_challenges_filter),
+                   class: 'form-control-sm participants-challenges-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-challenges-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+
+  <div class="mt-1">
+    <h5>Rewards</h5>
+    <%= select_tag :rewards,
+                   options_for_select(all_rewards_filter),
+                   class: 'form-control-sm participants-rewards-filter', multiple: 'multiple' %>
+    <div class="tag_box participants-filter-rewards-selection users-filter-selection" style="padding-top: 5px;">
+    </div>
+  </div>
+
+  <div class="mt-1">
+    <h5>Age</h5>
+    <p><span class="filter-min-age">0</span> - <span class="filter-max-age">100</span></p>
+    <div class="my-1" id="user-age-filter"></div>
+  </div>
+
   <div class="mt-1">
     <h5>Gender</h5>
     <ul class="list-unstyled mb-0">
@@ -36,30 +67,30 @@
       <li>
         <div class="vs-checkbox-con vs-checkbox-primary">
           <input type="checkbox" value="false" name="filters[gender][]"
-                 class="participant_sidebar_filter" id="other" data-val="other">
+                 class="participant_sidebar_filter" id="gender_diverse" data-val="gender_diverse">
           <span class="vs-checkbox vs-checkbox-sm">
             <span class="vs-checkbox--check">
               <i class="vs-icon feather icon-check"></i>
             </span>
           </span>
-          <span class="filter_label">Other</span>
+          <span class="filter_label">Gender Diverse</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="vs-checkbox-con vs-checkbox-primary">
+          <input type="checkbox" value="false" name="filters[gender][]"
+                 class="participant_sidebar_filter" id="no_answer" data-val="no_answer">
+          <span class="vs-checkbox vs-checkbox-sm">
+            <span class="vs-checkbox--check">
+              <i class="vs-icon feather icon-check"></i>
+            </span>
+          </span>
+          <span class="filter_label">No Answer</span>
         </div>
       </li>
     </ul>
   </div>
-
-  <div class="mt-1">
-    <h5>Age</h5>
-    <p><span class="filter-min-age">0</span> - <span class="filter-max-age">100</span></p>
-    <div class="my-1" id="user-age-filter"></div>
-  </div>
-
-<!--  Users Points Slider Setup-->
-<!--  <div class="mt-1">-->
-<!--    <h5>Points</h5>-->
-<!--    <p><span class="filter-min-points">0</span> - <span class="filter-max-points">100</span></p>-->
-<!--    <div class="my-1" id="slider-with-input"></div>-->
-<!--  </div>-->
 
   <div class="mt-1">
     <h5>Tags</h5>
@@ -70,21 +101,4 @@
     </div>
   </div>
 
-  <div class="mt-1">
-    <h5>Challenges</h5>
-    <%= select_tag :challenges,
-                   options_for_select(all_challenges_filter),
-                   class: 'form-control-sm participants-challenges-filter', multiple: 'multiple' %>
-    <div class="tag_box participants-filter-challenges-selection users-filter-selection" style="padding-top: 5px;">
-    </div>
-  </div>
-
-  <div class="mt-1">
-    <h5>Rewards</h5>
-    <%= select_tag :rewards,
-                   options_for_select(all_rewards_filter),
-                   class: 'form-control-sm participants-rewards-filter', multiple: 'multiple' %>
-    <div class="tag_box participants-filter-rewards-selection users-filter-selection" style="padding-top: 5px;">
-    </div>
-  </div>
 </div>
