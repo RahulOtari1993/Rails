@@ -174,7 +174,8 @@
                 <div class="card-content">
                   <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="visibility: visible">
                   <div class="image-upload">
-                    <label for="file-upload<%= option.id %>">
+                    <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
+                    <label for="file-upload<%= option.id %>" class="image-upload-container">
                       <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
                       <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
@@ -186,8 +187,6 @@
                                          class: 'form-control form-control-option is-editable option-req-field',
                                          id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                          data: {'option-identifire' => option_identifire(template, option, nil), error: "image-option-error-#{option.id}"} %>
-
-                      <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                     </label>
                     <span class="image_cross_box">
                       <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
@@ -236,7 +235,8 @@
               <div class="card-content">
                 <img src="#" class="social_img_show">
                 <div class="image-upload">
-                  <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>">
+                  <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
+                  <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>" class="image-upload-container">
                     <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
                     <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
@@ -248,8 +248,6 @@
                                        id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                        disabled: true,
                                        data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 1)}"} %>
-
-                    <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   </label>
                   <span class="image_cross_box">
                     <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
@@ -286,7 +284,8 @@
               <div class="card-content">
                 <img src="#" class="social_img_show">
                 <div class="image-upload">
-                  <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 2) %>">
+                  <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
+                  <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 2) %>" class="image-upload-container">
                     <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
 
                     <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
@@ -298,8 +297,6 @@
                                        id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                        disabled: true,
                                        data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 2)}"} %>
-
-                    <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   </label>
                   <span class="image_cross_box">
                     <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>

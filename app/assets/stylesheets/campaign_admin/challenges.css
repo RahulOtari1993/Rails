@@ -1040,7 +1040,7 @@
 }
 
 .que_edit .image-drag {
-  margin-top: 3px !important;
+  margin-top: -1px !important;
 }
 
 .que_edit .image-drag, .que_edit .drag_option, .move-question-container .drag_option {
