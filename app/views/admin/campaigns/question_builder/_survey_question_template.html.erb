@@ -429,24 +429,9 @@
                 </div>
               </div>
               <div class="image-option-error image-option-error-<%= option.id %>"></div>
-              <div class="text-center">
-                <div class="vs-checkbox-con vs-checkbox-primary image-uploader-option-answer-container">
-                  <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][answer]", nil,
-                                    option_is_answer(option),
-                                    id: "option-is-answer-#{q_name_convention(template, question, randNum)}",
-                                    class: 'custom-control-input is-editable answer-field image-uploader-option image-answer-field' %>
-                  <span class="vs-checkbox">
-                  <span class="vs-checkbox--check">
-                    <i class="vs-icon feather icon-check"></i>
-                  </span>
-                </span>
-                  <span class="">Answer</span>
-                </div>
-              </div>
             </div>
           <% end %>
           <div class="col-sm-12 que_edit">
-            <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
             <div class="form-label-group que_ip_width">
               <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
                 <span><i class="feather icon-plus"></i> Add Option</span>
@@ -528,7 +513,6 @@
           </div>
 
           <div class="col-sm-12 que_edit">
-            <i class="fa fa-circle-o que_edit_icon" aria-hidden="true" style="visibility: hidden"></i>
             <div class="form-label-group que_ip_width">
               <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
                 <span><i class="feather icon-plus"></i> Add Option</span>
