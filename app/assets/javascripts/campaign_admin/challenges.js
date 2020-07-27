@@ -327,6 +327,7 @@ $(document).on('turbolinks:load', function () {
             $(this).show();
             $(`.${challengeType}-${challengeParameters}-div .question-box${$(this).data('editor-identifire')} .non-wysiwyg-field`).hide();
             new Quill(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`, toolbar);
+            $(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`).css('display', 'block');
           }
         });
       }
