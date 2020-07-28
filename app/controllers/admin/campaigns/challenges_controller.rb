@@ -360,7 +360,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                 details: option[:details],
                 sequence: option[:sequence],
                 answer: option.has_key?('answer') ?
-                            (c_param[:answer_type] == 'radio_button') ?
+                            (c_param[:answer_type] == 'radio_button' || c_param[:answer_type] == 'image_radio_button') ?
                                 (option[:answer] == 'on') ? true : nil : option[:answer] : nil
             }
             if option.has_key?('id')
