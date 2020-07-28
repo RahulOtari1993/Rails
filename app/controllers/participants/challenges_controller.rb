@@ -257,7 +257,8 @@ class Participants::ChallengesController < ApplicationController
 
   ## Create Participant Action Entry
   def participant_action re_submission
-    challenge_points = re_submission ? @challenge.points : 0
+    challenge_points = re_submission ? 0 : @challenge.points
+
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
       title = re_submission ? 'Again Visited a url' : "Visited a url"
