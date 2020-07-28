@@ -1792,6 +1792,15 @@ $(document).on('turbolinks:load', function () {
     var newImageIdName = `id="file-upload${optionCounter}"`
     optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
 
+    // Set New Option Identifire to Image
+    var oldImageForName = `for="file-upload-${optIdentifire}"`
+    var newImageForName = `for="file-upload-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageForName, newImageForName);
+
+    var oldImageIdName = `id="file-upload-${optIdentifire}"`
+    var newImageIdName = `id="file-upload-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
+
     var oldImageOptionErrorClassName = `class="image-option-error image-option-error-${optIdentifire}"`
     var newImageOptionErrorClassName = `class="image-option-error image-option-error-${optionCounter}"`
     optionHtml = optionHtml.replace(oldImageOptionErrorClassName, newImageOptionErrorClassName);

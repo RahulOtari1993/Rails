@@ -7,17 +7,17 @@
     <!-- Start Question Title -->
     <div class="col-md-7 col-12">
       <div class="form-label-group">
-        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][category]", 'survey' %>
-        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][sequence]",
+          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][category]", 'survey' %>
+        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][sequence]",
                              question.present? ? question.sequence : nil, class: 'question-sequence-hidden'  %>
 
         <% if question.present? %>
-          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][id]", question.id %>
+          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][id]", question.id %>
         <% end %>
 
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][title]",
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][title]",
                            question_value(question),
-                           class: 'form-control form-control-option question-field-req', id: "question-title-#{q_name_convention(template, question)}",
+                           class: 'form-control form-control-option question-field-req', id: "question-title-#{q_name_convention(template, question, randNum)}",
                            required: true %>
         <label for="first-name-column">Question</label>
       </div>
@@ -33,20 +33,20 @@
     <!-- Start Common Inputs Option For All Questions Type -->
     <div class="col-md-7 col-12">
       <div class="form-label-group">
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][placeholder]",
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][placeholder]",
                            placeholder_value(question),
                            class: 'form-control form-control-option',
-                           id: "question-placeholder-#{q_name_convention(template, question)}",
+                           id: "question-placeholder-#{q_name_convention(template, question, randNum)}",
                            placeholder: 'Placeholder details' %>
         <label for="first-name-column">Placeholder</label>
       </div>
     </div>
     <div class="col-md-7 col-12">
       <div class="form-label-group">
-        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][additional_details]",
+        <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][additional_details]",
                            additional_details_value(question),
                            class: 'form-control form-control-option',
-                           id: "question-additional-details-#{q_name_convention(template, question)}",
+                           id: "question-additional-details-#{q_name_convention(template, question, randNum)}",
                            placeholder: 'Additional question details' %>
         <label for="first-name-column">Additional details of question</label>
       </div>
@@ -83,14 +83,14 @@
             <i class="feather icon-trash-2 que_edit_cross"></i>
 
             <div class="form-label-group que_ip_width">
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][sequence]",
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
                                    option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
 
-              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
-                                 id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                 id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
@@ -103,12 +103,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
         </div>
@@ -119,12 +120,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
         </div>
@@ -149,14 +151,14 @@
             <i class="feather icon-trash-2 que_edit_cross"></i>
 
             <div class="form-label-group que_ip_width">
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][sequence]",
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
                                    option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
 
-              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
-                                 id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                 id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
@@ -169,13 +171,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field',
-                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
         </div>
@@ -186,13 +188,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field',
-                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
         </div>
@@ -217,14 +219,14 @@
             <i class="feather icon-trash-2 que_edit_cross"></i>
 
             <div class="form-label-group que_ip_width">
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][sequence]",
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
                                    option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
 
-              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
-                                 id: "option-#{q_name_convention(template, question)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                 id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
@@ -237,13 +239,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field',
-                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
         </div>
@@ -254,13 +256,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
                                class: 'form-control form-control-option disabled-field is-editable option-req-field',
-                               id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
         </div>
@@ -344,14 +346,14 @@
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
 
             <div class="form-label-group que_ip_width">
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
-              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][sequence]",
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+              <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
                                    option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
 
-              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option.id}][details]",
+              <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
                                  option_value(option, 1),
                                  class: 'form-control form-control-option is-editable option-req-field',
-                                 id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, option, index)}",
+                                 id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, option, index)}",
                                  data: {'option-identifire' => option_identifire(template, option, nil)} %>
             </div>
           </div>
@@ -363,12 +365,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
                                option_value(nil, 1),
-                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 1)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1)} %>
           </div>
         </div>
@@ -378,12 +381,13 @@
 
           <div class="form-label-group que_ip_width">
             <% optIdentifire = rand.to_s[2..10] %>
-            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
+            <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
                                  nil, class: 'question-option-sequence-hidden is-editable' %>
 
-            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+            <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
                                option_value(nil, 2),
-                               class: 'form-control form-control-option disabled-field is-editable option-req-field', id: "option-#{q_name_convention(template, question)}-#{o_id_convention(template, nil, 2)}",
+                               class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                               id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
                                disabled: true, data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2)} %>
           </div>
         </div>
@@ -506,6 +510,139 @@
                          class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
                          data-error='image-option-error-<%= option_identifire(template, nil, optIdentifire, 2) %>'
                          id='file-upload<%= option_identifire(template, nil, optIdentifire, 2) %>' disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="image-option-error-<%= option_identifire(template, nil, optIdentifire, 2) %>"></div>
+          </div>
+
+          <div class="col-sm-12 que_edit">
+            <div class="form-label-group que_ip_width">
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+                <span><i class="feather icon-plus"></i> Add Option</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Start Checkbox Image Option -->
+    <div class="col-12 options-container image_check_box-container <%= display_question_option(question, 'image_check_box') %>">
+      <% if question.present? && question.answer_type == 'image_check_box' %>
+        <div class="row image-option-container">
+          <div class="que_option_header"></div>
+
+          <% question.question_options.order(:sequence).each_with_index do |option, index| %>
+            <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
+              <div class="card border-info text-center bg-transparent p-1 social_image_box">
+                <div class="card-content">
+                  <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="visibility: visible">
+                  <div class="image-upload">
+                    <i class="fa fa-square-o img_circle_icon" aria-hidden="true"></i>
+                    <label for="file-upload-<%= option.id %>" class="image-upload-container">
+                      <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
+
+                      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
+                      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][sequence]",
+                                           option.present? ? option.sequence : nil, class: 'question-option-sequence-hidden is-editable' %>
+
+                      <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][details]",
+                                         option_value(option, 1),
+                                         class: 'form-control form-control-option is-editable option-req-field',
+                                         id: "option-#{q_name_convention(template, question, randNum)}-#{option.id}-#{o_id_convention(template, option, index)}",
+                                         data: {'option-identifire' => option_identifire(template, option, nil), error: "image-option-error-#{option.id}"} %>
+                    </label>
+                    <span class="image_cross_box">
+                      <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
+                      <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
+                    </span>
+
+                    <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option.id %>][image]"
+                           class="image-uploader-control form-control-option" type="file"
+                           data-error='image-option-error-<%= option.id %>'
+                           id='file-upload-<%= option.id %>'>
+                  </div>
+                </div>
+              </div>
+              <div class="image-option-error image-option-error-<%= option.id %>"></div>
+            </div>
+          <% end %>
+          <div class="col-sm-12 que_edit">
+            <div class="form-label-group que_ip_width">
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+                <span><i class="feather icon-plus"></i> Add Option</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="row image-option-container">
+          <div class="que_option_header"></div>
+          <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
+            <div class="card border-info text-center bg-transparent p-1 social_image_box">
+              <% optIdentifire = rand.to_s[2..10] %>
+              <div class="card-content">
+                <img src="#" class="social_img_show">
+                <div class="image-upload">
+                  <i class="fa fa-square-o img_circle_icon" aria-hidden="true"></i>
+                  <label for="file-upload-<%= option_identifire(template, nil, optIdentifire, 1) %>" class="image-upload-container">
+                    <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
+
+                    <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][sequence]",
+                                         nil, class: 'question-option-sequence-hidden is-editable' %>
+
+                    <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 1)}][details]",
+                                       option_value(nil, 1),
+                                       class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                                       id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 1)}",
+                                       disabled: true,
+                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 1), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 1)}"} %>
+                  </label>
+                  <span class="image_cross_box">
+                    <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
+                    <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
+                  </span>
+
+                  <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option_identifire(template, nil, optIdentifire, 1) %>][image]"
+                         class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                         data-error='image-option-error-<%= option_identifire(template, nil, optIdentifire, 1) %>'
+                         id='file-upload-<%= option_identifire(template, nil, optIdentifire, 1) %>' disabled="disabled">
+                </div>
+              </div>
+            </div>
+            <div class="image-option-error image-option-error-<%= option_identifire(template, nil, optIdentifire, 1) %>"></div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
+            <div class="card border-info text-center bg-transparent p-1 social_image_box">
+              <% optIdentifire = rand.to_s[2..10] %>
+              <div class="card-content">
+                <img src="#" class="social_img_show">
+                <div class="image-upload">
+                  <i class="fa fa-square-o img_circle_icon" aria-hidden="true"></i>
+                  <label for="file-upload-<%= option_identifire(template, nil, optIdentifire, 2) %>" class="image-upload-container">
+                    <%= image_tag('challenges/image_placeholder.png', class: "social_image") %>
+
+                    <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][sequence]",
+                                         nil, class: 'question-option-sequence-hidden is-editable' %>
+
+                    <%= text_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option_identifire(template, nil, optIdentifire, 2)}][details]",
+                                       option_value(nil, 2),
+                                       class: 'form-control form-control-option disabled-field is-editable option-req-field',
+                                       id: "option-#{q_name_convention(template, question, randNum)}-#{o_id_convention(template, nil, 2)}",
+                                       disabled: true,
+                                       data: {'option-identifire' => option_identifire(template, nil, optIdentifire, 2), error: "image-option-error-#{option_identifire(template, nil, optIdentifire, 2)}"} %>
+                  </label>
+                  <span class="image_cross_box">
+                    <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
+                    <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
+                  </span>
+
+                  <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option_identifire(template, nil, optIdentifire, 2) %>][image]"
+                         class="image-uploader-control form-control-option disabled-field is-editable always-validate" type="file"
+                         data-error='image-option-error-<%= option_identifire(template, nil, optIdentifire, 2) %>'
+                         id='file-upload-<%= option_identifire(template, nil, optIdentifire, 2) %>' disabled="disabled">
                 </div>
               </div>
             </div>
