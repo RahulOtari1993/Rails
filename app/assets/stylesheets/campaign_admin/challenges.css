@@ -1074,5 +1074,25 @@
   cursor: pointer;
 }
 
+.social_image_box {
+  padding-bottom: 35px !important;
+}
+
+.social_image_box .form-control {
+  background-color: transparent !important;
+  border-radius: 0px !important;
+  position: relative;
+  top: 0px;
+  text-align: center;
+}
+
+.social_img_show_bg {
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

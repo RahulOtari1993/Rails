@@ -7,9 +7,9 @@
     <!-- Start Question Title -->
     <div class="col-md-7 col-12">
       <div class="form-label-group">
-          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][category]", 'survey' %>
+        <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][category]", 'survey' %>
         <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][sequence]",
-                             question.present? ? question.sequence : nil, class: 'question-sequence-hidden'  %>
+                             question.present? ? question.sequence : nil, class: 'question-sequence-hidden' %>
 
         <% if question.present? %>
           <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][id]", question.id %>
@@ -404,7 +404,8 @@
             <div class="col-lg-3 col-md-3 col-sm-12 que_edit">
               <div class="card border-info text-center bg-transparent p-1 social_image_box">
                 <div class="card-content">
-                  <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="visibility: visible">
+                  <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
+                  <img src="<%= option.image.url('thumb') rescue '#' %>" class="social_img_show" style="display: none;">
                   <div class="image-upload">
                     <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                     <label for="file-upload<%= option.id %>" class="image-upload-container">
@@ -450,7 +451,8 @@
             <div class="card border-info text-center bg-transparent p-1 social_image_box">
               <% optIdentifire = rand.to_s[2..10] %>
               <div class="card-content">
-                <img src="#" class="social_img_show">
+                <div class="social_img_show_bg"></div>
+                <img src="#" class="social_img_show" style="display: none;">
                 <div class="image-upload">
                   <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 1) %>" class="image-upload-container">
@@ -485,7 +487,8 @@
             <div class="card border-info text-center bg-transparent p-1 social_image_box">
               <% optIdentifire = rand.to_s[2..10] %>
               <div class="card-content">
-                <img src="#" class="social_img_show">
+                <div class="social_img_show_bg"></div>
+                <img src="#" class="social_img_show" style="display: none;">
                 <div class="image-upload">
                   <i class="fa fa-circle-o img_circle_icon" aria-hidden="true"></i>
                   <label for="file-upload<%= option_identifire(template, nil, optIdentifire, 2) %>" class="image-upload-container">

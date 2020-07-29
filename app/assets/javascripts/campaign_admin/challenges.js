@@ -1822,6 +1822,7 @@ $(document).on('turbolinks:load', function () {
     // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
     var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
     new_element.find('.social_img_show').attr('src', '');
+    new_element.find('.social_img_show_bg').css("background-image", "url('#')");
     new_element.find(`.image-option-error-${optionCounter}`).html('');
     new_element.find('.image-uploader-control').addClass('always-validate');
 
@@ -1913,9 +1914,13 @@ $(document).on('turbolinks:load', function () {
 
       reader.onload = function (e) {
         var elem = _this.parent().parent().parent().find('.social_img_show');
-        var social_img = _this.parent().parent().parent().find('.social_image');
         elem.attr('src', e.target.result);
-        elem.css('visibility', 'visible');
+        // elem.css('visibility', 'visible');
+
+        var elemBg = _this.parent().parent().parent().find('.social_img_show_bg');
+        elemBg.css("background-image", "url(" + e.target.result + ")");
+
+        // var social_img = _this.parent().parent().parent().find('.social_image');
         // social_img.css('z-index', -1);
       }
 
