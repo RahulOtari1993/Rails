@@ -69,13 +69,15 @@
                       <% when 'radio_button' then %>
                         <% question.question_options.order(:sequence).each do |option| %>
                           <div>
-                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                            <%= radio_button_tag "questions[#{question.id}][answer][]", option.id,
+                                                 (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @survey_submitted %>
                             <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>" class="option-label"><%= option.details %></label>
                           </div>
                         <% end %>
+                        <div class="custom-error-class radio-button-error-<%= index %>"></div>
                       <% when 'date' then %>
                         <%= text_field_tag "questions[#{question.id}][answer]", (@survey_submitted ? fetch_question_answered_value(question) : ''),
                                            class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
@@ -107,6 +109,51 @@
                           </div>
                         <% end %>
                         <div class="custom-error-class boolean-field-error-<%= index %>"></div>
+                      <% when 'image_radio_button' then %>
+                        <div class="form-group">
+                          <div>
+                            <div class="container p-0 multiple_img_box">
+                              <div class="row">
+                                <% question.question_options.each do |option| %>
+                                  <div class="col-md-4 text-center">
+                                    <div class="img_box">
+                                      <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
+                                    </div>
+                                    <%= radio_button_tag "questions[#{question.id}][answer][]", option.id,
+                                                         (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                                                         id: "questions_#{question.id}_answer_#{option.id}",
+                                                         class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                         data: {error: "radio-button-error-#{index}"}, disabled: @survey_submitted %>
+                                    <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>" class="option-label"><%= option.details %></label>
+                                  </div>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                        </div>
+                      <% when 'image_check_box' then %>
+                        <div class="form-group">
+                          <div>
+                            <div class="container p-0 multiple_img_box">
+                              <div class="row">
+                                <% question.question_options.each do |option| %>
+                                  <div class="col-md-4 text-center">
+                                    <div class="img_box">
+                                      <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
+                                    </div>
+                                    <%= check_box_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
+                                                      id: "questions_#{question.id}_answer_#{option.id}",
+                                                      class: "answer-check-box #{answer_required('answer-check-box', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                      data: {error: "check-box-error-#{index}"}, disabled: @survey_submitted  %>
+                                    <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>" class="option-label"><%= option.details %></label>
+                                  </div>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="custom-error-class check-box-error-<%= index %>"></div>
+                        </div>
                       <% end %>
                       <% if question.additional_details.present? %>
                         <div class="additional-details"><%= question.additional_details %></div>

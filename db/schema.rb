@@ -492,6 +492,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_214616) do
     t.datetime "updated_at", null: false
     t.string "answer"
     t.integer "sequence"
+    t.string "image"
     t.index ["question_id"], name: "index_question_options_on_question_id"
   end
 

@@ -192,7 +192,7 @@ class Participants::ChallengesController < ApplicationController
         temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id, result: result)
         temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
         participant_answer_params << temp_hash
-      elsif question.answer_type == "radio_button" && participant_answer_hash[:question_option_id].present?
+      elsif (question.answer_type == "radio_button" || question.answer_type == "image_radio_button") && participant_answer_hash[:question_option_id].present?
         ## build hashes having multiple answers for radio buttons & checkboxes
         participant_answer_hash[:question_option_id].each do |option_id|
           temp_hash = participant_answer_hash.as_json
@@ -223,7 +223,8 @@ class Participants::ChallengesController < ApplicationController
         participant_answer_params << temp_hash
       elsif question.present? && answer_hash[:answer].present? &&
           (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
-              question.answer_type == "dropdown" || question.answer_type == "boolean")
+              question.answer_type == "dropdown" || question.answer_type == "boolean" ||
+              question.answer_type == "image_radio_button" || question.answer_type == "image_check_box")
 
         answer_hash[:answer].each do |option_id|
           dup_hash = temp_hash.clone
@@ -257,7 +258,8 @@ class Participants::ChallengesController < ApplicationController
 
   ## Create Participant Action Entry
   def participant_action re_submission
-    challenge_points = re_submission ? @challenge.points : 0
+    challenge_points = re_submission ? 0 : @challenge.points
+
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
       title = re_submission ? 'Again Visited a url' : "Visited a url"

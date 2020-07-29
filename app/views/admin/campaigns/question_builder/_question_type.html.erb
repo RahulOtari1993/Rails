@@ -35,6 +35,7 @@
       <optgroup>
         <option value="string" data-icon="fa fa-align-left" <%= question.answer_type == 'string' ? 'selected' : '' %>>Short answer</option>
         <option value="radio_button" data-icon="fa fa-dot-circle-o" <%= question.answer_type == 'radio_button' ? 'selected' : '' %>>Multiple choice</option>
+        <option value="image_radio_button" data-icon="fa fa-picture-o" <%= question.answer_type == 'image_radio_button' ? 'selected' : '' %>>Image Multiple choice</option>
         <option value="wysiwyg" data-icon="fa icon-edit" <%= question.answer_type == 'wysiwyg' ? 'selected' : '' %>>WYSIWYG Editor</option>
       </optgroup>
     </select>
@@ -45,6 +46,7 @@
       <optgroup>
         <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
         <option value="radio_button" data-icon="fa fa-dot-circle-o">Multiple choice</option>
+        <option value="image_radio_button" data-icon="fa fa-picture-o">Image Multiple choice</option>
         <option value="wysiwyg" data-icon="fa icon-edit">WYSIWYG Editor</option>
       </optgroup>
     </select>
@@ -53,8 +55,8 @@
 <% elsif type == 'survey' %>
   <% if question.present? %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
-            data-custom-id="<%= question_build_id(template, 'class', '') %>"
-            name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+            data-custom-id="-<%= randNum %>"
+            name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
       <optgroup>
         <option value="string" data-icon="fa fa-align-left" <%= question.answer_type == 'string' ? 'selected' : '' %>>Short answer</option>
         <option value="text_area" data-icon="fa fa-align-justify" <%= question.answer_type == 'text_area' ? 'selected' : '' %>>Paragraph</option>
@@ -67,12 +69,14 @@
         <option value="number" data-icon="fa fa-sort-numeric-asc" <%= question.answer_type == 'number' ? 'selected' : '' %>>Number</option>
         <option value="decimal" data-icon="fa fa-sort-numeric-desc" <%= question.answer_type == 'decimal' ? 'selected' : '' %>>Decimal</option>
         <option value="boolean" data-icon="fa fa-toggle-on" <%= question.answer_type == 'boolean' ? 'selected' : '' %>>Yes/No (Boolean)</option>
+        <option value="image_radio_button" data-icon="fa fa-picture-o" <%= question.answer_type == 'image_radio_button' ? 'selected' : '' %>>Image Multiple choice</option>
+        <option value="image_check_box" data-icon="fa fa-picture-o" <%= question.answer_type == 'image_check_box' ? 'selected' : '' %>>Image Checkboxes</option>
       </optgroup>
     </select>
   <% else %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
             data-custom-id="<%= question_build_id(template, 'class', '') %>"
-            name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
+            name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
       <optgroup>
         <option value="string" data-icon="fa fa-align-left" selected>Short answer</option>
         <option value="text_area" data-icon="fa fa-align-justify">Paragraph</option>
@@ -85,6 +89,8 @@
         <option value="number" data-icon="fa fa-sort-numeric-asc">Number</option>
         <option value="decimal" data-icon="fa fa-sort-numeric-desc">Decimal</option>
         <option value="boolean" data-icon="fa fa-toggle-on">Yes/No (Boolean)</option>
+        <option value="image_radio_button" data-icon="fa fa-picture-o">Image Multiple choice</option>
+        <option value="image_check_box" data-icon="fa fa-picture-o">Image Checkboxes</option>
       </optgroup>
     </select>
   <% end %>

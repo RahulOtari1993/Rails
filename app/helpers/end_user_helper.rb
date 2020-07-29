@@ -98,8 +98,8 @@ module EndUserHelper
     option_id = nil
     if question.answer_type == "string"
       option_id = question.question_options.first.id
-    elsif question.answer_type == "radio_button"
-      option_id = question.question_options.where(answer: "t").first.id
+    elsif (question.answer_type == "radio_button" || question.answer_type == "image_radio_button")
+      option_id = question.question_options.where(answer: ['t', 'on']).first.id
     end
     option_id
   end

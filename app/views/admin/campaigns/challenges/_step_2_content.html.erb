@@ -1,623 +1,645 @@
-<!-- FACEBOOK UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box share-facebook-div active-segment" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-        <div class="social-heading-details">
-          <h3>2. choose and customize for facebook</h3>
-        </div>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'share' && @challenge.parameters == 'facebook') %>
+  <!-- FACEBOOK UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box share-facebook-div active-segment" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+          <div class="social-heading-details">
+            <h3>2. choose and customize for facebook</h3>
+          </div>
 
-        <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
-        <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
+          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
+          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
 
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :title, 'Facebook title content' %>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :title, 'Facebook title content' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :link, 'Link to be shared' %>
-              <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :link, 'Link to be shared' %>
+                <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
-            <div class="vs-checkbox-con vs-checkbox-primary">
-              <%= form.check_box :use_short_url, class: '' %>
-              <span class="vs-checkbox">
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
+              <div class="vs-checkbox-con vs-checkbox-primary">
+                <%= form.check_box :use_short_url, class: '' %>
+                <span class="vs-checkbox">
                 <span class="vs-checkbox--check">
                     <i class="vs-icon feather icon-check"></i>
                 </span>
               </span>
-              <span class="">Use Short URL</span>
+                <span class="">Use Short URL</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="social-error-container platform-error"></div>
-        <div class="social-error-container social-image-error"></div>
-        <div class="social-error-container social-title-error"></div>
-        <div class="social-error-container social-description-error"></div>
+          <div class="social-error-container platform-error"></div>
+          <div class="social-error-container social-image-error"></div>
+          <div class="social-error-container social-title-error"></div>
+          <div class="social-error-container social-description-error"></div>
 
-        <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
-          <div class="card-body">
-            <div class="Social_blocks_container Social_blocks_fb">
-              <div class="Social_blocks_fb_title">
-                <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
-              </div>
-              <div class="Social_blocks_fb_content">
-
-                <div class="user_pic_box">
-                  <img src="#" class="user_pic" id="facebook-img">
-                  <div class="user_name_box">
-                    <p><span>User's Name</span></p>
-                    <p>Date</p>
-                  </div>
+          <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
+            <div class="card-body">
+              <div class="Social_blocks_container Social_blocks_fb">
+                <div class="Social_blocks_fb_title">
+                  <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
                 </div>
-                <div class="clear"></div>
+                <div class="Social_blocks_fb_content">
 
-                <p class="user-comment-section">
-                  <%= social_blog_comment('facebook') %>
-                </p>
-                <div class="Social_blocks_fb_content_box">
-                  <%= raw social_blog_image('facebook') %>
-                  <div class="image-upload">
-                    <label for="file-input-fb">
-                      <i class="fa fa-upload"></i>
-                    </label>
-                    <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-fb',
-                                        data: {'file-id' => 'show-facebook-image', error: 'social-image-error'} %>
+                  <div class="user_pic_box">
+                    <img src="#" class="user_pic" id="facebook-img">
+                    <div class="user_name_box">
+                      <p><span>User's Name</span></p>
+                      <p>Date</p>
+                    </div>
                   </div>
-                  <div class="editable_box">
+                  <div class="clear"></div>
 
-                    <label class="text_label edit_title">
-                      <h5>
-                        <%= social_blog_title('facebook', 'text') %>
-                      </h5>
-                    </label>
-                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control social-title-txt', placeholder: "Title to display on social post",
-                                       data: {error: 'social-title-error'} %>
-                    <div class="clear"></div>
+                  <p class="user-comment-section">
+                    <%= social_blog_comment('facebook') %>
+                  </p>
+                  <div class="Social_blocks_fb_content_box">
+                    <%= raw social_blog_image('facebook') %>
+                    <div class="image-upload">
+                      <label for="file-input-fb">
+                        <i class="fa fa-upload"></i>
+                      </label>
+                      <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-fb',
+                                          data: {'file-id' => 'show-facebook-image', error: 'social-image-error'} %>
+                    </div>
+                    <div class="editable_box">
 
-                    <label class="text_label">
+                      <label class="text_label edit_title">
+                        <h5>
+                          <%= social_blog_title('facebook', 'text') %>
+                        </h5>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= text_field_tag :social_title, social_blog_title('facebook', 'input'), class: 'form-control social-title-txt', placeholder: "Title to display on social post",
+                                         data: {error: 'social-title-error'} %>
+                      <div class="clear"></div>
+
+                      <label class="text_label">
+                        <p>
+                          <%= social_blog_description('facebook', 'text') %>
+                        </p>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= text_field_tag :social_description, social_blog_description('facebook', 'input'), class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
+                      <div class="clear"></div>
+
                       <p>
-                        <%= social_blog_description('facebook', 'text') %>
+                        <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
                       </p>
-                    </label>
-                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_description, social_blog_description('facebook', 'input'), class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
-                    <div class="clear"></div>
-
-                    <p>
-                      <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<!-- TWITTER UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box share-twitter-div" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'share' && @challenge.parameters == 'twitter') %>
+  <!-- TWITTER UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box share-twitter-div" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
 
-      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
-        <div class="social-heading-details">
-          <h3>2. choose and customize for platforms</h3>
-        </div>
-
-        <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
-        <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
-
-        <div class="row">
-          <div class="offset-lg-1 col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :title, 'Facebook title content' %>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
-            </div>
+        <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+          <div class="social-heading-details">
+            <h3>2. choose and customize for platforms</h3>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="offset-lg-1 col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :link, 'Link to be shared' %>
-              <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
-            </div>
-          </div>
-        </div>
+          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
+          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
 
-        <div class="social-error-container platform-error"></div>
-        <div class="social-error-container social-image-error"></div>
-        <div class="social-error-container social-title-error"></div>
-        <div class="social-error-container social-description-error"></div>
-
-        <div class="social-block-body" id="twitterBlogBody" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
-          <div class="card-body">
-            <div class="Social_blocks_container Social_blocks_twitter">
-              <div class="Social_blocks_twitter_title">
-                <h5><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</h5>
+          <div class="row">
+            <div class="offset-lg-1 col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :title, 'Facebook title content' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
               </div>
-              <div class="Social_blocks_fb_content">
+            </div>
+          </div>
 
-                <div class="user_pic_box">
-                  <img src="#" class="user_pic">
-                  <div class="user_name_box">
-                    <p><span>User's Name</span></p>
-                    <label class="text_label">
-                      <p>
-                        <%= raw social_blog_description('twitter', 'text') %>
-                      </p>
-                    </label>
-                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
+          <div class="row">
+            <div class="offset-lg-1 col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :link, 'Link to be shared' %>
+                <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="social-error-container platform-error"></div>
+          <div class="social-error-container social-image-error"></div>
+          <div class="social-error-container social-title-error"></div>
+          <div class="social-error-container social-description-error"></div>
+
+          <div class="social-block-body" id="twitterBlogBody" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+            <div class="card-body">
+              <div class="Social_blocks_container Social_blocks_twitter">
+                <div class="Social_blocks_twitter_title">
+                  <h5><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</h5>
+                </div>
+                <div class="Social_blocks_fb_content">
+
+                  <div class="user_pic_box">
+                    <img src="#" class="user_pic">
+                    <div class="user_name_box">
+                      <p><span>User's Name</span></p>
+                      <label class="text_label">
+                        <p>
+                          <%= raw social_blog_description('twitter', 'text') %>
+                        </p>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
                                               love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
-                    <div class="clear"></div>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+
+                  <div class="Social_blocks_fb_content_box">
+                    <%= raw social_blog_image('twitter') %>
+                    <div class="image-upload">
+                      <label for="file-input-twitter">
+                        <i class="fa fa-upload"></i>
+                      </label>
+                      <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-twitter',
+                                          data: {'file-id' => 'show-twitter-image', error: 'social-image-error'} %>
+                    </div>
                   </div>
                 </div>
-                <div class="clear"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
 
-                <div class="Social_blocks_fb_content_box">
-                  <%= raw social_blog_image('twitter') %>
-                  <div class="image-upload">
-                    <label for="file-input-twitter">
-                      <i class="fa fa-upload"></i>
-                    </label>
-                    <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-twitter',
-                                        data: {'file-id' => 'show-twitter-image', error: 'social-image-error'} %>
-                  </div>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'video' && @challenge.parameters == 'youtube') %>
+  <!-- VIDEO UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box video-youtube-div" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-10 offset-lg-2 col-lg-8">
+          <div class="social-heading-details">
+            <h3>2. Configure Details for Video</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :title, 'Video Title' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :content, 'Video Description' %>
+                <%= form.text_area :content, class: 'form-control', placeholder: 'How to access Perk Social platform' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :link, 'Video Link' %>
+                <span class="column-info">Enter the Youtube video ID. (ex. the id is everything after 'v=' https://www.youtube.com/watch?v=jbiTavXQwIg)</span>
+                <%= form.text_field :link, class: 'form-control', placeholder: 'https://www.youtube.com/watch?v=jbiTavXQwIg' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :duration, 'Duration' %>
+                <span class="column-info">Please select amount(in seconds) of the video they must watch to get rewarded.</span>
+                <%= form.text_field :duration, class: 'form-control', placeholder: '240' %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'link') %>
+  <!-- LINK UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box link--div" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-10 offset-lg-2 col-lg-8">
+          <div class="social-heading-details">
+            <h3>2. Configure Details for Link</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :title, 'Post Headline/Title' %>
+                <span class="column-info">The headline which will catch a users eye on social networks.</span>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :content, 'Details' %>
+                <span class="column-info">This is the details which will be shown in the manual modal.</span>
+                <%= form.text_area :content, class: 'form-control', placeholder: 'How to access Perk Social platform' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :link, 'Link URL' %>
+                <span class="column-info">This is the details which will be shown in the manual modal.</span>
+                <%= form.text_field :link, class: 'form-control', placeholder: 'https://perksocial.com/' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'article') %>
+  <!-- ARTICLE UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box article--div" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Configure Details for Article</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :title, 'Article Headline/Title' %>
+                <span class="column-info">The headline which will catch a users eye on social networks.</span>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :content, 'Details' %>
+                <span class="column-info">This is the details which will be shown in the manual modal.</span>
+                <div class="article-content-error platform-error"></div>
+
+                <div class="article-content-editor quill-editor-height">
+                  <%= @challenge.content.html_safe if @challenge.challenge_type == 'article' && @challenge.content.present? %>
+                </div>
+
+                <%= form.hidden_field :content, class: "always-validate article-content-txt-area", data: {error: 'article-content-error'} %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'location') %>
+  <!-- Location UI BLOG -->
+  <section class="step-two-container Social_blocks step_point_box location--div" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Configure Details for Article</h3>
+          </div>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :address, 'Address' %>
+                <span class="column-info">Select the  of the location you are targeting.</span>
+                <%= form.hidden_field :longitude, class: "location-longitude always-validate", data: {error: 'location-selection-error'} %>
+                <%= form.hidden_field :latitude, class: "location-latitude always-validate", data: {error: 'location-selection-error'} %>
+
+                <%= form.text_field :address, class: 'form-control', placeholder: 'New York', id: 'location-selection-input' %>
+                <div class="location-selection-error"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :location_distance, 'Radius' %>
+                <span class="column-info">This is the radius around the location..</span>
+                <%= form.select :location_distance,
+                                options_for_select(Challenge::RADIUS),
+                                {prompt: 'Select Radius'}, class: 'form-control domain_type_id' %>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <div id="map-container">
+                  <div id="location-challenge-map"></div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<!-- VIDEO UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box video-youtube-div" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-10 offset-lg-2 col-lg-8">
-        <div class="social-heading-details">
-          <h3>2. Configure Details for Video</h3>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :title, 'Video Title' %>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'collect' && @challenge.parameters == 'profile') %>
+  <!-- Extended Profile Question / Onboarding Questions -->
+  <section class="step-two-container Social_blocks step_point_box collect-profile-div question_form_blocks" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Extended Profile Questions</h3>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= render 'admin/campaigns/challenges/profile_questions', type: 'profile' %>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
+          <div class="row">
             <div class="form-group">
-              <%= form.label :content, 'Video Description' %>
-              <%= form.text_area :content, class: 'form-control', placeholder: 'How to access Perk Social platform' %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :link, 'Video Link' %>
-              <span class="column-info">Enter the Youtube video ID. (ex. the id is everything after 'v=' https://www.youtube.com/watch?v=jbiTavXQwIg)</span>
-              <%= form.text_field :link, class: 'form-control', placeholder: 'https://www.youtube.com/watch?v=jbiTavXQwIg' %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :duration, 'Duration' %>
-              <span class="column-info">Please select amount(in seconds) of the video they must watch to get rewarded.</span>
-              <%= form.text_field :duration, class: 'form-control', placeholder: '240' %>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LINK UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box link--div" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-10 offset-lg-2 col-lg-8">
-        <div class="social-heading-details">
-          <h3>2. Configure Details for Link</h3>
-        </div>
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :title, 'Post Headline/Title' %>
-              <span class="column-info">The headline which will catch a users eye on social networks.</span>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :content, 'Details' %>
-              <span class="column-info">This is the details which will be shown in the manual modal.</span>
-              <%= form.text_area :content, class: 'form-control', placeholder: 'How to access Perk Social platform' %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :link, 'Link URL' %>
-              <span class="column-info">This is the details which will be shown in the manual modal.</span>
-              <%= form.text_field :link, class: 'form-control', placeholder: 'https://perksocial.com/' %>
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
+                      type="button" data-type="profile" data-type="profile">
+                <span><i class="feather icon-plus"></i> Add Question</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<!-- ARTICLE UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box article--div" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Configure Details for Article</h3>
-        </div>
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :title, 'Article Headline/Title' %>
-              <span class="column-info">The headline which will catch a users eye on social networks.</span>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'Perk Social Introduction' %>
-            </div>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') %>
+  <!-- Quiz Questions -->
+  <section class="step-two-container Social_blocks step_point_box collect-quiz-div question_form_blocks" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Quiz Questions</h3>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-12 col-lg-10">
-            <div class="form-group">
-              <%= form.label :content, 'Details' %>
-              <span class="column-info">This is the details which will be shown in the manual modal.</span>
-              <div class="article-content-error platform-error"></div>
-
-              <div class="article-content-editor quill-editor-height">
-                <%= @challenge.content.html_safe if @challenge.challenge_type == 'article' && @challenge.content.present? %>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :success_message, 'Success Message' %>
+                <span class="column-info">This message will be displayed to end used when user complete quiz successfully</span>
+                <%= form.text_field :success_message, class: 'form-control',
+                                    placeholder: "Congratulation, You have completed quiz successfully" %>
               </div>
-
-              <%= form.hidden_field :content, class: "always-validate article-content-txt-area", data: {error: 'article-content-error'} %>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Location UI BLOG -->
-<section class="step-two-container Social_blocks step_point_box location--div" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Configure Details for Article</h3>
-        </div>
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :address, 'Address' %>
-              <span class="column-info">Select the  of the location you are targeting.</span>
-              <%= form.hidden_field :longitude, class: "location-longitude always-validate", data: {error: 'location-selection-error'} %>
-              <%= form.hidden_field :latitude, class: "location-latitude always-validate", data: {error: 'location-selection-error'} %>
-
-              <%= form.text_field :address, class: 'form-control', placeholder: 'New York', id: 'location-selection-input' %>
-              <div class="location-selection-error"></div>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :failed_message, 'Failed Message' %>
+                <span class="column-info">This message will be displayed to end used when user complete quiz un-successfully</span>
+                <%= form.text_field :failed_message, class: 'form-control',
+                                    placeholder: "Sorry, You failed to complete the quiz" %>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :location_distance, 'Radius' %>
-              <span class="column-info">This is the radius around the location..</span>
-              <%= form.select :location_distance,
-                              options_for_select(Challenge::RADIUS),
-                              {prompt: 'Select Radius'}, class: 'form-control domain_type_id' %>
-
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= render 'admin/campaigns/challenges/quiz_questions', type: 'quiz' %>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
+          <div class="row">
             <div class="form-group">
-              <div id="map-container">
-                <div id="location-challenge-map"></div>
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
+                      type="button" data-type="quiz">
+                <span><i class="feather icon-plus"></i> Add Question</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :correct_answer_count, 'Correct Answer Count' %>
+                <span class="column-info">Select how many question needs to be correct to win the quiz</span>
+                <%= form.select :correct_answer_count,
+                                options_for_select(correct_answer_count, @challenge.correct_answer_count),
+                                {}, class: 'form-control correct_answer_count_dd' %>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<!-- Extended Profile Question / Onboarding Questions -->
-<section class="step-two-container Social_blocks step_point_box collect-profile-div question_form_blocks" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Extended Profile Questions</h3>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= render 'admin/campaigns/challenges/profile_questions', type: 'profile' %>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'referral' && @challenge.parameters == 'custom') %>
+  <!-- RECRUIT - GENERAL -->
+  <section class="step-two-container Social_blocks step_point_box referral-custom-div question_form_blocks" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Recruit Challenge Options:</h3>
           </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group">
-            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
-                    type="button" data-type="profile" data-type="profile">
-              <span><i class="feather icon-plus"></i> Add Question</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Quiz Questions -->
-<section class="step-two-container Social_blocks step_point_box collect-quiz-div question_form_blocks" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Quiz Questions</h3>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :success_message, 'Success Message' %>
-              <span class="column-info">This message will be displayed to end used when user complete quiz successfully</span>
-              <%= form.text_field :success_message, class: 'form-control',
-                                  placeholder: "Congratulation, You have completed quiz successfully" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :failed_message, 'Failed Message' %>
-              <span class="column-info">This message will be displayed to end used when user complete quiz un-successfully</span>
-              <%= form.text_field :failed_message, class: 'form-control',
-                                  placeholder: "Sorry, You failed to complete the quiz" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= render 'admin/campaigns/challenges/quiz_questions', type: 'quiz' %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group">
-            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
-                    type="button" data-type="quiz">
-              <span><i class="feather icon-plus"></i> Add Question</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :correct_answer_count, 'Correct Answer Count' %>
-              <span class="column-info">Select how many question needs to be correct to win the quiz</span>
-              <%= form.select :correct_answer_count,
-                              options_for_select(correct_answer_count, @challenge.correct_answer_count),
-                              {}, class: 'form-control correct_answer_count_dd' %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RECRUIT - GENERAL -->
-<section class="step-two-container Social_blocks step_point_box referral-custom-div question_form_blocks" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Recruit Challenge Options:</h3>
-        </div>
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
-            <div class="vs-checkbox-con vs-checkbox-primary">
-              <%= form.check_box :use_short_url, class: '' %>
-              <span class="vs-checkbox">
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
+              <div class="vs-checkbox-con vs-checkbox-primary">
+                <%= form.check_box :use_short_url, class: '' %>
+                <span class="vs-checkbox">
                 <span class="vs-checkbox--check">
                     <i class="vs-icon feather icon-check"></i>
                 </span>
               </span>
-              <span class="">Use Short URL</span>
+                <span class="">Use Short URL</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
 
-<!-- RECRUIT FACEBOOK -->
-<section class="step-two-container Social_blocks step_point_box referral-facebook-div active-segment" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-10 offset-lg-2 col-lg-8">
-        <div class="social-heading-details">
-          <h3>2. choose and customize for facebook</h3>
-        </div>
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'referral' && @challenge.parameters == 'facebook') %>
+  <!-- RECRUIT FACEBOOK -->
+  <section class="step-two-container Social_blocks step_point_box referral-facebook-div active-segment" style="display: <%= @challenge.new_record? ? 'block' : 'none' %>;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-10 offset-lg-2 col-lg-8">
+          <div class="social-heading-details">
+            <h3>2. choose and customize for facebook</h3>
+          </div>
 
-        <div class="row">
-          <div class="col-sm-10 col-lg-8">
-            <div class="form-group">
-              <%= form.label :title, 'Facebook title content' %>
-              <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+          <div class="row">
+            <div class="col-sm-10 col-lg-8">
+              <div class="form-group">
+                <%= form.label :title, 'Facebook title content' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
-            <div class="vs-checkbox-con vs-checkbox-primary">
-              <%= form.check_box :use_short_url, class: '' %>
-              <span class="vs-checkbox">
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
+              <div class="vs-checkbox-con vs-checkbox-primary">
+                <%= form.check_box :use_short_url, class: '' %>
+                <span class="vs-checkbox">
                 <span class="vs-checkbox--check">
                     <i class="vs-icon feather icon-check"></i>
                 </span>
               </span>
-              <span class="">Use Short URL</span>
+                <span class="">Use Short URL</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="social-error-container platform-error"></div>
-        <div class="social-error-container social-image-error"></div>
-        <div class="social-error-container social-title-error"></div>
-        <div class="social-error-container social-description-error"></div>
+          <div class="social-error-container platform-error"></div>
+          <div class="social-error-container social-image-error"></div>
+          <div class="social-error-container social-title-error"></div>
+          <div class="social-error-container social-description-error"></div>
 
-        <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
-          <div class="card-body">
-            <div class="Social_blocks_container Social_blocks_fb">
-              <div class="Social_blocks_fb_title">
-                <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
-              </div>
-              <div class="Social_blocks_fb_content">
-
-                <div class="user_pic_box">
-                  <img src="#" class="user_pic" id="facebook-img">
-                  <div class="user_name_box">
-                    <p><span>User's Name</span></p>
-                    <p>Date</p>
-                  </div>
+          <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
+            <div class="card-body">
+              <div class="Social_blocks_container Social_blocks_fb">
+                <div class="Social_blocks_fb_title">
+                  <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
                 </div>
-                <div class="clear"></div>
+                <div class="Social_blocks_fb_content">
 
-                <p class="user-comment-section">
-                  <%= social_blog_comment('facebook') %>
-                </p>
-                <div class="Social_blocks_fb_content_box">
-                  <%= raw social_blog_image('facebook') %>
-                  <div class="image-upload">
-                    <label for="file-input-fb">
-                      <i class="fa fa-upload"></i>
-                    </label>
-                    <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-fb',
-                                        data: {'file-id' => 'show-facebook-image', error: 'social-image-error'} %>
+                  <div class="user_pic_box">
+                    <img src="#" class="user_pic" id="facebook-img">
+                    <div class="user_name_box">
+                      <p><span>User's Name</span></p>
+                      <p>Date</p>
+                    </div>
                   </div>
-                  <div class="editable_box">
+                  <div class="clear"></div>
 
-                    <label class="text_label edit_title">
-                      <h5>
-                        <%= social_blog_title('facebook', 'text') %>
-                      </h5>
-                    </label>
-                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= form.text_field :social_title, class: 'form-control social-title-txt', placeholder: "Title to display on social post",
-                                       data: {error: 'social-title-error'} %>
-                    <div class="clear"></div>
+                  <p class="user-comment-section">
+                    <%= social_blog_comment('facebook') %>
+                  </p>
+                  <div class="Social_blocks_fb_content_box">
+                    <%= raw social_blog_image('facebook') %>
+                    <div class="image-upload">
+                      <label for="file-input-fb">
+                        <i class="fa fa-upload"></i>
+                      </label>
+                      <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-fb',
+                                          data: {'file-id' => 'show-facebook-image', error: 'social-image-error'} %>
+                    </div>
+                    <div class="editable_box">
 
-                    <label class="text_label">
+                      <label class="text_label edit_title">
+                        <h5>
+                          <%= social_blog_title('facebook', 'text') %>
+                        </h5>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= form.text_field :social_title, class: 'form-control social-title-txt', placeholder: "Title to display on social post",
+                                          data: {error: 'social-title-error'} %>
+                      <div class="clear"></div>
+
+                      <label class="text_label">
+                        <p>
+                          <%= social_blog_description('facebook', 'text') %>
+                        </p>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= form.text_field :social_description, class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
+                      <div class="clear"></div>
+
                       <p>
-                        <%= social_blog_description('facebook', 'text') %>
+                        <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
                       </p>
-                    </label>
-                    <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                    <%= form.text_field :social_description, class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
-                    <div class="clear"></div>
-
-                    <p>
-                      <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('facebook') %></a>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Survey Questions -->
-<section class="step-two-container Social_blocks step_point_box collect-survey-div question_form_blocks" style="display: none;">
-  <div class="container p-0">
-    <div class="row">
-      <div class="col-sm-12 offset-lg-2 col-lg-12">
-        <div class="social-heading-details">
-          <h3>2. Survey Questions</h3>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-8 col-lg-10 questions-container">
-            <%= render 'admin/campaigns/challenges/survey_questions', type: 'survey' %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="form-group">
-            <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
-                    type="button" data-type="survey">
-              <span><i class="feather icon-plus"></i> Add Question</span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+<% end %>
+
+<% if @challenge.new_record? || (@challenge.present? && @challenge.challenge_type == 'collect' && @challenge.parameters == 'survey') %>
+  <!-- Survey Questions -->
+  <section class="step-two-container Social_blocks step_point_box collect-survey-div question_form_blocks" style="display: none;">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm-12 offset-lg-2 col-lg-12">
+          <div class="social-heading-details">
+            <h3>2. Survey Questions</h3>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= render 'admin/campaigns/challenges/survey_questions', type: 'survey' %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-question"
+                      type="button" data-type="survey">
+                <span><i class="feather icon-plus"></i> Add Question</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

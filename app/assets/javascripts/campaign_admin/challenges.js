@@ -34,12 +34,12 @@ $(document).on('turbolinks:load', function () {
       finish: 'Submit'
     },
     onInit: function (event, currentIndex) {
-      if ($('.new_challenge_section').data('form-type') == 'edit') {
-        $('.challenge-wizard').steps("next");
-      }
+      // if ($('.new_challenge_section').data('form-type') == 'edit') {
+      //   $('.challenge-wizard').steps("next");
+      // }
     },
     onStepChanging: function (event, currentIndex, newIndex) {
-      // Allways allow previous action even if the current form is not valid!
+      // Always allow previous action even if the current form is not valid!
       if ($('.new_challenge_section').data('form-type') == 'edit') {
         // While Editing a Challenge Stop User to Jump on Step 1
         if (currentIndex == 1 && newIndex == 0) {
@@ -61,7 +61,7 @@ $(document).on('turbolinks:load', function () {
       var challengeType = $('#challenge_challenge_type').val();
       var challengeParameters = $('#challenge_parameters').val();
 
-      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 0 ) {
         $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
           if ($(this).hasClass('display-editor')) {
             $(`.details-question-wysiwyg-editor${$(this).data('editor-identifire')}`).val($(`.question-wysiwyg-editor${$(this).data('editor-identifire')} .ql-editor`).html());
@@ -93,7 +93,7 @@ $(document).on('turbolinks:load', function () {
     return element.hasClass('always-validate') ? element.val() : 'image_not_needed.jpg'
   }
 
-  // Trigger SWAL Notificaton
+  // Trigger SWAL Notification
   function swalNotify(title, message) {
     Swal.fire({
       title: title,
@@ -128,6 +128,16 @@ $(document).on('turbolinks:load', function () {
         required: true,
         messages: {
           required: "Please enter option value"
+        }
+      })
+    });
+
+    // Validation for Image Option
+    $('.image-uploader-control').each(function () {
+      $(this).rules('add', {
+        required: true,
+        messages: {
+          required: "Please select image for option"
         }
       })
     });
@@ -311,12 +321,13 @@ $(document).on('turbolinks:load', function () {
       $('.' + challengeType + '-' + challengeParameters + '-div .question-selector').trigger('change');
 
       // Quill Editor Initialization While Edit
-      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 1) {
+      if ($(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).length > 0) {
         $(`.${challengeType}-${challengeParameters}-div .question-wysiwyg-editor`).each(function (index) {
           if ($(this).hasClass('display-editor')) {
             $(this).show();
             $(`.${challengeType}-${challengeParameters}-div .question-box${$(this).data('editor-identifire')} .non-wysiwyg-field`).hide();
             new Quill(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`, toolbar);
+            $(`.question-wysiwyg-editor${$(this).data('editor-identifire')}`).css('display', 'block');
           }
         });
       }
@@ -694,7 +705,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  // Wizard Step 1 Chalenge Type Selection Changes
+  // Wizard Step 1 Challenge Type Selection Changes
   $('.challenge-type-list').on('click', function (e) {
     $('.add-challenge-form').trigger("reset");
     $('.challenge-type-list.active').removeClass('active');
@@ -852,7 +863,6 @@ $(document).on('turbolinks:load', function () {
 
   // Change Social Title Value
   $('.social-title-txt').focusout(function () {
-    console.log("$(this).val()", $(this).val())
     $('#challenge_social_title').val($(this).val());
   });
 
@@ -1716,6 +1726,18 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  // Remove Question Image Option With Validation
+  $('body').on('click', '.image_cross_js', function (e) {
+    var options = $(this).parents().eq(5).find('.que_edit').length
+
+    if (options > 2) {
+      $(this).parents().eq(4).remove();
+      manageOptionSequence();
+    } else {
+      swalNotify('Remove Option', 'You can not remove all options, Atleast one option needed.');
+    }
+  });
+
   // Add New Option to a Question
   $('body').on('click', '.add-challenge-option', function (e) {
     var firstOption = $(this).parent().parent().parent().find('.que_edit').first()
@@ -1736,6 +1758,7 @@ $(document).on('turbolinks:load', function () {
 
     // Set New Name to Option
     var optIdentifire = qOption.data('option-identifire');
+
     var oldIdent = `data-option-identifire="${optIdentifire}"`
     var newIdent = `data-option-identifire="${optionCounter}"`
     optionHtml = optionHtml.replace(oldIdent, newIdent);
@@ -1755,13 +1778,53 @@ $(document).on('turbolinks:load', function () {
     var newSeqName = `[question_options_attributes][${optionCounter}][sequence]`
     optionHtml = optionHtml.replace(oldSeqName, newSeqName);
 
-    // Remove Default Seelcted Answer Checkbox
+    // Set New Option Identifire to Image Option
+    var oldImgName = `[question_options_attributes][${optIdentifire}][image]`
+    var newImgName = `[question_options_attributes][${optionCounter}][image]`
+    optionHtml = optionHtml.replace(oldImgName, newImgName);
+
+    // Set New Option Identifire to Image
+    var oldImageForName = `for="file-upload${optIdentifire}"`
+    var newImageForName = `for="file-upload${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageForName, newImageForName);
+
+    var oldImageIdName = `id="file-upload${optIdentifire}"`
+    var newImageIdName = `id="file-upload${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
+
+    // Set New Option Identifire to Image
+    var oldImageForName = `for="file-upload-${optIdentifire}"`
+    var newImageForName = `for="file-upload-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageForName, newImageForName);
+
+    var oldImageIdName = `id="file-upload-${optIdentifire}"`
+    var newImageIdName = `id="file-upload-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageIdName, newImageIdName);
+
+    var oldImageOptionErrorClassName = `class="image-option-error image-option-error-${optIdentifire}"`
+    var newImageOptionErrorClassName = `class="image-option-error image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionErrorClassName, newImageOptionErrorClassName);
+
+    var oldImageOptionDataErrorClassName = `error="image-option-error-${optIdentifire}"`
+    var newImageOptionDataErrorClassName = `error="image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionDataErrorClassName, newImageOptionDataErrorClassName);
+
+    var oldImageOptionDataErrorClassName = `error="image-option-error-${optIdentifire}"`
+    var newImageOptionDataErrorClassName = `error="image-option-error-${optionCounter}"`
+    optionHtml = optionHtml.replace(oldImageOptionDataErrorClassName, newImageOptionDataErrorClassName);
+
+    // Remove Default Selected Answer Checkbox
     optionHtml = optionHtml.replace('checked="checked"', '');
 
     // optionHtml.replace(optIdentifire, optionCounter);
     // var lastThirty = optName.substr(optName.length - 30);
 
-    $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    // $('<div class="que_edit">' + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    var new_element = $(`<div class="${$(this).parent().parent().parent().find('.que_edit:nth-child(2)').attr('class')}">` + optionHtml + '</div>').insertBefore($(this).parent().parent());
+    new_element.find('.social_img_show').attr('src', '');
+    new_element.find('.social_img_show_bg').css("background-image", "url('#')");
+    new_element.find(`.image-option-error-${optionCounter}`).html('');
+    new_element.find('.image-uploader-control').addClass('always-validate');
 
     autoSelectText();
     addOptionValidations();
@@ -1779,6 +1842,14 @@ $(document).on('turbolinks:load', function () {
     $(this).prop('checked', true);
   });
 
+  // Check Uncheck Image Question Answer
+  $('body').on('change', '.image-answer-field', function (e) {
+    $(this).parent().parent().parent().parent().find('input:checkbox').prop('checked', false);
+    $(this).parent().parent().parent().parent().find('input:checkbox').attr('checked', false);
+    $(this).parent().parent().parent().parent().find('input:checkbox').removeAttr('checked');
+    $(this).prop('checked', true);
+  });
+
   // Manage Sorted Question Sequence
   function manageQuestionSequence() {
     let challengeType = $('#challenge_challenge_type').val();
@@ -1791,6 +1862,7 @@ $(document).on('turbolinks:load', function () {
 
   // Sort Questions
   $('.questions-container').sortable({
+    handle: 'i.drag_option',
     update: function (event, ui) {
       manageQuestionSequence();
     }
@@ -1832,4 +1904,27 @@ $(document).on('turbolinks:load', function () {
 
   // Sort Question Options
   enableSortingForOptions();
+
+  // Show Image Preview after Image Selection
+  $('body').on('change', '.image-uploader-control', function () {
+    var _this = $(this);
+
+    if (this.files && this.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        var elem = _this.parent().parent().parent().find('.social_img_show');
+        elem.attr('src', e.target.result);
+        // elem.css('visibility', 'visible');
+
+        var elemBg = _this.parent().parent().parent().find('.social_img_show_bg');
+        elemBg.css("background-image", "url(" + e.target.result + ")");
+
+        // var social_img = _this.parent().parent().parent().find('.social_image');
+        // social_img.css('z-index', -1);
+      }
+
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
 });

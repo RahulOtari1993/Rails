@@ -554,7 +554,6 @@ $(document).on('turbolinks:load', function () {
   // Add Validations on Already Exists User Segments
   setTimeout(function () {
     var ids = $('.reward-existing-filter-ids').data('ids');
-    console.log("IDS", ids)
     if (ids) {
       ids.forEach(function (segmentId) {
         addRewardValidations(segmentId)
@@ -595,14 +594,14 @@ $(document).on('turbolinks:load', function () {
   };
 
   // Quill Editor for reward description details
-  if($('.reward-description-editor').length > 0){
+  if ($('.reward-description-editor').length) {
     new Quill('.reward-description-editor', toolbar);
   }
-  if($('.reward-redemption-editor').length > 0){
-    // Quill Editor for reward redemption details
+
+  // Quill Editor for reward redemption details
+  if ($('.reward-redemption-editor').length) {
     new Quill('.reward-redemption-editor', toolbar);
   }
-
 
   // Add Form Details of Quill Editor to Campaign Form Fields
   $('.reward-form').on('submit', function () {

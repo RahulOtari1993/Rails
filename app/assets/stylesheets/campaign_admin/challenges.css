@@ -972,4 +972,127 @@
   transition: none;
 }
 
+
+/* Image upload css start */
+
+.social_image_box .image-upload {
+  height: 0px;
+}
+
+.social_image_box .image-upload input[type=file] {
+  display: none !important;
+}
+
+.social_image_box .social_img_show {
+  min-width: 100%;
+  min-height: 130px;
+  width: 100%;
+  position: relative;
+  visibility: hidden;
+  /* background-color: #ccc;*/
+}
+
+.social_image_box .social_image {
+  position: absolute;
+  top: 33%;
+  left: 36%;
+  height: 38px;
+  width: 47px;
+}
+
+.social_image_box .img_circle_icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 20px;
+}
+
+.social_image_box .form-control {
+  background-color: transparent !important;
+  border-radius: 0px !important;
+  position: relative;
+  top: -30px;
+  text-align: center;
+}
+
+.social_image_box .form-control:focus {
+  border-color: transparent !important;
+  outline: 0;
+  box-shadow: none !important;
+  border: 0px !important;
+}
+
+.image_cross_box {
+  display: none;
+  position: absolute;
+  top: 40%;
+  left: 70%;
+  z-index: 9999;
+}
+
+.image_cross_box .fa {
+  font-size: 15px;
+  margin-right: 5px;
+}
+
+.social_image_box:hover .image_cross_box {
+  display: block;
+}
+
+.que_edit .image-drag {
+  margin-top: -1px !important;
+}
+
+.que_edit .image-drag, .que_edit .drag_option, .move-question-container .drag_option {
+  cursor: move;
+  font-size: 22px;
+}
+
+.que_edit .que_edit_cross, .que_edit .image_cross_js {
+  cursor: pointer;
+}
+
+.border-dashed {
+  border: 1px dashed #00CFE8 !important;
+}
+
+.social_image_box .icon-plus-circle {
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.social_image_box {
+  margin-bottom: 1.2rem;
+}
+
+.image-uploader-option-answer-container {
+  margin-bottom: 15px;
+  left: 27%;
+}
+
+.image-upload-container {
+  cursor: pointer;
+}
+
+.social_image_box {
+  padding-bottom: 35px !important;
+}
+
+.social_image_box .form-control {
+  background-color: transparent !important;
+  border-radius: 0px !important;
+  position: relative;
+  top: 0px;
+  text-align: center;
+}
+
+.social_img_show_bg {
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

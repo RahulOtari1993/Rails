@@ -397,3 +397,15 @@ body {
   }
 
 }
+
+.multiple_img_box .img_box {
+  border: 1px solid #ccc;
+  padding: 7px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.multiple_img_box .img_box img {
+  width: 100%;
+  height: auto;
+}

@@ -25,7 +25,7 @@ class Question < ApplicationRecord
   ## ENUM
   enum category: {profile: 0, survey: 1, quiz: 2}
   enum answer_type: {string: 0, text_area: 1, boolean: 2, date: 3, time: 4, date_time: 5, number: 6, decimal: 7,
-                     radio_button: 8, check_box: 9, wysiwyg: 10, dropdown: 11}
+                     radio_button: 8, check_box: 9, wysiwyg: 10, dropdown: 11, image_radio_button: 12, image_check_box: 13}
 
   ## Nested Attributes
   accepts_nested_attributes_for :question_options, allow_destroy: true, :reject_if => :all_blank

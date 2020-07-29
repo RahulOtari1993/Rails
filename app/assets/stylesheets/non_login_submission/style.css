@@ -768,3 +768,23 @@ create_lib.css, line no-218
 .ql-editor img {
   width: 100% !important;
 }
+
+.multiple_img_box .img_box {
+  border: 1px solid #ccc;
+  padding: 7px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.multiple_img_box .img_box img {
+  width: 100%;
+  height: auto;
+}
+
+.social_img_show_bg {
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

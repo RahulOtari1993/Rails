@@ -112,7 +112,7 @@ class Participants::SubmissionsController < ApplicationController
         temp_hash.merge!(campaign_id: @campaign.id, participant_id: @participant.id, result: result)
         temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
         participant_answer_params << temp_hash
-      elsif question.answer_type == "radio_button" && participant_answer_hash[:question_option_id].present?
+      elsif (question.answer_type == "radio_button" || question.answer_type == "image_radio_button") && participant_answer_hash[:question_option_id].present?
         ## build hashes having multiple answers for radio buttons & checkboxes
         participant_answer_hash[:question_option_id].each do |option_id|
           temp_hash = participant_answer_hash.as_json
@@ -156,7 +156,8 @@ class Participants::SubmissionsController < ApplicationController
         participant_answer_params << temp_hash
       elsif question.present? && answer_hash[:answer].present? &&
           (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
-              question.answer_type == "dropdown" || question.answer_type == "boolean")
+              question.answer_type == "dropdown" || question.answer_type == "boolean" ||
+              question.answer_type == "image_radio_button" || question.answer_type == "image_check_box")
 
         answer_hash[:answer].each do |option_id|
           dup_hash = temp_hash.clone
