@@ -117,7 +117,7 @@
                                 <% question.question_options.each do |option| %>
                                   <div class="col-md-4 text-center">
                                     <div class="img_box">
-                                      <img src="<%= option.image.url %>">
+                                      <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
                                     </div>
                                     <%= radio_button_tag "questions[#{question.id}][answer][]", option.id,
                                                          (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
@@ -140,7 +140,7 @@
                                 <% question.question_options.each do |option| %>
                                   <div class="col-md-4 text-center">
                                     <div class="img_box">
-                                      <img src="<%= option.image.url %>">
+                                      <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
                                     </div>
                                     <%= check_box_tag "questions[#{question.id}][answer][]", option.id, (@survey_submitted ? fetch_question_answered_value(question, option.id) : false),
                                                       id: "questions_#{question.id}_answer_#{option.id}",

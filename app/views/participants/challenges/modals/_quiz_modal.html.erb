@@ -61,7 +61,7 @@
                                 <% question_options.each do |option| %>
                                   <div class="col-md-4 text-center">
                                     <div class="img_box">
-                                      <img src="<%= option.image.url %>">
+                                      <div class="social_img_show_bg" style="background-image: url('<%= option.image.url %>')"></div>
                                     </div>
                                     <%= radio_button_tag "questions[#{question.id}][question_option_id][]",
                                                          option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),

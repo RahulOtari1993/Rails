@@ -780,3 +780,11 @@ create_lib.css, line no-218
   width: 100%;
   height: auto;
 }
+
+.social_img_show_bg {
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -629,3 +629,11 @@ span.error {
     color: #FF0000;
 }
 /* User Logged In Homepage Design css end */
+
+.social_img_show_bg {
+  height: 130px;
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
