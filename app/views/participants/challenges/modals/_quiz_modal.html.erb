@@ -67,14 +67,14 @@
                                                          option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id) : false),
                                                          id: "questions_#{question.id}_answer_#{option.id}",
                                                          class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
-                                                         data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
+                                                         data: {error: "image-radio-button-error-#{index}"}, disabled: @quiz_submitted %>
                                     <label class="radio-label" for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
                                   </div>
                                 <% end %>
                               </div>
                             </div>
                           </div>
-                          <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                          <div class="custom-error-class image-radio-button-error-<%= index %>"></div>
                         </div>
                       <% end %>
 

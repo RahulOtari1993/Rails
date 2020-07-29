@@ -30,7 +30,8 @@
                       <% when 'radio_button' then %>
                         <% question_options.each do |option| %>
                           <div>
-                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]", option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
+                            <%= radio_button_tag "questions[#{question.id}][question_option_id][]",
+                                                 option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
                                                  id: "questions_#{question.id}_answer_#{option.id}",
                                                  class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                                  data: {error: "radio-button-error-#{index}"}, disabled: @quiz_submitted %>
@@ -38,6 +39,29 @@
                           </div>
                         <% end %>
                         <div class="custom-error-class radio-button-error-<%= index %>"></div>
+                      <% when 'image_radio_button' then %>
+                        <div class="form-group">
+                          <div>
+                            <div class="container p-0 multiple_img_box">
+                              <div class="row">
+                                <% question_options.each do |option| %>
+                                  <div class="col-md-4 text-center">
+                                    <div class="img_box">
+                                      <img src="<%= option.image.url %>">
+                                    </div>
+                                    <%= radio_button_tag "questions[#{question.id}][question_option_id][]",
+                                                         option.id, (@quiz_submitted ? fetch_question_answered_value(question, option.id, @participant) : false),
+                                                         id: "questions_#{question.id}_answer_#{option.id}",
+                                                         class: "answer-radio-button #{answer_required('answer-radio-button', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
+                                                         data: {error: "image-radio-button-error-#{index}"}, disabled: @quiz_submitted %>
+                                    <label class="radio-label" for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
+                                  </div>
+                                <% end %>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="custom-error-class image-radio-button-error-<%= index %>"></div>
+                        </div>
                       <% when 'wysiwyg' then %>
                         <% if question_options.first.details.present? %>
                           <p><%= raw(question_options.first.details).html_safe rescue nil %></p> <!-- Todo -->
