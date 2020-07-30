@@ -147,7 +147,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
         participant_ids.each do |participant_id|
           participant = Participant.find(participant_id)
           ## process the service to claim reward and participate action entries
-          reward_service = RewardsService.new(participant.id, @reward.id, request)
+          reward_service = RewardsService.new(participant.id, @reward.id, request, current_visit)
           response = reward_service.process
         end
         message = 'Coupon successfully assigned to selected participants'

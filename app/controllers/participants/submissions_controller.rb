@@ -205,12 +205,12 @@ class Participants::SubmissionsController < ApplicationController
                                                  action_type: action_type, title: title, details: @challenge.caption,
                                                  actionable_id: @challenge.id, actionable_type: @challenge.class.name,
                                                  user_agent: request.user_agent, ip_address: request.ip,
-                                                 campaign_id: @challenge.campaign_id)
+                                                 campaign_id: @challenge.campaign_id, ahoy_visit_id: current_visit.id)
       participant_action.save!
 
       ## Claim the reward after successfull submission of challenge for reward type
       if @challenge.reward_type == 'prize' && !re_submission
-        reward_service = RewardsService.new(@participant.id, @challenge.reward_id, request)
+        reward_service = RewardsService.new(@participant.id, @challenge.reward_id, request, current_visit)
         @response = reward_service.process
       end
 

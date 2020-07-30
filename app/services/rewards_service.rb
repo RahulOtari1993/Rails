@@ -1,9 +1,10 @@
 class RewardsService
-  def initialize(participant_id, reward_id = nil, request = nil)
+  def initialize(participant_id, reward_id = nil, request = nil, visit = nil)
     @participant = Participant.where(id: participant_id).first
     @campaign = @participant.present? ? @participant.campaign : nil
     @reward = @campaign.rewards.where(id: reward_id).first rescue nil
     @request = request
+    @visit = visit
   end
 
   ## Process Rewards for Participant Eligibility
@@ -47,7 +48,7 @@ class RewardsService
                                                              action_type: 'claim_reward', title: 'Won a Milestone Reward',
                                                              details: reward.name, actionable_id: reward.id,
                                                              actionable_type: reward.class.name, coupon: coupon.try(:code),
-                                                             campaign_id: @participant.campaign_id)
+                                                             campaign_id: @participant.campaign_id, ahoy_visit_id: @visit.try(:id))
                   participant_action.save!
 
                   ## Assign Bonus Points to Participant if Available
@@ -92,7 +93,7 @@ class RewardsService
       participant_action = ParticipantAction.new(participant_id: @participant.id, points: @reward.points,
                              action_type: 'claim_reward', title: title, details: @reward.name,
                              actionable_id: @reward.id, actionable_type: @reward.class.name,coupon: @coupon.try(:code),
-                             user_agent: @request.try(:user_agent), ip_address: @request.try(:ip), campaign_id: @participant.campaign_id)
+                             user_agent: @request.try(:user_agent), ip_address: @request.try(:ip), campaign_id: @participant.campaign_id, ahoy_visit_id: @visit.try(:id))
       participant_action.save!
 
       ## Assign Bonus Points to Participant if Available except instant reward type

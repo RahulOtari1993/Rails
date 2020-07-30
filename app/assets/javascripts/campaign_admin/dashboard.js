@@ -58,7 +58,7 @@ $(document).ready(function () {
   var shareLineChart = new ApexCharts(document.querySelector("#share-per-day-line-chart"), lineChartOptionsForShares);
   shareLineChart.render();
 
-  // Getting Data For Graphs & Charts And Updating Them 
+  // Getting Data For Graphs & Charts And Updating Them
   var campaignId = $('#gender-pie-chart').attr('campaign_id');
   if (campaignId != undefined) {
     var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_chart_graph";
@@ -245,37 +245,35 @@ $(document).ready(function () {
   var connectedPlatformBarChart = new ApexCharts(document.querySelector("#connected-platform-bar-chart"), connectedPlatformBarChartOptions);
   connectedPlatformBarChart.render();
 
+
   // Google Geo-Chart For Users By Location
-  google.charts.load('current', {
-    'packages':['geochart'],
-    // Note: you will need to get a mapsApiKey for your project.
-    // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
-    'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
-  });
-  google.charts.setOnLoadCallback(drawChartForUsers);
+  var campaignId = $('#user-by-location-geo-chart').attr('campaign_id');
+  if (campaignId != undefined) {
+    var url = "/admin/campaigns/" + campaignId + "/users/get_data_for_geochart_map";
+    $.getJSON(url, function(response) {
 
-  function drawChartForUsers() {
-    var data = google.visualization.arrayToDataTable([
-      ['Country', 'Users'],
-      ['Germany', 200],
-      ['USA', 300],
-      ['Brazil', 400],
-      ['Canada', 500],
-      ['France', 600],
-      ['Italy', 125],
-      ['China', 323],
-      ['Russia', 725],
-      ['Japan', 425],
-      ['Hong Kong', 99],
-      ['Australia', 289],
-      ['New Zealand', 255]
-    ]);
+      google.charts.load('current', {
+        'packages':['geochart'],
+        // Note: you will need to get a mapsApiKey for your project.
+        // See: https://developers.google.com/chart/interactive/docs/basic_load_libs#load-settings
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+      });
+      google.charts.setOnLoadCallback(drawRegionsMap);
 
-    var options = {
-      backgroundColor: '#262C49'
-    };
+      function drawRegionsMap() {
+        var data = google.visualization.arrayToDataTable(response);
 
-    var chartForUsers = new google.visualization.GeoChart(document.getElementById('user-by-location-geo-chart'));
-    chartForUsers.draw(data, options);
+        var options = {
+          region: 'US',
+          displayMode: 'regions',
+          resolution: 'provinces',
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('user-by-location-geo-chart'));
+        chart.draw(data, options);
+      }
+
+    });
   }
+
 });
