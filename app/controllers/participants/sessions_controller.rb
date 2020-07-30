@@ -5,7 +5,7 @@ class Participants::SessionsController < Devise::SessionsController
   before_action :configure_sign_in_params, only: [:create]
   after_action :after_login, :only => :create
   skip_before_action :verify_authenticity_token
-  
+
   ## Configure End User Layout
   # layout 'end_user'
 
@@ -45,7 +45,7 @@ class Participants::SessionsController < Devise::SessionsController
   def after_login
     log = ParticipantAction.new({participant_id: resource.id, points: 0, action_type: 'sign_in',
                                  title: 'Signed in', user_agent: request.user_agent, ip_address: request.remote_ip,
-                                 campaign_id: resource.campaign_id})
+                                 campaign_id: resource.campaign_id, ahoy_visit_id: current_visit.id})
     log.save
   end
 end

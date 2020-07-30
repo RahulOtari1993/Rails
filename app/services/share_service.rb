@@ -96,7 +96,8 @@ class ShareService
         action_type: 'recruit',
         title: 'Recruit Sign Up',
         ip_address: visit.ip,
-        campaign_id: challenge.campaign_id
+        campaign_id: challenge.campaign_id,
+        ahoy_visit_id: visit.id
       })
       if action.errors.empty?
         challenge.update_attribute(:completions, challenge.completions+1)
