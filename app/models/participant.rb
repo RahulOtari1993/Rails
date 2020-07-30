@@ -507,7 +507,8 @@ class Participant < ApplicationRecord
       gender = []
       gender << participants.where(gender: 'male').count
       gender << participants.where(gender: 'female').count
-      gender << participants.where.not(gender: ['male', 'female']).or(Participant.where(gender: nil)).count
+      gender << participants.where.not(gender: ['male', 'female']).where.not(id: Participant.where(gender: nil).pluck(:id)).count
+      gender << participants.where(id: Participant.where(gender: nil).pluck(:id)).count
     end
 
     # For Age Breakdown

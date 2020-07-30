@@ -139,8 +139,8 @@ $(document).ready(function () {
       height: 350
     },
     colors: themeColors,
-    labels: ['Other', 'Female', 'Male'],
-    series: [45,12,34],
+    labels: ['Male', 'Female', 'Gender Diverse', 'No Answer'],
+    series: [45,12,34,12],
     legend: {
       itemMargin: {
         horizontal: 2
