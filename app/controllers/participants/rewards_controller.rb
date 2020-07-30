@@ -14,7 +14,7 @@ class Participants::RewardsController < ApplicationController
     ## check reward and available quantity
     if @reward.present? && (@reward.limit.to_i > @reward.claims)
       ## process the service to claim reward and participate action entries
-      reward_service = RewardsService.new(current_participant.id, @reward.id, request)
+      reward_service = RewardsService.new(current_participant.id, @reward.id, request, current_visit)
       response = reward_service.process
     else
       response = {success: false, message: 'Reward not found, Please contact administrator.'}

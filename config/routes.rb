@@ -121,6 +121,7 @@ Rails.application.routes.draw do
               get '/fetch_participants', to: 'participants#fetch_participants'
               get '/participants', to: 'participants#participants'
               get '/get_data_for_chart_graph', to: 'participants#get_data_for_chart_graph'
+              get '/get_data_for_geochart_map', to: 'participants#get_data_for_geochart_map'
             end
             member do
               get '/users', to: 'participants#users'

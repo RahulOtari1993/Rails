@@ -121,6 +121,24 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     render json: data
   end
 
+  # Getting Data For GeoChart graph
+  def get_data_for_geochart_map
+    statewise_visits_data = {'State' => 'Select'}.merge!(US_STATES_LIST)
+    ahoy_visit_ids = []
+
+    grouped_actions  =  @campaign.participant_actions.where.not(ahoy_visit_id: nil).sort.group_by(&:participant_id)
+    grouped_actions.each do |participant_id, actions|
+      ahoy_visit_ids << actions.last.ahoy_visit_id
+    end
+
+    participant_visits = Ahoy::Visit.where(id: ahoy_visit_ids, country: 'US').group_by(&:region)
+    participant_visits.each do |region, visits|
+      statewise_visits_data[region] = visits.length
+    end
+
+    render json: statewise_visits_data.to_a
+  end
+
   # Getting Activities Feed List
   def activities_list
     actions = @participant.participant_actions
