@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class Participants::SessionsController < Devise::SessionsController
+  protect_from_forgery prepend: true, with: :exception
   before_action :configure_sign_in_params, only: [:create]
   after_action :after_login, :only => :create
-  skip_before_action :verify_authenticity_token, if: -> { Rails.env.development? } # was getting token error on email login
+  skip_before_action :verify_authenticity_token
+  
   ## Configure End User Layout
   # layout 'end_user'
 
