@@ -42,6 +42,7 @@
 //= require libraries/scripts/charts/geo-charts/loader
 
 //= require jquery.minicolors
+//= require moment
 //= require ../campaign_admin
 //= require campaign_admin/dashboard
 //= require campaign_admin/challenges

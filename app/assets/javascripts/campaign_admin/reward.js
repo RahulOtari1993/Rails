@@ -309,10 +309,8 @@ $(document).on('turbolinks:load', function () {
 
   // Format Date
   function formatDate(date) {
-    let dateObj = new Date(date);
-    return ("0" + (dateObj.getMonth() + 1)).slice(-2) + '/' +
-        ("0" + (dateObj.getDate())).slice(-2) +
-        '/' + dateObj.getFullYear()
+    dateObj = new moment(date).utc().format('MM/DD/YYYY');
+    return dateObj;
   }
 
   // Make First Letter of a string in Capitalize format
