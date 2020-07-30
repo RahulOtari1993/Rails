@@ -241,8 +241,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_214616) do
     t.string "failed_message"
     t.integer "correct_answer_count"
     t.integer "completions", default: 0
-    t.boolean "use_short_url", default: false, null: false
     t.string "identifier"
+    t.boolean "use_short_url", default: false, null: false
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
