@@ -123,12 +123,20 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
   # Getting Data For GeoChart graph
   def get_data_for_geochart_map
-    grouped_actions  =  @campaign.participant_actions.where.not(ahoy_visit_id: [nil, '']).sort.group_by(&:participant_id)
-    data = [
-              ['State', 'Select'], ['US-AL', 1], ['US-AK', 2], ['US-AR', 3], ['US-AK', 4], ['US-AZ', 5], ['US-Colorado', 6], ['US-CO', 7], ['US-DE', 8], ['US-FL', 9], ['US-HI', 10], ['US-KS', 11], ['US-KY', 12], ['US-MI', 13], ['US-MO', 14], ['US-MS', 15], ['US-MT', 16], ['US-NE', 18], ['US-NJ', 17], ['US-NM', 19], ['US-NY', 20], ['US-OR', 21], ['US-PA', 22], ['US-TX', 23], ['US-UT', 24], ['US-VA', 25], ['US-WA', 26], ['US-WV', 27], ['US-WY', 28]
-           ]
+    statewise_visits_data = {'State' => 'Select'}.merge!(US_STATES_LIST)
+    ahoy_visit_ids = []
 
-    render json: data
+    grouped_actions  =  @campaign.participant_actions.where.not(ahoy_visit_id: nil).sort.group_by(&:participant_id)
+    grouped_actions.each do |participant_id, actions|
+      ahoy_visit_ids << actions.last.ahoy_visit_id
+    end
+
+    participant_visits = Ahoy::Visit.where(id: ahoy_visit_ids, country: 'US').group_by(&:region)
+    participant_visits.each do |region, visits|
+      statewise_visits_data[region] = visits.length
+    end
+
+    render json: statewise_visits_data.to_a
   end
 
   # Getting Activities Feed List
