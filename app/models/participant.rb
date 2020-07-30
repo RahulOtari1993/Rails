@@ -358,50 +358,7 @@ class Participant < ApplicationRecord
     end
   end
 
-  ## Facebook Account Connect
-  def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
-    org = Organization.where(id: params['oi']).first rescue nil
-    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
-    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
-
-    if participant.present?
-      participant.facebook_uid = auth.uid
-      participant.facebook_token = auth.credentials.token
-      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
-
-      if participant.save(:validate => false)
-        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'facebook')
-        participant
-      else
-        Participant.new
-      end
-    else
-      Participant.new
-    end
-  end
-
-  ## Twitter Account Connect
-  def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
-    org = Organization.where(id: params['oi']).first rescue nil
-    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
-    participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
-
-    if participant.present?
-      participant.twitter_uid = auth.uid
-      participant.twitter_token = auth.credentials.token
-      participant.twitter_secret = auth.credentials.token
-
-      if participant.save(:validate => false)
-        participant.connect_challenge_completed(user_agent, remote_ip, 'connect', 'twitter')
-        participant
-      else
-        Participant.new
-      end
-    else
-      Participant.new
-    end
-  end
-
+  ## Generate Unique Participant ID
   def self.get_participant_id
     new_id = SecureRandom.hex (6)
     p_id = self.where(p_id: new_id.upcase)
@@ -469,10 +426,13 @@ class Participant < ApplicationRecord
 
     filters.each do |key, value|
       if key == 'gender' && value.present?
-        value.each do |c_type|
-          gender << c_type
+        value.each_with_index do |c_type, index|
+          if index == 0
+            query = query + " AND #{gender_value c_type}"
+          else
+            query = query + " OR #{gender_value c_type}"
+          end
         end
-        query = query + ' AND gender IN (:gender)'
       elsif key == 'tags' && value.present?
         value.each do |tag|
           tags_query = tags_query + " AND EXISTS (SELECT * FROM taggings WHERE taggings.taggable_id = participants.id AND taggings.taggable_type = 'Participant'" +
@@ -503,6 +463,19 @@ class Participant < ApplicationRecord
       address.join(', ')
     else
       ''
+    end
+  end
+
+  ## Creating gender Filter Query
+  def self.gender_value gender_type
+    if gender_type == 'male'
+      "LOWER(gender) = 'male'"
+    elsif gender_type == 'female'
+      "LOWER(gender) = 'female'"
+    elsif gender_type == 'gender_diverse'
+      "(NOT LOWER(gender) = 'male' AND NOT LOWER(gender) = 'female')"
+    else
+      "(LOWER(gender) IS NULL OR LOWER(gender) = '')"
     end
   end
 
