@@ -495,9 +495,12 @@ class Participant < ApplicationRecord
     return participants
   end
 
+  ## Generate Full Address of a Participant
   def full_address
     if address_1.present? || address_2.present? || city.present? || state.present? || postal.present?
-      [address_1, address_2, city, state, postal].join(', ')
+      address = [address_1, address_2, city, state, postal].compact
+      address = address.reject { |c| c.empty? }
+      address.join(', ')
     else
       ''
     end
