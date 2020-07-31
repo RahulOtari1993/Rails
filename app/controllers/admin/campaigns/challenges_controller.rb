@@ -223,8 +223,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     end_date = params[:challenge][:finish].empty? ? generate_end_date : params[:challenge][:finish]
 
     ## Convert Start & Finish Details in DateTime Object
-    return_params[:start] = Chronic.parse(params[:challenge][:start]).utc
-    return_params[:finish] = Chronic.parse(end_date).utc
+    return_params[:start] = Chronic.parse(params[:challenge][:start])
+    return_params[:finish] = Chronic.parse(end_date)
 
     ## Manage Reward Type Details
     return_params[:reward_id] = nil if params[:challenge][:reward_type] == 'points' && params[:challenge][:points].present?

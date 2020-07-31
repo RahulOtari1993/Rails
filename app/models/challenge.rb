@@ -94,7 +94,7 @@ class Challenge < ApplicationRecord
   ## Scopes
   # scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
-  scope :current_active, -> { where("is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
+  scope :current_active, -> { where("is_approved = true AND start <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
 
   scope :referral_default_challenge, -> { where(challenge_type: 'referral').where(parameters: :custom).where(is_approved: true) }
   scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
@@ -143,13 +143,13 @@ class Challenge < ApplicationRecord
 
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
-    Rails.logger.info "***** Challenge: #{self.id} - #{Time.zone.now} *****"
-    Rails.logger.info "***** Local: #{Time.zone.now.localtime} *****"
-    Rails.logger.info "***** Start: #{self.start}, End: #{self.finish} *****"
+    Rails.logger.info "**** Challenge: #{self.id} - #{Time.zone.now} ****"
+    Rails.logger.info "**** Local: #{Time.zone.now.localtime} ****"
+    Rails.logger.info "**** Start: #{self.start}, End: #{self.finish} ****"
 
-    if is_approved && self.start.in_time_zone(self.timezone) > Time.zone.now.in_time_zone(self.timezone)
+    if is_approved && (self.start.to_i - Time.now.in_time_zone(self.timezone).utc_offset) > Time.now.in_time_zone(self.timezone).to_i
       'scheduled'
-    elsif is_approved && self.finish.in_time_zone(self.timezone) < Time.zone.now.in_time_zone(self.timezone)
+    elsif is_approved && (self.start.to_i - Time.now.in_time_zone(self.timezone).utc_offset) < Time.now.in_time_zone(self.timezone).to_i
       'ended'
     elsif is_approved
       'active'
@@ -206,14 +206,14 @@ class Challenge < ApplicationRecord
             status_query = " #{keyword} (is_approved = false)"
           elsif val == 'active'
             status_query = status_query +
-                " #{keyword} is_approved = true AND start AT TIME ZONE timezone <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
+                " #{keyword} is_approved = true AND start <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
 
             ## Back up
             # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
             # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
           elsif val == 'scheduled'
             status_query = status_query +
-                " #{keyword} is_approved = true AND start AT TIME ZONE timezone > timezone(timezone,now())"
+                " #{keyword} is_approved = true AND start > timezone(timezone,now())"
 
             ## Back up
             # # status_query = status_query + " #{keyword} (is_approved = true AND start > convert_tz('#{current_utc_time}', 'UTC', timezone))"
@@ -223,7 +223,7 @@ class Challenge < ApplicationRecord
             # scheduled_keyword = Time.now.in_time_zone(self.timezone).to_i
           elsif val == 'ended'
             status_query = status_query +
-                " #{keyword} is_approved = true AND finish AT TIME ZONE timezone < timezone(timezone,now())"
+                " #{keyword} is_approved = true AND finish < timezone(timezone,now())"
 
             ## Back up
             # status_query = status_query + " #{keyword} (is_approved = true AND finish > convert_tz('#{current_utc_time}', 'UTC', timezone))"
