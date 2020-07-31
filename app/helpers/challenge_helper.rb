@@ -122,12 +122,12 @@ module ChallengeHelper
 
   ## Set Challenge Start Date
   def start_date
-    new_record? ? '' : @challenge.start.strftime('%m/%d/%Y')
+    new_record? ? '' : @challenge.start.in_time_zone(@challenge.timezone).strftime('%m/%d/%Y')
   end
 
   ## Set Challenge Start Time
   def start_time
-    new_record? ? '' : @challenge.start.strftime('%I:%M %p')
+    new_record? ? '' : @challenge.start.in_time_zone(@challenge.timezone).strftime('%I:%M %p')
   end
 
   ## Set Challenge Finish Date
@@ -135,7 +135,7 @@ module ChallengeHelper
     if new_record?
       ''
     else
-      @challenge.finish.present? ? @challenge.finish.strftime('%m/%d/%Y') : ''
+      @challenge.finish.present? ? @challenge.finish.in_time_zone(@challenge.timezone).strftime('%m/%d/%Y') : ''
     end
   end
 
@@ -144,7 +144,7 @@ module ChallengeHelper
     if new_record?
       ''
     else
-      @challenge.finish.present? ? @challenge.finish.strftime('%I:%M %p') : ''
+      @challenge.finish.present? ? @challenge.finish.in_time_zone(@challenge.timezone).strftime('%I:%M %p') : ''
     end
   end
 
