@@ -149,7 +149,7 @@ class Challenge < ApplicationRecord
 
     if is_approved && (self.start.to_i - Time.now.in_time_zone(self.timezone).utc_offset) > Time.now.in_time_zone(self.timezone).to_i
       'scheduled'
-    elsif is_approved && (self.start.to_i - Time.now.in_time_zone(self.timezone).utc_offset) < Time.now.in_time_zone(self.timezone).to_i
+    elsif is_approved && (self.finish.to_i - Time.now.in_time_zone(self.timezone).utc_offset) < Time.now.in_time_zone(self.timezone).to_i
       'ended'
     elsif is_approved
       'active'
