@@ -144,6 +144,7 @@ class Challenge < ApplicationRecord
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
     Rails.logger.info "***** Challenge: #{self.id} - #{Time.zone.now} *****"
+    Rails.logger.info "***** Local: #{Time.zone.now.localtime} *****"
     Rails.logger.info "***** Start: #{self.start}, End: #{self.finish} *****"
     if is_approved && self.start > Time.zone.now.in_time_zone(self.timezone)
       'scheduled'
