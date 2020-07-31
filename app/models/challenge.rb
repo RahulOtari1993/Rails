@@ -146,9 +146,10 @@ class Challenge < ApplicationRecord
     Rails.logger.info "***** Challenge: #{self.id} - #{Time.zone.now} *****"
     Rails.logger.info "***** Local: #{Time.zone.now.localtime} *****"
     Rails.logger.info "***** Start: #{self.start}, End: #{self.finish} *****"
-    if is_approved && self.start > Time.zone.now.in_time_zone(self.timezone)
+
+    if is_approved && self.start.in_time_zone(self.timezone) > Time.zone.now.in_time_zone(self.timezone)
       'scheduled'
-    elsif is_approved && self.finish < Time.zone.now.in_time_zone(self.timezone)
+    elsif is_approved && self.finish.in_time_zone(self.timezone) < Time.zone.now.in_time_zone(self.timezone)
       'ended'
     elsif is_approved
       'active'
