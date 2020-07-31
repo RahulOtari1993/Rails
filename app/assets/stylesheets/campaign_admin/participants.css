@@ -2,6 +2,7 @@
 #note-list-table_info {
   color: white;
 }
+
 .participant-name {
   color: #7367f0 !important;
 }
@@ -54,6 +55,14 @@
 
 .participant_section .modal-body h6 {
   margin-bottom: 3px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+}
+
+.participant_section .modal-body .lifetime-points-container {
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .participant_section .fa-facebook {
@@ -94,7 +103,7 @@
   font-size: 25px;
   font-weight: 700;
   letter-spacing: 1px;
-  min-height: 60px;
+  min-height: 90px;
 }
 
 .gradient_btn_box p {
@@ -412,4 +421,18 @@ table.dataTable thead tr {
 
 table.note-list-view thead tr {
   display: none;
+}
+
+.profile_modal_body {
+  padding-top: 35px;
+  border-radius: 10px;
+}
+
+.profile_modal_close_btn {
+  margin-top: -25px;
+  font-size: 30px;
+}
+
+.gradient_btn_box .btn-three {
+  font-size: 32px;
 }

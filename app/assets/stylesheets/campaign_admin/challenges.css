@@ -626,6 +626,10 @@
 
 .gradient_btn_box h6 {
   margin-top: 6px;
+  margin-bottom: 3px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.3px;
 }
 
 .challenge_section .modal_tab {
@@ -1092,6 +1096,22 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.user-targetted {
+  font-size: 10px;
+}
+
+.gradient_btn_box .btn-two {
+  font-size: 37px;
+}
+
+.gradient_btn_box .counter-btn {
+  min-height: 90px;
+}
+
+.gradient_btn_box .last-two-h6 {
+  margin-top: 15px;
 }
 
 /* Image upload css end */
