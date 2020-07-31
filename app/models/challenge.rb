@@ -143,9 +143,9 @@ class Challenge < ApplicationRecord
 
   ## Check Status of a Challenge [Draft, Active, Scheduled, Ended]
   def status
-    if is_approved && self.start > Time.now.in_time_zone(self.timezone)
+    if is_approved && self.start.in_time_zone(self.timezone) > Time.zone.now.in_time_zone(self.timezone)
       'scheduled'
-    elsif is_approved && self.finish < Time.now.in_time_zone(self.timezone)
+    elsif is_approved && self.finish.in_time_zone(self.timezone) < Time.zone.now.in_time_zone(self.timezone)
       'ended'
     elsif is_approved
       'active'
