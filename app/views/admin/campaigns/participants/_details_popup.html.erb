@@ -1,16 +1,10 @@
 <div class="modal fade text-left" id="participant-details-popup" tabindex="-1" role="dialog" aria-labelledby="participant-details-popup" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-width" role="document">
-    <div class="modal-content">
-      <div class="modal-header white">
-        <h6 class="modal-title">
-          <span style="visibility: hidden;"><%= @participant.full_name %></span>
-        </h6>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-content" style="border-radius: 50px !important;">
+      <div class="modal-body profile_modal_body">
+        <button type="button" class="close profile_modal_close_btn" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-
-      <div class="modal-body profile_modal_body">
         <h4 class="participant-name-container" data-participant-id="<%= @participant.id %>"
             data-campaign-id="<%= @participant.campaign_id %>" style="display: none;">
         </h4>
@@ -128,29 +122,34 @@
               <div class="form-group text-center">
                 <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">
                   <%= @participant.unused_points %>
-                  <p><span><%= @participant.points %></span> lifetime</p>
+                  <p class="lifetime-points-container"><span><%= @participant.points %></span> lifetime</p>
+
+                  <h6>Current Points</h6>
                 </button>
-                <h6>Current Points</h6>
               </div>
             </div>
             <div class="col-md-3 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">
+                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light btn-three">
                   <%= @participant.completed_challenges %>
+                  <h6>Challenges Completed</h6>
                 </button>
-                <h6>Challenges Completed</h6>
               </div>
             </div>
             <div class="col-md-3 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-warning mr-1 btn-block waves-effect waves-light">74</button>
-                <h6>Total Content Shares</h6>
+                <button type="button" class="btn bg-gradient-warning mr-1 btn-block waves-effect waves-light btn-three">
+                  7,400
+                  <h6>Total Content Shares</h6>
+                </button>
               </div>
             </div>
             <div class="col-md-3 pr-0 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light">2,209</button>
-                <h6>Total Clicks from Shares</h6>
+                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light btn-three">
+                  20,209
+                  <h6>Total Clicks from Shares</h6>
+                </button>
               </div>
             </div>
           </div>

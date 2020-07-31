@@ -70,27 +70,27 @@
           <div class="row gradient_btn_box">
             <div class="col-md-4 pl-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light">
+                <button type="button" class="btn bg-gradient-primary mr-1  btn-block waves-effect waves-light counter-btn">
                   <%= @challenge.completions %>
-                  <p><span><%= targeted_users_percentage %>%</span> of user targeted</p>
+                  <p class="user-targetted"><span><%= targeted_users_percentage %>%</span> of user targeted</p>
+                  <h6>Total Completions</h6>
                 </button>
-                <h6>Total Completions</h6>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light">
+                <button type="button" class="btn bg-gradient-info mr-1 btn-block waves-effect waves-light btn-two counter-btn">
                   <%= @challenge.clicks.to_i %>
+                  <h6 class="last-two-h6">Clicks Generated</h6>
                 </button>
-                <h6>Clicks Generated</h6>
               </div>
             </div>
             <div class="col-md-4 pr-0">
               <div class="form-group text-center">
-                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light">
+                <button type="button" class="btn bg-gradient-success mr-1 btn-block waves-effect waves-light btn-two counter-btn">
                   <%= @challenge.earned_points %>
+                  <h6 class="last-two-h6">Points Earned By Users</h6>
                 </button>
-                <h6>Points Earned By Users</h6>
               </div>
             </div>
           </div>

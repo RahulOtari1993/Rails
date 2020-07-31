@@ -29,8 +29,8 @@ $(document).on('turbolinks:load', function () {
     headerTag: "h6",
     bodyTag: "fieldset",
     transitionEffect: "fade",
-    // enableKeyNavigation: false,
-    suppressPaginationOnFocus: false,
+    enableKeyNavigation: false,
+    // suppressPaginationOnFocus: true,
     titleTemplate: '<span class="step">#index#</span> #title#',
     labels: {
       finish: 'Submit'
@@ -41,27 +41,14 @@ $(document).on('turbolinks:load', function () {
       // }
     },
     onStepChanging: function (event, currentIndex, newIndex) {
-      console.log("currentIndex", currentIndex);
+      // Disable Key Navigations for Quill Editor
+      $('body').on('keydown', '.ql-editor', function (e) {
+        let key = e.key; // Fetch the Key Event
 
-      $("body").on("keydown", ".challenge-wizard", function (e) {
-        let key = e.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-        console.log("key", key);
         if (key == "ArrowRight" || key == "ArrowLeft") {
-          console.log("IN IF");
           return false;
-          // e.preventDefault();// Disable Next and previous
         }
       });
-
-      // $('.challenge-wizard').on('keyDown', function(event) {
-      //   console.log("IN IN IN")
-      //     let key = event.key; // "ArrowRight", "ArrowLeft", "ArrowUp", or "ArrowDown"
-      //     console.log("key", key);
-      //     if (key == "ArrowRight" || key == "ArrowLeft") {
-      //       event.preventDefault();// Disable Next and previous
-      //     }
-      //   });
-
 
       // Always allow previous action even if the current form is not valid!
       if ($('.new_challenge_section').data('form-type') == 'edit') {
