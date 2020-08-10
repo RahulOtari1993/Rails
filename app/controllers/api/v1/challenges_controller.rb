@@ -1,4 +1,5 @@
 class Api::V1::ChallengesController < Api::V1::BaseController
+  skip_before_action :authenticate_participant!, :only => :connect_challenges
   before_action :set_current_participant, only: [:index, :show], if: -> { @campaign.present? }
 
   ## Fetch All Challenges of a Campaign
