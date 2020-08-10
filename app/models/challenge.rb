@@ -163,7 +163,7 @@ class Challenge < ApplicationRecord
 
     if options.has_key?(:type) && options[:type] == 'one'
       ## Include Questions & It's Options in JSON Response
-      question_list = questions.as_json(include_options: false)
+      question_list = questions.as_json(include_options: true)
 
       ## Encrypt in URI Format & Pass in URL
       crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials[Rails.env.to_sym][:encryption_key])
