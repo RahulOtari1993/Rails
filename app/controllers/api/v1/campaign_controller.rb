@@ -1,4 +1,5 @@
 class Api::V1::CampaignController < Api::V1::BaseController
+  skip_before_action :authenticate_participant!, :only => :content
 
   ## Fetch Campaign Content Based on Params
   def content
