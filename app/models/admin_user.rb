@@ -21,9 +21,9 @@
 #
 class AdminUser < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable, :omniauthable and :recoverable,
   devise :database_authenticatable,
-         :recoverable, :rememberable, :validatable, :trackable
+          :rememberable, :validatable, :trackable
 
   ## Validations
   validates :first_name, :last_name, :email, presence: true
