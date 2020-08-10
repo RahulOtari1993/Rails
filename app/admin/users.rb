@@ -4,7 +4,7 @@ ActiveAdmin.register User do
 
   permit_params :first_name, :last_name, :email, :is_active, :organization_id, :is_invited, :invited_by_id, :role
 
-  index do
+  index :download_links => false do
     selectable_column
     id_column
     column :first_name

@@ -1,7 +1,7 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation, :first_name, :last_name, :is_active
 
-  index do
+  index :download_links => false do
     selectable_column
     id_column
     column :first_name

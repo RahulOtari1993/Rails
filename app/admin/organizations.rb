@@ -2,7 +2,7 @@ ActiveAdmin.register Organization do
 
   permit_params :name, :sub_domain, :admin_user_id, :is_active
 
-  index do
+  index :download_links => false do
     selectable_column
     id_column
     column :name

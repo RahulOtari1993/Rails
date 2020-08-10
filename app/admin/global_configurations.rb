@@ -4,7 +4,7 @@ ActiveAdmin.register GlobalConfiguration do
 
   permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret
 
-  index do
+  index :download_links => false do
     selectable_column
     id_column
     column :facebook_app_id
