@@ -199,3 +199,64 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  var startDate = '<%= @start_date %>'
+  var chartData = []
+
+  <% @chart_json.each do |val| %>
+  chartData.push([parseInt('<%= val[0] %>'), parseInt('<%= val[1] %>')]);
+  <% end %>
+
+  var options = {
+    series: [{
+      name: 'Shares Per Day',
+      data: chartData
+    }],
+    chart: {
+      id: 'share-per-day-line-chart',
+      type: 'line',
+      height: 270,
+      toolbar: {
+        show: false
+      },
+    },
+    title: {
+      // text: 'Shares Per Day',
+      align: 'left'
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'],
+        opacity: 0.5
+      },
+    },
+    xaxis: {
+      type: 'datetime',
+      min: new Date(startDate).getTime()
+    },
+    yaxis: [
+      {
+        labels: {
+          formatter: function(val) {
+            return val.toFixed(0);
+          }
+        }
+      }
+    ],
+    tooltip: {
+      x: {
+        format: 'dd MMM yyyy'
+      }
+    }
+  };
+
+  var insightLineChart = new ApexCharts(document.querySelector('#share-per-day-line-chart'), options);
+  insightLineChart.render();
+</script>

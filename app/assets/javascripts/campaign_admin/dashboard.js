@@ -14,50 +14,6 @@ $(document).ready(function () {
     yaxis_opposite = true;
   }
 
-  // Line-Chart For Shares Per day
-  // ----------------------------------
-  var lineChartOptionsForShares = {
-    chart: {
-      height: 350,
-      type: 'line',
-      zoom: {
-        enabled: false
-      }
-    },
-    colors: themeColors,
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      curve: 'straight'
-    },
-    series: [{
-      name: "Shares",
-      data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
-    }],
-    title: {
-      text: 'Shares',
-      align: 'left'
-    },
-    grid: {
-      row: {
-        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-        opacity: 0.5
-      },
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      minValue: 0,
-      maxValue: 160
-    },
-    yaxis: {
-      tickAmount: 10,
-      opposite: yaxis_opposite
-    }
-  }
-  var shareLineChart = new ApexCharts(document.querySelector("#share-per-day-line-chart"), lineChartOptionsForShares);
-  shareLineChart.render();
-
   // Getting Data For Graphs & Charts And Updating Them
   var campaignId = $('#gender-pie-chart').attr('campaign_id');
   if (campaignId != undefined) {

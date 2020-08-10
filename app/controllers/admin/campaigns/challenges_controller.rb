@@ -92,7 +92,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     @chart_json = []
     @start_date = @challenge.start.strftime('%d %b %Y')
     if @participants.present?
-      details = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
+      details = Submission.where(challenge_id: @challenge.id)
                     .select("COUNT(submissions.id) as submission, DATE(submissions.created_at) as creation").group('DATE(submissions.created_at)')
 
       details.each do |val|
