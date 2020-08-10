@@ -9,7 +9,10 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
           (sign_up_attributes[:provider] == 'facebook' || sign_up_attributes[:provider] == 'google')
 
         ## Only Allow Active & Opted Out Participants to Connect via Social Accounts
-        render_inactive_auth_error and return unless (@resource.present? && @resource.active_for_authentication?)
+        if @resource.present?
+          render_inactive_auth_error and return unless @resource.active_for_authentication?
+        end
+
 
         unless @resource.present?
           @resource = resource_class.new(email: sign_up_attributes[:email])
