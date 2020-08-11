@@ -35,7 +35,7 @@ class Question < ApplicationRecord
     response = super
     if options.has_key?(:include_options) && options[:include_options] == true
       ## Include Question Options in Response
-      response = super.merge({ :option => question_options.as_json })
+      response = super.merge({ :options => question_options.as_json })
     end
 
     response
