@@ -1,5 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  before_action :check_availability, only: [:new]
 
   # GET /resource/sign_in
   # def new
@@ -17,6 +18,35 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   protected
+
+  def check_availability
+    domain = request.domain
+    sub_domain = request.subdomain
+
+    ## Check whether to Check with Domain or Sub Domain
+    if sub_domain.empty? && domain.present?
+      @domain = DomainList.where(domain: domain).first
+    elsif sub_domain.present? && domain.present?
+      @domain = DomainList.where(domain: sub_domain).first
+    end
+
+    if @domain.present?
+      @organization = Organization.active.where(id: @domain.organization_id).first
+      @campaign = Campaign.active.where(id: @domain.campaign_id).first
+
+      unless @campaign.present?
+        redirect_to not_found_path
+      end
+    else
+      @organization = Organization.active.where(sub_domain: request.subdomain).first
+    end
+
+    unless @organization.present?
+      unless request.path.start_with?( '/onboarding')
+        redirect_to not_found_path
+      end
+    end
+  end
 
   def set_organization
     @domain = DomainList.where(domain: request.subdomain).first

@@ -12,10 +12,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :get_open_graph
 
-  def not_found
-    render plain: "Not found.", status: 404
-  end
-
   def set_organization
     domain = request.domain
     sub_domain = request.subdomain
@@ -32,7 +28,6 @@ class ApplicationController < ActionController::Base
       @campaign = Campaign.active.where(id: @domain.campaign_id).first
 
       unless @campaign.present?
-        ## TODO: Campaign Not Found Page Redirection
         redirect_to not_found_path
       end
     else
