@@ -42,6 +42,7 @@
                           <div class="col-12">
                             <div class="form-group">
                               <%= f.label :name, 'Reward Name' %>
+                              <%= f.hidden_field :is_active, class: "form-control description-txt-area", value: true %>
                               <span class="column-info">Enter your reward name. Remember to keep it short and appealing. This name displays on reward tiles and descriptions to users.</span>
                               <div class="position-relative">
                                 <%= f.text_field :name, id: 'first-name-icon', class: "form-control", required: true %>

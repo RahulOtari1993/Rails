@@ -4,7 +4,7 @@ class Admin::Campaigns::DashboardController < Admin::Campaigns::BaseController
     challenges = @campaign.challenges
     c_ids = challenges.pluck(:id)
 
-    @start_date = challenges.minimum(:start).strftime('%d %b %Y')
+    @start_date = challenges.minimum(:start).strftime('%d %b %Y') rescue Time.now.strftime('%d %b %Y')
     @chart_json = []
     if challenges.present?
       details = ParticipantAction.where(actionable_type: 'Challenge', actionable_id: c_ids, action_type: 8)
