@@ -41,7 +41,7 @@ module Devise
         domain = DomainList.where(domain: request.subdomain).first
         campaign = nil
         if domain.present?
-          organization = Organization.where(id: domain.organization_id).first
+          organization = Organization.active.where(id: domain.organization_id).first
           campaign = Campaign.active.where(id: domain.campaign_id).first
 
           if (organization.present? && campaign.present?)

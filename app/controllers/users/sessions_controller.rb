@@ -21,10 +21,10 @@ class Users::SessionsController < Devise::SessionsController
   def set_organization
     @domain = DomainList.where(domain: request.subdomain).first
     if @domain.present?
-      @organization = Organization.where(id: @domain.organization_id).first
+      @organization = Organization.active.where(id: @domain.organization_id).first
       @campaign = Campaign.active.where(id: @domain.campaign_id).first
     else
-      @organization = Organization.where(sub_domain: request.subdomain).first
+      @organization = Organization.active.where(sub_domain: request.subdomain).first
     end
   end
 

@@ -28,11 +28,18 @@ class ApplicationController < ActionController::Base
     end
 
     if @domain.present?
-      @organization = Organization.where(id: @domain.organization_id).first
+      @organization = Organization.active.where(id: @domain.organization_id).first
       @campaign = Campaign.active.where(id: @domain.campaign_id).first
+
+      unless @campaign.present?
+        ## TODO: Campaign Not Found Page Redirection
+        binding.pry
+      end
     else
-      @organization = Organization.where(sub_domain: request.subdomain).first
+      @organization = Organization.active.where(sub_domain: request.subdomain).first
     end
+
+    binding.pry
 
     unless @organization.present?
       # TODO: Org Not Found Page Redirection

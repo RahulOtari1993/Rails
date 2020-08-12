@@ -33,7 +33,7 @@ module Devise
 
       ## CHeck if USer do Have Access on Sub Domain
       def check_subdomain_access(resource)
-        organization = Organization.where(sub_domain: request.subdomain).first
+        organization = Organization.active.where(sub_domain: request.subdomain).first
 
         # domain = DomainList.where(domain: request.subdomain).first
         # campaign = nil

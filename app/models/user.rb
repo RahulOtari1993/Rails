@@ -139,7 +139,7 @@ class User < ApplicationRecord
 
   ## Facebook Account Connect for Campaign user
   def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', u_id = nil)
-    org = Organization.where(id: params['oi']).first rescue nil
+    org = Organization.active.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     user = User.where(organization_id: org.try(:id), id: u_id).first
 

@@ -1,6 +1,6 @@
 class FacebookSocialFeedService
   def initialize(org_id, campaign_id,  network_id)
-    @organization = Organization.find(org_id) rescue nil
+    @organization = Organization.active.find(org_id) rescue nil
     @campaign = @organization.campaigns.where(id: campaign_id).first rescue nil
     @network = @campaign.newtorks.where(id: network_id) rescue nil
   end

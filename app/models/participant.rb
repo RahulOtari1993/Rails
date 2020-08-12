@@ -214,7 +214,7 @@ class Participant < ApplicationRecord
 
   ## Facebook OmniAuth
   def self.facebook_omniauth(auth, params, user_agent = '', remote_ip = '')
-    org = Organization.where(id: params['oi']).first rescue nil
+    org = Organization.active.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth['uid']).first
 
@@ -264,7 +264,7 @@ class Participant < ApplicationRecord
 
   ## Google OmniAuth
   def self.google_omniauth(auth, params, user_agent = '', remote_ip = '')
-    org = Organization.where(id: params['oi']).first rescue nil
+    org = Organization.active.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
 
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, google_uid: auth['uid']).first
@@ -316,7 +316,7 @@ class Participant < ApplicationRecord
 
   ## Facebook Account Connect
   def self.facebook_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
-    org = Organization.where(id: params['oi']).first rescue nil
+    org = Organization.active.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
 
@@ -338,7 +338,7 @@ class Participant < ApplicationRecord
 
   ## Twitter Account Connect
   def self.twitter_connect(auth, params, user_agent = '', remote_ip = '', p_id = nil)
-    org = Organization.where(id: params['oi']).first rescue nil
+    org = Organization.active.where(id: params['oi']).first rescue nil
     camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
     participant = Participant.where(organization_id: org.id, campaign_id: camp.id, id: p_id).first
 
