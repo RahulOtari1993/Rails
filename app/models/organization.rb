@@ -56,7 +56,7 @@ class Organization < ApplicationRecord
   end
 
   ## Scope
-  default_scope { where(is_deleted: false) }
+  # default_scope { where(is_deleted: false) }
   scope :active, -> { where(is_active: true) }
 
   ## Callbacks

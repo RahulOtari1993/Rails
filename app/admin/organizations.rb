@@ -65,6 +65,11 @@ ActiveAdmin.register Organization do
 
     def destroy
       resource.update!(is_deleted: true, deleted_by: current_admin_user.id, is_active: false)
+      resource.campaigns.each do |campaign|
+        campaign.update(is_active: false)
+        campaign.campaign_deactivation
+      end
+
       redirect_to onboarding_organizations_path
     end
   end
