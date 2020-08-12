@@ -59,7 +59,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
 
 
   def reward_export
-    @reward = Reward.find(params[:reward_id])
+    @reward = @campaign.rewards.find(params[:reward_id])
 
     ## Generate the csv of the results
     results = CSV.generate do |csv|

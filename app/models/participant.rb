@@ -372,7 +372,7 @@ class Participant < ApplicationRecord
   ## Check If Participant Completed SignUp Challenge & Assign Point
   def connect_challenge_completed(user_agent = '', remote_ip = '', connect_type = '', platform = '')
     ## Fetch the Campaign
-    campaign = Campaign.where(id: self.campaign_id).first
+    campaign = Campaign.active.where(id: self.campaign_id).first
     if campaign.present?
       ## Fetch the Challenge (Facebook, Google, Email)
       platform = (platform.present? && connect_type == 'connect') ? platform : self.connect_type

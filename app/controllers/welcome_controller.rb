@@ -30,7 +30,7 @@ class WelcomeController < ApplicationController
 
   def home
     if request.referrer.include?('/admin/campaigns/') && request.referrer.last(4).to_s == 'edit'
-      @campaign = Campaign.where(id: params[:c_id]).first
+      @campaign = Campaign.active.where(id: params[:c_id]).first
       @challenges = @campaign.challenges.featured.current_active.where.not(challenge_type: ['signup', 'connect'])
       @rewards = @campaign.rewards.featured.current_active
     end

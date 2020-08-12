@@ -38,11 +38,11 @@
             <div class="clear"></div>
             <% end %>
 
-            <%# if email_button.present? %>
+            <% if email_button.present? %>
               <button type="button" class="btn box1_btn email_btn btn-block" id="signin_with_email">
                 <i class="fa fa-paper-plane connect-social-icon" aria-hidden="true"></i> Login With Email
               </button>
-            <%# end %>
+            <% end %>
 
             <% if facebook_button.present? || google_button.present? || email_button.present? %>
               <p class="box1_para terms-details">By continuing, I agree to the <span style="text-decoration: underline;">

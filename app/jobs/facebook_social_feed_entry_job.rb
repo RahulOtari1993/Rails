@@ -2,7 +2,7 @@ class FacebookSocialFeedEntryJob
 
   ## Fetch Facebook feeds for all campaigns
   def perform(arg)
-    Campaign.all each do |campaign|
+    Campaign.active.each do |campaign|
       Rails.logger.info "******** Facebook social feed entry job for Campaign: #{campaign.name} -- Start ********"
       networks = campaign.newtorks.where(platform: 0).current_active.sort
       unless networks.blank?

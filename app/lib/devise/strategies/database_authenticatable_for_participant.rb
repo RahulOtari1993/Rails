@@ -42,7 +42,7 @@ module Devise
         campaign = nil
         if domain.present?
           organization = Organization.where(id: domain.organization_id).first
-          campaign = Campaign.where(id: domain.campaign_id).first
+          campaign = Campaign.active.where(id: domain.campaign_id).first
 
           if (organization.present? && campaign.present?)
 

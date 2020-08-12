@@ -64,6 +64,9 @@ class Campaign < ApplicationRecord
     self.domain.downcase!
   end
 
+  ## Scopes
+  scope :active, -> { where(is_active: true) }
+
   ## Validations
   validates :name, :domain, :organization_id, :domain_type, presence: true
   validates_exclusion_of :domain, in: Organization::EXCLUDED_SUBDOMAINS,
@@ -119,5 +122,20 @@ class Campaign < ApplicationRecord
   def create_email_settings
     email_settings = EmailSettingService.new(self.id)
     email_settings.process
+  end
+
+  ## Campaign De-Activation
+  def campaign_deactivation
+    puts "campaign_deactivation"
+
+    ## Disable Challenges
+    challenges.update_all(is_approved: false)
+    # has_many :challenges, dependent: :destroy
+
+    ## Disable Rewards
+    rewards.update_all(is_active: false)
+
+    ## Disable Participants
+    participants.update_all(status: 0)
   end
 end

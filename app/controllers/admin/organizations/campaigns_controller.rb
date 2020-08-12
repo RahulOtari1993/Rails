@@ -39,7 +39,10 @@ class Admin::Organizations::CampaignsController < Admin::Organizations::BaseCont
   end
 
   def deactivate
-    @campaign.update(is_active: false) if @campaign.present?
+    if @campaign.present?
+      @campaign.update(is_active: false)
+      @campaign.campaign_deactivation
+    end
   end
 
   private
@@ -50,7 +53,7 @@ class Admin::Organizations::CampaignsController < Admin::Organizations::BaseCont
   end
 
   def set_campaign
-    @campaign = Campaign.where(id: params[:id]).first
+    @campaign = Campaign.active.where(id: params[:id]).first
   end
 
   def is_admin

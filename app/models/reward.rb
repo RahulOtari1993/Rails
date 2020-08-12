@@ -68,7 +68,7 @@ class Reward < ApplicationRecord
   FULFILMENTS = %w[default badge points download]
 
   ## Scopes
-  scope :active, -> { where("finish > ?", Time.zone.now) }
+  scope :active, -> { where("finish > ? AND is_active = true", Time.zone.now) }
 
   validates :campaign, presence: true
   validates :name, presence: true

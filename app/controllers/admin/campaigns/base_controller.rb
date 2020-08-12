@@ -14,7 +14,7 @@ class Admin::Campaigns::BaseController < ApplicationController
 
   ## Set Campaign & Template
   def set_details
-    @campaign = Campaign.where(id: params[:campaign_id]).first
+    @campaign = Campaign.active.where(id: params[:campaign_id]).first
     @template = @campaign.campaign_template_detail if @campaign.present?
     @config = @campaign.campaign_config if @campaign.present?
   end

@@ -1,6 +1,6 @@
 class EmailSettingService
   def initialize(campaign_id)
-    @campaign = Campaign.find(campaign_id)
+    @campaign = Campaign.active.find(campaign_id)
   end
 
   ## Create Email Settings for campaign
