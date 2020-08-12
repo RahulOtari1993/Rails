@@ -1,16 +1,3 @@
-/*================================================================================
-	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
-	Version: 2.0
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
-================================================================================
-
-NOTE:
-------
-PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
-WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
-
-
 .challenge_section .modal .modal-header .modal-title {
   text-transform: uppercase !important;
   color: #FFFFFF;
@@ -123,6 +110,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   padding: 0 !important;
   margin-top: -14px;
 }
+
 .challenge_section .modal-body .nav-item .nav-link.active, .challenge_section .modal-body .nav-item .nav-link:hover {
   color: #fff !important;
 }
@@ -353,4 +341,36 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 .border_design .form_title {
   margin-bottom: 8px;
+}
+
+.loginpage-background {
+  background-image: url(http://perk2020.kinsta.cloud/wp-content/uploads/2020/08/Perk-Polygons-Background.svg);
+  background-size: auto;
+  background-repeat: repeat;
+  background-position: center center;
+  width: 100%;
+  height: 100vh;
+}
+
+.loginpage-background-overlay {
+  background-color: transparent;
+  background-image: linear-gradient(160deg, #00EBFF 0%, #4841E8 100%);
+  opacity: 0.90;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.logo-img {
+  max-width: 83%;
+}
+
+.login-image-container {
+  min-width: 400px;
+}
+
+body.dark-layout .bg-authentication {
+  background-color: #10163A;
 }
