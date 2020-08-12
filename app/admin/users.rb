@@ -10,6 +10,8 @@ ActiveAdmin.register User do
     column :first_name
     column :last_name
     column :email
+    column :is_active
+    column :is_deleted
     column :created_at
     actions
   end
@@ -45,6 +47,10 @@ ActiveAdmin.register User do
     def update_resource(object, attributes)
       update_method = attributes.first[:password].present? ? :update_attributes : :update_without_password
       object.send(update_method, *attributes)
+    end
+
+    def destroy
+      resource.update!(is_deleted: true, deleted_by: current_admin_user.id, is_active: false)
     end
   end
 end
