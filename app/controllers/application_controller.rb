@@ -40,13 +40,10 @@ class ApplicationController < ActionController::Base
     end
 
     unless @organization.present?
-      redirect_to not_found_path
-      # TODO: Org Not Found Page Redirection
-      # flash[:error] = "Unknown Organization: #{request.subdomain}"
-      # redirect_to(request.referrer || root_path)
+      unless request.path.start_with?( '/onboarding')
+        redirect_to not_found_path
+      end
     end
-    # rescue ActiveRecord::RecordNotFound
-    # raise ActionController::RoutingError.new("Unknown Organization: #{request.subdomain}")
   end
 
   def get_open_graph challenge
