@@ -94,7 +94,7 @@ class Challenge < ApplicationRecord
   ## Scopes
   # scope :scheduled, -> { where(self.start.in_time_zone(self.timezone) > Time.now.in_time_zone(self.timezone)) }
   scope :featured, -> { where(arel_table[:feature].eq(true)) }
-  scope :current_active, -> { where("is_approved = true AND start <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())") }
+  scope :current_active, -> { where("is_approved = true AND start <= timezone(timezone,now()) AND finish >= timezone(timezone,now())") }
 
   scope :referral_default_challenge, -> { where(challenge_type: 'referral').where(parameters: :custom).where(is_approved: true) }
   scope :referral_social_challenges, -> { where(challenge_type: 'referral').where.not(parameters: :custom).where(is_approved: true) }
@@ -202,7 +202,7 @@ class Challenge < ApplicationRecord
             status_query = " #{keyword} (is_approved = false)"
           elsif val == 'active'
             status_query = status_query +
-                " #{keyword} is_approved = true AND start <= timezone(timezone,now()) AND finish AT TIME ZONE timezone >= timezone(timezone,now())"
+                " #{keyword} is_approved = true AND start <= timezone(timezone,now()) AND finish >= timezone(timezone,now())"
 
             ## Back up
             # status_query = status_query + " #{keyword} (is_approved = true AND start <= convert_tz('#{current_utc_time}', 'UTC', timezone) AND finish >= convert_tz('#{current_utc_time}', 'UTC', timezone))"
