@@ -138,4 +138,20 @@ class Campaign < ApplicationRecord
     ## Disable Participants
     participants.update_all(status: 0)
   end
+
+  ## Campaign Re-Activation
+  def campaign_reactivation
+    puts "campaign_reactivation"
+
+    ## Disable Challenges
+    challenges.update_all(is_approved: true)
+    # has_many :challenges, dependent: :destroy
+
+    ## Disable Rewards
+    rewards.update_all(is_active: true)
+
+    ## Disable Participants
+    participants.update_all(status: 1)
+  end
+
 end

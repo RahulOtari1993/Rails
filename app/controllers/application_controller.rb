@@ -33,15 +33,14 @@ class ApplicationController < ActionController::Base
 
       unless @campaign.present?
         ## TODO: Campaign Not Found Page Redirection
-        binding.pry
+        redirect_to not_found_path
       end
     else
       @organization = Organization.active.where(sub_domain: request.subdomain).first
     end
 
-    binding.pry
-
     unless @organization.present?
+      redirect_to not_found_path
       # TODO: Org Not Found Page Redirection
       # flash[:error] = "Unknown Organization: #{request.subdomain}"
       # redirect_to(request.referrer || root_path)

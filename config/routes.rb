@@ -236,4 +236,6 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get 'not_found' => 'welcome#not_found'
 end
