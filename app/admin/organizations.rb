@@ -65,10 +65,15 @@ ActiveAdmin.register Organization do
 
     def destroy
       resource.update!(is_deleted: true, deleted_by: current_admin_user.id, is_active: false)
+
+      ## Disable All Campaign & It's Challenges, Rewards & Participants
       resource.campaigns.each do |campaign|
         campaign.update(is_active: false)
         campaign.campaign_deactivation
       end
+
+      ## Disable Org Admins
+      resource.users.update_all(is_active: false)
 
       redirect_to onboarding_organizations_path
     end
