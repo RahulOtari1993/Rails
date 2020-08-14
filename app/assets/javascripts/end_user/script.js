@@ -1,6 +1,6 @@
 $(document).on('turbolinks:load', function () {
-  // Fadeout Alert Message
-  $('.alert').fadeOut(3000);
+  // Auto Hide Flash Message after 7 Seconds
+  $('.alert').delay(7000).slideUp(300);
 
   // Close Popup Modal
   $('.modal-close-btn').click(function () {
