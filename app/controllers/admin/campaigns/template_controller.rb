@@ -5,6 +5,7 @@ class Admin::Campaigns::TemplateController < Admin::Campaigns::BaseController
   end
 
   def update
+    build_template_design_params
     respond_to do |format|
       if @template_details.update(template_params)
         format.html { redirect_to edit_admin_campaign_template_path(@campaign, @template_details),
@@ -24,11 +25,21 @@ class Admin::Campaigns::TemplateController < Admin::Campaigns::BaseController
     params.require(:campaign_template_detail).permit(:favicon_file, :footer_background_color, :footer_font_color,
                                                      :footer_font_size, :header_background_image, :header_logo, :header_text,
                                                      :header_description, :header_font_color, :header_font_size,
-                                                     :header_description_font_size, :header_description_font_color)
+                                                     :header_description_font_size, :header_description_font_color, :element_css_style => {})
   end
 
   ## Set Template
   def set_template
     @template_details = CampaignTemplateDetail.where(id: params[:id]).first
+  end
+
+  ## build elementory design params
+  def build_template_design_params
+    temp_hash = params[:campaign_template_detail][:element_css_style]
+
+    ## remove null hashes
+    temp_hash.each do |key, items|
+      items.delete_if { |item| item["value"].blank? }
+    end
   end
 end

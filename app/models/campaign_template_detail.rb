@@ -28,4 +28,6 @@ class CampaignTemplateDetail < ApplicationRecord
   mount_uploader :header_logo, ImageUploader
   mount_uploader :favicon_file, ImageUploader
 
+  serialize :element_css_style, Hash
+
 end
