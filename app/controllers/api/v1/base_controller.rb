@@ -6,6 +6,7 @@ class Api::V1::BaseController < ApplicationController
   rescue_from Rack::Timeout::RequestTimeoutError, Rack::Timeout::RequestExpiryError,
               Rack::Timeout::RequestTimeoutException, :with => :handle_timeout
 
+  before_action :validate_app_version
   before_action :authenticate_participant!
 
   ## Custom Authentication Error Message
