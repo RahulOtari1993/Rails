@@ -5,7 +5,7 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
     begin
       param_hash = sign_in_params
       validate_params param_hash
-      render_params_error unless validate_params param_hash
+      render_params_error and return unless validate_params param_hash
 
       @resource = resource_class.where(organization_id: @organization.id, campaign_id: @campaign.id, email: param_hash[:email]).first
 
