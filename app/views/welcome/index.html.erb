@@ -10,8 +10,10 @@
             <%= image_tag("end-user/reward.svg", class: "title_icon") %>
           </div>
           <div class="width_63">
-            <h3>Earn Points</h3>
-            <p>The <span class="bold_red">more you earn</span> the more you can win!</p>
+            <!-- <h3>Earn Points</h3> -->
+            <h3 class="custom_h3">Earn Points</h3>
+            <!-- <p>The <span class="bold_red">more you earn</span> the more you can win!</p> -->
+            <p class="sub_para">The <span class="bold_red">more you earn</span> the more you can win!</p>
           </div>
         </div>
       </div>
@@ -40,8 +42,8 @@
             <%= image_tag("end-user/reward.svg", class: "title_icon") %>
           </div>
           <div class="width_63">
-            <h3>Current Rewards</h3>
-            <p>It's <span class="bold_red">rewarding</span> to stay connected</p>
+            <h3 class="custom_h3">Current Rewards</h3>
+            <p class="sub_para">It's <span class="bold_red">rewarding</span> to stay connected</p>
           </div>
         </div>
       </div>
@@ -57,16 +59,17 @@
                 </div>
                 <div class="clear"></div>
                 <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
-                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
-                <h5><%= reward.description %></h5>
+                <h2 class="image_box_title mt-0 mb-3"><%= reward.name %></h2>
+                <!-- <h5><%#= reward.description %></h5> -->
+                <p class="current_prizes_text"><%= reward.name %></p>
                 <div class="width_100">
                   <div class="width_50" style="float: left;">
                     <% if current_participant %>
                       <%# unless coupon_claimed(reward) %>
-                        <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                        <button class="red_fill_btn btn_transition reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
                       <%# end %>
                     <% else %>
-                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Claim</button>
+                      <button class="red_fill_btn btn_transition" data-toggle="modal" data-target="#join_now_modal">Claim</button>
                     <% end %>
                   </div>
                   <div class="width_50" style="float: right;">
@@ -94,8 +97,8 @@
             <%= image_tag("end-user/reward.svg", class: "title_icon") %>
           </div>
           <div class="width_63">
-            <h3>My Rewards</h3>
-            <p>All of the <span class="bold_red"> rewards you have earned</span></p>
+            <h3 class="custom_h3">My Rewards</h3>
+            <p class="sub_para">All of the <span class="bold_red"> rewards you have earned</span></p>
           </div>
         </div>
       </div>
@@ -111,14 +114,16 @@
                 </div>
                 <div class="clear"></div>
                 <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
-                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
-                <h5><%= reward.description %></h5>
+                <h2 class="image_box_title mt-0 mb-3"><%= reward.name %></h2>
+                <!-- <h5><%#= reward.description %></h5> -->
+                <p class="current_prizes_text"><%= reward.description %></p>
+
                 <div class="width_100">
                   <div class="width_50" style="float: left;">
                     <% if current_participant %>
-                      <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Learn More</button>
+                      <button class="red_fill_btn btn_transition reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Learn More</button>
                     <% else %>
-                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Learn More</button>
+                      <button class="red_fill_btn btn_transition" data-toggle="modal" data-target="#join_now_modal">Learn More</button>
                     <% end %>
                   </div>
                   <div class="width_50" style="float: right;">
@@ -142,11 +147,11 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-lg-9">
-          <h4 class="text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
+          <h4 class="custom_h4 text-white" style="font-weight:900;">The sooner the join, the better your chances!</h4>
           <p style="font-weight: 100;"><strong>FREE to join .</strong> Easy to win.</p>
         </div>
         <div class="col-md-4 col-lg-3">
-          <button class="footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
+          <button class="red_fill_btn footer_top_btn" data-toggle="modal" data-target="#join_now_modal">JOIN NOW</button>
         </div>
       </div>
     </div>

@@ -80,9 +80,12 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 left">
-              <h1 class="custom-header"><%= list_header_text %></h1>
-              <h5 class="custom-header-details"><%= list_header_text %></h5>
-              <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
+              <!-- <h1 class="custom-header"><%= list_header_text %></h1> -->
+              <h1 class="custom_h1 h1_margin"><%= list_header_text %></h1>
+              <!-- <h5 class="custom-header-details"><%= list_header_text %></h5> -->
+              <h5 class="custom-header-details custom_h5 mb-4"><%= list_header_text %></h5>
+              <!-- <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button> -->
+              <button class="red_fill_btn px-4" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
             </div>
             <div class="col-lg-6">
               <% unless @rewards.blank? %>
