@@ -27,7 +27,7 @@
                   <div class="col-md-12">
                     <div class="form-group extended-form-group">
                       <% unless question.answer_type == "wysiwyg" %>
-                        <%= label :title, "#{index + 1}. #{question.title}" %>
+                        <%= label :title, "#{index + 1}. #{question.title}", class: "#{is_question_required(question)}" %>
                         <%= hidden_field_tag "questions[#{question.id}][challenge_id]", challenge.id %>
                         <%= hidden_field_tag "questions[#{question.id}][question_id]", question.id %>
                       <% end %>

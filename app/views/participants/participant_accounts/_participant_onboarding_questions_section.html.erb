@@ -12,7 +12,7 @@
     <div class="row ml-1 mr-1">
       <div class="col-md-12">
         <div class="form-group extended-form-group">
-          <%= label :facebook_app_id, "#{index+1}. #{question.title}" %>
+          <%= label :facebook_app_id, "#{index+1}. #{question.title}", class: "#{is_question_required(question)}" %>
 
           <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
           <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>

@@ -100,7 +100,7 @@
 
 span.error {
   color: red;
-  float: left;
+  /* float: left; */
   font-size: 13px;
 }
 
@@ -636,4 +636,9 @@ span.error {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.question_required:after {
+  content: " *";
+  color: red;
 }
