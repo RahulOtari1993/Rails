@@ -2,7 +2,7 @@
 
 <% if type == 'profile' %>
   <% if question.present? %>
-    <select class="question-selector question-selector-<%= randNum %> form-control"
+    <select class="question-selector question-selector-<%= randNum %> form-control <%= result ? 'disabled-field' : '' %>"
             data-custom-id="-<%= randNum %>"
             name="challenge[questions_attributes][<%= q_name_convention(template, question) %>][answer_type]">
       <optgroup>
@@ -31,7 +31,7 @@
 
 <% elsif type == 'quiz' %>
   <% if question.present? %>
-    <select class="question-selector question-selector-<%= randNum %> form-control"
+    <select class="question-selector question-selector-<%= randNum %> form-control <%= result ? 'disabled-field' : '' %>"
             data-custom-id="-<%= randNum %>"
             name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
       <optgroup>
@@ -56,7 +56,7 @@
 
 <% elsif type == 'survey' %>
   <% if question.present? %>
-    <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
+    <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control <%= result ? 'disabled-field' : '' %>"
             data-custom-id="-<%= randNum %>"
             name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][answer_type]">
       <optgroup>
