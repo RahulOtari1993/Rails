@@ -1754,6 +1754,7 @@ $(document).on('turbolinks:load', function () {
 
     // show the remove icon
     $(cloneOption.find('.icon-trash-2')).removeClass('hide');
+    $(cloneOption.find('.image_cross_js')).removeClass('hide');
 
     // Remove Hidden Field for Option Id
     cloneOption.find('.hidden-option-field').remove();

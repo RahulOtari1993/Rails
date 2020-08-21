@@ -192,7 +192,7 @@
                     </label>
                     <span class="image_cross_box">
                       <i class="fa fa-bars drag_option image-drag" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
-                      <i class="fa fa-times image_cross_js" aria-hidden="true"></i>
+                      <i class="fa fa-times image_cross_js <%= result ? 'hide' : '' %>" aria-hidden="true"></i>
                     </span>
 
                     <input name="challenge[questions_attributes][<%= q_name_convention(template, question, randNum) %>][question_options_attributes][<%= option.id %>][image]"
@@ -221,7 +221,7 @@
           <% end %>
           <div class="col-sm-12 que_edit">
             <div class="form-label-group que_ip_width">
-              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+              <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button" data-challenge-submitted=<%= result %> >
                 <span><i class="feather icon-plus"></i> Add Option</span>
               </button>
             </div>
