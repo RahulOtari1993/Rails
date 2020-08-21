@@ -38,8 +38,8 @@
                 <% profile_attribute = question.profile_attribute %>
 
                 <div class="form-group extended-form-group">
-                  <%= label :facebook_app_id, "#{index+1}. #{question.title}" , class: "#{is_question_required(question)}" %>
-
+                  <%#= label :facebook_app_id, "#{index+1}. #{question.title}" , class: "#{is_question_required(question)}" %>
+                  <label class="<%= is_question_required(question) %>" for="facebook_app_id"><%= "#{index + 1}. #{question.title}" %></label>
                   <%= hidden_field_tag "questions[#{question.id}][profile_attribute_id]", profile_attribute.id %>
                   <%= hidden_field_tag "questions[#{question.id}][is_custom]", profile_attribute.is_custom %>
                   <%= hidden_field_tag "questions[#{question.id}][attribute_name]", profile_attribute.attribute_name %>
