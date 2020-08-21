@@ -73,8 +73,11 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
       if @challenge.update(challenge_params)
         ## Remove Deleted User Segments / Questions / Question Options from a Challenge
         @challenge.challenge_filters.where(id: removed_segments).destroy_all if removed_segments.present?
-        QuestionOption.where(id: removed_options).delete_all if removed_options.present?
-        @challenge.questions.where(id: removed_questions).destroy_all if removed_questions.present?
+
+        if @challenge.submissions.blank?
+          QuestionOption.where(id: removed_options).delete_all if removed_options.present?
+          @challenge.questions.where(id: removed_questions).destroy_all if removed_questions.present?
+        end
 
         format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
         format.json { render :edit, status: :updated }

@@ -782,7 +782,7 @@
   position: relative;
 }
 
-.question_delete_box .custom-switch:after {
+.question_delete_box .custom-switch-seperator:after {
   content: "";
   height: 30px;
   background: #ccc;
@@ -1114,5 +1114,8 @@
   margin-top: 15px;
 }
 
+.hide {
+  display: none;
+}
 /* Image upload css end */
 /* ----------------------------------------- Question Builder END ----------------------------------------- */

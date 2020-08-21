@@ -1,3 +1,5 @@
+<% result = is_challenge_submitted(@challenge) && question.present? %>
+
 <% if type == 'profile' %>
   <% if question.present? %>
     <select class="question-selector question-selector-<%= randNum %> form-control"

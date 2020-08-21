@@ -1,6 +1,7 @@
 <%
   randNum = rand.to_s[2..10]
   queIdentifire = question.present? ? "question-box-#{randNum}" : question_build_id(template, 'class', 'question-box')
+  result = is_challenge_submitted(@challenge) && question.present?
 %>
 <div class="container question_box <%= queIdentifire %>">
   <div class="row">
@@ -80,7 +81,7 @@
           <div class="que_edit">
             <span>&nbsp;</span>
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
-            <i class="feather icon-trash-2 que_edit_cross"></i>
+            <i class="feather icon-trash-2 que_edit_cross <%= result ? 'hide' : '' %>"></i>
 
             <div class="form-label-group que_ip_width">
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
@@ -134,7 +135,7 @@
 
       <div class="que_edit">
         <div class="form-label-group que_ip_width">
-          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button" data-challenge-submitted=<%= result %> >
             <span><i class="feather icon-plus"></i> Add Option</span>
           </button>
         </div>
@@ -148,7 +149,7 @@
           <div class="que_edit">
             <span>&nbsp;</span>
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
-            <i class="feather icon-trash-2 que_edit_cross"></i>
+            <i class="feather icon-trash-2 que_edit_cross <%= result ? 'hide' : '' %>"></i>
 
             <div class="form-label-group que_ip_width">
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
@@ -202,7 +203,7 @@
 
       <div class="que_edit">
         <div class="form-label-group que_ip_width">
-          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button" data-challenge-submitted=<%= result %>>
             <span><i class="feather icon-plus"></i> Add Option</span>
           </button>
         </div>
@@ -216,7 +217,7 @@
           <div class="que_edit">
             <span>&nbsp;</span>
             <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
-            <i class="feather icon-trash-2 que_edit_cross"></i>
+            <i class="feather icon-trash-2 que_edit_cross <%= result ? 'hide' : '' %>"></i>
 
             <div class="form-label-group que_ip_width">
               <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][question_options_attributes][#{option.id}][id]", option.id, class: 'hidden-option-field' %>
@@ -270,7 +271,7 @@
 
       <div class="que_edit">
         <div class="form-label-group que_ip_width">
-          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button">
+          <button class="btn btn-primary mr-sm-1 mb-1 mb-sm-0 waves-effect waves-light add-challenge-option" type="button" data-challenge-submitted=<%= result %>>
             <span><i class="feather icon-plus"></i> Add Option</span>
           </button>
         </div>
@@ -675,7 +676,8 @@
         <i class="feather icon-move drag_option" data-toggle='tooltip' data-placement='top' data-original-title='Arrange Options'></i>
       </div>
       <div class="question_delete_box">
-        <div class="custom-control custom-switch mr-2 mb-1 non-wysiwyg-field" style="">
+        <% result = is_challenge_submitted(@challenge) && question.present? %>
+        <div class="custom-control custom-switch <%= result ? '' : 'custom-switch-seperator' %> mr-2 mb-1 non-wysiwyg-field" style="">
           <p>Required</p>
           <%= check_box_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][is_required]", true, question_required(question),
                             id: "question-is-required-#{q_name_convention(template, question, randNum)}",
@@ -683,7 +685,7 @@
 
           <label class="custom-control-label" for="question-is-required-<%= q_name_convention(template, question, randNum) %>"></label>
         </div>
-        <i class="feather icon-trash-2 question_del_icon"></i>
+        <i class="feather icon-trash-2 question_del_icon <%= result ? 'hide' : '' %>"></i>
       </div>
     </div>
   </div>

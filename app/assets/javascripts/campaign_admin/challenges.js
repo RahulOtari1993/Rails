@@ -1752,6 +1752,9 @@ $(document).on('turbolinks:load', function () {
     var firstOption = $(this).parent().parent().parent().find('.que_edit').first()
     var cloneOption = firstOption.clone();
 
+    // show the remove icon
+    $(cloneOption.find('.icon-trash-2')).removeClass('hide');
+
     // Remove Hidden Field for Option Id
     cloneOption.find('.hidden-option-field').remove();
 

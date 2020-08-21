@@ -446,4 +446,10 @@ module ChallengeHelper
 
     filter_list
   end
+
+  ## check whether the challenge was submitted by atleast one participant
+  def is_challenge_submitted(challenge)
+    result =  challenge.submissions.present?
+    result
+  end
 end
