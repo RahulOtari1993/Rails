@@ -49,7 +49,7 @@
         <div class="form-group">
           <%= form.label :icon, 'Challenge Type Icon' %>
           <div class="custom-file">
-            <%= form.file_field :icon, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}" %>
+            <%= form.file_field :icon, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}", accept: "image/*" %>
             <%= form.label :icon, 'Choose icon file', class: 'custom-file-label' %>
           </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
           <%= form.label :image, 'Challenge Image' %>
           <div class="custom-file">
-            <%= form.file_field :image, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}" %>
+            <%= form.file_field :image, class: "custom-file-input #{@challenge.new_record? ? '' : 'ignore'}", accept: "image/*" %>
             <%= form.label :image, 'Choose file', class: 'custom-file-label' %>
           </div>
         </div>
