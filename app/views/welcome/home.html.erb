@@ -1,42 +1,5 @@
 <% @template = @campaign.campaign_template_detail %>
 
-<section class="hero_section" style="background-image: url('<%= list_header_bg_image %>')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6 left">
-        <h1 class="custom-header"><%= list_header_text %></h1>
-
-        <h5 class="custom-header-details"><%= list_header_text %></h5>
-        <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
-      </div>
-      <div class="col-lg-6">
-        <% unless @rewards.blank? %>
-          <h4 class="right_title">What you can win:</h4>
-          <div id="banner_carousel" class="carousel slide" data-ride="carousel">
-            <ul class="carousel-indicators">
-              <li data-target="#demo" data-slide-to="0" class="active"></li>
-              <li data-target="#demo" data-slide-to="1"></li>
-              <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-            <div class="carousel-inner">
-              <% @rewards.each_with_index do |reward, index| %>
-                <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
-                  <%= image_tag(reward.image.url) %>
-                  <h3><%= reward.name %></h3>
-                  <div class="carousel-caption">
-                    <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
-                      in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Challenges section start -->
 <section class="section1">
   <div class="container">
