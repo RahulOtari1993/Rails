@@ -29,11 +29,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'facebook') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'facebook') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="share" data-challenge-parameters="facebook">
                       Share to Facebook
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'twitter') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('share', 'twitter') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="share" data-challenge-parameters="twitter">
                       Share to Twitter  (Pending)
                     </a>
@@ -55,11 +55,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('engage', 'facebook') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('engage', 'facebook') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="engage" data-challenge-parameters="facebook">
                       Social Media Feed Engagement Facebook (Pending)
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('video', 'youtube') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('video', 'youtube') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="video" data-challenge-parameters="youtube">
                       Watch Video
                     </a>
@@ -81,15 +81,15 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('link', nil) %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('link', nil) %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="link" data-challenge-parameters="">
                       Visit A Site (URL)
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('article', nil) %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('article', nil) %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="article" data-challenge-parameters="">
                       Article Challenge
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('location', nil) %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('location', nil) %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="location" data-challenge-parameters="">
                       Location Visit
                     </a>
@@ -111,15 +111,15 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'survey') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'survey') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="collect" data-challenge-parameters="survey">
                       Create a Survey
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'quiz') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'quiz') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="collect" data-challenge-parameters="quiz">
                       Create a Quiz
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'profile') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('collect', 'profile') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="collect" data-challenge-parameters="profile">
                       Extended Profile Questions / Onboarding Questions
                     </a>
@@ -141,19 +141,19 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'facebook') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'facebook') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="signup" data-challenge-parameters="facebook">
                       Sign up / Connect with Facebook
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'google') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'google') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="signup" data-challenge-parameters="google">
                       Sign up / Connect with Google
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'email') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('signup', 'email') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="signup" data-challenge-parameters="email">
                       Sign up with email
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('connect', 'twitter') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('connect', 'twitter') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="connect" data-challenge-parameters="twitter">
                       Connect Twitter Account
                     </a>
@@ -174,11 +174,11 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="list-group" id="list-tab" role="tablist">
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'custom') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'custom') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="referral" data-challenge-parameters="custom">
                       Recruit Friends Custom Link
                     </a>
-                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'facebook') %>"
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('referral', 'facebook') %> <%= new_record? ? '' : 'disabled' %>"
                        data-challenge-type="referral" data-challenge-parameters="facebook">
                       Recruit Friends Facebook Share
                     </a>
