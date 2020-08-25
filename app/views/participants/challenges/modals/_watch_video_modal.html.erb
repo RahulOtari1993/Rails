@@ -48,7 +48,8 @@
     })
 
     // Initialise the iframe  start
-    var player, timer, timeSpent = [], completeWatchPercent, completeWatchStatus;
+    var player, timer, timeSpent = [], completeWatchPercent;
+    var completeWatchStatus = '';
     var challengeId = <%= challenge.id %> ;
 
     function onYouTubeIframeAPIReady() {
@@ -106,10 +107,18 @@
     // Calculate and Show the percentage
     function showPercentage() {
       var percent = 0;
+      var targetDuration = 0;
       for (var i = 0, l = timeSpent.length; i < l; i++) {
         if (timeSpent[i]) percent++;
       }
-      percent = Math.round(percent / timeSpent.length * 100);
+
+      if(<%= challenge.duration.to_i %> >= timeSpent.length ) {
+        targetDuration = timeSpent.length
+      } else {
+        targetDuration = <%= challenge.duration.to_i %>
+      }
+
+      percent = Math.round(percent / targetDuration * 100);
 
       $('#display').text(percent + "%");
       $( ".progress-bar" ).css("width", percent + "%");
