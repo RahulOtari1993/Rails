@@ -9,7 +9,7 @@ class Participants::ParticipantAccountsController < ApplicationController
 
   def update_profile_details
     participant_profile_params = participant_params.merge!(onboarding_question_params)
-    if current_participant.update(participant_params)
+    if current_participant.update(participant_profile_params)
       ## Commenting this code , As removed from UI
       # profile_attribute = @campaign.profile_attributes.where(attribute_name: "affiliation").first
       # unless (params[:affiliation_types].blank? || profile_attribute.blank?)
