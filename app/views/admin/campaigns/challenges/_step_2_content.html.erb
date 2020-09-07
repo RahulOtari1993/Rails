@@ -363,7 +363,7 @@
                 <%= form.label :location_distance, 'Radius' %>
                 <span class="column-info">This is the radius around the location..</span>
                 <%= form.select :location_distance,
-                                options_for_select(Challenge::RADIUS),
+                                options_for_select(Challenge::RADIUS, @challenge.location_distance),
                                 {prompt: 'Select Radius'}, class: 'form-control domain_type_id' %>
 
               </div>
