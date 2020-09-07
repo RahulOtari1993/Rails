@@ -39,7 +39,7 @@
               <label for="<%= "questions_#{question.id}_answer_#{option.id}" %>"><%= option.details %></label>
             <% end %>
           <% when 'date' then %>
-            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name].strftime('%m/%d/%Y') %>
+            <% selected_option = profile_attribute.is_custom ? (profile_answers.first.present? ? profile_answers.first.value : '') : current_participant.as_json[profile_attribute.attribute_name].try(:strftime, '%m/%d/%Y') %>
             <%= text_field_tag "questions[#{question.id}][answer]", selected_option,
                                class: "form-control answer-date #{answer_required('answer-date', question.is_required)} #{question.additional_details.present? ? 'bottom-margin' : ''}",
                                placeholder: fetch_placeholder_details(question, 'date') %>
