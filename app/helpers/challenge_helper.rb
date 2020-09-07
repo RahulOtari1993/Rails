@@ -8,8 +8,10 @@ module ChallengeHelper
   def active_challenge_type(type, parameters)
     if new_record? && type == 'share' && parameters == 'facebook'
       'active'
+    elsif @challenge.challenge_type == type && @challenge.parameters == parameters
+      'active'
     else
-      'active' if @challenge.challenge_type == type && @challenge.parameters == parameters
+      'disabled' if !new_record?
     end
   end
 
