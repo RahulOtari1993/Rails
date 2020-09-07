@@ -144,7 +144,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     cloned.name = "#{@challenge.name} - Duplicate" ## Update Challenge Name
     cloned.is_approved = false ## Make Challenge as Draft
     cloned.approver_id = nil ## Make Approver ID Null
-
+    cloned.identifier = nil
+  
     ## Clone Existing Tags
     cloned.tag_list.add(@challenge.tag_list.join(', '), parse: true) if @challenge.tag_list.present?
 
