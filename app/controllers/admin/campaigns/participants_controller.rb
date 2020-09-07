@@ -176,23 +176,6 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     }
   end
 
-  private
-
-  # Sort Activity Columns
-  def sort_column_for_activity
-    columns = %w(title points created_at)
-    columns[params[:order]['0'][:column].to_i - 1]
-  end
-
-  # Sort Reward Columns
-  def sort_column_for_reward
-    if params[:order]['0'][:column].to_i == 0
-      'rewards.name'
-    else
-      'reward_participants.created_at'
-    end
-  end
-
   ## Update Participant Status
   def update_status
     if @participant.update_attribute(:status, params[:status].present? ? params[:status] : @participant.status)
@@ -210,6 +193,23 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
     end
 
     render json: response
+  end
+
+  private
+
+  # Sort Activity Columns
+  def sort_column_for_activity
+    columns = %w(title points created_at)
+    columns[params[:order]['0'][:column].to_i - 1]
+  end
+
+  # Sort Reward Columns
+  def sort_column_for_reward
+    if params[:order]['0'][:column].to_i == 0
+      'rewards.name'
+    else
+      'reward_participants.created_at'
+    end
   end
 
   def search_columns
