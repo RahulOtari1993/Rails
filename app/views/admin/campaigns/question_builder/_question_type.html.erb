@@ -14,6 +14,13 @@
         <% end %>
       </optgroup>
     </select>
+    <% if result %>
+      <% @campaign.profile_attributes.active.each_with_index do |attribute, index| %>
+        <% if select_question_field_type(question, index, attribute.id) == 'selected' %>
+          <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question)}][answer_type]", "#{attribute.field_type}--#{attribute.id}" %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% else %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
             data-custom-id="<%= question_build_id(template, 'class', '') %>"
@@ -41,6 +48,9 @@
         <option value="wysiwyg" data-icon="fa icon-edit" <%= question.answer_type == 'wysiwyg' ? 'selected' : '' %>>WYSIWYG Editor</option>
       </optgroup>
     </select>
+    <% if result %>
+      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][answer_type]", "#{question.answer_type}" %>
+    <% end %>
   <% else %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
             data-custom-id="<%= question_build_id(template, 'class', '') %>"
@@ -75,6 +85,9 @@
         <option value="image_check_box" data-icon="fa fa-picture-o" <%= question.answer_type == 'image_check_box' ? 'selected' : '' %>>Image Checkboxes</option>
       </optgroup>
     </select>
+    <% if result %>
+      <%= hidden_field_tag "challenge[questions_attributes][#{q_name_convention(template, question, randNum)}][answer_type]", "#{question.answer_type}" %>
+    <% end %>
   <% else %>
     <select class="question-selector <%= question_build_id(template, 'class', 'question-selector') %> form-control"
             data-custom-id="<%= question_build_id(template, 'class', '') %>"
