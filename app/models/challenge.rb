@@ -136,8 +136,10 @@ class Challenge < ApplicationRecord
         return
       end
     else
-      errors.add :reward_type, ' is invalid'
-      return
+      if !(self.challenge_type == 'engage') && (self.parameters == 'facebook')
+        errors.add :reward_type, ' is invalid'
+        return
+      end
     end
   end
 

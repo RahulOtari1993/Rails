@@ -1,5 +1,5 @@
-<h6>Type</h6>
-<fieldset class="step-top-padding" data-step-id="1">
+<h6 class='step1-header'>Type</h6>
+<fieldset class="step-top-padding step1-content-div" data-step-id="1">
   <div class="new_challenge_box">
     <div class="row">
       <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8 text-center">
@@ -9,7 +9,7 @@
     </div>
 
     <%= form.hidden_field :challenge_type, value: new_record? ? 'share' : @challenge.challenge_type,
-                          class: 'always-validate', data: {error: 'challenge-type-error'} %>
+                          class: 'always-validate', data: {error: 'challenge-type-error', 'connect-facebook': @connect_facebook.present? ? true : false} %>
     <%= form.hidden_field :parameters, value: new_record? ? 'facebook' : @challenge.parameters %>
 
     <%= form.hidden_field :category, value: new_record? ? 'share' : @challenge.category %>

@@ -38,6 +38,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def new
     @challenge = Challenge.new
+    @connect_facebook = @campaign.networks.where(platform: "facebook").current_active.first
   end
 
   def create
@@ -145,7 +146,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     cloned.is_approved = false ## Make Challenge as Draft
     cloned.approver_id = nil ## Make Approver ID Null
     cloned.identifier = nil
-  
+
     ## Clone Existing Tags
     cloned.tag_list.add(@challenge.tag_list.join(', '), parse: true) if @challenge.tag_list.present?
 
@@ -216,7 +217,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
                                                       :start, :finish, :creator_id, :feature, :parameters, :category, :icon,
                                                       :title, :content, :duration, :longitude, :latitude, :address, :caption,
                                                       :location_distance, :social_image, :filter_applied, :filter_type,
-                                                      :success_message, :failed_message, :correct_answer_count,
+                                                      :success_message, :failed_message, :correct_answer_count, :post_view_points, :post_like_points,
                                                       challenge_filters_attributes: [:id, :challenge_id, :challenge_event,
                                                                                      :challenge_condition, :challenge_value],
                                                       :questions_attributes => [:id, :challenge_id, :category, :title, :is_required, :answer_type,

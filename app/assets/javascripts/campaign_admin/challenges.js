@@ -84,6 +84,9 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
+  var step3HeaderDiv =  $('.steps > ul > li')[2];
+  var step3ChallengeDiv =  $('.step3-content-div').html();
+
   // Get Social Image Dynamically
   function getSocialImageName() {
     if ($('#challenge_parameters').val() == 'facebook') {
@@ -414,6 +417,18 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please select valid image');
 
+  // Check for social connection
+  $.validator.addMethod('socialConnectEngage', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+    var connectFacebook = $('#challenge_challenge_type').data('connect-facebook');
+
+    if (step == '1' && value == 'engage') {
+      return connectFacebook;
+    }
+
+    return true;
+  }, 'You cant proceed further. Please authenticate to facebook network');
+
   // Social Blog Title Validator
   $.validator.addMethod('socialTitle', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
@@ -549,7 +564,8 @@ $(document).on('turbolinks:load', function () {
     },
     rules: {
       'challenge[challenge_type]': {
-        required: true
+        required: true,
+        socialConnectEngage: true
       },
       'challenge[name]': {
         required: true
@@ -625,6 +641,14 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[correct_answer_count]': {
         required: true
+      },
+      'challenge[post_view_points]': {
+        required: true,
+        digits: true
+      },
+      'challenge[post_like_points]': {
+        required: true,
+        digits: true
       }
     },
     messages: {
@@ -683,6 +707,14 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[correct_answer_count]': {
         required: 'Please select correct answer count'
+      },
+      'challenge[post_view_points]': {
+        required: 'Please enter points for a post view',
+        digits: 'Please enter only digits'
+      },
+      'challenge[post_like_points]': {
+        required: 'Please enter points for a post like',
+        digits: 'Please enter only digits'
       }
     },
     errorPlacement: function (error, element) {
@@ -726,7 +758,15 @@ $(document).on('turbolinks:load', function () {
     $('#challenge_parameters').val($(this).data('challenge-parameters'));
     $('#challenge_category').val($(this).parents().eq(5).data('val'));
 
+    var connectFacebook = $('#challenge_challenge_type').data('connect-facebook');
     stepTwoContent($(this).data('challenge-type'), $(this).data('challenge-parameters'))
+
+    if (($(this).data('challenge-type') == 'engage')  && ($(this).data('challenge-parameters') == 'facebook')) {
+      $('.step3-content-div').html('');
+    } else {
+      $('.step3-content-div').append(step3ChallengeDiv);
+    }
+
   });
 
   // For Edit Challenge Trigger Click for Challenge Type
