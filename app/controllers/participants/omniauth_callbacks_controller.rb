@@ -82,7 +82,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
   ## Setup OAuth Details for Facebook
   def setup
-    @campaign =  Campaign.find(params[:ci])
+    @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
     else
