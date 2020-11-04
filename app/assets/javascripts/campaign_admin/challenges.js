@@ -764,6 +764,7 @@ $(document).on('turbolinks:load', function () {
     if (($(this).data('challenge-type') == 'engage')  && ($(this).data('challenge-parameters') == 'facebook')) {
       $('.step3-content-div').html('');
     } else {
+      $('.step3-content-div').html('');
       $('.step3-content-div').append(step3ChallengeDiv);
     }
 
