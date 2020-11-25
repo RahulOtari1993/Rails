@@ -145,6 +145,7 @@ Rails.application.routes.draw do
       resources :challenges, only: [] do
         member do
           get :details
+          get :fetch_facebook_media_posts
           post :submission
           post :quiz_submission
           post :survey_submission

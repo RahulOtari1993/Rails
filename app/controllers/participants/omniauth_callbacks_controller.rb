@@ -82,7 +82,20 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
   ## Setup OAuth Details for Facebook
   def setup
-    @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
+    Rails.logger.info "+++++++++++++++++++ Url: #{request.original_url} ++++++++++++++++++"
+    Rails.logger.info "++++++++++++++++++ Session: #{session['omniauth.params'].inspect} ++++++++++++++++++++++++++++++++"
+    Rails.logger.info "+++++++++ Params: #{params}"
+    Rails.logger.info "++++++++ Facebook params: #{request.env['omniauth.params']} +++++++++"
+    # @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
+
+    if @campaign.blank?
+       campaign_id = params[:ci].present? ? params[:ci] : session['omniauth.params']['ci']
+       @campaign = Campaign.active.where(id: campaign_id).first
+    end
+
+    Rails.logger.info "+++++++++++++ Campaign: #{@campaign.inspect}  +++++++++++++++++++++"
+
+    # @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
     if @campaign.present? && @campaign.white_branding
       conf = CampaignConfig.where(campaign_id: @campaign.id).first
     else

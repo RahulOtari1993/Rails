@@ -11,7 +11,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="modal_box signup-type">
-          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box1">
             <h5>Join the other members who are already winning great prizes and rewards.</h5>
             <%
@@ -57,7 +57,7 @@
         </div>
 
         <div class="modal_box signup-step1 hide">
-          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box2">
             <% if email_button.present? %>
               <h5>Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>

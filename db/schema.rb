@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_24_231131) do
+ActiveRecord::Schema.define(version: 2020_09_28_111136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -290,6 +290,51 @@ ActiveRecord::Schema.define(version: 2020_09_24_231131) do
     t.string "twitter_app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "network_page_post_attachments", force: :cascade do |t|
+    t.bigint "network_page_post_id"
+    t.integer "height"
+    t.integer "width"
+    t.text "media_src"
+    t.integer "media_type"
+    t.integer "category"
+    t.text "url"
+    t.text "video_source"
+    t.integer "likes"
+    t.json "target"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["network_page_post_id"], name: "index_network_page_post_attachments_on_network_page_post_id"
+  end
+
+  create_table "network_page_posts", force: :cascade do |t|
+    t.bigint "network_id"
+    t.bigint "network_page_id"
+    t.text "post_id"
+    t.text "message"
+    t.datetime "created_time"
+    t.text "title"
+    t.integer "post_type"
+    t.text "url"
+    t.integer "total_likes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["network_id"], name: "index_network_page_posts_on_network_id"
+    t.index ["network_page_id"], name: "index_network_page_posts_on_network_page_id"
+  end
+
+  create_table "network_pages", force: :cascade do |t|
+    t.string "page_id"
+    t.string "page_name"
+    t.string "category"
+    t.text "page_access_token"
+    t.bigint "campaign_id"
+    t.bigint "network_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_network_pages_on_campaign_id"
+    t.index ["network_id"], name: "index_network_pages_on_network_id"
   end
 
   create_table "networks", force: :cascade do |t|
@@ -607,6 +652,17 @@ ActiveRecord::Schema.define(version: 2020_09_24_231131) do
     t.index ["url"], name: "index_shortened_urls_on_url"
   end
 
+  create_table "social_challenge_post_visits", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.bigint "participant_id"
+    t.integer "network_page_post_attachment_id"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["challenge_id"], name: "index_social_challenge_post_visits_on_challenge_id"
+    t.index ["participant_id"], name: "index_social_challenge_post_visits_on_participant_id"
+  end
+
   create_table "social_share_visits", force: :cascade do |t|
     t.integer "referral_code_id"
     t.string "referral_code_str"
@@ -718,6 +774,11 @@ ActiveRecord::Schema.define(version: 2020_09_24_231131) do
   add_foreign_key "domain_lists", "campaigns"
   add_foreign_key "domain_lists", "organizations"
   add_foreign_key "email_settings", "campaigns"
+  add_foreign_key "network_page_post_attachments", "network_page_posts"
+  add_foreign_key "network_page_posts", "network_pages"
+  add_foreign_key "network_page_posts", "networks"
+  add_foreign_key "network_pages", "campaigns"
+  add_foreign_key "network_pages", "networks"
   add_foreign_key "networks", "campaigns"
   add_foreign_key "notes", "campaigns"
   add_foreign_key "notes", "participants"
@@ -736,6 +797,8 @@ ActiveRecord::Schema.define(version: 2020_09_24_231131) do
   add_foreign_key "reward_participants", "rewards"
   add_foreign_key "reward_rules", "rewards"
   add_foreign_key "rewards", "campaigns"
+  add_foreign_key "social_challenge_post_visits", "challenges"
+  add_foreign_key "social_challenge_post_visits", "participants"
   add_foreign_key "submissions", "campaigns"
   add_foreign_key "sweepstake_entries", "participants"
   add_foreign_key "sweepstake_entries", "rewards"

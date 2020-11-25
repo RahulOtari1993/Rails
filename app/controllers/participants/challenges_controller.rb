@@ -4,6 +4,12 @@ class Participants::ChallengesController < ApplicationController
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
   before_action :set_challenge
 
+  def fetch_facebook_media_posts
+    ntw_page_post_ids = @campaign.network_page_posts.order(created_time: :desc).pluck(:id)
+    @ntw_page_posts_attachments = NetworkPagePostAttachment.where(network_page_post_id: ntw_page_post_ids).order(created_at: :desc).page(params[:page]).per(4)
+    @ntw_page_posts_attachments
+  end
+
   ## Fetch Details of Challenge
   def details
     if @campaign.present? && @campaign.white_branding
@@ -38,6 +44,14 @@ class Participants::ChallengesController < ApplicationController
 
   ## Submit Challenges
   def submission
+
+    # respond_to do |format|
+    #   @response = {success: true,
+    #                message: "You have completed this challenge successfully." }
+    #   format.json { render json: @response }
+    #   format.js { render layout: false }
+    # end
+
     if @challenge.present?
       @submission = Submission.where(campaign_id: @challenge.campaign_id, participant_id: current_participant.id,
                                      challenge_id: @challenge.id).first_or_initialize
@@ -60,6 +74,14 @@ class Participants::ChallengesController < ApplicationController
         end
 
         if @submission.save
+            ## create history for visiting challenge social feed posts by participant
+            if @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
+               post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
+                                        network_page_post_attachment_id: params[:post_attachment_id],
+                                        points: @challenge.post_view_points.to_i).first_or_initialize
+               post_visit.save
+            end
+
           participant_action false
         else
           respond_to do |format|
@@ -69,6 +91,25 @@ class Participants::ChallengesController < ApplicationController
           end
         end
       else
+        if @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
+           ## create history for visiting challenge social feed posts by participant
+           post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
+                                     network_page_post_attachment_id: params[:post_attachment_id],
+                                     points: @challenge.post_view_points.to_i).first_or_initialize
+           post_visit.save
+
+
+           ## update participant points for visiting other posts of same challenge
+           challenge_points = @challenge.post_view_points.to_i
+           points = current_participant.points.to_i + challenge_points
+           unused_points = current_participant.unused_points.to_i + challenge_points
+           ## Submitted Challenges Counter Changes
+           completed_challenges = current_participant.completed_challenges.to_i + 1
+           current_participant.points = points
+           current_participant.unused_points = unused_points
+           current_participant.completed_challenges = completed_challenges
+           current_participant.save(validate: false)
+        end
         participant_action true
       end
     else
@@ -258,7 +299,8 @@ class Participants::ChallengesController < ApplicationController
 
   ## Create Participant Action Entry
   def participant_action re_submission
-    challenge_points = re_submission ? 0 : @challenge.points
+    # challenge_points = (re_submission ? 0 : ((@challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook') ? @challenge.post_view_points.to_i : @challenge.points.to_i))
+    challenge_points = ((@challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook') ? @challenge.post_view_points.to_i :  (re_submission ? 0 : @challenge.points.to_i))
 
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
@@ -274,6 +316,9 @@ class Participants::ChallengesController < ApplicationController
     elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz'
       action_type = 'quiz'
       title = 'Submitted Quiz'
+    elsif @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
+      action_type = 'feed'
+      title = re_submission ? 'Again Visited Social(facebook) feed' : 'Visited Social(facebook) feed'
     elsif @challenge.challenge_type == 'referral'
     elsif @challenge.challenge_type == 'signup'
     end

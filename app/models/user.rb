@@ -154,7 +154,7 @@ class User < ApplicationRecord
       ## Update existing network or create a new Network
       network.auth_token = auth.credentials.token
       network.username = auth.info.name
-      network.expires_at = Time.at(auth.credentials.expires_at)
+      network.expires_at = auth.credentials.expires_at.present? ? Time.at(auth.credentials.expires_at) : nil
       network.remote_avatar_url = auth.info.image
       if network.save
         network

@@ -1,7 +1,7 @@
-class SweepstakeRewardEntryJob
+class SweepstakeRewardEntryJob < ActiveJob::Base
 
   ## Choose the sweepstake reward winners for all campaigns
-  def perform(arg)
+  def perform(arg = nil)
     Campaign.active.each do |campaign|
       Rails.logger.info "******** Sweepstake entry job for Campaign: #{campaign.name} -- Start ********"
       rewards = campaign.rewards.where(selection: 'sweepstake', finish: (DateTime.now.yesterday.beginning_of_day .. DateTime.now.yesterday.end_of_day)).sort

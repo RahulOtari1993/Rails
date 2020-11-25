@@ -11,7 +11,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="modal_box signin-type">
-          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box1">
             <h5>Welcome back, please login to your account.</h5>
             <%
@@ -59,7 +59,7 @@
         </div>
 
         <div class="modal_box signin-step1 hide">
-          <%= image_tag("end-user/BNR-Logo-Horizontal-Color-Black.svg", class: "logo_image mb-1") %>
+          <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box2">
             <h5>Welcome back, please login to your account.</h5>
             <%= form_for(Participant.new, as: :participant, url: participant_session_path, html: {class: 'login_form' } ) do |f| %>

@@ -47,6 +47,34 @@
 <% elsif @challenge.challenge_type == "share" %>
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/share_modal', challenge: @challenge %>");
   $('#share_modal').modal('show');
+<% elsif @challenge.challenge_type == "engage" && @challenge.parameters == 'facebook' %>
+  $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/facebook_media_modal', challenge: @challenge %>");
+  $('#facebook_media_modal').modal('show');
+
+  $(document).ready(function () {
+    // initialize gallery
+    $('#facebook_media_modal a.thumbnail').on('click', function () {
+      $('.coin').removeClass('animated');
+      $('#post_visit_checkmark').hide();
+      updateGallery($(this));
+    });
+
+    // update gallery for previous, next buttons only one time initialize
+    $('#show-next-btn, #show-previous-btn').click(function () {
+      $('.coin').removeClass('animated');
+      $('#post_visit_checkmark').hide();
+
+      var current_image = $(this).attr('data-current-counter');
+      if ($(this).attr('id') === 'show-previous-btn') {
+        current_image--;
+      } else {
+        current_image++;
+      }
+      var selector = $($('#facebook_media_modal a.thumbnail')[current_image - 1]);
+      updateGallery(selector);
+    });
+  });
+
 <% elsif @challenge.challenge_type == "collect" %>
 <% elsif @challenge.challenge_type == "signup" %>
 <% end %>

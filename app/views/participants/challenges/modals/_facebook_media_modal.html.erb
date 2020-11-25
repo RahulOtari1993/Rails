@@ -1,0 +1,430 @@
+<% facebook_post_attachments = fetch_facebook_feed(@campaign) %>
+
+<div class="video_slider_section">
+    <div class="modal fade text-left challenge-modal" id="facebook_media_modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+          <div class="modal-header border-bottom-0">
+            <div class="header_box text-white">
+              <span class="float-left header_box_lt"><i class="fa fa-facebook-square"></i></span>
+              <div class="float-right header_box_rt">
+                <p class="mb-0">Look at Facebook photos <a href="#"></a></p>
+                <small>+<%= challenge.post_view_points.to_i %> each | <span id='remaining_posts_visit'><%= fetch_remaining_post_visit_count(@campaign, challenge) %></span> photos left</small>
+              </div>
+            </div>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            <div class="challenge-content text-left font-weight-light">
+              <div id="facebook_media_posts_div">
+                <div class="row">
+                  <!-- <div class="col-md-12"> -->
+                    <% facebook_post_attachments.each_with_index do |post_attachment, index| %>
+                      <% facebook_post = post_attachment.network_page_post %>
+                      <% facebook_post_visited = fetch_facebook_post_visited(challenge, post_attachment) %>
+                      <div class="col-thumb thumb">
+                        <a class="thumbnail <%= facebook_post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
+                          data-gallery-image-src="<%= post_attachment.media_src %>"
+                          data-gallery-video-src="<%= post_attachment.video_source %>"
+                          data-gallery-image-user-name="<%= facebook_post.network_page.page_name %>"
+                          data-gallery-image-post-info="<%= facebook_post.message %>"
+                          data-gallery-image-posted-time="<%= get_completed_time_in_words(facebook_post.created_time) %>"
+                          data-gallery-image-post-visited="<%= facebook_post_visited %>"
+                          data-gallery-image-post-attachment-id="<%= post_attachment.id %>"
+                          data-gallery-image-post-facebook-url="<%= post_attachment.url %>"
+                          data-gallery-media-type="<%= post_attachment.category %>"
+                          data-target="#image-gallery">
+                          <img class="img-thumbnail" src="<%= post_attachment.media_src %>" alt="Another alt text">
+                        </a>
+                      </div>
+                    <% end %>
+                  <!-- </div> -->
+                </div><br>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="paginator" class='float-right'>
+                     <%= paginate facebook_post_attachments, remote: true,  params: {controller: "challenges", action: "fetch_facebook_media_posts"}, first: 0, last: 0 %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <!-- <h4 class="modal-title" id="image-gallery-title"></h4> -->
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="coin"><i class="fa fa-usd"></i></div>
+                <div class="points">
+                  <i class="fa fa-check" aria-hidden="true" id='post_visit_checkmark'></i>&nbsp;
+                  +1
+                </div>
+                <div class="gallery-image-bg text-center">
+                  <iframe id="gallery_video_src" src="" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media" allowFullScreen="true" ></iframe>
+                  <img id="gallery_image_src" class="img-slider-responsive" src="">
+                </div>
+                <div class="content-top">
+                  <a href="#" target="_blank" tabindex="0" id="gallery_image_user_name">
+                  </a>
+                  <span  id="gallery_image_post_info">
+                  </span>
+                </div>
+                <div class="video_slider_bottom_icon_box">
+                  <span class="float-left lt" id="gallery_image_posted_time">
+                    <!-- 7 days ago -->
+                  </span>
+                  <span class="float-right rt">
+                    <a href="#" id="gallery_image_like_facebook_url" target="_blank"><i class="fa fa-heart-o" aria-hidden="true"></i> </a>
+                    <a href="#" id="gallery_image_comment_facebook_url" target="_blank"><i class="fa fa-comment-o" aria-hidden="true"></i> </a>
+                    <!-- <a href="#" id=""><i class="fa fa-instagram" aria-hidden="true"></i> </a> -->
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-12 slider_arrow">
+                <div class="">
+                  <button type="button" class="btn btn-secondary float-left slider_arrow_left" id="show-previous-btn" data-current-counter=""><i class="fa fa-arrow-left"></i>
+                  </button>
+                  <button type="button" class="btn btn-secondary float-right slider_arrow_right" id="show-next-btn" data-current-counter=""><i class="fa fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <div id="fb-root"></div> -->
+<!-- <script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script> -->
+
+
+<script type="text/javascript">
+
+  function updateGallery(selector) {
+    var counter = $('#facebook_media_modal a.thumbnail').length;
+    var current_image_counter = selector.data('image-id');
+    var challengeId = <%= challenge.id %>;
+    var mediaType = selector.data('gallery-media-type');
+
+
+    // $('#image-gallery-title').text(selector.data('title'));
+    $('#post_visit_checkmark').hide();
+    if (mediaType == 'photo') {
+      $('#gallery_video_src').attr('src', '').html('').hide();
+      $('#gallery_image_src').attr('src', selector.data('gallery-image-src'));
+    } else if (mediaType == 'video_inline') {
+      $('#gallery_image_src').attr('src', '');
+      // $('#gallery_video_src').attr('src', 'https://video.fhyd14-1.fna.fbcdn.net/v/t42.9040-2/124604998_2093277064129978_8521492326650094453_n.mp4?_nc_cat=109&ccb=2&_nc_sid=985c63&efg=eyJybHIiOjMwMCwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoibGVnYWN5X3NkIn0%3D&_nc_ohc=2_cbrBE46YcAX8kHNEQ&rl=300&vabr=125&_nc_ht=video.fhyd14-1.fna&oh=3b22b74dae37a12d4c38b87e827df215&oe=5FAAF344').show();
+      // $('#gallery_video_src').attr('data-href', 'https://www.facebook.com/116638290178789/videos/3445255352177695');
+      $('#gallery_video_src').attr('data-href', selector.data('gallery-video-src'));
+    }
+
+    $('#gallery_image_user_name').text(selector.data('gallery-image-user-name'));
+    $('#gallery_image_post_info').text(selector.data('gallery-image-post-info'));
+    $('#gallery_image_posted_time').text(selector.data('gallery-image-posted-time'));
+    $('#gallery_image_like_facebook_url').attr('href', selector.data('gallery-image-post-facebook-url'));
+    $('#gallery_image_comment_facebook_url').attr('href', selector.data('gallery-image-post-facebook-url'));
+    disableButtons(counter, current_image_counter);
+
+    var postAttachmentId = selector.attr('data-gallery-image-post-attachment-id');
+    var postVisited = selector.attr('data-gallery-image-post-visited');
+
+
+    if(postVisited == "false") {
+      // submit challenge visit post
+      $.ajax({
+        url: `/participants/challenges/${challengeId}/submission`,
+        type: 'POST',
+        dataType: 'JSON',
+        data: { post_attachment_id: postAttachmentId },
+        success: function (data) {
+          if (data.success) {
+            $(selector).addClass('post_complete');
+            $('#post_visit_checkmark').show();
+            $(selector).attr('data-gallery-image-post-visited', true);
+            $('.coin').addClass('animated');
+            var remVisitCount = parseInt($('#remaining_posts_visit').text()) - 1;
+            $('#remaining_posts_visit').text(remVisitCount);
+          } else {
+            console.log("Visit Post Failed");
+          }
+        }
+      });
+    } else {
+      $('#post_visit_checkmark').show();
+      $('.coin').removeClass('animated');
+    }
+  }
+
+  //This function disables buttons when needed
+  function disableButtons(counter_max, current_counter) {
+    $('#show-previous-btn, #show-next-btn').show();
+    $('#show-previous-btn').attr('data-current-counter', current_counter)
+    $('#show-next-btn').attr('data-current-counter', current_counter)
+    if (counter_max === current_counter) {
+      $('#show-next-btn').hide();
+    } else if (current_counter === 1) {
+      $('#show-previous-btn').hide();
+    }
+  }
+
+
+  // build key actions
+  // $(document).keydown(function (e) {
+  //     switch (e.which) {
+  //       case 37: // left
+  //         if (($('#image-gallery').data('bs.modal') || {})._isShown && $('#show-previous-btn').is(":visible")) {
+  //           $('#show-previous-btn').click();
+  //         }
+  //         break;
+  //
+  //       case 39: // right
+  //         if (($('#image-gallery').data('bs.modal') || {})._isShown && $('#show-next-btn').is(":visible")) {
+  //           $('#show-next-btn').click();
+  //         }
+  //         break;
+  //
+  //       default:
+  //         return; // exit this handler for other keys
+  //     }
+  //     e.preventDefault(); // prevent the default action (scroll / move caret)
+  // });
+
+
+  $(document).ready(function(){
+    function alignModal(){
+        var modalDialog = $(this).find(".modal-dialog");
+        // Applying the top margin on modal to align it vertically center
+        modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+    }
+    // Align modal when it is displayed
+    $("#image-gallery").on("shown.bs.modal", alignModal);
+
+    // Align modal when user resize the window
+    $(window).on("resize", function(){
+        $("#image-gallery:visible").each(alignModal);
+    });
+});
+
+</script>
+
+
+<style media="screen">
+
+  .video_slider_section .modal-content {
+    background-color: #1f1f1f !important;
+  }
+
+  .video_slider_section .modal-header .close {
+    color: #fff !important;
+  }
+
+  .video_slider_section .challenge-content {
+    padding: 0px;
+  }
+
+  .video_slider_section .col-thumb {
+    width: 20% !important;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .video_slider_section .thumb {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+  }
+  .video_slider_section .img-thumbnail {
+      padding: 0px !important;
+      background-color: #fff !important;
+      border: 5px solid #9696a0 !important;
+      border-radius: 0px !important;
+      max-width: 100% !important;
+      height: 125px !important;
+      width: 125px !important;
+  }
+
+  .video_slider_section .modal-footer{
+    display: block !important;
+  }
+
+  /* Image Gallery start*/
+  .btn:focus, .btn:active, button:focus, button:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  #image-gallery .modal-header .close {
+    padding-top: 0px !important;
+  }
+
+  #image-gallery .modal-body{
+    width: 80%;
+    margin: 0 auto;
+    color: #fff;
+    background-color: #1d1a14 !important;
+  }
+
+  #image-gallery .modal-footer {
+    display: block !important;
+  }
+
+  #image-gallery.modal, #image-gallery .modal-content {
+    background-color: #000 !important;
+  }
+
+  #image-gallery .slider_arrow {
+    position: absolute !important;
+    top: 47% !important;
+  }
+
+  #image-gallery .slider_arrow_left{
+    left: -80px !important;
+    position: relative !important;
+    border-radius: 50%;
+  }
+
+  #image-gallery .slider_arrow_right{
+    right: -80px !important;
+    position: relative !important;
+    border-radius: 50%;
+  }
+
+  #image-gallery .content-top{
+    overflow: hidden;
+    max-height: 2.4em;
+    line-height: 1.2em;
+    margin-bottom: 5px;
+    margin-top: 30px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  #image-gallery .points {
+    position: absolute;
+    right: 12px;
+    top: 0px;
+    font-weight: 600;
+    padding: 7px;
+    background: #1d1a14;
+    z-index: 1050;
+  }
+
+  #image-gallery .gallery-image-bg {
+    background-color: #181818 !important;
+    height: 320px;
+    width: 100%;
+  }
+
+  #image-gallery .img-slider-responsive{
+    height: 100%;
+    width: auto;
+  }
+
+  .video_slider_bottom_icon_box .fa{
+    color: #fff;
+    margin-left: 7px ;
+    font-size: 1.5rem ;
+  }
+  .video_slider_bottom_icon_box .lt, .video_slider_bottom_icon_box .rt{
+    line-height: 24px !important;
+  }
+
+  .post_complete {
+    font-size: 25px !important;
+  }
+
+  .post_complete:before {
+      font-family: FontAwesome !important;
+      content: "\f00c" !important;
+      position: absolute !important;
+      width: 118px !important;
+      height: 125px !important;
+      line-height: 125px !important;
+      text-align: center !important;
+      background-color: #000 !important;
+      color: #fff !important;
+      opacity: .5 !important;
+  }
+
+
+  /* For coin animation  start */
+  .coin {
+      display: none;
+  	  position: absolute;
+  	  font-size: 16px;
+  	  color: white;
+  	  padding: 6px 6px;
+  	  border: 1px solid #ccc;
+  	  box-shadow: 0px 0px 4px 1px rgb(196 188 196 / 29%);
+  	  background-color: #ccc;
+  	  transition: transform 1.5s;
+      right: 15px;
+      top: -30px;
+  }
+
+  .coin.animated {
+  	  box-shadow: none;
+  	  animation: vaporize 2s;
+  	  animation-fill-mode: forwards;
+      display: block;
+      z-index: 999;
+  }
+
+
+  @keyframes vaporize {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    10% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+    30% {
+      transform: rotate3d(0, 1, 0, 180deg);
+    }
+    to {
+      top: -100px;
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+
+
+.header_box_lt .fa{
+    font-size: 42px;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+
+.pagination span{
+  padding: 0px 5px;
+}
+
+.pagination .page.current {
+  color: #fff;
+}
+
+.pagination span a {
+  color: #9696a0;
+}
+
+  /* For coin animation end */
+</style>

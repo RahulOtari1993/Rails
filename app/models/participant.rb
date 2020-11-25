@@ -98,6 +98,7 @@ class Participant < ApplicationRecord
   belongs_to :email_setting, optional: true
   has_many :participant_profiles, dependent: :destroy
   has_many :participant_answers, dependent: :destroy
+  has_many :social_challenge_post_visits
 
   ## Callbacks
   after_create :generate_participant_id

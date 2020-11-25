@@ -38,12 +38,16 @@ class Submission < ApplicationRecord
     challenge = self.challenge
 
     if participant.present? && challenge.present?
-      ## Points Calculations
-      if challenge.reward_type == 'points'
-        challenge_points = challenge.points.to_i
-      elsif challenge.reward_type == 'prize'
-        reward = Reward.find(challenge.reward_id)
-        challenge_points = reward.points.to_i
+      if challenge.challenge_type == 'engage' && challenge.parameters == 'facebook'
+        challenge_points = challenge.post_view_points.to_i
+      else
+        ## Points Calculations
+        if challenge.reward_type == 'points'
+          challenge_points = challenge.points.to_i
+        elsif challenge.reward_type == 'prize'
+          reward = Reward.find(challenge.reward_id)
+          challenge_points = reward.points.to_i
+        end
       end
       points = participant.points.to_i + challenge_points
       unused_points = participant.unused_points.to_i + challenge_points

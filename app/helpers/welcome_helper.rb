@@ -20,4 +20,8 @@ module WelcomeHelper
     time_diff
   end
 
+  def get_completed_time_in_words(completed_time)
+    time_diff = distance_of_time_in_words(Time.now, completed_time.localtime)
+    time_diff
+  end
 end

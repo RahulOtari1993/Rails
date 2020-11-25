@@ -62,6 +62,8 @@ class Challenge < ApplicationRecord
   has_many :participant_actions, as: :actionable
   has_many :participant_answers, dependent: :destroy
 
+  has_many :social_challenge_post_visits
+
   ## Constants
   # MECHANISMS = %w(like rate form scorm login video share pixel manual signup follow article referal
   #                 comment connect hashtag referal location subscribe submission play practice hr link collect)

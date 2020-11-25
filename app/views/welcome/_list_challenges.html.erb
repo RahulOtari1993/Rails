@@ -43,6 +43,12 @@
           Visit a URL
         </button>
       </div>
+    <% elsif challenge.challenge_type == "engage" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+          Visit Social Media
+        </button>
+      </div>
     <% end %>
   <% else %>
     <% if challenge.challenge_type == "signup" %>
@@ -79,6 +85,12 @@
       <div class="width_50" style="float: left;">
         <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           Visit a URL
+        </button>
+      </div>
+    <% elsif challenge.challenge_type == "engage" %>
+      <div class="width_50" style="float: left;">
+        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+          Visit Social Media
         </button>
       </div>
     <% end %>

@@ -5,7 +5,7 @@
     <div class="image_inner_text">
       <div class="width_100">
         <div class="width_50" style="float: left;">
-          <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
+          <span class="left"><%= "+#{(challenge.challenge_type == 'engage' && challenge.parameters == 'facebook') ? challenge.post_view_points.to_i : challenge.points.to_i}" %></span></div>
         <div class="width_50" style="float: right;"><%= image_tag(challenge.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
       </div>
       <div class="clear"></div>

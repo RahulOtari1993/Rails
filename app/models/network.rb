@@ -20,6 +20,9 @@ class Network < ApplicationRecord
   belongs_to :campaign
   belongs_to :organization
 
+  has_many :network_pages, dependent: :destroy
+  has_many :network_page_posts, dependent: :destroy
+
   ## ENUM
   enum platform: [ :facebook, :instagram ]
 
@@ -30,6 +33,7 @@ class Network < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   ## scopes
-  scope :current_active, -> { where("auth_token IS NOT NULL AND expires_at > ?", Time.now) }
+  # scope :current_active, -> { where("auth_token IS NOT NULL AND expires_at > ?", Time.now) }
+  scope :current_active, -> { where("auth_token IS NOT NULL") }
 
 end

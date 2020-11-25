@@ -1,0 +1,12 @@
+
+$('#facebook_media_posts_div').html("<%= j render '/participants/challenges/facebook_media_posts_content', challenge: @challenge, facebook_post_attachments: @ntw_page_posts_attachments %>")
+$('#paginator').html('<%= escape_javascript(paginate(@ntw_page_posts_attachments, remote: true,  params: {controller: "challenges", action: "fetch_facebook_media_posts"}, first: 0, last: 0).to_s) %>');
+
+$(document).ready(function () {
+  // initialize gallery
+  $('#facebook_media_modal a.thumbnail').on('click', function () {
+    $('.coin').removeClass('animated');
+    $('#post_visit_checkmark').hide();
+    updateGallery($(this));
+  });
+});
