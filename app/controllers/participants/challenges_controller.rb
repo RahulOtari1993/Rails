@@ -137,6 +137,13 @@ class Participants::ChallengesController < ApplicationController
         ## Challenge Submission code
         @response = send(:submission)
       else
+        participant_action = ParticipantAction.new(participant_id: current_participant.id, points: 0,
+                                                   action_type: 'quiz', title: 'Submitted Quiz', details: @challenge.caption,
+                                                   actionable_id: @challenge.id, actionable_type: @challenge.class.name,
+                                                   user_agent: request.user_agent, ip_address: request.ip,
+                                                   campaign_id: @challenge.campaign_id, ahoy_visit_id: current_visit.id)
+        participant_action.save!
+
         respond_to do |format|
           @response = {success: false, message: @challenge.failed_message}
           format.js { render layout: false }
