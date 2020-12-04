@@ -19,7 +19,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <%= image_tag(get_profile_avatar_url, class: "rounded-circle", width: "35", height: "35") %>
-                <span class='username'><%= "Hi! #{current_participant.first_name} +#{current_participant.unused_points.to_i} GoBucks"%></span>
+                <span class='username'><%= "Hi! #{current_participant.first_name}" %> +<span class='user-points-earned'><%= "#{current_participant.unused_points.to_i}" %></span> GoBucks</span>
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a href="javascript:void(0);" class="dropdown-item edit-participant-profile-btn">My Account</a>

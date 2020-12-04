@@ -59,6 +59,7 @@ $(document).on('turbolinks:load', function () {
       success: function (data) {
         if (data.success) {
           // Display Challenge Completion Message
+          $('.user-points-earned').text(data.user_points);
           swalNotify('Challenge Submission', data.message);
           _this.hide();
         } else {

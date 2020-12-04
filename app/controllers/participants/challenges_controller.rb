@@ -339,7 +339,7 @@ class Participants::ChallengesController < ApplicationController
 
       respond_to do |format|
         @response = {success: true,
-                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully.")}
+                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully."), user_points: current_participant.reload.unused_points.to_i}
         format.json { render json: @response }
         format.js { render layout: false }
       end

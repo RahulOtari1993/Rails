@@ -91,6 +91,7 @@
       data: { status: status },
       success: function (data) {
         if (data.success) {
+          $('.user-points-earned').text(data.user_points);
           swalNotify('Challenge Submission', data.message);
         } else {
           swalNotify('Challenge Submission', data.message);

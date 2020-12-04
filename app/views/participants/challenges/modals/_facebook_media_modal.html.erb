@@ -160,6 +160,7 @@
             $('.coin').addClass('animated');
             var remVisitCount = parseInt($('#remaining_posts_visit').text()) - 1;
             $('#remaining_posts_visit').text(remVisitCount);
+            $('.user-points-earned').text(data.user_points);
           } else {
             console.log("Visit Post Failed");
           }
