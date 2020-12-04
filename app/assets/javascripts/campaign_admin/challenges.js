@@ -609,7 +609,9 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[duration]': {
         required: true,
-        digits: true
+        digits: true,
+        min: 1,
+        max: 100
       },
       'challenge[content]': {
         contentElement: true
@@ -683,8 +685,10 @@ $(document).on('turbolinks:load', function () {
         required: 'Please select timezone'
       },
       'challenge[duration]': {
-        required: 'Please enter duration in seconds',
-        digits: 'Please enter duration in seconds'
+        required: 'Please enter duration in percentage',
+        digits: 'Please enter duration in percentage',
+        min: 'Duration should be minimum of 1',
+        max: 'Duration should be maximum of 100'
       },
       'challenge[address]': {
         required: 'Please enter address'

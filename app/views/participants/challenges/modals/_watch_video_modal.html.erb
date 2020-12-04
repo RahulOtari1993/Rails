@@ -35,6 +35,8 @@
     </div>
   </div>
 </div>
+<% video_info = VideoInfo.new(@challenge.link) %>
+<% video_duration = video_info.duration.to_i %>
 
 <script type="text/javascript">
 
@@ -96,7 +98,7 @@
       timeSpent[parseInt(player.getCurrentTime())] = true;
       if (completeWatchStatus == '' || completeWatchStatus == undefined) {
         completeWatchPercent = showPercentage();
-        if (completeWatchPercent === 100) {
+        if (completeWatchPercent === <%= @challenge.duration.to_i %>) {
           completeWatchStatus = true
           submitChallenge(challengeId)
           clearInterval(timer)
@@ -112,11 +114,13 @@
         if (timeSpent[i]) percent++;
       }
 
-      if(<%= challenge.duration.to_i %> >= timeSpent.length ) {
-        targetDuration = timeSpent.length
-      } else {
-        targetDuration = <%= challenge.duration.to_i %>
-      }
+      // if(<%#= challenge.duration.to_i %> >= timeSpent.length ) {
+      //   targetDuration = timeSpent.length
+      // } else {
+      //   targetDuration = <%#= challenge.duration.to_i %>
+      // }
+
+      targetDuration = <%= video_duration %>
 
       percent = Math.round(percent / targetDuration * 100);
 

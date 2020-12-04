@@ -147,3 +147,6 @@ gem 'koala'
 
 ## Schedule cron jobs
 gem 'whenever'
+
+## Used to fetch duration of video url
+gem 'video_info'
