@@ -44,6 +44,7 @@
  *= require libraries/fontselect-default
  *= require libraries/plugins/extensions/noui-slider
  *= require libraries/core/colors/palette-noui
+ *= require vendors/colors/jquery.colorpicker.bygiro.min
 
  *= require style
  *= require ../campaign_admin

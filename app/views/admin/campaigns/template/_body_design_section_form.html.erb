@@ -1,0 +1,126 @@
+<div class="card-body">
+  <div class="main_box">
+    <div class="left">
+      <p>Background Color</p>
+    </div>
+    <div class="right">
+      <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", "background-color" %>
+      <div class="input-group color-picker-giro">
+        <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
+        <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'background-color')["value"], class: "form-control hex_ip_ht" %>
+      </div><br>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <div class="main_box">
+    <div class="left">
+      <p>Color</p>
+    </div>
+    <div class="right">
+      <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", "color" %>
+      <div class="input-group color-picker-giro">
+        <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
+        <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'color')["value"], class: "form-control hex_ip_ht" %>
+      </div><br>
+    </div>
+  </div>
+  <div class="clear"></div>
+
+  <div class="main_box">
+    <div class="left">
+      <p>Typography</p>
+    </div>
+    <div class="right">
+      <button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light">
+        <i class="feather icon-refresh-cw"></i>
+      </button>
+      <button type="button" id="show-hidden-typography" class="btn btn-primary edit_dropdown">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+      </button>
+      <div class="hidden-typography typography_box" style="display: none;">
+        <div class="px-1 mt-2 edit_family">
+          <p class="family_text">Family</p>
+          <div class="form-group family_drop family_drop_0">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", "font-family" %>
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][value]', options_for_select([], get_element_design_property('body', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="edit_input_row px-1">
+          <p>Size</p>
+          <fieldset class="form-group edit_input">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", "font-size" %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'font-size')["value"], class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+          </fieldset>
+          <div class="form-group edit_input_drop">
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][unit]', options_for_select(unit_options_list, get_element_design_property('body', 'font-size')["unit"]), class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="px-1 edit_family">
+          <p class="family_text">Weight</p>
+          <div class="form-group family_drop">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'font-weight' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][value]', options_for_select(font_weight_dropdown_list, get_element_design_property('body', 'font-weight')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="px-1 edit_family">
+          <p class="family_text">Transform</p>
+          <div class="form-group family_drop">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", "text-transform" %>
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][value]', options_for_select(text_transform_dropdwown_list, get_element_design_property('body', 'text-transform')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="px-1 edit_family">
+          <p class="family_text">Style</p>
+          <div class="form-group family_drop">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'font-style' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][value]', options_for_select(font_style_dropdown_list, get_element_design_property('body', 'font-style')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="px-1 edit_family">
+          <p class="family_text">Decoration</p>
+          <div class="form-group family_drop">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'text-decoration' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][value]', options_for_select(text_decoration_dropdown_list, get_element_design_property('body', 'text-decoration')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="edit_input_row px-1">
+          <p>Line-Height</p>
+          <fieldset class="form-group edit_input">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'line-height' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'line-height')["value"], class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+          </fieldset>
+          <div class="form-group edit_input_drop">
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][unit]', options_for_select(unit_options_list, get_element_design_property('body', 'line-height')["unit"]), class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="edit_input_row px-1">
+          <p>Letter Spacing</p>
+          <fieldset class="form-group edit_input">
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'letter-spacing' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'line-height')["value"], class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+          </fieldset>
+          <div class="form-group edit_input_drop">
+            <%= select_tag 'campaign_template_detail[element_css_style][body][][unit]', options_for_select(unit_options_list, get_element_design_property('body', 'line-height')["unit"]), class: 'select2 form-control' %>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>

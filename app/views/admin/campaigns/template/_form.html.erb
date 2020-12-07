@@ -1,113 +1,565 @@
-<div class="col-sm-12 data-field-col collapse-icon">
-  <div class="accordion" id="campaign-template-accordion">
-    <div class="collapse-border-item collapse-header card collapse-bordered">
-      <div class="card-header" id="header-details-heading" data-toggle="collapse" role="button" data-target="#header-details" aria-expanded="false" aria-controls="header-details">
-        <span class="lead collapse-title">
-          Header Details
-        </span>
-      </div>
+<div class="col-sm-12 data-field-col">
+  <div class="collapse-icon sidebar_card">
+    <div class="accordion" id="campaign-template-accordion">
 
-      <div id="header-details" class="collapse show" aria-labelledby="header-details-heading" data-parent="#campaign-template-accordion">
-        <div class="card-body">
-          <div class="col-sm-12 data-field-col">
-            <label for="data-name">Header Background Image</label>
-            <div class="custom-file">
-              <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
-              <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item collapse-bordered">
+          <div class="card-header" id="header-details-heading" data-toggle="collapse" role="button" data-target="#header-details" aria-expanded="false" aria-controls="header-details">
+            <span class="lead collapse-title">
+              Header Details
+            </span>
+          </div>
+
+          <div id="header-details" class="collapse show" aria-labelledby="header-details-heading" data-parent="#campaign-template-accordion">
+            <div class="card-body">
+              <div class="col-sm-12 data-field-col">
+                <label for="data-name">Header Background Image</label>
+                <div class="custom-file">
+                  <%= form.file_field :header_background_image, class: "custom-file-input form-control" %>
+                  <%= form.label :header_background_image, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+                </div>
+              </div>
+
+              <div class="col-sm-12 data-field-col data-field-ts-1">
+                <label for="data-name">Header Logo</label>
+                <div class="custom-file">
+                  <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
+                  <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+                </div>
+              </div>
+
+              <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%= form.label :header_text, 'Header Title Text' %>
+                <%= form.text_field :header_text, class: "form-control", placeholder: "Header Title Text" %>
+              </div>
+
+              <!-- <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%#= form.label :header_font_size, 'Header Title Font Size' %>
+                <%#= form.text_field :header_font_size, class: "form-control", placeholder: "Header Title Font Size" %>
+              </div> -->
+
+              <!-- <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%#= form.label :header_font_color, 'Header Title Font Color' %>
+                <%#= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Title Font Color" %>
+              </div> -->
+
+              <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%= form.label :header_description, 'Header Description' %>
+                <%= form.text_field :header_description, class: "form-control", placeholder: "Header Description" %>
+              </div>
+
+              <!-- <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%#= form.label :header_description_font_size, 'Header Description Font Size' %>
+                <%#= form.text_field :header_description_font_size, class: "form-control", placeholder: "Header Description Font Size" %>
+              </div> -->
+
+              <!-- <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%#= form.label :header_description_font_color, 'Header Description Font Color' %>
+                <%#= form.text_field :header_description_font_color, class: "form-control colour-picker-txt", placeholder: "Header Description Font Color" %>
+              </div> -->
+
+    <!--          <div class="col-sm-12 data-field-col data-field-ts-1">-->
+                <%#= form.label :footer_font_size, 'Select Fonts' %>
+    <!--            <div class="position-relative">-->
+    <!--              <input id="font-selector" type="text"/>-->
+    <!--            </div>-->
+    <!--          </div>-->
             </div>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <label for="data-name">Header Logo</label>
-            <div class="custom-file">
-              <%= form.file_field :header_logo, class: "custom-file-input form-control" %>
-              <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
-            </div>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_text, 'Header Title Text' %>
-            <%= form.text_field :header_text, class: "form-control", placeholder: "Header Title Text" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_font_size, 'Header Title Font Size' %>
-            <%= form.text_field :header_font_size, class: "form-control", placeholder: "Header Title Font Size" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_font_color, 'Header Title Font Color' %>
-            <%= form.text_field :header_font_color, class: "form-control colour-picker-txt", placeholder: "Header Title Font Color" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_description, 'Header Description' %>
-            <%= form.text_field :header_description, class: "form-control", placeholder: "Header Description" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_description_font_size, 'Header Description Font Size' %>
-            <%= form.text_field :header_description_font_size, class: "form-control", placeholder: "Header Description Font Size" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :header_description_font_color, 'Header Description Font Color' %>
-            <%= form.text_field :header_description_font_color, class: "form-control colour-picker-txt", placeholder: "Header Description Font Color" %>
-          </div>
-
-<!--          <div class="col-sm-12 data-field-col data-field-ts-1">-->
-            <%#= form.label :footer_font_size, 'Select Fonts' %>
-<!--            <div class="position-relative">-->
-<!--              <input id="font-selector" type="text"/>-->
-<!--            </div>-->
-<!--          </div>-->
-        </div>
-      </div>
-    </div>
-
-    <div class="collapse-border-item card collapse-header">
-      <div class="card-header" id="footer-details-heading" data-toggle="collapse" role="button" data-target="#footer-details" aria-expanded="false" aria-controls="footer-details">
-      <span class="lead collapse-title">
-          Footer Details
-      </span>
-      </div>
-      <div id="footer-details" class="collapse" aria-labelledby="footer-details-heading" data-parent="#campaign-template-accordion">
-        <div class="card-body">
-          <div class="col-sm-12 data-field-col">
-            <%= form.label :footer_background_color, 'Footer Background Color' %>
-            <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :footer_font_color, 'Footer Font Color' %>
-            <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
-          </div>
-
-          <div class="col-sm-12 data-field-col data-field-ts-1">
-            <%= form.label :footer_font_size, 'Footer Font Size' %>
-            <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="card collapse-header collapse-border-item">
-      <div class="card-header" id="favicon-details-heading" data-toggle="collapse" role="button" data-target="#favicon-details" aria-expanded="false" aria-controls="favicon-details">
-      <span class="lead collapse-title">
-          Favicon Icon
-      </span>
-      </div>
-      <div id="favicon-details" class="collapse" aria-labelledby="favicon-details-heading" data-parent="#campaign-template-accordion">
-        <div class="card-body">
-          <div class="col-sm-12 data-field-col">
-            <%= form.label :favicon_file, 'Favicon Icon' %>
-            <div class="custom-file">
-              <%= form.file_field :favicon_file, class: "custom-file-input" %>
-              <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header" id="footer-details-heading" data-toggle="collapse" role="button" data-target="#footer-details" aria-expanded="false" aria-controls="footer-details">
+          <span class="lead collapse-title">
+              Footer Details
+          </span>
+          </div>
+          <div id="footer-details" class="collapse" aria-labelledby="footer-details-heading" data-parent="#campaign-template-accordion">
+            <div class="card-body">
+              <div class="col-sm-12 data-field-col">
+                <%= form.label :footer_background_color, 'Footer Background Color' %>
+                <%= form.text_field :footer_background_color, class: "form-control colour-picker-txt", placeholder: "Footer Background Color" %>
+              </div>
+
+              <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%= form.label :footer_font_color, 'Footer Font Color' %>
+                <%= form.text_field :footer_font_color, class: "form-control colour-picker-txt", placeholder: "Footer Font Color" %>
+              </div>
+
+              <div class="col-sm-12 data-field-col data-field-ts-1">
+                <%= form.label :footer_font_size, 'Footer Font Size' %>
+                <%= form.text_field :footer_font_size, class: "form-control", placeholder: "Footer Font Size" %>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header" id="favicon-details-heading" data-toggle="collapse" role="button" data-target="#favicon-details" aria-expanded="false" aria-controls="favicon-details">
+          <span class="lead collapse-title">
+              Favicon Icon
+          </span>
+          </div>
+          <div id="favicon-details" class="collapse" aria-labelledby="favicon-details-heading" data-parent="#campaign-template-accordion">
+            <div class="card-body">
+              <div class="col-sm-12 data-field-col">
+                <%= form.label :favicon_file, 'Favicon Icon' %>
+                <div class="custom-file">
+                  <%= form.file_field :favicon_file, class: "custom-file-input" %>
+                  <%= form.label :header_logo, 'Choose file', class: 'custom-file-label template-sidebar-file-uploader' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header" id="headingOne" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <span class="lead collapse-title">
+              Body
+            </span>
+          </div>
+          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#campaign-template-accordion" style="">
+            <%= render 'body_design_section_form' , form: form %>
+          </div>
+        </div>
+      </div>
+
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header collapsed" id="headingTwo" data-toggle="collapse" role="button" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <span class="lead collapse-title">
+              Typography
+            </span>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#campaign-template-accordion" style="">
+            <%= render 'typography_design_section_form' , form: form %>
+          </div>
+        </div>
+      </div>
+
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header" id="headingThree" data-toggle="collapse" role="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <span class="lead collapse-title">
+              Buttons
+            </span>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#campaign-template-accordion">
+            <%= render 'buttons_design_section_form' , form: form %>
+          </div>
+        </div>
+      </div>
+
+      <div class="collapse-margin">
+        <div class="card collapse-header collapse-border-item">
+          <div class="card-header" id="headingFour" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            <span class="lead collapse-title">
+              Form Fields
+            </span>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#campaign-template-accordion">
+            <%= render 'form_elements_design_section' , form: form %>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+  // Fetch google font families
+  var json = $.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBwIX97bVWr3-6AIUvGkcNnmFgirefZ6Sw', function(data) {
+    $.each( data.items, function( index, font ) {
+      $('.font-family-dropdown').append( $('<option></option>').attr('value', font.family).text(font.family) );
+    });
+  });
+
+  // Color Picker initialization
+  $('.color-picker-giro').colorPickerByGiro({
+    preview: '.color-picker-giro-preview',
+    format: 'hex'
+  });
+
+  // Select With Icon
+  $(".select2").select2({
+    dropdownAutoWidth: true,
+    width: '100%',
+    minimumResultsForSearch: Infinity,
+    templateResult: iconFormat,
+    templateSelection: iconFormat,
+    escapeMarkup: function(es) { return es; }
+  });
+
+  $('#show-hidden-typography').click(function() {
+    $('.hidden-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-link-typography').click(function() {
+    $('.hidden-link-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-hover-link-typography').click(function() {
+    $('.hidden-hover-link-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h1-typography').click(function() {
+    $('.hidden-h1-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h2-typography').click(function() {
+    $('.hidden-h2-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h3-typography').click(function() {
+    $('.hidden-h3-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h4-typography').click(function() {
+    $('.hidden-h4-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h5-typography').click(function() {
+    $('.hidden-h5-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-h6-typography').click(function() {
+    $('.hidden-h6-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-button-typography').click(function() {
+    $('.hidden-button-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-Box-Shadow-typography').click(function() {
+    $('.hidden-Box-Shadow-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-Box-Shadow2-typography').click(function() {
+    $('.hidden-Box-Shadow2-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-label-typography').click(function() {
+    $('.hidden-label-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+  $('#show-hidden-field-typography').click(function() {
+    $('.hidden-field-typography').slideToggle("slow");
+    // Alternative animation for example
+    // slideToggle("fast");
+  });
+
+});
+
+  // Format icon
+  function iconFormat(icon) {
+    var originalOption = icon.element;
+    if (!icon.id) { return icon.text; }
+    var $icon = "<i class='" + $(icon.element).data('icon') + "'></i>" + icon.text;
+
+    return $icon;
+  };
+
+  $('body').on('click', '.que_edit_cross', function (e) {
+    $(this).parent().remove();
+  });
+
+</script>
+
+
+<style media="screen">
+  /* Page builder css strat */
+
+  .sidebar_card .collapse-margin {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+  .sidebar_card .collapse-margin .card-header {
+      background: #0e163a;
+  }
+  .sidebar_card .collapse-margin .card-body {
+      background: #0f163a;
+  }
+  .sidebar_card .collapse-title:hover {
+      color: #C2C6DC;
+  }
+
+  .main_box{
+      width: 100%;
+      position: relative;
+      display: inline-block;
+  }
+  .main_box .left{
+      width: 50%;
+      float: left;
+  }
+  .main_box .right{
+      width: 29%;
+      float: right;
+  }
+
+  .color-picker-giro-preview{
+      width: 22px;
+      height: 22px;
+      border: 1px solid;
+  }
+  .hex_ip_ht{
+      padding: 0px 10px;
+      padding-right: 0px;
+  }
+  .cpBG {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 13px;
+      width: 280px;
+      box-shadow: 3px 3px 5px #888;
+      left: unset !important;
+      right: -13px !important;
+      position: absolute;
+      background: #fff;
+      z-index: 10;
+  }
+  .cp-buttons .btn-info {
+      border-color: #7367f0 !important;
+      background-color: #7367f0 !important;
+      color: #FFFFFF;
+      padding: 10px 25px !important;
+  }
+  .cp-buttons .btn-none {
+      border: 1px solid #EA5455 !important;
+      background-color: transparent !important;
+      color: #EA5455 !important;
+      padding: 9px 25px !important;
+      margin-right: 12px !important
+  }
+
+  /*.sidebar_card .dropup .edit_dropdown {
+      padding: 12px !important;
+  }
+  .sidebar_card .dropup .edit_dropdown::after {
+      content: none !important;
+  }
+  .sidebar_card .dropup .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: 0.13rem;
+      right: 12px;
+      left: unset;
+      width: 0.714rem;
+      height: 0.714rem;
+      display: block;
+      background: #262d49;
+      -webkit-transform: rotate(45deg) translate(-7px);
+      -ms-transform: rotate(45deg) translate(-7px);
+      transform: rotate(45deg) translate(-7px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      box-sizing: border-box;
+  }
+  .sidebar_card .dropdown-menu{
+      position: absolute;
+      transform: initial !important;
+      top: 44px !important;
+      left: unset !important;
+      right: 0px !important;
+      min-width: 310px !important;
+      box-shadow: 0px 0px 5px 1px rgb(14, 22, 58);
+  }*/
+
+  .sidebar_card .edit_dropdown{
+      padding: 0.800rem 0.736rem;
+      float: right;
+  }
+
+  #show-hidden-typography{
+      position: relative;
+  }
+
+  /*.hidden-typography{
+      position: absolute;
+      width: 100%;
+      top: 50px;
+      right: 0px;
+      z-index: 555;
+      background-color: #262C49;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  }
+  .hidden-typography::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: 1.1rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      display: block;
+      background: #262C49;
+      -webkit-transform: rotate(45deg) translate(-7px);
+      -ms-transform: rotate(45deg) translate(-7px);
+      transform: rotate(45deg) translate(-7px);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      box-sizing: border-box;
+  }*/
+  .typography_box{
+      position: absolute;
+      width: 100%;
+      top: 50px;
+      right: 0px;
+      z-index: 555;
+      background-color: #0e163a;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 5px;
+      box-shadow: 0 0px 5px rgb(38, 45, 73);
+  }
+  .typography_box::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: 1.1rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      display: block;
+      background: #0e163a;
+      -webkit-transform: rotate(45deg) translate(-7px);
+      -ms-transform: rotate(45deg) translate(-7px);
+      transform: rotate(45deg) translate(-7px);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      box-sizing: border-box;
+  }
+  .typography_box .form-control{
+          background-color: #262d49 !important;
+  }
+
+  .sidebar_card .collapse-margin .card-header {
+      padding: 12px;
+      border-radius: 3px;
+  }
+  .sidebar_card .accordion .collapse-title{
+      font-weight: 400;
+      font-size: 15px;
+  }
+  .edit_family{
+      position: relative;
+      width: 100%;
+      display: inline-block;
+  }
+  .family_text{
+      width: 50%;
+      float: left;
+  }
+  .family_drop{
+      width: 50%;
+      float: right;
+      margin-bottom: 1rem !important;
+  }
+  .family_drop_0{
+      margin-bottom: 0rem !important;
+  }
+
+  .edit_input_row{
+      position: relative;
+      width: 100%;
+      display: inline-block;
+  }
+  .edit_input{
+      width: 70%;
+      float: left;
+  }
+  .edit_input_drop{
+      width: 25%;
+      float: right;
+      margin-bottom: 1rem !important;
+  }
+  .edit_input_width{
+      width: 23%;
+      float: left;
+      margin-right: 2%;
+      margin-bottom: 1rem !important;
+  }
+  /*.input_pb .input_bg{
+      padding: 3px !important;
+  }*/
+
+  .link_box .nav-tabs .nav-item {
+       margin-bottom: 0px !important;
+  }
+  .link_box .nav.nav-tabs .nav-item .nav-link.active:after{
+      content:none;
+  }
+  .link_box .nav.nav-tabs.nav-justified {
+      width: auto;
+      border: 1px solid #7367f0;
+      margin-left: 1px;
+  }
+  .link_box .nav-tabs.nav-justified .nav-item .nav-link.active{
+      background-color: #7367f0 !important;
+      color: #f2f2f2 !important;
+  }
+  .sidebar_card .input_bg{
+      background-color: #262C49 !important;
+  }
+  .sidebar_card hr.m2{
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+  }
+  .padding_input{
+      width: 23%;
+      float: left;
+      margin-right: 2%;
+      margin-bottom: 1rem !important;
+  }
+  .padding_input:last-child{
+      margin-right: 0%;
+  }
+  .padding_input2{
+      width: 23%;
+      float: left;
+      margin-right: 2%;
+  }
+  .padding_input2:last-child{
+      margin-right: 0%;
+  }
+  /* Page builder css end */
+</style>

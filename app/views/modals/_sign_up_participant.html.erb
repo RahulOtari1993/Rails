@@ -13,7 +13,7 @@
         <div class="modal_box signup-type">
           <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box1">
-            <h5>Join the other members who are already winning great prizes and rewards.</h5>
+            <h5 class="join_now_modal_title mb-4">Join the other members who are already winning great prizes and rewards.</h5>
             <%
               google_button = display_google_button
               facebook_button = display_facebook_button
@@ -60,7 +60,7 @@
           <%= image_tag(list_header_logo, class: "logo_image mb-1") %>
           <div class="box2">
             <% if email_button.present? %>
-              <h5>Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>
+              <h5 class="join_now_modal_title mb-3">Let's get you earning points. Earn <span class="red-color-span"><%= email_button.points.to_i %> Points</span> now by setting up your account:</h5>
               <%= form_for(Participant.new, as: :participant, url: participant_registration_path, :html => {class: 'form form-vertical participant-sign-up-form'}) do |f| %>
                 <div class="row">
                   <%= f.hidden_field :campaign_id, value: @campaign.id %>
