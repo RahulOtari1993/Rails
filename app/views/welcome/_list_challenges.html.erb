@@ -1,102 +1,102 @@
-<h2 class="image_box_title mt-5 mb-4" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.name %></h2>
-<div class="width_100">
+<h3 class="my-4 custom_h3" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.name %></h3>
+<div class="row mb-md-5">
   <% if current_participant.present? %>
     <% if challenge.challenge_type == "signup" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           <%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %>
         </button>
       </div>
     <% elsif challenge.challenge_type == "video" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           Watch Now
         </button>
       </div>
     <% elsif challenge.challenge_type == "article" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           Read Article
         </button>
       </div>
     <% elsif challenge.challenge_type == "referral" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           Recruit Friends
         </button>
       </div>
     <% elsif challenge.challenge_type == "share" %>
-        <div class="width_50" style="float: left;">
-          <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+        <div class="col-7">
+          <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
             Share
           </button>
         </div>
     <% elsif challenge.challenge_type == "collect" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           <%= "Take a #{challenge.parameters.titleize} Now" %>
         </button>
       </div>
     <% elsif challenge.challenge_type == "link" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn btn_transition challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           Visit a URL
         </button>
       </div>
     <% elsif challenge.challenge_type == "engage" %>
-      <div class="width_50" style="float: left;">
-        <button class="watch_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn challenge-submission-btn" data-challenge-id="<%= challenge.id %>">
           Visit Social Media
         </button>
       </div>
     <% end %>
   <% else %>
     <% if challenge.challenge_type == "signup" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           <%= challenge.parameters == "email" ? "Signup Email" : "Join #{challenge.parameters.titleize}" %>
         </button>
       </div>
     <% elsif challenge.challenge_type == "video" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           Watch Now
         </button>
       </div>
     <% elsif challenge.challenge_type == "article" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           Read Article
         </button>
       </div>
     <% elsif challenge.challenge_type == "referral" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           <%= "Refer #{challenge.parameters.titleize}" %>
         </button>
       </div>
     <% elsif challenge.challenge_type == "collect" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           <%= "Take a #{challenge.parameters.titleize} Now" %>
         </button>
       </div>
     <% elsif challenge.challenge_type == "link" %>
-      <div class="width_50" style="float: left;">
-        <button class="red_fill_btn"btn_transition  data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           Visit a URL
         </button>
       </div>
     <% elsif challenge.challenge_type == "engage" %>
-      <div class="width_50" style="float: left;">
-        <button class="watch_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
+      <div class="col-7">
+        <button class="custom_btn zoom_btn" data-challenge-id="<%= challenge.id %>" data-toggle="modal" data-target="#join_now_modal">
           Visit Social Media
         </button>
       </div>
     <% end %>
   <% end %>
-  <div class="width_50" style="float: right;">
-    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
+  <div class="col-5">
+    <span class="float-right pt-2 mt-1"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(challenge.finish) %></span>
   </div>
 </div>
 <div class="clear"></div>

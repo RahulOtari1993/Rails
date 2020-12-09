@@ -1,4 +1,5 @@
 module TemplateHelper
+  include HTTParty
 
   def unit_options_list
     options = [['PX', 'px'], ['EM', 'em'], ['REM', 'rem'], ['%', '%']]
@@ -27,6 +28,12 @@ module TemplateHelper
 
   def border_type_dropdown_list
     options = [['None', 'none'], ['Solid', 'solid'], ['Dotted', 'dotted'], ['Dashed', 'dashed'], ['Double', 'double']]
+    options
+  end
+
+  def font_family_options_list
+    response = HTTParty.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBwIX97bVWr3-6AIUvGkcNnmFgirefZ6Sw")['items'].map{|x| x['family']}
+    options = response.map{|x| [x, x] }
     options
   end
 

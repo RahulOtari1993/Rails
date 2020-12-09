@@ -22,25 +22,6 @@
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <style>
-      .footer_bottom {
-        background-color: <%= @template.footer_background_color.present? ? @template.footer_background_color : '#BB0000' %> !important;
-        color: <%= @template.footer_font_color.present? ? @template.footer_font_color : '#fefefe' %>;
-      }
-
-      .footer_bottom a:hover {
-        text-decoration: none;
-      }
-
-      .footer_bottom p, .footer_bottom a, .footer_bottom a:visited {
-        font-size: <%= @template.footer_font_size.present? ? "#{@template.footer_font_size}px" : '1.1rem' %>;
-        color: <%= @template.footer_font_color.present? ? @template.footer_font_color : '#333' %> !important;
-      }
-
-      .custom-header {
-        font-size: <%= @template.header_font_size.present? ? "#{@template.header_font_size}px" : '1.1rem' %>;
-        color: <%= @template.header_font_color.present? ? "#{@template.header_font_color}" : '#fefefe' %>;
-      }
-
       /* Custom CSS from Campaign Settings */
       <%= @campaign.css %>
     </style>
@@ -59,6 +40,8 @@
     <!-- Footer Part -->
     <%= render 'non_login/footer' %>
   </body>
+
+  <%= render 'end_users/layout/custom_elementory_css' %>
 
   <style media="screen">
     .body-content{

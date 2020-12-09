@@ -157,7 +157,7 @@
         </div>
       </div>
 
-      <div class="collapse-margin">
+      <!-- <div class="collapse-margin">
         <div class="card collapse-header collapse-border-item">
           <div class="card-header" id="headingFour" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             <span class="lead collapse-title">
@@ -165,10 +165,10 @@
             </span>
           </div>
           <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#campaign-template-accordion">
-            <%= render 'form_elements_design_section' , form: form %>
+            <%#= render 'form_elements_design_section' , form: form %>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -176,13 +176,6 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-
-  // Fetch google font families
-  var json = $.getJSON('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBwIX97bVWr3-6AIUvGkcNnmFgirefZ6Sw', function(data) {
-    $.each( data.items, function( index, font ) {
-      $('.font-family-dropdown').append( $('<option></option>').attr('value', font.family).text(font.family) );
-    });
-  });
 
   // Color Picker initialization
   $('.color-picker-giro').colorPickerByGiro({
@@ -284,6 +277,8 @@ $(document).ready(function() {
     // slideToggle("fast");
   });
 
+  assignButtonPaddingUnit();
+  assignInputPaddingUnit();
 });
 
   // Format icon
@@ -298,6 +293,30 @@ $(document).ready(function() {
   $('body').on('click', '.que_edit_cross', function (e) {
     $(this).parent().remove();
   });
+
+  // Button
+  $('body').on('change', '#button_padding_unit', function (e) {
+    assignButtonPaddingUnit();
+  });
+
+  function assignButtonPaddingUnit() {
+    unit = $('#button_padding_unit').val();
+    $('.button-padding-unit').each(function() {
+      $(this).val(unit);
+    });
+  }
+
+  // Input
+  $('#form_input_padding_unit').change(function() {
+    assignInputPaddingUnit();
+  });
+
+  function assignInputPaddingUnit() {
+    unit = $('#form_input_padding_unit').val();
+    $('.form-input-padding-unit').each(function() {
+      $(this).val(unit)
+    });
+  }
 
 </script>
 

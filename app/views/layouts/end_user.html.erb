@@ -12,57 +12,29 @@
     <% end %>
 
     <% if @og %>
-    <meta property="fb:app_id" content="<%= @og.fb_app_id %>" />
-    <meta property="og:site_name" content="<%= @og.site_name %>" />
-    <meta property="og:title" content="<%= @og.title %>" />
-    <meta property="og:type" content="<%= @og.content_type %>" />
-    <meta property="og:image" content="<%= @og.image %>" />
-    <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="<%= @og.url %>">
-    <meta property="og:description" content="<%= @og.description %>" />
+      <meta property="fb:app_id" content="<%= @og.fb_app_id %>" />
+      <meta property="og:site_name" content="<%= @og.site_name %>" />
+      <meta property="og:title" content="<%= @og.title %>" />
+      <meta property="og:type" content="<%= @og.content_type %>" />
+      <meta property="og:image" content="<%= @og.image %>" />
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:url" content="<%= @og.url %>">
+      <meta property="og:description" content="<%= @og.description %>" />
     <% end %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.css"> -->
-    <link rel="stylesheet" href="https://use.typekit.net/wez6qgv.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Proxima+Nova"> -->
-    <!-- <script src="jquery.easing.1.3.js"></script> -->
-    <!-- <script src="jquery.parallax-scroll.js"></script> -->
-    <%= stylesheet_link_tag 'end_user/end_user', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'end_user/end_user', 'data-turbolinks-track' => 'reload' %>
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href="https://use.typekit.net/wez6qgv.css">
+    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap">
     <script src="https://www.youtube.com/iframe_api"></script>
 
-    <style>
-      .footer_bottom {
-        background-color: <%= @template.footer_background_color.present? ? @template.footer_background_color : '#BB0000' %> !important;
-        color: <%= @template.footer_font_color.present? ? @template.footer_font_color : '#fefefe' %>;
-      }
-
-      .footer_bottom a:hover {
-        text-decoration: none;
-      }
-
-      .footer_bottom p, .footer_bottom a, .footer_bottom a:visited {
-        font-size: <%= @template.footer_font_size.present? ? "#{@template.footer_font_size}px" : '1.1rem' %>;
-        color: <%= @template.footer_font_color.present? ? @template.footer_font_color : '#333' %> !important;
-      }
-
-      .custom-header {
-        font-size: <%= @template.header_font_size.present? ? "#{@template.header_font_size}px" : '1.1rem' %>;
-        color: <%= @template.header_font_color.present? ? "#{@template.header_font_color}" : '#fefefe' %>;
-      }
-
-      /* Custom CSS from Campaign Settings */
-      <%= @campaign.css %>
-    </style>
-
+    <%= stylesheet_link_tag "end_user/end_user", media: "all", "data-turbolinks-track" => "reload" %>
+    <%= javascript_include_tag "end_user/end_user", "data-turbolinks-track" => "reload" %>
   </head>
 
-  <body>
+  <body class="custom-body">
     <!-- Header Menu -->
     <%= render 'end_users/layout/header' %>
 
@@ -80,16 +52,13 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-6 left">
-              <!-- <h1 class="custom-header"><%= list_header_text %></h1> -->
-              <h1 class="custom_h1 h1_margin"><%= list_header_text %></h1>
-              <!-- <h5 class="custom-header-details"><%= list_header_text %></h5> -->
-              <h5 class="custom-header-details custom_h5 mb-4"><%= list_header_text %></h5>
-              <!-- <button class="banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button> -->
-              <button class="red_fill_btn px-4" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
+              <h1 class="custom_h1 pt-4 mb-3"><%= list_header_text %></h1>
+              <h4 class="custom_h4 mb-3"><%= list_header_text %></h4>
+              <button class="custom_btn banner_btn" data-toggle="modal" data-target="#join_now_modal">Get Started!</button>
             </div>
             <div class="col-lg-6">
               <% unless @rewards.blank? %>
-                <h4 class="right_title">What you can win:</h4>
+                <span class="banner_section_title mb-2 pb-1">What you can win:</span>
                 <div id="banner_carousel" class="carousel slide" data-ride="carousel">
                   <ul class="carousel-indicators">
                     <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -100,10 +69,10 @@
                     <% @rewards.each_with_index do |reward, index| %>
                       <div class="carousel-item <%= (index == 0) ? 'active' : '' %>">
                         <%= image_tag(reward.image.url) %>
-                        <h3><%= reward.name %></h3>
+                        <h5 class="custom_h5 banner_carousel_caption"><%= reward.name %></h5>
                         <div class="carousel-caption">
-                          <p><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
-                            in <%= distance_of_time_in_words(Time.now, reward.finish) %></p>
+                          <span class="d-block"><i class="fa fa-clock-o" aria-hidden="true"></i> Prize Ends
+                            in <%= distance_of_time_in_words(Time.now, reward.finish) %></span>
                         </div>
                       </div>
                     <% end %>
@@ -122,6 +91,8 @@
     <!-- Footer Part -->
     <%= render 'end_users/layout/footer' %>
   </body>
+
+  <%= render 'end_users/layout/custom_elementory_css' %>
 
   <style media="screen">
     .body-content{

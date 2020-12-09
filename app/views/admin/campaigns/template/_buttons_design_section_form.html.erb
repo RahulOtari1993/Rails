@@ -14,8 +14,8 @@
         <div class="px-1 mt-2 edit_family">
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-family' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select([], get_element_design_property('custom-button', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-family', id: 'custom_button_font_family_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_family_options_list, get_element_design_property('custom-button', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_button_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -23,11 +23,11 @@
         <div class="edit_input_row px-1">
           <p>Size</p>
           <fieldset class="form-group edit_input">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-size' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'font-size')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-size', id: 'custom_button_font_size_name' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'font-size')["value"] , class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_button_font_size_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'font-size')["unit"]), class: 'select2 form-control' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'font-size')["unit"]), class: 'select2 form-control', id: 'custom_button_font_size_unit' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -35,8 +35,8 @@
         <div class="px-1 edit_family">
           <p class="family_text">Weight</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-weight' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_weight_dropdown_list, get_element_design_property('custom-button', 'font-weight')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-weight', id: 'custom_button_font_weight_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_weight_dropdown_list, get_element_design_property('custom-button', 'font-weight')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_font_weight_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -44,8 +44,8 @@
         <div class="px-1 edit_family">
           <p class="family_text">Transform</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'text-transform' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(text_transform_dropdwown_list, get_element_design_property('custom-button', 'text-transform')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'text-transform', id: 'custom_button_text_transform_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(text_transform_dropdwown_list, get_element_design_property('custom-button', 'text-transform')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_text_transform_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -53,8 +53,8 @@
         <div class="px-1 edit_family">
           <p class="family_text">Style</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-style' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_style_dropdown_list, get_element_design_property('custom-button', 'font-style')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-style', id: 'custom_button_font_style_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_style_dropdown_list, get_element_design_property('custom-button', 'font-style')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_font_style_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -62,8 +62,8 @@
         <div class="px-1 edit_family">
           <p class="family_text">Decoration</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'text-decoration' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(text_decoration_dropdown_list, get_element_design_property('custom-button', 'text-decoration')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'text-decoration', id: 'custom_button_text_decoration_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(text_decoration_dropdown_list, get_element_design_property('custom-button', 'text-decoration')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_text_decoration_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -71,11 +71,11 @@
         <div class="edit_input_row px-1">
           <p>Line-Height</p>
           <fieldset class="form-group edit_input">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'line-height' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'line-height')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'line-height', id: 'custom_button_line_height_name' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'line-height')["value"] , class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_button_line_height_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'line-height')["unit"]), class: 'select2 form-control' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'line-height')["unit"]), class: 'select2 form-control', id: 'custom_button_line_height_unit' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -83,11 +83,11 @@
         <div class="edit_input_row px-1">
           <p>Letter Spacing</p>
           <fieldset class="form-group edit_input">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'letter-spacing' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'letter-spacing')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'letter-spacing', id: 'custom_button_letter_spacing_name' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'letter-spacing')["value"] , class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_button_letter_spacing_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'letter-spacing')["unit"]), class: 'select2 form-control' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'letter-spacing')["unit"]), class: 'select2 form-control', id: 'custom_button_letter_spacing_unit' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -116,10 +116,10 @@
             <p>Text Color</p>
           </div>
           <div class="right">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "color" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "color", id: 'custom_button_color_name' %>
             <div class="input-group color-picker-giro">
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
-              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'color')["value"] , class: "form-control hex_ip_ht" %>
+              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_color_value' %>
             </div><br>
           </div>
         </div>
@@ -130,10 +130,10 @@
             <p>Background Color</p>
           </div>
           <div class="right">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "background-color" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "background-color", id: 'custom_button_bg_color_name' %>
             <div class="input-group color-picker-giro">
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
-              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'background-color')["value"] , class: "form-control hex_ip_ht" %>
+              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'background-color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_bg_color_value' %>
             </div><br>
           </div>
         </div>
@@ -142,8 +142,8 @@
         <div class="edit_family">
           <p class="family_text">Border Type</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'border-type' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(border_type_dropdown_list, get_element_design_property('custom-button', 'border-type')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'border', id: 'custom_button_border_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(border_type_dropdown_list, get_element_design_property('custom-button', 'border')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_border_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -151,11 +151,11 @@
         <div class="edit_input_row">
           <p>Border Radius</p>
           <fieldset class="form-group edit_input">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'border-radius' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'border-radius')["value"],  class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'border-radius', id: 'custom_button_border_radius_name' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'border-radius')["value"],  class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_button_border_radius_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'border-radius')["unit"]), class: 'select2 form-control' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button', 'border-radius')["unit"]), class: 'select2 form-control', id: 'custom_button_border_radius_unit' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -167,10 +167,10 @@
             <p>Text Color</p>
           </div>
           <div class="right">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "color" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "color", id: 'custom_button_hover_color_name' %>
             <div class="input-group color-picker-giro">
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
-              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'color')["value"] , class: "form-control hex_ip_ht" %>
+              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_hover_color_value' %>
             </div><br>
           </div>
         </div>
@@ -181,10 +181,10 @@
             <p>Background Color</p>
           </div>
           <div class="right">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "background-color" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "background-color", id: 'custom_button_hover_bg_color_name' %>
             <div class="input-group color-picker-giro">
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
-              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'background-color')["value"] , class: "form-control hex_ip_ht" %>
+              <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'background-color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_hover_bg_color_value' %>
             </div><br>
           </div>
         </div>
@@ -193,8 +193,8 @@
         <div class="edit_family">
           <p class="family_text">Border Type</p>
           <div class="form-group family_drop">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", 'border-type' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button-hover][][value]', options_for_select(border_type_dropdown_list, get_element_design_property('custom-button-hover', 'border-type')["value"]), include_blank: 'Select', class: 'select2 form-control' %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", 'border', id: 'custom_button_hover_border_name' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button-hover][][value]', options_for_select(border_type_dropdown_list, get_element_design_property('custom-button-hover', 'border')["value"]), include_blank: 'Select', class: 'select2 form-control', id: 'custom_button_hover_border_value' %>
           </div>
 
         </div>
@@ -203,11 +203,11 @@
         <div class="edit_input_row">
           <p>Border Radius</p>
           <fieldset class="form-group edit_input">
-            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", 'border-radius' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'border-radius')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Enter value" %>
+            <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", 'border-radius', id: 'custom_button_hover_border_radius_name' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'border-radius')["value"] , class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_button_hover_border_radius_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button-hover][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button-hover', 'border-radius')["unit"]), class: 'select2 form-control' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button-hover][][unit]', options_for_select(unit_options_list, get_element_design_property('custom-button-hover', 'border-radius')["unit"]), class: 'select2 form-control', id: 'custom_button_hover_border_radius_unit' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -219,24 +219,24 @@
       <p>Padding</p>
       <div class="edit_input">
         <fieldset class="form-group edit_input_width">
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-top' %>
-          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-top')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Top" %>
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-top')["unit"] , class: 'button-padding-unit' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-top', id: 'custom_button_padding_top_name' %>
+          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-top')["value"] , class: "form-control input_bg",   placeholder: "Top", id: 'custom_button_padding_top_value' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-top')["unit"] , class: 'button-padding-unit', id: 'custom_butto_padding_top_unit' %>
         </fieldset>
         <fieldset class="form-group edit_input_width">
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-right' %>
-          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-right')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Right" %>
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-right')["unit"] , class: 'button-padding-unit' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-right', id: 'custom_button_padding_right_name' %>
+          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-right')["value"] , class: "form-control input_bg",   placeholder: "Right", id: 'custom_button_padding_right_value' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-right')["unit"] , class: 'button-padding-unit', id: 'custom_button_hover_right_unit' %>
         </fieldset>
         <fieldset class="form-group edit_input_width">
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-bottom' %>
-          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-bottom')["value"] , class: "form-control input_bg", id: "basicInput",  placeholder: "Bottom" %>
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-bottom')["unit"] , class: 'button-padding-unit' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-bottom', id: 'custom_button_padding_bottom_name' %>
+          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-bottom')["value"] , class: "form-control input_bg",   placeholder: "Bottom", id: 'custom_button_padding_bottom_value' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-bottom')["unit"] , class: 'button-padding-unit', id: 'custom_button_padding_bottom_unit' %>
         </fieldset>
         <fieldset class="form-group edit_input_width">
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-left' %>
-          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-left')["value"] ,  class: "form-control input_bg", id: "basicInput",  placeholder: "Left" %>
-          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-left')["unit"] , class: 'button-padding-unit' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'padding-left', id: 'custom_button_padding_left_name' %>
+          <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'padding-left')["value"] ,  class: "form-control input_bg",   placeholder: "Left", id: 'custom_button_padding_left_value' %>
+          <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][unit]", get_element_design_property('custom-button', 'padding-left')["unit"] , class: 'button-padding-unit', id: 'custom_button_padding_bottom_unit' %>
         </fieldset>
       </div>
       <div class="form-group edit_input_drop">
@@ -248,21 +248,3 @@
   </div>
   <div class="clear"></div>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    assignPaddingUnit();
-
-    $('#button_padding_unit').change(function() {
-      assignPaddingUnit();
-    });
-  });
-
-
-  function assignPaddingUnit() {
-    unit = $('#button_padding_unit').val();
-    $('.button-padding-unit').each(function() {
-      $(this).val(unit)
-    });
-  }
-</script>

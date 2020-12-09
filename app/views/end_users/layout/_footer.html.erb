@@ -2,16 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8">
-        <ul class="ft_menu_list">
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a></li>
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#termsModal">Terms</a></li>
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#rulesModal">Rules</a></li>
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#faqModal">FAQs</a></li>
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#contactUsModal">Contact</a></li>
-          <li><a href="javascript:void(0);" data-toggle="modal" data-target="#contactUsModal">Help & Support</a></li>
+        <ul class="ft_menu_list mt-2">
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#privacyModal">Privacy Policy</a></li>
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#termsModal">Terms</a></li>
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#rulesModal">Rules</a></li>
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#faqModal">FAQs</a></li>
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#contactUsModal">Contact</a></li>
+          <li><a class='custom-a' href="javascript:void(0);" data-toggle="modal" data-target="#contactUsModal">Help & Support</a></li>
         </ul>
         <div class="clear"></div>
-        <p>© <%= Time.current.year %> <%= @campaign.name %> All rights Reserved.</p>
+        <span class="mt-1 footer_bottom_text d-block">© <%= Time.current.year %> <%= @campaign.name %> All rights Reserved.</span>
       </div>
       <div class="col-md-4">
         <%= image_tag('end-user/Powered-by-Perk-Social.svg') %>

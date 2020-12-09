@@ -1,31 +1,23 @@
 <% @template = @campaign.campaign_template_detail %>
 
 <!-- Challenges section start -->
-<section class="section1">
+<section class="section1 new_section">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h3>Earn GoBucks</h3>
-        <p>Stay connected with these challenges <span>to earn discounts and rewards.</span></p>
+      <div class="col-md-12 mb-md-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-3 col-3">
+            <%= image_tag("end-user/reward.svg", class: "title_icon mt-3 float-md-right") %>
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-9 col-9">
+            <h2 class="custom_h2">Earn Points</h2>
+            <div class="section_subtitle mb-4 mb-md-0">The <span class="bold_red">more you earn</span> the more you can win!</div>
+          </div>
+        </div>
       </div>
       <% unless @challenges.blank? %>
         <% @challenges.each_with_index do |challenge, index| %>
-          <div class="col-12 col-md-4">
-            <!-- <div class="image_box_bg"> -->
-            <%#= image_tag(challenge.image.url, class: 'box_img_style') %>
-            <div class="card image_box image_box_bg" style="background:linear-gradient(0deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url(<%= challenge.image.url %>);background-size: cover;background-position: center center;top: 0;left: 0;width: 100%;height: auto;border-radius: 13px;">
-              <div class="image_inner_text">
-                <div class="width_100">
-                  <div class="width_50" style="float: left;">
-                    <span class="left"><%= "+#{challenge.points.to_i}" %></span></div>
-                  <div class="width_50" style="float: right;"><%= image_tag(Challenge.last.icon.url, style: "height:30px;width: 30px;float: right;") %></div>
-                </div>
-                <div class="clear"></div>
-                <%= render 'list_challenges', challenge: challenge %>
-              </div>
-            </div>
-            <!-- </div> -->
-          </div>
+          <%= render "challenge", { challenge: challenge, index: index } %>
         <% end %>
       <% end %>
     </div>
@@ -34,42 +26,47 @@
 <!-- Challenges section end -->
 
 <!-- Rewards Section start -->
-<section class="section2">
+<section class="section2 new_section mb-0">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h3>Current Prizes</h3>
-        <p>The more GoBucks you earn <span>the more you can win.</span></p>
+      <div class="col-md-12 mb-md-5">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-3 col-3">
+            <%= image_tag("end-user/reward.svg", class: "title_icon") %>
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-9 col-9">
+            <h2 class="custom_h2">Current Rewards</h2>
+            <div class="section_subtitle">It's <span class="bold_red">rewarding</span> to stay connected</div>
+          </div>
+        </div>
       </div>
       <% unless @rewards.blank? %>
         <% @rewards.each_with_index do |reward, index| %>
-          <div class="col-12 col-md-4">
+          <div class="col-md-12 col-lg-4">
             <div class="card image_box">
               <div class="image_inner_text">
-                <div class="width_100">
+                <div class="row mb-md-5">
                   <% title = (reward.selection == "redeem") ? "Cash-In" : reward.selection.titleize %>
-                  <div class="width_50" style="float: left;"><span class="left"><%= title %> <br> REWARD</span></div>
-                  <div class="width_50" style="float: right;"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
+                  <div class="col-6"><span class="left float-left text-uppercase"><%= title %> <br> REWARD</span></div>
+                  <div class="col-6"><%= image_tag("end-user/reward.svg", style: "width: 40px;float: right;") %></div>
                 </div>
-                <div class="clear"></div>
                 <%= image_tag(reward.image.url, style: "width:100%;height: auto;margin: 12px 0px;") %>
-                <h2 class="image_box_title mt-0 mb-1"><%= reward.name %></h2>
-                <h5><%= reward.description %></h5>
-                <div class="width_100">
-                  <div class="width_50" style="float: left;">
+                <h3 class="custom_h3 mt-0 mb-3"><%= reward.name %></h3>
+                <h6 class="custom_h6 mb-3"><%= reward.description %></h6>
+                <div class="row mb-md-5">
+                  <div class="col-7">
                     <% if current_participant %>
-                      <% unless coupon_claimed(reward) %>
-                        <button class="watch_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
-                      <% end %>
+                      <%# unless coupon_claimed(reward) %>
+                        <button class="custom_btn zoom_btn reward-claim-modal-btn" data-challenge-id="<%= get_reward_challenge(reward.id) %>" data-reward-id="<%= reward.id %>">Claim</button>
+                      <%# end %>
                     <% else %>
-                      <button class="watch_btn" data-toggle="modal" data-target="#join_now_modal">Claim</button>
+                      <button class="custom_btn zoom_btn" data-toggle="modal" data-target="#join_now_modal">Claim</button>
                     <% end %>
                   </div>
-                  <div class="width_50" style="float: right;">
-                    <span style="float: right;padding-top: 12px;color:#b7b4b4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
+                  <div class="col-5">
+                    <span class="float-right pt-2 mt-1" style="color:#B7B4B4;"><i class="fa fa-clock-o" aria-hidden="true"></i> <%= get_remaining_time_in_words(reward.finish) %></span>
                   </div>
                 </div>
-                <div class="clear"></div>
               </div>
             </div>
           </div>
