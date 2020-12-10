@@ -32,8 +32,8 @@ module TemplateHelper
   end
 
   def font_family_options_list
-    response = HTTParty.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBwIX97bVWr3-6AIUvGkcNnmFgirefZ6Sw")['items'].map{|x| x['family']}
-    options = response.map{|x| [x, x] }
+    response = HTTParty.get("https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyBwIX97bVWr3-6AIUvGkcNnmFgirefZ6Sw")['items']
+    options = response.map{|x| [x['family'], x['family']] }
     options
   end
 

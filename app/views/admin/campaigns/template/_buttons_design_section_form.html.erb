@@ -15,7 +15,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", 'font-family', id: 'custom_button_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(font_family_options_list, get_element_design_property('custom-button', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_button_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][custom-button][][value]', options_for_select(@font_family_options, get_element_design_property('custom-button', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_button_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>

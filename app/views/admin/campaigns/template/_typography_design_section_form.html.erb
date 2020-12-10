@@ -43,7 +43,7 @@
                 <p class="family_text">Family</p>
                 <div class="form-group family_drop family_drop_0">
                   <%= hidden_field_tag "campaign_template_detail[element_css_style][a][][name]", 'font-family', id: 'custom_a_font_family_name' %>
-                  <%= select_tag 'campaign_template_detail[element_css_style][a][][value]', options_for_select(font_family_options_list, get_element_design_property('a', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_a_font_family_value'%>
+                  <%= select_tag 'campaign_template_detail[element_css_style][a][][value]', options_for_select(@font_family_options, get_element_design_property('a', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_a_font_family_value'%>
                 </div>
               </div>
               <div class="clear"></div>
@@ -156,7 +156,7 @@
                 <p class="family_text">Family</p>
                 <div class="form-group family_drop family_drop_0">
                   <%= hidden_field_tag "campaign_template_detail[element_css_style][a-hover][][name]", 'font-family', id: 'custom_a_hover_font_family_name' %>
-                  <%= select_tag 'campaign_template_detail[element_css_style][a-hover][][value]', options_for_select(font_family_options_list, get_element_design_property('a-hover', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_a_hover_font_family_value' %>
+                  <%= select_tag 'campaign_template_detail[element_css_style][a-hover][][value]', options_for_select(@font_family_options, get_element_design_property('a-hover', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_a_hover_font_family_value' %>
                 </div>
               </div>
               <div class="clear"></div>
@@ -274,7 +274,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h1][][name]", 'font-family', id: 'custom_h1_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h1][][value]', options_for_select(font_family_options_list, get_element_design_property('h1', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h1_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h1][][value]', options_for_select(@font_family_options, get_element_design_property('h1', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h1_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -388,7 +388,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h2][][name]", 'font-family', id: 'custom_h2_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h2][][value]', options_for_select(font_family_options_list, get_element_design_property('h2', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h2_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h2][][value]', options_for_select(@font_family_options, get_element_design_property('h2', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h2_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -502,7 +502,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h3][][name]", 'font-family', id: 'custom_h3_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h3][][value]', options_for_select(font_family_options_list, get_element_design_property('h3', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h3_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h3][][value]', options_for_select(@font_family_options, get_element_design_property('h3', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h3_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -616,7 +616,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h4][][name]", 'font-family', id: 'custom_h4_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h4][][value]', options_for_select(font_family_options_list, get_element_design_property('h4', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h4_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h4][][value]', options_for_select(@font_family_options, get_element_design_property('h4', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h4_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -730,7 +730,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h5][][name]", 'font-family', id: 'custom_h5_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h5][][value]', options_for_select(font_family_options_list, get_element_design_property('h5', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h5_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h5][][value]', options_for_select(@font_family_options, get_element_design_property('h5', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h5_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
@@ -844,7 +844,7 @@
           <p class="family_text">Family</p>
           <div class="form-group family_drop family_drop_0">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][h6][][name]", 'font-family', id: 'custom_h6_font_family_name' %>
-            <%= select_tag 'campaign_template_detail[element_css_style][h6][][value]', options_for_select(font_family_options_list, get_element_design_property('h6', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h6_font_family_value' %>
+            <%= select_tag 'campaign_template_detail[element_css_style][h6][][value]', options_for_select(@font_family_options, get_element_design_property('h6', 'font-family')["value"]), include_blank: 'Select', class: 'select2 form-control font-family-dropdown', id: 'custom_h6_font_family_value' %>
           </div>
         </div>
         <div class="clear"></div>
