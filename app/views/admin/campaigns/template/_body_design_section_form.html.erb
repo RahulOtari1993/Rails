@@ -112,7 +112,7 @@
           <p>Letter Spacing</p>
           <fieldset class="form-group edit_input">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][body][][name]", 'letter-spacing', id: 'custom_body_letter_spacing_name' %>
-            <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'line-height')["value"], class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_body_letter_spacing_value' %>
+            <%= text_field_tag "campaign_template_detail[element_css_style][body][][value]", get_element_design_property('body', 'letter-spacing')["value"], class: "form-control input_bg",   placeholder: "Enter value", id: 'custom_body_letter_spacing_value' %>
           </fieldset>
           <div class="form-group edit_input_drop">
             <%= select_tag 'campaign_template_detail[element_css_style][body][][unit]', options_for_select(unit_options_list, get_element_design_property('body', 'line-height')["unit"]), class: 'select2 form-control', id: 'custom_body_letter_spacing_unit' %>
