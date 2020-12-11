@@ -1,13 +1,19 @@
 # require 'koala'
 
 class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
-  before_action :authenticate_user!, except: [:connect_facebook]
+  before_action :authenticate_user!, except: [:connect_facebook, :instagram_callback]
   before_action :set_network, only: [:disconnect]
 
   def index
     @config = @campaign.campaign_config
     @facebook_network =  @campaign.networks.where(platform: 0).current_active.first
     @instagram_network = @campaign.networks.where(platform: 'instagram').current_active.first
+
+    if @campaign.present? && @campaign.white_branding
+      @conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      @conf = GlobalConfiguration.first
+    end
   end
 
   ## Disconnect the facebook for campaign
@@ -40,6 +46,10 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     # flash[:notice] = "You are connected to Facebook Success."
     Rails.logger.info "******** redirected to networks index page *********"
     redirect_to admin_campaign_networks_path(@campaign)
+  end
+
+  def instagram_callback
+
   end
 
   private

@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
       get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
       get "participants/auth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
-      get "participants/auth/instagram/setup" => "participants/omniauth_callbacks#instagram_oauth2_setup"
+      get "participants/auth/instagram_graph/setup" => "participants/omniauth_callbacks#instagram_oauth2_setup"
     end
 
     namespace :admin do
@@ -180,6 +180,9 @@ Rails.application.routes.draw do
     get '/template', to: 'welcome#home', as: :template
     get '/participants', to: 'welcome#participants', as: :participants
     get '/welcome', to: 'welcome#welcome'
+
+    match 'instagram/auth/callback', to: 'admin/campaigns/networks#instagram_callback', via: [:get, :post]
+
 
     ## API Routes
     namespace :api, defaults: {format: 'json'} do

@@ -81,7 +81,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
   end
 
   ## Handle Twitter OAuth2 Callbacks
-  def instagram
+  def instagram_graph
     user_agent = request.user_agent
     remote_ip = request.remote_ip
     type = request.env['omniauth.params']['type']
@@ -105,6 +105,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     end
 
   end
+
   ## Setup OAuth Details for Facebook
   def setup
     Rails.logger.info "+++++++++++++++++++ Url: #{request.original_url} ++++++++++++++++++"

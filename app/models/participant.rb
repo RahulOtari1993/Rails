@@ -78,7 +78,7 @@ class Participant < ApplicationRecord
 
   ## Devise Configurations
   devise :database_authenticatable, :registerable, :confirmable, :trackable,
-         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter, :instagram],
+         :recoverable, :rememberable, :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter, :instagram_graph], ## , :instagram
          :authentication_keys => [:email, :organization_id, :campaign_id],
          :reset_password_keys => [:email, :organization_id, :campaign_id]
 
