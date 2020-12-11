@@ -166,4 +166,14 @@ class User < ApplicationRecord
     end
   end
 
+  ## Instagram Account Connect for Campaign user
+  def self.instagram_connect(auth, params, user_agent = '', remote_ip = '', u_id = nil)
+    org = Organization.active.where(id: params['oi']).first rescue nil
+    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
+    user = User.where(organization_id: org.try(:id), id: u_id).first
+
+    Rails.logger.info "*********** Save Token *************"
+    Rails.logger.info "*********** Response: #{auth.as_json} *************"
+    Rails.logger.info "*********** Parameters: #{params} *************"
+  end
 end
