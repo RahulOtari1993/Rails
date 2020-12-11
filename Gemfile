@@ -111,7 +111,8 @@ gem 'omniauth-twitter'
 
 ## Use Omniauth Instagram plugin
 # gem 'omniauth-instagram'
-gem 'omniauth-instagram-graph'
+# gem 'omniauth-instagram-graph'
+
 ## fetch video id from url
 gem 'video_info'
 
@@ -154,4 +155,5 @@ gem 'whenever'
 ## Used to fetch duration of video url
 gem 'video_info'
 
+## Used for Third Party API Calls
 gem 'httparty'

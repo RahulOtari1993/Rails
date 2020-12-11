@@ -183,12 +183,15 @@ class User < ApplicationRecord
     Rails.logger.info "*********** Response: #{auth.as_json} *************"
     Rails.logger.info "*********** Parameters: #{params} *************"
 
-    if auth[:credentials].present? && auth[:credentials][:token].present?
-      client = OmniAuth::InstagramGraph::LongLivedClient.new(conf.instagram_app_id, conf.instagram_app_secret)
-      access_token = client.get_token(access_token: auth[:credentials][:token])
+    
 
-      Rails.logger.info "*********** access_token: #{access_token} *************"
-    end
+
+    # if auth[:credentials].present? && auth[:credentials][:token].present?
+    #   client = OmniAuth::InstagramGraph::LongLivedClient.new(conf.instagram_app_id, conf.instagram_app_secret)
+    #   access_token = client.get_token(access_token: auth[:credentials][:token])
+    #
+    #   Rails.logger.info "*********** access_token: #{access_token} *************"
+    # end
 
   end
 end

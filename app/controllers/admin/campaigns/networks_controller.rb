@@ -49,7 +49,27 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
   end
 
   def instagram_callback
+    user_agent = request.user_agent
+    remote_ip = request.remote_ip
+    type = request.env['omniauth.params']['type']
 
+    Rails.logger.info "============= REQUEST: #{request} ==================="
+    Rails.logger.info "============= TYPE: #{type} ==================="
+    Rails.logger.info "============= PARAMS: #{params} ==================="
+
+    if type == 'social_feed' && request.env['omniauth.params'].has_key?('ci') && request.env['omniauth.params'].has_key?('oi') && request.env['omniauth.params'].has_key?('ui')
+      Rails.logger.info "********************** Instagram Callback Initiated **********************"
+      campaign_id = request.env['omniauth.params']['ci']
+      @network = User.instagram_connect(request.env["omniauth.auth"], request.env["omniauth.params"], user_agent, remote_ip, request.env['omniauth.params']['ui'])
+      # if @network.new_record?
+      #   redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Connecting Facebook account failed.'
+      # else
+      #   redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Facebook account connected successfully.'
+      # end
+    else
+      session["devise.facebook_data"] = request.env["omniauth.auth"]
+      redirect_to root_url
+    end
   end
 
   private
