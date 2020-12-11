@@ -74,19 +74,15 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     Rails.logger.info "*********** TOKEN Response: #{response['access_token']} *************"
 
     if response.has_key?('access_token') && response.has_key?('user_id')
-      long_token = HTTParty.post("https://graph.instagram.com/access_token", body: {
-        client_id: conf.instagram_app_id,
-        client_secret: conf.instagram_app_secret,
-        grant_type: 'ig_exchange_token',
-        access_token: response['access_token']
-      })
+      # long_token = HTTParty.post("https://graph.instagram.com/access_token", body: {
+      #   client_id: conf.instagram_app_id,
+      #   client_secret: conf.instagram_app_secret,
+      #   grant_type: 'ig_exchange_token',
+      #   access_token: response['access_token']
+      # })
 
 
-      # long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?
-      #   client_secret=#{conf.instagram_app_secret}&
-      #   grant_type=ig_exchange_token&
-      #   access_token=#{response['access_token']}", format: :json
-      #   )
+      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?grant_type=ig_exchange_token&client_secret=#{conf.instagram_app_secret}&access_token=#{response['access_token']}")
 
 
 
