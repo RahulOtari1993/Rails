@@ -279,7 +279,7 @@ Devise.setup do |config|
   config.omniauth :facebook, setup: true
   config.omniauth :google_oauth2, setup: true
   config.omniauth :twitter, setup: true
-  config.omniauth :instagram_graph, setup: true, scope: %w(user_profile user_media)
+  config.omniauth :instagram_graph, setup: true # , scope: %w(user_profile user_media)
   # config.omniauth :instagram, setup: true, scope: %w(user_profile user_media)
 
   # ==> Warden configuration
