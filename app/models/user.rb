@@ -171,7 +171,7 @@ class User < ApplicationRecord
     organization = campaign.organization rescue nil
 
     if campaign.present? && campaign.white_branding
-      conf = CampaignConfig.where(campaign_id: camp.id).first
+      conf = CampaignConfig.where(campaign_id: campaign.id).first
     else
       conf = GlobalConfiguration.first
     end
