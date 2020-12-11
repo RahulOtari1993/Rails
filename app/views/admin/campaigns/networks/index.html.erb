@@ -48,16 +48,13 @@
                         </div>
 
                         <% unless @instagram_network.blank? %>
-                          <%
-                            url = "https://api.instagram.com/oauth/authorize?client_id=#{@conf.instagram_app_id}&redirect_uri=#{instagram_auth_callback_url}&scope=user_profile,user_media&response_type=code"
-                          %>
-
-                          <a href="<%= url %>"
+                          <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>"
                              class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white">
                             <i class="feather icon-plus">Disconnect</i>
                           </a>
                         <% else %>
-                          <a href="<%= participant_instagram_graph_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>"
+                          <% url = "https://api.instagram.com/oauth/authorize?client_id=#{@conf.instagram_app_id}&redirect_uri=#{instagram_auth_callback_url}&scope=user_profile,user_media&response_type=code" %>
+                          <a href="<%= url %>"
                              class="btn btn-block btn-sm square instagram_bg_color my-1 waves-effect waves-light text-white">
                             <i class="feather icon-plus">Instagram</i>
                           </a>
