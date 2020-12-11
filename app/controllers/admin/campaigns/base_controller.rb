@@ -19,18 +19,14 @@ class Admin::Campaigns::BaseController < ApplicationController
       @template = @campaign.campaign_template_detail if @campaign.present?
       @config = @campaign.campaign_config if @campaign.present?
     else
-
-      type == request.env['omniauth.params']['type']
-      ci = request.env['omniauth.params'].has_key?('ci')
-      oi = request.env['omniauth.params'].has_key?('oi')
-
-      Rails.logger.info "============= OAuth Params: #{request.env['omniauth.params']}"
-
-      if params['controller'] == "admin/campaigns/networks" && params['action'] = "instagram_callback"
+      if params['controller'] == "admin/campaigns/networks" && params['action'] = "instagram_callback" && params['state'].present?
+        @campaign = Campaign.active.where(id: params[:campaign_id]).first
+        unless
+          redirect_to not_found_path
+        end
       else
         redirect_to not_found_path
       end
-
     end
   end
 
