@@ -72,6 +72,27 @@
         </div>
       </div>
 
+      <div class="col-12">
+        <h4>Instagram</h4>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :instagram_app_id, 'App ID' %>
+          <div class="position-relative">
+            <%= form.text_field :instagram_app_id, class: "form-control", placeholder: "7110182998562399" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="form-group">
+          <%= form.label :instagram_app_secret, 'App Secret' %>
+          <div class="position-relative">
+            <%= form.text_field :instagram_app_secret, class: "form-control", placeholder: "69c4da5934djh4853b4f10fbef1e8fdb" %>
+          </div>
+        </div>
+      </div>
+
       <div class="col-6">
         <%= form.submit "Save", class: 'btn btn-primary mr-1 mb-1' %>
         <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button>

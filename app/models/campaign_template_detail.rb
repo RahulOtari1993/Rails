@@ -18,6 +18,7 @@
 #  header_description            :text
 #  header_description_font_size  :float
 #  header_description_font_color :string
+#  element_css_style             :text
 #
 class CampaignTemplateDetail < ApplicationRecord
   ## Associations

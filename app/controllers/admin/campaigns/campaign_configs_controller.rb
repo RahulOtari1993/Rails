@@ -19,6 +19,7 @@ class Admin::Campaigns::CampaignConfigsController < Admin::Campaigns::BaseContro
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_config_params
     params.require(:campaign_config).permit(:facebook_app_id, :facebook_app_secret, :google_client_id,
-                                            :google_client_secret, :twitter_app_id, :twitter_app_secret)
+                                            :google_client_secret, :twitter_app_id, :twitter_app_secret,
+                                            :instagram_app_id, :instagram_app_secret)
   end
 end

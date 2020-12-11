@@ -2,7 +2,8 @@ ActiveAdmin.register GlobalConfiguration do
   config.filters = false
   actions :all, :except => [:destroy]
 
-  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret, :twitter_app_id, :twitter_app_secret
+  permit_params :facebook_app_id, :facebook_app_secret, :google_client_id, :google_client_secret,
+                :twitter_app_id, :twitter_app_secret, :instagram_app_id, :instagram_app_secret
 
   index :download_links => false do
     selectable_column
@@ -13,6 +14,8 @@ ActiveAdmin.register GlobalConfiguration do
     column :google_client_secret
     column :twitter_app_id
     column :twitter_app_secret
+    column :instagram_app_id
+    column :instagram_app_secret
     actions
   end
 
@@ -24,6 +27,8 @@ ActiveAdmin.register GlobalConfiguration do
       f.input :google_client_secret
       f.input :twitter_app_id
       f.input :twitter_app_secret
+      f.input :instagram_app_id
+      f.input :instagram_app_secret
     end
     f.actions
   end

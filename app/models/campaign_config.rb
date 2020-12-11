@@ -12,6 +12,8 @@
 #  twitter_app_secret   :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  instagram_app_id     :string
+#  instagram_app_secret :string
 #
 class CampaignConfig < ApplicationRecord
   ## Associations

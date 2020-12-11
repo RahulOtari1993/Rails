@@ -17,6 +17,7 @@
 #  coupon                  :string
 #  campaign_id             :bigint
 #  referred_participant_id :integer
+#  ahoy_visit_id           :integer
 #
 class ParticipantAction < ApplicationRecord
   ## Association

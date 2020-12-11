@@ -18,6 +18,8 @@
 #  is_active              :boolean          default(TRUE), not null
 #  is_deleted             :boolean          default(FALSE), not null
 #  deleted_by             :integer
+#  created_at             :datetime
+#  updated_at             :datetime
 #
 class AdminUser < ApplicationRecord
   # Include default devise modules. Others available are:

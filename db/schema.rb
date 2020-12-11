@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_28_111136) do
+ActiveRecord::Schema.define(version: 2020_12_11_063519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,8 @@ ActiveRecord::Schema.define(version: 2020_09_28_111136) do
     t.string "twitter_app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "instagram_app_id"
+    t.string "instagram_app_secret"
     t.index ["campaign_id"], name: "index_campaign_configs_on_campaign_id"
   end
 
@@ -290,6 +292,8 @@ ActiveRecord::Schema.define(version: 2020_09_28_111136) do
     t.string "twitter_app_secret"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "instagram_app_id"
+    t.string "instagram_app_secret"
   end
 
   create_table "network_page_post_attachments", force: :cascade do |t|
@@ -517,6 +521,7 @@ ActiveRecord::Schema.define(version: 2020_09_28_111136) do
     t.string "uid"
     t.text "tokens"
     t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
+    t.index ["email", "organization_id", "campaign_id"], name: "index_participant_email_org_campaign", unique: true
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
     t.index ["uid", "provider", "organization_id", "campaign_id"], name: "index_participant_uid_provider_org_campaign", unique: true
@@ -629,9 +634,9 @@ ActiveRecord::Schema.define(version: 2020_09_28_111136) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
-    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
+    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end
