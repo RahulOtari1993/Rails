@@ -176,7 +176,6 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     request.env['omniauth.strategy'].options[:client_id]  = conf.instagram_app_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.instagram_app_secret
-    request.env['omniauth.strategy'].options[:exchange_access_token_to_long_lived] = true
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
