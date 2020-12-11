@@ -54,13 +54,40 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     remote_ip = request.remote_ip
 
 
-    @network = User.instagram_connect(@campaign, params, instagram_auth_callback_url, user_agent, remote_ip)
-    # if @network.new_record?
-    #   redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Connecting Facebook account failed.'
-    # else
-    #   redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Facebook account connected successfully.'
-    # end
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign: @campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
 
+    Rails.logger.info "*********** Save Token #{url} *************"
+    Rails.logger.info "*********** Response: #{conf.inspect} *************"
+    Rails.logger.info "*********** Fetch AUth Token From Here Onwards *************"
+
+    response = HTTParty.post("https://api.instagram.com/oauth/access_token", body: {
+      client_id: conf.instagram_app_id,
+      client_secret: conf.instagram_app_secret,
+      grant_type: 'authorization_code',
+      code: params['code'],
+      redirect_uri: instagram_auth_callback_url
+    })
+
+    Rails.logger.info "*********** TOKEN Response: #{response.inspect} *************"
+
+    if response.has_key?('access_token') && response.has_key?('user_id')
+      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token", body: {
+        client_secret: conf.instagram_app_secret,
+        grant_type: 'ig_exchange_token',
+        access_token: response['access_token']
+      })
+
+      Rails.logger.info "*********** long_token: #{long_token.inspect} *************"
+
+      redirect_to admin_campaign_networks
+    else
+      flash[:notice] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
+      redirect_to admin_campaign_networks
+    end
   end
 
   private
