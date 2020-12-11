@@ -60,8 +60,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       conf = GlobalConfiguration.first
     end
 
-    Rails.logger.info "*********** Save Token #{url} *************"
-    Rails.logger.info "*********** Response: #{conf.inspect} *************"
+    Rails.logger.info "*********** Configs: #{conf.inspect} *************"
     Rails.logger.info "*********** Fetch AUth Token From Here Onwards *************"
 
     response = HTTParty.post("https://api.instagram.com/oauth/access_token", body: {
