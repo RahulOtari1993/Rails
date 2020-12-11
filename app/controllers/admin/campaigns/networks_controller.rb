@@ -7,6 +7,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
   def index
     @config = @campaign.campaign_config
     @facebook_network =  @campaign.networks.where(platform: 0).current_active.first
+    @instagram_network = @campaign.networks.where(platform: 'instagram').current_active.first
   end
 
   ## Disconnect the facebook for campaign
@@ -27,6 +28,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     # @oauth = Koala::Facebook::OAuth.new(@config.facebook_app_id, @config.facebook_app_secret, "http://osu.perksocial.local:3000/admin/campaigns/1/networks")
     # @oauth.get_app_access_token
 
+    
     # Rails.application.config.middleware.use OmniAuth::Builder do
     #   provider :facebook, @config.facebook_app_id, @config.facebook_app_secret, callback_path: auth_facebook_callback_admin_campaign_networks_path(@campaign, campaign_id: @campaign.id)
     # end

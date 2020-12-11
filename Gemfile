@@ -106,8 +106,11 @@ gem 'omniauth-facebook'
 ## Use Omniauth Google plugin
 gem 'omniauth-google-oauth2'
 
-## Use Omniauth Awitter plugin
+## Use Omniauth Twitter plugin
 gem 'omniauth-twitter'
+
+## Use Omniauth Instagram plugin
+gem 'omniauth-instagram'
 
 ## fetch video id from url
 gem 'video_info'

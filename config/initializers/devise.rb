@@ -279,6 +279,7 @@ Devise.setup do |config|
   config.omniauth :facebook, setup: true
   config.omniauth :google_oauth2, setup: true
   config.omniauth :twitter, setup: true
+  config.omniauth :instagram, setup: true
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

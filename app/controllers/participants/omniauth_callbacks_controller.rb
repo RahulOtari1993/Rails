@@ -138,6 +138,21 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
+  ## Setup OAuth Details for Twitter
+  def instagram_oauth2_setup
+    if @campaign.present? && @campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: @campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
+
+    Rails.logger.info "================ instagram_oauth2_setup ================"
+
+    request.env['omniauth.strategy'].options[:client_id]  = conf.instagram_app_id
+    request.env['omniauth.strategy'].options[:consumer_secret] = conf.instagram_app_secret
+    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
+  end
+
   # protected
 
   # The path used when OmniAuth fails
