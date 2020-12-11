@@ -167,31 +167,17 @@ class User < ApplicationRecord
   end
 
   ## Instagram Account Connect for Campaign user
-  def self.instagram_connect(auth, params, user_agent = '', remote_ip = '', u_id = nil)
-    org = Organization.active.where(id: params['oi']).first rescue nil
-    camp = org.campaigns.where(id: params['ci']).first rescue nil if org.present?
-    user = User.where(organization_id: org.try(:id), id: u_id).first
+  def self.instagram_connect(campaign, params, user_agent = '', remote_ip = '')
+    organization = campaign.organization rescue nil
 
-    if camp.present? && camp.white_branding
+    if campaign.present? && campaign.white_branding
       conf = CampaignConfig.where(campaign_id: camp.id).first
     else
       conf = GlobalConfiguration.first
     end
 
-
     Rails.logger.info "*********** Save Token *************"
-    Rails.logger.info "*********** Response: #{auth.as_json} *************"
-    Rails.logger.info "*********** Parameters: #{params} *************"
-
-    
-
-
-    # if auth[:credentials].present? && auth[:credentials][:token].present?
-    #   client = OmniAuth::InstagramGraph::LongLivedClient.new(conf.instagram_app_id, conf.instagram_app_secret)
-    #   access_token = client.get_token(access_token: auth[:credentials][:token])
-    #
-    #   Rails.logger.info "*********** access_token: #{access_token} *************"
-    # end
-
+    Rails.logger.info "*********** Response: #{conf.inspect} *************"
+    Rails.logger.info "*********** Fetch AUth Token From Here Onwards *************"
   end
 end

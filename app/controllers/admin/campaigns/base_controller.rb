@@ -20,8 +20,8 @@ class Admin::Campaigns::BaseController < ApplicationController
       @config = @campaign.campaign_config if @campaign.present?
     else
       if params['controller'] == "admin/campaigns/networks" && params['action'] = "instagram_callback" && params['state'].present?
-        @campaign = Campaign.active.where(id: params[:campaign_id]).first
-        unless
+        @campaign = Campaign.active.where(id: params['state']).first
+        unless @campaign
           redirect_to not_found_path
         end
       else
