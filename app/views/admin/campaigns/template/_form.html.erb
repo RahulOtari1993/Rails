@@ -178,10 +178,26 @@
 $(document).ready(function() {
 
   // Color Picker initialization
-  $('.color-picker-giro').colorPickerByGiro({
-    preview: '.color-picker-giro-preview',
-    format: 'hex'
-  });
+  // $('.color-picker-giro').colorPickerByGiro({
+  //   preview: '.color-picker-giro-preview',
+  //   format: 'hex'
+  // });
+
+  $('.color-picker-giro').each(function() {
+    var color = $(this).attr('data-color-code');
+    if (color == '' || typeof color == undefined) {
+      $(this).colorPickerByGiro({
+        preview: '.color-picker-giro-preview',
+        format: 'hex'
+      });
+    } else {
+      $(this).colorPickerByGiro({
+        preview: '.color-picker-giro-preview',
+        format: 'hex',
+        colour: color
+      });
+    }
+  })
 
   // Select With Icon
   $(".select2").select2({

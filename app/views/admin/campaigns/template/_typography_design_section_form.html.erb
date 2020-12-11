@@ -19,7 +19,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][a][][name]", "color", id: 'custom_a_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro" data-color-code=<%= get_element_design_property('a', 'color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][a][][value]", get_element_design_property('a', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_a_color_value' %>
             </div><br>
@@ -132,7 +132,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][a-hover][][name]", "color", id: 'custom_a_hover_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('a-hover', 'color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][a-hover][][value]", get_element_design_property('a-hover', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_a_hover_color_value' %>
             </div><br>
@@ -250,7 +250,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h1][][name]", "color", id: 'custom_h1_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h1', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h1][][value]", get_element_design_property('h1', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_h1_color_value' %>
       </div><br>
@@ -364,7 +364,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h2][][name]", "color", id: 'custom_h2_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h2', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h2][][value]", get_element_design_property('h2', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_h2_color_value' %>
       </div><br>
@@ -478,7 +478,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h3][][name]", "color", id: 'custom_h3_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h3', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h3][][value]", get_element_design_property('h3', 'color')["value"], class: "form-control hex_ip_ht", id: 'custom_h3_color_value' %>
       </div><br>
@@ -592,7 +592,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h4][][name]", "color", id: 'custom_h4_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h4', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h4][][value]", get_element_design_property('h4', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_h4_color_value' %>
       </div><br>
@@ -706,7 +706,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h5][][name]", "color", id: 'custom_h5_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h5', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h5][][value]", get_element_design_property('h5', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_h5_color_value' %>
       </div><br>
@@ -820,7 +820,7 @@
     </div>
     <div class="right">
       <%= hidden_field_tag "campaign_template_detail[element_css_style][h6][][name]", "color", id: 'custom_h6_color_name' %>
-      <div class="input-group color-picker-giro">
+      <div class="input-group color-picker-giro"  data-color-code=<%= get_element_design_property('h6', 'color')["value"] %>>
         <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
         <%= text_field_tag "campaign_template_detail[element_css_style][h6][][value]", get_element_design_property('h6', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_h6_color_value' %>
       </div><br>
