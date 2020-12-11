@@ -185,7 +185,7 @@ class User < ApplicationRecord
 
     if auth[:credentials].present? && auth[:credentials][:token].present?
       client = OmniAuth::InstagramGraph::LongLivedClient.new(conf.instagram_app_id, conf.instagram_app_id)
-      access_token = long_lived_client.get_token(access_token: auth[:credentials][:token])
+      access_token = client.get_token(access_token: auth[:credentials][:token])
 
       Rails.logger.info "*********** access_token: #{access_token} *************"
     end
