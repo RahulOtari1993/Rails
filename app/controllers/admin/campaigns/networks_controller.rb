@@ -75,6 +75,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
     if response.has_key?('access_token') && response.has_key?('user_id')
       long_token = HTTParty.post("https://api.instagram.com/oauth/access_token", body: {
+        client_id: conf.instagram_app_id,
         client_secret: conf.instagram_app_secret,
         grant_type: 'ig_exchange_token',
         access_token: response['access_token']
