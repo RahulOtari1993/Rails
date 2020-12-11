@@ -167,7 +167,7 @@ class User < ApplicationRecord
   end
 
   ## Instagram Account Connect for Campaign user
-  def self.instagram_connect(campaign, params, user_agent = '', remote_ip = '')
+  def self.instagram_connect(campaign, params, url, user_agent = '', remote_ip = '')
     organization = campaign.organization rescue nil
 
     if campaign.present? && campaign.white_branding
@@ -176,8 +176,20 @@ class User < ApplicationRecord
       conf = GlobalConfiguration.first
     end
 
-    Rails.logger.info "*********** Save Token *************"
+    Rails.logger.info "*********** Save Token #{url} *************"
     Rails.logger.info "*********** Response: #{conf.inspect} *************"
     Rails.logger.info "*********** Fetch AUth Token From Here Onwards *************"
+
+    payload = {
+      client_id: conf.instagram_app_id,
+      client_secret: conf.instagram_app_secret,
+      grant_type: 'authorization_code',
+      code: params['code'],
+      redirect_uri: url
+    }
+
+    response = HTTParty.post("https://api.instagram.com/oauth/access_token", body: payload)
+
+    Rails.logger.info "*********** Instagram Response #{response} *************"
   end
 end

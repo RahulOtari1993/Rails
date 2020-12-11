@@ -54,7 +54,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     remote_ip = request.remote_ip
 
 
-    @network = User.instagram_connect(@campaign, params, user_agent, remote_ip)
+    @network = User.instagram_connect(@campaign, params, instagram_auth_callback_url, user_agent, remote_ip)
     # if @network.new_record?
     #   redirect_to "/admin/campaigns/#{campaign_id.to_i}/networks", notice: 'Connecting Facebook account failed.'
     # else
