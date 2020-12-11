@@ -74,18 +74,18 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     Rails.logger.info "*********** TOKEN Response: #{response.inspect} *************"
 
     if response.has_key?('access_token') && response.has_key?('user_id')
-      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token", body: {
-        client_secret: conf.instagram_app_secret,
-        grant_type: 'ig_exchange_token',
-        access_token: response['access_token']
-      })
+      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?
+        client_secret=#{conf.instagram_app_secret}&
+        grant_type=ig_exchange_token&
+        access_token=#{response['access_token']}"
+      )
 
-      Rails.logger.info "*********** long_token: #{long_token.inspect} *************"
+      Rails.logger.info "*********** LONG TOKEN: #{long_token.inspect} *************"
 
-      redirect_to admin_campaign_networks
+      redirect_to admin_campaign_networks_path
     else
       flash[:notice] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
-      redirect_to admin_campaign_networks
+      redirect_to admin_campaign_networks_path
     end
   end
 
