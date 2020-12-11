@@ -77,7 +77,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?
         client_secret=#{conf.instagram_app_secret}&
         grant_type=ig_exchange_token&
-        access_token=#{response['access_token']}"
+        access_token=#{response['access_token']}", format: :json
       )
 
       Rails.logger.info "*********** LONG TOKEN: #{long_token.inspect} *************"
