@@ -174,7 +174,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     Rails.logger.info "================ instagram_oauth2_setup ================"
 
     request.env['omniauth.strategy'].options[:client_id]  = conf.instagram_app_id
-    request.env['omniauth.strategy'].options[:consumer_secret] = conf.instagram_app_secret
+    request.env['omniauth.strategy'].options[:client_secret] = conf.instagram_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
