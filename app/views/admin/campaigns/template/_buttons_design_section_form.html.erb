@@ -117,7 +117,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "color", id: 'custom_button_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro" data-color-code=<%= get_element_design_property('custom-button', 'color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_color_value' %>
             </div><br>
@@ -131,7 +131,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button][][name]", "background-color", id: 'custom_button_bg_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro" data-color-code=<%= get_element_design_property('custom-button', 'background-color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][custom-button][][value]", get_element_design_property('custom-button', 'background-color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_bg_color_value' %>
             </div><br>
@@ -168,7 +168,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "color", id: 'custom_button_hover_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro" data-color-code=<%= get_element_design_property('custom-button-hover', 'color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_hover_color_value' %>
             </div><br>
@@ -182,7 +182,7 @@
           </div>
           <div class="right">
             <%= hidden_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][name]", "background-color", id: 'custom_button_hover_bg_color_name' %>
-            <div class="input-group color-picker-giro">
+            <div class="input-group color-picker-giro" data-color-code=<%= get_element_design_property('custom-button-hover', 'background-color')["value"] %>>
               <span class="input-group-addon color-picker-giro-preview">&nbsp;</span>
               <%= text_field_tag "campaign_template_detail[element_css_style][custom-button-hover][][value]", get_element_design_property('custom-button-hover', 'background-color')["value"] , class: "form-control hex_ip_ht", id: 'custom_button_hover_bg_color_value' %>
             </div><br>

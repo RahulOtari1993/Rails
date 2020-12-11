@@ -40,7 +40,7 @@
 //= require libraries/scripts/components
 //= require libraries/scripts/modal/components-modal
 //= require libraries/scripts/charts/geo-charts/loader
-//= require vendors/colors/jquery.colorpicker.bygiro.min
+//= require vendors/colors/jquery.colorpicker.bygiro
 
 //= require jquery.minicolors
 //= require moment
