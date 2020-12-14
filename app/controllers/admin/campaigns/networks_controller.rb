@@ -80,8 +80,12 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       token_response = JSON.parse(token_response)
 
       Rails.logger.info "*********** Long Token Details: #{token_response.inspect} *************"
+      Rails.logger.info "*********** access_token Details: #{token_response['access_token'].inspect} *************"
+      Rails.logger.info "*********** token_type Details: #{token_response['token_type'].inspect} *************"
+      Rails.logger.info "*********** expires_in Details: #{token_response['expires_in'].inspect} *************"
+      Rails.logger.info "*********** All Details: #{token_response.has_key?('access_token') && token_response.has_key?('token_type') && token_response.has_key?('expires_in')} *************"
 
-      if token_response.has_key?('access_token') && response.has_key?('token_type') && response.has_key?('expires_in')
+      if token_response.has_key?('access_token') && token_response.has_key?('token_type') && token_response.has_key?('expires_in')
         ## Save the token response and user info details
         network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram').first_or_initialize
 
