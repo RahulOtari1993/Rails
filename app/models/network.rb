@@ -27,7 +27,7 @@ class Network < ApplicationRecord
   enum platform: [ :facebook, :instagram ]
 
   ## Validations
-  validates :campaign_id, :platform, :username, presence: true
+  validates :campaign_id, :platform, presence: true
 
   ## Mount Uploader for File Upload
   mount_uploader :avatar, AvatarUploader

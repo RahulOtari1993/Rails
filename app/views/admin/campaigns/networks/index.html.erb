@@ -48,7 +48,7 @@
                         </div>
 
                         <% unless @instagram_network.blank? %>
-                          <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>"
+                          <a href="<%= disconnect_admin_campaign_network_path(@campaign, @instagram_network) %>"
                              class="btn btn-block btn-sm square instagram_bg_color my-1 waves-effect waves-light text-white">
                             <i class="feather icon-plus">Disconnect</i>
                           </a>
