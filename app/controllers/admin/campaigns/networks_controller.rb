@@ -76,14 +76,12 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       url = "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=#{conf.instagram_app_secret}&access_token=#{response['access_token']}"
       Rails.logger.info "*********** FETCH TOKEN URL: #{url} *************"
 
-      token_response = `curl -i -X GET #{url}`
+      token_response = `curl -i -X GET '#{url}'`
       token_response = JSON.parse(token_response)
 
       Rails.logger.info "*********** Long Token Details: #{token_response.inspect} *************"
 
       if token_response.has_key?('access_token') && response.has_key?('token_type') && response.has_key?('expires_in')
-
-
         ## Save the token response and user info details
         network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram').first_or_initialize
 
