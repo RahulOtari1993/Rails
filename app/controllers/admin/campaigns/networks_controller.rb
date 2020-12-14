@@ -92,7 +92,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         ## Update existing network or create a new Network
         network.auth_token = token_response['access_token']
         network.username = ''
-        network.expires_at = Time.now + (token_response['access_token'] / 3600 / 24).days
+        network.expires_at = Time.now + (token_response['expires_in'].to_i / 3600 / 24).days
         network.remote_avatar_url = ''
         if network.save
           flash[:notice] = 'Instagram account configuration successful.'
