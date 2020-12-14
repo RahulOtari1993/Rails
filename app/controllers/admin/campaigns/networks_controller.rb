@@ -70,14 +70,16 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       redirect_uri: instagram_auth_callback_url
     })
 
-    Rails.logger.info "*********** TOKEN Response: #{response['access_token']} *************"
+    Rails.logger.info "*********** TOKEN Response: #{response} *************"
 
     if response.has_key?('access_token') && response.has_key?('user_id')
       token_response = `curl https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=#{conf.instagram_app_secret}&access_token=#{response['access_token']}`
       token_response = JSON.parse(token_response)
 
+      Rails.logger.info "*********** Long Token Details: #{token_response.inspect} *************"
+
       if token_response.has_key?('access_token') && response.has_key?('token_type') && response.has_key?('expires_in')
-        Rails.logger.info "*********** Long Token Details: #{token_response.inspect} *************"
+
 
         ## Save the token response and user info details
         network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram').first_or_initialize
@@ -91,10 +93,12 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
           flash[:notice] = 'Instagram account configuration successful.'
           redirect_to admin_campaign_networks_path(@campaign)
         else
+          Rails.logger.info "*********** Error 333 *************"
           flash[:notice] = 'Instagram account configuration failed.'
           redirect_to admin_campaign_networks_path(@campaign)
         end
       else
+        Rails.logger.info "*********** Error 222 *************"
         flash[:notice] = (response.has_key?('error') && response['error'].has_key?('message')) ? response['error']['message'] : 'Instagram account configuration failed.'
         redirect_to admin_campaign_networks_path(@campaign)
       end
@@ -131,6 +135,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       #   req.body = { client_secret: '67c4da5924dae9253b4f10fdef1e8eda', grant_type: 'ig_exchange_token', access_token: 'IGQVJXQ2lJU0NPNEV6Vktkbk5EYzhyLWdmSU9iQjRQU1VHNGduamV2VEFVd1dVWXdiUDdMekVxanA5YUExdHAxRllCMDI5VVR0ZA3RMVTl5QnNUYmczb3ViazJqdnowc1REUjRDSUhrc1RzRXdCZAUJyTkZApVnptb1JlejdJ' }.to_json
       # end
     else
+      Rails.logger.info "*********** Error 111 *************"
       flash[:notice] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
       redirect_to admin_campaign_networks_path(@campaign)
     end
