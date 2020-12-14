@@ -73,6 +73,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     Rails.logger.info "*********** TOKEN Response: #{response} *************"
 
     if response.has_key?('access_token') && response.has_key?('user_id')
+      user_id = response['user_id']
       url = "https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=#{conf.instagram_app_secret}&access_token=#{response['access_token']}"
       Rails.logger.info "*********** FETCH TOKEN URL: #{url} *************"
 
@@ -87,11 +88,11 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
       if token_response.has_key?('access_token') && token_response.has_key?('token_type') && token_response.has_key?('expires_in')
         ## Save the token response and user info details
-        network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram').first_or_initialize
+        network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram', username: user_id).first_or_initialize
 
         ## Update existing network or create a new Network
         network.auth_token = token_response['access_token']
-        network.username = ''
+        network.username = user_id
         network.expires_at = Time.now + (token_response['expires_in'].to_i / 3600 / 24).days
         network.remote_avatar_url = ''
         if network.save!
@@ -107,6 +108,9 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         flash[:notice] = (response.has_key?('error') && response['error'].has_key?('message')) ? response['error']['message'] : 'Instagram account configuration failed.'
         redirect_to admin_campaign_networks_path(@campaign)
       end
+
+
+      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?fields=id,username&access_token=IGQVJVNS1kMTFXaWd1X2p0MEZAQZA0w0T0hQX1lKWUZANbzZAJYzhTN1FnZAmZAKMW5iYjg3eHJTb2xIei16QVFQUUtZATU1UeVd1N2ZAKMzZAJUG5vaURLT2QwZA0pCbjJOMVh1MkFja001Ykxn")
 
       # long_token = HTTParty.post("https://graph.instagram.com/access_token", body: {
       #   client_id: conf.instagram_app_id,
