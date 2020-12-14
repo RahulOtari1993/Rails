@@ -94,7 +94,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         network.username = ''
         network.expires_at = Time.now + (token_response['expires_in'].to_i / 3600 / 24).days
         network.remote_avatar_url = ''
-        if network.save
+        if network.save!
           flash[:notice] = 'Instagram account configuration successful.'
           redirect_to admin_campaign_networks_path(@campaign)
         else
