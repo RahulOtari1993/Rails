@@ -89,14 +89,14 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         network.remote_avatar_url = ''
         if network.save
           flash[:notice] = 'Instagram account configuration successful.'
-          redirect_to admin_campaign_networks_path
+          redirect_to admin_campaign_networks_path(@campaign)
         else
           flash[:notice] = 'Instagram account configuration failed.'
-          redirect_to admin_campaign_networks_path
+          redirect_to admin_campaign_networks_path(@campaign)
         end
       else
         flash[:notice] = (response.has_key?('error') && response['error'].has_key?('message')) ? response['error']['message'] : 'Instagram account configuration failed.'
-        redirect_to admin_campaign_networks_path
+        redirect_to admin_campaign_networks_path(@campaign)
       end
 
       # long_token = HTTParty.post("https://graph.instagram.com/access_token", body: {
@@ -132,7 +132,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       # end
     else
       flash[:notice] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
-      redirect_to admin_campaign_networks_path
+      redirect_to admin_campaign_networks_path(@campaign)
     end
   end
 
