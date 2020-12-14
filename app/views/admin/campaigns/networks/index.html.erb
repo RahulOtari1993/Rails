@@ -49,7 +49,7 @@
 
                         <% unless @instagram_network.blank? %>
                           <a href="<%= participant_facebook_omniauth_authorize_path(type: 'social_feed', ci: @campaign.id, oi: @organization.id, ui: current_user.id) %>"
-                             class="btn btn-block btn-sm square facebook_bg_color my-1 waves-effect waves-light text-white">
+                             class="btn btn-block btn-sm square instagram_bg_color my-1 waves-effect waves-light text-white">
                             <i class="feather icon-plus">Disconnect</i>
                           </a>
                         <% else %>
