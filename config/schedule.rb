@@ -5,7 +5,12 @@ every 1.day, at: '8:00 am' do
   rake "reward:sweepstake_stake_reward_entries"
 end
 
-## Fetch the social feed content from api for all campaigns as per UTC
+## Fetch the Facebook social feed content from api for all campaigns as per UTC
 every 4.hours do
   rake "social_feed:facebook_feed_entries"
+end
+
+## Fetch the Instagram social feed content from api for all campaigns as per UTC
+every 4.hours do
+  rake "social_feed:instagram_feed_entries"
 end
