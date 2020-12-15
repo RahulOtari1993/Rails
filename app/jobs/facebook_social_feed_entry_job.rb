@@ -4,7 +4,7 @@ class FacebookSocialFeedEntryJob < ActiveJob::Base
   def perform(arg = nil)
     Campaign.active.each do |campaign|
       Rails.logger.info "******** Facebook social feed entry job for Campaign: #{campaign.name} -- Start ********"
-      networks = campaign.networks.where(platform: 0).current_active.sort
+      networks = campaign.networks.where(platform: 'facebook').current_active.sort
       unless networks.blank?
         networks.each do |network|
           Rails.logger.info "******** Fetch Facebook feeds for Campaign: #{campaign.id} -- #{network.username} -- #{network.email} -- Start ********"

@@ -14,6 +14,7 @@
 #  email           :string
 #  expires_at      :datetime
 #  avatar          :string
+#  is_disconnected :boolean          default(FALSE)
 #
 class Network < ApplicationRecord
   ## Associations
@@ -34,6 +35,6 @@ class Network < ApplicationRecord
 
   ## scopes
   # scope :current_active, -> { where("auth_token IS NOT NULL AND expires_at > ?", Time.now) }
-  scope :current_active, -> { where("auth_token IS NOT NULL") }
+  scope :current_active, -> { where(is_disconnected: false) }
 
 end

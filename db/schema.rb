@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_063519) do
+ActiveRecord::Schema.define(version: 2020_12_15_121859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -353,6 +353,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_063519) do
     t.string "email"
     t.datetime "expires_at"
     t.string "avatar"
+    t.boolean "is_disconnected", default: false
     t.index ["campaign_id"], name: "index_networks_on_campaign_id"
   end
 

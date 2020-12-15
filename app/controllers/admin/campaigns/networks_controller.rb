@@ -6,7 +6,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
   def index
     @config = @campaign.campaign_config
-    @facebook_network =  @campaign.networks.where(platform: 0).current_active.first
+    @facebook_network =  @campaign.networks.where(platform: 'facebook').current_active.first
     @instagram_network = @campaign.networks.where(platform: 'instagram').current_active.first
 
     if @campaign.present? && @campaign.white_branding
@@ -18,7 +18,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
   ## Disconnect the facebook for campaign
   def disconnect
-    if @network.update(auth_token: nil, expires_at: nil)
+    if @network.update(is_disconnected: true)
       flash[:notice] = "You've been disconnected to #{@network.platform.titleize} Successfully."
     else
       flash[:notice] = "Something went wrong, Please try again later."
