@@ -14,6 +14,10 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     else
       @conf = GlobalConfiguration.first
     end
+
+    # binding.pry
+    # client = InstagramGraphApi.client(@conf.instagram_app_secret)
+    # binding.pry
   end
 
   ## Disconnect the facebook for campaign
@@ -88,7 +92,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
 
       if token_response.has_key?('access_token') && token_response.has_key?('token_type') && token_response.has_key?('expires_in')
         ## Save the token response and user info details
-        network = @campaign.networks.where(organization_id: organization.id, platform: 'instagram', username: user_id).first_or_initialize
+        network = @campaign.networks.current_active.where(organization_id: organization.id, platform: 'instagram', username: user_id).first_or_initialize
 
         ## Update existing network or create a new Network
         network.auth_token = token_response['access_token']
@@ -109,9 +113,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         redirect_to admin_campaign_networks_path(@campaign)
       end
 
-
-      long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?fields=id,username&access_token=IGQVJVNS1kMTFXaWd1X2p0MEZAQZA0w0T0hQX1lKWUZANbzZAJYzhTN1FnZAmZAKMW5iYjg3eHJTb2xIei16QVFQUUtZATU1UeVd1N2ZAKMzZAJUG5vaURLT2QwZA0pCbjJOMVh1MkFja001Ykxn")
-
+      # long_token = HTTParty.get("https://api.instagram.com/oauth/access_token?fields=id,username&access_token=IGQVJVNS1kMTFXaWd1X2p0MEZAQZA0w0T0hQX1lKWUZANbzZAJYzhTN1FnZAmZAKMW5iYjg3eHJTb2xIei16QVFQUUtZATU1UeVd1N2ZAKMzZAJUG5vaURLT2QwZA0pCbjJOMVh1MkFja001Ykxn")
       # long_token = HTTParty.post("https://graph.instagram.com/access_token", body: {
       #   client_id: conf.instagram_app_id,
       #   client_secret: conf.instagram_app_secret,

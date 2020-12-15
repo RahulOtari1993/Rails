@@ -157,3 +157,6 @@ gem 'video_info'
 
 ## Used for Third Party API Calls
 gem 'httparty'
+
+## Fetch Instagram Social Feeds
+gem 'instagram_graph_api'
