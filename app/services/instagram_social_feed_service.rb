@@ -8,11 +8,11 @@ class InstagramSocialFeedService
   ## Fetch Instagram feeds for specific network
   def process
     Rails.logger.info "============= PROCESS Instagram FEEDs START ==================="
-    if @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
+    if false && @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
 
       ## Check whether Instagram Social Feed Challenge is Active & Available
       active_challenge = @campaign.challenges.current_active.where(challenge_type: 'engage', parameters: 'instagram').first
-      if active_challenge.present?
+      if false && active_challenge.present?
         ## fetch client auth token and instagram app secret
         if @campaign.present? && @campaign.white_branding
           @conf = CampaignConfig.where(campaign_id: @campaign.id).first
