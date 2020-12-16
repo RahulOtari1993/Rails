@@ -15,26 +15,8 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       @conf = GlobalConfiguration.first
     end
 
-    # InstagramApi.config do |config|
-    #   config.access_token = @instagram_network.auth_token
-    #   config.client_id = @conf.instagram_app_id
-    #   config.client_secret = @conf.instagram_app_secret
-    # end
-
-    binding.pry
-    fields = "id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username"
-    long_token = HTTParty.get("https://graph.instagram.com/me/media?fields=#{fields}&access_token=#{@instagram_network.auth_token}")
-
-    c_fields = "id,media_type,media_url,thumbnail_url,timestamp,permalink"
-    long_token = HTTParty.get("https://graph.instagram.com/18018863950119606/children?fields=#{c_fields}&access_token=#{@instagram_network.auth_token}")
-
-    long_token = HTTParty.get("https://graph.instagram.com/me?fields=id,username&access_token=#{@instagram_network.auth_token}")
-
-    'https://graph.instagram.com/me?fields=id,username&access_token=IGQVJXMXdtdkdxU19SRV94UmYwQi1wY0xKS0ZAZAOVhmR0pkSFRPdDNra0tVbDhuUkdZAM1YtZA1UwN0hFMlB1TWtPam05d3VHNU9RbmpWUHhBTmF4MDhzdEtUbDAxbXdEbmhkM0l0bXlTbTJnWlFXbkpDYU1Memo3ZAktsdTc4'
-
-
-    # client = InstagramGraphApi.client(@instagram_network.auth_token)
-    binding.pry
+    # instagram = InstagramSocialFeedService.new(1,1,1)
+    # instagram.process
   end
 
   ## Disconnect the facebook for campaign

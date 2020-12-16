@@ -36,19 +36,19 @@ class InstagramSocialFeedService
 
               ## Fetch Feeds of Instagram Account
               feeds = HTTParty.get("https://graph.instagram.com/me/media?fields=#{feed_fields}&access_token=#{auth_token}")
-              feeds.each do |feed|
-                page_feed = instagram_page.network_page_posts.find_or_initialize_by(network_id: @network.id, campaign_id: @campaign.id, post_id: feed['id'])
+              feeds['data'].each do |feed|
+                page_feed = instagram_page.network_page_posts.find_or_initialize_by(network_id: @network.id, post_id: feed['id'])
                 page_feed.update_attributes({
                                               message: feed['caption'],
                                               post_type: feed['media_type'].downcase,
-                                              url: feed['permalink']
+                                              url: feed['permalink'],
+                                              created_time: feed['timestamp']
                                             })
-
                 if feed['media_type'].downcase == 'carousel_album'
                   ## Fetch Child Items of Feed
                   attachments = HTTParty.get("https://graph.instagram.com/#{feed['id']}/children?fields=#{media_fields}&access_token=#{auth_token}")
                   unless attachments.has_key?('error')
-                    attachments.each do |attachment|
+                    attachments['data'].each do |attachment|
                       attachment_obj = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: attachment['id'])
                       attachment_obj.update_attributes({
                                                      media_src: attachment['media_url'],
