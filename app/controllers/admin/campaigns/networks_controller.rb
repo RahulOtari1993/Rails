@@ -16,7 +16,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
     end
 
     # binding.pry
-    # client = InstagramGraphApi.client(@conf.instagram_app_secret)
+    # client = InstagramGraphApi.client(@instagram_network.auth_token)
     # binding.pry
   end
 

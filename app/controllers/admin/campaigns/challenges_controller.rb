@@ -38,7 +38,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   def new
     @challenge = Challenge.new
-    @connect_facebook = @campaign.networks.where(platform: "facebook").current_active.first
+    @connect_facebook = @campaign.networks.current_active.where(platform: 'facebook').first
+    @connect_instagram = @campaign.networks.current_active.where(platform: 'instagram').first
   end
 
   def create

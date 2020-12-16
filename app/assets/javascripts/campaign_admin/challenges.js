@@ -417,17 +417,33 @@ $(document).on('turbolinks:load', function () {
     return true;
   }, 'Please select valid image');
 
-  // Check for social connection
-  $.validator.addMethod('socialConnectEngage', function (value) {
+  // Check for Facebook social connection
+  $.validator.addMethod('facebookSocialFeedConnection', function (value) {
     var step = $('.step-top-padding.current').data('step-id');
-    var connectFacebook = $('#challenge_challenge_type').data('connect-facebook');
+    var challengeType = $('.challenge-type-list.active').data('challenge-parameters');
 
-    if (step == '1' && value == 'engage') {
-      return connectFacebook;
+    if (step == '1' && value == 'engage' && challengeType == 'facebook') {
+      var isConnected = $('.social-feed-checker').data('connect-facebook');
+
+      return isConnected;
     }
 
     return true;
-  }, 'You cant proceed further. Please authenticate to facebook network');
+  }, 'You can not proceed further. Please add a Facebook account in your network');
+
+  // Check for Instagram social connection
+  $.validator.addMethod('instagramSocialFeedConnection', function (value) {
+    var step = $('.step-top-padding.current').data('step-id');
+    var challengeType = $('.challenge-type-list.active').data('challenge-parameters');
+
+    if (step == '1' && value == 'engage' && challengeType == 'instagram') {
+      var isConnected = $('.social-feed-checker').data('connect-instagram');
+
+      return isConnected;
+    }
+
+    return true;
+  }, 'You can not proceed further. Please add an Instagram account in your network');
 
   // Social Blog Title Validator
   $.validator.addMethod('socialTitle', function (value) {
@@ -565,7 +581,8 @@ $(document).on('turbolinks:load', function () {
     rules: {
       'challenge[challenge_type]': {
         required: true,
-        socialConnectEngage: true
+        facebookSocialFeedConnection: true,
+        instagramSocialFeedConnection: true
       },
       'challenge[name]': {
         required: true

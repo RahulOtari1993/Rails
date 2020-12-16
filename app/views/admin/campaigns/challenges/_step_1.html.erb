@@ -9,7 +9,10 @@
     </div>
 
     <%= form.hidden_field :challenge_type, value: new_record? ? 'share' : @challenge.challenge_type,
-                          class: 'always-validate', data: {error: 'challenge-type-error', 'connect-facebook': @connect_facebook.present? ? true : false} %>
+                          class: 'always-validate social-feed-checker', data: {error: 'challenge-type-error',
+                                                           'connect-facebook': @connect_facebook.present? ? true : false,
+                                                           'connect-instagram': @connect_instagram.present? ? true : false
+      } %>
     <%= form.hidden_field :parameters, value: new_record? ? 'facebook' : @challenge.parameters %>
 
     <%= form.hidden_field :category, value: new_record? ? 'share' : @challenge.category %>
@@ -57,7 +60,11 @@
                   <div class="list-group" id="list-tab" role="tablist">
                     <a class="list-group-item challenge-type-list <%= active_challenge_type('engage', 'facebook') %>"
                        data-challenge-type="engage" data-challenge-parameters="facebook">
-                      Social Media Feed Engagement Facebook (Pending)
+                      Social Media Feed Engagement Facebook
+                    </a>
+                    <a class="list-group-item challenge-type-list <%= active_challenge_type('engage', 'instagram') %>"
+                       data-challenge-type="engage" data-challenge-parameters="instagram">
+                      Social Media Feed Engagement Instagram
                     </a>
                     <a class="list-group-item challenge-type-list <%= active_challenge_type('video', 'youtube') %>"
                        data-challenge-type="video" data-challenge-parameters="youtube">
