@@ -58,6 +58,24 @@ $(document).on('turbolinks:load', function () {
         }
       }
 
+      if ((currentIndex == 1 && newIndex == 2)) {
+        if ($('.challenge-type-list.active').data('challenge-type') == 'engage' && ($('.challenge-type-list.active').data('challenge-parameters') == 'facebook' || $('.challenge-type-list.active').data('challenge-parameters') == 'instagram')) {
+          console.log("SKIP THIS STEP");
+          // $('#steps-uid-0-t-3').click();
+          // stepsWizard.steps("next");
+          // return;
+        }
+      }
+
+      if ((currentIndex == 3 && newIndex == 2)) {
+        if ($('.challenge-type-list.active').data('challenge-type') == 'engage' && ($('.challenge-type-list.active').data('challenge-parameters') == 'facebook' || $('.challenge-type-list.active').data('challenge-parameters') == 'instagram')) {
+          console.log("SKIP THIS STEP");
+          // $('.challenge-wizard').steps("previous");
+          // return;
+          // $('#steps-uid-0-t-1').click();
+        }
+      }
+
       if (currentIndex > newIndex) {
         return true;
       }
@@ -782,13 +800,12 @@ $(document).on('turbolinks:load', function () {
     var connectFacebook = $('#challenge_challenge_type').data('connect-facebook');
     stepTwoContent($(this).data('challenge-type'), $(this).data('challenge-parameters'))
 
-    if (($(this).data('challenge-type') == 'engage')  && ($(this).data('challenge-parameters') == 'facebook')) {
-      $('.step3-content-div').html('');
+    if (($(this).data('challenge-type') == 'engage')  && ($(this).data('challenge-parameters') == 'facebook' || $(this).data('challenge-parameters') == 'instagram')) {
+      $('.step3-content-div').html('<div class="new_challenge_box text-center"><div className="row offset-sm-1 col-sm-10 offset-lg-2 col-lg-8"><h4>No Reward Config Needed for this Type of Challenge</h4></div></div>');
     } else {
       $('.step3-content-div').html('');
       $('.step3-content-div').append(step3ChallengeDiv);
     }
-
   });
 
   // For Edit Challenge Trigger Click for Challenge Type
