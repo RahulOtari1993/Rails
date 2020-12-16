@@ -15,6 +15,7 @@
 #  target               :json
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  attachment_id        :string
 #
 class NetworkPagePostAttachment < ApplicationRecord
   belongs_to :network_page_post
