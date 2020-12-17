@@ -63,7 +63,7 @@ class InstagramSocialFeedService
                   attachment.update_attributes({
                                                  image_source: get_image_source(feed),
                                                  video_source: get_video_source(feed),
-                                                 category: get_category(attachment['media_type'].downcase),
+                                                 category: get_category(feed['media_type'].downcase),
                                                  url: feed['permalink']
                                                })
                 end
