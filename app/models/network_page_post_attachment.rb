@@ -18,9 +18,9 @@
 #  attachment_id        :string
 #
 class NetworkPagePostAttachment < ApplicationRecord
+  ## Associations
   belongs_to :network_page_post
 
-  enum media_type: [ :image, :video ]
-
-  enum category: [ :photo, :video_inline ]
+  ## ENUM
+  enum category: {photo: 0, video: 1}
 end

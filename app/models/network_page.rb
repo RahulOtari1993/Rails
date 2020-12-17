@@ -13,9 +13,8 @@
 #  updated_at        :datetime         not null
 #
 class NetworkPage < ApplicationRecord
+  ## Associations
   belongs_to :campaign
   belongs_to :network
-
   has_many :network_page_posts, dependent: :destroy
-
 end

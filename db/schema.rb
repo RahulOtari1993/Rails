@@ -300,8 +300,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_143311) do
     t.bigint "network_page_post_id"
     t.integer "height"
     t.integer "width"
-    t.text "media_src"
-    t.integer "media_type"
     t.integer "category"
     t.text "url"
     t.text "video_source"
@@ -310,6 +308,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_143311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "attachment_id"
+    t.text "image_source"
     t.index ["network_page_post_id"], name: "index_network_page_post_attachments_on_network_page_post_id"
   end
 

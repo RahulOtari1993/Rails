@@ -44,16 +44,24 @@ class InstagramSocialFeedService
                                               url: feed['permalink'],
                                               created_time: feed['timestamp']
                                             })
+
+
+
                 if feed['media_type'].downcase == 'carousel_album'
                   ## Fetch Child Items of Feed
                   attachments = HTTParty.get("https://graph.instagram.com/#{feed['id']}/children?fields=#{media_fields}&access_token=#{auth_token}")
                   unless attachments.has_key?('error')
                     attachments['data'].each do |attachment|
                       attachment_obj = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: attachment['id'])
+
+                      media_type = attachment['media_type'].downcase == 'video' ? 'video' : 'image'
+                      category = attachment['media_type'].downcase == 'video' ? 'video_inline' : 'photo',
+                      media_src = ''
+
                       attachment_obj.update_attributes({
                                                      media_src: attachment['media_url'],
-                                                     media_type: attachment['media_type'].downcase,
-                                                     category: attachment['media_type'].downcase == 'image' ? 'photo' : 'video_inline',
+                                                     media_type: attachment['media_type'].downcase == 'video' ? 'video' : 'image',
+                                                     category: attachment['media_type'].downcase == 'video' ? 'video_inline' : 'photo',
                                                      url: attachment['permalink']
                                                    })
                     end

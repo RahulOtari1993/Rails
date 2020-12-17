@@ -16,12 +16,12 @@
 #  updated_at      :datetime         not null
 #
 class NetworkPagePost < ApplicationRecord
+  ## Associations
   belongs_to :network
   belongs_to :network_page
   has_many :network_page_post_attachments
-
   has_many :network_page_post_attachments, dependent: :destroy
 
-  enum post_type: [ :photo, :album, :video_inline, :image, :video, :carousel_album ]
-
+  ## ENUM
+  enum post_type: {photo: 0, album: 1, video: 2}
 end
