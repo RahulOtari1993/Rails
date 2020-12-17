@@ -225,12 +225,13 @@ class Participant < ApplicationRecord
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
 
-    Rails.logger.info "============= AUTH Details --> #{auth.inspect} ================================="
+    Rails.logger.info "============= AUTH Details --> #{auth.inspect} ================================= "
+    expires_at = auth.credentials.expires == false ? Time.now + 100.years : Time.at(auth.credentials.expires_at)
 
     if participant.present?
       participant.facebook_uid = auth.uid
       participant.facebook_token = auth.credentials.token
-      participant.facebook_expires_at = Time.at(auth.credentials.expires_at)
+      participant.facebook_expires_at = expires_at
       participant.connect_type = 'facebook'
       participant.remote_avatar_url = auth.info.image
       participant.status = 1
@@ -247,7 +248,7 @@ class Participant < ApplicationRecord
           first_name: name[0],
           last_name: name[1],
           facebook_token: auth.credentials.token,
-          facebook_expires_at: Time.at(auth.credentials.expires_at),
+          facebook_expires_at: expires_at,
           confirmed_at: DateTime.now,
           connect_type: 'facebook',
           remote_avatar_url: auth.info.image
