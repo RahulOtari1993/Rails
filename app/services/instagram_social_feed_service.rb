@@ -8,11 +8,11 @@ class InstagramSocialFeedService
   ## Fetch Instagram feeds for specific network
   def process
     Rails.logger.info "============= PROCESS Instagram FEEDs START ==================="
-    if false && @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
+    if @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
 
       ## Check whether Instagram Social Feed Challenge is Active & Available
       active_challenge = @campaign.challenges.current_active.where(challenge_type: 'engage', parameters: 'instagram').first
-      if false && active_challenge.present?
+      if active_challenge.present?
         ## fetch client auth token and instagram app secret
         if @campaign.present? && @campaign.white_branding
           @conf = CampaignConfig.where(campaign_id: @campaign.id).first
@@ -40,12 +40,10 @@ class InstagramSocialFeedService
                 page_feed = instagram_page.network_page_posts.find_or_initialize_by(network_id: @network.id, post_id: feed['id'])
                 page_feed.update_attributes({
                                               message: feed['caption'],
-                                              post_type: feed['media_type'].downcase,
+                                              post_type: get_post_type(feed['media_type'].downcase),
                                               url: feed['permalink'],
                                               created_time: feed['timestamp']
                                             })
-
-
 
                 if feed['media_type'].downcase == 'carousel_album'
                   ## Fetch Child Items of Feed
@@ -53,27 +51,22 @@ class InstagramSocialFeedService
                   unless attachments.has_key?('error')
                     attachments['data'].each do |attachment|
                       attachment_obj = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: attachment['id'])
-
-                      media_type = attachment['media_type'].downcase == 'video' ? 'video' : 'image'
-                      category = attachment['media_type'].downcase == 'video' ? 'video_inline' : 'photo',
-                      media_src = ''
-
                       attachment_obj.update_attributes({
-                                                     media_src: attachment['media_url'],
-                                                     media_type: attachment['media_type'].downcase == 'video' ? 'video' : 'image',
-                                                     category: attachment['media_type'].downcase == 'video' ? 'video_inline' : 'photo',
-                                                     url: attachment['permalink']
-                                                   })
+                                                         image_source: get_image_source(attachment),
+                                                         video_source: get_video_source(attachment),
+                                                         category: get_category(attachment['media_type'].downcase),
+                                                         url: attachment['permalink']
+                                                       })
                     end
                   end
                 else
                   attachment = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: feed['id'])
                   attachment.update_attributes({
-                                                media_src: feed['media_url'],
-                                                media_type: feed['media_type'].downcase,
-                                                category: feed['media_type'].downcase == 'image' ? 'photo' : 'video_inline',
-                                                url: feed['permalink']
-                                              })
+                                                 image_source: get_image_source(feed),
+                                                 video_source: get_video_source(feed),
+                                                 category: get_category(attachment['media_type'].downcase),
+                                                 url: feed['permalink']
+                                               })
                 end
               end
             end
@@ -82,5 +75,45 @@ class InstagramSocialFeedService
       end
     end
     Rails.logger.info "============= PROCESS Instagram FEEDs END ==================="
+  end
+
+  private
+
+  ## Manage Post Type
+  def get_post_type(type)
+    if type == 'video'
+      'video'
+    elsif type == 'carousel_album'
+      'album'
+    else
+      'photo'
+    end
+  end
+
+  ## Manage Category
+  def get_category(type)
+    if type == 'video'
+      'video'
+    else
+      'photo'
+    end
+  end
+
+  ## Manage Image Source
+  def get_image_source(details)
+    if details['media_type'].downcase == 'video'
+      details['thumbnail_url']
+    else
+      details['media_url']
+    end
+  end
+
+  ## Manage Video Source
+  def get_video_source(details)
+    if details['media_type'].downcase == 'video'
+      details['media_url']
+    else
+      ''
+    end
   end
 end

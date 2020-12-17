@@ -6,8 +6,6 @@
 #  network_page_post_id :bigint
 #  height               :integer
 #  width                :integer
-#  media_src            :text
-#  media_type           :integer
 #  category             :integer
 #  url                  :text
 #  video_source         :text
@@ -16,6 +14,7 @@
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  attachment_id        :string
+#  image_source         :text
 #
 class NetworkPagePostAttachment < ApplicationRecord
   ## Associations
