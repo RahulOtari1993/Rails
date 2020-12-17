@@ -7,22 +7,21 @@ class InstagramSocialFeedService
 
   ## Fetch Instagram feeds for specific network
   def process
-    Rails.logger.info "============= PROCESS Instagram FEEDs START ==================="
+    Rails.logger.info "============= Instagram Fetch Feeds START ==================="
     if @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
-
       ## Check whether Instagram Social Feed Challenge is Active & Available
       active_challenge = @campaign.challenges.current_active.where(challenge_type: 'engage', parameters: 'instagram').first
       if active_challenge.present?
-        ## fetch client auth token and instagram app secret
+        ## Fetch Instagram App Secret
         if @campaign.present? && @campaign.white_branding
-          @conf = CampaignConfig.where(campaign_id: @campaign.id).first
+          conf = CampaignConfig.where(campaign_id: @campaign.id).first
         else
-          @conf = GlobalConfiguration.first
+          conf = GlobalConfiguration.first
         end
 
-        if @conf.present? && @conf.instagram_app_secret.present?
+        if conf.present? && conf.instagram_app_secret.present?
           auth_token = @network.auth_token
-          app_secret = @conf.instagram_app_secret
+          app_secret = conf.instagram_app_secret
           feed_fields = "id,caption,media_type,media_url,permalink,thumbnail_url,timestamp,username"
           media_fields = "id,media_type,media_url,thumbnail_url,timestamp,permalink"
 
@@ -74,7 +73,7 @@ class InstagramSocialFeedService
         end
       end
     end
-    Rails.logger.info "============= PROCESS Instagram FEEDs END ==================="
+    Rails.logger.info "============= Instagram Fetch Feeds END ==================="
   end
 
   private
