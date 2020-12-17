@@ -225,12 +225,8 @@ class Participant < ApplicationRecord
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, facebook_uid: auth.uid).first
     end
 
-    Rails.logger.info "============= AUTH UID --> #{auth.uid.inspect} ================================= "
-    Rails.logger.info "============= AUTH Details --> #{auth.inspect} ================================= "
-    Rails.logger.info "============= EMAIL Detail --> #{auth.info.email.present?} ================================= "
-
     expires_at = auth.credentials.expires == false ? Time.now + 100.years : Time.at(auth.credentials.expires_at)
-    email = auth.info.email.present? ? auth.info.email : "#{auth.uid}_#{Time.now.to_i}@perosocial.com"
+    email = auth.info.email.present? ? auth.info.email : "#{auth.uid}_facebook@perksocial.com"
 
     if participant.present?
       participant.facebook_uid = auth.uid
@@ -239,6 +235,7 @@ class Participant < ApplicationRecord
       participant.connect_type = 'facebook'
       participant.remote_avatar_url = auth.info.image
       participant.status = 1
+      participant.email = email
     else
       name = auth.info.name.split(" ")
 
