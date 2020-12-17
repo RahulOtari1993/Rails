@@ -225,6 +225,8 @@ class Participant < ApplicationRecord
       participant = Participant.where(organization_id: org.id, campaign_id: camp.id, email: auth.info.email).first
     end
 
+    Rails.logger.info "============= AUTH Details --> #{auth.inspect} ================================="
+
     if participant.present?
       participant.facebook_uid = auth.uid
       participant.facebook_token = auth.credentials.token
