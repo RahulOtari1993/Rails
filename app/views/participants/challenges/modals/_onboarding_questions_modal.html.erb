@@ -36,7 +36,6 @@
                           class: 'onboarding-questions-form box3', model: current_participant, local: false) do |f| %>
               <% challenge.questions.order(:sequence).each_with_index do |question, index| %>
                 <% profile_attribute = question.profile_attribute %>
-
                 <div class="form-group extended-form-group">
                   <%#= label :facebook_app_id, "#{index+1}. #{question.title}" , class: "#{is_question_required(question)}" %>
                   <label class="<%= is_question_required(question) %>" for="facebook_app_id"><%= "#{index + 1}. #{question.title}" %></label>

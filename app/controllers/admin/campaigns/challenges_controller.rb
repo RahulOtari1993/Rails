@@ -58,6 +58,8 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def edit
+    @connect_facebook = @campaign.networks.current_active.where(platform: 'facebook').first
+    @connect_instagram = @campaign.networks.current_active.where(platform: 'instagram').first
   end
 
   def update
