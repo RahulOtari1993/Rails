@@ -49,6 +49,7 @@
 #  use_short_url        :boolean          default(FALSE), not null
 #  post_view_points     :integer
 #  post_like_points     :integer
+#  how_many_posts       :integer
 #
 
 class Challenge < ApplicationRecord

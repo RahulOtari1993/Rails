@@ -686,6 +686,10 @@ $(document).on('turbolinks:load', function () {
       'challenge[post_like_points]': {
         required: true,
         digits: true
+      },
+      'challenge[how_many_posts]': {
+        required: true,
+        digits: true
       }
     },
     messages: {
@@ -753,6 +757,10 @@ $(document).on('turbolinks:load', function () {
       },
       'challenge[post_like_points]': {
         required: 'Please enter points for a post like',
+        digits: 'Please enter only digits'
+      },
+      'challenge[how_many_posts]': {
+        required: 'Please enter posts to fetch',
         digits: 'Please enter only digits'
       }
     },

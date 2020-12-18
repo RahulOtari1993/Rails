@@ -224,6 +224,14 @@
             </div>
           </div>
 
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :how_many_posts, "How many posts needs to be fetched from #{@challenge.parameters}" %>
+                <%= form.text_field :how_many_posts, class: 'form-control', placeholder: 'Enter no of posts' %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -253,6 +261,15 @@
               <div class="form-group">
                 <%= form.label :title, 'View Like Points' %>
                 <%= form.text_field :post_like_points, class: 'form-control', placeholder: 'Enter no of points for a post like' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-10">
+              <div class="form-group">
+                <%= form.label :how_many_posts, "How many posts needs to be fetched from #{@challenge.parameters}" %>
+                <%= form.text_field :how_many_posts, class: 'form-control', placeholder: 'Enter no of posts' %>
               </div>
             </div>
           </div>

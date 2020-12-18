@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_143311) do
+ActiveRecord::Schema.define(version: 2020_12_18_135402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -250,6 +250,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_143311) do
     t.boolean "use_short_url", default: false, null: false
     t.integer "post_view_points"
     t.integer "post_like_points"
+    t.integer "how_many_posts"
     t.index ["campaign_id"], name: "index_challenges_on_campaign_id"
   end
 
