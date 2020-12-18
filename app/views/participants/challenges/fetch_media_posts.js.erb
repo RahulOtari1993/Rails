@@ -4,7 +4,7 @@ $('#paginator').html('<%= escape_javascript(paginate(@posts_attachments, remote:
 
 $(document).ready(function () {
   // initialize gallery
-  $('#facebook_media_modal a.thumbnail').on('click', function () {
+  $('#social_feed_modal a.thumbnail').on('click', function () {
     $('.coin').removeClass('animated');
     $('#post_visit_checkmark').hide();
     updateGallery($(this));

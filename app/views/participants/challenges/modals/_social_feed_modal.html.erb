@@ -1,7 +1,7 @@
 <% post_attachments = fetch_feeds(@campaign, challenge) %>
 
 <div class="video_slider_section">
-    <div class="modal fade text-left challenge-modal" id="facebook_media_modal">
+    <div class="modal fade text-left challenge-modal" id="social_feed_modal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -116,7 +116,7 @@
 <script type="text/javascript">
 
   function updateGallery(selector) {
-    var counter = $('#facebook_media_modal a.thumbnail').length;
+    var counter = $('#social_feed_modal a.thumbnail').length;
     var current_image_counter = selector.data('image-id');
     var challengeId = <%= challenge.id %>;
     var mediaType = selector.data('gallery-media-type');

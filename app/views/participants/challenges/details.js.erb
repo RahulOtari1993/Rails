@@ -48,12 +48,12 @@
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/share_modal', challenge: @challenge %>");
   $('#share_modal').modal('show');
 <% elsif @challenge.challenge_type == "engage" && @challenge.parameters == 'facebook' %>
-  $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/facebook_media_modal', challenge: @challenge %>");
-  $('#facebook_media_modal').modal('show');
+  $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/social_feed_modal', challenge: @challenge %>");
+  $('#social_feed_modal').modal('show');
 
   $(document).ready(function () {
     // initialize gallery
-    $('#facebook_media_modal a.thumbnail').on('click', function () {
+    $('#social_feed_modal a.thumbnail').on('click', function () {
       $('.coin').removeClass('animated');
       $('#post_visit_checkmark').hide();
       updateGallery($(this));
@@ -70,7 +70,7 @@
       } else {
         current_image++;
       }
-      var selector = $($('#facebook_media_modal a.thumbnail')[current_image - 1]);
+      var selector = $($('#social_feed_modal a.thumbnail')[current_image - 1]);
       updateGallery(selector);
     });
   });
