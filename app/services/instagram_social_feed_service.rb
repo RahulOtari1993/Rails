@@ -11,7 +11,7 @@ class InstagramSocialFeedService
     if @organization.present? && @campaign.present? && @network.present? && @network.auth_token.present?
       ## Check whether Instagram Social Feed Challenge is Active & Available
       active_challenge = @campaign.challenges.current_active.where(challenge_type: 'engage', parameters: 'instagram').first
-      if active_challenge.present?
+      if active_challenge.present? && active_challenge.how_many_posts.present?
         ## Fetch Instagram App Secret
         if @campaign.present? && @campaign.white_branding
           conf = CampaignConfig.where(campaign_id: @campaign.id).first
@@ -33,39 +33,61 @@ class InstagramSocialFeedService
               instagram_page = @network.network_pages.find_or_initialize_by(page_id: user_details['id'])
               instagram_page.update_attributes(page_name: 'Instagram Page', campaign_id: @campaign.id)
 
-              ## Fetch Feeds of Instagram Account
-              feeds = HTTParty.get("https://graph.instagram.com/me/media?fields=#{feed_fields}&access_token=#{auth_token}")
-              feeds['data'].each do |feed|
-                page_feed = instagram_page.network_page_posts.find_or_initialize_by(network_id: @network.id, post_id: feed['id'])
-                page_feed.update_attributes({
-                                              message: feed['caption'],
-                                              post_type: get_post_type(feed['media_type'].downcase),
-                                              url: feed['permalink'],
-                                              created_time: feed['timestamp']
-                                            })
+              total_records = active_challenge.how_many_posts
+              iterations = total_records / 20
+              remaining_items = total_records % 20
+              iterations = iterations + 1 if remaining_items > 0
+              next_page = ''
 
-                if feed['media_type'].downcase == 'carousel_album'
-                  ## Fetch Child Items of Feed
-                  attachments = HTTParty.get("https://graph.instagram.com/#{feed['id']}/children?fields=#{media_fields}&access_token=#{auth_token}")
-                  unless attachments.has_key?('error')
-                    attachments['data'].each do |attachment|
-                      attachment_obj = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: attachment['id'])
-                      attachment_obj.update_attributes({
-                                                         image_source: get_image_source(attachment),
-                                                         video_source: get_video_source(attachment),
-                                                         category: get_category(attachment['media_type'].downcase),
-                                                         url: attachment['permalink']
-                                                       })
+              iterations.times do |counter|
+                pagination = ((iterations - 1) == counter && remaining_items != 0) ? remaining_items : 20
+
+                if next_page.present?
+                  url = "https://graph.instagram.com/me/media?fields=#{feed_fields}&access_token=#{auth_token}&limit=#{pagination}&after=#{next_page}"
+                else
+                  url = "https://graph.instagram.com/me/media?fields=#{feed_fields}&access_token=#{auth_token}&limit=#{pagination}"
+                end
+
+                ## Fetch Feeds of Instagram Account
+                feeds = HTTParty.get(url)
+                unless feeds.has_key?('error')
+                  if feeds.has_key?('paging') && feeds['paging'].has_key?('cursors') && feeds['paging']['cursors'].has_key?('after')
+                    next_page = feeds['paging']['cursors']['after']
+                  end
+
+                  feeds['data'].each do |feed|
+                    page_feed = instagram_page.network_page_posts.find_or_initialize_by(network_id: @network.id, post_id: feed['id'])
+                    page_feed.update_attributes({
+                                                  message: feed['caption'],
+                                                  post_type: get_post_type(feed['media_type'].downcase),
+                                                  url: feed['permalink'],
+                                                  created_time: feed['timestamp']
+                                                })
+
+                    if feed['media_type'].downcase == 'carousel_album'
+                      ## Fetch Child Items of Feed
+                      attachments = HTTParty.get("https://graph.instagram.com/#{feed['id']}/children?fields=#{media_fields}&access_token=#{auth_token}")
+                      unless attachments.has_key?('error')
+                        attachments['data'].each do |attachment|
+                          attachment_obj = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: attachment['id'])
+                          attachment_obj.update_attributes({
+                                                             image_source: get_image_source(attachment),
+                                                             video_source: get_video_source(attachment),
+                                                             category: get_category(attachment['media_type'].downcase),
+                                                             url: attachment['permalink']
+                                                           })
+                        end
+                      end
+                    else
+                      attachment = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: feed['id'])
+                      attachment.update_attributes({
+                                                     image_source: get_image_source(feed),
+                                                     video_source: get_video_source(feed),
+                                                     category: get_category(feed['media_type'].downcase),
+                                                     url: feed['permalink']
+                                                   })
                     end
                   end
-                else
-                  attachment = page_feed.network_page_post_attachments.find_or_initialize_by(attachment_id: feed['id'])
-                  attachment.update_attributes({
-                                                 image_source: get_image_source(feed),
-                                                 video_source: get_video_source(feed),
-                                                 category: get_category(feed['media_type'].downcase),
-                                                 url: feed['permalink']
-                                               })
                 end
               end
             end

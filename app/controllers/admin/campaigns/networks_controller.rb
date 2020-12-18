@@ -15,7 +15,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       @conf = GlobalConfiguration.first
     end
 
-    # instagram = InstagramSocialFeedService.new(1,1,1)
+    # instagram = InstagramSocialFeedService.new(1,1,9)
     # instagram.process
   end
 
