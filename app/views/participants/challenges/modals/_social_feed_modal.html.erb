@@ -7,7 +7,9 @@
 
           <div class="modal-header border-bottom-0">
             <div class="header_box text-white">
-              <span class="float-left header_box_lt"><i class="fa fa-facebook-square"></i></span>
+              <span class="float-left header_box_lt"><i class="<%= challenge.parameters == 'facebook' ? 'fa fa-facebook-square' : 'fa fa-instagram' %>"></i></span>
+
+
               <div class="float-right header_box_rt">
                 <p class="mb-0">Look at <%= challenge.parameters.humanize %> photos <a href="#"></a></p>
                 <small>+<%= challenge.post_view_points.to_i %> each | <span id='remaining_posts_visit'><%= fetch_remaining_post_visit_count(@campaign, challenge) %></span> photos left</small>
