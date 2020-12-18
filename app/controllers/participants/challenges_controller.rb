@@ -4,7 +4,7 @@ class Participants::ChallengesController < ApplicationController
   before_action :set_current_participant, only: :index, if: -> { @campaign.present? }
   before_action :set_challenge
 
-  def fetch_facebook_media_posts
+  def fetch_media_posts
     network = @campaign.networks.current_active.where(platform: 'facebook').first
     posts = network.network_page_posts.order(created_time: :desc).pluck(:id)
     @ntw_page_posts_attachments = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).order(created_at: :desc).page(params[:page]).per(4)

@@ -1,16 +1,16 @@
 <div class="row">
   <!-- <div class="col-md-12"> -->
-    <% facebook_post_attachments.each_with_index do |post_attachment, index| %>
-      <% facebook_post = post_attachment.network_page_post %>
-      <% facebook_post_visited = fetch_facebook_post_visited(challenge, post_attachment) %>
+    <% post_attachments.each_with_index do |post_attachment, index| %>
+      <% post = post_attachment.network_page_post %>
+      <% post_visited = fetch_post_visited(challenge, post_attachment) %>
       <div class="col-thumb thumb">
-        <a class="thumbnail <%= facebook_post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
+        <a class="thumbnail <%= post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
           data-gallery-image-src="<%= post_attachment.image_source %>"
           data-gallery-video-src="<%= post_attachment.video_source %>"
-          data-gallery-image-user-name="<%= facebook_post.network_page.page_name %>"
-          data-gallery-image-post-info="<%= facebook_post.message %>"
-          data-gallery-image-posted-time="<%= get_completed_time_in_words(facebook_post.created_time) %>"
-          data-gallery-image-post-visited="<%= facebook_post_visited %>"
+          data-gallery-image-user-name="<%= post.network_page.page_name %>"
+          data-gallery-image-post-info="<%= post.message %>"
+          data-gallery-image-posted-time="<%= get_completed_time_in_words(post.created_time) %>"
+          data-gallery-image-post-visited="<%= post_visited %>"
           data-gallery-image-post-attachment-id="<%= post_attachment.id %>"
           data-gallery-image-post-facebook-url="<%= post_attachment.url %>"
           data-gallery-media-type="<%= post_attachment.category %>"

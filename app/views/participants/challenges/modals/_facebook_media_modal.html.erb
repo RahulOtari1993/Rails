@@ -1,4 +1,4 @@
-<% facebook_post_attachments = fetch_facebook_feed(@campaign) %>
+<% post_attachments = fetch_feeds(@campaign) %>
 
 <div class="video_slider_section">
     <div class="modal fade text-left challenge-modal" id="facebook_media_modal">
@@ -21,17 +21,17 @@
               <div id="facebook_media_posts_div">
                 <div class="row">
                   <!-- <div class="col-md-12"> -->
-                    <% facebook_post_attachments.each_with_index do |post_attachment, index| %>
-                      <% facebook_post = post_attachment.network_page_post %>
-                      <% facebook_post_visited = fetch_facebook_post_visited(challenge, post_attachment) %>
+                    <% post_attachments.each_with_index do |post_attachment, index| %>
+                      <% post = post_attachment.network_page_post %>
+                      <% post_visited = fetch_post_visited(challenge, post_attachment) %>
                       <div class="col-thumb thumb">
-                        <a class="thumbnail <%= facebook_post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
+                        <a class="thumbnail <%= post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
                           data-gallery-image-src="<%= post_attachment.image_source %>"
                           data-gallery-video-src="<%= post_attachment.video_source %>"
-                          data-gallery-image-user-name="<%= facebook_post.network_page.page_name %>"
-                          data-gallery-image-post-info="<%= facebook_post.message %>"
-                          data-gallery-image-posted-time="<%= get_completed_time_in_words(facebook_post.created_time) %>"
-                          data-gallery-image-post-visited="<%= facebook_post_visited %>"
+                          data-gallery-image-user-name="<%= post.network_page.page_name %>"
+                          data-gallery-image-post-info="<%= post.message %>"
+                          data-gallery-image-posted-time="<%= get_completed_time_in_words(post.created_time) %>"
+                          data-gallery-image-post-visited="<%= post_visited %>"
                           data-gallery-image-post-attachment-id="<%= post_attachment.id %>"
                           data-gallery-image-post-facebook-url="<%= post_attachment.url %>"
                           data-gallery-media-type="<%= post_attachment.category %>"
@@ -46,7 +46,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div id="paginator" class='float-right'>
-                     <%= paginate facebook_post_attachments, remote: true,  params: {controller: "challenges", action: "fetch_facebook_media_posts"}, first: 0, last: 0 %>
+                     <%= paginate post_attachments, remote: true,  params: {controller: "challenges", action: "fetch_media_posts"}, first: 0, last: 0 %>
                   </div>
                 </div>
               </div>
@@ -127,7 +127,7 @@
     if (mediaType == 'photo') {
       $('#gallery_video_src').attr('src', '').html('').hide();
       $('#gallery_image_src').attr('src', selector.data('gallery-image-src'));
-    } else if (mediaType == 'video_inline') {
+    } else if (mediaType == 'video') {
       $('#gallery_image_src').attr('src', '');
       // $('#gallery_video_src').attr('src', 'https://video.fhyd14-1.fna.fbcdn.net/v/t42.9040-2/124604998_2093277064129978_8521492326650094453_n.mp4?_nc_cat=109&ccb=2&_nc_sid=985c63&efg=eyJybHIiOjMwMCwicmxhIjo1MTIsInZlbmNvZGVfdGFnIjoibGVnYWN5X3NkIn0%3D&_nc_ohc=2_cbrBE46YcAX8kHNEQ&rl=300&vabr=125&_nc_ht=video.fhyd14-1.fna&oh=3b22b74dae37a12d4c38b87e827df215&oe=5FAAF344').show();
       // $('#gallery_video_src').attr('data-href', 'https://www.facebook.com/116638290178789/videos/3445255352177695');
