@@ -20,7 +20,6 @@ class Network < ApplicationRecord
   ## Associations
   belongs_to :campaign
   belongs_to :organization
-
   has_many :network_pages, dependent: :destroy
   has_many :network_page_posts, dependent: :destroy
 

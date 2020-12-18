@@ -111,9 +111,6 @@ Rails.application.routes.draw do
             member do
               get :disconnect
             end
-            collection do
-              get :connect_facebook
-            end
           end
 
           ## Participants Routes
