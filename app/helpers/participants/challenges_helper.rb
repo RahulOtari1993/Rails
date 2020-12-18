@@ -8,8 +8,8 @@ module Participants::ChallengesHelper
     question.is_required ? 'question_required' :  false
   end
 
-  def fetch_feeds(campaign)
-    network = campaign.networks.current_active.where(platform: 'facebook').first
+  def fetch_feeds(campaign, challenge)
+    network = campaign.networks.current_active.where(platform: challenge.parameters).first
     posts = network.network_page_posts.order(created_time: :desc).pluck(:id)
     NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).page(1).per(4)
   end
@@ -19,7 +19,7 @@ module Participants::ChallengesHelper
   end
 
   def fetch_remaining_post_visit_count(campaign, challenge)
-    network = campaign.networks.current_active.where(platform: 'facebook').first
+    network = campaign.networks.current_active.where(platform: challenge.parameters).first
     posts = network.network_page_posts.order(created_time: :desc).pluck(:id)
     ntw_page_posts_atchmt_ids = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).pluck(:id)
     visited_post_atchmt_ids = challenge.social_challenge_post_visits.where(participant_id: current_participant.id).pluck(:network_page_post_attachment_id)
