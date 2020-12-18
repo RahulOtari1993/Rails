@@ -47,7 +47,7 @@
 <% elsif @challenge.challenge_type == "share" %>
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/share_modal', challenge: @challenge %>");
   $('#share_modal').modal('show');
-<% elsif @challenge.challenge_type == "engage" && @challenge.parameters == 'facebook' %>
+<% elsif @challenge.challenge_type == "engage" && (@challenge.parameters == 'facebook' || @challenge.parameters == 'instagram') %>
   $('.challenge-submission-modal').html("<%= escape_javascript render '/participants/challenges/modals/social_feed_modal', challenge: @challenge %>");
   $('#social_feed_modal').modal('show');
 
@@ -74,7 +74,6 @@
       updateGallery(selector);
     });
   });
-
 <% elsif @challenge.challenge_type == "collect" %>
 <% elsif @challenge.challenge_type == "signup" %>
 <% end %>

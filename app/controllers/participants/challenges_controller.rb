@@ -19,7 +19,7 @@ class Participants::ChallengesController < ApplicationController
     end
 
     # TODO refactor into handler class for maintainability with multiple challenges
-    if ['referral','share'].include?(@challenge.challenge_type)
+    if ['referral', 'share'].include?(@challenge.challenge_type)
       @share_urls = ShareService.new.get_share_urls @challenge, current_participant, request
       @generic_url = @share_urls[:generic]
       @facebook_url = @share_urls[:facebook]
@@ -66,7 +66,7 @@ class Participants::ChallengesController < ApplicationController
           participant_profile_params = params[:participant].present? ? participant_params.merge!(onboarding_question_params) : onboarding_question_params
           unless current_participant.update(participant_profile_params)
             respond_to do |format|
-              @response = {success: false, message: 'Something went wrong, Please try again.'}
+              @response = { success: false, message: 'Something went wrong, Please try again.' }
               format.json { render json: @response }
               format.js { render layout: false }
             end
@@ -74,47 +74,44 @@ class Participants::ChallengesController < ApplicationController
         end
 
         if @submission.save
-            ## create history for visiting challenge social feed posts by participant
-            if @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
-               post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
-                                        network_page_post_attachment_id: params[:post_attachment_id],
-                                        points: @challenge.post_view_points.to_i).first_or_initialize
-               post_visit.save
-            end
+          ## create history for visiting challenge social feed posts by participant
+          if @challenge.challenge_type == 'engage' && (@challenge.parameters == 'facebook' || @challenge.parameters == 'instagram')
+            post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
+                                                                       network_page_post_attachment_id: params[:post_attachment_id],
+                                                                       points: @challenge.post_view_points.to_i).first_or_initialize
+            post_visit.save
+          end
 
           participant_action false
         else
           respond_to do |format|
-            @response = {success: false, message: 'Challenge submission failed, Please try again.'}
+            @response = { success: false, message: 'Challenge submission failed, Please try again.' }
             format.json { render json: @response }
             format.js { render layout: false }
           end
         end
       else
-        if @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
-           ## create history for visiting challenge social feed posts by participant
-           post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
-                                     network_page_post_attachment_id: params[:post_attachment_id],
-                                     points: @challenge.post_view_points.to_i).first_or_initialize
-           post_visit.save
+        if @challenge.challenge_type == 'engage' && (@challenge.parameters == 'facebook' || @challenge.parameters == 'instagram')
+          ## create history for visiting challenge social feed posts by participant
+          post_visit = @challenge.social_challenge_post_visits.where(participant_id: current_participant.id,
+                                                                     network_page_post_attachment_id: params[:post_attachment_id],
+                                                                     points: @challenge.post_view_points.to_i).first_or_initialize
+          post_visit.save
 
-
-           ## update participant points for visiting other posts of same challenge
-           challenge_points = @challenge.post_view_points.to_i
-           points = current_participant.points.to_i + challenge_points
-           unused_points = current_participant.unused_points.to_i + challenge_points
-           ## Submitted Challenges Counter Changes
-           completed_challenges = current_participant.completed_challenges.to_i + 1
-           current_participant.points = points
-           current_participant.unused_points = unused_points
-           current_participant.completed_challenges = completed_challenges
-           current_participant.save(validate: false)
+          ## update participant points for visiting other posts of same challenge
+          challenge_points = @challenge.post_view_points.to_i
+          points = current_participant.points.to_i + challenge_points
+          unused_points = current_participant.unused_points.to_i + challenge_points
+          ## Submitted Challenges Counter Changes
+          current_participant.points = points
+          current_participant.unused_points = unused_points
+          current_participant.save(validate: false)
         end
         participant_action true
       end
     else
       respond_to do |format|
-        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        @response = { success: false, message: 'Challenge not found, Please contact administrator.' }
         format.json { render json: @response }
         format.js { render layout: false }
       end
@@ -145,13 +142,13 @@ class Participants::ChallengesController < ApplicationController
         participant_action.save!
 
         respond_to do |format|
-          @response = {success: false, message: @challenge.failed_message}
+          @response = { success: false, message: @challenge.failed_message }
           format.js { render layout: false }
         end
       end
     else
       respond_to do |format|
-        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        @response = { success: false, message: 'Challenge not found, Please contact administrator.' }
         format.js { render layout: false }
       end
     end
@@ -170,7 +167,7 @@ class Participants::ChallengesController < ApplicationController
       @response = send(:submission)
     else
       respond_to do |format|
-        @response = {success: false, message: 'Challenge not found, Please contact administrator.'}
+        @response = { success: false, message: 'Challenge not found, Please contact administrator.' }
         format.js { render layout: false }
       end
     end
@@ -183,20 +180,20 @@ class Participants::ChallengesController < ApplicationController
     birthdate = ''
     age = 0
 
-    profile_params = {participant_profiles_attributes: []}
+    profile_params = { participant_profiles_attributes: [] }
     params[:questions].each do |key, question|
       if question[:is_custom] == 'true'
         if question[:answer].instance_of? Array
           question[:answer].each do |opt|
             profile_params[:participant_profiles_attributes].push({
-                                                                      profile_attribute_id: question[:profile_attribute_id],
-                                                                      value: opt
+                                                                    profile_attribute_id: question[:profile_attribute_id],
+                                                                    value: opt
                                                                   })
           end
         else
           profile_params[:participant_profiles_attributes].push({
-                                                                    profile_attribute_id: question[:profile_attribute_id],
-                                                                    value: question[:answer]
+                                                                  profile_attribute_id: question[:profile_attribute_id],
+                                                                  value: question[:answer]
                                                                 })
         end
       else
@@ -263,16 +260,16 @@ class Participants::ChallengesController < ApplicationController
       temp_hash = answer_hash.as_json
 
       if question.present? && (question.answer_type == "string" || question.answer_type == "text_area" ||
-          question.answer_type == "date" || question.answer_type == "time" || question.answer_type == "date_time" ||
-          question.answer_type == "number" || question.answer_type == "decimal")
+        question.answer_type == "date" || question.answer_type == "time" || question.answer_type == "date_time" ||
+        question.answer_type == "number" || question.answer_type == "decimal")
 
         temp_hash.merge!(campaign_id: @campaign.id, participant_id: current_participant.id)
         temp_hash = ActiveSupport::HashWithIndifferentAccess.new(temp_hash)
         participant_answer_params << temp_hash
       elsif question.present? && answer_hash[:answer].present? &&
-          (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
-              question.answer_type == "dropdown" || question.answer_type == "boolean" ||
-              question.answer_type == "image_radio_button" || question.answer_type == "image_check_box")
+        (question.answer_type == "radio_button" || question.answer_type == "check_box" ||
+          question.answer_type == "dropdown" || question.answer_type == "boolean" ||
+          question.answer_type == "image_radio_button" || question.answer_type == "image_check_box")
 
         answer_hash[:answer].each do |option_id|
           dup_hash = temp_hash.clone
@@ -307,7 +304,7 @@ class Participants::ChallengesController < ApplicationController
   ## Create Participant Action Entry
   def participant_action re_submission
     # challenge_points = (re_submission ? 0 : ((@challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook') ? @challenge.post_view_points.to_i : @challenge.points.to_i))
-    challenge_points = ((@challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook') ? @challenge.post_view_points.to_i :  (re_submission ? 0 : @challenge.points.to_i))
+    challenge_points = ((@challenge.challenge_type == 'engage' && (@challenge.parameters == 'facebook' || @challenge.parameters == 'instagram')) ? @challenge.post_view_points.to_i : (re_submission ? 0 : @challenge.points.to_i))
 
     if @challenge.challenge_type == 'link'
       action_type = 'visit_url'
@@ -323,9 +320,9 @@ class Participants::ChallengesController < ApplicationController
     elsif @challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz'
       action_type = 'quiz'
       title = 'Submitted Quiz'
-    elsif @challenge.challenge_type == 'engage' && @challenge.parameters == 'facebook'
+    elsif @challenge.challenge_type == 'engage' && (@challenge.parameters == 'facebook' || @challenge.parameters == 'instagram')
       action_type = 'feed'
-      title = re_submission ? 'Again Visited Social(facebook) feed' : 'Visited Social(facebook) feed'
+      title = re_submission ? "Again Visited Social(#{@challenge.parameters}) feed" : "Visited Social(#{@challenge.parameters}) feed"
     elsif @challenge.challenge_type == 'referral'
     elsif @challenge.challenge_type == 'signup'
     end
@@ -345,8 +342,8 @@ class Participants::ChallengesController < ApplicationController
       end
 
       respond_to do |format|
-        @response = {success: true,
-                     message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully."), user_points: current_participant.reload.unused_points.to_i}
+        @response = { success: true,
+                      message: ((@challenge.challenge_type == 'collect' && @challenge.parameters == 'quiz') ? @challenge.success_message : "Congratulations, You have completed this challenge successfully."), user_points: current_participant.reload.unused_points.to_i }
         format.json { render json: @response }
         format.js { render layout: false }
       end
@@ -354,7 +351,7 @@ class Participants::ChallengesController < ApplicationController
       Rails.logger.info "Participant Action Entry Failed --> #{e.message}"
 
       respond_to do |format|
-        @response = {success: false, message: 'Challenge submitted successfully, User Audit Entry failed.'}
+        @response = { success: false, message: 'Challenge submitted successfully, User Audit Entry failed.' }
         format.json { render json: @response }
         format.js { render layout: false }
       end

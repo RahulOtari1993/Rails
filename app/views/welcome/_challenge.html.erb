@@ -5,7 +5,8 @@
     <div class="image_inner_text">
       <div class="row mb-md-5">
         <div class="col-6">
-          <span class="left float-left font-weight-bold"><%= "+#{(challenge.challenge_type == 'engage' && challenge.parameters == 'facebook') ? challenge.post_view_points.to_i : challenge.points.to_i}" %></span>
+          <% points = (challenge.challenge_type == 'engage' && (challenge.parameters == 'facebook' || challenge.parameters == 'instagram')) ? challenge.post_view_points.to_i : challenge.points.to_i  %>
+          <span class="left float-left font-weight-bold"><%= "+#{points}" %></span>
         </div>
         <div class="col-6">
           <%= image_tag(challenge.icon.url, style: "height:30px;width: 30px;float: right;") %>

@@ -38,7 +38,7 @@ class Submission < ApplicationRecord
     challenge = self.challenge
 
     if participant.present? && challenge.present?
-      if challenge.challenge_type == 'engage' && challenge.parameters == 'facebook'
+      if challenge.challenge_type == 'engage' && (challenge.parameters == 'facebook' || challenge.parameters == 'instagram')
         challenge_points = challenge.post_view_points.to_i
       else
         ## Points Calculations

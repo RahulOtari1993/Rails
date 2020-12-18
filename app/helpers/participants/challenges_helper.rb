@@ -21,9 +21,9 @@ module Participants::ChallengesHelper
   def fetch_remaining_post_visit_count(campaign, challenge)
     network = campaign.networks.current_active.where(platform: challenge.parameters).first
     posts = network.network_page_posts.order(created_time: :desc).pluck(:id)
-    ntw_page_posts_atchmt_ids = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).pluck(:id)
-    visited_post_atchmt_ids = challenge.social_challenge_post_visits.where(participant_id: current_participant.id).pluck(:network_page_post_attachment_id)
-    unvisit_count = (ntw_page_posts_atchmt_ids - visited_post_atchmt_ids).length
+    attachment_ids = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).pluck(:id)
+    visited_attachment_ids = challenge.social_challenge_post_visits.where(participant_id: current_participant.id).pluck(:network_page_post_attachment_id)
+    unvisit_count = (attachment_ids - visited_attachment_ids).length
 
     unvisit_count > 0 ? unvisit_count : 0
   end
