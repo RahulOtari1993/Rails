@@ -179,12 +179,6 @@ GEM
       has_scope (~> 0.6)
       railties (>= 5.0, < 6.1)
       responders (>= 2, < 4)
-    instagram_api_client (0.2.1)
-      hashie
-      httparty
-      plural
-    instagram_graph_api (0.0.13)
-      koala
     io-like (0.3.1)
     iso8601 (0.9.1)
     jbuilder (2.10.0)
@@ -277,7 +271,6 @@ GEM
     orm_adapter (0.5.0)
     pg (1.2.3)
     pickup (0.0.11)
-    plural (0.1.0)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
     pry (0.12.2)
@@ -429,8 +422,6 @@ DEPENDENCIES
   geoip
   geoip-rails
   httparty
-  instagram_api_client
-  instagram_graph_api
   jbuilder (~> 2.5)
   jquery-minicolors-rails
   jquery-rails
