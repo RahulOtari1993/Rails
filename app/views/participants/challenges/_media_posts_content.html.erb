@@ -1,8 +1,11 @@
 <div class="row">
   <!-- <div class="col-md-12"> -->
     <% post_attachments.each_with_index do |post_attachment, index| %>
-      <% post = post_attachment.network_page_post %>
-      <% post_visited = fetch_post_visited(challenge, post_attachment) %>
+      <%
+        post = post_attachment.network_page_post
+        post_visited = fetch_post_visited(challenge, post_attachment)
+        network = post.network
+      %>
       <div class="col-thumb thumb">
         <a class="thumbnail <%= post_visited ? 'post_complete' : '' %>" href="#" data-image-id=<%= index + 1 %> data-toggle="modal" data-title=""
           data-gallery-image-src="<%= post_attachment.image_source %>"
@@ -14,7 +17,8 @@
           data-gallery-image-post-attachment-id="<%= post_attachment.id %>"
           data-gallery-image-post-url="<%= post_attachment.url %>"
           data-gallery-media-type="<%= post_attachment.category %>"
-          data-target="#image-gallery">
+          data-target="#image-gallery"
+          data-platform="<%= network.platform %>">
           <img class="img-thumbnail" src="<%= post_attachment.image_source %>" alt="Another alt text">
         </a>
       </div>
