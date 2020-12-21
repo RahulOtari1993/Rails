@@ -35,7 +35,7 @@
                           data-gallery-image-posted-time="<%= get_completed_time_in_words(post.created_time) %>"
                           data-gallery-image-post-visited="<%= post_visited %>"
                           data-gallery-image-post-attachment-id="<%= post_attachment.id %>"
-                          data-gallery-image-post-facebook-url="<%= post_attachment.url %>"
+                          data-gallery-image-post-url="<%= post_attachment.url %>"
                           data-gallery-media-type="<%= post_attachment.category %>"
                           data-target="#image-gallery">
                           <img class="img-thumbnail" src="<%= post_attachment.image_source %>" alt="Another alt text">
@@ -89,8 +89,8 @@
                     <!-- 7 days ago -->
                   </span>
                   <span class="float-right rt">
-                    <a href="#" id="gallery_image_like_facebook_url" target="_blank"><i class="fa fa-heart-o" aria-hidden="true"></i> </a>
-                    <a href="#" id="gallery_image_comment_facebook_url" target="_blank"><i class="fa fa-comment-o" aria-hidden="true"></i> </a>
+                    <a href="#" id="gallery_image_like_url" target="_blank"><i class="fa fa-heart-o" aria-hidden="true"></i> </a>
+                    <a href="#" id="gallery_image_comment_url" target="_blank"><i class="fa fa-comment-o" aria-hidden="true"></i> </a>
                     <!-- <a href="#" id=""><i class="fa fa-instagram" aria-hidden="true"></i> </a> -->
                   </span>
                 </div>
@@ -139,8 +139,9 @@
     $('#gallery_image_user_name').text(selector.data('gallery-image-user-name'));
     $('#gallery_image_post_info').text(selector.data('gallery-image-post-info'));
     $('#gallery_image_posted_time').text(selector.data('gallery-image-posted-time'));
-    $('#gallery_image_like_facebook_url').attr('href', selector.data('gallery-image-post-facebook-url'));
-    $('#gallery_image_comment_facebook_url').attr('href', selector.data('gallery-image-post-facebook-url'));
+    $('#gallery_image_like_url').attr('href', selector.data('gallery-image-post-url'));
+    $('#gallery_image_comment_url').attr('href', selector.data('gallery-image-post-url'));
+    $('#gallery_image_user_name').attr('href', selector.data('gallery-image-post-url'));
     disableButtons(counter, current_image_counter);
 
     var postAttachmentId = selector.attr('data-gallery-image-post-attachment-id');
