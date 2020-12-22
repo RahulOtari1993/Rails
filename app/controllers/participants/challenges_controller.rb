@@ -7,7 +7,7 @@ class Participants::ChallengesController < ApplicationController
   def fetch_media_posts
     network = @campaign.networks.current_active.where(platform: @challenge.parameters).first
     posts = network.network_page_posts.order(created_time: :desc).pluck(:id)
-    @posts_attachments = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).order(created_at: :desc).page(params[:page]).per(4)
+    @posts_attachments = NetworkPagePostAttachment.where(network_page_post_id: posts).order(created_at: :desc).order(created_at: :desc).page(params[:page]).per(20)
   end
 
   ## Fetch Details of Challenge

@@ -161,8 +161,9 @@ border-radius: 13px;
 }
 
 .logo_image {
-  max-width: 250px;
-  width: 100%;
+  /* max-width: 250px; */
+  width: auto;
+  height: 48px;
 }
 
 .custom_nav {

@@ -48,6 +48,9 @@ class InstagramSocialFeedService
                   url = "https://graph.instagram.com/me/media?fields=#{feed_fields}&access_token=#{auth_token}&limit=#{pagination}"
                 end
 
+                ## break the loop no further instagram posts available
+                break if counter != 0 && next_page.blank?
+
                 ## Fetch Feeds of Instagram Account
                 feeds = HTTParty.get(url)
                 unless feeds.has_key?('error')
