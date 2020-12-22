@@ -134,8 +134,10 @@ class ApplicationController < ActionController::Base
 
   ## Check for Latest App Version
   def validate_app_version
-    if Rails.application.credentials[Rails.env.to_sym][:app_version].to_f > request.headers["app-version"].to_f
-      return_error 500, false, 'Please check your app version.', {}
+    Rails.logger.info "============ CONFIG: #{Rails.application.credentials[Rails.env.to_sym][:app_version]} ======================"
+    Rails.logger.info "============ APP: #{request.headers["app-version"]} ======================"
+    if Gem::Version.new(Rails.application.credentials[Rails.env.to_sym][:app_version]) > Gem::Version.new(request.headers["app-version"])
+      return_error 433, false, 'There is a new version of the app that you need to upgrade to. Please check in the store for the latest version.', []
     end
   end
 
