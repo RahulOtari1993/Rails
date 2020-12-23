@@ -92,6 +92,7 @@ class ApplicationController < ActionController::Base
 
   # this method handles recruit and share URLs
   def handle_shares
+    Rails.logger.info "=========================== CURRENT_VISIT: #{current_visit.inspect} =============================="
     # if current_visit.present?
       if session[:pending_refids].blank?
         session[:pending_refids] = []

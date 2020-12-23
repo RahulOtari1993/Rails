@@ -10,9 +10,9 @@ class ShareService
     @processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
-    Rails.logger.info "===================== @participant #{@participant} ============================"
-    Rails.logger.info "===================== @referral_ids #{@referral_ids} ============================"
-    Rails.logger.info "===================== referral_codes #{referral_codes} ============================"
+    Rails.logger.info "===================== @participant #{@participant.inspect} ============================"
+    Rails.logger.info "===================== @referral_ids #{@referral_ids.inspect} ============================"
+    Rails.logger.info "===================== referral_codes #{referral_codes.inspect} ============================"
 
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
@@ -111,8 +111,8 @@ class ShareService
   end
 
   def process_share ref_code, participant, challenge, visit
-    actions = challenge.participant_actions.where(ahoy_visit_id: visit.id)
-    Rails.logger.info "===================== actions #{actions} ============================"
+    actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: participant.id)
+    Rails.logger.info "===================== actions #{actions.inspect} ============================"
     if actions.empty?
       # Reward the referral points
       action = challenge.participant_actions.create({
