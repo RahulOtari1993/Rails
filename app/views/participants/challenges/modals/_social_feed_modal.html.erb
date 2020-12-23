@@ -50,8 +50,8 @@
                 </div><br>
               </div>
               <div class="row">
-                <div class="col-md-12">
-                  <div id="paginator" class='float-right'>
+                <div class="col-md-12 text-center">
+                  <div id="paginator" class='d-inline-block'>
                      <%= paginate post_attachments, remote: true,  params: {controller: "challenges", action: "fetch_media_posts"}, first: 0, last: 0 %>
                   </div>
                 </div>
@@ -233,6 +233,9 @@
 
 
 <style media="screen">
+  .challenge-modal.modal, .reward-modal.modal {
+    background-color: rgba(20,20,25,.95);
+  }
 
   .video_slider_section .modal-content {
     background-color: #1f1f1f !important;
