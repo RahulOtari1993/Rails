@@ -92,22 +92,23 @@ class ApplicationController < ActionController::Base
 
   # this method handles recruit and share URLs
   def handle_shares
-    if session[:pending_refids].blank?
-      session[:pending_refids] = []
-    end
-
-    share_service = ShareService.new
-    if params[:refid]
-      social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
-
-      if !session[:pending_refids].include?(params[:refid])
-        session[:pending_refids].push(params[:refid])
+    if current_visit.present?
+      if session[:pending_refids].blank?
+        session[:pending_refids] = []
       end
+
+      share_service = ShareService.new
+      if params[:refid]
+        social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
+
+        if !session[:pending_refids].include?(params[:refid])
+          session[:pending_refids].push(params[:refid])
+        end
+      end
+
+      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
+      session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
     end
-
-    processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
-    session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
-
   end
 
   protected
