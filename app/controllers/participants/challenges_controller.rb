@@ -25,13 +25,15 @@ class Participants::ChallengesController < ApplicationController
       @facebook_url = @share_urls[:facebook]
       if @challenge.use_short_url
         @shortened_urls = ShareService.new.get_shortened_share_urls @share_urls, @campaign, current_participant, request
-
+        Rails.logger.info "================ @shortened_urls: #{@shortened_urls.inspect} ========================="
         if !@shortened_urls.empty?
           if @shortened_urls[:generic]
             @generic_url = @shortened_urls[:generic]
+            Rails.logger.info "================ @@generic_url: #{@generic_url.inspect} ========================="
           end
           if @shortened_urls[:facebook]
             @facebook_url = @shortened_urls[:facebook]
+            Rails.logger.info "================ @@facebook_url: #{@facebook_url.inspect} ========================="
           end
         end
       end
