@@ -10,6 +10,9 @@ class ShareService
     @processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
+    Rails.logger.info "===================== @participant #{@participant} ============================"
+    Rails.logger.info "===================== @referral_ids #{@referral_ids} ============================"
+    Rails.logger.info "===================== referral_codes #{referral_codes} ============================"
 
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
@@ -18,6 +21,7 @@ class ShareService
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
       elsif challenge.challenge_type == 'share'
+        Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
         process_share ref_code, participant, challenge, visit
       else
@@ -108,7 +112,7 @@ class ShareService
 
   def process_share ref_code, participant, challenge, visit
     actions = challenge.participant_actions.where(ahoy_visit_id: visit.id)
-
+    Rails.logger.info "===================== actions #{actions} ============================"
     if actions.empty?
       # Reward the referral points
       action = challenge.participant_actions.create({
@@ -121,6 +125,7 @@ class ShareService
         campaign_id: challenge.campaign_id
       })
       if action.errors.empty?
+        Rails.logger.info "===================== Increase Challenge Completion ============================"
         challenge.update_attribute(:completions, challenge.completions+1)
         @processed_referral_ids << ref_code.code
       end
