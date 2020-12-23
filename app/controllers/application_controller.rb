@@ -98,6 +98,8 @@ class ApplicationController < ActionController::Base
         session[:pending_refids] = []
       end
 
+    Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
+
       share_service = ShareService.new
       if params[:refid]
         social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
@@ -107,8 +109,12 @@ class ApplicationController < ActionController::Base
         end
       end
 
+    Rails.logger.info "===========================  session[:pending_refids] MIDDLE: #{ session[:pending_refids].inspect} =============================="
+
       processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
+
+    Rails.logger.info "===========================  session[:pending_refids] END: #{ session[:pending_refids].inspect} =============================="
     # end
   end
 
