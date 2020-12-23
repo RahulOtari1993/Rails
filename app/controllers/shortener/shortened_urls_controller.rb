@@ -17,22 +17,25 @@ class Shortener::ShortenedUrlsController < ApplicationController
 		token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
 		track = Shortener.ignore_robots.blank? || request.human?
 		url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
-		begin
-			if url[:url].include?('utm_source=') && url[:url].include?('utm_campaign=')
-				uri = URI.parse(url[:url]).query
-				campaign_id = uri.split('utm_campaign=').last.split('&').first
-				challenge_id = uri.split('utm_source=').last.split('&').first
 
-				@campaign = Campaign.find(campaign_id) rescue nil
-				@challenge = @campaign.challenges.find(challenge_id) rescue nil
-				@og = nil
-				@og = get_open_graph @challenge
-			end
-		rescue Exception => e
-			# No campaign or challenge with ID for campaign
-		end
+		Rails.logger.info "=================================== URL: #{url.inspect} ==================================="
 
-		# redirect_to url[:url], status: :moved_permanently
+		# begin
+		# 	if url[:url].include?('utm_source=') && url[:url].include?('utm_campaign=')
+		# 		uri = URI.parse(url[:url]).query
+		# 		campaign_id = uri.split('utm_campaign=').last.split('&').first
+		# 		challenge_id = uri.split('utm_source=').last.split('&').first
+		#
+		# 		@campaign = Campaign.find(campaign_id) rescue nil
+		# 		@challenge = @campaign.challenges.find(challenge_id) rescue nil
+		# 		@og = nil
+		# 		@og = get_open_graph @challenge
+		# 	end
+		# rescue Exception => e
+		# 	# No campaign or challenge with ID for campaign
+		# end
+
+		redirect_to url[:url], status: :moved_permanently
 	end
 
 end
