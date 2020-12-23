@@ -16,6 +16,7 @@ class ShareService
 
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
+      Rails.logger.info "===================== CHALLENGE #{challenge.inspect} ============================"
 
       if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
