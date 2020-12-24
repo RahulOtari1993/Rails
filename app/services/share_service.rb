@@ -4,7 +4,7 @@ class ShareService
     @processed_referral_ids = []
   end
 
-  def process  participant, referral_ids, visit
+  def process  participant, referral_ids, visit, url
     @participant = participant
     @referral_ids = referral_ids
     @processed_referral_ids = []
@@ -21,10 +21,10 @@ class ShareService
       if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
-      elsif challenge.challenge_type == 'share' && !participant.blank?
+      elsif challenge.challenge_type == 'share'
         Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
-        process_share ref_code, participant, challenge, visit
+        process_share ref_code, challenge, visit, url
       else
         # Reward points for other share referrals
       end
@@ -116,27 +116,32 @@ class ShareService
     end
   end
 
-  def process_share ref_code, participant, challenge, visit
-    actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: participant.id)
-    Rails.logger.info "===================== actions #{actions.inspect} ============================"
-    if actions.empty?
-      # Reward the referral points
-      action = challenge.participant_actions.create({
-        participant_id: ref_code.participant_id,
-        points: challenge.points,
-        ahoy_visit_id: visit.id,
-        action_type: 'share',
-        title: 'Visit to share challenge',
-        ip_address: visit.ip,
-        campaign_id: challenge.campaign_id
-      })
-      if action.errors.empty?
-        Rails.logger.info "===================== Increase Challenge Completion ============================"
-        submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: participant.id,
-                                       challenge_id: challenge.id).first_or_initialize
-        if submission.new_record?
-          if submission.save
-            @processed_referral_ids << ref_code.code
+  def process_share ref_code, challenge, visit, url
+    if url[:shortened_url].present? && url[:shortened_url].owner_type == 'Participant' && url[:shortened_url].owner_id.present?
+      participant = Participant.where(id: url[:shortened_url].owner_id).first
+      if participant.present?
+        actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: participant.id)
+        Rails.logger.info "===================== actions #{actions.inspect} ============================"
+        if actions.empty?
+          # Reward the referral points
+          action = challenge.participant_actions.create({
+                                                          participant_id: ref_code.participant_id,
+                                                          points: challenge.points,
+                                                          ahoy_visit_id: visit.id,
+                                                          action_type: 'share',
+                                                          title: 'Visit to share challenge',
+                                                          ip_address: visit.ip,
+                                                          campaign_id: challenge.campaign_id
+                                                        })
+          if action.errors.empty?
+            Rails.logger.info "===================== Increase Challenge Completion ============================"
+            submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: participant.id,
+                                          challenge_id: challenge.id).first_or_initialize
+            if submission.new_record?
+              if submission.save
+                @processed_referral_ids << ref_code.code
+              end
+            end
           end
         end
       end
