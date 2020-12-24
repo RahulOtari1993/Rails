@@ -14,10 +14,12 @@ class Shortener::ShortenedUrlsController < ApplicationController
 	def show
 		ahoy = ::Ahoy::Tracker.new(controller: nil)
 		ahoy.track "Short URL Visit", request.path_parameters
-		Rails.logger.info "=================================== SHOW ID: #{params[:id].inspect} ==================================="
-		token = ::Shortener::ShortenedUrl.extract_token(params[:id])
+		Rails.logger.info "=================================== SHOW ID: #{params[:refid].inspect} ==================================="
+		token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
 		Rails.logger.info "=================================== SHOW TOKEN: #{token.inspect} ==================================="
 		track = Shortener.ignore_robots.blank? || request.human?
+		Rails.logger.info "=================================== SHOW track: #{track.inspect} ==================================="
+		Rails.logger.info "=================================== additional_params track: #{params.inspect} ==================================="
 		url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
 		Rails.logger.info "=================================== SHOW URL: #{url.inspect} ==================================="
 
