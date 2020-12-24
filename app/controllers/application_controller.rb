@@ -126,7 +126,7 @@ class ApplicationController < ActionController::Base
 
     Rails.logger.info "===========================  session[:pending_refids] MIDDLE: #{ session[:pending_refids].inspect} =============================="
 
-      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit, url
+      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
 
     Rails.logger.info "===========================  session[:pending_refids] END: #{ session[:pending_refids].inspect} =============================="

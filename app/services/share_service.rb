@@ -4,7 +4,7 @@ class ShareService
     @processed_referral_ids = []
   end
 
-  def process  participant, referral_ids, visit, url
+  def process  participant, referral_ids, visit
     @participant = participant
     @referral_ids = referral_ids
     @processed_referral_ids = []
@@ -24,7 +24,7 @@ class ShareService
       elsif challenge.challenge_type == 'share'
         Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
-        process_share ref_code, challenge, visit, url
+        process_share ref_code, challenge, visit
       else
         # Reward points for other share referrals
       end
@@ -116,11 +116,9 @@ class ShareService
     end
   end
 
-  def process_share ref_code, challenge, visit, url
-    if url[:shortened_url].present? && url[:shortened_url].owner_type == 'Participant' && url[:shortened_url].owner_id.present?
-      participant = Participant.where(id: url[:shortened_url].owner_id).first
-      if participant.present?
-        actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: participant.id)
+  def process_share ref_code, challenge, visit
+      if ref_code.participant_id.present?
+        actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: ref_code.participant_id)
         Rails.logger.info "===================== actions #{actions.inspect} ============================"
         if actions.empty?
           # Reward the referral points
@@ -135,7 +133,7 @@ class ShareService
                                                         })
           if action.errors.empty?
             Rails.logger.info "===================== Increase Challenge Completion ============================"
-            submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: participant.id,
+            submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: ref_code.participant_id,
                                           challenge_id: challenge.id).first_or_initialize
             if submission.new_record?
               if submission.save
@@ -145,6 +143,6 @@ class ShareService
           end
         end
       end
-    end
+
   end
 end
