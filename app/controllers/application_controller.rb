@@ -107,14 +107,20 @@ class ApplicationController < ActionController::Base
         token = ::Shortener::ShortenedUrl.extract_token(params[:id])
         track = Shortener.ignore_robots.blank? || request.human?
         url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
-
         Rails.logger.info "=================================== handle_shares URL: #{url.inspect} ==================================="
 
+        ref_id = ''
+        if url[:url].include?('refid=')
+          uri = URI.parse(url[:url]).query
+          ref_id = uri.split('refid=').last.split('&').first
+        end
 
-        social_share_visit = share_service.record_visit params[:id], current_visit, current_participant
+        if ref_id.present?
+          social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
-        if !session[:pending_refids].include?(params[:id])
-          session[:pending_refids].push(params[:id])
+          if !session[:pending_refids].include?(ref_id)
+            session[:pending_refids].push(ref_id)
+          end
         end
       end
 
