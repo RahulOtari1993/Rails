@@ -14,7 +14,7 @@ class Shortener::ShortenedUrlsController < ApplicationController
 	def show
 		ahoy = ::Ahoy::Tracker.new(controller: nil)
 		ahoy.track "Short URL Visit", request.path_parameters
-		token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
+		token = ::Shortener::ShortenedUrl.extract_token(params[:id])
 		track = Shortener.ignore_robots.blank? || request.human?
 		url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
 
