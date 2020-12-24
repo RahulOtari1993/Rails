@@ -21,7 +21,7 @@ class ShareService
       if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
-      elsif challenge.challenge_type == 'share'
+      elsif challenge.challenge_type == 'share' && !participant.blank?
         Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
         process_share ref_code, participant, challenge, visit
