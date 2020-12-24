@@ -103,6 +103,8 @@ class ApplicationController < ActionController::Base
       share_service = ShareService.new
       if params[:refid]
 
+        Rails.logger.info "===========================  REF ID: #{params[:refid].inspect} =============================="
+
         token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
         track = Shortener.ignore_robots.blank? || request.human?
         url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
