@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
   # this method handles recruit and share URLs
   def handle_shares
     Rails.logger.info "=========================== CURRENT_VISIT: #{current_visit.inspect} =============================="
-    # if current_visit.present?
+    if current_visit.present?
       if session[:pending_refids].blank?
         session[:pending_refids] = []
       end
@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
       share_service = ShareService.new
       if params[:id] && controller_name == 'shortened_urls' && action_name == 'show'
 
-        Rails.logger.info "===========================  REF ID: #{params[:id].inspect} =============================="
+        Rails.logger.info "=========================== ID: #{params[:id].inspect} =============================="
 
         token = ::Shortener::ShortenedUrl.extract_token(params[:id])
         track = Shortener.ignore_robots.blank? || request.human?
@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
           uri = URI.parse(url[:url]).query
           ref_id = uri.split('refid=').last.split('&').first
         end
-
+        Rails.logger.info "=========================== ref_id ID: #{ref_id.inspect} =============================="
         if ref_id.present?
           social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
@@ -130,7 +130,7 @@ class ApplicationController < ActionController::Base
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
 
     Rails.logger.info "===========================  session[:pending_refids] END: #{ session[:pending_refids].inspect} =============================="
-    # end
+    end
   end
 
   protected
