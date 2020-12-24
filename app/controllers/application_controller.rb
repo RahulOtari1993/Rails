@@ -102,6 +102,14 @@ class ApplicationController < ActionController::Base
 
       share_service = ShareService.new
       if params[:refid]
+
+        token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
+        track = Shortener.ignore_robots.blank? || request.human?
+        url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
+
+        Rails.logger.info "=================================== handle_shares URL: #{url.inspect} ==================================="
+
+
         social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
 
         if !session[:pending_refids].include?(params[:refid])

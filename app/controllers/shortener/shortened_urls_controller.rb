@@ -18,7 +18,7 @@ class Shortener::ShortenedUrlsController < ApplicationController
 		track = Shortener.ignore_robots.blank? || request.human?
 		url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
 
-		Rails.logger.info "=================================== URL: #{url.inspect} ==================================="
+		Rails.logger.info "=================================== SHOW URL: #{url.inspect} ==================================="
 
 		begin
 			if url[:url].include?('utm_source=') && url[:url].include?('utm_campaign=')
