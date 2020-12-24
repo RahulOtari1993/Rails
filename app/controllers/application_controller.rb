@@ -98,7 +98,7 @@ class ApplicationController < ActionController::Base
         session[:pending_refids] = []
       end
 
-    Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
+      Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
       share_service = ShareService.new
       if params[:id] && controller_name == 'shortened_urls' && action_name == 'show'
 

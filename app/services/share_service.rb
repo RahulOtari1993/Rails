@@ -105,8 +105,13 @@ class ShareService
         ahoy_visit_id: visit.id
       })
       if action.errors.empty?
-        challenge.update_attribute(:completions, challenge.completions+1)
-        @processed_referral_ids << ref_code.code
+        submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: participant.id,
+                                      challenge_id: challenge.id).first_or_initialize
+        if submission.new_record?
+          if submission.save
+            @processed_referral_ids << ref_code.code
+          end
+        end
       end
     end
   end
@@ -127,8 +132,13 @@ class ShareService
       })
       if action.errors.empty?
         Rails.logger.info "===================== Increase Challenge Completion ============================"
-        challenge.update_attribute(:completions, challenge.completions+1)
-        @processed_referral_ids << ref_code.code
+        submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: participant.id,
+                                       challenge_id: challenge.id).first_or_initialize
+        if submission.new_record?
+          if submission.save
+            @processed_referral_ids << ref_code.code
+          end
+        end
       end
     end
   end
