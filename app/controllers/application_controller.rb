@@ -99,23 +99,22 @@ class ApplicationController < ActionController::Base
       end
 
     Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
-
       share_service = ShareService.new
-      if params[:refid]
+      if params[:id] && controller_name == 'shortened_urls' && action_name == 'show'
 
-        Rails.logger.info "===========================  REF ID: #{params[:refid].inspect} =============================="
+        Rails.logger.info "===========================  REF ID: #{params[:id].inspect} =============================="
 
-        token = ::Shortener::ShortenedUrl.extract_token(params[:refid])
+        token = ::Shortener::ShortenedUrl.extract_token(params[:id])
         track = Shortener.ignore_robots.blank? || request.human?
         url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
 
         Rails.logger.info "=================================== handle_shares URL: #{url.inspect} ==================================="
 
 
-        social_share_visit = share_service.record_visit params[:refid], current_visit, current_participant
+        social_share_visit = share_service.record_visit params[:id], current_visit, current_participant
 
-        if !session[:pending_refids].include?(params[:refid])
-          session[:pending_refids].push(params[:refid])
+        if !session[:pending_refids].include?(params[:id])
+          session[:pending_refids].push(params[:id])
         end
       end
 
