@@ -10,19 +10,14 @@ class ShareService
     @processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
-    Rails.logger.info "===================== @participant #{@participant.inspect} ============================"
-    Rails.logger.info "===================== @referral_ids #{@referral_ids.inspect} ============================"
-    Rails.logger.info "===================== referral_codes #{referral_codes.inspect} ============================"
 
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
-      Rails.logger.info "===================== CHALLENGE #{challenge.inspect} ============================"
 
       if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
       elsif challenge.challenge_type == 'share'
-        Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
         process_share ref_code, challenge, visit
       else
@@ -119,7 +114,6 @@ class ShareService
   def process_share ref_code, challenge, visit
       if ref_code.participant_id.present?
         actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: ref_code.participant_id)
-        Rails.logger.info "===================== actions #{actions.inspect} ============================"
         if actions.empty?
           # Reward the referral points
           action = challenge.participant_actions.create({
@@ -132,7 +126,6 @@ class ShareService
                                                           campaign_id: challenge.campaign_id
                                                         })
           if action.errors.empty?
-            Rails.logger.info "===================== Increase Challenge Completion ============================"
             submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: ref_code.participant_id,
                                           challenge_id: challenge.id).first_or_initialize
             if submission.new_record?
