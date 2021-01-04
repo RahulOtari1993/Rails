@@ -51,11 +51,11 @@
 
           <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
             <div class="card-body">
-              <div class="Social_blocks_container Social_blocks_fb">
-                <div class="Social_blocks_fb_title">
+              <div class="Social_blocks_container Social_blocks_body">
+                <div class="Social_blocks_title">
                   <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
                 </div>
-                <div class="Social_blocks_fb_content">
+                <div class="Social_blocks_content">
 
                   <div class="user_pic_box">
                     <img src="#" class="user_pic" id="facebook-img">
@@ -69,7 +69,7 @@
                   <p class="user-comment-section">
                     <%= social_blog_comment('facebook') %>
                   </p>
-                  <div class="Social_blocks_fb_content_box">
+                  <div class="Social_blocks_content_box">
                     <%= raw social_blog_image('facebook') %>
                     <div class="image-upload">
                       <label for="file-input-fb">
@@ -123,26 +123,41 @@
 
         <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
           <div class="social-heading-details">
-            <h3>2. choose and customize for platforms</h3>
+            <h3>2. choose and customize for twitter</h3>
           </div>
 
-          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title %>
-          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description %>
+          <%= form.hidden_field :social_title, value: new_record? ? '' : @challenge.social_title, class: 'challenge_social_title' %>
+          <%= form.hidden_field :social_description, value: new_record? ? '' : @challenge.social_description, class: 'challenge_social_description'  %>
 
           <div class="row">
-            <div class="offset-lg-1 col-sm-10 col-lg-8">
+            <div class="col-sm-10 col-lg-8">
               <div class="form-group">
-                <%= form.label :title, 'Facebook title content' %>
-                <%= form.text_field :title, class: 'form-control', placeholder: 'My facebook Post' %>
+                <%= form.label :title, 'Twitter title content' %>
+                <%= form.text_field :title, class: 'form-control', placeholder: 'My twitter Post' %>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <div class="offset-lg-1 col-sm-10 col-lg-8">
+            <div class="col-sm-10 col-lg-8">
               <div class="form-group">
                 <%= form.label :link, 'Link to be shared' %>
                 <%= form.text_field :link, class: 'form-control', placeholder: 'http://lib.perksocial.com/' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8 col-lg-10 questions-container">
+              <%= form.label :use_short_url, 'Use Short URL (URL Shortener) for Share Link' %>
+              <div class="vs-checkbox-con vs-checkbox-primary">
+                <%= form.check_box :use_short_url, class: '' %>
+                <span class="vs-checkbox">
+                <span class="vs-checkbox--check">
+                    <i class="vs-icon feather icon-check"></i>
+                </span>
+              </span>
+                <span class="">Use Short URL</span>
               </div>
             </div>
           </div>
@@ -152,32 +167,27 @@
           <div class="social-error-container social-title-error"></div>
           <div class="social-error-container social-description-error"></div>
 
-          <div class="social-block-body" id="twitterBlogBody" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+          <div class="social-block-body" id="twitterBlockBody" aria-labelledby="twitterBlock" data-parent="#Social_blocks_accordion">
             <div class="card-body">
-              <div class="Social_blocks_container Social_blocks_twitter">
-                <div class="Social_blocks_twitter_title">
-                  <h5><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</h5>
+              <div class="Social_blocks_container Social_blocks_body">
+                <div class="Social_blocks_title">
+                  <h5><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</h5>
                 </div>
-                <div class="Social_blocks_fb_content">
+                <div class="Social_blocks_content">
 
                   <div class="user_pic_box">
-                    <img src="#" class="user_pic">
+                    <img src="#" class="user_pic" id="twitter-img">
                     <div class="user_name_box">
                       <p><span>User's Name</span></p>
-                      <label class="text_label">
-                        <p>
-                          <%= raw social_blog_description('twitter', 'text') %>
-                        </p>
-                      </label>
-                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
-                      <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control social-description-txt', placeholder: "We've made it easy for you to win exclusive prizes just by sharing the
-                                              love about LIB. Join today to start earning now. It's easy!", data: {error: 'social-description-error'} %>
-                      <div class="clear"></div>
+                      <p>Date</p>
                     </div>
                   </div>
                   <div class="clear"></div>
 
-                  <div class="Social_blocks_fb_content_box">
+                  <p class="user-comment-section">
+                    <%= social_blog_comment('twitter') %>
+                  </p>
+                  <div class="Social_blocks_content_box">
                     <%= raw social_blog_image('twitter') %>
                     <div class="image-upload">
                       <label for="file-input-twitter">
@@ -186,11 +196,37 @@
                       <%= form.file_field :social_image, class: "social-img-upload", id: 'file-input-twitter',
                                           data: {'file-id' => 'show-twitter-image', error: 'social-image-error'} %>
                     </div>
+                    <div class="editable_box">
+
+                      <label class="text_label edit_title">
+                        <h5>
+                          <%= social_blog_title('twitter', 'text') %>
+                        </h5>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= text_field_tag :social_title, social_blog_title('twitter', 'input'), class: 'form-control social-title-txt', placeholder: "Title to display on social post",
+                                         data: {error: 'social-title-error'} %>
+                      <div class="clear"></div>
+
+                      <label class="text_label">
+                        <p>
+                          <%= social_blog_description('twitter', 'text') %>
+                        </p>
+                      </label>
+                      <div class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                      <%= text_field_tag :social_description, social_blog_description('twitter', 'input'), class: 'form-control social-description-txt', placeholder: "Some content to display on the social post", data: {error: 'social-description-error'} %>
+                      <div class="clear"></div>
+
+                      <p>
+                        <a href="javascript:void(0);" class="social-link-label"><%= social_blog_link('twitter') %></a>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -632,11 +668,11 @@
 
           <div class="social-block-body" id="facebookBlockBody" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
             <div class="card-body">
-              <div class="Social_blocks_container Social_blocks_fb">
-                <div class="Social_blocks_fb_title">
+              <div class="Social_blocks_container Social_blocks_body">
+                <div class="Social_blocks_title">
                   <h5><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</h5>
                 </div>
-                <div class="Social_blocks_fb_content">
+                <div class="Social_blocks_content">
 
                   <div class="user_pic_box">
                     <img src="#" class="user_pic" id="facebook-img">
@@ -650,7 +686,7 @@
                   <p class="user-comment-section">
                     <%= social_blog_comment('facebook') %>
                   </p>
-                  <div class="Social_blocks_fb_content_box">
+                  <div class="Social_blocks_content_box">
                     <%= raw social_blog_image('facebook') %>
                     <div class="image-upload">
                       <label for="file-input-fb">

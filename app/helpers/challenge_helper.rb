@@ -26,7 +26,7 @@ module ChallengeHelper
 
   ## Set Social Blog Comments
   def social_blog_comment(type)
-    if new_record? && type == 'facebook'
+    if new_record? && ['facebook', 'twitter'].include?(type)
       "User's comment (must be added by user)"
     else
       @challenge.description
@@ -60,7 +60,7 @@ module ChallengeHelper
     if input_type == 'input'
       return nil;
     else
-      return (type == 'facebook' || type == 'linked_in') ? "Welcome to the LIB Experiences Club" : ''
+      return (type == 'facebook' || type == "twitter" || type == 'linked_in') ? "Welcome to the LIB Experiences Club" : ''
     end
   end
 

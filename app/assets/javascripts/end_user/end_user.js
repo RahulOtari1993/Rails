@@ -16,6 +16,7 @@
 //= require ../end_user/libraries/bootstrap-datetimepicker.min
 //= require ../end_user/libraries/jquery.easing.1.3.js
 //= require ../end_user/libraries/jquery.parallax-scroll.js
+//= require ../end_user/libraries/jquery.prettySocial.js
 //= require ../main
 //= require ../end_user/script
 //= require ../participant

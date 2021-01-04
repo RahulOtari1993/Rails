@@ -110,7 +110,7 @@ $(document).on('turbolinks:load', function () {
     if ($('#challenge_parameters').val() == 'facebook') {
       imageName = imageNeeded($("#facebookBlockBody input[name='challenge[social_image]']"));
     } else if ($('#challenge_parameters').val() == 'twitter') {
-      imageName = imageNeeded($("#twitterBlogBody input[name='challenge[social_image]']"));
+      imageName = imageNeeded($("#twitterBlockBody input[name='challenge[social_image]']"));
     } else if ($('#challenge_parameters').val() == 'linked_in') {
       imageName = imageNeeded($("#linkedinBlogBody input[name='challenge[social_image]']"));
     } else {
@@ -472,12 +472,14 @@ $(document).on('turbolinks:load', function () {
       return true;
     }
 
-    if ($('#challenge_parameters').val() == 'twitter') {
-      return true;
-    }
+    // if ($('#challenge_parameters').val() == 'twitter') {
+    //   return true;
+    // }
 
     if ($('#challenge_parameters').val() == 'facebook') {
       socialTitle = $("#facebookBlockBody .social-title-txt").val();
+    } else if ($('#challenge_parameters').val() == 'twitter') {
+      socialTitle = $("#twitterBlockBody .social-title-txt").val();
     } else if ($('#challenge_parameters').val() == 'linked_in') {
       socialTitle = $("#linkedinBlogBody .social-title-txt").val();
     } else {
@@ -503,7 +505,7 @@ $(document).on('turbolinks:load', function () {
     if ($('#challenge_parameters').val() == 'facebook') {
       socialDescription = $("#facebookBlockBody .social-description-txt").val();
     } else if ($('#challenge_parameters').val() == 'twitter') {
-      socialDescription = $("#twitterBlogBody .social-description-txt").val();
+      socialDescription = $("#twitterBlockBody .social-description-txt").val();
     } else if ($('#challenge_parameters').val() == 'linked_in') {
       socialDescription = $("#linkedinBlogBody .social-description-txt").val();
     } else {
@@ -831,7 +833,7 @@ $(document).on('turbolinks:load', function () {
     }
   });
 
-  $('#file-input-twitter').change(function () {
+  $('body').on('change', '#file-input-twitter', function (e) {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
 
@@ -878,8 +880,8 @@ $(document).on('turbolinks:load', function () {
       if (idx == 0) {
         // Facebook
         $('#challenge_parameters').val('facebook');
-        $("#facebookBlogBody :input").attr('disabled', false);
-        $("#twitterBlogBody :input").attr('disabled', true);
+        $("#facebookBlockBody :input").attr('disabled', false);
+        $("#twitterBlockBody :input").attr('disabled', true);
         $("#linkedinBlogBody :input").attr('disabled', true);
 
         $('#challenge_social_title').val($("#facebookBlockBody .social-title-txt").val());
@@ -887,18 +889,18 @@ $(document).on('turbolinks:load', function () {
       } else if (idx == 1) {
         // Twitter
         $('#challenge_parameters').val('twitter');
-        $("#twitterBlogBody :input").attr('disabled', false);
-        $("#facebookBlogBody :input").attr('disabled', true);
+        $("#twitterBlockBody :input").attr('disabled', false);
+        $("#facebookBlockBody :input").attr('disabled', true);
         $("#linkedinBlogBody :input").attr('disabled', true);
 
-        $('#challenge_social_title').val($("#twitterBlogBody .social-title-txt").val());
-        $('#challenge_social_description').val($("#twitterBlogBody .social-description-txt").val());
+        $('#challenge_social_title').val($("#twitterBlockBody .social-title-txt").val());
+        $('#challenge_social_description').val($("#twitterBlockBody .social-description-txt").val());
       } else if (idx == 2) {
         // LinkedIn
         $('#challenge_parameters').val('linked_in');
         $('#linkedinBlogBody :input').attr('disabled', false);
-        $('#facebookBlogBody :input').attr('disabled', true);
-        $('#twitterBlogBody :input').attr('disabled', true);
+        $('#facebookBlockBody :input').attr('disabled', true);
+        $('#twitterBlockBody :input').attr('disabled', true);
 
         $('#challenge_social_title').val($("#linkedinBlogBody .social-title-txt").val());
         $('#challenge_social_description').val($("#linkedinBlogBody .social-description-txt").val());
@@ -960,18 +962,30 @@ $(document).on('turbolinks:load', function () {
   });
 
   // Change Social Title Value
-  $('.social-title-txt').focusout(function () {
-    $('#challenge_social_title').val($(this).val());
+  $('body').on('focusout', '.social-title-txt', function (e) {
+    if ($('#challenge_challenge_type').val() == 'share' && $('#challenge_parameters').val() == 'facebook') {
+      $('.share-facebook-div #challenge_social_title').val($(this).val());
+      $('.share-twitter-div #challenge_social_title').val('');
+    } else if($('#challenge_challenge_type').val() == 'share' && $('#challenge_parameters').val() == 'twitter') {
+      $('.share-twitter-div #challenge_social_title').val($(this).val());
+      $('.share-facebook-div #challenge_social_title').val('');
+    }
   });
 
   // Change Social Link Value
-  $('#challenge_link').focusout(function () {
+  $('body').on('focusout', '#challenge_link', function (e) {
     $('.social-link-label').html($(this).val());
   });
 
   // Change Social Description Value
-  $('.social-description-txt').focusout(function () {
-    $('#challenge_social_description').val($(this).val());
+  $('body').on('focusout', '.social-description-txt', function (e) {
+    if ($('#challenge_challenge_type').val() == 'share' && $('#challenge_parameters').val() == 'facebook') {
+      $('.share-facebook-div #challenge_social_description').val($(this).val());
+      $('.share-twitter-div #challenge_social_description').val('');
+    } else if($('#challenge_challenge_type').val() == 'share' && $('#challenge_parameters').val() == 'twitter') {
+      $('.share-twitter-div #challenge_social_description').val($(this).val());
+      $('.share-facebook-div #challenge_social_description').val('');
+    }
   });
 
   // Date Picker (Disabled all the Past Dates)

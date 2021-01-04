@@ -68,7 +68,8 @@ class ShareService
     # Currently only  creates a generic (non-platform specific) and facebook
     referral_link = "#{referral_url}&#{challenge.utm_parameters('generic').to_query}"
     facebook_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
-    return { generic: referral_link, facebook: facebook_link}
+    twitter_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
+    return { generic: referral_link, facebook: facebook_link, twitter: twitter_link}
   end
 
   def get_shortened_share_urls urls, campaign, participant, request

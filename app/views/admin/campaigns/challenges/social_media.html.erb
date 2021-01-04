@@ -38,11 +38,11 @@
             </div>
             <div id="facebookBlockBody" class="collapse <%= active_social_blog('facebook') %>" aria-labelledby="facebookBlock" data-parent="#Social_blocks_accordion">
               <div class="card-body">
-                <div class="Social_blocks_container Social_blocks_fb">
-                  <div class="Social_blocks_fb_title">
+                <div class="Social_blocks_container Social_blocks_body">
+                  <div class="Social_blocks_title">
                     <h5><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</h5>
                   </div>
-                  <div class="Social_blocks_fb_content">
+                  <div class="Social_blocks_content">
 
                     <div class="user_pic_box">
                       <img src="#" class="user_pic" id="facebook-img">
@@ -56,7 +56,7 @@
                     <p class="user-comment-section">
                       <%= social_blog_comment('facebook') %>
                     </p>
-                    <div class="Social_blocks_fb_content_box">
+                    <div class="Social_blocks_content_box">
                       <%= raw social_blog_image('facebook') %>
                       <div class="image-upload">
                         <label for="file-input-fb">
@@ -99,20 +99,20 @@
           </div>
 
           <div class="">
-            <div class="card-head" id="twitterBlog">
+            <div class="card-head" id="twitterBlock">
               <h2 class="mb-0">
-                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#twitterBlogBody">
+                <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#twitterBlockBody">
                   <i class="fa fa-plus"></i> <i class="fa fa-twitter" aria-hidden="true"></i>Twitter
                 </button>
               </h2>
             </div>
-            <div id="twitterBlogBody" class="collapse <%= active_social_blog('twitter') %>" aria-labelledby="twitterBlog" data-parent="#Social_blocks_accordion">
+            <div id="twitterBlockBody" class="collapse <%= active_social_blog('twitter') %>" aria-labelledby="twitterBlock" data-parent="#Social_blocks_accordion">
               <div class="card-body">
                 <div class="Social_blocks_container Social_blocks_twitter">
                   <div class="Social_blocks_twitter_title">
                     <h5><i class="fa fa-twitter" aria-hidden="true"></i>Twitter</h5>
                   </div>
-                  <div class="Social_blocks_fb_content">
+                  <div class="Social_blocks_content">
 
                     <div class="user_pic_box">
                       <img src="#" class="user_pic">
@@ -131,7 +131,7 @@
                     </div>
                     <div class="clear"></div>
 
-                    <div class="Social_blocks_fb_content_box">
+                    <div class="Social_blocks_content_box">
                       <%= raw social_blog_image('twitter') %>
                       <div class="image-upload">
                         <label for="file-input-twitter">
@@ -161,14 +161,14 @@
                   <div class="Social_blocks_LinkedIn_title">
                     <h5><i class="fa fa-linkedin" aria-hidden="true"></i>LinkedIn</h5>
                   </div>
-                  <div class="Social_blocks_fb_content">
+                  <div class="Social_blocks_content">
 
                     <div class="user_pic_box">
                       <img src="#" class="user_pic">
                       <div class="user_name_box">
                         <p><span>User's Blog Name</span></p>
 
-                        <div class="Social_blocks_fb_content_box">
+                        <div class="Social_blocks_content_box">
                           <%= raw social_blog_image('linked_in') %>
                           <div class="image-upload">
                             <label for="file-input-linkedin">
