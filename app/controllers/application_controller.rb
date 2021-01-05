@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
         end
       elsif params[:id] && controller_name == 'share' && action_name == 'show'
         ## For twitter share track visit
-        ref_id = params[:ref_id]
+        ref_id = params[:refid]
         Rails.logger.info "===========================  REF ID: #{ ref_id.inspect} =============================="
 
         if ref_id.present?
