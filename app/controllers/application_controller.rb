@@ -107,22 +107,16 @@ class ApplicationController < ActionController::Base
           ref_id = uri.split('refid=').last.split('&').first
         end
 
-        if ref_id.present?
-          ref_code = ReferralCode.where(code: ref_id).first
+        if ref_id.present? && request.referrer.present?
+          social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
-          challenge = ref_code.present? ? ref_code.challenge : nil
-
-          if (challenge.present? && challenge.challenge_type == 'share' && challenge.parameters == 'twitter' || request.referrer.present?)
-            social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
-
-            if !session[:pending_refids].include?(ref_id)
-              session[:pending_refids].push(ref_id)
-            end
+          if !session[:pending_refids].include?(ref_id)
+            session[:pending_refids].push(ref_id)
           end
         end
       end
 
-      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
+      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit if request.referrer.present?
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
     end
   end
