@@ -36,6 +36,10 @@ class Participants::ChallengesController < ApplicationController
             @facebook_url = @shortened_urls[:facebook]
             Rails.logger.info "================ @@facebook_url: #{@facebook_url.inspect} ========================="
           end
+          if @shortened_urls[:twitter]
+            @twitter_url = @shortened_urls[:twitter]
+            Rails.logger.info "================ @@twitter_url: #{@twitter_url.inspect} ========================="
+          end
         end
       end
     end

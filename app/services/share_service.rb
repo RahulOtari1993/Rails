@@ -60,11 +60,18 @@ class ShareService
   end
 
   def get_share_urls challenge, participant, request
+    Rails.logger.info "===========================  Share URL Start =============================="
+    Rails.logger.info "============  Challenge: #{challenge.id} Participant: #{participant.id} =============================="
+    Rails.logger.info "============  Referal Code Condition : #{participant.referral_codes.for_challenge(challenge).empty?} =============================="
+
     if participant.referral_codes.for_challenge(challenge).empty?
       @referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: participant.id)
     else
       @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
+
+    Rails.logger.info "============  Referal Code Object: #{@referral_code.inspect} =============================="
+
     base_url = "#{request.protocol}#{request.host}"
     if(challenge.challenge_type == 'share')
       base_url = "#{base_url}/share/#{challenge.id}"
@@ -72,8 +79,15 @@ class ShareService
     referral_url = "#{base_url}?refid=#{@referral_code.code}"
     # Currently only  creates a generic (non-platform specific) and facebook
     referral_link = "#{referral_url}&#{challenge.utm_parameters('generic').to_query}"
-    facebook_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
-    twitter_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
+
+    facebook_link = nil
+    twitter_link = nil
+
+    if challenge.challenge_type == 'share' && challenge.parameters == 'facebook'
+      facebook_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
+    elsif challenge.challenge_type == 'share' && challenge.parameters == 'twitter'
+      twitter_link = "#{referral_url}&#{challenge.utm_parameters.to_query}"
+    end
     return { generic: referral_link, facebook: facebook_link, twitter: twitter_link}
   end
 
@@ -81,9 +95,12 @@ class ShareService
     # Will need to be refactored to include the campaigns short url domain
     shortened_urls = {}
     urls.each do |platform,url|
-      short_url = Shortener::ShortenedUrl.generate(url,owner:participant)
-
-      shortened_urls[platform] = "#{request.protocol}#{request.host}/s/#{short_url.unique_key}"
+      if url.present?
+        short_url = Shortener::ShortenedUrl.generate(url,owner:participant)
+        shortened_urls[platform] = "#{request.protocol}#{request.host}/s/#{short_url.unique_key}"
+      else
+        shortened_urls[platform] = nil
+      end
     end
     shortened_urls
   end

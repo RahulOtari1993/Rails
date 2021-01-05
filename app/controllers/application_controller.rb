@@ -98,6 +98,10 @@ class ApplicationController < ActionController::Base
 
       Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
       share_service = ShareService.new
+
+      Rails.logger.info "***** Facebook Share Conditon: #{params[:id] && controller_name == 'shortened_urls' && action_name == 'show'} *********"
+      Rails.logger.info "***** Twitter Share Conditon: #{params[:id] && controller_name == 'share' && action_name == 'show'} *********"
+
       if params[:id] && controller_name == 'shortened_urls' && action_name == 'show'
         token = ::Shortener::ShortenedUrl.extract_token(params[:id])
         track = Shortener.ignore_robots.blank? || request.human?
@@ -111,6 +115,18 @@ class ApplicationController < ActionController::Base
         end
 
         Rails.logger.info "===========================  REF ID: #{ ref_id.inspect} =============================="
+        if ref_id.present?
+          social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
+
+          if !session[:pending_refids].include?(ref_id)
+            session[:pending_refids].push(ref_id)
+          end
+        end
+      elsif params[:id] && controller_name == 'share' && action_name == 'show'
+        ## For twitter share track visit
+        ref_id = params[:ref_id]
+        Rails.logger.info "===========================  REF ID: #{ ref_id.inspect} =============================="
+
         if ref_id.present?
           social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
