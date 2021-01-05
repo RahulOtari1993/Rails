@@ -90,31 +90,23 @@ class ApplicationController < ActionController::Base
 
   # this method handles recruit and share URLs
   def handle_shares
-    Rails.logger.info "=========================== CURRENT_VISIT: #{current_visit.inspect} =============================="
     if current_visit.present?
       if session[:pending_refids].blank?
         session[:pending_refids] = []
       end
 
-      Rails.logger.info "===========================  session[:pending_refids] START: #{ session[:pending_refids].inspect} =============================="
       share_service = ShareService.new
-
-      Rails.logger.info "***** Facebook Share Conditon: #{params[:id] && controller_name == 'shortened_urls' && action_name == 'show'} *********"
-      Rails.logger.info "***** Twitter Share Conditon: #{params[:id] && controller_name == 'share' && action_name == 'show'} *********"
-
       if params[:id] && controller_name == 'shortened_urls' && action_name == 'show'
         token = ::Shortener::ShortenedUrl.extract_token(params[:id])
         track = Shortener.ignore_robots.blank? || request.human?
         url = ::Shortener::ShortenedUrl.fetch_with_token(token: token, additional_params: params, track: track)
 
-        Rails.logger.info "===========================  URL: #{ url.inspect} =============================="
         ref_id = ''
         if url[:url].include?('refid=')
           uri = URI.parse(url[:url]).query
           ref_id = uri.split('refid=').last.split('&').first
         end
 
-        Rails.logger.info "===========================  REF ID: #{ ref_id.inspect} =============================="
         if ref_id.present?
           social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
@@ -125,8 +117,6 @@ class ApplicationController < ActionController::Base
       elsif params[:id] && controller_name == 'share' && action_name == 'show'
         ## For twitter share track visit
         ref_id = params[:refid]
-        Rails.logger.info "===========================  REF ID: #{ ref_id.inspect} =============================="
-
         if ref_id.present?
           social_share_visit = share_service.record_visit ref_id, current_visit, current_participant
 
@@ -136,10 +126,8 @@ class ApplicationController < ActionController::Base
         end
       end
 
-      Rails.logger.info "===========================  session[:pending_refids] MIDDLE: #{ session[:pending_refids].inspect} =============================="
       processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
-      Rails.logger.info "===========================  session[:pending_refids] END: #{ session[:pending_refids].inspect} =============================="
     end
   end
 
@@ -167,8 +155,6 @@ class ApplicationController < ActionController::Base
 
   ## Check for Latest App Version
   def validate_app_version
-    Rails.logger.info "============ CONFIG: #{Rails.application.credentials[Rails.env.to_sym][:app_version]} ======================"
-    Rails.logger.info "============ APP: #{request.headers["app-version"]} ======================"
     if Gem::Version.new(Rails.application.credentials[Rails.env.to_sym][:app_version]) > Gem::Version.new(request.headers["app-version"])
       return_error 433, false, 'There is a new version of the app that you need to upgrade to. Please check in the store for the latest version.', []
     end

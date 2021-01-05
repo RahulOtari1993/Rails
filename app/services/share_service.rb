@@ -10,19 +10,13 @@ class ShareService
     @processed_referral_ids = []
 
     referral_codes = ReferralCode.where(code: @referral_ids)
-    Rails.logger.info "===================== @participant #{@participant.inspect} ============================"
-    Rails.logger.info "===================== @referral_ids #{@referral_ids.inspect} ============================"
-    Rails.logger.info "===================== referral_codes #{referral_codes.inspect} ============================"
-
     referral_codes.each do |ref_code|
       challenge = ref_code.challenge
-      Rails.logger.info "===================== CHALLENGE #{challenge.inspect} ============================"
 
       if challenge.challenge_type == 'referral' && !participant.blank? && participant.active?
         # participant signed up so check if referral challenge has already been completed
         process_referral ref_code, participant, challenge, visit
       elsif challenge.challenge_type == 'share'
-        Rails.logger.info "===================== IN PROCESS SHARE ============================"
         # don't need signed up participant to award points for shares
         process_share ref_code, challenge, visit
       else
@@ -60,17 +54,11 @@ class ShareService
   end
 
   def get_share_urls challenge, participant, request
-    Rails.logger.info "===========================  Share URL Start =============================="
-    Rails.logger.info "============  Challenge: #{challenge.id} Participant: #{participant.id} =============================="
-    Rails.logger.info "============  Referal Code Condition : #{participant.referral_codes.for_challenge(challenge).empty?} =============================="
-
     if participant.referral_codes.for_challenge(challenge).empty?
       @referral_code = ReferralCode.create(challenge_id: challenge.id, participant_id: participant.id)
     else
       @referral_code = participant.referral_codes.for_challenge(challenge).first
     end
-
-    Rails.logger.info "============  Referal Code Object: #{@referral_code.inspect} =============================="
 
     base_url = "#{request.protocol}#{request.host}"
     if(challenge.challenge_type == 'share')
@@ -137,7 +125,6 @@ class ShareService
   def process_share ref_code, challenge, visit
       if ref_code.participant_id.present?
         actions = challenge.participant_actions.where(actionable_id: challenge.id, actionable_type: 'Challenge', participant_id: ref_code.participant_id)
-        Rails.logger.info "===================== actions #{actions.inspect} ============================"
 
         if actions.empty?
           # Reward the referral points
@@ -151,7 +138,6 @@ class ShareService
                                                           campaign_id: challenge.campaign_id
                                                         })
           if action.errors.empty?
-            Rails.logger.info "===================== Increase Challenge Completion ============================"
             submission = Submission.where(campaign_id: challenge.campaign_id, participant_id: ref_code.participant_id,
                                           challenge_id: challenge.id).first_or_initialize
             if submission.new_record?
