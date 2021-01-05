@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
         end
       end
 
-      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit if request.referrer.present?
+      processed_referral_codes = share_service.process current_participant, session[:pending_refids], current_visit
       session[:pending_refids] = session[:pending_refids].reject { |code| processed_referral_codes.include? code }
     end
   end
