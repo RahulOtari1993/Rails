@@ -203,7 +203,7 @@ Rails.application.routes.draw do
           ## Rewards API Routes
           resources :rewards, only: [:index, :show] do
             member do
-              post :claim
+              get :claim
             end
             collection do
               get :my, to: 'rewards#my_rewards'
@@ -213,7 +213,7 @@ Rails.application.routes.draw do
           ## Challenges API Routes
           resources :challenges, only: [:index, :show] do
             member do
-              post :submit
+              get :submit
             end
             collection do
               get :connect_challenges
