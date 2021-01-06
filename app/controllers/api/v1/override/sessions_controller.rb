@@ -23,7 +23,16 @@ class Api::V1::Override::SessionsController < DeviseTokenAuth::SessionsControlle
         sign_in(:participant, @resource, store: false)
         log_action ## Create participant Login Audit Log
 
-        render_success 200, true, 'Signed in successfully.', @resource.as_json
+        ## Check onboarding has submitted or not
+        submitted = false
+        onboarding_challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+        if onboarding_challenge.present?
+          submitted =  Submission.where(campaign_id:  @campaign.id, participant_id: @resource.id, challenge_id: onboarding_challenge.id).present?
+        end
+        response = @resource.as_json
+        response.merge!({is_onboarding_questions_answered: submitted})
+
+        render_success 200, true, 'Signed in successfully.', { participant: response }
       else
         render_auth_error
       end

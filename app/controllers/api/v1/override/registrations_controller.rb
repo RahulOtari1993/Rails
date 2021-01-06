@@ -36,7 +36,17 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
 
           sign_in(:participant, @resource, store: false)
           @resource.connect_challenge_completed('', '')
-          render_success 200, true, 'Signed in successfully.', @resource.as_json
+
+          ## Check onboarding has submitted or not
+          submitted = false
+          onboarding_challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+          if onboarding_challenge.present?
+            submitted =  Submission.where(campaign_id:  @campaign.id, participant_id: @resource.id, challenge_id: onboarding_challenge.id).present?
+          end
+          response = @resource.as_json
+          response.merge!({is_onboarding_questions_answered: submitted})
+
+          render_success 200, true, 'Signed in successfully.', { participant: response }
         else
           return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
         end
@@ -53,7 +63,9 @@ class Api::V1::Override::RegistrationsController < DeviseTokenAuth::Registration
 
           if @resource.save!(:validate => false)
             store_device_details ## Store Device Details of Participant
-            render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', @resource.as_json
+             response = @resource.as_json
+             response.merge!({is_onboarding_questions_answered: false})
+            render_success 200, true, 'You will receive an email with instructions for how to confirm your email address in a few minutes.', { participant: response }
           else
             return_error 500, false, 'Oops. Service Unavailable, please try again after some time.', {}
           end
