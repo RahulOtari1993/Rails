@@ -190,6 +190,9 @@ Rails.application.routes.draw do
         }
 
         devise_scope :participant do
+          ## Home Screen API Routes
+          resources :home, only: [:index]
+
           ## Campaign API Routes
           resources :campaign, only: [] do
             collection do
