@@ -16,7 +16,7 @@ class Api::V1::HomeController < Api::V1::BaseController
 
     ## fetch current active upcoming reward
     claimed_reward_ids = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_type: "Reward").pluck(:actionable_id).uniq
-    current_reward = rewards.current_active.active.where.not(id: claimed_reward_ids).select { |x| x.available? && (x.start.strftime('%H:%M:%S') > DateTime.now.strftime('%H:%M:%S')) }.sort_by{ |x| x.start.strftime('%H:%M:%S') }.first
+    current_reward = rewards.current_active.active.where.not(id: claimed_reward_ids).select { |x| x.available? }.first
 
     render_success 200, true, 'Challenges fetched successfully.', {
                                         featured_challenges: featured_challenges.as_json(type: 'list'),
