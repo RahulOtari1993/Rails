@@ -10,7 +10,7 @@ class Api::V1::ChallengesController < Api::V1::BaseController
 
     challenges_ary = []
     challenges.each do |obj|
-      obj_hash = obj.as_json(type: 'list')
+      obj_hash = obj.as_json(type: 'one')
       obj_hash = obj_hash.merge!({ is_completed: obj.is_completed?(current_participant.id), social_platform_connected: obj.is_social_platform_connected?(current_participant.id) })
       challenges_ary << obj_hash
     end
@@ -20,8 +20,11 @@ class Api::V1::ChallengesController < Api::V1::BaseController
 
   ## Fetch Particular Challenge Details
   def show
-    challenge = @campaign.challenges.where(id: params[:id])
-    render_success 200, true, 'Challenge details fetched successfully.', challenge.as_json(type: 'one')
+    challenge = @campaign.challenges.where(id: params[:id]).first
+    challenge_hash = challenge.as_json(type: 'one')
+    challenge_obj = challenge_hash.merge!({ is_completed: challenge.is_completed?(current_participant.id), social_platform_connected: challenge.is_social_platform_connected?(current_participant.id) })
+
+    render_success 200, true, 'Challenge details fetched successfully.', challenge_obj
   end
 
   ## Fetch Active Connect Challenges (Facebook, Google & Twitter)

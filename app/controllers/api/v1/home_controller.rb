@@ -16,13 +16,13 @@ class Api::V1::HomeController < Api::V1::BaseController
 
     ## fetch current active upcoming reward
     claimed_reward_ids = @campaign.participant_actions.where(participant_id: current_participant.id, actionable_type: "Reward").pluck(:actionable_id).uniq
-    current_reward_hash = rewards.current_active.active.where.not(id: claimed_reward_ids).select { |x| x.available? }.first.as_json(type: 'list')
+    current_reward_hash = rewards.current_active.active.where.not(id: claimed_reward_ids).select { |x| x.available? }.first.as_json(type: 'one')
 
     current_reward = current_reward_hash.present? ? current_reward_hash.merge!({ title: current_reward_hash['name']}) : {}
 
     render_success 200, true, 'Challenges fetched successfully.', {
                                         featured_challenges: featured_challenges.as_json(type: 'list'),
-                                        current_challenge: current_challenge.present? ? current_challenge.as_json(type: 'list') : {},
+                                        current_challenge: current_challenge.present? ? current_challenge.as_json(type: 'one') : {},
                                         current_reward: current_reward.present? ? current_reward : {}
                                 }
   end
