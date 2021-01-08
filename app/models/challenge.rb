@@ -291,6 +291,24 @@ class Challenge < ApplicationRecord
     ParticipantAction.where(actionable_type: self.class.to_s, actionable_id: self.id, campaign_id: self.campaign_id).sum(:points)
   end
 
+  ## Return Submission status for participant
+  def is_completed? participant_id
+    submission = submissions.where(participant_id: participant_id).first
+    completed = submission.present? ? true : false
+  end
+
+  ## Return Connection status of social platform of a  participant
+  def is_social_platform_connected? participant_id
+    participant = Participant.find(participant_id)
+    if challenge_type == "share"  && parameters == 'facebook'
+      connected = (participant.facebook_uid.blank? && participant.facebook_token.blank? && participant.facebook_expires_at.blank?) ? false : true
+    elsif challenge_type == "share"  && parameters == 'twitter'
+      connected = (participant.twitter_uid.blank? && participant.twitter_token.blank? && participant.twitter_secret.blank?) ? false : true
+    else
+      connected = false
+    end
+  end
+
   ## Returns the Targeted Participants
   def targeted_participants
     self.campaign.participants.where('created_at < ?', self.finish.end_of_day).select { |x| x.eligible? self }

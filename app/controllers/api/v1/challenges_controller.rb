@@ -8,7 +8,14 @@ class Api::V1::ChallengesController < Api::V1::BaseController
     challenges = Kaminari.paginate_array(challenges).page(page).per(per_page)
     set_pagination_header(challenges)
 
-    render_success 200, true, 'Challenges fetched successfully.', challenges.as_json(type: 'list')
+    challenges_ary = []
+    challenges.each do |obj|
+      obj_hash = obj.as_json(type: 'list')
+      obj_hash = obj_hash.merge!({ is_completed: obj.is_completed?(current_participant.id), social_platform_connected: obj.is_social_platform_connected?(current_participant.id) })
+      challenges_ary << obj_hash
+    end
+
+    render_success 200, true, 'Challenges fetched successfully.', { challenges: challenges_ary, total_gobucks:  current_participant.unused_points.to_i, challenges_completed: current_participant.submissions.length }
   end
 
   ## Fetch Particular Challenge Details
