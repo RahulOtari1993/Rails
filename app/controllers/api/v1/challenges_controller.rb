@@ -80,6 +80,34 @@ class Api::V1::ChallengesController < Api::V1::BaseController
     render_success 200, true, 'Completed challenges fetched successfully.', challenges.as_json(type: 'list')
   end
 
+  ## Fetch Onboarding Questions , options to show in  onbording form
+  def onboarding_questions
+    onboarding_challenge = @campaign.challenges.current_active.where(challenge_type: 'collect', parameters: 'profile').first
+    if onboarding_challenge.present?
+
+      response = []
+      questions = onboarding_challenge.questions.order(:sequence)
+      questions.each do |question|
+        question_options = []
+
+        question_options = question.question_options.order(:sequence).map { |x| x.as_json }
+        question_hash = question.as_json
+        question_obj = question_hash.merge!({
+                                     is_custom: question.profile_attribute.is_custom,
+                                     attribute_name: question.profile_attribute.attribute_name,
+                                     question_options: question_options
+                                  })
+
+        response << question_obj
+      end
+
+      render_success 200, true, 'Onboarding Questions fetched successfully.', response
+    else
+      render_success 404, false, 'No Onboarding questions found.', {}
+    end
+  end
+
+
   private
 
   ## Create Participant Action Entry

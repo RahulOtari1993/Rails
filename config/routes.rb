@@ -218,6 +218,7 @@ Rails.application.routes.draw do
             collection do
               get :connect_challenges
               get :completed
+              get :onboarding_questions
             end
           end
 
