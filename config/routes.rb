@@ -214,6 +214,7 @@ Rails.application.routes.draw do
           resources :challenges, only: [:index, :show] do
             member do
               get :submit
+              post :submit
             end
             collection do
               get :connect_challenges

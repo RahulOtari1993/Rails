@@ -151,36 +151,38 @@ class Api::V1::ChallengesController < Api::V1::BaseController
     age = 0
 
     profile_params = {participant_profiles_attributes: []}
-    params[:questions].each do |key, question|
-      if question[:is_custom] == 'true'
-        if question[:answer].instance_of? Array
-          question[:answer].each do |opt|
+    params[:questions].each do |question|
+      if question[:is_custom] == true
+        if question[:answer_ids].present?
+          binding.pry
+            question[:answer_ids].each do |opt|
+              profile_params[:participant_profiles_attributes].push({
+                                                                        profile_attribute_id: question[:profile_attribute_id],
+                                                                        value: opt
+                                                                    })
+            end
+
+        elsif question[:answer_text].present?
             profile_params[:participant_profiles_attributes].push({
                                                                       profile_attribute_id: question[:profile_attribute_id],
-                                                                      value: opt
+                                                                      value: question[:answer_text]
                                                                   })
-          end
-        else
-          profile_params[:participant_profiles_attributes].push({
-                                                                    profile_attribute_id: question[:profile_attribute_id],
-                                                                    value: question[:answer]
-                                                                })
         end
       else
-        if question[:answer].instance_of? Array
-          question[:answer].each do |opt|
-            profile_params[question[:attribute_name]] = opt
-          end
-        else
-          profile_params[question[:attribute_name]] = question[:answer]
-          birthdate = question[:answer] if question[:attribute_name] == 'birth_date' && question[:answer].present?
-          age = question[:answer].to_i if question[:attribute_name] == 'age' && question[:answer].present?
+        if question[:answer_ids].present?
+            question[:answer_ids].each do |opt|
+              profile_params[question[:attribute_name]] = opt
+            end
+        elsif question[:answer_text].present?
+            profile_params[question[:attribute_name]] = question[:answer_text]
+            birthdate = question[:answer_text] if question[:attribute_name] == 'birth_date' && question[:answer_text].present?
+            age = question[:answer_text].to_i if question[:attribute_name] == 'age' && question[:answer_text].present?
         end
       end
     end
 
     ## Age Calculation
-    attributes = params['questions'].values.map { |x| x[:attribute_name] }
+    attributes = params['questions'].map { |x| x[:attribute_name] }
     if (!attributes.include?('age') || age == '' || age == 0) && (attributes.include?('birth_date') && birthdate != '')
       profile_params['age'] = Participant.calculate_age(birthdate)
     end
