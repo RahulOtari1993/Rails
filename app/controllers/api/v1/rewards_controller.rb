@@ -7,7 +7,7 @@ class Api::V1::RewardsController < Api::V1::BaseController
     rewards = @campaign.rewards.current_active.select { |x| x.available? }
     rewards = Kaminari.paginate_array(rewards).page(page).per(per_page)
     set_pagination_header(rewards)
-
+    rewards = rewards.present? ? rewards.as_json(type: 'list').map{ |x| x.merge!({ title: x['name']}) } : []
     render_success 200, true, 'Rewards fetched successfully.', rewards.as_json(type: 'list')
   end
 
