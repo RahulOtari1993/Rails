@@ -12,7 +12,7 @@ class FacebookOmniauthSetup
     @request = ActionDispatch::Request.new(env)
   end
 
-  private
+  public
 
   # The main purpose of this method is to set the consumer key and secret.
   def setup
