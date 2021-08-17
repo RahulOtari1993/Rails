@@ -25,7 +25,7 @@ class FacebookOmniauthSetup
 
     {
       client_id: conf.facebook_app_id,
-      client_secret: account.twitter_consumer_secret
+      client_secret: conf.facebook_app_secret
     }
   end
 end
