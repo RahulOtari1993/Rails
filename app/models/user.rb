@@ -156,6 +156,7 @@ class User < ApplicationRecord
       network.username = auth.info.name
       network.expires_at = auth.credentials.expires_at.present? ? Time.at(auth.credentials.expires_at) : nil
       network.remote_avatar_url = auth.info.image
+      network.is_disconnected = false
       if network.save
         network
       else

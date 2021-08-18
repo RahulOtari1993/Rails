@@ -13,21 +13,21 @@ Rails.application.routes.draw do
 
   get '/s/:id' => "shortener/shortened_urls#show"
 
-  #constraints(Constraints::SubdomainRequired) do
+  constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
-        registrations: 'users/registrations',
-        sessions: 'users/sessions',
-        passwords: 'users/passwords',
-        confirmations: 'users/confirmations'
+      registrations: 'users/registrations',
+      sessions: 'users/sessions',
+      passwords: 'users/passwords',
+      confirmations: 'users/confirmations'
     }
 
     devise_for :participants, controllers: {
-        registrations: 'participants/registrations',
-        sessions: 'participants/sessions',
-        passwords: 'participants/passwords',
-        confirmations: 'participants/confirmations',
-        omniauth_callbacks: "omniauth_callbacks"
+      registrations: 'participants/registrations',
+      sessions: 'participants/sessions',
+      passwords: 'participants/passwords',
+      confirmations: 'participants/confirmations',
+      omniauth_callbacks: "participants/omniauth_callbacks"
     }
 
     devise_scope :participant do
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
-            registrations: 'admin/organizations/invitations',
+          registrations: 'admin/organizations/invitations',
         }
 
         resources :users, only: [:index] do
@@ -188,7 +188,6 @@ Rails.application.routes.draw do
 
     match 'instagram/auth/callback', to: 'admin/campaigns/networks#instagram_callback', via: [:get, :post]
 
-
     ## API Routes
     namespace :api, defaults: {format: 'json'} do
       namespace :v1, defaults: {format: 'json'} do
@@ -250,7 +249,7 @@ Rails.application.routes.draw do
         end
       end
     end
-  #end
+  end
 
   get 'not_found' => 'welcome#not_found'
 end
