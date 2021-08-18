@@ -1,8 +1,8 @@
-class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   ## Handle Facebook OAuth2 Callbacks
   def facebook
-    Rails.logger.info "============== IN PARTICIPANT Facebook CALLBACK ============================"
+    Rails.logger.info "============== IN facebook CALLBACK ============================"
     user_agent = request.user_agent
     remote_ip = request.remote_ip
     type = request.env['omniauth.params']['type']
@@ -41,7 +41,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
   ## Handle Google OAuth2 Callbacks
   def google_oauth2
-    Rails.logger.info "============== IN PARTICIPANT google_oauth2 CALLBACK ============================"
+    Rails.logger.info "============== IN google_oauth2 CALLBACK ============================"
     user_agent = request.user_agent
     remote_ip = request.remote_ip
 
@@ -62,7 +62,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
   ## Handle Twitter OAuth2 Callbacks
   def twitter
-    Rails.logger.info "============== IN PARTICIPANT twitter CALLBACK ============================"
+    Rails.logger.info "============== IN twitter CALLBACK ============================"
     user_agent = request.user_agent
     remote_ip = request.remote_ip
     type = request.env['omniauth.params']['type']
@@ -107,84 +107,5 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       redirect_to root_url
     end
 
-  end
-
-  ## Setup OAuth Details for Facebook
-  def setup
-    Rails.logger.info "+++++++++++++++++++ Url: #{request.original_url} ++++++++++++++++++"
-    Rails.logger.info "++++++++++++++++++ Session: #{session['omniauth.params'].inspect} ++++++++++++++++++++++++++++++++"
-    Rails.logger.info "+++++++++ Params: #{params}"
-    Rails.logger.info "++++++++ Facebook params: #{request.env['omniauth.params']} +++++++++"
-
-    if @campaign.blank?
-       campaign_id = params[:ci].present? ? params[:ci] : session['omniauth.params']['ci']
-       @campaign = Campaign.active.where(id: campaign_id).first
-    end
-
-    Rails.logger.info "+++++++++++++ Campaign: #{@campaign.inspect}  +++++++++++++++++++++"
-
-    # @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
-    if @campaign.present? && @campaign.white_branding
-      conf = CampaignConfig.where(campaign_id: @campaign.id).first
-    else
-      conf = GlobalConfiguration.first
-    end
-
-    request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
-    request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
-    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
-  end
-
-  # def callback_url
-  #   "#{request.protocol}#{request.host}/participants/auth/facebook/callback"
-  # end
-
-  def google_oauth2_setup
-    if @campaign.present? && @campaign.white_branding
-      conf = CampaignConfig.where(campaign_id: @campaign.id).first
-    else
-      conf = GlobalConfiguration.first
-    end
-
-    request.env['omniauth.strategy'].options[:client_id] = conf.google_client_id
-    request.env['omniauth.strategy'].options[:client_secret] = conf.google_client_secret
-    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
-  end
-
-  ## Setup OAuth Details for Twitter
-  def twitter_oauth2_setup
-    if @campaign.present? && @campaign.white_branding
-      conf = CampaignConfig.where(campaign_id: @campaign.id).first
-    else
-      conf = GlobalConfiguration.first
-    end
-
-    Rails.logger.info "================ twitter_oauth2_setup ================"
-
-    request.env['omniauth.strategy'].options[:consumer_key]  = conf.twitter_app_id
-    request.env['omniauth.strategy'].options[:consumer_secret] = conf.twitter_app_secret
-    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
-  end
-
-  ## Setup OAuth Details for Twitter
-  def instagram_oauth2_setup
-    if @campaign.present? && @campaign.white_branding
-      conf = CampaignConfig.where(campaign_id: @campaign.id).first
-    else
-      conf = GlobalConfiguration.first
-    end
-
-    Rails.logger.info "================ instagram_oauth2_setup ================"
-
-    request.env['omniauth.strategy'].options[:client_id]  = conf.instagram_app_id
-    request.env['omniauth.strategy'].options[:client_secret] = conf.instagram_app_secret
-    render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
-  end
-
-  # protected
-
-  # The path used when OmniAuth fails
-  # def after_omniauth_failure_path_for(scope)
-  #   super(scope)
-  # end
+  end  
 end

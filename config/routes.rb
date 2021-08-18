@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get '/s/:id' => "shortener/shortened_urls#show"
 
-  constraints(Constraints::SubdomainRequired) do
+  #constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
         registrations: 'users/registrations',
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         sessions: 'participants/sessions',
         passwords: 'participants/passwords',
         confirmations: 'participants/confirmations',
-        omniauth_callbacks: "participants/omniauth_callbacks"
+        omniauth_callbacks: "omniauth_callbacks"
     }
 
     devise_scope :participant do
@@ -250,7 +250,7 @@ Rails.application.routes.draw do
         end
       end
     end
-  end
+  #end
 
   get 'not_found' => 'welcome#not_found'
 end
