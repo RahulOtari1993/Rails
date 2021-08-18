@@ -23,8 +23,17 @@ class FacebookOmniauthSetup
 
   # Use the subdomain in the request to find the account with credentials
   def custom_credentials   
-    Rails.logger.info "============== IN LIB =============="
-    conf = GlobalConfiguration.first
+    Rails.logger.info "============== IN LIB =============="    
+    Rails.logger.info "============== Params: #{@request.params()} =============="
+    
+    params = @request.params()
+
+    campaign =  Campaign.find(params[:ci]) rescue nil
+    if campaign.present? && campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
 
     {
       client_id: conf.facebook_app_id,
