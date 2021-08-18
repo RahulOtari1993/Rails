@@ -13,32 +13,37 @@ class ApplicationController < ActionController::Base
   helper_method :get_open_graph
 
   def set_organization
-    domain = request.domain
-    sub_domain = request.subdomain
-
-    ## Check whether to Check with Domain or Sub Domain
-    if sub_domain.empty? && domain.present?
-      @domain = DomainList.where(domain: domain).first
-    elsif sub_domain.present? && domain.present?
-      @domain = DomainList.where(domain: sub_domain).first
-    end
-
-    if @domain.present?
-      @organization = Organization.active.where(id: @domain.organization_id).first
-      @campaign = Campaign.active.where(id: @domain.campaign_id).first
-
-      unless @campaign.present?
-        redirect_to not_found_path
-      end
+    if request.path.start_with?( '/omniauth') && request.path.end_with?( '/callback')
+      Rails.logger.info "SKIP Callback"
     else
-      @organization = Organization.active.where(sub_domain: request.subdomain).first
-    end
+      Rails.logger.info "EXECUTE Callback"
+      domain = request.domain
+      sub_domain = request.subdomain
 
-    unless @organization.present?
-      unless request.path.start_with?( '/onboarding')
-        redirect_to not_found_path
+      ## Check whether to Check with Domain or Sub Domain
+      if sub_domain.empty? && domain.present?
+        @domain = DomainList.where(domain: domain).first
+      elsif sub_domain.present? && domain.present?
+        @domain = DomainList.where(domain: sub_domain).first
       end
-    end
+
+      if @domain.present?
+        @organization = Organization.active.where(id: @domain.organization_id).first
+        @campaign = Campaign.active.where(id: @domain.campaign_id).first
+
+        unless @campaign.present?
+          redirect_to not_found_path
+        end
+      else
+        @organization = Organization.active.where(sub_domain: request.subdomain).first
+      end
+
+      unless @organization.present?
+        unless request.path.start_with?( '/onboarding')
+          redirect_to not_found_path
+        end
+      end
+    end    
   end
 
   def get_open_graph challenge
