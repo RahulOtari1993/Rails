@@ -16,18 +16,18 @@ Rails.application.routes.draw do
   constraints(Constraints::SubdomainRequired) do
     ## Routes for Users
     devise_for :users, controllers: {
-        registrations: 'users/registrations',
-        sessions: 'users/sessions',
-        passwords: 'users/passwords',
-        confirmations: 'users/confirmations'
+      registrations: 'users/registrations',
+      sessions: 'users/sessions',
+      passwords: 'users/passwords',
+      confirmations: 'users/confirmations'
     }
 
     devise_for :participants, controllers: {
-        registrations: 'participants/registrations',
-        sessions: 'participants/sessions',
-        passwords: 'participants/passwords',
-        confirmations: 'participants/confirmations',
-        omniauth_callbacks: "participants/omniauth_callbacks"
+      registrations: 'participants/registrations',
+      sessions: 'participants/sessions',
+      passwords: 'participants/passwords',
+      confirmations: 'participants/confirmations',
+      omniauth_callbacks: "participants/omniauth_callbacks"
     }
 
     devise_scope :participant do
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     namespace :admin do
       namespace :organizations do
         devise_for :users, controllers: {
-            registrations: 'admin/organizations/invitations',
+          registrations: 'admin/organizations/invitations',
         }
 
         resources :users, only: [:index] do
