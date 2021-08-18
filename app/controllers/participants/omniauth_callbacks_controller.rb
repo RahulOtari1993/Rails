@@ -112,7 +112,6 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
     Rails.logger.info "++++++++++++++++++ Session: #{session['omniauth.params'].inspect} ++++++++++++++++++++++++++++++++"
     Rails.logger.info "+++++++++ Params: #{params}"
     Rails.logger.info "++++++++ Facebook params: #{request.env['omniauth.params']} +++++++++"
-    # @campaign =  Campaign.find(params[:ci]) if params[:ci].present?
 
     if @campaign.blank?
        campaign_id = params[:ci].present? ? params[:ci] : session['omniauth.params']['ci']
@@ -128,23 +127,14 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       conf = GlobalConfiguration.first
     end
 
-    # custom_credentials = {
-    #   client_id: conf.facebook_app_id,
-    #   client_secret: conf.facebook_app_secret
-    # }
-
-    # Rails.logger.info "+++++++++++++ RNV Details: #{env['omniauth.strategy']} +++++++++++++++++++++"
-
-    # env['omniauth.strategy'].options.merge!(custom_credentials)
-
     request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
-  def callback_url
-    "#{request.protocol}#{request.host}/participants/auth/facebook/callback"
-  end
+  # def callback_url
+  #   "#{request.protocol}#{request.host}/participants/auth/facebook/callback"
+  # end
 
   def google_oauth2_setup
     if @campaign.present? && @campaign.white_branding
