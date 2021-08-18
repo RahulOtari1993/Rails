@@ -187,7 +187,6 @@ Rails.application.routes.draw do
     get '/welcome', to: 'welcome#welcome'
 
     match 'instagram/auth/callback', to: 'admin/campaigns/networks#instagram_callback', via: [:get, :post]
-    match 'omniauth/facebook/callback', to: 'participants/omniauth_callbacks#facebook', via: [:get, :post]
 
     ## API Routes
     namespace :api, defaults: {format: 'json'} do

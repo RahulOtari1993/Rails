@@ -132,7 +132,7 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
 
     request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
     request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
-    request.env['omniauth.strategy'].options[:callback_url] = "#{request.protocol}#{request.domain}/omniauth/facebook/callback"
+    # request.env['omniauth.strategy'].options[:callback_url] = "#{request.protocol}#{request.domain}/omniauth/facebook/callback"
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 
