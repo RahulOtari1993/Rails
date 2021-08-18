@@ -32,6 +32,14 @@ Rails.application.routes.draw do
 
     devise_scope :participant do
       get "omniauth/facebook/setup" => "participants/omniauth_callbacks#setup"
+      get "omniauth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
+      get "omniauth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
+      get "omniauth/instagram_graph/setup" => "participants/omniauth_callbacks#instagram_oauth2_setup"
+    end
+
+    ## Old Params (Before Updated related to Devise)
+    devise_scope :participant do
+      get "participants/auth/facebook/setup" => "participants/omniauth_callbacks#setup"
       get "participants/auth/google_oauth2/setup" => "participants/omniauth_callbacks#google_oauth2_setup"
       get "participants/auth/twitter/setup" => "participants/omniauth_callbacks#twitter_oauth2_setup"
       get "participants/auth/instagram_graph/setup" => "participants/omniauth_callbacks#instagram_oauth2_setup"
