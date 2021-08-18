@@ -20,7 +20,7 @@
               email_button = display_email_button
             %>
             <% if facebook_button.present? %>
-              <a id="connect-bttn" href="<%= participants_auth_facebook_setup_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
+              <a id="connect-bttn" href="<%= participant_facebook_omniauth_authorize_path(type: 'sign_up', ci: @campaign.id, oi: @organization.id) %>"
                   class="btn box1_btn facebook_btn btn-block">
                 <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
                 <span class="btn-share-text">Continue With Facebook</span>

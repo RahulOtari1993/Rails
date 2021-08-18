@@ -147,7 +147,7 @@
               %>
               <% if display_facebook.present? %>
                 <a id="connect-facebook-btn"
-                   href="<%= participants_auth_facebook_setup_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
+                   href="<%= participant_facebook_omniauth_authorize_path(type: 'connect', ci: @campaign.id, oi: @organization.id, pi: current_participant.id) %>"
                    class="btn box1_btn facebook_btn btn-block">
                   <span class="icon-btn-share fa fa-facebook connect-social-icon"></span>
                   <span class="btn-share-text">Connect +<%= facebook_challenge.try(:points) %></span>
