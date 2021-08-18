@@ -281,12 +281,17 @@ Devise.setup do |config|
   config.omniauth :twitter, setup: true
 
   config.omniauth  :facebook, :setup => lambda {|env|
+    Rails.logger.info "============== IN INITIALIZER --> CONFIG =============="
+    puts "============== IN INITIALIZER --> CONFIG =============="
     domain = request.domain
     sub_domain = request.subdomain
     campaign = nil
 
     Rails.logger.info "============== IN INITIALIZER --> DOMAIN: #{domain} =============="
     Rails.logger.info "============== IN INITIALIZER --> SUB DOMAIN: #{sub_domain} =============="
+
+    puts "============== IN INITIALIZER --> DOMAIN: #{domain} =============="
+    puts "============== IN INITIALIZER --> SUB DOMAIN: #{sub_domain} =============="
 
     ## Check whether to Check with Domain or Sub Domain
     if sub_domain.empty? && domain.present?
@@ -298,6 +303,7 @@ Devise.setup do |config|
     campaign = Campaign.active.where(id: domain.campaign_id).first if domain.present?
 
     Rails.logger.info "============== IN INITIALIZER --> CAMPAIGN: #{campaign.inspect} =============="
+    puts "============== IN INITIALIZER --> CAMPAIGN: #{campaign.inspect} =============="
     if campaign.present? && campaign.white_branding
       conf = CampaignConfig.where(campaign_id: campaign.id).first
     else
@@ -305,6 +311,7 @@ Devise.setup do |config|
     end
 
     Rails.logger.info "============== IN INITIALIZER --> CONF: #{conf.inspect} =============="
+    puts "============== IN INITIALIZER --> CONF: #{conf.inspect} =============="
 
     env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
     env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
