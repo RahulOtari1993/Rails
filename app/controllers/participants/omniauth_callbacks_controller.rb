@@ -128,8 +128,17 @@ class Participants::OmniauthCallbacksController < Devise::OmniauthCallbacksContr
       conf = GlobalConfiguration.first
     end
 
-    # request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
-    # request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
+    # custom_credentials = {
+    #   client_id: conf.facebook_app_id,
+    #   client_secret: conf.facebook_app_secret
+    # }
+
+    # Rails.logger.info "+++++++++++++ RNV Details: #{env['omniauth.strategy']} +++++++++++++++++++++"
+
+    # env['omniauth.strategy'].options.merge!(custom_credentials)
+
+    request.env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
+    request.env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
     render :json => {:success => "Configuration Changes Successfully"}.to_json, :status => 404
   end
 

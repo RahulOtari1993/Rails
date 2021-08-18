@@ -279,6 +279,38 @@ Devise.setup do |config|
   # config.omniauth :facebook, setup: true
   config.omniauth :google_oauth2, setup: true
   config.omniauth :twitter, setup: true
+
+  config.omniauth  :facebook, :setup => lambda {|env|
+    domain = request.domain
+    sub_domain = request.subdomain
+    campaign = nil
+
+    Rails.logger.info "============== IN INITIALIZER --> DOMAIN: #{domain} =============="
+    Rails.logger.info "============== IN INITIALIZER --> SUB DOMAIN: #{sub_domain} =============="
+
+    ## Check whether to Check with Domain or Sub Domain
+    if sub_domain.empty? && domain.present?
+      domain = DomainList.where(domain: domain).first
+    elsif sub_domain.present? && domain.present?
+      domain = DomainList.where(domain: sub_domain).first
+    end
+
+    campaign = Campaign.active.where(id: domain.campaign_id).first if domain.present?
+
+    Rails.logger.info "============== IN INITIALIZER --> CAMPAIGN: #{campaign.inspect} =============="
+    if campaign.present? && campaign.white_branding
+      conf = CampaignConfig.where(campaign_id: campaign.id).first
+    else
+      conf = GlobalConfiguration.first
+    end
+
+    Rails.logger.info "============== IN INITIALIZER --> CONF: #{conf.inspect} =============="
+
+    env['omniauth.strategy'].options[:client_id] = conf.facebook_app_id
+    env['omniauth.strategy'].options[:client_secret] = conf.facebook_app_secret
+  }
+
+
   # config.omniauth :instagram_graph, setup: true # , scope: %w(user_profile user_media)
   # config.omniauth :instagram, setup: true, scope: %w(user_profile user_media)
 
