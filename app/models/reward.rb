@@ -97,7 +97,8 @@ class Reward < ApplicationRecord
 
   ## Modify JSON Response
   def as_json(options = {})
-    response = super.merge({:status => status})
+    availability = "Quantity Left #{self.limit - self.claims} of #{self.limit}"
+    response = super.merge({status: status, availability: availability})
 
     if options.has_key?(:type) && options[:type] == 'one'
       ## TODO: DO the needed Changes if required

@@ -373,11 +373,11 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        title: 'Winners',
+        title: 'Availability',
         data: null,
         searchable: false,
         render: function (data, type, row) {
-          return textCapitalize(data.selection)
+          return textCapitalize(data.availability)
         }
       },
       {
