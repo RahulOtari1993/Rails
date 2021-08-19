@@ -19,7 +19,9 @@
             </h4>
           </div>
           <div class="col-md-2">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">EDIT</button>
+            <a class="btn mr-1 mb-1 btn-primary btn-sm float-right edit-challenge-btn"
+              href="<%= edit_admin_campaign_challenge_path(@challenge.campaign_id, @challenge) %>">Edit
+            </a>
           </div>
         </div>
         <div class="container p-0">
