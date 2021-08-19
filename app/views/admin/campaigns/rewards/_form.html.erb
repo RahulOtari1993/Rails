@@ -158,8 +158,8 @@
 
                           <div class="col-12">
                             <div class="form-group">
-                              <%= f.label :selection %>
-                              <span class="column-info">Select how the reward will be awarded. If “manual” us chosen the admin must select the winner/s. “Selection” allows users to trade in points for a reward.
+                              <%= f.label :selection, 'Reward Type' %>
+                              <span class="column-info">Select how the reward will be awarded. If "Manual" is chosen the admin must select the winner/s. "Cash-In" allows users to trade in points for a reward. They do not lose those points for user total, but may limit their odds of winning sweepstakes.
 															</span>
                               <div class="position-relative">
                                 <div class="form-group">
@@ -214,7 +214,7 @@
                               User match
                               <%= f.select :rule_type,
                                            options_for_select(reward_rule_type, @reward.rule_type), {}, class: 'form-control reward-filter-type-dd' %>
-                              of the following condition
+                              of the following conditions.
 
                               <div class="vs-checkbox-con vs-checkbox-primary">
                                 <%= f.check_box :date_range, {} %>
@@ -281,8 +281,8 @@
 
                           <div class="col-6">
                             <div class="form-group">
-                              <%= f.label :end_date %>
-                              <span class="column-info">This is the date the reward will become visible.
+                              <%= f.label :end_date, 'End date' %>
+                              <span class="column-info">This is the date the reward will no longer be visible to users.
 																</span>
                               <div class="position-relative">
                                 <fieldset class="form-label-group">
@@ -322,7 +322,7 @@
                               User match
                               <%= f.select :filter_type,
                                            options_for_select(reward_filter_type, @reward.filter_type), {}, class: 'form-control reward-filter-type-dd' %>
-                              of the following condition
+                              of the following conditions.
 
                               <hr style="margin-bottom: 0px !important;">
 
