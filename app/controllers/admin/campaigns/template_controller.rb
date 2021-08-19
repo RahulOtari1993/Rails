@@ -9,7 +9,7 @@ class Admin::Campaigns::TemplateController < Admin::Campaigns::BaseController
     respond_to do |format|
       if @template_details.update(template_params.merge!({element_css_style: cust_elem_hash}))
         format.html { redirect_to edit_admin_campaign_template_path(@campaign, @template_details),
-                                  notice: 'Template details were successfully updated.' }
+                                  success: 'Template details were successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }

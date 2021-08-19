@@ -2,6 +2,14 @@
   <div class="navbar-wrapper">
     <div class="navbar-container content">
       <div class="navbar-collapse" id="navbar-mobile">
+        
+        <!-- Show Flash messages  -->
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %>" role="alert">
+            <p><%= value %></p>
+          </div>
+        <% end %>
+
         <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
           <ul class="nav navbar-nav"></ul>
         </div>

@@ -3,7 +3,6 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
   before_action :build_params, only: [:create, :update]
   require 'mini_magick'
 
-
   def index
     @rewards = @campaign.rewards
   end
@@ -51,9 +50,9 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
     tags_association
 
     if @reward.save
-      redirect_to admin_campaign_rewards_path, notice: 'Reward successfully created'
+      redirect_to admin_campaign_rewards_path, success: 'Reward successfully created'
     else
-      render :new, notice: "Error creating rewards"
+      render :new, error: "Error creating rewards"
     end
   end
 
@@ -105,7 +104,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
         @reward.reward_filters.where(id: removed_segments).delete_all if removed_segments.present?
         @reward.reward_rules.where(id: removed_rules).delete_all if removed_rules.present?
 
-        format.html { redirect_to admin_campaign_rewards_path(@campaign), notice: 'Reward was successfully updated.' }
+        format.html { redirect_to admin_campaign_rewards_path(@campaign), success: 'Reward was successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }
@@ -129,7 +128,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       coupon.code = code
       coupon.save
     end
-    redirect_to admin_campaign_rewards_path, notice: 'Coupon successfully created'
+    redirect_to admin_campaign_rewards_path, success: 'Coupon successfully created'
   end
 
   ## participant selection form for manual reward
@@ -156,7 +155,7 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
       message = 'Coupons are not assigned to selected participants due to shortage.'
     end
 
-    redirect_to admin_campaign_rewards_path, notice: message
+    redirect_to admin_campaign_rewards_path, success: message
   end
 
   def destroy
@@ -173,13 +172,13 @@ class Admin::Campaigns::RewardsController < Admin::Campaigns::BaseController
         format.html {}
         format.json {}
       else
-        flash[:notice] = "Post failed to delete."
+        flash[:error] = "Post failed to delete."
         format.html {}
         format.json {}
       end
     end
     # @reward_filter.destroy
-    # redirect_to edit_campaign_reward_path(@reward), notice: 'Active Segment deleted.'
+    # redirect_to edit_campaign_reward_path(@reward), success: 'Active Segment deleted.'
   end
 
   private

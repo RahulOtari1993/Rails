@@ -36,7 +36,7 @@ class Admin::Campaigns::CarouselController < Admin::Campaigns::BaseController
 
     respond_to do |format|
       if @carousel.save
-        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), notice: 'Carousel was successfully created.' }
+        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), success: 'Carousel was successfully created.' }
         format.json { render :index, status: :created }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class Admin::Campaigns::CarouselController < Admin::Campaigns::BaseController
   def update
     respond_to do |format|
       if @carousel.update(carousel_params)
-        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), notice: 'Carousel was successfully updated.' }
+        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), success: 'Carousel was successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }
@@ -63,7 +63,7 @@ class Admin::Campaigns::CarouselController < Admin::Campaigns::BaseController
   def destroy
     respond_to do |format|
       if @carousel.destroy
-        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), notice: 'Carousel was deleted successfully.' }
+        format.html { redirect_to admin_campaign_carousel_index_path(@campaign), success: 'Carousel was deleted successfully.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :index }

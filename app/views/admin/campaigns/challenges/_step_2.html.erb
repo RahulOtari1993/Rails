@@ -20,8 +20,8 @@
     <div class="row">
       <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
         <div class="form-group">
-          <%= form.label :caption, 'Challenge Caption' %>
-          <span class="column-info">To be used while displaying challenges to end users</span>
+          <%= form.label :caption, 'Challenge Subtitle/Caption' %>
+          <span class="column-info">To be used while displaying challenge to end-users</span>
           <%= form.text_field :caption, class: 'form-control', placeholder: "Watch TBDBITL's Latest Performance" %>
         </div>
       </div>
@@ -30,7 +30,7 @@
     <div class="row">
       <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
         <div class="form-group">
-          <%= form.label :description, 'Add a note for your users about this challenge' %>
+          <%= form.label :description, 'Add a note for your users about this challenge which will display before the body of the article' %>
           <div class="challenge-description-editor quill-editor-height">
             <%= @challenge.description.html_safe if @challenge.description.present? %>
           </div>

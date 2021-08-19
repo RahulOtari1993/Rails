@@ -83,3 +83,9 @@ li.has-sub.open:after {
   transform: rotate(90deg);
   color: #C2C6DC;
 }
+
+.alert {
+  z-index: 999 !important;
+  width: 80%;
+  margin-bottom: 0px;
+}

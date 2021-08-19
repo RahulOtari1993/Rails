@@ -5,7 +5,7 @@ class Admin::Campaigns::CampaignConfigsController < Admin::Campaigns::BaseContro
   def update
     respond_to do |format|
       if @config.update(campaign_config_params)
-        format.html { redirect_to edit_admin_campaign_config_path(@campaign, @config), notice: 'Program configs were successfully updated.' }
+        format.html { redirect_to edit_admin_campaign_config_path(@campaign, @config), success: 'Program configs were successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }

@@ -22,9 +22,9 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
   ## Disconnect the facebook for campaign
   def disconnect
     if @network.update(is_disconnected: true)
-      flash[:notice] = "You've been disconnected to #{@network.platform.titleize} Successfully."
+      flash[:success] = "You've been disconnected to #{@network.platform.titleize} Successfully."
     else
-      flash[:notice] = "Something went wrong, Please try again later."
+      flash[:error] = "Something went wrong, Please try again later."
     end
     redirect_to admin_campaign_networks_path(@campaign)
   end
@@ -77,16 +77,16 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
         network.expires_at = Time.now + (token_response['expires_in'].to_i / 3600 / 24).days
         network.remote_avatar_url = ''
         if network.save!
-          flash[:notice] = 'Instagram account configuration successful.'
+          flash[:success] = 'Instagram account configuration successful.'
           redirect_to admin_campaign_networks_path(@campaign)
         else
           Rails.logger.info "*********** Error 333 *************"
-          flash[:notice] = 'Instagram account configuration failed.'
+          flash[:error] = 'Instagram account configuration failed.'
           redirect_to admin_campaign_networks_path(@campaign)
         end
       else
         Rails.logger.info "*********** Error 222 *************"
-        flash[:notice] = (response.has_key?('error') && response['error'].has_key?('message')) ? response['error']['message'] : 'Instagram account configuration failed.'
+        flash[:error] = (response.has_key?('error') && response['error'].has_key?('message')) ? response['error']['message'] : 'Instagram account configuration failed.'
         redirect_to admin_campaign_networks_path(@campaign)
       end
 
@@ -124,7 +124,7 @@ class Admin::Campaigns::NetworksController < Admin::Campaigns::BaseController
       # end
     else
       Rails.logger.info "*********** Error 111 *************"
-      flash[:notice] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
+      flash[:error] = response.has_key?('error_message') ? response['error_message'] : 'Instagram account configuration failed.'
       redirect_to admin_campaign_networks_path(@campaign)
     end
   end

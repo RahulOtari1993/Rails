@@ -20,7 +20,7 @@ class Admin::Campaigns::CampaignsController < ApplicationController
         @domain_list = DomainList.where(organization_id: @organization.id, campaign_id: @campaign.id).first
 
         if @domain_list.update(domain: sub_domain)
-          format.html { redirect_to edit_admin_campaign_path(@campaign), notice: 'Campaign was successfully updated.' }
+          format.html { redirect_to edit_admin_campaign_path(@campaign), success: 'Campaign was successfully updated.' }
           format.json { render :edit, status: :updated }
         else
           format.html { render :edit }

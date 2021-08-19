@@ -10,6 +10,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
 
+  ## Register Flash Message Types
+  add_flash_types :error, :success
+
   helper_method :get_open_graph
 
   def set_organization

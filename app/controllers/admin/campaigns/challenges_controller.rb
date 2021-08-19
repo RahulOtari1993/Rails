@@ -48,7 +48,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save
-        format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully created.' }
+        format.html { redirect_to admin_campaign_challenges_path(@campaign), success: 'Challenge was successfully created.' }
         format.json { render :index, status: :created }
       else
         format.html { render :new }
@@ -83,7 +83,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
           @challenge.questions.where(id: removed_questions).destroy_all if removed_questions.present?
         end
 
-        format.html { redirect_to admin_campaign_challenges_path(@campaign), notice: 'Challenge was successfully updated.' }
+        format.html { redirect_to admin_campaign_challenges_path(@campaign), success: 'Challenge was successfully updated.' }
         format.json { render :edit, status: :updated }
       else
         format.html { render :edit }
