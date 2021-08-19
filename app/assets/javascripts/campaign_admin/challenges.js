@@ -802,6 +802,7 @@ $(document).on('turbolinks:load', function () {
     $('.add-challenge-form').trigger("reset");
     $('.challenge-type-list.active').removeClass('active');
     $(this).addClass('active');
+    $('.challenge-name-span').html($(this).text());
 
     $('#challenge_challenge_type').val($(this).data('challenge-type'));
     $('#challenge_parameters').val($(this).data('challenge-parameters'));
