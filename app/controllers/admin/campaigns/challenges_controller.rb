@@ -274,7 +274,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Datatable Column List on which sorting can be performed
   def sort_column
-    columns = %w(name challenge_type category start finish)
+    columns = %w(name points completions clicks start created_at)
     columns[params[:order]['0'][:column].to_i - 1]
   end
 

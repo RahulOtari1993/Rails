@@ -1122,7 +1122,7 @@ $(document).on('turbolinks:load', function () {
         }
       },
       {
-        title: 'Created', data: null, searchable: false,
+        title: 'Date Created', data: null, searchable: false,
         render: function (data, type, row) {
           return formatDate(data.created_at)
         }
