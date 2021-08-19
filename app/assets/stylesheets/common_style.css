@@ -76,3 +76,7 @@ table.data-thumb-view.dataTable thead th:first-child {
 .picker__holder{
   min-width: 280px;
 }
+
+label {
+  font-size: 14px !important;
+}

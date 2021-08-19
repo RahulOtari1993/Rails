@@ -54,7 +54,8 @@ $(document).on('turbolinks:load', function () {
         data: null,
         searchable: true,
         render: function (data, type, row) {
-          return data.email
+          return '<span class="participant-name" data-participant-id="' + data.id + '" data-campaign-id="' + data.campaign_id + '">' +
+              data.email + '</span>'
         }
       },
       {
@@ -105,7 +106,23 @@ $(document).on('turbolinks:load', function () {
     ],
     initComplete: function (settings, json) {
       $('.dt-buttons .btn').removeClass('btn-secondary');
+
+      // Set Tooltip Text
+      $('#participant-list-table thead th').each(function () {
+        if ($(this).text() == 'Eng. Score') {
+          this.setAttribute('title', 'Engagement Score');
+        } else if ($(this).text() ==  'Infl. Score') {
+          this.setAttribute('title', 'Influence Score');
+        }
+      })
     }
+  });
+
+  // Display Tooltip on Table Header
+  $('#participant-list-table thead th[title]').tooltip({
+    "delay": 0,
+    "track": true,
+    "fade": 250
   });
 
   // Open Popup for Participant Details
