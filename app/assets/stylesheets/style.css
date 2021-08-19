@@ -374,3 +374,7 @@
 body.dark-layout .bg-authentication {
   background-color: #10163A;
 }
+
+.challenge-wizard label, .reward-form label {
+  font-size: 14px !important;
+}

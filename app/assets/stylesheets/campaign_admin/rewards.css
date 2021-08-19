@@ -43,3 +43,9 @@
 .top_margin {
   margin-top: 15px;
 }
+
+.reward-form h3 {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+}
+
