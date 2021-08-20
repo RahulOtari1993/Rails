@@ -1,4 +1,11 @@
-<h3 class="my-4 custom_h3" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.caption %></h3>
+<% if challenge.challenge_type == "article" %>
+  <h3 class="my-4 custom_h3" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.title %></h3>
+<% elsif challenge.challenge_type == "share" %>
+  <h3 class="my-4 custom_h3" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.title %></h3>
+<% else %>
+  <h3 class="my-4 custom_h3" data-parallax='{"y": -40, "smoothness": 10}'><%= challenge.caption %></h3>
+<% end %>
+
 <div class="row mb-md-5">
   <% if current_participant.present? %>
     <% if challenge.challenge_type == "signup" %>
