@@ -94,11 +94,14 @@ class Admin::Campaigns::ParticipantsController < Admin::Campaigns::BaseControlle
 
     results = CSV.generate do |csv|
       ## Generate CSV File the Header
-      csv << %w(first_name last_name email joined_date)
+      csv << ['Participant ID', 'First Name', 'Last Name', 'Email', 'Challenges Completed', 'Points', 
+             'Date Joined', 'Age', 'Birthday', 'Engagement Score', 'Number of Rewards Claimed', 'User notes', 'Status']
 
       ## Add Records in CSV File
       @participants.each do |participant|
-        csv << [participant.first_name, participant.last_name, participant.email, participant.created_at]
+        csv << [participant.id, participant.first_name, participant.last_name, participant.email, participant.completed_challenges,
+          participant.unused_points, participant.created_at, participant.age, participant.birth_date, 'N/A',
+          participant.reward_participants.count, participant.notes.pluck(:description).join("\n"), participant.status]
       end
     end
 
