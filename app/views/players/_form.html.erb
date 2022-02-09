@@ -1,0 +1,64 @@
+<%= form_with(model: player, local: true) do |form| %>
+  <% if player.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(player.errors.count, "error") %> prohibited this player from being saved:</h2>
+
+      <ul>
+      <% player.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="field form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :player_name %>
+    <%= form.text_field :player_name, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, class:"form-control" %>
+  </div>
+
+  
+  <div class="field form-group">
+    <%= form.label :player_city %>
+    <%= form.text_field :player_city,class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :player_state %>
+    <%= form.text_field :player_state,class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :player_country %>
+    <%= form.text_field :player_country,class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone,class:"form-control" %>
+  </div>
+<br>
+  <div class="field form-group">
+    <%= form.label :Gender %>
+    male<%= form.radio_button :gender, ['male']%>
+    female<%= form.radio_button :gender, ['female']%>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :Sport %>
+    <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @player.sport_id }, { class: 'form-control' }) %>
+  </div>
+<br>
+  <div class="actions">
+    <%= form.submit class:"btn btn-dark" %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<h3>Hashtag</h3>
+<% tagable.hashtags.each do |hashtag| %>
+   <p>
+      <hr>
+      <%= hashtag.content %>
+      <em><%= time_ago_in_words hashtag.created_at %></em> 
+    </p>
+<% end %>    

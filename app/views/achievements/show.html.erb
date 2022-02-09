@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p class="form-control">
+  <strong>Player:</strong>
+  <%= @achievement.player.player_name %>
+</p>
+
+<p class="form-control">
+  <strong>Award:</strong>
+  <%= @achievement.award %>
+</p>
+
+<p class="form-control">
+  <strong>Medal:</strong>
+  <%= @achievement.medal %>
+</p>
+
+<%= link_to 'Edit', edit_achievement_path(@achievement), class:"btn btn-dark" %> |
+<%= link_to 'Back', achievements_path, class:"btn btn-dark" %>
