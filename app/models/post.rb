@@ -6,4 +6,7 @@ class Post < ApplicationRecord
     has_many :hashtags, as: :tagable
      
     validates :title,  :description,  presence: true 
+
+    extend FriendlyId
+    friendly_id :title, use: :slugged
 end

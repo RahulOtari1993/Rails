@@ -34,3 +34,11 @@
 <br>
 
 <%= link_to 'New Post', new_post_path ,class:"btn btn-dark"%>
+<script>
+  $(document).ready(function() {
+    var oTable = $("#sportstable").DataTable({
+       //  "bPaginate": false
+           "info": false
+    })
+  });
+</script>

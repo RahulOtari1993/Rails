@@ -8,6 +8,6 @@ class Comments::HashtagsController < HashtagsController
     private 
    
        def set_tagable
-          @tagable = Comment.find(params[:comment_id])
+          @tagable = Comment.friendly.find(params[:comment_id])
        end
 end    

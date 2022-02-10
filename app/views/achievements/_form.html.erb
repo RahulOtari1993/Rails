@@ -25,6 +25,15 @@
     <%= form.label :medal %>
     <%= form.text_field :medal, class:"form-control" %>
   </div>
+
+  <%if current_user && current_user.admin?%>
+    <div class="field">
+      <%= form.label :Staus %>
+      approve<%= form.radio_button :status, ['approve']%>
+      reject<%= form.radio_button :status, ['reject']%>
+    </div>
+  <%end%>
+  
   <br>
   <div class="actions">
     <%= form.submit class:"btn btn-dark" %>

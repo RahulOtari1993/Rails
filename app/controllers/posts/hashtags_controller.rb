@@ -4,6 +4,6 @@ class Posts::HashtagsController < HashtagsController
     private 
    
        def set_tagable
-          @tagable = Post.find(params[:post_id])
+          @tagable = Post.friendly.find(params[:post_id])
        end
 end    

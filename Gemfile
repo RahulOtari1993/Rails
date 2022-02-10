@@ -67,3 +67,4 @@ gem 'bootstrap', '~> 5.1'
 gem 'carrierwave', '~> 2.0'
 gem "jquery-rails", "~> 4.4"
 gem "jquery-datatables", "~> 1.10"
+gem 'friendly_id', '~> 5.4.0'

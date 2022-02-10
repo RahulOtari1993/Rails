@@ -27,4 +27,6 @@
   </tbody>
 </table>
 
-<%= link_to 'New Sport', new_sport_path , class:"btn btn-dark" %>
+<% if current_user && current_user.admin? %>
+ <%= link_to 'New Sport', new_sport_path , class:"btn btn-dark" %>
+<% end %>
