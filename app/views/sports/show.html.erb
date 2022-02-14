@@ -10,5 +10,7 @@
   <%= @sport.total_player %>
 </p>
 
-<%= link_to 'Edit', edit_sport_path(@sport),class:"btn btn-dark" %> 
+<% if current_user && current_user.admin? %>
+  <%= link_to 'Edit', edit_sport_path(@sport),class:"btn btn-dark" %> 
+<% end %>
 <%= link_to 'Back', sports_path, class:"btn btn-dark" %>

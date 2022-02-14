@@ -2,7 +2,7 @@
 
 <h1>Posts</h1>
 
-<table id='sportstable' class="table table-striped">
+<table id='poststable' class="table table-striped">
   <thead class="table-dark">
     <tr>
      <th>Post Image</th> 
@@ -19,13 +19,15 @@
     <% @posts.each do |post| %>
       <tr>
        <td><img src="<%= post.image %>" class= "player-show"></td>
-        <td><%= post.player.player_name %></td>
-         <td><%= post.sport.sport_name %></td>
+        <td><%= post.playerName %></td>
+         <td><%= post.sport %></td>
         <td><%= post.title %></td>
         <td><%= post.description %></td>
         <td><%= link_to 'Show', post,class:"btn btn-success" %>
-        <%= link_to 'Edit', edit_post_path(post),class:"btn btn-success" %>
-        <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
+        <% if ((post.user == current_user) || (current_user.admin?)) %>
+          <%= link_to 'Edit', edit_post_path(post),class:"btn btn-success" %>
+          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
+       <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -36,7 +38,7 @@
 <%= link_to 'New Post', new_post_path ,class:"btn btn-dark"%>
 <script>
   $(document).ready(function() {
-    var oTable = $("#sportstable").DataTable({
+    $("#poststable").DataTable({
        //  "bPaginate": false
            "info": false
     })

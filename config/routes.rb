@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sportannouncements
   get 'hashtags/new'
   get 'hashtags/create'
   resources :posts do

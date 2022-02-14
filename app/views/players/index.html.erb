@@ -22,19 +22,19 @@
   <tbody>
     <% @players.each do |player| %>
       <tr>
-      
         <td><img src="<%= player.image %>" class= "player-show"></td>
         <td><%= player.player_name %></td>
         <td><%= player.email %></td>
-       
         <td><%= player.player_state %></td>
         <td><%= player.player_country %></td>
         <td><%= player.phone %></td>
         <td><%= player.gender %></td> 
-         <td><%= player.sport.sport_name %></td>
-       <td><%= link_to 'Show', player %>
-        <%= link_to 'Edit', edit_player_path(player) %>
-        <%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= player.sport.sport_name %></td>         
+        <td><%= link_to 'Show', player %>
+        <% if ((player.user == current_user) || (current_user.admin?)) %>
+          <%= link_to 'Edit', edit_player_path(player) %>
+          <%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>     
       </tr>
     <% end %>
   </tbody>
@@ -42,11 +42,11 @@
 
 <br>
 
-<%= link_to 'New Player', new_player_path , class:"btn btn-dark" %>
+  <%= link_to 'New Player', new_player_path , class:"btn btn-dark" %>
 
 <script>
   $(document).ready(function() {
-    var oTable = $("#sportstable").DataTable({
+    $("#sportstable").DataTable({
        //  "bPaginate": false
            "info": false
     })

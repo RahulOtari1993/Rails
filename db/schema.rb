@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_10_045811) do
+ActiveRecord::Schema.define(version: 2022_02_12_124002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,12 +20,20 @@ ActiveRecord::Schema.define(version: 2022_02_10_045811) do
     t.string "medal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "player_id"
     t.string "player"
     t.string "slug"
     t.string "status"
-    t.index ["player_id"], name: "index_achievements_on_player_id"
+    t.integer "user_id"
     t.index ["slug"], name: "index_achievements_on_slug", unique: true
+    t.index ["user_id"], name: "index_achievements_on_user_id"
+  end
+
+  create_table "announcements", force: :cascade do |t|
+    t.text "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sport_id"
+    t.index ["sport_id"], name: "index_announcements_on_sport_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -35,8 +43,12 @@ ActiveRecord::Schema.define(version: 2022_02_10_045811) do
     t.datetime "updated_at", null: false
     t.integer "post_id"
     t.string "slug"
+    t.integer "hashtag_id"
+    t.integer "user_id"
+    t.index ["hashtag_id"], name: "index_comments_on_hashtag_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["slug"], name: "index_comments_on_slug", unique: true
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -73,8 +85,10 @@ ActiveRecord::Schema.define(version: 2022_02_10_045811) do
     t.string "image"
     t.string "email"
     t.string "slug"
+    t.integer "user_id"
     t.index ["slug"], name: "index_players_on_slug", unique: true
     t.index ["sport_id"], name: "index_players_on_sport_id"
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -83,14 +97,21 @@ ActiveRecord::Schema.define(version: 2022_02_10_045811) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "playerName"
-    t.integer "player_id"
     t.string "sport"
-    t.integer "sport_id"
     t.string "image"
     t.string "slug"
-    t.index ["player_id"], name: "index_posts_on_player_id"
+    t.integer "user_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
-    t.index ["sport_id"], name: "index_posts_on_sport_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "sportannouncements", force: :cascade do |t|
+    t.string "msg"
+    t.string "sport"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sport_id"
+    t.index ["sport_id"], name: "index_sportannouncements_on_sport_id"
   end
 
   create_table "sports", force: :cascade do |t|
@@ -111,6 +132,7 @@ ActiveRecord::Schema.define(version: 2022_02_10_045811) do
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

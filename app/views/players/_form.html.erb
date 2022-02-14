@@ -53,10 +53,16 @@
     female<%= form.radio_button :gender, ['female']%>
   </div>
 <br>
+
   <div class="field">
-    <%= form.label :Sport %>
+    <%= form.label :game_name %>
     <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @player.sport_id }, { class: 'form-control' }) %>
   </div>
+  
+  <div class="field form-group">
+    <%= form.text_field :user_id,value: current_user.id, type: :hidden , class:"form-control" %>
+  </div>
+
 <br>
   <div class="actions">
     <%= form.submit class:"btn btn-dark" %>

@@ -8,10 +8,8 @@
       <th>Sport name</th>
       <th>Total player</th>
       <th>Button</th>
-
     </tr>
   </thead>
-
   <tbody>
     <% @sports.each do |sport| %>
       <tr>
@@ -26,7 +24,6 @@
     <% end %>
   </tbody>
 </table>
-
 <% if current_user && current_user.admin? %>
- <%= link_to 'New Sport', new_sport_path , class:"btn btn-dark" %>
+  <%= link_to 'New Sport', new_sport_path , class:"btn btn-dark" %>
 <% end %>

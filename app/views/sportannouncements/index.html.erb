@@ -1,0 +1,27 @@
+<h1>sportannouncements</h1>
+
+<table class="table table-bordered table-striped" id='mysport'>
+  <thead class="table-dark">
+    <tr>
+      <th>Message</th>
+      <th>Game</th>
+      <th>Button</th>
+    </tr>
+  </thead>
+    <tbody>
+    <% @sportannouncements.each do |sportannouncement| %>
+      <tr>
+        <td><%= sportannouncement.msg %></td>
+        <td><%= sportannouncement.sport.sport_name %></td>
+        <td><%= link_to 'Show', sportannouncement, class:"btn btn-light" %>
+        <%= link_to 'Edit', edit_comment_path(sportannouncement), class:"btn btn-light" %>
+        <%= link_to 'Destroy', sportannouncement, class:"btn btn-light", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<br>
+
+<%= link_to 'New sportannouncement', new_sportannouncement_path, class:"btn btn-secondary" %>

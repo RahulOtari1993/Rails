@@ -4,12 +4,12 @@
 
 <p class="form-control">
   <strong>Player Name:</strong>
-  <%= @post.player.player_name %>
+  <%= @post.playerName %>
 </p>
 
 <p class="form-control">
   <strong>Sport:</strong>
-  <%= @post.sport.sport_name %>
+  <%= @post.sport %>
 </p>
 
 <p class="form-control">
@@ -23,5 +23,7 @@
 </p>
 
 <%= render partial: "hashtags/form", locals: {tagable: @post} %>
+<% if ((@post.user == current_user) || (current_user.admin?)) %>
 <%= link_to 'Edit', edit_post_path(@post),class:"btn btn-dark" %> 
+<% end %>
 <%= link_to 'Back', posts_path,class:"btn btn-dark" %>

@@ -13,7 +13,7 @@
 
   <div class="field form-group">
     <%= form.label :player %>
-    <%= form.collection_select(:player_id, Player.all, :id, :player_name, { :prompt => 'Select a Player', :selected => @achievement.player_id }, { class: 'form-control' }) %>
+    <%= form.text_field :player, class:"form-control" %>
   </div>
 
   <div class="field form-group">
@@ -24,6 +24,10 @@
   <div class="field form-group">
     <%= form.label :medal %>
     <%= form.text_field :medal, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.text_field :user_id,value: current_user.id, type: :hidden , class:"form-control" %>
   </div>
 
   <%if current_user && current_user.admin?%>

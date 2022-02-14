@@ -2,7 +2,7 @@
 
 <p class="form-control">
   <strong>Player:</strong>
-  <%= @achievement.player.player_name %>
+  <%= @achievement.player %>
 </p>
 
 <p class="form-control">
@@ -14,12 +14,13 @@
   <strong>Medal:</strong>
   <%= @achievement.medal %>
 </p>
-<%if current_user && current_user.player?%>
+
 <p>
   <strong>Staus:</strong>
   <%= @achievement.status %>
 </p>
-<% end %>
 
+<% if ((@achievement.user == current_user) || (current_user.admin?)) %>
 <%= link_to 'Edit', edit_achievement_path(@achievement), class:"btn btn-dark" %> |
+<% end %>
 <%= link_to 'Back', achievements_path, class:"btn btn-dark" %>

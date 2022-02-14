@@ -1,0 +1,27 @@
+<%= form_with(model: sportannouncement, local: true) do |form| %>
+  <% if sportannouncement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sportannouncement.errors.count, "error") %> prohibited this sportannouncement from beinx`` saved:</h2>
+
+      <ul>
+      <% sportannouncement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :msg %>
+    <%= form.text_field :msg %>
+  </div>
+
+ <div class="field">
+    <%= form.label :game_name %>
+    <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @sportannouncement.sport_id }, { class: 'form-control' }) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
