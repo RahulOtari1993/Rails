@@ -33,7 +33,7 @@
         <td><%= link_to 'Show', player %>
         <% if ((player.user == current_user) || (current_user.admin?)) %>
           <%= link_to 'Edit', edit_player_path(player) %>
-          <%= link_to 'Destroy', player, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%= link_to 'Destroy', player,  method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>     
       </tr>
     <% end %>
@@ -44,11 +44,3 @@
 
   <%= link_to 'New Player', new_player_path , class:"btn btn-dark" %>
 
-<script>
-  $(document).ready(function() {
-    $("#sportstable").DataTable({
-       //  "bPaginate": false
-           "info": false
-    })
-  });
-</script>

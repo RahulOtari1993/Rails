@@ -50,7 +50,7 @@ class PlayersController < ApplicationController
   # DELETE /players/1 or /players/1.json
   def destroy
     @player.destroy
-
+    # redirect_to destroy_user_session_path
     respond_to do |format|
       format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
