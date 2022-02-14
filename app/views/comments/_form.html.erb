@@ -17,7 +17,7 @@
   </div>
   <div class="field form-group">
   <%= form.label :post %>
-  <%= form.collection_select(:post_id, Post.all, :id, :title, { :prompt => 'Select a Post', :selected => @comment.post_id }, { class: 'form-control' }) %>
+  <%= form.collection_select(:post_id, Post.all, :id, :title, { :prompt => 'Select a Post', :selected => @comment.post_id }, { class: 'form-control js-example-basic-single' }) %>
   </div>
   <br>
 

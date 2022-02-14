@@ -16,5 +16,7 @@
 //= require jquery
 //= require bootstrap
 //= require datatables
+//= require jquery.validate
 //= require myscript
+//= require select2-full
 //= require_tree .

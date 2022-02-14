@@ -18,7 +18,7 @@
 
  <div class="field">
     <%= form.label :game_name %>
-    <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @sportannouncement.sport_id }, { class: 'form-control' }) %>
+    <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @sportannouncement.sport_id }, { class: 'form-control js-example-basic-single' }) %>
   </div>
 
   <div class="actions">

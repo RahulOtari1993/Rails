@@ -1,6 +1,7 @@
 class Sport < ApplicationRecord
   has_many :players
   has_many :sportannouncements
+  has_many :posts
   #validations   
   validates :sport_name, presence: true
   validates :total_player, presence: true

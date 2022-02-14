@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_12_124002) do
+ActiveRecord::Schema.define(version: 2022_02_14_110003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,11 +97,12 @@ ActiveRecord::Schema.define(version: 2022_02_12_124002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "playerName"
-    t.string "sport"
     t.string "image"
     t.string "slug"
     t.integer "user_id"
+    t.integer "sport_id"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
+    t.index ["sport_id"], name: "index_posts_on_sport_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 

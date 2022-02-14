@@ -69,5 +69,6 @@ gem "jquery-rails", "~> 4.4"
 gem "jquery-datatables", "~> 1.10"
 gem 'friendly_id', '~> 5.4.0'
 gem 'jquery-turbolinks'
-
+gem 'jquery-validation-rails'
+gem "select2-rails"
 

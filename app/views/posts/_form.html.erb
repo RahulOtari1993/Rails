@@ -26,11 +26,10 @@
     <%= form.text_field :playerName,class:"form-control" %>
   </div>
  
-  <div class="field form-group">
-    <%= form.label :Sport %>
-    <%= form.text_field :sport,class:"form-control" %>
+  <div class="field" id="dropdown">
+    <%= form.label :game_name %>
+    <%= form.collection_select(:sport_id, Sport.all, :id, :sport_name, { :prompt => 'Select a Sport', :selected => @post.sport_id }, { class: 'form-control js-example-basic-single' }) %>
   </div>
-
 
   <div class="field form-group">
     <%= form.label :description %>
