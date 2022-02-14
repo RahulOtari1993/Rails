@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :hashtags, module: :comments
   end
   resources :achievements
-  resources :sports
+  resources :sports 
   resources :players
   root 'pages#home'
   devise_for :users

@@ -25,6 +25,12 @@
     <%= form.text_field :user_id,value: current_user.id, type: :hidden , class:"form-control" %>
   </div>
 
+  <div class="field">
+    <%= form.label :hashtag %></br>
+    <%= form.text_area :content %>
+  </div>
+  
+
   <div class="actions">
     <%= form.submit class:"btn btn-dark" %>
   </div>

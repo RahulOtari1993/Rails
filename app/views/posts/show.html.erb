@@ -22,6 +22,8 @@
   <%= @post.description %>
 </p>
 
+
+
 <%= render partial: "hashtags/form", locals: {tagable: @post} %>
 <% if ((@post.user == current_user) || (current_user.admin?)) %>
 <%= link_to 'Edit', edit_post_path(@post),class:"btn btn-dark" %> 

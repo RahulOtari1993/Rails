@@ -23,6 +23,7 @@
          <td><%= post.sport.sport_name %></td>
         <td><%= post.title %></td>
         <td><%= post.description %></td>
+        
         <td><%= link_to 'Show', post,class:"btn btn-success" %>
         <% if ((post.user == current_user) || (current_user.admin?)) %>
           <%= link_to 'Edit', edit_post_path(post),class:"btn btn-success" %>

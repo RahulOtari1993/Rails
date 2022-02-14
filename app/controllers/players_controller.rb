@@ -52,7 +52,7 @@ class PlayersController < ApplicationController
     @player.destroy
     # redirect_to destroy_user_session_path
     respond_to do |format|
-      format.html { redirect_to players_url, notice: "Player was successfully destroyed." }
+      format.html { redirect_to user_session_url, notice: "Player was successfully destroyed." }
       format.json { head :no_content }
     end
   end
