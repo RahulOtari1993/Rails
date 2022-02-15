@@ -16,10 +16,10 @@
         <td><%= sport.sport_name %></td>
         <td><%= sport.total_player %></td>
         <td><%= link_to 'Show', sport ,class:"btn btn-success" %>
-        <% if current_user && current_user.admin? %>
+       
           <%= link_to 'Edit', edit_sport_path(sport) ,class:"btn btn-success"%>
           <%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-success"%></td>
-        <% end %>
+       
       </tr>
     <% end %>
   </tbody>

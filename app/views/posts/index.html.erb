@@ -24,11 +24,9 @@
         <td><%= post.title %></td>
         <td><%= post.description %></td>
         
-        <td><%= link_to 'Show', post,class:"btn btn-success" %>
-        <% if ((post.user == current_user) || (current_user.admin?)) %>
-          <%= link_to 'Edit', edit_post_path(post),class:"btn btn-success" %>
-          <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
-       <% end %>
+        <td><%= link_to 'Show', [@sport,post],class:"btn btn-success" %>
+          <%= link_to 'Edit', edit_sport_post_path(@sport, post),class:"btn btn-success" %>
+          <%= link_to 'Destroy', [@sport, post], method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path ,class:"btn btn-dark"%>
+<%= link_to 'New Post', new_sport_post_path(@sport) ,class:"btn btn-dark"%>

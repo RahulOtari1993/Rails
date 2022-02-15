@@ -2,5 +2,5 @@
 
 <%= render 'form', player: @player , class:"btn" %>
 <br>
-<%= link_to 'Show', @player , class:"btn btn-dark" %> 
-<%= link_to 'Back', players_path , class:"btn btn-dark" %>
+<%= link_to 'Show', [@sport, @player] , class:"btn btn-dark" %> 
+<%= link_to 'Back', sport_players_path(@sport) , class:"btn btn-dark" %>

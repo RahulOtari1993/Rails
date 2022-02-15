@@ -1,16 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p class="form-control" >
-  <strong>Sport name:</strong>
-  <%= @sport.sport_name %>
-</p>
-
-<p class="form-control" >
-  <strong>Total player:</strong>
-  <%= @sport.total_player %>
-</p>
-
-<% if current_user && current_user.admin? %>
-  <%= link_to 'Edit', edit_sport_path(@sport),class:"btn btn-dark" %> 
+<h2>Players</h2>
+<% for player in @sport.players %>
+    <ul>
+      <li><%= player.player_name %></li>
+  </ul>
 <% end %>
+
+<h2>Posts</h2>
+<% for post in @sport.posts %>
+    <ul>
+      <li><%= post.title %></li>
+  </ul>
+<% end %>
+
+  <%= link_to 'Edit', edit_sport_path(@sport),class:"btn btn-dark" %> 
+  <%= link_to 'Add Player', sport_players_path(@sport),class:"btn btn-dark" %>
+  <%= link_to 'Add Post', sport_posts_path(@sport), class:"btn btn-dark" %>
+
 <%= link_to 'Back', sports_path, class:"btn btn-dark" %>
+
