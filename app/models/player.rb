@@ -13,5 +13,4 @@ class Player < ApplicationRecord
   #friendly id
   extend FriendlyId
   friendly_id :player_name, use: :slugged
-
 end

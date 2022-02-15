@@ -1,4 +1,4 @@
-<%= form_with(model: achievement, local: true) do |form| %>
+<%= form_with(model: achievement,:html => {id: "achievemetValidate"}, local: true) do |form| %>
   <% if achievement.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(achievement.errors.count, "error") %> prohibited this achievement from being saved:</h2>
@@ -37,7 +37,6 @@
       reject<%= form.radio_button :status, ['reject']%>
     </div>
   <%end%>
-  
   <br>
   <div class="actions">
     <%= form.submit class:"btn btn-dark" %>

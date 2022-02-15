@@ -21,6 +21,6 @@
 </p>
 
 <% if ((@achievement.user == current_user) || (current_user.admin?)) %>
-<%= link_to 'Edit', edit_achievement_path(@achievement), class:"btn btn-dark" %> |
+    <%= link_to 'Edit', edit_achievement_path(@achievement), class:"btn btn-dark" %> |
 <% end %>
 <%= link_to 'Back', achievements_path, class:"btn btn-dark" %>
