@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p class="form-control">
+  <strong>Player:</strong>
+  <%= @achievement.player %>
+</p>
+
+<p class="form-control">
+  <strong>Award:</strong>
+  <%= @achievement.award %>
+</p>
+
+<p class="form-control">
+  <strong>Medal:</strong>
+  <%= @achievement.medal %>
+</p>
+
+<p>
+  <strong>Staus:</strong>
+  <%= @achievement.status %>
+</p>
+
+<% if ((@achievement.user == current_user) || (current_user.admin?)) %>
+    <%= link_to 'Edit', edit_achievement_path(@achievement), class:"btn btn-dark" %> |
+<% end %>
+<%= link_to 'Back', achievements_path, class:"btn btn-dark" %>

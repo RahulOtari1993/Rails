@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table id='poststable' class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+     <th>Post Image</th> 
+     <th>Player Name</th>
+     <th>Sport</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Button</th>
+     
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+       <td><img src="<%= post.image %>" class= "player-show"></td>
+        <td><%= post.playerName %></td>
+         <td><%= post.sport.sport_name %></td>
+        <td><%= post.title %></td>
+        <td><%= post.description %></td>
+        
+        <td><%= link_to 'Show', [@sport,post],class:"btn btn-success" %>
+          <%= link_to 'Edit', edit_sport_post_path(@sport, post),class:"btn btn-success" %>
+          <%= link_to 'Destroy', [@sport, post], method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_sport_post_path(@sport) ,class:"btn btn-dark"%>

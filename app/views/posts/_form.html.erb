@@ -1,0 +1,48 @@
+<%= form_with(model:[@sport, post],:html => {id: "postValidate"}, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image, class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title,class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :player %>
+    <%= form.text_field :playerName,class:"form-control" %>
+  </div>
+ 
+  <div class="field form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description,class:"form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.text_field :user_id,value: current_user.id, type: :hidden , class:"form-control" %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :hashtag %></br>
+    <%= form.text_area :content %>
+  </div>
+  
+
+ <br>
+  <div class="actions">
+    <%= form.submit class:"btn btn-dark"%>
+  </div>
+<% end %>

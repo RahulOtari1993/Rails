@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sports</h1>
+
+<table id='sportstable' class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Sport name</th>
+      <th>Total player</th>
+      <th>Button</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sports.each do |sport| %>
+      <tr>
+        <td><%= sport.sport_name %></td>
+        <td><%= sport.total_player %></td>
+        <td><%= link_to 'Show', sport ,class:"btn btn-success" %>
+       
+          <%= link_to 'Edit', edit_sport_path(sport) ,class:"btn btn-success"%>
+          <%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } ,class:"btn btn-success"%></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% if current_user && current_user.admin? %>
+  <%= link_to 'New Sport', new_sport_path , class:"btn btn-dark" %>
+<% end %>

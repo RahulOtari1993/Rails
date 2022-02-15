@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Players</h1>
+
+<table id='sportstable' class="table table-striped" >
+  <thead class="table-dark">
+    <tr>
+      <th>Player Image</th>
+      <th>Player name</th>
+      <th>Player Email</th>
+      
+      <th>Player state</th>
+      <th>Player country</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Sport</th>
+      <th>Button</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><img src="<%= player.image %>" class= "player-show"></td>
+        <td><%= player.player_name %></td>
+        <td><%= player.email %></td>
+        <td><%= player.player_state %></td>
+        <td><%= player.player_country %></td>
+        <td><%= player.phone %></td>
+        <td><%= player.gender %></td> 
+        <td><%= player.sport.sport_name %></td>         
+        <td><%= link_to 'Show', [@sport,player] %>
+          <%= link_to 'Edit', edit_sport_player_path(@sport,player) %>
+          <%= link_to 'Destroy', [@sport, player], method: :delete,  data: { confirm: 'Are you sure?' },class:"btn btn-success"%></td>     
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+  <%= link_to 'New Player', new_sport_player_path(@sport) , class:"btn btn-dark" %>
+

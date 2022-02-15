@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Msg:</strong>
+  <%= @sportannouncement.msg %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @sportannouncement.sport.sport_name %>
+</p>
+
+<%= link_to 'Edit',edit_sport_sportannouncement_path(@sport, @sportannouncement), class:"btn btn-dark" %> |
+<%= link_to 'Back',sport_sportannouncements_path(@sport), class:"btn btn-dark" %>

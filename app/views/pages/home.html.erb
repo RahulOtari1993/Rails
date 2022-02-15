@@ -1,0 +1,14 @@
+<br>
+
+<% if current_user %>
+  <p>Hello <%= current_user.email %>!</p>
+  <p>You are a [<%= current_user.role %>] </p>
+  <p>
+     You have successfully authenticated with your devise account.
+     you are now ready to interact with this application.
+  </p>
+   <%# <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class:"nav-link"%> 
+<% else %> 
+   <p>You are not signed in.</p>
+  
+  <% end %>
