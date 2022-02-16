@@ -4,14 +4,14 @@ Rails.application.routes.draw do
   resources :posts do
     resources :hashtags, module: :posts
   end
-  resources :comments do
-    resources :hashtags, module: :comments
-  end
   resources :achievements
   resources :sports do  
+    resources :posts do 
+      resources :comments
+        # resources :hashtags, module: :comments
+    end  
     resources :players
-    resources :posts
-    resources :sportannouncements
+    resources :sportannouncements  
   end  
   root 'pages#home'
   devise_for :users

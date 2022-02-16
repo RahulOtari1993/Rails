@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_110003) do
+ActiveRecord::Schema.define(version: 2022_02_16_043911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,9 +45,11 @@ ActiveRecord::Schema.define(version: 2022_02_14_110003) do
     t.string "slug"
     t.integer "hashtag_id"
     t.integer "user_id"
+    t.integer "sport_id"
     t.index ["hashtag_id"], name: "index_comments_on_hashtag_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["slug"], name: "index_comments_on_slug", unique: true
+    t.index ["sport_id"], name: "index_comments_on_sport_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -112,6 +114,8 @@ ActiveRecord::Schema.define(version: 2022_02_14_110003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "sport_id"
+    t.string "slug"
+    t.index ["slug"], name: "index_sportannouncements_on_slug", unique: true
     t.index ["sport_id"], name: "index_sportannouncements_on_sport_id"
   end
 

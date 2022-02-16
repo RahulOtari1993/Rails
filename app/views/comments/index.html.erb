@@ -18,16 +18,12 @@
       <tr>
          <td><%= comment.post.title %></td>
         <td><%= comment.comment %></td>
-        <td><%= link_to 'Show', comment,class:"btn btn-success" %>
-        <% if ((comment.user == current_user) || (current_user.admin?)) %>
-          <%= link_to 'Edit', edit_comment_path(comment),class:"btn btn-success" %>
-          <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %></td>
-       <% end %>
+        <td><%= link_to 'Edit', edit_sport_post_comment_path(@sport,@post,comment),class:"btn btn-success" %>
+            <%= link_to 'Destroy', [@sport,@post, comment], method: :delete, data: { confirm: 'Are you sure?' },class:"btn btn-success" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Comment', new_comment_path, class:"btn btn-dark" %>
