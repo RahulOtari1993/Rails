@@ -1,51 +1,80 @@
 class AnnouncementsController < ApplicationController
-     before_action :set_announcement, only: [:update, :show, :destroy]
-
-  # GET /announcements
+# before_action :authenticate_user!
+  before_action :set_sport
+  before_action :set_announcement, only: [:update, :show, :destroy]
+  
+  # This action fetch all the announcements of sport
   def index
-    @announcements = Announcement.all
+    
+    announcements = @sport.announcements
 
-    render json: @announcements
+    render_success 200, true, 'announcements fetched successfully', announcements.as_json
+    
   end
 
-  # GET /announcements/1
-  def show
-    render json: @announcement
-  end
-
-  # POST /announcements
+  # this action lets us create a new announcement
   def create
-    @announcement = Announcement.new(announcement_params)
+    announcement = @sport.announcements.new(announcement_params)
 
-    if @announcement.save
-      render json: @announcement, status: :created, location: @announcement  
+    if announcement.save
+      render_success 200, true, 'announcement created successfully', announcement.as_json
     else
-       render json: @announcement.errors, status: :unprocessable_entity
+      if announcement.errors
+        errors = announcement.errors.full_messages.join(", ")
+      else
+        errors = 'announcement creation failed'
+      end
+
+      return_error 500, false, errors, {}
     end
   end
 
-  # PATCH/PUT /announcements/1
+  # Update announcement API
   def update
     if @announcement.update(announcement_params)
-      render json: @announcement
+      render_success 200, true, 'announcement updated successfully', @announcement.as_json
     else
-      render json: @announcement.errors, status: :unprocessable_entity
+      if @announcement.errors
+        errors = @announcement.errors.full_messages.join(", ")
+      else
+        errors = 'announcement update failed'
+      end
+
+      return_error 500, false, errors, {}
     end
   end
 
-  # DELETE /announcements/1
+  # Fetch an announcement API
+  def show
+    render_success 200, true, 'announcement fetched successfully', @announcement.as_json
+  end
+
+  # Delete an announcement API
   def destroy
     @announcement.destroy
+
+    render_success 200, true, 'announcement deleted successfully', {}
+  end
+  private
+  def set_sport
+    @sport = Sport.where(id: params[:sport_id]).first
+    
+      unless @sport
+          return return_error 404, false, 'Product not found', {}
+      end
+  end
+  # Params of announcement
+  def announcement_params
+    params.require(:announcement).permit(:title,:description,:image,:sport_id,:user_id)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_announcement
-      @announcement = Announcement.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def announcement_params
-       params.require(:announcement).permit(:title, :description, :sport_id)
+  ## Set announcement Object, Return Error if not found
+  def set_announcement
+    @announcement = @sport.announcements.where(id: params[:id]).first
+
+    unless @announcement
+      return return_error 404, false, 'announcement not found', {}
     end
+  end
 end
