@@ -46,7 +46,15 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Adding Devise Gem
 # gem 'devise', '~> 4.8', '>= 4.8.1'
+
+#Serializer
 gem 'active_model_serializers', '~> 0.10.13'
+
+#Token auth for Authenticate
 gem 'devise_token_auth'
+
+# Adding Devise Gem
 gem 'devise'
+
+#for pagination
 gem 'kaminari'

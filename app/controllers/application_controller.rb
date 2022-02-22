@@ -13,7 +13,8 @@ class ApplicationController < ActionController::API
       code: code,
       status: status,
       message: message,
-      data: data
+      data: data,
+      per_page: per_page 
   }
   end
     
