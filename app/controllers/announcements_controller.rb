@@ -14,7 +14,7 @@ class AnnouncementsController < ApplicationController
   # this action lets us create a new announcement
   def create
     announcement = @sport.announcements.new(announcement_params)
-    if announcement.save
+    if announcement.save && current_user.admin?
       render_success 200, true, 'announcement created successfully', announcement.as_json
     else
       if announcement.errors
@@ -22,13 +22,13 @@ class AnnouncementsController < ApplicationController
       else
         errors = 'announcement creation failed'
       end
-      return_error 500, false, errors, {}
+      return_error 500, false, 'You Are Not Authorized To Create !'
     end
   end
 
   # Update announcement API
   def update
-    if @announcement.update(announcement_params)
+    if @announcement.update(announcement_params) && current_user.admin?
       render_success 200, true, 'announcement updated successfully', @announcement.as_json
     else
       if @announcement.errors
@@ -36,7 +36,7 @@ class AnnouncementsController < ApplicationController
       else
         errors = 'announcement update failed'
       end
-      return_error 500, false, errors, {}
+      return_error 500, false, 'You Are Not Authorized To Update !'
     end
   end
 
@@ -47,8 +47,11 @@ class AnnouncementsController < ApplicationController
 
   # Delete an announcement API
   def destroy
-    @announcement.destroy
-    render_success 200, true, 'announcement deleted successfully', {}
+    if @announcement.destroy && current_user.admin?
+      render_success 200, true, 'announcement deleted successfully', {}
+    else  
+      return_error 500, false, 'You Are Not Authorized To Delete !'
+    end
   end
   
   private
