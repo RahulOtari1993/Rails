@@ -1,12 +1,12 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-  protected
-  def authenticate_user!(options = {})
-    head :unauthorized unless signed_in?
+  
+  ## Custom Authentication Error Message Before Signin/Signup
+  def render_authenticate_error
+    return_error 401, false, 'Please sign in or sign up first.', {}
   end
-  def authenticate_current_user
-    head :unauthorized if current_user_get.nil?
-  end  
+
+  protected 
   ## Return Success Response
   def render_success code, status, message, data = {}
     render json: {
@@ -26,8 +26,7 @@ class ApplicationController < ActionController::API
       data: data
   }
   end
-    
-    
+      
   ## Pagination Page Number
   def page
     @page ||= params[:page] || 1
