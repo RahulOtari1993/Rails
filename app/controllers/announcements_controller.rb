@@ -1,5 +1,5 @@
 class AnnouncementsController < ApplicationController
-# before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_sport
   before_action :set_announcement, only: [:update, :show, :destroy]
   
