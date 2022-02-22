@@ -10,4 +10,9 @@
 class Post < ApplicationRecord
   #Association with sport
   belongs_to :sport
+
+  #validation
+  validates :title, presence: true
+  validates :description, presence: true
+  validates :tag, presence: true
 end
