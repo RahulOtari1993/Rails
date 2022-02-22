@@ -18,7 +18,7 @@ class SportsController < ApplicationController
   # POST /sports
   def create
     @sport = Sport.new(sport_params)
-    if @sport.save
+    if @sport.save && current_user.admin?
       render_success 200, true, 'Sport created successfully', @sport.as_json  
     else
       if @sport.errors
@@ -26,13 +26,13 @@ class SportsController < ApplicationController
       else
         errors = 'Sport creation failed'
       end
-      return_error 500, false, errors, {}
+      return_error 500, false, 'You Are Not Authorized To Create !'
     end
   end
 
   # PATCH/PUT /sports/1
   def update
-    if @sport.update(sport_params)
+    if @sport.update(sport_params) && current_user.admin?
       render_success 200, true, 'Sport updated successfully', @sport.as_json
     else
       if @sport.errors
@@ -40,14 +40,17 @@ class SportsController < ApplicationController
       else
         errors = 'Sport update failed'
       end
-      return_error 500, false, errors, {}
+      return_error 500, false, 'You Are Not Authorized To Update !'
     end
   end
 
   # DELETE /sports/1
   def destroy
-    @sport.destroy
-    render_success 200, true, 'Sport deleted successfully', {}
+    if @sport.destroy && current_user.admin?
+      render_success 200, true, 'Sport deleted successfully', {}
+    else
+      return_error 500, false, 'You Are Not Authorized To Delete !'
+    end
   end
 
   private
