@@ -1,4 +1,6 @@
 class SportsController < ApplicationController
+  
+  #Authentication for Signin/Signup
   before_action :authenticate_user!
   before_action :set_sport, only: [:update, :show, :destroy]
 
@@ -10,14 +12,12 @@ class SportsController < ApplicationController
 
   # GET /sports/1
   def show
-    render json: @sport
     render_success 200, true, 'Sport fetched successfully', @sport.as_json
   end
 
   # POST /sports
   def create
     @sport = Sport.new(sport_params)
-
     if @sport.save
       render_success 200, true, 'Sport created successfully', @sport.as_json  
     else
@@ -58,6 +58,6 @@ class SportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def sport_params
-       params.require(:sport).permit(:name)
+      params.require(:sport).permit(:name)
     end
 end

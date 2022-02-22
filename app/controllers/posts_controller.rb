@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  
+  #Authentication for Signin/Signup
   before_action :authenticate_user!
   before_action :set_sport
   before_action :set_post, only: [:update, :show, :destroy]
