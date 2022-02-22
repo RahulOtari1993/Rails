@@ -7,4 +7,8 @@
 class Achievement < ApplicationRecord
   #Association with user
   belongs_to :user
+
+  #validation
+  validates :award, presence: true
+  validates :medal, presence: true
 end

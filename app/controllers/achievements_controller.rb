@@ -19,10 +19,10 @@ class AchievementsController < ApplicationController
   def create
     @achievement = Achievement.new(achievement_params)
     if @achievement.save
-      render_success 200, true, 'Achievement Created Successfully', achievement.as_json  
+      render_success 200, true, 'Achievement Created Successfully', @achievement.as_json  
     else
-      if achievement.errors
-        errors = achievement.errors.full_messages.join(", ")
+      if @achievement.errors
+        errors = @achievement.errors.full_messages.join(", ")
       else
         errors = 'Achievement creation failed'
       end
