@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ThemeDemo</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+      <!-- Left Navigation Partial -->
+      <%= render 'shared/left_navigation' %>
+      
+      <!-- Content Start -->
+      <div class="content">
+        
+        <!-- Header Partial -->
+        <%= render 'shared/header' %>
+        
+        <!-- Main Body -->
+        <%= yield %>
+        
+        <!-- Footer Partial -->
+        <%= render 'shared/footer' %>
+      </div>
+    </div>  
+  </body>
+</html>
