@@ -2,13 +2,15 @@
 #
 # Table name: businesses
 #
-#  id            :bigint           not null, primary key
-#  name          :string
-#  address       :string
-#  logo          :string
-#  working_hours :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id              :bigint           not null, primary key
+#  name            :string
+#  address         :string
+#  logo            :string
+#  working_hours   :datetime
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :integer
+#  campaign_id     :integer
 #
 
 one:
