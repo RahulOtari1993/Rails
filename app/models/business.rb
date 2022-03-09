@@ -24,6 +24,7 @@ class Business < ApplicationRecord
   
   #Associations
   belongs_to :campaign
+  has_many :offers, dependent: :destroy
   # belongs_to :organization
 
   ## Validations

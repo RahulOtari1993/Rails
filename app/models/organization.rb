@@ -29,6 +29,7 @@ class Organization < ApplicationRecord
   has_many :participants
   has_many :networks, dependent: :destroy
   # has_many :businesses, dependent: :destroy
+  # has_many :offers, dependent: :destroy
 
   ## Validations
   validates :name, :sub_domain, :admin_user_id, presence: true

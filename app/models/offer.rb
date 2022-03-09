@@ -18,8 +18,9 @@ class Offer < ApplicationRecord
   
   #Associations
   belongs_to :campaign
+  belongs_to :business
   # belongs_to :organization
-
+  
   ## Validations
   # validates :title, :description, :coupon, :start_date, :end_date, presence: true
 end

@@ -50,6 +50,7 @@ class Campaign < ApplicationRecord
   has_many :network_pages, dependent: :destroy
   has_many :network_page_posts, through: :network_pages
   has_many :businesses, dependent: :destroy
+  has_many :offers, dependent: :destroy
 
   enum domain_type: [:own_domain, :include_in_domain]
 
