@@ -48,8 +48,8 @@ class Campaign < ApplicationRecord
   has_many :participant_answers, dependent: :destroy
   has_many :carousels, dependent: :destroy
   has_many :network_pages, dependent: :destroy
-
   has_many :network_page_posts, through: :network_pages
+  has_many :businesses, dependent: :destroy
 
   enum domain_type: [:own_domain, :include_in_domain]
 

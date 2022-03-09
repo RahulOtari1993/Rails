@@ -331,8 +331,9 @@ class Challenge < ApplicationRecord
     end
   end
 
-  ## Save Unique Challenge Identifier
+  ## Save Unique Challenge Identifier (after creating the chellange)
   def generate_challenge_identifier
+    # binding.pry 
     self.update_attribute('identifier', Challenge.get_identifier)
   end
 end

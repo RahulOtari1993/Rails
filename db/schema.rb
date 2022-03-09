@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_135402) do
+ActiveRecord::Schema.define(version: 2022_03_08_065933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,17 @@ ActiveRecord::Schema.define(version: 2020_12_18_135402) do
     t.datetime "started_at"
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
+  end
+
+  create_table "businesses", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "logo"
+    t.datetime "working_hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "organization_id"
+    t.integer "campaign_id"
   end
 
   create_table "campaign_configs", force: :cascade do |t|
@@ -523,6 +534,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_135402) do
     t.string "uid"
     t.text "tokens"
     t.index ["confirmation_token"], name: "index_participants_on_confirmation_token", unique: true
+    t.index ["email", "organization_id", "campaign_id"], name: "index_participant_email_org_campaign", unique: true
     t.index ["email", "organization_id", "campaign_id"], name: "index_participants_on_email_and_organization_id_and_campaign_id", unique: true
     t.index ["reset_password_token"], name: "index_participants_on_reset_password_token", unique: true
     t.index ["uid", "provider", "organization_id", "campaign_id"], name: "index_participant_uid_provider_org_campaign", unique: true
@@ -635,9 +647,9 @@ ActiveRecord::Schema.define(version: 2020_12_18_135402) do
     t.integer "image_height"
     t.integer "filter_type", default: 0
     t.boolean "filter_applied", default: false
-    t.integer "claims", default: 0
     t.integer "rule_type", default: 0
     t.boolean "rule_applied", default: false
+    t.integer "claims", default: 0
     t.boolean "date_range", default: false
     t.index ["campaign_id"], name: "index_rewards_on_campaign_id"
   end

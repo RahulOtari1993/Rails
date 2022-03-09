@@ -8,8 +8,10 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def fetch_challenges
+    # binding.pry
     challenges = @campaign.challenges
     search_string = []
+    # binding.pry
     filter_query = ''
 
     ## Check if Search Keyword is Present & Write it's Query
@@ -48,6 +50,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
     respond_to do |format|
       tags_association ## Manage Tags for a Challenge
       if @challenge.save
+        # binding.pry
         format.html { redirect_to admin_campaign_challenges_path(@campaign), success: 'Challenge was successfully created.' }
         format.json { render :index, status: :created }
       else
@@ -58,6 +61,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def edit
+    # binding.pry
     @connect_facebook = @campaign.networks.current_active.where(platform: 'facebook').first
     @connect_instagram = @campaign.networks.current_active.where(platform: 'instagram').first
   end
@@ -94,6 +98,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Fetch Challenge Details
   def show
+    # binding.pry
     @participants = Submission.joins(:participant).where(submissions: {challenge_id: @challenge.id})
                         .select("participants.first_name, participants.last_name, participants.email,submissions.created_at")
     @chart_json = []
@@ -132,6 +137,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
   end
 
   def duplicate
+    # binding.pry
     ## Clone a Challenge With It's Active Record Relation
     cloned = @challenge.deep_clone include: [:challenge_filters, {questions: :question_options}] do |original, copy|
       if copy.is_a?(Challenge)
@@ -170,6 +176,7 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
 
   ## Approve / Disable a Challenge
   def toggle
+    #binding.pry
     if @challenge.is_approved
       response = toggle_campaign(false)
     else
@@ -254,7 +261,6 @@ class Admin::Campaigns::ChallengesController < Admin::Campaigns::BaseController
             challenge_condition: c_param[:challenge_condition],
             challenge_value: c_param["challenge_value_#{c_param[:challenge_event]}"]
         }
-
         if c_param.has_key?('id')
           filter_data[:id] = c_param[:id]
           @available_segments.push(c_param[:id].to_i)

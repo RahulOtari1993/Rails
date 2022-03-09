@@ -1,0 +1,692 @@
+    1  sudo apt get install ./google-chrome-stable_current_amd64.deb 
+    2  sudo apt install ./google-chrome-stable_current_amd64.deb 
+    3  sudo apt-add-repository -y ppa:rael-gc/rvm
+    4  sudo apt-get update
+    5  sudo apt-get install rvm
+    6  sudo usermod -a -G rvm $USER
+    7  sudo usermod -a -G rvm dell
+    8  exit
+    9  sudo apt-get install software-properties-common
+   10  clear
+   11  exit
+   12  rvm list
+   13  rvm install ruby-2.7.5
+   14  rvm list
+   15  exit
+   16  rvm -v
+   17  rvm list
+   18  rvm install 2.0.0
+   19  clear
+   20  rvm list
+   21  rvm use 2.7.5
+   22  rvm list
+   23  which ruby
+   24  my_variable = true
+   25  exit
+   26  ruby firstrybu.rb 
+   27  ruby ifelse.rb 
+   28  ruby class_method.rb 
+   29  ruby unless.rb 
+   30  ruby case_statement.rb 
+   31  ruby until.rb 
+   32  exit
+   33  irb
+   34  ruby first.rb
+   35  pwd
+   36  cd Documents/ruby/
+   37  clear
+   38  ruby first.rb
+   39  ruby authenticator.rb 
+   40  clear
+   41  ruby authenticator.rb 
+   42  clear
+   43  ruby authenticator.rb 
+   44  clear
+   45  ruby authenticator.rb 
+   46  clear
+   47  ruby authenticator.rb 
+   48  asdf
+   49  clear
+   50  ruby areacodedictionary.rb 
+   51  clear
+   52  ruby areacodedictionary.rb 
+   53  ls
+   54  cd OOP/
+   55  ruby Student.rb 
+   56  clear
+   57  ruby Student.rb 
+   58  clear
+   59  ruby bcrypt.rb 
+   60  clear
+   61  ruby bcrypt.rb 
+   62  clear
+   63  ruby bcrypt.rb 
+   64  ruby crud.rb 
+   65  clear
+   66  ruby crud.rb 
+   67  clear
+   68  ruby crud.rb 
+   69  clear
+   70  ruby crud.rb 
+   71  ruby Student.rb 
+   72  clear
+   73  ruby Student.rb 
+   74  clear
+   75  ruby Student.rb 
+   76  c;ear
+   77  clear
+   78  ruby Student.rb 
+   79  rails -version
+   80  rails -v
+   81  clear
+   82  rails list
+   83  rails ruby list
+   84  exit
+   85  pwd
+   86  cd Documents/java/
+   87  javac com.itworks.javatest.TestJava
+   88  cd com/itworks/javatest/
+   89  javac TestJava
+   90  javac TestJava.java
+   91  cd ../../../
+   92  javac TestJava.java
+   93  javac com.itworks.javatest.TestJava
+   94  cd com/itworks/javatest/
+   95  java TestJava
+   96  javac TestJava.java
+   97  java TestJava
+   98  javac TestJava.java
+   99  java TestJava
+  100  java com.itworks.javatest.TestJava
+  101  cd ../../../
+  102  java com.itworks.javatest.TestJava
+  103  javac com.itworks.javatest.TestJava.java
+  104  jar cvf test.jar com
+  105  clear
+  106  ruby rubytestjava.rb 
+  107  clear
+  108  ruby rubytestjava.rb 
+  109  ruby rubytestjava.rb
+  110  ruby Main.rb
+  111  clear
+  112  ruby rubytestjava.rb 
+  113  gem 'java', '~> 0.0.2'
+  114  gem install bundler
+  115  gem 'java', '~> 0.0.2'
+  116  gem 'java'
+  117  pwd
+  118  exit
+  119  java -version
+  120  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+  121  echo $JAVA_HOME
+  122  export PATH=$PATH:$JAVA_HOME/bin
+  123  echo $PATH
+  124  java -version
+  125  pwd
+  126  ruby rubytestjava.rb 
+  127  exit
+  128  git branch
+  129  exit
+  130  sudo lshw -c memory
+  131  clear
+  132  free -m
+  133  top
+  134  cd ../test_app_6/
+  135  rails generate scaffold User username:string
+  136  rails db:migrate
+  137  rails console
+  138  rails generate migration add_user_id_to_articles
+  139  rails db:migrate
+  140  rails console
+  141  cd ../../
+  142  mkdir bbb
+  143  cd bbb/
+  144  git clone https://gitlab.com/big-kitty-labs/onenineninety/bbb-rails.git
+  145  ls
+  146  cd bbb-rails/
+  147  rvm install "ruby-2.6.0"
+  148  ruby -v
+  149  cd .
+  150  bundle install
+  151  sudo apt-get install -y libpq-dev
+  152  bundle install
+  153  sudo apt update
+  154  sudo apt install postgresql postgresql-contrib
+  155  rails s
+  156  mkdir ci_implants
+  157  cd ci_implants/
+  158  git clone https://gitlab.com/big-kitty-labs/ci-implants/ci_implants.git
+  159  ls
+  160  cd ci_implants/
+  161  ruby -v
+  162  rvm install "ruby-2.6.5"
+  163  cd .
+  164  bundle install
+  165  gem install bundler:2.2.21
+  166  bundle install
+  167  sudo apt-get install libmysqlclient-dev
+  168  bundle install
+  169  mysql --version
+  170  sudo apt update
+  171  sudo apt install mysql-server
+  172  sudo mysql_secure_installation
+  173  sudo mysql
+  174  rake db:create
+  175  mysql ci_implants_dev --user=prabhanshu --host=localhost --port=3306 < ci_implants_dev.sql
+  176  systemctl status mysql.service
+  177  systemctl stop mysql.service
+  178  systemctl start mysql.service
+  179  systemctl status mysql.service
+  180  mysql ci_implants_dev --user=prabhanshu --host=localhost --port=3306 < ci_implants_dev.sql
+  181  mysql ci_implants_dev --user=root --host=localhost --port=3306 < ci_implants_dev.sql
+  182  mysql ci_implants_dev --user=root --host=localhost --password=Prabhanshu@24 --port=3306 < ci_implants_dev.sql
+  183  mysql ci_implants_dev --user=prabhanshu --host=localhost --password=Prabhanshu@24 --port=3306 < ci_implants_dev.sql
+  184  rails c
+  185  pwd
+  186  clear
+  187  rails generate controller pages
+  188  rails s
+  189  history > commands.log&
+  190  cat ~/.ssh/id_rsa.pub
+  191  git remote add origin https://github.com/prabsitworks/test_app_6.git
+  192  git push -u origin main
+  193  git remote remove origin
+  194  git remote add origin https://github.com/prabsitworks/test_app_6.git
+  195  git branch -M main
+  196  git push -u origin main
+  197  git remote remove origin
+  198  clear
+  199  git remote add origin git@github.com:prabsitworks/test_app_6.git
+  200  git branch -M main
+  201  git push -u origin main
+  202  ssh-keygen -t ed25519 -C "prabhanshu.itworks@gmail.com"
+  203  eval "$(ssh-agent -s)"
+  204  sh-add ~/.ssh/id_ed25519
+  205  ssh-add ~/.ssh/id_ed25519
+  206  cat ~/.ssh/id_ed25519.pub
+  207  git push -u origin main
+  208  git add -A
+  209  git commit -m "MOdify readme for github demo repo"
+  210  git status
+  211  git push origin master
+  212  git push origin main
+  213  rails s
+  214  git status
+  215  git add -A
+  216  git status
+  217  git commit -m "Add about page"
+  218  git push origin main
+  219  clear
+  220  cd ../
+  221  mkdir alpha_blog_application
+  222  cd alpha_blog_application/
+  223  rails -s
+  224  rails new alpha_blog_application
+  225  cd ../
+  226  rails new alpha_blog_application
+  227  cd alpha_blog_application/
+  228  rails s
+  229  rails generate controller pages
+  230  rails s
+  231  git status
+  232  git add -A
+  233  git status
+  234  git commit -m "Add about page"
+  235  git push origin master
+  236  git remote add origin https://github.com/prabsitworks/alpha_blog_application.git
+  237  git branch -M master
+  238  git push origin master
+  239  git remote remove origin
+  240  git remote add origin git@github.com:prabsitworks/alpha_blog_application.git
+  241  git branch -M master
+  242  git push -u origin master
+  243  heroku
+  244  cd ../
+  245  ls
+  246  cd test_app_6/
+  247  clear
+  248  rails generate scaffold Article title:string description:text
+  249  rails db:migrate
+  250  rails s
+  251  cd ../
+  252  cd alpha_blog_application/
+  253  rails s
+  254  git add -A
+  255  git commit -m "Added get action of articles"
+  256  git push -u origin master
+  257  rails routes --expanded
+  258  rails s
+  259  git add -A
+  260  git commit -m "Add articles listing features"
+  261  git push -u origin master
+  262  rails routes --expanded
+  263  rails s
+  264  rails routes --expanded
+  265  rails s
+  266  git add -A
+  267  git commit -m "Edit operation done"
+  268  git push -u origin master
+  269  rails routes --expanded
+  270  rails -s
+  271  rails s
+  272  git add -A
+  273  git commit -m "DRY changes done"
+  274  git push -u origin master
+  275  rails s
+  276  git add -A
+  277  git commit -m "All changes in git"
+  278  git push -u origin master
+  279  git status
+  280  rails -v
+  281  yarn add bootstrap@4.4.1 jquery popper.js
+  282  rails s
+  283  yarn add bootstrap@4.4.1 jquery popper.js
+  284  java -version
+  285  javac
+  286  sudo apt install openjdk-8-jdk-headless
+  287  javac
+  288  java -version
+  289  clear
+  290  git add -A
+  291  git commit -m "Styling changes done"
+  292  git push -u origin master
+  293  rails console
+  294  clear
+  295  git add -A
+  296  git commit -m "Add users create action"
+  297  git branch
+  298  git checkout master
+  299  git branch
+  300  git merge users-signup
+  301  git checkout -b users-edit
+  302  rails route
+  303  clear
+  304  rails route --expanded | grep edit
+  305  rails routes --expanded | grep edit
+  306  rails console
+  307  git status
+  308  git add -A
+  309  git commit -m "Add edit template and edit action"
+  310  git checkout master
+  311  git merge users-edit
+  312  email_address = "mashrur.hossain@gmail.com"
+  313  rails console
+  314  git branch
+  315  git add -A
+  316  git commit -m "Add users show page"
+  317  atom .
+  318  irb
+  319  gem install bcrypt
+  320  clear
+  321  xcode-select -p
+  322  pwd
+  323  gcc -v
+  324  clang -v
+  325  xcode-select --version
+  326  clear
+  327  node -v
+  328  sudo apt update
+  329  sudo apt install nodejs
+  330  node -v
+  331  npm -v
+  332  sudo apt install npm
+  333  yarn -version
+  334  yarn --version
+  335  sudo npm install yarn –g
+  336  clear
+  337  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+  338  echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+  339  sudo apt-get update
+  340  sudo apt-get install yarn
+  341  yarn --version
+  342  rvm
+  343  rvm -v
+  344  clear
+  345  rvm list rubies
+  346  ruby -v
+  347  apt-get install git
+  348  git
+  349  sudo apt update
+  350  sudo apt install git
+  351  git --version
+  352  git config --list
+  353  git config --global user.name "Prabhanshu"
+  354  git config --global user.email prabhanshu.itworks@gmail.com
+  355  git config --list
+  356  clear
+  357  gem install bundler
+  358  gem list rails
+  359  gem install rails -v 6.0.2.1
+  360  gem install webpacker
+  361  rails -v
+  362  mkdir rails_6_projects/
+  363  cd rails_6_projects/
+  364  rails -v
+  365  clear
+  366  ls
+  367  cd test
+  368  cd test_app_6/
+  369  rails s
+  370  cd ../../
+  371  mkdir rails_5_projects
+  372  cd rails_5_projects/
+  373  gem list rails
+  374  clear
+  375  gem install rails -v 5.2.4.1
+  376  gels list rails
+  377  gems list rails
+  378  gem list rails
+  379  rails _5.2.4.1_ new test_app_5
+  380  cd test_app_5/
+  381  rails s
+  382  pwd
+  383  cd ../
+  384  cls
+  385  clear
+  386  ls
+  387  cd ../
+  388  cd rails_6_projects/
+  389  ls
+  390  cd test_app_6/
+  391  rails server
+  392  yarn --version
+  393  clear
+  394  rails webpacker:install
+  395  nvm current node
+  396  nvm current node -v
+  397  node -v
+  398  npm
+  399  node -v
+  400  npm -v
+  401  apt purge nodejs
+  402  sudo apt purge nodejs
+  403  sudo apt purge npm
+  404  npm -v
+  405  node -v
+  406  rails webpacker:install
+  407  curl -sL https://deb.nodesource.com/setup_14.15.0 -o nodesource_setup.sh
+  408  sudo bash nodesource_setup.sh
+  409  nano nodesource_setup.sh
+  410  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+  411  nano nodesource_setup.sh
+  412  sudo bash nodesource_setup.sh
+  413  sudo apt install nodejs
+  414  node -v
+  415  npm -v
+  416  rails webpacker:install
+  417  rails s
+  418  history > commands_history.txt&
+  419  clear
+  420  git config --list 
+  421  git add -A
+  422  git status
+  423  git commit -m "Initial commit and add root route"
+  424  git status
+  425  git add -A
+  426  git status
+  427  git commit -m "MOdified readme"
+  428  git status
+  429  git config --list 
+  430  git remote add origin git@github.com:prabsitworks/test_app_6.git
+  431  git remote -v
+  432  git push -u origin main
+  433  git branch -M main
+  434  git push -u origin main
+  435  ls -al ~/.ssh
+  436  cd ../
+  437  cd alpha_blog_application/
+  438  code .
+  439  rail generate migration create_articles
+  440  rails generate migration create_articles
+  441  rails db:migrate
+  442  rails db:rollback
+  443  rails db:migrate
+  444  rails generate migration add_timestamp_to_article
+  445  rails db:migrate
+  446  git add -A
+  447  git status
+  448  git commit -m "Added articles table using migration"
+  449  git status
+  450  git push origin master
+  451  ssh -add
+  452  ssh-add
+  453  git push origin master
+  454  clear
+  455  rails c
+  456  rails routes --expanded
+  457  rails console
+  458  rails s
+  459  clear
+  460  git checkout -b create-users-table-model
+  461  git branch
+  462  git checkout master
+  463  git checkout create-users-table-model
+  464  rails generate migration create_users
+  465  User.all
+  466  rails console
+  467  rails db:migrate
+  468  rails console
+  469  git status
+  470  git branch
+  471  git add -A
+  472  git commit -m "Add users table and user model"
+  473  git checkout master
+  474  git merge create-users-table-model
+  475  git checkout -b user-validations
+  476  git branch
+  477  rails console
+  478  git status
+  479  git add -A
+  480  git commit -m "Add user validations"
+  481  git checkout master
+  482  git merge user-validations
+  483  git checkout -b user-articles-association
+  484  rails generate migration add_user_id_to_articles
+  485  rails db:migrate
+  486  rails console
+  487  rails s
+  488  rails console
+  489  git status
+  490  git add -A
+  491  git commit -m "Add one to many associations"
+  492  git checkout master
+  493  git merge user-articles-association
+  494  rails console
+  495  git add -A
+  496  git commit -m "email lower case before save"
+  497  bundle install
+  498  rails generte migration add_password_digest_to_users
+  499  rails generate migration add_password_digest_to_users
+  500  rails db:migrate
+  501  rails -console
+  502  rails console
+  503  git add -A
+  504  git commit -m "password added"
+  505  git checkout -b users-signup
+  506  rails s
+  507  git remote add origin https://github.com/prabsitworks/finance-tracker.git
+  508  git branch -M master
+  509  git push -u origin master
+  510  git add -A
+  511  git status
+  512  git commit -m "finance-tracker initial commit"
+  513  git status
+  514  git push -u origin master
+  515  git remote remove origin 
+  516  git remote add origin git@github.com:prabsitworks/finance-tracker.git
+  517  git add -A
+  518  git commit -m "finance-tracker initial commit"
+  519  git push -u origin master
+  520  rails generate controller welcome index
+  521  git add -A
+  522  git commit -m "ROutes configured"
+  523  bundle install --without production
+  524  rails generate devise:install
+  525  rails generate devise User
+  526  rails routes | grep users
+  527  rails db:migrate
+  528  rails console
+  529  git status
+  530  git add -A
+  531  git commit -m "Add device and commit users"
+  532  yarn add bootstrap@4.3.1 jquery popper.js 
+  533  bundle install --without production
+  534  rails generate devise:views:bootstrap_templates
+  535  cd ../
+  536  pwd
+  537  rails new finance-tracker
+  538  ps
+  539  ls
+  540  cd finance-tracker/
+  541  rails s
+  542  bundle install
+  543  rails s
+  544  rail -v
+  545  rails v
+  546  rails -v
+  547  rails s
+  548  rails test
+  549  rails generate migration create_categories
+  550  rails db:migrate
+  551  rails test
+  552  rails console
+  553  rails test
+  554  rails generate test_unit:scaffold category
+  555  rails test
+  556  rails test test/controllers
+  557  rails test test/controllers/categories_controller_test.rb
+  558  rails s
+  559  git add -A
+  560  git branch
+  561  git commit -m "pagination added in articles and users"
+  562  git push origin master
+  563  ssh-add
+  564  git push origin master
+  565  rails console
+  566  rails generate migration add_admin_to_users
+  567  rails db:migrate
+  568  rails console
+  569  rails generate integration_test create_category
+  570  rails test
+  571  rails generate integration_test list_categories
+  572  rails test
+  573  rails test test/controllers/categories_controller_test.rb
+  574  rails test
+  575  rails generate migration create_article_categories
+  576  rails db:migrate
+  577  rails console
+  578  git branch
+  579  git add -A
+  580  git commit -m "all the changes"
+  581  sudo mysql
+  582  cd .
+  583  rails c
+  584  cd ../../bbb/
+  585  ls
+  586  cd bbb-rails/
+  587  sudo su - postgres
+  588  sudo vi /etc/postgresql/12/main/pg_hba.conf 
+  589  sudo service postgresql restart
+  590  rake db:create
+  591  pg_restore --verbose --clean --no-acl --no-owner -h localhost --port 5432 -U prabhanshu -d bbb_survey_dev bbb_dev_db.dump
+  592  rails s
+  593  pwd
+  594  rails console
+  595  irb
+  596  rails console
+  597  clear
+  598  rvm list rubies
+  599  ruby
+  600  gem install bundler
+  601  bundle install
+  602  rvm version
+  603  rails version
+  604  ruby version
+  605  bundle update --ruby
+  606  cd ../
+  607  rails s
+  608  ls
+  609  unzip MATLAB Runtime.zip
+  610  mcrinstall
+  611  mcr
+  612  sudo -H ./install
+  613  sudo vim /etc/java-8-openjdk/accessibility.properties
+  614  cd /etc/java-8-openjdk/
+  615  ls
+  616  vi accessibility.properties 
+  617  sudo vi accessibility.properties 
+  618  vi accessibility.properties 
+  619  git clone https://gitlab.com/bkl-perksocial/perksocial-backend.git
+  620  ls
+  621  cd perksocial-backend/
+  622  bundle install
+  623  bundle update
+  624  rake db:create
+  625  clear
+  626  bundle update devise
+  627  bundle update devise_token_auth
+  628  git branch
+  629  git checkout feedback-2-updates
+  630  bundle update devise_token_auth
+  631  rake db:migrate
+  632  rake db:create
+  633  sudo apt-get update
+  634  sudo apt-get remove libpq5
+  635  sudo apt-get install libpq-dev
+  636  rake db:create
+  637  pg_lsclusters
+  638  sudo service postgresql start
+  639  pg_lsclusters
+  640  rails console
+  641  rvm use ruby-2.6.5
+  642  rails console
+  643  echo $LD_LIBRARY_PATH
+  644  export LD_LIBRARY_PATH=
+  645  echo $LD_LIBRARY_PATH
+  646  rails console
+  647  echo $LD_LIBRARY_PATH
+  648  rake db:create
+  649  cd .
+  650  rake db:create
+  651  sudo systemctl start postgresql@12-main.service
+  652  sudo systemctl start postgresql@12.0-main.service
+  653  echo $LD_LIBRARY_PATH
+  654  pg_ctlcluster
+  655  clear
+  656  pg_lsclusters
+  657  pg_ctlcluster start main
+  658  pg_ctlcluster 12 main start
+  659  sudo systemctl start postgresql@12-main
+  660  systemctl status postgresql@12-main.service
+  661  echo $LD_LIBRARY_PATH
+  662  clear
+  663  pg_ctlcluster 12 main start
+  664  sudo systemctl start postgresql@12-main
+  665  systemctl status postgresql@12-main.service
+  666  sudo apt-get install postgresql-client
+  667  sudo apt-get install postgresql postgresql-contrib
+  668  pg_lsclusters
+  669  rake db:migrate
+  670  rake db:create
+  671  pg_lsclusters
+  672  clear
+  673  rake db:create
+  674  rvm list
+  675  rvm use ruby-2.7.5
+  676  bundle install
+  677  gem install bundler:1.17.3
+  678  bundle install
+  679  rake db:create
+  680  echo $LD_LIBRARY_PATH
+  681  export LD_LIBRARY_PATH=
+  682  echo $LD_LIBRARY_PATH
+  683  rake db:create
+  684  rake db:migrate
+  685  rake db:seed
+  686  rails s
+  687  sudo nano /etc/hosts
+  688  tar -xf eclipse-jee-2021-12-R-linux-gtk-x86_64.tar.gz 
+  689  pwd
+  690  exit
+  691  rails routes
+  692  history > perksocial.txt&

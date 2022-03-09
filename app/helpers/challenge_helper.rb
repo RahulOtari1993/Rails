@@ -431,6 +431,7 @@ module ChallengeHelper
 
   ## User Segment List for Challenges
   def challenge_user_segment_list
+    #  binding.pry
     filter_list = []
     ChallengeFilter::EVENTS.each do |filter_type|
       if filter_type == 'age' || filter_type == 'tags' || filter_type == 'gender'

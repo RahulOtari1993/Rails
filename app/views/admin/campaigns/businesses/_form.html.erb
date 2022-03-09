@@ -1,0 +1,106 @@
+<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+
+<section id="number-tabs" class="new_business_section" data-form-type="<%= @business.new_record? ? 'new' : 'edit' %>">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <%
+              if @business.new_record?
+                path = admin_campaign_businesses_path
+                method = 'post'
+              else
+                path = admin_campaign_business_path(@campaign, @business)
+                method = 'put'
+              end
+            %>
+
+            <%= form_with(url: path, method: method, class: 'add-business-form number-tab-steps business-wizard wizard-circle',
+                          model: @business, local: true) do |form| %>
+
+              <% if @business.errors.any? %>
+                <%= render '/shared/render_errors', resource: @business %>
+              <% end %>
+
+              <%= form.hidden_field :campaign_id, value: @campaign.id %>
+              <%= form.hidden_field :creator_id, value: current_user.id %>
+
+              <!-- Step 2 -->
+              <h6 class='step2-header'>Create</h6>
+                <fieldset class="step-top-padding step2-content-div" data-step-id="2">
+                  <div class="step_point_box">
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <h3>1. <span class="business-name-span"></span> business</h3>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <div class="form-group">
+                          <%= form.label :name, 'Business Name (Internal Use)' %>
+                          <span class="column-info">Business Name</span>
+                          <%= form.text_field :name, class: 'form-control', placeholder: 'My First Business' %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <div class="form-group">
+                          <%= form.label :address, 'Business Address' %>
+                          <span class="column-info">Business Address</span>
+                          <%= form.text_field :address, class: 'form-control', placeholder: 'Business Address' %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <div class="form-group">
+                          <%= form.label :working_hours, 'Working Hours' %>
+                          <span class="column-info">Business Working Hours</span>
+                          <%= form.time_select :working_hours, class: 'form-control', placeholder: 'Business Working Houts' %>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-4 offset-lg-2 col-lg-4">
+                        <div class="form-group">
+                          <%= form.label :logo, 'Business Type Logo' %>
+                          <div class="custom-file">
+                            <%= form.file_field :logo, class: "custom-file-input #{@business.new_record? ? '' : 'ignore'}", accept: "image/*" %>
+                            <%= form.label :logo, 'Choose icon file', class: 'custom-file-label' %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <h3>3.Tags</h3>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="offset-sm-1 col-sm-10 offset-lg-2 col-lg-8">
+                        <%= form.label :tags, 'Start typing to add a tag, and then move off the field to save the tag.' %>
+                        <div class="form-group">
+                          <%= form.select :tags,
+                                          options_for_select(all_tags_humanize, @business.tag_list),
+                                          {}, class: 'form-control business-tags-form', multiple: 'multiple' %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

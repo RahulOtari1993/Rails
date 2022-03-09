@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: businesses
+#
+#  id            :bigint           not null, primary key
+#  name          :string
+#  address       :string
+#  logo          :string
+#  working_hours :datetime
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+one:
+  name: MyString
+  address: MyString
+  logo: MyString
+  working_hours: 2022-03-08 12:21:33
+
+two:
+  name: MyString
+  address: MyString
+  logo: MyString
+  working_hours: 2022-03-08 12:21:33

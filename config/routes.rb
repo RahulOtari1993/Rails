@@ -96,6 +96,13 @@ Rails.application.routes.draw do
             end
           end
 
+          ## Business Routes
+          resources :businesses do
+            collection do
+              get '/fetch_businesses', to: 'businesses#fetch_businesses'
+            end
+          end 
+
           ## Challenge Routes
           resources :challenges do
             collection do

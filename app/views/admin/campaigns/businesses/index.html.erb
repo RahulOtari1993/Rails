@@ -1,0 +1,46 @@
+<%#= javascript_include_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<%= stylesheet_link_tag 'campaign_admin/challenges', 'data-turbolinks-track' => 'reload' %>
+<!-- dataTable starts -->
+<div class="app-content content">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper">
+    <div class="content-header row">
+      <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+          <div class="col-12">
+            <h2 class="content-header-title float-left mb-0">Businesses</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body">
+      <section id="data-thumb-view" class="data-thumb-view-header">
+        <div class="data_list_100">
+          <div class="data_list_80">
+            <div class="table-responsive">
+              <!-- Container for Challenge Details Popup-->
+              <div class="challenge_section show-challenge-details-container"></div>
+
+              <table id="business-list-table" class="table data-thumb-view" campaign_id='<%= @campaign.id %>'>
+              </table>
+            </div>
+          </div>
+          <!-- Download CSV Popup Container -->
+          <div class="challenge-participant-popup-container"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script id="filter-tag-template" type="text/x-custom-template">
+  <div class="chip challenge-tags-filter-chip ---TAG-UI---" data-tag-val="---TAG-VAL---">
+    <div class="chip-body">
+      <span class="chip-text tag-chip-val">---TAG-HTML---</span>
+      <div class="chip-closeable">
+        <i class="feather icon-minus-circle"></i>
+      </div>
+    </div>
+  </div>
+</script>

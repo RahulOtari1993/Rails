@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
@@ -126,7 +126,7 @@ gem 'time_difference'
 gem 'momentjs-rails', '>= 2.9.0'
 
 ## API Auth
-gem 'devise_token_auth', '1.1'
+gem 'devise_token_auth'
 
 ## Used to Handle API Timeouts
 gem 'rack-timeout', require:'rack/timeout/base'

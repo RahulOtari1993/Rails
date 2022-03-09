@@ -25,6 +25,7 @@ class ChallengeFilter < ApplicationRecord
 
   ## Check if Challenge Filter is Applicable for Participant & Challenge
   def available? participant
+    challenge_event
     case self.challenge_event
       when 'age' then
         age_check(participant)

@@ -24,6 +24,11 @@
             <i class="feather icon-users"></i><span class="menu-title">Users</span>
           </a>
         </li>
+        <li class="nav-item <%= is_active_menu(['businesses']) %>">
+          <a href="<%= admin_campaign_businesses_path(@campaign) %>">
+            <i class="feather icon-award"></i><span class="menu-title">Business</span>
+          </a>
+        </li>
         <li class="nav-item <%= is_active_menu(['rewards']) %>">
           <a href="<%= admin_campaign_rewards_path(@campaign) %>">
             <i class="feather icon-award"></i><span class="menu-title">Rewards</span>
