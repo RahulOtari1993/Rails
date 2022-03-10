@@ -5,13 +5,13 @@ class AnnouncementsController < ApplicationController
   before_action :set_sport
   before_action :set_announcement, only: [:update, :show, :destroy]
   
-  # This action fetch all the announcements of sport
+  #List All Announcements API
   def index
     announcements = @sport.announcements
     render_success 200, true, 'announcements fetched successfully', announcements.as_json
   end
 
-  # this action lets us create a new announcement
+  #Create An Announcement API
   def create
     announcement = @sport.announcements.new(announcement_params)
     if announcement.save && current_user.admin?
@@ -26,7 +26,7 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  # Update announcement API
+  #Update an Announcement API
   def update
     if @announcement.update(announcement_params) && current_user.admin?
       render_success 200, true, 'announcement updated successfully', @announcement.as_json
@@ -40,7 +40,7 @@ class AnnouncementsController < ApplicationController
     end
   end
 
-  # Fetch an announcement API
+  #Fetch an Announcement API
   def show
     render_success 200, true, 'announcement fetched successfully', @announcement.as_json
   end
@@ -61,7 +61,8 @@ class AnnouncementsController < ApplicationController
         return return_error 404, false, 'Product not found', {}
       end
   end
-  # Params of announcement
+
+  #strong Params of Announcement
   def announcement_params
     params.require(:announcement).permit(:title,:description,:image,:sport_id,:user_id)
   end

@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
+
+  ## Callbacks
+   before_action :validate_app_version
   
   ## Custom Authentication Error Message Before Signin/Signup
   def render_authenticate_error
@@ -16,6 +19,13 @@ class ApplicationController < ActionController::API
       data: data,
       per_page: per_page 
   }
+  end
+
+  # Check for Latest App Version
+  def validate_app_version
+    if Rails.application.credentials[Rails.env.to_sym][:app_version].to_f > request.headers["app-version"].to_f
+      return_error 433, false, 'Please check your app version', {}
+    end
   end
     
   ## Return Error Response
@@ -41,7 +51,6 @@ class ApplicationController < ActionController::API
       ## Set Product & Return ERROR if not found
   def set_sport
     @sport = Sport.where(id: params[:sport_id]).first
-    
     unless @sport
       return return_error 404, false, 'Product not found', {}
     end

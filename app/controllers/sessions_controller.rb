@@ -1,4 +1,5 @@
 class SessionsController < DeviseTokenAuth::SessionsController 
+  
   def create
     params_hash = sign_up_params
 
@@ -26,6 +27,13 @@ class SessionsController < DeviseTokenAuth::SessionsController
   end
 
   protected
+
+    def sign_in_params  
+      parameters = params.require(:user).permit(:email, :password)
+      parameters['password'] = DataDecryption.new.decrypted_data(parameters['password']) unless parameters['password'].blank?
+    end
+
+
     ## Manage Strong Params
     def sign_up_params
       parameters = params.permit(:facebook_id,:email)

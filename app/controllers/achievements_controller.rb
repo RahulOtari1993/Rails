@@ -4,18 +4,18 @@ class AchievementsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_achievement, only: [:update, :show, :destroy]
 
-  # GET /achievements
+  #List All Achievements API
   def index
     @achievements = Achievement.all
     render_success 200, true, 'Achievement fetched successfully', achievements.as_json
   end
 
-  # GET /achievements/1
+  #Fetch an Achievement API
   def show
     render_success 200, true, 'Achievement fetched successfully', @achievement.as_json
   end
 
-  # POST /achievements
+  #Create An Achievement API
   def create
     @achievement = Achievement.new(achievement_params)
     if @achievement.save
@@ -30,7 +30,7 @@ class AchievementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /achievements/1
+  #Update an Achievement API
   def update
     if @achievement.update(achievement_params)
       render_success 200, true, 'Achievement updated successfully', @sport.as_json
@@ -44,19 +44,19 @@ class AchievementsController < ApplicationController
     end
   end
 
-  # DELETE /achievements/1
+  #Delete an Achievement API
   def destroy
     @achievement.destroy
     render_success 200, true, 'Achievement deleted successfully', {}
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+    #Set Achievement Object, Return Error if not found
     def set_achievement
       @achievement = Achievement.find(params[:id])
     end
 
-    # Only allow a trusted parameter "white list" through.
+    #strong Params of Achievement
     def achievement_params
       params.require(:achievement).permit(:award, :medal, :user_id)
     end
