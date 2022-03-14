@@ -27,17 +27,20 @@ $(document).on("turbolinks:load", function () {
           );
         },
       },
-      // {
-      //   mRender: function (data, type, full) {
-      //     return (
-      //       '<a class="btn btn-info btn-sm" href=#/' +
-      //       full[2] +
-      //       ">" +
-      //       "delete" +
-      //       "</a>"
-      //     );
-      //   },
-      // },
+      {
+        data: null,
+        bSortable: false,
+        mRender: function (data, type, full) {
+          return (
+            '<a class="btn btn-info btn-sm" data-method="delete" href="/businesses/' +
+            data.id +
+            "/destroy" +
+            '">' +
+            "Delete" +
+            "</a>"
+          );
+        },
+      },
     ],
     order: [["1", "desc"]],
   });

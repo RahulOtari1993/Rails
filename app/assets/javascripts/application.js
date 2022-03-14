@@ -25,4 +25,5 @@
 //= require plugins/tempusdominus-bootstrap-4.min
 //= require plugins/main
 //= require turbolinks
+//= require strftime-rails/strftime
 //= require_tree .

@@ -66,3 +66,7 @@ gem 'jquery-rails'
 gem "jquery-datatables", "~> 1.10"
 
 gem 'kaminari'
+
+gem 'strftime-rails'
+
+gem 'annotate'

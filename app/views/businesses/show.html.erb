@@ -2,8 +2,8 @@
   <h1 class="display-4">
   <%= @business.name %>
   <%= @business.address %>
-  <%= @business.start_date %>
-  <%= @business.end_date %>
+  <%= @business.start_date.strftime("%I:%M %p %Y %m %d") %>
+  <%= @business.end_date.strftime("%I:%M %p %Y %m %d") %>
   </h1>
   <p class="lead">
     <%= link_to 'Edit', edit_business_path(@business), class: "btn btn-dark" %> 

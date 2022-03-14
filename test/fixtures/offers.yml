@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: offers
+#
+#  id          :bigint           not null, primary key
+#  title       :string
+#  description :text
+#  business_id :bigint
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+one:
+  title: MyString
+  description: MyText
+  business: one
+
+two:
+  title: MyString
+  description: MyText
+  business: two
