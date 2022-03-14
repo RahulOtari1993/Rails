@@ -1,0 +1,40 @@
+<%= form_with(model: business, local: true) do |form| %>
+  <% if business.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(business.errors.count, "error") %> prohibited this business from being saved:</h2>
+
+      <ul>
+      <% business.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.text_field :name,
+    class: "form-control",placeholder: "Name" %>
+  </div>
+ <br>
+  
+  <div class="field form-group">
+    <%= form.text_field :address,
+    class: "form-control",placeholder: "Address" %>
+  </div>
+  <br>
+  
+  <div class="field form-group">
+    <%= form.datetime_field :start_date,
+    class: "form-control",placeholder: "Start Date" %>
+  </div>
+  <br>
+  <div class="field form-group">
+    <%= form.datetime_field :end_date,
+    class: "form-control",placeholder: "End Date" %>
+  </div>
+  <br>
+  </br>
+  <div class="actions">
+    <%= form.submit class: "btn btn-dark"%>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Editing Business</h4>
+  </div>
+  <div class="card-body">
+   <%= render 'form', business: @business %>
+  </br>    
+  </div>
+</div>
+</br>
+
+<%= link_to 'Show', @business, class: "btn btn-dark"%> 
+<%= link_to 'Back', businesses_path, class: "btn btn-dark" %>

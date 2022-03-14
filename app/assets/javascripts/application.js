@@ -10,11 +10,11 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
+//= require plugins/jquery-3.4.1.min
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
-
-//= require plugins/jquery-3.4.1.min
+//= require datatables
+//= require business
 //= require plugins/bootstrap.bundle.min
 //= require plugins/chart.min
 //= require plugins/easing.min
@@ -24,5 +24,5 @@
 //= require plugins/moment-timezone.min
 //= require plugins/tempusdominus-bootstrap-4.min
 //= require plugins/main
-
+//= require turbolinks
 //= require_tree .

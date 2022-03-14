@@ -1,1 +1,11 @@
-<h1>hiii</h1>
+<p id="notice"><%= notice %></p>
+<h1>Business</h1>
+
+<div class="form-group">
+  <%= link_to "Export CSV", businesses_path(format: "csv"), class: 'btn btn-primary' %>
+</div>
+<br>
+
+<table id='server-side-table' class="table table-striped">
+</table>
+  <%= link_to 'New business', new_business_path , class:"btn btn-dark" %>

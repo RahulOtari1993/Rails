@@ -15,5 +15,6 @@
  *= require 'plugins/bootstrap.min'
  *= require 'plugins/style'
  *= require_tree .
+*= require datatables
  *= require_self
  */

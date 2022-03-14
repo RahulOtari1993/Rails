@@ -1,0 +1,14 @@
+<div class="jumbotron">
+  <h1 class="display-4">
+  <%= @business.name %>
+  <%= @business.address %>
+  <%= @business.start_date %>
+  <%= @business.end_date %>
+  </h1>
+  <p class="lead">
+    <%= link_to 'Edit', edit_business_path(@business), class: "btn btn-dark" %> 
+    <%= link_to 'Back', businesses_path, class: "btn btn-dark"%>
+  </p>
+</div>
+
+
