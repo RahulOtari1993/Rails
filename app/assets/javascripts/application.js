@@ -15,6 +15,7 @@
 //= require activestorage
 //= require datatables
 //= require business
+//= require offer
 //= require plugins/bootstrap.bundle.min
 //= require plugins/chart.min
 //= require plugins/easing.min

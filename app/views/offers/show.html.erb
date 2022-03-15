@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h1 class="display-4">
+  <p>
+  <%= @offer.business.name %>
+  </p>
+  <p>
+  <%= @offer.title %>
+  </p>
+  <p>
+  <%= @offer.description %>
+  </p>
+  <p>
+  <%= @offer.start_date %>
+  </p>
+  <p>
+  <%= @offer.end_date %>
+  </p>
+  </h1>
+  <p class="lead">
+    <%= link_to 'Edit', edit_offer_path(@offer), class: "btn btn-dark" %> 
+    <%= link_to 'Back', offers_path, class: "btn btn-dark"%>
+  </p>
+</div>
+
+

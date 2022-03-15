@@ -25,6 +25,7 @@ class BusinessesController < ApplicationController
     search_string = []
     # binding.pry
     filter_query = ''
+    response = []
 
     ## Check if Search Keyword is Present & Write it's Query
     if params.has_key?('search') && params[:search].has_key?('value') && params[:search][:value].present?
@@ -42,8 +43,14 @@ class BusinessesController < ApplicationController
     businesses = businesses.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
     businesses = businesses.page(datatable_page).per(datatable_per_page)
 
+    businesses.each do |business|
+      json = business.as_json
+      json['start'] = business.start_date.strftime("at %I:%M %p %Y %m %d")
+      json['end'] = business.end_date.strftime("at %I:%M %p %Y %m %d")
+      response.push(json)
+    end 
     render json: {
-        businesses: businesses.as_json(type: 'list'),
+        businesses: response,
         draw: params['draw'].to_i,
         recordsTotal: businesses.count,
         recordsFiltered: businesses.total_count,

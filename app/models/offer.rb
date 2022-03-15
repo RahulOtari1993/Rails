@@ -11,4 +11,8 @@
 #
 class Offer < ApplicationRecord
   belongs_to :business
+
+  # VALIDATIONS
+  validates :title, :description, :start_date, :end_date, presence: true
+
 end

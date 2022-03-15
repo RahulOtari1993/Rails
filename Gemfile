@@ -70,3 +70,5 @@ gem 'kaminari'
 gem 'strftime-rails'
 
 gem 'annotate'
+
+gem 'whenever', require: false

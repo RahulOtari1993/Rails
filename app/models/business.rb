@@ -26,6 +26,6 @@ class Business < ApplicationRecord
   validates :name, :address, :start_date, :end_date, presence: true
 
   # Associations
-  has_many :offers
+  has_many :offers, dependent: :destroy
 
 end
