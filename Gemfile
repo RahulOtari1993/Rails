@@ -72,3 +72,5 @@ gem 'strftime-rails'
 gem 'annotate'
 
 gem 'whenever', require: false
+
+gem 'pry', '~> 0.13.1'

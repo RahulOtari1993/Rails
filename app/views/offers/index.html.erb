@@ -1,8 +1,17 @@
 <p id="notice"><%= notice %></p>
 <h1>Offer</h1>
 
+<div class="mt-1">
+    <h5>Business</h5>
+    <%= select_tag :businesses,
+                    options_for_select(all_business_humanize),
+                    { 
+                      class: 'business_sidebar_filter',
+                    } %>
+                    
+</div>
 
-<br>
+<br><br>
 
 <table id='server-side-table-offer' class="table table-striped">
 </table>

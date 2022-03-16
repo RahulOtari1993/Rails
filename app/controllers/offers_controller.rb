@@ -15,11 +15,10 @@ class OffersController < ApplicationController
   end
 
   def fetch_offers
-    # binding.pry
+    #binding.pry
     offers = Offer.all
     businesses = Business.all
     search_string = []
-    # binding.pry
     filter_query = ''
     response = []
 
@@ -28,17 +27,17 @@ class OffersController < ApplicationController
       search_columns.each do |term|
         search_string << "#{term} ILIKE :search"
       end
-      offers = offers.where(search_string.join(' OR '), search: "%#{params[:search][:value]}%")
     end
 
     if params["filters"].present?
       filters = JSON.parse(params["filters"].gsub("=>", ":").gsub(":nil,", ":null,"))
-      offers = offers.offer_side_bar_filter(filters)
+      offers = offers.where(business_id: filters['business_id']) if filters['business_id'].present?
     end
 
-    offers = offers.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
-    offers = offers.page(datatable_page).per(datatable_per_page)
+    # offers = offers.order("#{sort_column} #{datatable_sort_direction}") unless sort_column.nil?
 
+    offers = offers.page(datatable_page).per(datatable_per_page)
+    
     offers.each do |offer|
       json = offer.as_json
       json['business_name'] = offer.business.name
@@ -49,9 +48,6 @@ class OffersController < ApplicationController
   
     render json: {
         offers: response,
-        draw: params['draw'].to_i,
-        recordsTotal: offers.count,
-        recordsFiltered: offers.total_count,
     }
 
   end 
@@ -103,9 +99,12 @@ class OffersController < ApplicationController
     columns[params[:order]['0'][:column].to_i - 1]
   end
 
+  def set_business 
+    @business = Business.find_by(:name => params[:name])
+  end
 
   def set_offer
-    @offer = Offer.find(params[:id])
+    @offer = Offer.find_by(:id => params[:id]) rescue nil
   end
 
   def offer_params

@@ -44,4 +44,31 @@ $(document).on("turbolinks:load", function () {
     ],
     order: [["1", "desc"]],
   });
+
+  function generateFilterParams() {
+    var filters = {
+      business_id: [$("#businesses :selected").val()],
+    };
+
+    console.log("hello filters");
+    return filters;
+  }
+
+  function applyFilters(filters) {
+    console.log("hello", filters);
+    if (filters != "") {
+      // var id = $(this).attr("business_id");
+      $("#server-side-table-offer")
+        .DataTable()
+        .ajax.url("/fetch_offers" + "?filters=" + JSON.stringify(filters))
+        .load(); //checked
+    } else {
+      $("#server-side-table-offer").DataTable().ajax.reload();
+    }
+  }
+
+  $(".business_sidebar_filter").change(function () {
+    // console.log("hi");
+    applyFilters(generateFilterParams());
+  });
 });

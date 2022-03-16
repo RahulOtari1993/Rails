@@ -49,6 +49,7 @@ class BusinessesController < ApplicationController
       json['end'] = business.end_date.strftime("at %I:%M %p %Y %m %d")
       response.push(json)
     end 
+    
     render json: {
         businesses: response,
         draw: params['draw'].to_i,
