@@ -7,7 +7,6 @@ class AnnouncementMailer < ApplicationMailer
   #
   def announcement_created
     @greeting = "Hi"
-
     mail to: Player.all.pluck(:email)
   end
 end

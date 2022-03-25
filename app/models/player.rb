@@ -1,11 +1,14 @@
 class Player < ApplicationRecord
   mount_uploader :image, FileUploader
+  acts_as_taggable_on :tags
   belongs_to :sport
   belongs_to :user
   has_many :tags
   has_many :posts, through: :tags
+
+
   #validations   
-  validates :image, :player_name, :player_city, :player_country, :phone,:gender, :email, presence: true 
+  validates :player_name, :player_city, :player_country, :phone,:gender, :email, presence: true 
   validates :phone, numericality: true
   validates :phone, length: { is: 10 }
   validates :email, uniqueness: true

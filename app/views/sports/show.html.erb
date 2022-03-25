@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h2>Players</h2>
+<h2 id="id1">Players</h2>
 <% for player in @sport.players %>
     <ul>
       <li><%= player.player_name %></li>
@@ -24,6 +24,6 @@
   <%= link_to 'Edit', edit_sport_path(@sport),class:"btn btn-dark" %> 
   <%= link_to 'Add Player', sport_players_path(@sport),class:"btn btn-dark" %>
   <%= link_to 'Add Post', sport_posts_path(@sport), class:"btn btn-dark" %>
-  <%= link_to 'Add Sportannouncement', sport_sportannouncements_path(@sport), class:"btn btn-dark" %>
+  <%= link_to 'Add Announcement', sport_sportannouncements_path(@sport), class:"btn btn-dark" %>
 <%= link_to 'Back', sports_path, class:"btn btn-dark" %>
 

@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => "/sidekiq"
+  
+  get 'get_dataset', to: 'sports#get_dataset'
+  get 'pages/home'
   get 'hashtags/new'
   get 'hashtags/create'
   resources :posts do

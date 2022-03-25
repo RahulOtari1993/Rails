@@ -71,4 +71,13 @@ gem 'friendly_id', '~> 5.4.0'
 gem 'jquery-turbolinks'
 gem 'jquery-validation-rails'
 gem "select2-rails"
+gem 'pry', '~> 0.13.1'
+gem 'kaminari'
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
+gem 'sinatra'
 
+# allows us to simulate the process of sending the email by creating it as a temporary file
+gem "letter_opener"
+gem "launchy"
+
+gem 'acts-as-taggable-on'

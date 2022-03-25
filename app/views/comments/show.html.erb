@@ -11,14 +11,6 @@
   <%= @comment.comment %>
 </p>
 
-<p>
-  <strong>Hashtag:</strong>
-  <%= @comment.hashtag_id %>
-</p>
-
-
 <%= render partial: "hashtags/form", locals: {tagable: @comment} %>
-<% if ((@comment.user == current_user) || (current_user.admin?)) %>
-<%= link_to 'Edit',edit_post_comment_path(@sport,@post, @comment),class:"btn btn-dark" %> 
-<% end %>
+<%= link_to 'Edit',edit_sport_post_comment_path(@sport,@post, @comment),class:"btn btn-dark" %> 
 <%= link_to 'Back', sport_post_comments_path(@sport,@post),class:"btn btn-dark" %>

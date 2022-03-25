@@ -7,6 +7,6 @@ class Sport < ApplicationRecord
   validates :total_player, presence: true
   validates :total_player, numericality: true
   #friendly id   
-  extend FriendlyId
-  friendly_id :sport_name, use: :slugged
+  # extend FriendlyId
+  # friendly_id :sport_name, use: :slugged
 end

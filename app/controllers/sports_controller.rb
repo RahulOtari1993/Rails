@@ -34,6 +34,10 @@ class SportsController < ApplicationController
     end
   end
 
+   def get_dataset
+    render json: { sports: Sport.page(params[:page]).per(per_page) }  
+  end
+
   # PATCH/PUT /sports/1 or /sports/1.json
   def update
     respond_to do |format|
@@ -60,7 +64,7 @@ class SportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sport
-      @sport = Sport.friendly.find(params[:id])
+      @sport = Sport.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

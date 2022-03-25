@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to post_comment_path(@post), notice: "Comment was successfully updated." }
+        format.html { redirect_to sport_post_comment_path(@sport,@post), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,10 +67,6 @@ class CommentsController < ApplicationController
     
     def get_sport
       @sport = Sport.friendly.find(params[:sport_id]) 
-    end
-
-    def get_post
-      @post = Post.friendly.find(params[:post_id])
     end
    
     def set_comment

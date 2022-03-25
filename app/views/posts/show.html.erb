@@ -29,8 +29,6 @@
   </ul>
 <% end %>
 
-<%= render partial: "hashtags/form", locals: {tagable: @post} %>
-
 <%= link_to 'Edit', edit_sport_post_path(@sport,@post),class:"btn btn-dark" %> 
 <%= link_to 'Add Comment',new_sport_post_comment_path(@sport,@post), class:"btn btn-dark" %>
 <%= link_to 'Back', sport_posts_path(@sport),class:"btn btn-dark" %>
