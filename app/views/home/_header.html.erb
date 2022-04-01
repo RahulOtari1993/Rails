@@ -7,6 +7,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class=" navbar-nav nav-tabs">
         <% if user_signed_in? %>
+         
+          <li class="nav-item">
+            <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>
+          </li>
           
           <li class="nav-item">
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"nav-link" %>

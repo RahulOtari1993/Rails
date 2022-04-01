@@ -63,7 +63,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem 'bootstrap'
-gem 'devise'
 
+# Authentication
+gem 'devise'
 gem "omniauth", "~> 1.9.1"
 gem "omniauth-linkedin-oauth2"
+
+gem 'pry', '~> 0.13.1'

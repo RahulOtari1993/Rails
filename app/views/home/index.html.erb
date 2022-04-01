@@ -1,1 +1,22 @@
-<h1>hi</h1>
+<table class="business-tags table table-bordered table-striped" id="user">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+      <th>Uid</th>
+      <th>Provider</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <% if user_signed_in? %>
+        <td><%= current_user.name %></td>
+        <td><%= current_user.image%></td>
+        <td><%= current_user.uid%></td>
+        <td><%= current_user.provider%></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

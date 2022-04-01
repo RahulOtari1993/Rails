@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   post '/auth/:provider/callback', to: 'sessions#create'
+  # post '/auth/failure', to: 'oauth#failure', as: 'oauth_failure'
 end
